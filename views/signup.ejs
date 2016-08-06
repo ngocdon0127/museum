@@ -16,6 +16,11 @@
 				<div class="col-sm-12">
 					<h1>Sign up</h1>
 				</div>
+				<% if (message) { %>
+					<div class="col-sm-12">
+						<span class="text-danger"><%= message %></span>
+					</div>
+				<% } %>
 				<div class="col-sm-12">
 					<form class="form" name="form" method="post">
 						<div class="form-group" >

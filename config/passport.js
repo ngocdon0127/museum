@@ -1,4 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
+var PERM_ACCESS_PAGE = 1000;
 
 module.exports = function (passport, User) {
 	passport.serializeUser(function (user, done) {
@@ -27,6 +28,9 @@ module.exports = function (passport, User) {
 			}
 			if (!user.validPassword(password)){
 				return done(null, false, req.flash("loginMessage", "Invalid password"));
+			}
+			if (user.permission < PERM_ACCESS_PAGE){
+				return done(null, false, req.flash('loginMessage', "Login successfully. But you do not have permission to access page. Contact Admin to update your account."));
 			}
 			done(null, user);
 		})
@@ -57,11 +61,12 @@ module.exports = function (passport, User) {
 			
 			// But fullname must be access through request 's body.
 			newUser.fullname = req.body.fullname;
+			newUser.permission = 0;
 			newUser.save(function (err, user) {
 				if (err){
 					throw err;
 				}
-				return done(null, user);
+				return done(null, false, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
 			})
 		})
 	}));

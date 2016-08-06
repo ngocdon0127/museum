@@ -5,6 +5,7 @@ module.exports = function (mongoose) {
 		username: String,
 		password: String,
 		fullname: String,
+		permission: Number
 	});
 	
 	userSchema.methods.hashPassword = function (plainPassword) {

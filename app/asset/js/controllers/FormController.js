@@ -12,7 +12,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http', function ($scope, $http) {
 			if (value.name == $scope.animalForm.city) {
 				$scope.districts = value.districts;
 			};
-		})
+		});
 	}
 	$scope.addPost = function(){
 		var fd = new FormData(document.getElementById('form-animal'));

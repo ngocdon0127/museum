@@ -16,6 +16,7 @@ var app = express();
 var configDB = require('./config/database');
 mongoose.connect(configDB.url);
 require('./models/User.js')(mongoose);
+require('./models/Animal.js')(mongoose);
 
 require('./config/passport')(passport, mongoose.model('User'));
 
@@ -23,6 +24,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var angular = require('./routes/angular');
+var content = require('./routes/content');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -49,6 +51,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/app', angular);
+app.use('/content', content);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

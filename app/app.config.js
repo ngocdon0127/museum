@@ -2,11 +2,9 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 	$locationProvider.hashPrefix('!');
 
 	$routeProvider
-	.when('/login', {
-		templateUrl: 'views/users/login.template.html'
-	})
 	.when('/dong-vat', {
-		templateUrl: 'views/users/add-animal-form.template.html'
+		templateUrl: 'views/users/add-animal-form.template.html',
+		controller: 'AnimalFormCtrl'
 	})
-	.otherwise({ redirectTo: '/login' })
+	.otherwise({ redirectTo: '/dong-vat' })
 }]);

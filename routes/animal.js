@@ -8,7 +8,7 @@ var Animal = mongoose.model('Animal');
 
 var IMG_FIELDS = [
 	{name: 'hinhVe', animalSchemaProp: 'duLieuPhanTichMau.hinhVe'},
-	{name: 'dinhKemXuLy', animalSchemaProp: 'xyLyCheTac.dinhKemXuLy'},
+	{name: 'dinhKemXuLy', animalSchemaProp: 'xuLyCheTac.dinhKemXuLy'},
 	{name: 'hinhAnhDinhKem', animalSchemaProp: ''},
 	{name: 'dinhKemChayTrinhTuDNA', animalSchemaProp: ''},
 	{name: 'dinhKemTrinhTuDNA', animalSchemaProp: ''}

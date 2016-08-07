@@ -71,7 +71,7 @@ module.exports = function (mongoose) {
 		// anhMauVat: [String],
 		// hinhAnhMauNgoaiThucDia: [String],
 		// thongTinVePhimVideo: [String],
-		xyLyCheTac: {
+		xuLyCheTac: {
 			hinhAnhDinhKem: [String],
 			dinhKemXuLy: [String],
 			thuocTinhXuLy: String,

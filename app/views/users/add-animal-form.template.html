@@ -63,6 +63,10 @@
 				<td><input type="text" name="lop" id="input" class="input-form"  value="" required="required"></td>
 			</tr>
 			<tr>
+				<td><label>Phân lớp: </label></td>
+				<td><input type="text" name="phanLop" id="input" class="input-form"  value=""></td>
+			</tr>
+			<tr>
 				<td><label>Bộ(*): </label></td>
 				<td><input type="text" name="bo" id="input" class="input-form"  value="" required</td>
 			</tr>
@@ -122,9 +126,9 @@
 				<td><label>Loại mẫu (*):</label></td>
 				<td>
 					<select required name="loaiMau">
-						<option>Mẫu nghiên cứu</option>
-						<option>Mẫu trưng bày</option>
-						<option>Mẫu type</option>
+						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
+						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
+						<option value="Mẫu type">Mẫu type</option>
 					</select>
 				</td>
 			</tr>
@@ -225,7 +229,7 @@
 			</tr>
 			<tr>
 				<td><label>Tài liệu phân tích/giám định/phân loại đi kèm (*):</label></td>
-				<td><input type="text" name="taiLieuPhanTich" id="input" class="input-form"  value="" required></td>
+				<td><input type="file" multiple name="taiLieuPhanTich" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
@@ -389,7 +393,7 @@
 			<h3 class="h3-title">9. NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
 			<tr>
 				<td><label>Thông tin khác</label></td>
-				<td><input type="text" name="" id="input" class="input-form"></td>
+				<td><input type="text" name="thongTinKhac" id="input" class="input-form"></td>
 			</tr>
 		</table>
 	</form>

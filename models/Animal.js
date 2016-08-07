@@ -1,65 +1,65 @@
 module.exports = function (mongoose) {
 	var schemaPrototype = {
-		// soHieu: {
-		// 	maBaoTang: String,
-		// 	soHieuThucDia: String,
-		// 	soHieuBaoTangCS
-		// 	soHieuBTTNVN
-		// 	maKyHieuMauVatQuocTe
-		// 	kyHieuMauVatKhac
-		// },
-		// tenMau: {
-		// 	tenVietNam
-		// 	tenTiengAnh
-		// 	tenDiaPhuong
-		// 	tenKhoaHoc
-		// 	tenDongNghia
-		// 	gioi
-		// 	nganh
-		// 	lop
-		// 	phanLop
-		// 	bo
-		// 	phanBo
-		// 	lienHo
-		// 	ho
-		// 	phanHo
-		// 	toc
-		// 	giong
-		// 	loai
-		// 	duoiLoai
-		// 	nguoiDinhTen
-		// },
-		// soLuongChatLuong: {
-		// 	soLuongMauVat: Number,
-		// 	soLuongTieuBan: Number,
-		// 	loaiMau
-		// 	kichThuocMau: Number,
-		// 	tinhTrangMau
-		// },
-		// duLieuThuMau: {
-		// 	thoigianThuMau: Date,
-		// 	nguoiThuMau
-		// 	phuongPhapThuMau
-		// 	diaDiemThuMau: {
-		// 		quocGia
-		// 		tinh
-		// 		huyen
-		// 		xa
-		// 		thon
-		// 	},
-		// 	viTriToaDo: {
-		// 		viDo
-		// 		kinhDo
-		// 	}
-		// 	doCao: Number,
-		// 	doSau : Number,
-		// 	vungBien
-		// 	sinhHoc
-		// 	thongTinDuAn
-		// 	ghiChepThucDia
-		// 	banDo
-		// 	ghiChu
-		// },
+		soHieu: {
+			maBaoTang: String,
+			soHieuBaoTangCS: String,
+			maKyHieuMauVatQuocTe: String,
+			soHieuThucDia: String,
+			soHieuBTTNVN: String,
+			kyHieuMauVatKhac: String
+		},
+		tenMau: {
+			tenVietNam: String,
+			tenTiengAnh: String,
+			tenKhoaHoc: String,
+			tenDiaPhuong: String,
+			tenDongNghia: String,
+			gioi: String,
+			nganh: String,
+			lop: String,
+			phanLop: String,
+			bo: String,
+			phanBo: String,
+			lienHo: String,
+			ho: String,
+			phanHo: String,
+			toc: String,
+			giong: String,
+			loai: String,
+			duoiLoai: String,
+			nguoiDinhTen: String
+		},
+		soLuongChatLuong: {
+			soLuongMauVat: Number,
+			soLuongTieuBan: Number,
+			kichThuocMau: Number,
+			loaiMau: String,
+			tinhTrangMau: String
+		},
+		duLieuThuMau: {
+			thoigianThuMau: Date,
+			nguoiThuMau: String,
+			phuongPhapThuMau: String,
+			diaDiemThuMau: {
+				quocGia: String,
+				tinh: String,
+				huyen: String,
+				xa: String,
+				thon: String
+			},
+			viTriToaDo: {
+				viDo: Number,
+				kinhDo: Number
+			},
+			doCao: Number,
+			doSau : Number,
+			vungBien: String,
+			sinhHoc: String,
+			thongTinDuAn: String,
+			ghiChepThucDia: String,
+			banDo: String,
+			ghiChu: String
+		},
 		duLieuPhanTichMau: {
 			thoiGianPhanTich: Date,
 			nguoiPhanTich: String,
@@ -68,47 +68,55 @@ module.exports = function (mongoose) {
 			moTaHinhThai: String,
 			hinhVe: [String],
 		},
-		// anhMauVat: [String],
-		// hinhAnhMauNgoaiThucDia: [String],
-		// thongTinVePhimVideo: [String],
-		xyLyCheTac: {
-			hinhAnhDinhKem: [String],
-			dinhKemXuLy: [String],
-			thuocTinhXuLy: String,
-			phuongThucXuLy: String,
-			nguoiXuLy: String,
-			coQuanXuLy: String,
-			anhMauSauCheTac: String
+		
+		phanBoVaSuDung: {
+			phanBoDiaLy: {
+				phanBoVietNam: String,
+				phanBoTrenTheGioi: String
+			},
+			giaTriSuDung: String
+		},
+		
+		media: {
+			xuLyCheTac: {
+				thuocTinhXuLy: String,
+				phuongThucXuLy: String,
+				coQuanXuLy: String,
+				nguoiXuLy: String,
+				dinhKemXuLy: [String],
+				hinhAnhDinhKem: [String],
+				anhMauSauCheTac: String
+			},
+			thongTinDNA: {
+				viTriLayMauDNA: String,
+				mauDNA: String,
+				dinhKemChayTrinhTuDNA: [String],
+				trichDanTrinhTuDNA: String,
+				trinhTuDNA: String,
+				dinhKemTrinhTuDNA: [String],
+				congBoQuocTe: String
+			}
+		},
+
+		luuTruBaoQuan: {
+			coQuanNhapVatMau: String,
+			ngayNhapMau: Date,
+			nguoiGiao: String,
+			nguoiNhan: String,
+			tinhTrangMau: String,
+			traoDoiMau: String,
+			vayMuon: String,
+			hienTang: String,
+			nguoiLapPhieuMauVat: String,
+			nguoiLapVaoPhanMem: String,
+			hinhThucNhapMau: String,
+			giayPhepNhapMau: String,
+			khuLuuTruMau: String
+		},
+		
+		thongTinKhac: {
+			thongTinKhac: String
 		}
-		// thongTinDNA: {
-		// 	viTriLayMauDNA
-		// 	mauDNA
-		// 	dinhKemChayTrinhTuDNA
-		// 	trichDanTrinhTuDNA
-		// 	trinhTuDNA
-		// 	dinhKemTrinhTuDNA
-		// 	congBoQuocTe
-		// }
-		// phanBoDiaLy: {
-		// 	phanBoVietNam
-		// 	phanBoTrenTheGioi
-		// }
-		// giaTriSuDung
-		// ngayNhapMau: Date
-		// nguoiGiao
-		// nguoiNhan
-		// coQuanNhapVatMau
-		// hinhThucNhapMau
-		// traoDoiMau
-		// vayMuon
-		// hienTang
-		// khuLuuTruMau
-		// noiLuuGiu
-		// giayPhepNhapMau
-		// hoSoNhapMauVatDiKem: [String],
-		// nguoiLapPhieuMauVat
-		// nguoiLapVaoPhanMem
-		// thongTinKhac
 	};
 	var animalSchema = mongoose.Schema(schemaPrototype);
 

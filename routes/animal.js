@@ -14,6 +14,10 @@ var IMG_FIELDS = [
 	{name: 'dinhKemTrinhTuDNA', animalSchemaProp: ''}
 ];
 
+var PROP_FIELDS = [
+	{name: , animalSchemaProp: ''}
+]
+
 module.exports = function (router) {
 
 router.post('/dong-vat', 
@@ -30,7 +34,7 @@ router.post('/dong-vat',
 
 			// rename images
 			IMG_FIELDS.map(function (element) {
-				if (element.animalSchemaProp){
+				if (element.animalSchemaProp && req.files[element.name]){
 					rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
 				}
 			})

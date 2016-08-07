@@ -1,6 +1,6 @@
 <div class="container map-detail" style="margin-top: 50px;">
 	<form id="form-animal">
-		<center><h2>Cơ sở dữ liệu mẫu động vật</h2></center>
+		<center><h2>Cơ sở dữ liệu thực vật</h2></center>
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
 			<tr>
@@ -153,11 +153,11 @@
 					<select name="quocGia" required>
 						<option></option>
 					</select>
-					<select name="tinh" required ng-change="cityChange()" ng-model= "animalForm.city">
-						<option  ng-repeat="place in places" value="{{place.name}}">{{place.name}}</option>
+					<select name="tinh" required>
+						<option></option>
 					</select>
 					<select name="huyen" required>
-						<option ng-repeat="district in districts" value="{{district}}">{{district}}</option>
+						<option></option>
 					</select>
 					<select name="xa" required>
 						<option></option>
@@ -233,17 +233,18 @@
 			</tr>
 			<tr>
 				<td><label>Hình vẽ:</label></td>
-				<td><input type="file" multiple name="hinhVe" id="input" class="input-form"  value=""></td>
+				<td><input type="file" name="hinhVe" id="input" class="input-form"  value=""></td>
 			</tr>
 		</table>
 		<table>
 			<h3 class="h3-title">6. NHÓM DỮ LIỆU PHÂN BỐ VÀ GIÁ TRỊ SỬ DỤNG</h3>
 			<tr>
-				<td colspan="2"><h4>Phân bố địa lý của taxon định loại (*)</h4></td>
+				<td><label>Phân bố địa lý của taxon định loại (*)</label></td>
+				<td><input type="text" name="phanBoVietNam" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Phân bố Việt Nam:</label></td>
-				<td><input type="text" name="phanBoVietNam" id="input" class="input-form"  value=""></td>
+				<td><input type="date" name="phanBoVietNam" id="input" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Phân bố trên thế giới:</label></td>
@@ -276,11 +277,11 @@
 			</tr>
 			<tr>
 				<td><label>Đính kèm Xử lý chế tác:</label></td>
-				<td><input type="file" multiple name="dinhKemXuLy" id="input" class="input-form"  value=""></td>
+				<td><input type="file" name="dinhKemXuLy" id="input" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Hình ảnh đính kèm Xử lý chế tác:</label></td>
-				<td><input type="file" multiple name="hinhAnhDinhKem" id="input" class="input-form"  value=""></td>
+				<td><input type="file" name="hinhAnhDinhKem" id="input" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Hình ảnh sau chế tác:</label></td>
@@ -297,7 +298,7 @@
 			</tr>
 			<tr>
 				<td><label>Đính kèm Chạy trình tự DNA</label></td>
-				<td><input type="file" multiple name="dinhKemChayTrinhTuDNA" id="input" class="input-form"  value=""></td>
+				<td><input type="file" name="dinhKemChayTrinhTuDNA" id="input" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Trích dẫn Chạy trình tự DNA</label></td>
@@ -309,7 +310,7 @@
 			</tr>
 			<tr>
 				<td><label>Đính kèm Trình tự DNA</label></td>
-				<td><input type="file" multiple name="dinhKemTrinhTuDNA" id="input" class="input-form"  value=""></td>
+				<td><input type="file" name="dinhKemTrinhTuDNA" id="input" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Công bố/thông tin quốc tế (genbank...)</label></td>
@@ -381,7 +382,7 @@
 			</tr>
 			<tr>
 				<td><label>Hình ảnh mẫu khi lưu giữ:</label></td>
-				<td><input type="file" multiple name="" id="input" class="input-form"  value="" required></td>
+				<td><input type="file" name="" id="input" class="input-form"  value="" required></td>
 			</tr>
 		</table>
 

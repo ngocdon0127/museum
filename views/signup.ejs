@@ -11,35 +11,31 @@
 		<% include nav %>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<h1>Sign up</h1>
-				</div>
-				<% if (message) { %>
-					<div class="col-sm-12">
-						<span class="text-danger"><%= message %></span>
+		<div class="container-fluid">
+			<div class="col-sm-12">
+				<h1>Sign up</h1>
+			</div>
+			<div class="col-sm-12">
+				<form class="form" name="form" method="post">
+					<div class="form-group" >
+						<label>Full Name</label><input name="fullname" class="form-control" required="">
 					</div>
-				<% } %>
-				<div class="col-sm-12">
-					<form class="form" name="form" method="post">
-						<div class="form-group" >
-							<label>Full Name</label><input name="fullname" class="form-control" required="">
+					<div class="form-group" >
+						<label>Email</label><input type="email" name="email" class="form-control" required="">
+					</div>
+					<div class="form-group">
+						<label>Password</label><input type="password" name="password" class="form-control">
+					</div>
+					<div>
+						<button class="btn btn-inverse btn-lg btn-login" type="submit">Sign up</button><a class="btn btn-default btn-lg btn-register" href="/auth/login">Login</a>
+					</div>
+					<hr>
+					<% if (message) { %>
+						<div class="col-sm-12">
+							<span class="text-danger"><%= message %></span>
 						</div>
-						<div class="form-group" >
-							<label>Email</label><input type="email" name="email" class="form-control" required="">
-						</div>
-						<div class="form-group">
-							<label>Password</label><input type="password" name="password" class="form-control">
-						</div>
-						<div>
-							<button class="btn btn-inverse btn-lg btn-login" type="submit">Sign up</button><a class="btn btn-default btn-lg btn-register" href="/auth/login">Login</a>
-						</div>
-						<hr>
-						<div>
-						</div>
-					</form>
-				</div>
+					<% } %>
+				</form>
 			</div>
 			<hr>
 		</div>

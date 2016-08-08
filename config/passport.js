@@ -32,6 +32,7 @@ module.exports = function (passport, User) {
 			if (user.permission < PERM_ACCESS_PAGE){
 				return done(null, false, req.flash('loginMessage', "Login successfully. But you do not have permission to access page. Contact Admin to update your account."));
 			}
+			req.session.userId = user.id;
 			done(null, user);
 		})
 	}));

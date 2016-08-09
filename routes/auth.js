@@ -23,7 +23,12 @@ router.get("/failure", function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
+
+	// logout passport
 	req.logout();
+
+	// logout acl
+	delete req.session.userId;
 	res.redirect('login');
 })
 

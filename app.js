@@ -22,6 +22,41 @@ require('./models/User.js')(mongoose);
 require('./models/Animal.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 
+
+/**
+ * Init ACL
+ */
+
+var acl = require('acl');
+acl = new acl(new acl.memoryBackend());
+require('./config/acl.js')(acl);
+
+function aclMiddleware (resource, action) {
+	return function (req, res, next) {
+		if (!('userId' in req.session)){
+			return res.redirect('/app');
+		}
+		acl.isAllowed(req.session.userId, resource, action, function (err, result) {
+			if (err){
+				console.log(err);
+			}
+			console.log('result: ', result);
+			if (result){
+				next();
+			}
+			else {
+				return res.redirect('/app');
+			}
+		});
+	}
+}
+
+global.myCustomVars.aclMiddleware = aclMiddleware;
+
+/**
+ * Use routers
+ */
+
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var angular = require('./routes/angular');
@@ -52,15 +87,6 @@ app.use(function (req, res, next) {
 	next();
 })
 
-// var mongodb = require('mongodb');
-// mongodb.connect(configDB.url, function(error, db) {
-// 	var mongoBackend = new acl.mongodbBackend(db, 'acl_');
-// 	acl = new acl(mongoBackend);
-// 	global.myCustomVars.acl = acl;
-// 	require('./acl.js')(acl);
-// 	var routes = require('./routes/index');
-// 	app.use('/', routes);
-// });
 var routes = require('./routes/index');
 app.use('/', routes);
 

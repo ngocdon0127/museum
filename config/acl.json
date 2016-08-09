@@ -1,0 +1,20 @@
+[
+	{
+		"role": "guest",
+		"allows": [
+			{
+				"resource": "/test",
+				"actions": ["view"]
+			}
+		]
+	},
+	{
+		"role": "content",
+		"allows": [
+			{
+				"resource": "/test",
+				"actions": ["view", "create", "edit", "delete"]
+			}
+		]
+	}
+]

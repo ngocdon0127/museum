@@ -10,17 +10,18 @@ var flash = require('connect-flash');
 var session = require("express-session");
 var LocalStrategy = require("passport-local").Strategy;
 var MongoStore = require('connect-mongo')(session);
+var acl = require('acl');
 
 var app = express();
 
+global.myCustomVars = {};
+
 var configDB = require('./config/database');
-mongoose.connect(configDB.url);
+var mongooseConnection = mongoose.connect(configDB.url);
 require('./models/User.js')(mongoose);
 require('./models/Animal.js')(mongoose);
-
 require('./config/passport')(passport, mongoose.model('User'));
 
-var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var angular = require('./routes/angular');
@@ -51,7 +52,18 @@ app.use(function (req, res, next) {
 	next();
 })
 
+// var mongodb = require('mongodb');
+// mongodb.connect(configDB.url, function(error, db) {
+// 	var mongoBackend = new acl.mongodbBackend(db, 'acl_');
+// 	acl = new acl(mongoBackend);
+// 	global.myCustomVars.acl = acl;
+// 	require('./acl.js')(acl);
+// 	var routes = require('./routes/index');
+// 	app.use('/', routes);
+// });
+var routes = require('./routes/index');
 app.use('/', routes);
+
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/app', angular);

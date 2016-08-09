@@ -1,16 +1,24 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+// var acl = GLOBAL.myCustomVars.acl;
+var mongoose = require('mongoose');
 var acl = require('acl');
-var mongodb = require('mongodb');
-mongodb.connect("mongodb://ngocdon0127:museum@ds145415.mlab.com:45415/museum", function(error, db) {
-	var mongoBackend = new acl.mongodbBackend(db, 'acl_');
-	acl = new acl(mongoBackend);
-	require('../acl.js')(acl);
-	router.get('/test', acl.middleware(), function (req, res, next) {
-		res.end("hehe");
-	})
-});
+acl = new acl(new acl.memoryBackend());
+require('../acl.js')(acl);
+
+router.use(function (req, res, next) {
+	console.log(req.url);
+	next();
+})
+
+router.get('/test', aclMiddleWare('/test', 'view'), function (req, res, next) {
+	res.end("hehe");
+})
+
+// router.get('/test', function (req, res, next) {
+// 	res.end("hehe");
+// })
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -23,6 +31,27 @@ function isLoggedIn (req, res, next) {
 		return res.redirect('/auth/login');
 	}
 	return next();
+}
+
+function aclMiddleWare (resource, action) {
+	return function (req, res, next) {
+		if (!('userId' in req.session)){
+			return res.redirect('/app');
+		}
+		acl.isAllowed(req.session.userId, resource, action, function (err, result) {
+			if (err){
+				console.log(err);
+			}
+			console.log('result: ', result);
+			if (result){
+				next();
+			}
+			else {
+				return res.redirect('/app');
+			}
+		});
+	}
+	
 }
 
 module.exports = router;

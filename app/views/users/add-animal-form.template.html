@@ -4,16 +4,16 @@
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
 			<tr>
-				<td><label>Mã bảo tàng(*):</label></td>
-				<td><input type="text" name="maBaoTang" class="input-form"  required></td>
+				<td><label>Mã bảo tàng:</label></td>
+				<td><input type="text" name="maBaoTang" class="input-form"  required="required"></td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu bảo tàng cơ sở:</label></td>
-				<td><input type="text" name="soHieuBaoTangCS" class="input-form"  required></td>
+				<td><input type="text" name="soHieuBaoTangCS" class="input-form"  required="required"></td>
 			</tr>
 			<tr>
 				<td><label>Mã kí hiệu mẫu vật quốc tế:</label></td>
-				<td><input type="text" name="maKyHieuMauVatQuocTe" class="input-form"></td>
+				<td><input type="text" name="maKyHieuMauVatQuocTe" class="input-form"  required="required"></td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu thực địa(*):</label></td>
@@ -112,15 +112,15 @@
 			<h3 class="h3-title">3. Số lượng và chất lượng mẫu vật</h3>
 			<tr>
 				<td><label>Số lượng mẫu vật (*):</label></td>
-				<td><input type="text" name="soLuongMauVat" id="input" class="input-form"  value="" required></td>
+				<td><input type="number" name="soLuongMauVat" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Số lượng tiêu bản (*):</label></td>
-				<td><input type="text" name="soLuongTieuBan" id="input" class="input-form"  value="" required></td>
+				<td><input type="number" name="soLuongTieuBan" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Kích thước mẫu (*):</label></td>
-				<td><input type="text" name="kichThuocMau" id="input" class="input-form"  value="" required></td>
+				<td><input type="number" name="kichThuocMau" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Loại mẫu (*):</label></td>
@@ -135,7 +135,7 @@
 			<tr>
 				<td><label>Tình trạng mẫu (*):</label></td>
 				<td><input type="text" name="tinhTrangMau" id="input" class="input-form"  value="" required></td>
-			</tr>
+			</tr>		
 		</table>
 		<table>
 			<h3 class="h3-title">4. NHÓM DỮ LIỆU THU MẪU</h3>
@@ -158,7 +158,7 @@
 						<option></option>
 					</select>
 					<select name="tinh" required ng-change="cityChange()" ng-model= "animalForm.city">
-						<option  ng-repeat="place in places" value="{{place.name}}">{{place.name}}</option>
+						<option  ng-repeat="city in cities" value="{{city.name}}">{{city.name}}</option>
 					</select>
 					<select name="huyen" required>
 						<option ng-repeat="district in districts" value="{{district}}">{{district}}</option>
@@ -217,7 +217,7 @@
 			<h3 class="h3-title">5. NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
 				<td><label>Thời gian phân tích/giám định/định loại mẫu:</label></td>
-				<td><input type="text" name="thoiGianPhanTich" id="input" class="input-form"  value=""></td>
+				<td><input type="date" name="thoiGianPhanTich" id="input" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Người phân tích/giám định/định loại mẫu (*):</label></td>
@@ -340,7 +340,7 @@
 			</tr>
 			<tr>
 				<td><label>Tình trạng mẫu (*):</label></td>
-				<td><input type="text" name="tinhTrangMauBaoQuan" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" name="tinhTrangMau" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Trao đổi mẫu: </label></td>
@@ -393,7 +393,7 @@
 			<h3 class="h3-title">9. NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
 			<tr>
 				<td><label>Thông tin khác</label></td>
-				<td><textarea type="text" name="thongTinKhac" id="input" class="input-form"></textarea></td>
+				<td><input type="text" name="thongTinKhac" id="input" class="input-form"></td>
 			</tr>
 		</table>
 	</form>

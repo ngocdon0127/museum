@@ -6,6 +6,8 @@ var upload = multer({dest: UPLOAD_DEST_ANIMAL});
 var mongoose = require('mongoose');
 var Animal = mongoose.model('Animal');
 
+var aclMiddleware = global.myCustomVars.aclMiddleware;
+
 var IMG_FIELDS = [
 	{name: 'hinhVe', animalSchemaProp: 'duLieuPhanTichMau.hinhVe'},
 	{name: 'dinhKemXuLy', animalSchemaProp: 'xuLyCheTac.dinhKemXuLy'},

@@ -10,17 +10,53 @@ var flash = require('connect-flash');
 var session = require("express-session");
 var LocalStrategy = require("passport-local").Strategy;
 var MongoStore = require('connect-mongo')(session);
+var acl = require('acl');
 
 var app = express();
 
+global.myCustomVars = {};
+
 var configDB = require('./config/database');
-mongoose.connect(configDB.url);
+var mongooseConnection = mongoose.connect(configDB.url);
 require('./models/User.js')(mongoose);
 require('./models/Animal.js')(mongoose);
-
 require('./config/passport')(passport, mongoose.model('User'));
 
-var routes = require('./routes/index');
+
+/**
+ * Init ACL
+ */
+
+var acl = require('acl');
+acl = new acl(new acl.memoryBackend());
+require('./config/acl.js')(acl);
+
+function aclMiddleware (resource, action) {
+	return function (req, res, next) {
+		if (!('userId' in req.session)){
+			return res.redirect('/app');
+		}
+		acl.isAllowed(req.session.userId, resource, action, function (err, result) {
+			if (err){
+				console.log(err);
+			}
+			console.log('result: ', result);
+			if (result){
+				next();
+			}
+			else {
+				return res.redirect('/app');
+			}
+		});
+	}
+}
+
+global.myCustomVars.aclMiddleware = aclMiddleware;
+
+/**
+ * Use routers
+ */
+
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var angular = require('./routes/angular');
@@ -46,8 +82,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(function (req, res, next) {
+	console.log(req.session);
+	next();
+})
 
+var routes = require('./routes/index');
 app.use('/', routes);
+
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/app', angular);

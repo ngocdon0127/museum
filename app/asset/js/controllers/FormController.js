@@ -1,12 +1,11 @@
 app.controller('AnimalFormCtrl', ['$scope','$http', function ($scope, $http) {
-	$http.get('/app/database/place.json').then(function(res){
-		$scope.places =res.data;
-		console.log($scope.places);
+	$http.get('/app/database/cities.json').then(function(res){
+		$scope.cities = res.data;
+		console.log(res.data);
 	}, function(res){
 		console.log(res);
 	});
 	$scope.cityChange = function(){
-		// console.log("change");
 		angular.forEach($scope.places, function (value) {
 			console.log
 			if (value.name == $scope.animalForm.city) {

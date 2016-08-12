@@ -21,10 +21,11 @@
 						<label>Email</label><input type="email" name="email" class="form-control" required="">
 					</div>
 					<div class="form-group">
-						<label>Password</label><input type="password" name="password" class="form-control" required="">
+						<label>Password</label><input id="password" type="password" name="password" class="form-control" required="">
 					</div>
 					<div>
-						<button class="btn btn-inverse btn-lg btn-login" type="submit">Login</button>
+						<button class="btn btn-inverse btn-lg btn-login" type="button" onclick="handleSubmit()">Login</button>
+						<button class="btn btn-inverse btn-lg btn-login" type="submit" id="btnSubmit" style="display: none;">Login</button>
 						<a class="btn btn-default btn-lg btn-register" href="/auth/signup">Register</a>
 					</div>
 					<hr>
@@ -33,6 +34,22 @@
 							<span class="text-danger"><%= message %></span>
 						</div>
 					<% } %>
+					<script type="text/javascript">
+						function ob (x) {
+							return document.getElementById(x);
+						}
+						
+						function handleSubmit () {
+							var plainPass = ob('password').value;
+							var i = 0;
+							while (i < 1000){
+								plainPass = CryptoJS.MD5(plainPass).toString();
+								i++;
+							}
+							ob('password').value = plainPass;
+							$('#btnSubmit').click();
+						}
+					</script>
 				</form>
 			</div>
 			<hr>

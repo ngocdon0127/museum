@@ -9,7 +9,8 @@ module.exports = function (mongoose) {
 		userFullName: String,
 		animal1: Object,
 		animal2: Object,
-		action: String
+		action: String,
+		time: Date
 	});
 
 	var Log = mongoose.model("Log", logSchema);

@@ -23,7 +23,7 @@ var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/Ani
 
 module.exports = function (router) {
 
-router.post('/dong-vat', aclMiddleware('/dong-vat', 'create'),
+router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 	upload.fields(IMG_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
 		return preArray;
@@ -68,6 +68,7 @@ router.post('/dong-vat', aclMiddleware('/dong-vat', 'create'),
 				newLog.action = 'create';
 				newLog.userId = req.user.id;
 				newLog.animal1 = newAnimal;
+				newLog.time = new Date();
 				User.findById(req.user.id, function (err, user) {
 					if (err){
 						console.log(err);

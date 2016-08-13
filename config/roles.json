@@ -16,6 +16,10 @@
 			{
 				"resource": "/test",
 				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/dong-vat",
+				"actions": ["view", "create", "edit", "delete"]
 			}
 		]
 	},

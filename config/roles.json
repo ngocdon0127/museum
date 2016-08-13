@@ -1,0 +1,32 @@
+{
+	"guest" : {
+		"role": "guest",
+		"rolename": "Khách",
+		"allows": [
+			{
+				"resource": "/test",
+				"actions": ["view"]
+			}
+		]
+	},
+	"content": {
+		"role": "content",
+		"rolename": "Nhân viên",
+		"allows": [
+			{
+				"resource": "/test",
+				"actions": ["view", "create", "edit", "delete"]
+			}
+		]
+	},
+	"admin": {
+		"role": "admin",
+		"rolename": "Admin",
+		"allows": [
+			{
+				"resource": "/config",
+				"actions": ["view", "create", "edit", "delete"]
+			}
+		]
+	}
+}

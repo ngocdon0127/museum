@@ -1,20 +1,23 @@
-[
-	{
-		"role": "guest",
-		"allows": [
-			{
-				"resource": "/test",
-				"actions": ["view"]
-			}
-		]
-	},
-	{
-		"role": "content",
-		"allows": [
-			{
-				"resource": "/test",
-				"actions": ["view", "create", "edit", "delete"]
-			}
-		]
-	}
-]
+{
+    "57a5af51b89dbe602613affc": {
+        "userId": "57a5af51b89dbe602613affc",
+        "roles": [
+            "guest",
+            "content",
+            "admin"
+        ]
+    },
+    "57acbe6d0d9ca3003315d7ac": {
+        "userId": "57acbe6d0d9ca3003315d7ac",
+        "roles": [
+            "guest"
+        ]
+    },
+    "57a5b396633907cc1bdc63aa": {
+        "userId": "57a5b396633907cc1bdc63aa",
+        "roles": [
+            "guest",
+            "content"
+        ]
+    }
+}

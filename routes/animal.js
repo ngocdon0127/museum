@@ -75,7 +75,6 @@ router.post('/dong-vat',
 					}
 					newLog.userFullName = user.fullname;
 					newLog.save();
-
 				})
 				res.status(200).json({
 						status: 'success'

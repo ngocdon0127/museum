@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = function (acl) {
 
 	// init roles
-	roles = JSON.parse(fs.readFileSync(path.join(__dirname, 'acl.json')).toString());
+	roles = JSON.parse(fs.readFileSync(path.join(__dirname, 'roles.json')).toString());
 	for (var i = 0; i < roles.length; i++) {
 		var role = roles[i];
 		for (var j = 0; j < role.allows.length; j++) {
@@ -13,6 +13,11 @@ module.exports = function (acl) {
 	}
 
 	// asign users to roles
-	acl.addUserRoles('57a5af51b89dbe602613affc', 'guest')
-	acl.addUserRoles('57a6b435a8afadd42a8cabc5', 'guest')
+	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, 'acl.json')).toString());
+	for (var i = 0; i < aclRules.length; i++) {
+		var rule = aclRules[i];
+		for (var j = 0; j < rule.roles.length; j++) {
+			acl.addUserRoles(rule.userId, rule.roles[j])
+		}
+	}
 }

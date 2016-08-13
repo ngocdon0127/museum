@@ -1,20 +1,10 @@
 [
 	{
-		"role": "guest",
-		"allows": [
-			{
-				"resource": "/test",
-				"actions": ["view"]
-			}
-		]
+		"userId": "57a5af51b89dbe602613affc",
+		"roles": ["guest"]
 	},
 	{
-		"role": "content",
-		"allows": [
-			{
-				"resource": "/test",
-				"actions": ["view", "create", "edit", "delete"]
-			}
-		]
+		"userId": "57a6b435a8afadd42a8cabc5",
+		"roles": ["guest"]
 	}
 ]

@@ -1,20 +1,22 @@
-var multer = require('multer');
-var fs = require('fs');
-var path = require('path');
+var multer             = require('multer');
+var fs                 = require('fs');
+var path               = require('path');
 var UPLOAD_DEST_ANIMAL = 'public/uploads/animal';
-var upload = multer({dest: UPLOAD_DEST_ANIMAL});
-var mongoose = require('mongoose');
-var Animal = mongoose.model('Animal');
+var upload             = multer({dest: UPLOAD_DEST_ANIMAL});
+var mongoose           = require('mongoose');
+var Animal             = mongoose.model('Animal');
+var User               = mongoose.model('User');
+var Log                = mongoose.model('Log');
 
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 
 var IMG_FIELDS = [
-	{name: 'hinhVe', animalSchemaProp: 'duLieuPhanTichMau.hinhVe'},
-	{name: 'dinhKemXuLy', animalSchemaProp: 'xuLyCheTac.dinhKemXuLy'},
-	{name: 'hinhAnhDinhKem', animalSchemaProp: 'media.xuLyCheTac.hinhAnhDinhKem'},
-	{name: 'dinhKemChayTrinhTuDNA', animalSchemaProp: 'media.thongTinDNA.dinhKemChayTrinhTuDNA'},
-	{name: 'dinhKemTrinhTuDNA', animalSchemaProp: 'media.thongTinDNA.dinhKemTrinhTuDNA'},
-	{name: 'taiLieuPhanTich', animalSchemaProp: 'duLieuPhanTichMau.taiLieuPhanTich'}
+	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau.hinhVe'}                ,
+	{name: 'dinhKemXuLy'           , animalSchemaProp: 'xuLyCheTac.dinhKemXuLy'}                  ,
+	{name: 'hinhAnhDinhKem'        , animalSchemaProp: 'media.xuLyCheTac.hinhAnhDinhKem'}         ,
+	{name: 'dinhKemChayTrinhTuDNA' , animalSchemaProp: 'media.thongTinDNA.dinhKemChayTrinhTuDNA'} ,
+	{name: 'dinhKemTrinhTuDNA'     , animalSchemaProp: 'media.thongTinDNA.dinhKemTrinhTuDNA'}     ,
+	{name: 'taiLieuPhanTich'       , animalSchemaProp: 'duLieuPhanTichMau.taiLieuPhanTich'}
 ];
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/AnimalSchemaProps.json')).toString());
@@ -27,8 +29,6 @@ router.post('/dong-vat',
 		return preArray;
 	}, [])), 
 	function (req, res, next) {
-		console.log('start');
-		console.log(req.body);
 		var newAnimal = new Animal();
 
 		// save props
@@ -39,8 +39,6 @@ router.post('/dong-vat',
 			objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
 		})
 
-		console.log(newAnimal);
-
 		newAnimal.save(function (err, result) {
 			if (err){
 				console.log(err);
@@ -49,7 +47,6 @@ router.post('/dong-vat',
 			// rename images
 			IMG_FIELDS.map(function (element) {
 				if (element.animalSchemaProp && req.files[element.name]){
-					console.log('changing name of: ', element.animalSchemaProp);
 					var nodes = element.animalSchemaProp.split('.');
 					var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 					var tree = nodes.join('.');
@@ -57,8 +54,6 @@ router.post('/dong-vat',
 					rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
 				}
 			})
-
-			console.log(newAnimal);
 
 			newAnimal.save(function (err, r) {
 				if (err){
@@ -69,8 +64,19 @@ router.post('/dong-vat',
 					})
 				}
 
-				console.log(newAnimal);
+				var newLog = new Log();
+				newLog.action = 'create';
+				newLog.userId = req.user.id;
+				newLog.animal1 = newAnimal;
+				User.findById(req.user.id, function (err, user) {
+					if (err){
+						console.log(err);
+						return newLog.save();
+					}
+					newLog.userFullName = user.fullname;
+					newLog.save();
 
+				})
 				res.status(200).json({
 						status: 'success'
 					})
@@ -107,7 +113,6 @@ function rename (curFiles, schemaField, position, mongoId) {
 function objectChild (object, tree) {
 	var nodes = tree.trim().split('.');
 	for (var i = 0; i < nodes.length; i++) {
-		// object = object[nodes[i]];
 		if (nodes[i] in object){
 			object = object[nodes[i]];
 		}
@@ -125,10 +130,8 @@ function generate (schema) {
 	}
 	else {
 		for (var i in schema){
-			console.log("push ", i);
 			nodes.push(i);
 			generate(schema[i]);
-			console.log("pop ", nodes[nodes.length - 1]);
 			nodes.splice(nodes.length - 1, 1);
 		}
 	}

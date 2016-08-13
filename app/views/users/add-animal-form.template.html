@@ -125,7 +125,7 @@
 			<tr>
 				<td><label>Loại mẫu (*):</label></td>
 				<td>
-					<select required name="loaiMau">
+					<select class="select-box" required name="loaiMau">
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
 						<option value="Mẫu type">Mẫu type</option>
@@ -153,22 +153,45 @@
 			</tr>
 			<tr>
 				<td><label>Địa điểm thu mẫu: </label></td>
-				<td>
-					<select name="quocGia" required>
-						<option></option>
-					</select>
-					<select name="tinh" required ng-change="cityChange()" ng-model= "animalForm.city">
-						<option  ng-repeat="city in cities" value="{{city.name}}">{{city.name}}</option>
-					</select>
-					<select name="huyen" required>
-						<option ng-repeat="district in districts" value="{{district}}">{{district}}</option>
-					</select>
-					<select name="xa" required>
-						<option></option>
-					</select>
-					<select name="thon">
-						<option></option>
-					</select>
+				<td ng-controller="PlaceController">
+				<table>
+					<tr>
+						<td>Quốc gia: </td>
+						<td>
+							<select class="select-box" name="quocGia" required>
+								<option value="VietNam">Việt Nam</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Tỉnh/Thành phố: </td>
+						<td>
+							<select class="select-box" name="tinh" required ng-model= "animalForm.city">
+								<option  ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " +  city.name}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Huyện:</td>
+						<td>
+							<select class="select-box" name="huyen" required ng-model= "animalForm.district">
+								<option ng-repeat="(key, district) in districts | customCity: animalForm.city" value="{{key}}">{{district.type + " " + district.name}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Xã: </td>
+						<td>
+							<select class="select-box" name="xa" required>
+								<option ng-repeat="(key, ward) in wards | customDistrict: animalForm.district" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Thôn/Xóm: </td>
+						<td><input type="text" name="thon" class="input-form"></td>
+					</tr>
+				</table>
 				</td>
 			</tr>
 			<tr><td><h4>Vị trị tọa độ theo hệ tọa độ Việt Nam</h4></td></tr>
@@ -345,7 +368,7 @@
 			<tr>
 				<td><label>Trao đổi mẫu: </label></td>
 				<td>
-					<select name="traoDoiMau">
+					<select class="select-box" name="traoDoiMau">
 						<option>Có</option>
 						<option>Không</option>
 					</select>

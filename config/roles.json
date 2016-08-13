@@ -30,6 +30,10 @@
 			{
 				"resource": "/config",
 				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/log/all",
+				"actions": ["view"]
 			}
 		]
 	}

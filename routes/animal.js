@@ -66,9 +66,9 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 
 				var newLog = new Log();
 				newLog.action = 'create';
+				newLog.time = new Date();
 				newLog.userId = req.user.id;
 				newLog.animal1 = newAnimal;
-				newLog.time = new Date();
 				User.findById(req.user.id, function (err, user) {
 					if (err){
 						console.log(err);

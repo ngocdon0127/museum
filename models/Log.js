@@ -7,10 +7,10 @@ module.exports = function (mongoose) {
 	var logSchema = mongoose.Schema({
 		userId: String,
 		userFullName: String,
-		animal1: Object,
-		animal2: Object,
 		action: String,
-		time: Date
+		time: Date,
+		animal1: Object,
+		animal2: Object
 	});
 
 	var Log = mongoose.model("Log", logSchema);

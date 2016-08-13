@@ -1,6 +1,7 @@
-[
-	{
+{
+	"guest" : {
 		"role": "guest",
+		"rolename": "Khách",
 		"allows": [
 			{
 				"resource": "/test",
@@ -8,8 +9,9 @@
 			}
 		]
 	},
-	{
+	"content": {
 		"role": "content",
+		"rolename": "Nhân viên",
 		"allows": [
 			{
 				"resource": "/test",
@@ -17,8 +19,9 @@
 			}
 		]
 	},
-	{
+	"admin": {
 		"role": "admin",
+		"rolename": "Admin",
 		"allows": [
 			{
 				"resource": "/config",
@@ -26,4 +29,4 @@
 			}
 		]
 	}
-]
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Config</title>
+	<% include header %>
+	</head>
+	<body>
+		<div class="container">
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Users</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group">
+							<% for (var i in users) { %>
+								<li class="list-group-item">
+									<form action="/config" id="<%= i %>" method="post" >
+										<div class="row">
+											<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+												<%= users[i].fullname %>
+												<input type="hidden" value="<%= i %>" name="userid" />
+											</div>
+											<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+												<ul class="list-group">
+													<% for (var j = 0; j < roles.length; j++) { %>
+														<li class="list-group-item">
+															<input name="<%= roles[j].role%>" type="checkbox" <%= (users[i].id in aclRules && aclRules[users[i].id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
+															<span> <%= roles[j].rolename %> </span>
+														</li>
+													<% } %>
+												</ul>
+											</div>
+											<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+												<button type="button" class="btn btn-primary" onclick="update('<%= i %>')" >Update</button>
+											</div>
+										</div>
+									</form>
+								</li>
+							 <% } %>
+						 </ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function ob (x) {
+				return document.getElementById(x);
+			}
+
+			function update (id) {
+				console.log(id);
+				var fd = new FormData(document.getElementById(id));
+				console.log(fd);
+				console.log(ob(id));
+				$.ajax({
+					url: '/config',
+					method: 'post',
+					contentType: false,
+					processData: false,
+					dataType: 'json',
+					data: fd,
+					success: function (data) {
+						console.log(data);
+						if (data.status.localeCompare('success') == 0){
+							alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.');
+						}
+						setTimeout(function () {
+							window.location.reload(true);
+						}, 1000);
+					},
+					error: function (err) {
+						console.log(err);
+						alert(err.responseJSON.error);
+						window.location.reload(true);
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

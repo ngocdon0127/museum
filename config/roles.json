@@ -16,5 +16,14 @@
 				"actions": ["view", "create", "edit", "delete"]
 			}
 		]
+	},
+	{
+		"role": "admin",
+		"allows": [
+			{
+				"resource": "/config",
+				"actions": ["view", "create", "edit", "delete"]
+			}
+		]
 	}
 ]

@@ -1,7 +1,7 @@
 [
 	{
 		"userId": "57a5af51b89dbe602613affc",
-		"roles": ["guest"]
+		"roles": ["guest", "admin"]
 	},
 	{
 		"userId": "57a6b435a8afadd42a8cabc5",

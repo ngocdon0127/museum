@@ -53,12 +53,14 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 		// return res.json({
 		// 	users: result.users,
 		// 	roles: result.roles,
-		// 	aclRules: result.aclRules
+		// 	aclRules: result.aclRules,
+		// 	user: req.user
 		// })
 		res.render('config', {
 			users: result.users,
 			roles: result.roles,
-			aclRules: result.aclRules
+			aclRules: result.aclRules,
+			user: req.user
 		});
 	})
 })

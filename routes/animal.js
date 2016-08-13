@@ -23,7 +23,7 @@ var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/Ani
 
 module.exports = function (router) {
 
-router.post('/dong-vat', 
+router.post('/dong-vat', aclMiddleware('/dong-vat', 'create'),
 	upload.fields(IMG_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
 		return preArray;
@@ -132,6 +132,18 @@ function generate (schema) {
 			nodes.push(i);
 			generate(schema[i]);
 			nodes.splice(nodes.length - 1, 1);
+		}
+	}
+}
+
+function autoFill () {
+	var inputs = document.getElementsByTagName('input');
+	for(var i = 0; i < inputs.length; i++) {
+		try {
+			inputs[i].value = $($(inputs[i]).parent().parent().children()[0]).children()[0].innerHTML
+		}
+		catch (e) {
+
 		}
 	}
 }

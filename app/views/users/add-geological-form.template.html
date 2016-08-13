@@ -1,19 +1,19 @@
 <div class="container map-detail" style="margin-top: 50px;">
 	<form id="form-animal">
-		<center><h2>Cơ sở dữ liệu mẫu động vật</h2></center>
+		<center><h2>Cơ sở dữ liệu mẫu địa chất</h2></center>
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
 			<tr>
-				<td><label>Mã bảo tàng:</label></td>
-				<td><input type="text" name="maBaoTang" class="input-form"  required="required"></td>
+				<td><label>Mã bảo tàng(*):</label></td>
+				<td><input type="text" name="maBaoTang" class="input-form"  required></td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu bảo tàng cơ sở:</label></td>
-				<td><input type="text" name="soHieuBaoTangCS" class="input-form"  required="required"></td>
+				<td><input type="text" name="soHieuBaoTangCS" class="input-form"  required></td>
 			</tr>
 			<tr>
 				<td><label>Mã kí hiệu mẫu vật quốc tế:</label></td>
-				<td><input type="text" name="maKyHieuMauVatQuocTe" class="input-form"  required="required"></td>
+				<td><input type="text" name="maKyHieuMauVatQuocTe" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu thực địa(*):</label></td>
@@ -112,20 +112,20 @@
 			<h3 class="h3-title">3. Số lượng và chất lượng mẫu vật</h3>
 			<tr>
 				<td><label>Số lượng mẫu vật (*):</label></td>
-				<td><input type="number" name="soLuongMauVat" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" name="soLuongMauVat" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Số lượng tiêu bản (*):</label></td>
-				<td><input type="number" name="soLuongTieuBan" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" name="soLuongTieuBan" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Kích thước mẫu (*):</label></td>
-				<td><input type="number" name="kichThuocMau" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" name="kichThuocMau" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Loại mẫu (*):</label></td>
 				<td>
-					<select class="select-box" required name="loaiMau">
+					<select required name="loaiMau">
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
 						<option value="Mẫu type">Mẫu type</option>
@@ -135,7 +135,7 @@
 			<tr>
 				<td><label>Tình trạng mẫu (*):</label></td>
 				<td><input type="text" name="tinhTrangMau" id="input" class="input-form"  value="" required></td>
-			</tr>		
+			</tr>
 		</table>
 		<table>
 			<h3 class="h3-title">4. NHÓM DỮ LIỆU THU MẪU</h3>
@@ -153,45 +153,22 @@
 			</tr>
 			<tr>
 				<td><label>Địa điểm thu mẫu: </label></td>
-				<td ng-controller="PlaceController">
-				<table>
-					<tr>
-						<td>Quốc gia: </td>
-						<td>
-							<select class="select-box" name="quocGia" required>
-								<option value="VietNam">Việt Nam</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Tỉnh/Thành phố: </td>
-						<td>
-							<select class="select-box" name="tinh" required ng-model= "animalForm.city">
-								<option  ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " +  city.name}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Huyện:</td>
-						<td>
-							<select class="select-box" name="huyen" required ng-model= "animalForm.district">
-								<option ng-repeat="(key, district) in districts | customCity: animalForm.city" value="{{key}}">{{district.type + " " + district.name}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Xã: </td>
-						<td>
-							<select class="select-box" name="xa" required>
-								<option ng-repeat="(key, ward) in wards | customDistrict: animalForm.district" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Thôn/Xóm: </td>
-						<td><input type="text" name="thon" class="input-form"></td>
-					</tr>
-				</table>
+				<td>
+					<select name="quocGia" required>
+						<option></option>
+					</select>
+					<select name="tinh" required ng-change="cityChange()" ng-model= "animalForm.city">
+						<option  ng-repeat="place in places" value="{{place.name}}">{{place.name}}</option>
+					</select>
+					<select name="huyen" required>
+						<option ng-repeat="district in districts" value="{{district}}">{{district}}</option>
+					</select>
+					<select name="xa" required>
+						<option></option>
+					</select>
+					<select name="thon">
+						<option></option>
+					</select>
 				</td>
 			</tr>
 			<tr><td><h4>Vị trị tọa độ theo hệ tọa độ Việt Nam</h4></td></tr>
@@ -240,7 +217,7 @@
 			<h3 class="h3-title">5. NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
 				<td><label>Thời gian phân tích/giám định/định loại mẫu:</label></td>
-				<td><input type="date" name="thoiGianPhanTich" id="input" class="input-form"  value=""></td>
+				<td><input type="text" name="thoiGianPhanTich" id="input" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Người phân tích/giám định/định loại mẫu (*):</label></td>
@@ -363,12 +340,12 @@
 			</tr>
 			<tr>
 				<td><label>Tình trạng mẫu (*):</label></td>
-				<td><input type="text" name="tinhTrangMau" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" name="tinhTrangMauBaoQuan" id="input" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Trao đổi mẫu: </label></td>
 				<td>
-					<select class="select-box" name="traoDoiMau">
+					<select name="traoDoiMau">
 						<option>Có</option>
 						<option>Không</option>
 					</select>

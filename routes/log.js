@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 router.get('/all', aclMiddleware('/log/all', 'view'), function (req, res, next) {
 	var projection = {};
 	if ('user' in req.query){
-		projection.userId = req.query.userId;
+		projection.userId = req.query.user;
 	}
 	if ('action' in req.query){
 		projection.action = req.query.action;

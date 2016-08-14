@@ -15,6 +15,10 @@ router.use(function (req, res, next) {
 	next();
 })
 
+router.get('/home', isLoggedIn, function (req, res) {
+	res.end("home");
+})
+
 router.get('/test', aclMiddleware('/test', 'view'), function (req, res, next) {
 	res.end("hehe");
 })

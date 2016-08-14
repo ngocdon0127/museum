@@ -35,7 +35,7 @@ require('./config/acl.js')(acl);
 function aclMiddleware (resource, action) {
 	return function (req, res, next) {
 		if (!('userId' in req.session)){
-			return res.redirect('/app');
+			return res.redirect('/home');
 		}
 		acl.isAllowed(req.session.userId, resource, action, function (err, result) {
 			if (err){
@@ -46,7 +46,7 @@ function aclMiddleware (resource, action) {
 				next();
 			}
 			else {
-				return res.redirect('/app');
+				return res.redirect('/home');
 			}
 		});
 	}

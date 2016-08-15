@@ -11,12 +11,12 @@ var Log                = mongoose.model('Log');
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 
 var IMG_FIELDS = [
-	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau.hinhVe'}                ,
-	{name: 'dinhKemXuLy'           , animalSchemaProp: 'xuLyCheTac.dinhKemXuLy'}                  ,
-	{name: 'hinhAnhDinhKem'        , animalSchemaProp: 'media.xuLyCheTac.hinhAnhDinhKem'}         ,
-	{name: 'dinhKemChayTrinhTuDNA' , animalSchemaProp: 'media.thongTinDNA.dinhKemChayTrinhTuDNA'} ,
-	{name: 'dinhKemTrinhTuDNA'     , animalSchemaProp: 'media.thongTinDNA.dinhKemTrinhTuDNA'}     ,
-	{name: 'taiLieuPhanTich'       , animalSchemaProp: 'duLieuPhanTichMau.taiLieuPhanTich'}
+	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau'}                ,
+	{name: 'dinhKemXuLy'           , animalSchemaProp: 'xuLyCheTac'}                  ,
+	{name: 'hinhAnhDinhKem'        , animalSchemaProp: 'media.xuLyCheTac'}         ,
+	{name: 'dinhKemChayTrinhTuDNA' , animalSchemaProp: 'media.thongTinDNA'} ,
+	{name: 'dinhKemTrinhTuDNA'     , animalSchemaProp: 'media.thongTinDNA'}     ,
+	{name: 'taiLieuPhanTich'       , animalSchemaProp: 'duLieuPhanTichMau'}
 ];
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/AnimalSchemaProps.json')).toString());
@@ -33,10 +33,11 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 
 		// save props
 		PROP_FIELDS.map(function (element) {
-			var nodes = element.animalSchemaProp.split('.');
-			var lastProp = nodes.splice(nodes.length - 1, 1)[0];
-			var tree = nodes.join('.');
-			objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
+			// var nodes = element.animalSchemaProp.split('.');
+			// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
+			// var tree = nodes.join('.');
+			// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
+			objectChild(newAnimal, element.animalSchemaProp)[element.name] = req.body[element.name];
 		})
 
 		newAnimal.save(function (err, result) {
@@ -46,12 +47,14 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 
 			// rename images
 			IMG_FIELDS.map(function (element) {
-				if (element.animalSchemaProp && req.files[element.name]){
-					var nodes = element.animalSchemaProp.split('.');
-					var lastProp = nodes.splice(nodes.length - 1, 1)[0];
-					var tree = nodes.join('.');
-					objectChild(newAnimal, tree)[lastProp] = [];
-					rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
+				if (req.files[element.name]){
+					// var nodes = element.animalSchemaProp.split('.');
+					// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
+					// var tree = nodes.join('.');
+					// objectChild(newAnimal, tree)[lastProp] = [];
+					// rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
+					objectChild(newAnimal, element.animalSchemaProp)[element.name] = [];
+					rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp)[element.name], UPLOAD_DEST_ANIMAL, result.id);
 				}
 			})
 
@@ -84,10 +87,19 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 		})
 })
 
+router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
+	Animal.find({}, function (err, animals) {
+		if (err){
+			return responseError(res, 500, 'Error while reading database');
+		}
+		return responseSuccess(res, ['status', 'animals'], ['success', animals]);
+	})
+})
+
 }
 
 function rename (curFiles, schemaField, position, mongoId) {
-	console.log(schemaField);
+	// console.log(schemaField);
 	try {
 		schemaField.splice(0, schemaField.length); // delete all old elements
 	}
@@ -123,9 +135,32 @@ function objectChild (object, tree) {
 	return object;
 }
 
+function responseError (res, errCode, errMessage) {
+	return res.status(errCode).json({
+		status: 'error',
+		error: errMessage
+	})
+}
+
+function responseSuccess (res, props, values) {
+	if ((props instanceof Array) && (values instanceof Array) && (props.length == values.length)){
+		var result = {};
+		result.status = 'success';
+		for (var i = 0; i < props.length; i++) {
+			result[props[i]] = values[i];
+		}
+		return res.status(200).json(result);
+	}
+	return res.status(200).json({
+		status: 'success',
+	})
+}
+
 function generate (schema) {
 	if (typeof(schema) != 'object'){
 		tree = nodes.join('.');
+		var pos = tree.lastIndexOf('.');
+		(pos >= 0) ? (tree = tree.substring(0, pos)) : (tree = "");
 		arr.push({name: nodes[nodes.length - 1], animalSchemaProp: tree});
 	}
 	else {
@@ -141,7 +176,21 @@ function autoFill () {
 	var inputs = document.getElementsByTagName('input');
 	for(var i = 0; i < inputs.length; i++) {
 		try {
-			inputs[i].value = $($(inputs[i]).parent().parent().children()[0]).children()[0].innerHTML
+			switch (inputs[i].getAttribute('type')){
+				case 'text':
+					inputs[i].value = $($(inputs[i]).parent().parent().children()[0]).children()[0].innerHTML;
+					break;
+				case 'number':
+					inputs[i].value = Math.floor(Math.random() * 100);
+					break;
+				case 'date':
+					var x = new Date();
+					inputs[i].value = x.getFullYear() + '-' + (x.getMonth() >= 9 ? (x.getMonth() + 1) : ( '0' + (x.getMonth() + 1))) + '-' + x.getDate();
+					break;
+				default:
+					break;
+			}
+			
 		}
 		catch (e) {
 

@@ -103,7 +103,7 @@ module.exports = function (mongoose) {
 			ngayNhapMau: Date,
 			nguoiGiao: String,
 			nguoiNhan: String,
-			tinhTrangMau: String,
+			tinhTrangMauBaoQuan: String,
 			traoDoiMau: String,
 			vayMuon: String,
 			hienTang: String,

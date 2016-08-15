@@ -21,5 +21,12 @@
         "roles": [
             "content"
         ]
+    },
+    "57b1379b91fbad042287f181": {
+        "userId": "57b1379b91fbad042287f181",
+        "roles": [
+            "content",
+            "admin"
+        ]
     }
 }

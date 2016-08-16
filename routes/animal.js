@@ -123,7 +123,7 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 })
 
 router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
-	Animal.find({}, function (err, animals) {
+	Animal.find({deleted_at: {$eq: null}}, function (err, animals) {
 		if (err){
 			return responseError(res, 500, 'Error while reading database');
 		}
@@ -144,7 +144,8 @@ router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), functio
 			return responseError(res, 500, 'Error while reading database');
 		}
 		if (animal){
-			animal.deleted_at = new Date();
+			var date = new Date();
+			animal.deleted_at = date;
 			animal.save();
 			var newLog = new Log();
 			newLog.action = 'delete';
@@ -152,6 +153,7 @@ router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), functio
 			newLog.userFullName = req.user.fullname;
 			newLog.objType = 'animal';
 			newLog.obj1 = animal;
+			newLog.time = date;
 			newLog.save();
 			return responseSuccess(res, ['status'], ['success']);
 		}

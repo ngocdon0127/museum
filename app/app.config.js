@@ -16,11 +16,15 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 	})
 	.when('/tho-nhuong', {
 		templateUrl: 'views/users/add-land-form.template.html',
-		controller: 'LanFormCtrl'
+		controller: 'LandFormCtrl'
 	})
 	.when('/co-sinh', {
 		templateUrl: 'views/users/add-paleontological-form.template.html',
 		controller: 'PaleontologicalFormCtrl'
+	})
+	.when('/dong-vat/chinh-sua/:id', {
+		templateUrl: 'edit-animal-form.template.html',
+		controller: 'EitAnimalFormCtrl'
 	})
 	.otherwise({ redirectTo: '/dong-vat' })
 }]);

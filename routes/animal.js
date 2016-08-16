@@ -9,6 +9,7 @@ var User               = mongoose.model('User');
 var Log                = mongoose.model('Log');
 
 var aclMiddleware = global.myCustomVars.aclMiddleware;
+var checkRequiredParams = global.myCustomVars.checkRequiredParams;
 
 var IMG_FIELDS = [
 	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau'}                ,
@@ -43,6 +44,10 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 		newAnimal.save(function (err, result) {
 			if (err){
 				console.log(err);
+				return res.status(500).json({
+					status: 'error',
+					error: 'Error while saving to database'
+				})
 			}
 
 			// rename images
@@ -58,13 +63,10 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 				}
 			})
 
+			newAnimal.created_at = new Date();
 			newAnimal.save(function (err, r) {
 				if (err){
 					console.log(err);
-					res.status(500).json({
-						status: 'error',
-						error: 'Error while saving to database'
-					})
 				}
 
 				var newLog = new Log();
@@ -72,17 +74,11 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 				newLog.time = new Date();
 				newLog.userId = req.user.id;
 				newLog.animal1 = newAnimal;
-				User.findById(req.user.id, function (err, user) {
-					if (err){
-						console.log(err);
-						return newLog.save();
-					}
-					newLog.userFullName = user.fullname;
-					newLog.save();
-				})
+				newLog.userFullName = req.user.fullname;
+				newLog.save();
 				res.status(200).json({
-						status: 'success'
-					})
+					status: 'success'
+				})
 			});
 		})
 })
@@ -94,6 +90,36 @@ router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (re
 		}
 		return responseSuccess(res, ['status', 'animals'], ['success', animals]);
 	})
+})
+
+router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
+	var missingParam = checkRequiredParams(['animalId'], req.body);
+	if (missingParam){
+		return responseError(res, 400, 'Missing ' + missingParam);
+	}
+	console.log(req.body);
+	Animal.findById(req.body.animalId, function (err, animal) {
+		console.log('function');
+		if (err){
+			console.log(err);
+			return responseError(res, 500, 'Error while reading database');
+		}
+		if (animal){
+			animal.deleted_at = new Date();
+			animal.save();
+			var newLog = new Log();
+			newLog.action = 'delete';
+			newLog.userId = req.user.id;
+			newLog.userFullName = req.user.fullname;
+			newLog.animal1 = animal;
+			newLog.save();
+			return responseSuccess(res, ['status'], ['success']);
+		}
+		else{
+			return responseError(res, 400, 'Invalid animalId');
+		}
+	})
+	// return res.end('ok');
 })
 
 }
@@ -178,14 +204,20 @@ function autoFill () {
 		try {
 			switch (inputs[i].getAttribute('type')){
 				case 'text':
+					console.log('text ' + i);
 					inputs[i].value = $($(inputs[i]).parent().parent().children()[0]).children()[0].innerHTML;
+					console.log('done text ' + i);
 					break;
 				case 'number':
+					console.log('number ' + i);
 					inputs[i].value = Math.floor(Math.random() * 100);
+					console.log('done number ' + i);
 					break;
 				case 'date':
+					console.log('date ' + i);
 					var x = new Date();
 					inputs[i].value = x.getFullYear() + '-' + (x.getMonth() >= 9 ? (x.getMonth() + 1) : ( '0' + (x.getMonth() + 1))) + '-' + x.getDate();
+					console.log('done date ' + i);
 					break;
 				default:
 					break;
@@ -193,7 +225,7 @@ function autoFill () {
 			
 		}
 		catch (e) {
-
+			console.log(e);
 		}
 	}
 }

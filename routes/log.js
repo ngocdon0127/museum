@@ -13,7 +13,7 @@ router.use(isLoggedIn);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	Log.find({userId: req.user.id}, function (err, logs) {
+	Log.find({userId: req.user.id}, {}, {sort: {time: -1}}, function (err, logs) {
 		if (err){
 			console.log(err);
 			return res.status(500).json({

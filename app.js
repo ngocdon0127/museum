@@ -24,35 +24,7 @@ require('./models/Log.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 
 
-/**
- * Init ACL
- */
-
-var acl = require('acl');
-acl = new acl(new acl.memoryBackend());
-require('./config/acl.js')(acl);
-
-function aclMiddleware (resource, action) {
-	return function (req, res, next) {
-		if (!('userId' in req.session)){
-			return res.redirect('/home');
-		}
-		acl.isAllowed(req.session.userId, resource, action, function (err, result) {
-			if (err){
-				console.log(err);
-			}
-			console.log('result: ', result);
-			if (result){
-				next();
-			}
-			else {
-				return res.redirect('/home');
-			}
-		});
-	}
-}
-
-global.myCustomVars.aclMiddleware = aclMiddleware;
+require('./init');
 
 /**
  * Use routers
@@ -86,6 +58,9 @@ app.use(passport.session());
 app.use(flash());
 app.use(function (req, res, next) {
 	console.log(req.session);
+	if ('user' in req){
+		console.log(req.user);
+	}
 	next();
 })
 

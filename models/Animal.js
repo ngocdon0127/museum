@@ -1,5 +1,8 @@
 module.exports = function (mongoose) {
 	var schemaPrototype = {
+		created_at: Date,
+		updated_at: Date,
+		deleted_at: Date,
 		soHieu: {
 			maBaoTang: String,
 			soHieuBaoTangCS: String,

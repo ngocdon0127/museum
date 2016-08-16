@@ -122,6 +122,34 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 		})
 })
 
+router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
+	// console.log(ObjectId(req.params.animalId));
+	// console.log(req.params.animalId);
+	Animal.findById(req.params.animalId, function (err, animal) {
+		if (err){
+			return responseError(res, 500, 'Error while reading database');
+		}
+		if (animal){
+			if (animal.deleted_at){
+				Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.animalId)}}, function (err, logs) {
+					if (err || (logs.length < 1)){
+						console.log(err);
+						return responseError(res, 404, "This animal has been deleted");
+					}
+					// console.log(logs);
+					return responseError(res, 404, "This animal has been deleted by " + logs[0].userFullName);
+				})
+			}
+			else {
+				responseSuccess(res, ['animal'], [animal]);
+			}
+		}
+		else{
+			responseError(res, 404, 'Not Found');
+		}
+	})
+})
+
 router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
 	Animal.find({deleted_at: {$eq: null}}, function (err, animals) {
 		if (err){

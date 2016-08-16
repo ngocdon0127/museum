@@ -16,7 +16,7 @@ router.use(function (req, res, next) {
 })
 
 router.get('/home', isLoggedIn, function (req, res) {
-	res.render('home', {user: req.user});
+	res.render('home', {user: req.user, path: req.path});
 })
 
 router.get('/test', aclMiddleware('/test', 'view'), function (req, res, next) {
@@ -59,13 +59,15 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 		// 	users: result.users,
 		// 	roles: result.roles,
 		// 	aclRules: result.aclRules,
-		// 	user: req.user
+		// 	user: req.user,
+		// 	path: req.path
 		// })
 		res.render('config', {
 			users: result.users,
 			roles: result.roles,
 			aclRules: result.aclRules,
-			user: req.user
+			user: req.user,
+			path: req.path
 		});
 	})
 })
@@ -117,7 +119,7 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit')
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
-	res.redirect('/app');
+	res.redirect('/home');
 });
 
 

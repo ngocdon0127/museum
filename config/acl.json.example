@@ -14,7 +14,9 @@
     },
     "57a5b396633907cc1bdc63aa": {
         "userId": "57a5b396633907cc1bdc63aa",
-        "roles": []
+        "roles": [
+            "admin"
+        ]
     },
     "57b09afa9e83489828236ace": {
         "userId": "57b09afa9e83489828236ace",

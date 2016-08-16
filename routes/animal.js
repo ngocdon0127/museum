@@ -37,6 +37,41 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 
 		// save props
 		PROP_FIELDS.map(function (element) {
+			if (element.required && !(element.name in req.body)){
+				return responseError(res, 400, "Missing " + element.name);
+			}
+
+			switch (element.type){
+				case 'String':
+					if ('min' in element){
+						if (req.body[element.name].length < element.min){
+							return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
+						}
+					}
+
+					if ('max' in element){
+						if (req.body[element.name].length > element.max){
+							return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
+						}
+					}
+					break;
+				case 'Number':
+					if ('min' in element){
+						if (parseFloat(req.body[element.name]) < element.min){
+							return responseError(res, 400, element.name + ' must not lower than ' + element.min);
+						}
+					}
+
+					if ('max' in element){
+						if (req.body[element.name].length > element.max){
+							return responseError(res, 400, element.name + ' must not higher than ' + element.max);
+						}
+					}
+					break;
+				default:
+					break;
+			}
+
 			// var nodes = element.animalSchemaProp.split('.');
 			// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 			// var tree = nodes.join('.');

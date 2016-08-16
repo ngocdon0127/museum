@@ -7,53 +7,55 @@
 	</head>
 	</head>
 	<body>
-		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
-		<% include nav %>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
-		<div class="container-fluid">
-			<div class="col-sm-12">
-				<h1>Login</h1>
+		<div class="container">
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
+			<% include nav %>
 			</div>
-			<div class="col-sm-12">
-				<form class="form" name="form" method="post" onsubmit="handleSubmit()">
-					<div class="form-group">
-						<label>Email</label><input type="email" name="email" class="form-control" required="">
-					</div>
-					<div class="form-group">
-						<label>Password</label><input id="password" type="password" name="password" class="form-control" required="">
-					</div>
-					<div>
-						<!-- <button class="btn btn-inverse btn-lg btn-login" type="button" onclick="handleSubmit()">Login</button> -->
-						<button class="btn btn-inverse btn-lg btn-login" type="submit" id="btnSubmit">Login</button>
-						<a class="btn btn-default btn-lg btn-register" href="/auth/signup">Register</a>
-					</div>
-					<hr>
-					<% if (message) { %>
-						<div class="col-sm-12">
-							<span class="text-danger"><%= message %></span>
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
+			<div class="container-fluid">
+				<div class="col-sm-12">
+					<h1>Login</h1>
+				</div>
+				<div class="col-sm-12">
+					<form class="form" name="form" method="post" onsubmit="handleSubmit()">
+						<div class="form-group">
+							<label>Email</label><input type="email" name="email" class="form-control" required="">
 						</div>
-					<% } %>
-					<script type="text/javascript">
-						function ob (x) {
-							return document.getElementById(x);
-						}
-						
-						function handleSubmit () {
-							var plainPass = ob('password').value;
-							var i = 0;
-							while (i < 1000){
-								plainPass = CryptoJS.MD5(plainPass).toString();
-								i++;
+						<div class="form-group">
+							<label>Password</label><input id="password" type="password" name="password" class="form-control" required="">
+						</div>
+						<div>
+							<!-- <button class="btn btn-inverse btn-lg btn-login" type="button" onclick="handleSubmit()">Login</button> -->
+							<button class="btn btn-inverse btn-lg btn-login" type="submit" id="btnSubmit">Login</button>
+							<a class="btn btn-default btn-lg btn-register" href="/auth/signup">Register</a>
+						</div>
+						<hr>
+						<% if (message) { %>
+							<div class="col-sm-12">
+								<span class="text-danger"><%= message %></span>
+							</div>
+						<% } %>
+						<script type="text/javascript">
+							function ob (x) {
+								return document.getElementById(x);
 							}
-							ob('password').value = plainPass;
-							// $('#btnSubmit').click();
-						}
-					</script>
-				</form>
+							
+							function handleSubmit () {
+								var plainPass = ob('password').value;
+								var i = 0;
+								while (i < 1000){
+									plainPass = CryptoJS.MD5(plainPass).toString();
+									i++;
+								}
+								ob('password').value = plainPass;
+								// $('#btnSubmit').click();
+							}
+						</script>
+					</form>
+				</div>
+				<hr>
 			</div>
-			<hr>
-		</div>
+			</div>
 		</div>
 	</body>
 </html>

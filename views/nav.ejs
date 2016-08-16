@@ -13,6 +13,19 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+				<% if (typeof(path) != 'undefined' && !path.localeCompare('/app')) { %>
+					<li class="active"><a href="/app">App</a></li>
+				<% } else { %>
+					<li><a href="/app">App</a></li>
+				<% } %>
+
+				<% if (typeof(path) != undefined && !path.localeCompare('/config')) { %>
+					<li class="active"><a href="/config">Config</a></li>
+				<% } else { %>
+					<li><a href="/config">Config</a></li>
+				<% } %>
+			</ul>
 		<% if (user) { %>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">

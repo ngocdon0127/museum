@@ -25,6 +25,7 @@ router.get('/', function(req, res, next) {
 			status: 'success',
 			logs: logs
 		})
+		return res.render('log', {user: req.user, logs: logs});
 	})
 })
 

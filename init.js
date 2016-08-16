@@ -1,6 +1,5 @@
-/**
- * Init ACL
- */
+
+// ============== Init ACL =======================
 
 var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
@@ -29,8 +28,11 @@ function aclMiddleware (resource, action) {
 global.myCustomVars.aclMiddleware = aclMiddleware;
 
 
+
+// ============== Shared Functions ================
+
 /**
- * Shared Functions
+ * Check required parameters
  */
 
 function checkRequiredParams (requiredParams, object) {
@@ -45,3 +47,38 @@ function checkRequiredParams (requiredParams, object) {
 }
 
 global.myCustomVars.checkRequiredParams = checkRequiredParams;
+
+
+/**
+ * Send error message to response when some action failure
+ */
+
+function responseError (res, errCode, errMessage) {
+	return res.status(errCode).json({
+		status: 'error',
+		error: errMessage
+	})
+}
+
+global.myCustomVars.responseError = responseError;
+
+
+/**
+ * When action success
+ */
+
+function responseSuccess (res, props, values) {
+	if ((props instanceof Array) && (values instanceof Array) && (props.length == values.length)){
+		var result = {};
+		result.status = 'success';
+		for (var i = 0; i < props.length; i++) {
+			result[props[i]] = values[i];
+		}
+		return res.status(200).json(result);
+	}
+	return res.status(200).json({
+		status: 'success',
+	})
+}
+
+global.myCustomVars.responseSuccess = responseSuccess;

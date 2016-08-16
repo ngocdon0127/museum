@@ -8,15 +8,18 @@ var Animal             = mongoose.model('Animal');
 var User               = mongoose.model('User');
 var Log                = mongoose.model('Log');
 
-var aclMiddleware = global.myCustomVars.aclMiddleware;
+// Get shared functions
+var aclMiddleware       = global.myCustomVars.aclMiddleware;
 var checkRequiredParams = global.myCustomVars.checkRequiredParams;
+var responseError       = global.myCustomVars.responseError;
+var responseSuccess     = global.myCustomVars.responseSuccess;
 
 var IMG_FIELDS = [
-	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau'}                ,
-	{name: 'dinhKemXuLy'           , animalSchemaProp: 'xuLyCheTac'}                  ,
-	{name: 'hinhAnhDinhKem'        , animalSchemaProp: 'media.xuLyCheTac'}         ,
+	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau'} ,
+	{name: 'dinhKemXuLy'           , animalSchemaProp: 'xuLyCheTac'}        ,
+	{name: 'hinhAnhDinhKem'        , animalSchemaProp: 'media.xuLyCheTac'}  ,
 	{name: 'dinhKemChayTrinhTuDNA' , animalSchemaProp: 'media.thongTinDNA'} ,
-	{name: 'dinhKemTrinhTuDNA'     , animalSchemaProp: 'media.thongTinDNA'}     ,
+	{name: 'dinhKemTrinhTuDNA'     , animalSchemaProp: 'media.thongTinDNA'} ,
 	{name: 'taiLieuPhanTich'       , animalSchemaProp: 'duLieuPhanTichMau'}
 ];
 
@@ -72,8 +75,9 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 				var newLog = new Log();
 				newLog.action = 'create';
 				newLog.time = new Date();
+				newLog.objType = 'animal';
 				newLog.userId = req.user.id;
-				newLog.animal1 = newAnimal;
+				newLog.obj1 = newAnimal;
 				newLog.userFullName = req.user.fullname;
 				newLog.save();
 				res.status(200).json({
@@ -111,7 +115,8 @@ router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), functio
 			newLog.action = 'delete';
 			newLog.userId = req.user.id;
 			newLog.userFullName = req.user.fullname;
-			newLog.animal1 = animal;
+			newLog.objType = 'animal';
+			newLog.obj1 = animal;
 			newLog.save();
 			return responseSuccess(res, ['status'], ['success']);
 		}
@@ -159,27 +164,6 @@ function objectChild (object, tree) {
 		}
 	}
 	return object;
-}
-
-function responseError (res, errCode, errMessage) {
-	return res.status(errCode).json({
-		status: 'error',
-		error: errMessage
-	})
-}
-
-function responseSuccess (res, props, values) {
-	if ((props instanceof Array) && (values instanceof Array) && (props.length == values.length)){
-		var result = {};
-		result.status = 'success';
-		for (var i = 0; i < props.length; i++) {
-			result[props[i]] = values[i];
-		}
-		return res.status(200).json(result);
-	}
-	return res.status(200).json({
-		status: 'success',
-	})
 }
 
 function generate (schema) {

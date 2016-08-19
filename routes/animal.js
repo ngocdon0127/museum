@@ -1,3 +1,16 @@
+// ========== FUNCTION PROTOTYPE ==========
+
+/*
+
+function saveOrUpdateAnimal ( req      , res         , animal   , action)
+function rename             ( curFiles , schemaField , position , mongoId)
+function objectChild        ( object   , tree)
+
+*/
+
+// ========== ================== ==========
+
+
 var multer             = require('multer');
 var fs                 = require('fs');
 var path               = require('path');
@@ -21,6 +34,9 @@ var IMG_FIELDS = PROP_FIELDS.filter(function (element) {
 	return !element.type.localeCompare('File')
 });
 
+var ACTION_CREATE = 0;
+var ACTION_EDIT = 1;
+
 module.exports = function (router) {
 
 router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
@@ -31,97 +47,32 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 	function (req, res, next) {
 		var newAnimal = new Animal();
 
-		// save props
-		PROP_FIELDS.map(function (element) {
+		return saveOrUpdateAnimal(req, res, newAnimal, ACTION_CREATE);
+})
 
-			// Check required data props
-			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
-				return responseError(res, 400, "Missing " + element.name);
-			}
-
-			// Check required files
-			if (element.required && (element.type.localeCompare('File') == 0) && !(element.name in req.files)){
-				return responseError(res, 400, "Missing " + element.name);
-			}
-
-			switch (element.type){
-				case 'String':
-					if ('min' in element){
-						if (req.body[element.name].length < element.min){
-							return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
-						}
-					}
-
-					if ('max' in element){
-						if (req.body[element.name].length > element.max){
-							return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
-						}
-					}
-					break;
-				case 'Number':
-					if ('min' in element){
-						if (parseFloat(req.body[element.name]) < element.min){
-							return responseError(res, 400, element.name + ' must not lower than ' + element.min);
-						}
-					}
-
-					if ('max' in element){
-						if (req.body[element.name].length > element.max){
-							return responseError(res, 400, element.name + ' must not higher than ' + element.max);
-						}
-					}
-					break;
-				default:
-					break;
-			}
-
-			// var nodes = element.animalSchemaProp.split('.');
-			// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
-			// var tree = nodes.join('.');
-			// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
-			objectChild(newAnimal, element.animalSchemaProp)[element.name] = req.body[element.name];
-		})
-
-		newAnimal.save(function (err, result) {
+router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'), 
+	upload.fields(IMG_FIELDS.reduce(function (preArray, curElement) {
+		preArray.push({name: curElement.name}); 
+		return preArray;
+	}, [])),
+	function (req, res) {
+		var missingParam = checkRequiredParams(['animalId'], req.body);
+		if (missingParam){
+			return responseError(res, 400, 'Missing animalId');  
+		}
+		Animal.findById(req.body.animalId, function (err, animal) {
 			if (err){
 				console.log(err);
-				return res.status(500).json({
-					status: 'error',
-					error: 'Error while saving to database'
-				})
+				return responseError(res, 500, "Error while reading database")
+			}
+			
+			if (animal){
+				return saveOrUpdateAnimal(req, res, animal, ACTION_EDIT);
 			}
 
-			// rename images
-			IMG_FIELDS.map(function (element) {
-				if (req.files[element.name]){
-					// var nodes = element.animalSchemaProp.split('.');
-					// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
-					// var tree = nodes.join('.');
-					// objectChild(newAnimal, tree)[lastProp] = [];
-					// rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
-					objectChild(newAnimal, element.animalSchemaProp)[element.name] = [];
-					rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp)[element.name], UPLOAD_DEST_ANIMAL, result.id);
-				}
-			})
-
-			newAnimal.created_at = new Date();
-			newAnimal.save(function (err, r) {
-				if (err){
-					console.log(err);
-				}
-
-				var newLog = new Log();
-				newLog.action = 'create';
-				newLog.time = new Date();
-				newLog.objType = 'animal';
-				newLog.userId = req.user.id;
-				newLog.obj1 = newAnimal;
-				newLog.userFullName = req.user.fullname;
-				newLog.save();
-				res.status(200).json({
-					status: 'success'
-				})
-			});
+			else {
+				return responseError(res, 400, 'Invalid animalId')
+			}
 		})
 })
 
@@ -144,7 +95,13 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 				})
 			}
 			else {
-				responseSuccess(res, ['animal'], [animal]);
+				var result = {};
+				PROP_FIELDS.map(function (element) {
+					if (element.type.localeCompare('File')){
+						result[element.name] = objectChild(animal, element.animalSchemaProp)[element.name];
+					}
+				});
+				responseSuccess(res, ['animal'], [result]);
 			}
 		}
 		else{
@@ -232,6 +189,127 @@ function objectChild (object, tree) {
 		}
 	}
 	return object;
+}
+
+function saveOrUpdateAnimal (req, res, animal, action) {
+	var animalBeforeUpdate = {};
+	if (action == ACTION_EDIT){
+		animalBeforeUpdate = JSON.parse(JSON.stringify(animal));
+	}
+	
+	// save props
+	PROP_FIELDS.map(function (element) {
+
+		// Check required data props
+		if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
+			return responseError(res, 400, "Missing " + element.name);
+		}
+
+		if (action == ACTION_CREATE){
+			// Check required files if action is create
+			if (element.required && (element.type.localeCompare('File') == 0) && !(element.name in req.files)){
+				return responseError(res, 400, "Missing " + element.name);
+			}
+		}
+
+		switch (element.type){
+			case 'String':
+				if ('min' in element){
+					if (req.body[element.name].length < element.min){
+						return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
+					}
+				}
+
+				if ('max' in element){
+					if (req.body[element.name].length > element.max){
+						return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
+					}
+				}
+				break;
+			case 'Number':
+				if ('min' in element){
+					if (parseFloat(req.body[element.name]) < element.min){
+						return responseError(res, 400, element.name + ' must not lower than ' + element.min);
+					}
+				}
+
+				if ('max' in element){
+					if (req.body[element.name].length > element.max){
+						return responseError(res, 400, element.name + ' must not higher than ' + element.max);
+					}
+				}
+				break;
+			default:
+				break;
+		}
+
+		// var nodes = element.animalSchemaProp.split('.');
+		// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
+		// var tree = nodes.join('.');
+		// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
+		objectChild(animal, element.animalSchemaProp)[element.name] = req.body[element.name];
+	})
+
+	animal.save(function (err, result) {
+		if (err){
+			console.log(err);
+			return res.status(500).json({
+				status: 'error',
+				error: 'Error while saving to database'
+			})
+		}
+
+		// rename images
+		IMG_FIELDS.map(function (element) {
+			if (req.files[element.name]){
+				// var nodes = element.animalSchemaProp.split('.');
+				// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
+				// var tree = nodes.join('.');
+				// objectChild(animal, tree)[lastProp] = [];
+				// rename(req.files[element.name], objectChild(animal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
+
+				if (action == ACTION_EDIT){
+					
+					// TODO
+					// need to delete old files.
+
+				}
+
+				objectChild(animal, element.animalSchemaProp)[element.name] = [];
+				rename(req.files[element.name], objectChild(animal, element.animalSchemaProp)[element.name], UPLOAD_DEST_ANIMAL, result.id);
+			}
+		})
+
+		if (action == ACTION_CREATE){
+			animal.created_at = new Date();
+		}
+		else {
+			animal.updated_at = new Date();
+		}
+		animal.save(function (err, r) {
+			if (err){
+				console.log(err);
+			}
+
+			var newLog = new Log();
+			newLog.action = (action == ACTION_CREATE) ? 'create' : 'update';
+			newLog.time = new Date();
+			newLog.objType = 'animal';
+			newLog.userId = req.user.id;
+			if (action == ACTION_CREATE){
+				newLog.obj1 = animal;
+			}
+			else {
+				newLog.obj1 = animalBeforeUpdate;
+				newLog.obj2 = animal;
+			}
+			newLog.userFullName = req.user.fullname;
+			newLog.save();
+			res.status(200).json({
+				status: 'success'
+			})
+		});
+	})
 }
 
 function generate (schema) {

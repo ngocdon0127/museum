@@ -51,8 +51,8 @@ module.exports = function (mongoose) {
 				thon: String
 			},
 			viTriToaDo: {
-				viDo: Number,
-				kinhDo: Number
+				viDo: String,
+				kinhDo: String
 			},
 			doCao: Number,
 			doSau : Number,

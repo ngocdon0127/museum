@@ -20,13 +20,13 @@
 	{
 		"name": "soHieuThucDia",
 		"animalSchemaProp": "soHieu",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "soHieuBTTNVN",
 		"animalSchemaProp": "soHieu",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -38,19 +38,19 @@
 	{
 		"name": "tenVietNam",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "tenTiengAnh",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "tenKhoaHoc",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -68,19 +68,19 @@
 	{
 		"name": "gioi",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "nganh",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "lop",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -92,7 +92,7 @@
 	{
 		"name": "bo",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -110,13 +110,13 @@
 	{
 		"name": "ho",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "phanHo",
 		"animalSchemaProp": "tenMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -152,49 +152,49 @@
 	{
 		"name": "soLuongMauVat",
 		"animalSchemaProp": "soLuongChatLuong",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "Number"
 	},
 	{
 		"name": "soLuongTieuBan",
 		"animalSchemaProp": "soLuongChatLuong",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "Number"
 	},
 	{
 		"name": "kichThuocMau",
 		"animalSchemaProp": "soLuongChatLuong",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "Number"
 	},
 	{
 		"name": "loaiMau",
 		"animalSchemaProp": "soLuongChatLuong",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "tinhTrangMau",
 		"animalSchemaProp": "soLuongChatLuong",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "thoigianThuMau",
 		"animalSchemaProp": "duLieuThuMau",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "Date"
 	},
 	{
 		"name": "nguoiThuMau",
 		"animalSchemaProp": "duLieuThuMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "phuongPhapThuMau",
 		"animalSchemaProp": "duLieuThuMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -242,14 +242,14 @@
 	{
 		"name": "doCao",
 		"animalSchemaProp": "duLieuThuMau",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "Number"
 	},
 	{
 		"name": "doSau",
 		"animalSchemaProp": "duLieuThuMau",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "Number"
 	},
 	{
 		"name": "vungBien",
@@ -266,7 +266,7 @@
 	{
 		"name": "thongTinDuAn",
 		"animalSchemaProp": "duLieuThuMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -291,37 +291,37 @@
 		"name": "thoiGianPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
 		"required": false,
-		"type": "String"
+		"type": "Date"
 	},
 	{
 		"name": "nguoiPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "coQuanToChucPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "taiLieuPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "File"
 	},
 	{
 		"name": "moTaHinhThai",
 		"animalSchemaProp": "duLieuPhanTichMau",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "hinhVe",
 		"animalSchemaProp": "duLieuPhanTichMau",
 		"required": false,
-		"type": "String"
+		"type": "File"
 	},
 	{
 		"name": "phanBoVietNam",
@@ -369,13 +369,13 @@
 		"name": "dinhKemXuLy",
 		"animalSchemaProp": "media.xuLyCheTac",
 		"required": false,
-		"type": "String"
+		"type": "File"
 	},
 	{
 		"name": "hinhAnhDinhKem",
 		"animalSchemaProp": "media.xuLyCheTac",
 		"required": false,
-		"type": "String"
+		"type": "File"
 	},
 	{
 		"name": "anhMauSauCheTac",
@@ -399,7 +399,7 @@
 		"name": "dinhKemChayTrinhTuDNA",
 		"animalSchemaProp": "media.thongTinDNA",
 		"required": false,
-		"type": "String"
+		"type": "File"
 	},
 	{
 		"name": "trichDanTrinhTuDNA",
@@ -417,7 +417,7 @@
 		"name": "dinhKemTrinhTuDNA",
 		"animalSchemaProp": "media.thongTinDNA",
 		"required": false,
-		"type": "String"
+		"type": "File"
 	},
 	{
 		"name": "congBoQuocTe",
@@ -435,7 +435,7 @@
 		"name": "ngayNhapMau",
 		"animalSchemaProp": "luuTruBaoQuan",
 		"required": false,
-		"type": "String"
+		"type": "Date"
 	},
 	{
 		"name": "nguoiGiao",
@@ -452,7 +452,7 @@
 	{
 		"name": "tinhTrangMauBaoQuan",
 		"animalSchemaProp": "luuTruBaoQuan",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{

@@ -14,16 +14,12 @@ var checkRequiredParams = global.myCustomVars.checkRequiredParams;
 var responseError       = global.myCustomVars.responseError;
 var responseSuccess     = global.myCustomVars.responseSuccess;
 
-var IMG_FIELDS = [
-	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau'} ,
-	{name: 'dinhKemXuLy'           , animalSchemaProp: 'xuLyCheTac'}        ,
-	{name: 'hinhAnhDinhKem'        , animalSchemaProp: 'media.xuLyCheTac'}  ,
-	{name: 'dinhKemChayTrinhTuDNA' , animalSchemaProp: 'media.thongTinDNA'} ,
-	{name: 'dinhKemTrinhTuDNA'     , animalSchemaProp: 'media.thongTinDNA'} ,
-	{name: 'taiLieuPhanTich'       , animalSchemaProp: 'duLieuPhanTichMau'}
-];
-
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/AnimalSchemaProps.json')).toString());
+
+// File fields
+var IMG_FIELDS = PROP_FIELDS.filter(function (element) {
+	return !element.type.localeCompare('File')
+});
 
 module.exports = function (router) {
 
@@ -37,7 +33,14 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 
 		// save props
 		PROP_FIELDS.map(function (element) {
-			if (element.required && !(element.name in req.body)){
+
+			// Check required data props
+			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
+				return responseError(res, 400, "Missing " + element.name);
+			}
+
+			// Check required files
+			if (element.required && (element.type.localeCompare('File') == 0) && !(element.name in req.files)){
 				return responseError(res, 400, "Missing " + element.name);
 			}
 

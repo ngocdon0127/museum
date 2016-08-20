@@ -15,21 +15,21 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
 				<% if (typeof(path) != 'undefined' && !path.localeCompare('/app')) { %>
-					<li class="active"><a href="/app">App</a></li>
+					<li class="active"><a href="/app">Nhập liệu</a></li>
 				<% } else { %>
-					<li><a href="/app">App</a></li>
+					<li><a href="/app">Nhập liệu</a></li>
 				<% } %>
 
 				<% if (typeof(path) != 'undefined' && !path.localeCompare('/config')) { %>
-					<li class="active"><a href="/config">Config</a></li>
+					<li class="active"><a href="/config">Cài đặt</a></li>
 				<% } else { %>
-					<li><a href="/config">Config</a></li>
+					<li><a href="/config">Cài đặt</a></li>
 				<% } %>
 
 				<% if (typeof(path) != 'undefined' && !path.localeCompare('/log/')) { %>
-					<li class="active"><a href="/log">History</a></li>
+					<li class="active"><a href="/log">Lịch sử</a></li>
 				<% } else { %>
-					<li><a href="/log">History</a></li>
+					<li><a href="/log">Lịch sử</a></li>
 				<% } %>
 			</ul>
 		<% if (user) { %>
@@ -37,7 +37,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= user.fullname %> </a>
 					<ul class="dropdown-menu">
-						<li><a href="/auth/logout">Logout</a></li>
+						<li><a href="/auth/logout">Đăng xuất</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -45,10 +45,10 @@
 		<% } else { %>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a href="/auth/login">Login</a>
+					<a href="/auth/login">Đăng nhập</a>
 				</li>
 				<li>
-					<a href="/auth/signup">Signup</a>
+					<a href="/auth/signup">Đăng ký</a>
 				</li>
 			</ul>
 			

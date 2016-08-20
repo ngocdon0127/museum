@@ -73,6 +73,8 @@ app.use('/app', angular);
 app.use('/content', content);
 app.use('/log', log);
 
+console.log('Server started at port 8000');
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	var err = new Error('Not Found');

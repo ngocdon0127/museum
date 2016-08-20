@@ -76,6 +76,15 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 		})
 })
 
+router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
+	Animal.find({deleted_at: {$eq: null}}, function (err, animals) {
+		if (err){
+			return responseError(res, 500, 'Error while reading database');
+		}
+		return responseSuccess(res, ['status', 'animals'], ['success', animals]);
+	})
+})
+
 router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
 	// console.log(ObjectId(req.params.animalId));
 	// console.log(req.params.animalId);
@@ -110,13 +119,8 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 	})
 })
 
-router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
-	Animal.find({deleted_at: {$eq: null}}, function (err, animals) {
-		if (err){
-			return responseError(res, 500, 'Error while reading database');
-		}
-		return responseSuccess(res, ['status', 'animals'], ['success', animals]);
-	})
+router.get('/dong-vat/log/:animalId', function (req, res) {
+	
 })
 
 router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
@@ -198,14 +202,15 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 	}
 	
 	// save props
-	PROP_FIELDS.map(function (element) {
-
-		// Check required data props
-		if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
-			return responseError(res, 400, "Missing " + element.name);
-		}
-
+	for (var i = 0; i < PROP_FIELDS.length; i++) {
+		var element = PROP_FIELDS[i];
+		
 		if (action == ACTION_CREATE){
+			// Check required data props if action is create
+			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
+				return responseError(res, 400, "Missing " + element.name);
+			}
+
 			// Check required files if action is create
 			if (element.required && (element.type.localeCompare('File') == 0) && !(element.name in req.files)){
 				return responseError(res, 400, "Missing " + element.name);
@@ -247,8 +252,10 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 		// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 		// var tree = nodes.join('.');
 		// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
-		objectChild(animal, element.animalSchemaProp)[element.name] = req.body[element.name];
-	})
+		if (element.name in req.body){
+			objectChild(animal, element.animalSchemaProp)[element.name] = req.body[element.name];
+		}
+	}
 
 	animal.save(function (err, result) {
 		if (err){
@@ -261,7 +268,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 
 		// rename images
 		IMG_FIELDS.map(function (element) {
-			if (req.files[element.name]){
+			if (req.files && req.files.hasOwnProperty(element.name) && req.files[element.name]){
 				// var nodes = element.animalSchemaProp.split('.');
 				// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 				// var tree = nodes.join('.');
@@ -274,7 +281,6 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					// need to delete old files.
 
 				}
-
 				objectChild(animal, element.animalSchemaProp)[element.name] = [];
 				rename(req.files[element.name], objectChild(animal, element.animalSchemaProp)[element.name], UPLOAD_DEST_ANIMAL, result.id);
 			}

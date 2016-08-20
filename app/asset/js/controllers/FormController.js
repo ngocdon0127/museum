@@ -9,10 +9,12 @@ app.controller('AnimalFormCtrl', ['$scope','$http', function ($scope, $http) {
 			processData: false,
 			data: fd,
 			success: function (data) {
+				alert(data.status);
 				console.log(data);
 			},
 			error: function (err) {
 				console.log(err);
+				alert(JSON.parse(err.responseText).error)
 			}
 		});
 	}

@@ -120,7 +120,8 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 })
 
 router.get('/dong-vat/log/:animalId', function (req, res) {
-	
+	// Log.find({""})
+	return responseSuccess(res, [], []);
 })
 
 router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {

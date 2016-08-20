@@ -23,9 +23,10 @@ router.get('/', function(req, res, next) {
 		}
 		// return res.status(200).json({
 		// 	status: 'success',
-		// 	logs: logs
+		// 	logs: logs,
+		// 	path: '/log' + req.path,
 		// })
-		return res.render('log', {user: req.user, logs: logs, path: req.path});
+		return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path});
 	})
 })
 

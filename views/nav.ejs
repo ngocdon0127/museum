@@ -20,10 +20,16 @@
 					<li><a href="/app">App</a></li>
 				<% } %>
 
-				<% if (typeof(path) != undefined && !path.localeCompare('/config')) { %>
+				<% if (typeof(path) != 'undefined' && !path.localeCompare('/config')) { %>
 					<li class="active"><a href="/config">Config</a></li>
 				<% } else { %>
 					<li><a href="/config">Config</a></li>
+				<% } %>
+
+				<% if (typeof(path) != 'undefined' && !path.localeCompare('/log/')) { %>
+					<li class="active"><a href="/log">History</a></li>
+				<% } else { %>
+					<li><a href="/log">History</a></li>
 				<% } %>
 			</ul>
 		<% if (user) { %>

@@ -104,7 +104,9 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 				})
 			}
 			else {
-				responseSuccess(res, ['animal'], [flatAnimal(animal)]);
+				// responseSuccess(res, ['animal'], [animal]);
+				// responseSuccess(res, ['animal'], [flatAnimal(animal)]);
+				return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal)});
 			}
 		}
 		else{
@@ -122,21 +124,22 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 			
 			if ((log.action == 'update') && (req.params.position == 'diff')){
 				// return responseSuccess(res, ['obj1', 'obj2'], [flatAnimal(log.obj1), flatAnimal(log.obj2)]);
-				return res.render('diff', {obj1: flatAnimal(log.obj1), obj2: flatAnimal(log.obj2)});
+				return res.render('display', {title: 'Các cập nhật', count: 2, obj1: flatAnimal(log.obj1), obj2: flatAnimal(log.obj2)});
 			}
 
 			switch (parseInt(req.params.position)){
 				case 1:
 					if ('obj1' in log){
 						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj1)])
-						return res.render('diff', {obj1: flatAnimal(log.obj1), obj2: {}});
+						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj1), obj2: {}});
 					}
 					else{
 						return responseError(res, 400, 'Invalid object')
 					}
 				case 2:
 					if (('obj2' in log) && (log.obj2)){
-						return responseSuccess(res, ['animal'], [flatAnimal(log.obj2)])
+						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj2)});
+						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj2)])
 					}
 					else{
 						return responseError(res, 400, 'Invalid object')
@@ -349,9 +352,9 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 function flatAnimal (animal) {
 	var result = {};
 	PROP_FIELDS.map(function (element) {
-		if (element.type.localeCompare('File')){
+		// if (element.type.localeCompare('File')){
 			result[element.name] = objectChild(animal, element.animalSchemaProp)[element.name];
-		}
+		// }
 	});
 	return result;
 }

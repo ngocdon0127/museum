@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<% include header %>
+	</head>
+	</head>
+	<body>
+		<div class="container">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<% 
+				function propDiff (obj1, obj2, prop) {
+					if ((prop in obj1) && !(prop in obj2)){
+						return true;
+					}
+
+					if (!(prop in obj1) && (prop in obj2)){
+						return true;
+					}
+
+					return diff(obj1[prop], obj2[prop]);
+
+				}
+
+				function diff (prop1, prop2) {
+					if ((prop1 instanceof Array) && (prop2 instanceof Array)){
+						if (prop1.length != prop2.length){
+							return true;
+						}
+						for (var i = 0; i < prop1.length; i++) {
+							if (prop2.indexOf(prop1[i]) < 0){
+								return true;
+							}
+							var isDifferent = diff(prop1[i], prop2[i]);
+							if (isDifferent){
+								return true;
+							}
+						}
+						return false;
+					}
+					if ((typeof(prop1) == typeof(prop2)) && (typeof(prop1) == 'object')){
+						if (Object.keys(prop1).length != Object.keys(prop2).length){
+							return true;
+						}
+						var keys = Object.keys(prop1);
+						for(var i = 0; i < keys; i++){
+							var isDifferent = diff(prop1[keys[i]], prop2[keys[i]]);
+							if (isDifferent){
+								return true;
+							}
+						}
+						return false;
+					}
+					if (((typeof(prop1) == typeof(prop2)) && (typeof(prop1) == 'string'))){
+						return prop1.localeCompare(prop2)
+					}
+					return (prop1 !== prop2);
+				}
+				%>
+				<% var diffs = [];
+					if (count == 2){
+						for(var i in obj1){
+							if (propDiff(obj1, obj2, i)){
+								diffs.push(i);
+							}
+						}
+
+						for(var i in obj2){
+							if (propDiff(obj1, obj2, i)){
+								diffs.push(i);
+							}
+						}
+					}
+					else {
+						diffs = Object.keys(obj1).filter(function (element) {
+							if (obj1[element] instanceof Array){
+								return (obj1[element].length > 0);
+							}
+							if (obj1[element] instanceof Object){
+								return Object.keys(obj1[element]).length > 0
+							}
+							return obj1[element] ? true : false;
+						});
+					}
+					
+				%>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Thuộc tính</th>
+							<th>Giá trị</th>
+							<% if (count == 2) { %>
+								<th>Giá trị mới</th>
+							<% } %>
+						</tr>
+					</thead>
+					<tbody>
+				<% for (var i = 0; i < diffs.length; i++){ %>
+					<tr>
+						<td><b><%= diffs[i] %></b></td>
+						<td><span class="text-info"><%= obj1[diffs[i]] %></span></td>
+						<% if (count == 2) { %>
+								<td><span class="text-success"><%= obj2[diffs[i]] %></span></td>
+						<% } %>
+						
+					</tr>
+				<% } %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

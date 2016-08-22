@@ -39,6 +39,19 @@ router.get('/all', aclMiddleware('/log/all', 'view'), function (req, res, next) 
 		projection.action = req.query.action;
 	}
 
+	if ('object' in req.query){
+		var arr = [];
+		arr.push(req.query.object);
+		try {
+			var mgOI = mongoose.Types.ObjectId(req.query.object);
+			arr.push(mgOI)
+		}
+		catch (e){
+			console.log(e);
+		}
+		projection['obj1._id'] = {$in: arr};
+	}
+
 	Log.find(projection, {}, {sort: {time: -1}}, function (err, logs) {
 		if (err){
 			console.log(err);

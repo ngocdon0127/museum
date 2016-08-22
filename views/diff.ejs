@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Different</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<% include header %>
+	</head>
+	</head>
+	<body>
+		<div class="container">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<% var diffs = [];
+					for(var i in obj1){
+						if (!(i in obj2)){
+							diffs.push(i);
+							continue;
+						}
+						if (obj1[i] != obj2[i]){
+							diffs.push(i);
+							continue;
+						}
+					}
+
+					for(var i in obj2){
+						if (!(i in obj1)){
+							diffs.push(i);
+							continue;
+						}
+						if (obj1[i] != obj2[i]){
+							diffs.push(i);
+							continue;
+						}
+					}
+				%>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Thuộc tính</th>
+							<th>Giá trị cũ</th>
+							<th>Giá trị mới</th>
+						</tr>
+					</thead>
+					<tbody>
+				<% for (var i = 0; i < diffs.length; i++){ %>
+					<tr>
+						<td><b><%= diffs[i] %></b></td>
+						<td><span class="text-info"><%= obj1[diffs[i]] %></span></td>
+						<td><span class="text-success"><%= obj2[diffs[i]] %></span></td>
+					</tr>
+				<% } %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

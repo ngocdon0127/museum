@@ -104,13 +104,7 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 				})
 			}
 			else {
-				var result = {};
-				PROP_FIELDS.map(function (element) {
-					if (element.type.localeCompare('File')){
-						result[element.name] = objectChild(animal, element.animalSchemaProp)[element.name];
-					}
-				});
-				responseSuccess(res, ['animal'], [result]);
+				responseSuccess(res, ['animal'], [flatAnimal(animal)]);
 			}
 		}
 		else{
@@ -119,9 +113,42 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 	})
 })
 
-router.get('/dong-vat/log/:animalId', function (req, res) {
-	// Log.find({""})
-	return responseSuccess(res, [], []);
+router.get('/dong-vat/log/:logId/:position', function (req, res) {
+	Log.findById(req.params.logId, function (err, log) {
+		if (err){
+			return responseError(res, 500, 'Error while reading database');
+		}
+		if (log){
+			
+			if ((log.action == 'update') && (req.params.position == 'diff')){
+				// return responseSuccess(res, ['obj1', 'obj2'], [flatAnimal(log.obj1), flatAnimal(log.obj2)]);
+				return res.render('diff', {obj1: flatAnimal(log.obj1), obj2: flatAnimal(log.obj2)});
+			}
+
+			switch (parseInt(req.params.position)){
+				case 1:
+					if ('obj1' in log){
+						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj1)])
+						return res.render('diff', {obj1: flatAnimal(log.obj1), obj2: {}});
+					}
+					else{
+						return responseError(res, 400, 'Invalid object')
+					}
+				case 2:
+					if (('obj2' in log) && (log.obj2)){
+						return responseSuccess(res, ['animal'], [flatAnimal(log.obj2)])
+					}
+					else{
+						return responseError(res, 400, 'Invalid object')
+					}
+				default:
+					return responseError(res, 400, 'Invalid object')
+			}
+		}
+		else {
+			return responseError(res, 400, 'Invalid logId')
+		}
+	})
 })
 
 router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
@@ -269,7 +296,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 
 		// rename images
 		IMG_FIELDS.map(function (element) {
-			if (req.files && req.files.hasOwnProperty(element.name) && req.files[element.name]){
+			if (req.files && (element.name in req.files) && req.files[element.name]){
 				// var nodes = element.animalSchemaProp.split('.');
 				// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 				// var tree = nodes.join('.');
@@ -317,6 +344,16 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			})
 		});
 	})
+}
+
+function flatAnimal (animal) {
+	var result = {};
+	PROP_FIELDS.map(function (element) {
+		if (element.type.localeCompare('File')){
+			result[element.name] = objectChild(animal, element.animalSchemaProp)[element.name];
+		}
+	});
+	return result;
 }
 
 function generate (schema) {

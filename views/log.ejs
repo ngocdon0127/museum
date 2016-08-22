@@ -2,35 +2,51 @@
 <html>
 	<head>
 		<title>Log</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<% include header %>
 	</head>
 	</head>
 	<body>
 		<div class="container">
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
 			<% include nav %>
-			<h2>Log</h2>
-			<ul class="list-group">
-				<% for (var i = 0; i < logs.length; i++) { %>
-					<li class="list-group-item">
-						<div class="row">
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<% var date = (new Date(logs[i].time)).toLocaleString(); %>
-								<h4><%= (date != 'Invalid Date') ? date : '' %></h4>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
+				<h2>Log</h2>
+				<ul class="list-group">
+					<% for (var i = 0; i < logs.length; i++) { 
+						var action = logs[i].action %>
+						<% if (action == 'create') { %>
+							<li class="list-group-item list-group-item-info" />
+						<% } else if (action == 'update') { %>
+							<li class="list-group-item list-group-item-warning" />
+						<% } else if (action == 'delete') { %>
+							<li class="list-group-item list-group-item-danger" />
+						<% } %>
+							<div class="row">
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<% var date = (new Date(logs[i].time)).toLocaleString(); %>
+									<h4><%= (date != 'Invalid Date') ? date : '' %></h4>
+								</div>
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<h4><%= logs[i].userFullName %></h4>
+								</div>
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<h4><%= logs[i].action %></h4>
+								</div>
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<% if (logs[i].action == 'create') { %>
+										<a href="/content/dong-vat/log/<%= logs[i]._id + '/1' %>"><h4>Version at this time</h4></a>
+										<a href="/content/dong-vat/<%= logs[i].obj1._id %>"><h4>Current Version</h4></a>
+									<% } else if (logs[i].action == 'update') { %>
+										<a href="/content/dong-vat/log/<%= logs[i]._id + '/diff' %>"><h4>View Different</h4></a>
+										<a href="/content/dong-vat/<%= logs[i].obj1._id %>"><h4>Current Version</h4></a>
+									<% } %>
+								</div>
 							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<h4><%= logs[i].userFullName %></h4>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<h4><%= logs[i].action %></h4>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/content/dong-vat/<%= logs[i].obj1._id %>"><h4><%= logs[i].objType %></h4></a>
-							</div>
-						</div>
-					</li>
-				<% } %>
-			</ul>
+						</li>
+					<% } %>
+				</ul>
+			</div>
 		</div>
 	</body>
 </html>

@@ -16,7 +16,7 @@ var app = express();
 
 global.myCustomVars = {};
 
-var configDB = require('./config/database');
+var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);
 require('./models/User.js')(mongoose);
 require('./models/Animal.js')(mongoose);
@@ -72,8 +72,6 @@ app.use('/auth', auth);
 app.use('/app', angular);
 app.use('/content', content);
 app.use('/log', log);
-
-console.log('Server started at port 8000');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

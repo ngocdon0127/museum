@@ -1,5 +1,5 @@
 node_modules
-config/database.js
+config/config.js
 config/acl.json
 config/roles.json
 public/uploads

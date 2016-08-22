@@ -1,16 +1,3 @@
-// ========== FUNCTION PROTOTYPE ==========
-
-/*
-
-function saveOrUpdateAnimal ( req      , res         , animal   , action)
-function rename             ( curFiles , schemaField , position , mongoId)
-function objectChild        ( object   , tree)
-
-*/
-
-// ========== ================== ==========
-
-
 var multer             = require('multer');
 var fs                 = require('fs');
 var path               = require('path');

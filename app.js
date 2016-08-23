@@ -16,7 +16,7 @@ var app = express();
 
 global.myCustomVars = {};
 
-var configDB = require('./config/database');
+var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);
 require('./models/User.js')(mongoose);
 require('./models/Animal.js')(mongoose);

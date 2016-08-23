@@ -21,10 +21,12 @@ router.get('/', function(req, res, next) {
 				error: 'Error while reading database'
 			})
 		}
-		return res.status(200).json({
-			status: 'success',
-			logs: logs
-		})
+		// return res.status(200).json({
+		// 	status: 'success',
+		// 	logs: logs,
+		// 	path: '/log' + req.path,
+		// })
+		return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path});
 	})
 })
 
@@ -37,7 +39,20 @@ router.get('/all', aclMiddleware('/log/all', 'view'), function (req, res, next) 
 		projection.action = req.query.action;
 	}
 
-	Log.find(projection, function (err, logs) {
+	if ('object' in req.query){
+		var arr = [];
+		arr.push(req.query.object);
+		try {
+			var mgOI = mongoose.Types.ObjectId(req.query.object);
+			arr.push(mgOI)
+		}
+		catch (e){
+			console.log(e);
+		}
+		projection['obj1._id'] = {$in: arr};
+	}
+
+	Log.find(projection, {}, {sort: {time: -1}}, function (err, logs) {
 		if (err){
 			console.log(err);
 			return res.status(500).json({
@@ -45,10 +60,11 @@ router.get('/all', aclMiddleware('/log/all', 'view'), function (req, res, next) 
 				error: 'Error while reading database'
 			})
 		}
-		return res.status(200).json({
-			status: 'success',
-			logs: logs
-		})
+		// return res.status(200).json({
+		// 	status: 'success',
+		// 	logs: logs
+		// })
+		return res.render('log', {user: req.user, logs: logs, path: req.path});
 	})
 })
 

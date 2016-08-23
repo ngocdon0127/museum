@@ -14,16 +14,15 @@ var checkRequiredParams = global.myCustomVars.checkRequiredParams;
 var responseError       = global.myCustomVars.responseError;
 var responseSuccess     = global.myCustomVars.responseSuccess;
 
-var IMG_FIELDS = [
-	{name: 'hinhVe'                , animalSchemaProp: 'duLieuPhanTichMau'} ,
-	{name: 'dinhKemXuLy'           , animalSchemaProp: 'xuLyCheTac'}        ,
-	{name: 'hinhAnhDinhKem'        , animalSchemaProp: 'media.xuLyCheTac'}  ,
-	{name: 'dinhKemChayTrinhTuDNA' , animalSchemaProp: 'media.thongTinDNA'} ,
-	{name: 'dinhKemTrinhTuDNA'     , animalSchemaProp: 'media.thongTinDNA'} ,
-	{name: 'taiLieuPhanTich'       , animalSchemaProp: 'duLieuPhanTichMau'}
-];
-
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/AnimalSchemaProps.json')).toString());
+
+// File fields
+var IMG_FIELDS = PROP_FIELDS.filter(function (element) {
+	return !element.type.localeCompare('File')
+});
+
+var ACTION_CREATE = 0;
+var ACTION_EDIT = 1;
 
 module.exports = function (router) {
 
@@ -35,64 +34,110 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 	function (req, res, next) {
 		var newAnimal = new Animal();
 
-		// save props
-		PROP_FIELDS.map(function (element) {
-			// var nodes = element.animalSchemaProp.split('.');
-			// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
-			// var tree = nodes.join('.');
-			// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
-			objectChild(newAnimal, element.animalSchemaProp)[element.name] = req.body[element.name];
-		})
+		return saveOrUpdateAnimal(req, res, newAnimal, ACTION_CREATE);
+})
 
-		newAnimal.save(function (err, result) {
+router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'), 
+	upload.fields(IMG_FIELDS.reduce(function (preArray, curElement) {
+		preArray.push({name: curElement.name}); 
+		return preArray;
+	}, [])),
+	function (req, res) {
+		var missingParam = checkRequiredParams(['animalId'], req.body);
+		if (missingParam){
+			return responseError(res, 400, 'Missing animalId');  
+		}
+		Animal.findById(req.body.animalId, function (err, animal) {
 			if (err){
 				console.log(err);
-				return res.status(500).json({
-					status: 'error',
-					error: 'Error while saving to database'
-				})
+				return responseError(res, 500, "Error while reading database")
+			}
+			
+			if (animal){
+				return saveOrUpdateAnimal(req, res, animal, ACTION_EDIT);
 			}
 
-			// rename images
-			IMG_FIELDS.map(function (element) {
-				if (req.files[element.name]){
-					// var nodes = element.animalSchemaProp.split('.');
-					// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
-					// var tree = nodes.join('.');
-					// objectChild(newAnimal, tree)[lastProp] = [];
-					// rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
-					objectChild(newAnimal, element.animalSchemaProp)[element.name] = [];
-					rename(req.files[element.name], objectChild(newAnimal, element.animalSchemaProp)[element.name], UPLOAD_DEST_ANIMAL, result.id);
-				}
-			})
-
-			newAnimal.created_at = new Date();
-			newAnimal.save(function (err, r) {
-				if (err){
-					console.log(err);
-				}
-
-				var newLog = new Log();
-				newLog.action = 'create';
-				newLog.time = new Date();
-				newLog.objType = 'animal';
-				newLog.userId = req.user.id;
-				newLog.obj1 = newAnimal;
-				newLog.userFullName = req.user.fullname;
-				newLog.save();
-				res.status(200).json({
-					status: 'success'
-				})
-			});
+			else {
+				return responseError(res, 400, 'Invalid animalId')
+			}
 		})
 })
 
 router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
-	Animal.find({}, function (err, animals) {
+	Animal.find({deleted_at: {$eq: null}}, function (err, animals) {
 		if (err){
 			return responseError(res, 500, 'Error while reading database');
 		}
 		return responseSuccess(res, ['status', 'animals'], ['success', animals]);
+	})
+})
+
+router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
+	// console.log(ObjectId(req.params.animalId));
+	// console.log(req.params.animalId);
+	Animal.findById(req.params.animalId, function (err, animal) {
+		if (err){
+			return responseError(res, 500, 'Error while reading database');
+		}
+		if (animal){
+			if (animal.deleted_at){
+				Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.animalId)}}, function (err, logs) {
+					if (err || (logs.length < 1)){
+						console.log(err);
+						return responseError(res, 404, "This animal has been deleted");
+					}
+					// console.log(logs);
+					return responseError(res, 404, "This animal has been deleted by " + logs[0].userFullName);
+				})
+			}
+			else {
+				// responseSuccess(res, ['animal'], [animal]);
+				// responseSuccess(res, ['animal'], [flatAnimal(animal)]);
+				return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal)});
+			}
+		}
+		else{
+			responseError(res, 404, 'Not Found');
+		}
+	})
+})
+
+router.get('/dong-vat/log/:logId/:position', function (req, res) {
+	Log.findById(req.params.logId, function (err, log) {
+		if (err){
+			return responseError(res, 500, 'Error while reading database');
+		}
+		if (log){
+			
+			if ((log.action == 'update') && (req.params.position == 'diff')){
+				// return responseSuccess(res, ['obj1', 'obj2'], [flatAnimal(log.obj1), flatAnimal(log.obj2)]);
+				return res.render('display', {title: 'Các cập nhật', count: 2, obj1: flatAnimal(log.obj1), obj2: flatAnimal(log.obj2)});
+			}
+
+			switch (parseInt(req.params.position)){
+				case 1:
+					if ('obj1' in log){
+						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj1)])
+						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj1), obj2: {}});
+					}
+					else{
+						return responseError(res, 400, 'Invalid object')
+					}
+				case 2:
+					if (('obj2' in log) && (log.obj2)){
+						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj2)});
+						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj2)])
+					}
+					else{
+						return responseError(res, 400, 'Invalid object')
+					}
+				default:
+					return responseError(res, 400, 'Invalid object')
+			}
+		}
+		else {
+			return responseError(res, 400, 'Invalid logId')
+		}
 	})
 })
 
@@ -109,7 +154,8 @@ router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), functio
 			return responseError(res, 500, 'Error while reading database');
 		}
 		if (animal){
-			animal.deleted_at = new Date();
+			var date = new Date();
+			animal.deleted_at = date;
 			animal.save();
 			var newLog = new Log();
 			newLog.action = 'delete';
@@ -117,6 +163,7 @@ router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), functio
 			newLog.userFullName = req.user.fullname;
 			newLog.objType = 'animal';
 			newLog.obj1 = animal;
+			newLog.time = date;
 			newLog.save();
 			return responseSuccess(res, ['status'], ['success']);
 		}
@@ -164,6 +211,139 @@ function objectChild (object, tree) {
 		}
 	}
 	return object;
+}
+
+function saveOrUpdateAnimal (req, res, animal, action) {
+	var animalBeforeUpdate = {};
+	if (action == ACTION_EDIT){
+		animalBeforeUpdate = JSON.parse(JSON.stringify(animal));
+	}
+	
+	// save props
+	for (var i = 0; i < PROP_FIELDS.length; i++) {
+		var element = PROP_FIELDS[i];
+		
+		if (action == ACTION_CREATE){
+			// Check required data props if action is create
+			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
+				return responseError(res, 400, "Missing " + element.name);
+			}
+
+			// Check required files if action is create
+			if (element.required && (element.type.localeCompare('File') == 0) && !(element.name in req.files)){
+				return responseError(res, 400, "Missing " + element.name);
+			}
+		}
+
+		switch (element.type){
+			case 'String':
+				if ('min' in element){
+					if (req.body[element.name].length < element.min){
+						return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
+					}
+				}
+
+				if ('max' in element){
+					if (req.body[element.name].length > element.max){
+						return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
+					}
+				}
+				break;
+			case 'Number':
+				if ('min' in element){
+					if (parseFloat(req.body[element.name]) < element.min){
+						return responseError(res, 400, element.name + ' must not lower than ' + element.min);
+					}
+				}
+
+				if ('max' in element){
+					if (req.body[element.name].length > element.max){
+						return responseError(res, 400, element.name + ' must not higher than ' + element.max);
+					}
+				}
+				break;
+			default:
+				break;
+		}
+
+		// var nodes = element.animalSchemaProp.split('.');
+		// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
+		// var tree = nodes.join('.');
+		// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
+		if (element.name in req.body){
+			objectChild(animal, element.animalSchemaProp)[element.name] = req.body[element.name];
+		}
+	}
+
+	animal.save(function (err, result) {
+		if (err){
+			console.log(err);
+			return res.status(500).json({
+				status: 'error',
+				error: 'Error while saving to database'
+			})
+		}
+
+		// rename images
+		IMG_FIELDS.map(function (element) {
+			if (req.files && (element.name in req.files) && req.files[element.name]){
+				// var nodes = element.animalSchemaProp.split('.');
+				// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
+				// var tree = nodes.join('.');
+				// objectChild(animal, tree)[lastProp] = [];
+				// rename(req.files[element.name], objectChild(animal, element.animalSchemaProp), UPLOAD_DEST_ANIMAL, result.id);
+
+				if (action == ACTION_EDIT){
+					
+					// TODO
+					// need to delete old files.
+
+				}
+				objectChild(animal, element.animalSchemaProp)[element.name] = [];
+				rename(req.files[element.name], objectChild(animal, element.animalSchemaProp)[element.name], UPLOAD_DEST_ANIMAL, result.id);
+			}
+		})
+
+		if (action == ACTION_CREATE){
+			animal.created_at = new Date();
+		}
+		else {
+			animal.updated_at = new Date();
+		}
+		animal.save(function (err, r) {
+			if (err){
+				console.log(err);
+			}
+
+			var newLog = new Log();
+			newLog.action = (action == ACTION_CREATE) ? 'create' : 'update';
+			newLog.time = new Date();
+			newLog.objType = 'animal';
+			newLog.userId = req.user.id;
+			if (action == ACTION_CREATE){
+				newLog.obj1 = animal;
+			}
+			else {
+				newLog.obj1 = animalBeforeUpdate;
+				newLog.obj2 = animal;
+			}
+			newLog.userFullName = req.user.fullname;
+			newLog.save();
+			res.status(200).json({
+				status: 'success'
+			})
+		});
+	})
+}
+
+function flatAnimal (animal) {
+	var result = {};
+	PROP_FIELDS.map(function (element) {
+		// if (element.type.localeCompare('File')){
+			result[element.name] = objectChild(animal, element.animalSchemaProp)[element.name];
+		// }
+	});
+	return result;
 }
 
 function generate (schema) {

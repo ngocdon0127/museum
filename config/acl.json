@@ -2,7 +2,6 @@
     "57a5af51b89dbe602613affc": {
         "userId": "57a5af51b89dbe602613affc",
         "roles": [
-            "guest",
             "content",
             "admin"
         ]
@@ -15,9 +14,19 @@
     },
     "57a5b396633907cc1bdc63aa": {
         "userId": "57a5b396633907cc1bdc63aa",
+        "roles": ["content", "admin"]
+    },
+    "57b09afa9e83489828236ace": {
+        "userId": "57b09afa9e83489828236ace",
         "roles": [
-            "guest",
             "content"
+        ]
+    },
+    "57b1379b91fbad042287f181": {
+        "userId": "57b1379b91fbad042287f181",
+        "roles": [
+            "content",
+            "admin"
         ]
     }
 }

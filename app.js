@@ -24,35 +24,7 @@ require('./models/Log.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 
 
-/**
- * Init ACL
- */
-
-var acl = require('acl');
-acl = new acl(new acl.memoryBackend());
-require('./config/acl.js')(acl);
-
-function aclMiddleware (resource, action) {
-	return function (req, res, next) {
-		if (!('userId' in req.session)){
-			return res.redirect('/app');
-		}
-		acl.isAllowed(req.session.userId, resource, action, function (err, result) {
-			if (err){
-				console.log(err);
-			}
-			console.log('result: ', result);
-			if (result){
-				next();
-			}
-			else {
-				return res.redirect('/app');
-			}
-		});
-	}
-}
-
-global.myCustomVars.aclMiddleware = aclMiddleware;
+require('./init');
 
 /**
  * Use routers
@@ -62,6 +34,7 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 var angular = require('./routes/angular');
 var content = require('./routes/content');
+var log = require('./routes/log.js');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -85,6 +58,9 @@ app.use(passport.session());
 app.use(flash());
 app.use(function (req, res, next) {
 	console.log(req.session);
+	if ('user' in req){
+		console.log(req.user);
+	}
 	next();
 })
 
@@ -95,6 +71,7 @@ app.use('/users', users);
 app.use('/auth', auth);
 app.use('/app', angular);
 app.use('/content', content);
+app.use('/log', log);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

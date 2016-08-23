@@ -15,6 +15,10 @@ router.use(function (req, res, next) {
 	next();
 })
 
+router.get('/home', isLoggedIn, function (req, res) {
+	res.render('home', {user: req.user});
+})
+
 router.get('/test', aclMiddleware('/test', 'view'), function (req, res, next) {
 	res.end("hehe");
 })
@@ -33,6 +37,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 			user.id = users[i].id;
 			user.fullname = users[i].fullname;
 			user.username = users[i].username;
+			// user.email = users[i].email;
 			result.users[user.id] = user;
 		}
 		
@@ -53,12 +58,14 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 		// return res.json({
 		// 	users: result.users,
 		// 	roles: result.roles,
-		// 	aclRules: result.aclRules
+		// 	aclRules: result.aclRules,
+		// 	user: req.user
 		// })
 		res.render('config', {
 			users: result.users,
 			roles: result.roles,
-			aclRules: result.aclRules
+			aclRules: result.aclRules,
+			user: req.user
 		});
 	})
 })

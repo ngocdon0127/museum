@@ -23,8 +23,24 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 		controller: 'PaleontologicalFormCtrl'
 	})
 	.when('/dong-vat/chinh-sua/:id', {
-		templateUrl: 'edit-animal-form.template.html',
-		controller: 'EitAnimalFormCtrl'
+		templateUrl: 'views/users/edit/edit-animal-form.template.html',
+		controller: 'EditAnimalFormCtrl'
+	})
+	.when('/thuc-vat/chinh-sua/:id', {
+		templateUrl: 'views/users/edit/edit-vegetable-form.template.html',
+		controller: 'EditVegetableFormCtrl'
+	})
+	.when('/co-sinh/chinh-sua/:id', {
+		templateUrl: 'views/users/edit/edit-paleontological-form.template.html',
+		controller: 'EditPaleontologicalFormCtrl'
+	})
+	.when('/tho-nhuong/chinh-sua/:id', {
+		templateUrl: 'views/users/edit/edit-land-form.template.html',
+		controller: 'EditLandFormCtrl'
+	})
+	.when('/dia-chat/chinh-sua/:id', {
+		templateUrl: 'views/users/edit/edit-geological-form.template.html',
+		controller: 'EditGeologicalFormCtrl'
 	})
 	.otherwise({ redirectTo: '/dong-vat' })
 }]);

@@ -1,5 +1,8 @@
 module.exports = function (mongoose) {
 	var schemaPrototype = {
+		created_at: Date,
+		updated_at: Date,
+		deleted_at: Date,
 		soHieu: {
 			maBaoTang: String,
 			soHieuBaoTangCS: String,
@@ -103,7 +106,7 @@ module.exports = function (mongoose) {
 			ngayNhapMau: Date,
 			nguoiGiao: String,
 			nguoiNhan: String,
-			tinhTrangMau: String,
+			tinhTrangMauBaoQuan: String,
 			traoDoiMau: String,
 			vayMuon: String,
 			hienTang: String,

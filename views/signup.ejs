@@ -16,7 +16,7 @@
 				<h1>Sign up</h1>
 			</div>
 			<div class="col-sm-12">
-				<form class="form" name="form" method="post">
+				<form class="form" name="form" method="post" onsubmit="handleRegister()">
 					<div class="form-group" >
 						<label>Full Name</label><input name="fullname" class="form-control" required="">
 					</div>
@@ -27,8 +27,8 @@
 						<label>Password</label><input type="password" name="password" id="password" class="form-control">
 					</div>
 					<div>
-						<button class="btn btn-inverse btn-lg btn-login" type="button" onclick="handleRegister()">Sign up</button><a class="btn btn-default btn-lg btn-register" href="/auth/login">Login</a>
-						<button class="btn btn-inverse btn-lg btn-login" type="submit" id="btnSubmit" style="display: none;">Sign up</button>
+						<button class="btn btn-inverse btn-lg btn-login" type="submit" id="btnSubmit">Sign up</button>
+						<a class="btn btn-default btn-lg btn-register" href="/auth/login">Login</a>
 					</div>
 					<hr>
 					<% if (message) { %>
@@ -49,7 +49,7 @@
 								i++;
 							}
 							ob('password').value = plainPass;
-							$('#btnSubmit').click();
+							// $('#btnSubmit').click();
 						}
 					</script>
 				</form>

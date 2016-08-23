@@ -4,6 +4,7 @@
 		<title>Config</title>
 	<% include header %>
 	</head>
+	<% include nav %>
 	<body>
 		<div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
@@ -18,7 +19,8 @@
 									<form action="/config" id="<%= i %>" method="post" >
 										<div class="row">
 											<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-												<%= users[i].fullname %>
+												<h4><%= users[i].fullname %></h4>
+												<h5 class="text-info">(<%= users[i].username %>)</h5>
 												<input type="hidden" value="<%= i %>" name="userid" />
 											</div>
 											<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">

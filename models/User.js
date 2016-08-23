@@ -4,8 +4,7 @@ module.exports = function (mongoose) {
 	var userSchema = mongoose.Schema({
 		username: String,
 		password: String,
-		fullname: String,
-		permission: Number
+		fullname: String
 	});
 	
 	userSchema.methods.hashPassword = function (plainPassword) {

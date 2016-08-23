@@ -16,6 +16,14 @@
 			{
 				"resource": "/test",
 				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/app",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/dong-vat",
+				"actions": ["view", "create", "edit", "delete"]
 			}
 		]
 	},
@@ -26,6 +34,14 @@
 			{
 				"resource": "/config",
 				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/app",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/log/all",
+				"actions": ["view"]
 			}
 		]
 	}

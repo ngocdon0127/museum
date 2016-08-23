@@ -1,342 +1,427 @@
 [
 	{
 		"name": "maBaoTang",
-		"animalSchemaProp": "soHieu.maBaoTang"
+		"animalSchemaProp": "soHieu",
+		"required": false
 	},
 	{
 		"name": "soHieuBaoTangCS",
-		"animalSchemaProp": "soHieu.soHieuBaoTangCS"
+		"animalSchemaProp": "soHieu",
+		"required": false
 	},
 	{
 		"name": "maKyHieuMauVatQuocTe",
-		"animalSchemaProp": "soHieu.maKyHieuMauVatQuocTe"
+		"animalSchemaProp": "soHieu",
+		"required": false
 	},
 	{
 		"name": "soHieuThucDia",
-		"animalSchemaProp": "soHieu.soHieuThucDia"
+		"animalSchemaProp": "soHieu",
+		"required": false
 	},
 	{
 		"name": "soHieuBTTNVN",
-		"animalSchemaProp": "soHieu.soHieuBTTNVN"
+		"animalSchemaProp": "soHieu",
+		"required": false
 	},
 	{
 		"name": "kyHieuMauVatKhac",
-		"animalSchemaProp": "soHieu.kyHieuMauVatKhac"
+		"animalSchemaProp": "soHieu",
+		"required": false
 	},
 	{
 		"name": "tenVietNam",
-		"animalSchemaProp": "tenMau.tenVietNam"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "tenTiengAnh",
-		"animalSchemaProp": "tenMau.tenTiengAnh"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "tenKhoaHoc",
-		"animalSchemaProp": "tenMau.tenKhoaHoc"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "tenDiaPhuong",
-		"animalSchemaProp": "tenMau.tenDiaPhuong"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "tenDongNghia",
-		"animalSchemaProp": "tenMau.tenDongNghia"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "gioi",
-		"animalSchemaProp": "tenMau.gioi"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "nganh",
-		"animalSchemaProp": "tenMau.nganh"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "lop",
-		"animalSchemaProp": "tenMau.lop"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "phanLop",
-		"animalSchemaProp": "tenMau.phanLop"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "bo",
-		"animalSchemaProp": "tenMau.bo"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "phanBo",
-		"animalSchemaProp": "tenMau.phanBo"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "lienHo",
-		"animalSchemaProp": "tenMau.lienHo"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "ho",
-		"animalSchemaProp": "tenMau.ho"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "phanHo",
-		"animalSchemaProp": "tenMau.phanHo"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "toc",
-		"animalSchemaProp": "tenMau.toc"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "giong",
-		"animalSchemaProp": "tenMau.giong"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "loai",
-		"animalSchemaProp": "tenMau.loai"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "duoiLoai",
-		"animalSchemaProp": "tenMau.duoiLoai"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "nguoiDinhTen",
-		"animalSchemaProp": "tenMau.nguoiDinhTen"
+		"animalSchemaProp": "tenMau",
+		"required": false
 	},
 	{
 		"name": "soLuongMauVat",
-		"animalSchemaProp": "soLuongChatLuong.soLuongMauVat"
+		"animalSchemaProp": "soLuongChatLuong",
+		"required": false
 	},
 	{
 		"name": "soLuongTieuBan",
-		"animalSchemaProp": "soLuongChatLuong.soLuongTieuBan"
+		"animalSchemaProp": "soLuongChatLuong",
+		"required": false
 	},
 	{
 		"name": "kichThuocMau",
-		"animalSchemaProp": "soLuongChatLuong.kichThuocMau"
+		"animalSchemaProp": "soLuongChatLuong",
+		"required": false
 	},
 	{
 		"name": "loaiMau",
-		"animalSchemaProp": "soLuongChatLuong.loaiMau"
+		"animalSchemaProp": "soLuongChatLuong",
+		"required": false
 	},
 	{
 		"name": "tinhTrangMau",
-		"animalSchemaProp": "soLuongChatLuong.tinhTrangMau"
+		"animalSchemaProp": "soLuongChatLuong",
+		"required": false
 	},
 	{
 		"name": "thoigianThuMau",
-		"animalSchemaProp": "duLieuThuMau.thoigianThuMau"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "nguoiThuMau",
-		"animalSchemaProp": "duLieuThuMau.nguoiThuMau"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "phuongPhapThuMau",
-		"animalSchemaProp": "duLieuThuMau.phuongPhapThuMau"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "quocGia",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau.quocGia"
+		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"required": false
 	},
 	{
 		"name": "tinh",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau.tinh"
+		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"required": false
 	},
 	{
 		"name": "huyen",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau.huyen"
+		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"required": false
 	},
 	{
 		"name": "xa",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau.xa"
+		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"required": false
 	},
 	{
 		"name": "thon",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau.thon"
+		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"required": false
 	},
 	{
 		"name": "viDo",
-		"animalSchemaProp": "duLieuThuMau.viTriToaDo.viDo"
+		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
+		"required": false
 	},
 	{
 		"name": "kinhDo",
-		"animalSchemaProp": "duLieuThuMau.viTriToaDo.kinhDo"
+		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
+		"required": false
 	},
 	{
 		"name": "doCao",
-		"animalSchemaProp": "duLieuThuMau.doCao"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "doSau",
-		"animalSchemaProp": "duLieuThuMau.doSau"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "vungBien",
-		"animalSchemaProp": "duLieuThuMau.vungBien"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "sinhHoc",
-		"animalSchemaProp": "duLieuThuMau.sinhHoc"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "thongTinDuAn",
-		"animalSchemaProp": "duLieuThuMau.thongTinDuAn"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "ghiChepThucDia",
-		"animalSchemaProp": "duLieuThuMau.ghiChepThucDia"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "banDo",
-		"animalSchemaProp": "duLieuThuMau.banDo"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "ghiChu",
-		"animalSchemaProp": "duLieuThuMau.ghiChu"
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false
 	},
 	{
 		"name": "thoiGianPhanTich",
-		"animalSchemaProp": "duLieuPhanTichMau.thoiGianPhanTich"
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false
 	},
 	{
 		"name": "nguoiPhanTich",
-		"animalSchemaProp": "duLieuPhanTichMau.nguoiPhanTich"
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false
 	},
 	{
 		"name": "coQuanToChucPhanTich",
-		"animalSchemaProp": "duLieuPhanTichMau.coQuanToChucPhanTich"
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false
 	},
 	{
 		"name": "taiLieuPhanTich",
-		"animalSchemaProp": "duLieuPhanTichMau.taiLieuPhanTich"
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false
 	},
 	{
 		"name": "moTaHinhThai",
-		"animalSchemaProp": "duLieuPhanTichMau.moTaHinhThai"
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false
 	},
 	{
 		"name": "hinhVe",
-		"animalSchemaProp": "duLieuPhanTichMau.hinhVe"
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false
 	},
 	{
 		"name": "phanBoVietNam",
-		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy.phanBoVietNam"
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": false
 	},
 	{
 		"name": "phanBoTrenTheGioi",
-		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy.phanBoTrenTheGioi"
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": false
 	},
 	{
 		"name": "giaTriSuDung",
-		"animalSchemaProp": "phanBoVaSuDung.giaTriSuDung"
+		"animalSchemaProp": "phanBoVaSuDung",
+		"required": false
 	},
 	{
 		"name": "thuocTinhXuLy",
-		"animalSchemaProp": "media.xuLyCheTac.thuocTinhXuLy"
+		"animalSchemaProp": "media.xuLyCheTac",
+		"required": false
 	},
 	{
 		"name": "phuongThucXuLy",
-		"animalSchemaProp": "media.xuLyCheTac.phuongThucXuLy"
+		"animalSchemaProp": "media.xuLyCheTac",
+		"required": false
 	},
 	{
 		"name": "coQuanXuLy",
-		"animalSchemaProp": "media.xuLyCheTac.coQuanXuLy"
+		"animalSchemaProp": "media.xuLyCheTac",
+		"required": false
 	},
 	{
 		"name": "nguoiXuLy",
-		"animalSchemaProp": "media.xuLyCheTac.nguoiXuLy"
+		"animalSchemaProp": "media.xuLyCheTac",
+		"required": false
 	},
 	{
 		"name": "dinhKemXuLy",
-		"animalSchemaProp": "media.xuLyCheTac.dinhKemXuLy"
+		"animalSchemaProp": "media.xuLyCheTac",
+		"required": false
 	},
 	{
 		"name": "hinhAnhDinhKem",
-		"animalSchemaProp": "media.xuLyCheTac.hinhAnhDinhKem"
+		"animalSchemaProp": "media.xuLyCheTac",
+		"required": false
 	},
 	{
 		"name": "anhMauSauCheTac",
-		"animalSchemaProp": "media.xuLyCheTac.anhMauSauCheTac"
+		"animalSchemaProp": "media.xuLyCheTac",
+		"required": false
 	},
 	{
 		"name": "viTriLayMauDNA",
-		"animalSchemaProp": "media.thongTinDNA.viTriLayMauDNA"
+		"animalSchemaProp": "media.thongTinDNA",
+		"required": false
 	},
 	{
 		"name": "mauDNA",
-		"animalSchemaProp": "media.thongTinDNA.mauDNA"
+		"animalSchemaProp": "media.thongTinDNA",
+		"required": false
 	},
 	{
 		"name": "dinhKemChayTrinhTuDNA",
-		"animalSchemaProp": "media.thongTinDNA.dinhKemChayTrinhTuDNA"
+		"animalSchemaProp": "media.thongTinDNA",
+		"required": false
 	},
 	{
 		"name": "trichDanTrinhTuDNA",
-		"animalSchemaProp": "media.thongTinDNA.trichDanTrinhTuDNA"
+		"animalSchemaProp": "media.thongTinDNA",
+		"required": false
 	},
 	{
 		"name": "trinhTuDNA",
-		"animalSchemaProp": "media.thongTinDNA.trinhTuDNA"
+		"animalSchemaProp": "media.thongTinDNA",
+		"required": false
 	},
 	{
 		"name": "dinhKemTrinhTuDNA",
-		"animalSchemaProp": "media.thongTinDNA.dinhKemTrinhTuDNA"
+		"animalSchemaProp": "media.thongTinDNA",
+		"required": false
 	},
 	{
 		"name": "congBoQuocTe",
-		"animalSchemaProp": "media.thongTinDNA.congBoQuocTe"
+		"animalSchemaProp": "media.thongTinDNA",
+		"required": false
 	},
 	{
 		"name": "coQuanNhapVatMau",
-		"animalSchemaProp": "luuTruBaoQuan.coQuanNhapVatMau"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "ngayNhapMau",
-		"animalSchemaProp": "luuTruBaoQuan.ngayNhapMau"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "nguoiGiao",
-		"animalSchemaProp": "luuTruBaoQuan.nguoiGiao"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "nguoiNhan",
-		"animalSchemaProp": "luuTruBaoQuan.nguoiNhan"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
-		"name": "tinhTrangMau",
-		"animalSchemaProp": "luuTruBaoQuan.tinhTrangMau"
+		"name": "tinhTrangMauBaoQuan",
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "traoDoiMau",
-		"animalSchemaProp": "luuTruBaoQuan.traoDoiMau"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "vayMuon",
-		"animalSchemaProp": "luuTruBaoQuan.vayMuon"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "hienTang",
-		"animalSchemaProp": "luuTruBaoQuan.hienTang"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "nguoiLapPhieuMauVat",
-		"animalSchemaProp": "luuTruBaoQuan.nguoiLapPhieuMauVat"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "nguoiLapVaoPhanMem",
-		"animalSchemaProp": "luuTruBaoQuan.nguoiLapVaoPhanMem"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "hinhThucNhapMau",
-		"animalSchemaProp": "luuTruBaoQuan.hinhThucNhapMau"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "giayPhepNhapMau",
-		"animalSchemaProp": "luuTruBaoQuan.giayPhepNhapMau"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "khuLuuTruMau",
-		"animalSchemaProp": "luuTruBaoQuan.khuLuuTruMau"
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false
 	},
 	{
 		"name": "thongTinKhac",
-		"animalSchemaProp": "thongTinKhac.thongTinKhac"
+		"animalSchemaProp": "thongTinKhac",
+		"required": false
 	}
 ]

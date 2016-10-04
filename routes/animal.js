@@ -247,6 +247,10 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 						return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
 					}
 				}
+				var regex = new RegExp(element.regex);
+				if (regex.test(req.body[element.name]) === false){
+					return responseError(res, 400, element.name + ' is in wrong format.');
+				}
 				break;
 			case 'Number':
 				if ('min' in element){

@@ -12,7 +12,7 @@ module.exports = function (acl) {
 		}
 	}
 
-	// asign users to roles
+	// assign users to roles
 	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, 'acl.json')).toString());
 	for (var i in aclRules) {
 		var rule = aclRules[i];

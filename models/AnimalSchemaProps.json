@@ -1,11 +1,5 @@
 [
 	{
-		"name": "maBaoTang",
-		"animalSchemaProp": "soHieu",
-		"required": false,
-		"type": "String"
-	},
-	{
 		"name": "soHieuBaoTangCS",
 		"animalSchemaProp": "soHieu",
 		"required": true,
@@ -52,13 +46,19 @@
 		"type": "String"
 	},
 	{
-		"name": "tenKhoaHoc",
+		"name": "tenTheoBaoTang",
 		"animalSchemaProp": "tenMau",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
-		"name": "tenDiaPhuong",
+		"name": "tenTheoQuocTe",
+		"animalSchemaProp": "tenMau",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "tenKhoaHoc",
 		"animalSchemaProp": "tenMau",
 		"required": false,
 		"type": "String"
@@ -183,7 +183,7 @@
 		"name": "kichThuocMau",
 		"animalSchemaProp": "soLuongChatLuong",
 		"required": true,
-		"type": "Number"
+		"type": "String"
 	},
 	{
 		"name": "loaiMau",
@@ -216,30 +216,37 @@
 		"type": "String"
 	},
 	{
+		"name": "coQuanThuMau",
+		"animalSchemaProp": "duLieuThuMau",
+		"required": false,
+		"type": "String",
+		"autoCompletion": true
+	},
+	{
 		"name": "quocGia",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
-		"required": false,
+		"required": true,
 		"type": "String",
 		"autoCompletion": true
 	},
 	{
 		"name": "tinh",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
-		"required": false,
+		"required": true,
 		"type": "String",
 		"autoCompletion": true
 	},
 	{
 		"name": "huyen",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
-		"required": false,
+		"required": true,
 		"type": "String",
 		"autoCompletion": true
 	},
 	{
 		"name": "xa",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
-		"required": false,
+		"required": true,
 		"type": "String",
 		"autoCompletion": true
 	},
@@ -253,13 +260,13 @@
 	{
 		"name": "viDo",
 		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "kinhDo",
 		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -302,13 +309,7 @@
 		"name": "banDo",
 		"animalSchemaProp": "duLieuThuMau",
 		"required": false,
-		"type": "String"
-	},
-	{
-		"name": "ghiChu",
-		"animalSchemaProp": "duLieuThuMau",
-		"required": false,
-		"type": "String"
+		"type": "File"
 	},
 	{
 		"name": "thoiGianPhanTich",
@@ -326,7 +327,8 @@
 		"name": "coQuanToChucPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "taiLieuPhanTich",
@@ -349,22 +351,25 @@
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
-		"name": "phanBoVietNam",
-		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
-		"required": false,
-		"type": "String"
+		"name": "anhMauVat",
+		"animalSchemaProp": "media",
+		"required": true,
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
-		"name": "phanBoTrenTheGioi",
-		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"name": "anhNgoaiThucDia",
+		"animalSchemaProp": "media",
 		"required": false,
-		"type": "String"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
-		"name": "giaTriSuDung",
-		"animalSchemaProp": "phanBoVaSuDung",
+		"name": "video",
+		"animalSchemaProp": "media",
 		"required": false,
-		"type": "String"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
 		"name": "thuocTinhXuLy",
@@ -411,34 +416,25 @@
 		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
 	},
 	{
-		"name": "viTriLayMauDNA",
+		"name": "boPhanLayMauDNA",
 		"animalSchemaProp": "media.thongTinDNA",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
-		"name": "mauDNA",
+		"name": "vungGenPhanTich",
 		"animalSchemaProp": "media.thongTinDNA",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
-		"name": "dinhKemChayTrinhTuDNA",
+		"name": "trangThaiGiuMauDNA",
 		"animalSchemaProp": "media.thongTinDNA",
 		"required": false,
-		"type": "File"
-	},
-	{
-		"name": "trichDanTrinhTuDNA",
-		"animalSchemaProp": "media.thongTinDNA",
-		"required": false,
-		"type": "String"
-	},
-	{
-		"name": "trinhTuDNA",
-		"animalSchemaProp": "media.thongTinDNA",
-		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "dinhKemTrinhTuDNA",
@@ -453,10 +449,29 @@
 		"type": "String"
 	},
 	{
+		"name": "phanBoVietNam",
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": true,
+		"type": "String"
+	},
+	{
+		"name": "phanBoTrenTheGioi",
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "giaTriSuDung",
+		"animalSchemaProp": "phanBoVaSuDung",
+		"required": false,
+		"type": "String"
+	},
+	{
 		"name": "coQuanNhapVatMau",
 		"animalSchemaProp": "luuTruBaoQuan",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "ngayNhapMau",
@@ -477,12 +492,6 @@
 		"type": "String"
 	},
 	{
-		"name": "tinhTrangMauBaoQuan",
-		"animalSchemaProp": "luuTruBaoQuan",
-		"required": true,
-		"type": "String"
-	},
-	{
 		"name": "traoDoiMau",
 		"animalSchemaProp": "luuTruBaoQuan",
 		"required": false,
@@ -495,19 +504,13 @@
 		"type": "String"
 	},
 	{
-		"name": "hienTang",
+		"name": "nguoiNhapPhieuMauVat",
 		"animalSchemaProp": "luuTruBaoQuan",
-		"required": false,
+		"required": true,
 		"type": "String"
 	},
 	{
-		"name": "nguoiLapPhieuMauVat",
-		"animalSchemaProp": "luuTruBaoQuan",
-		"required": false,
-		"type": "String"
-	},
-	{
-		"name": "nguoiLapVaoPhanMem",
+		"name": "nguoiNhapVaoPhanMem",
 		"animalSchemaProp": "luuTruBaoQuan",
 		"required": false,
 		"type": "String"
@@ -522,10 +525,24 @@
 		"name": "giayPhepNhapMau",
 		"animalSchemaProp": "luuTruBaoQuan",
 		"required": false,
-		"type": "String"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+	},
+	{
+		"name": "hoSoNhapMauVatDiKem",
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false,
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "khuLuuTruMau",
+		"animalSchemaProp": "luuTruBaoQuan",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "noiLuuTruMau",
 		"animalSchemaProp": "luuTruBaoQuan",
 		"required": false,
 		"type": "String"

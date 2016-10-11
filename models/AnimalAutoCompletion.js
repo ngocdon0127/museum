@@ -14,6 +14,17 @@ module.exports = function (mongoose) {
 		giong: [String],
 		loai: [String],
 		duoiLoai: [String],
+		coQuanThuMau: [String],
+		quocGia: [String],
+		tinh: [String],
+		huyen: [String],
+		xa: [String],
+		thon: [String],
+		coQuanToChucPhanTich: [String],
+		coQuanXuLy: [String],
+		boPhanLayMauDNA: [String],
+		trangThaiGiuMauDNA: [String],
+		coQuanNhapVatMau: [String]
 	};
 	var animalAutoCompletion = mongoose.Schema(schemaPrototype);
 

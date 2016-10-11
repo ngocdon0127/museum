@@ -4,7 +4,6 @@ module.exports = function (mongoose) {
 		updated_at: Date,
 		deleted_at: Date,
 		soHieu: {
-			maBaoTang: String,
 			soHieuBaoTangCS: String,
 			maKyHieuMauVatQuocTe: String,
 			soHieuThucDia: String,
@@ -14,8 +13,9 @@ module.exports = function (mongoose) {
 		tenMau: {
 			tenVietNam: String,
 			tenTiengAnh: String,
+			tenTheoBaoTang: String,
+			tenTheoQuocTe: String,
 			tenKhoaHoc: String,
-			tenDiaPhuong: String,
 			tenDongNghia: String,
 			gioi: String,
 			nganh: String,
@@ -35,7 +35,7 @@ module.exports = function (mongoose) {
 		soLuongChatLuong: {
 			soLuongMauVat: Number,
 			soLuongTieuBan: Number,
-			kichThuocMau: Number,
+			kichThuocMau: String,
 			loaiMau: String,
 			tinhTrangMau: String
 		},
@@ -43,6 +43,7 @@ module.exports = function (mongoose) {
 			thoigianThuMau: Date,
 			nguoiThuMau: String,
 			phuongPhapThuMau: String,
+			coQuanThuMau: String,
 			diaDiemThuMau: {
 				quocGia: String,
 				tinh: String,
@@ -60,8 +61,7 @@ module.exports = function (mongoose) {
 			sinhHoc: String,
 			thongTinDuAn: String,
 			ghiChepThucDia: String,
-			banDo: String,
-			ghiChu: String
+			banDo: String
 		},
 		duLieuPhanTichMau: {
 			thoiGianPhanTich: Date,
@@ -72,15 +72,10 @@ module.exports = function (mongoose) {
 			hinhVe: [String],
 		},
 		
-		phanBoVaSuDung: {
-			phanBoDiaLy: {
-				phanBoVietNam: String,
-				phanBoTrenTheGioi: String
-			},
-			giaTriSuDung: String
-		},
-		
 		media: {
+			anhMauVat: [String],
+			anhNgoaiThucDia: [String],
+			video: [String],
 			xuLyCheTac: {
 				thuocTinhXuLy: String,
 				phuongThucXuLy: String,
@@ -88,17 +83,23 @@ module.exports = function (mongoose) {
 				nguoiXuLy: String,
 				dinhKemXuLy: [String],
 				hinhAnhDinhKem: [String],
-				anhMauSauCheTac: String
+				anhMauSauCheTac: [String]
 			},
 			thongTinDNA: {
-				viTriLayMauDNA: String,
-				mauDNA: String,
-				dinhKemChayTrinhTuDNA: [String],
-				trichDanTrinhTuDNA: String,
-				trinhTuDNA: String,
+				boPhanLayMauDNA: String,
+				trangThaiGiuMauDNA: String,
+				vungGenPhanTich: String,
 				dinhKemTrinhTuDNA: [String],
 				congBoQuocTe: String
 			}
+		},
+
+		phanBoVaSuDung: {
+			phanBoDiaLy: {
+				phanBoVietNam: String,
+				phanBoTrenTheGioi: String
+			},
+			giaTriSuDung: String
 		},
 
 		luuTruBaoQuan: {
@@ -106,15 +107,15 @@ module.exports = function (mongoose) {
 			ngayNhapMau: Date,
 			nguoiGiao: String,
 			nguoiNhan: String,
-			tinhTrangMauBaoQuan: String,
 			traoDoiMau: String,
 			vayMuon: String,
-			hienTang: String,
-			nguoiLapPhieuMauVat: String,
-			nguoiLapVaoPhanMem: String,
+			nguoiNhapPhieuMauVat: String,
+			nguoiNhapVaoPhanMem: String,
 			hinhThucNhapMau: String,
-			giayPhepNhapMau: String,
-			khuLuuTruMau: String
+			giayPhepNhapMau: [String],
+			hoSoNhapMauVatDiKem: [String],
+			khuLuuTruMau: String,
+			noiLuuTruMau: String
 		},
 		
 		thongTinKhac: {

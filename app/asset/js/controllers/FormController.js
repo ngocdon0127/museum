@@ -1,5 +1,18 @@
-app.controller('AnimalFormCtrl', ['$scope','$http', function ($scope, $http) {
+app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+	var url = AuthService.hostName;
+	console.log(url);
+	$http.get(AuthService.hostName).then(function(res) {
+		$scope.data = res;
+		console.log(data);
+		console.log("Hola");
+	}, function (err) {
+		console.log(err);
+	});
 
+	// $scope.tenDongNghia = ['Hola', 'Don', 'Toan', 'DINH', 'Dang', 'Dn'];
+	$("#tenDongNghia").autocomplete({
+		source : $scope.data.tenDongNghia
+	});
 	$scope.addPost = function(){
 		var fd = new FormData(document.getElementById('form-animal'));
 		$.ajax({

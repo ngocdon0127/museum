@@ -81,73 +81,85 @@
 		"name": "nganh",
 		"animalSchemaProp": "tenMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "lop",
 		"animalSchemaProp": "tenMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "phanLop",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "bo",
 		"animalSchemaProp": "tenMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "phanBo",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "lienHo",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "ho",
 		"animalSchemaProp": "tenMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "phanHo",
 		"animalSchemaProp": "tenMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "toc",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "giong",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "loai",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "duoiLoai",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "nguoiDinhTen",
@@ -207,31 +219,36 @@
 		"name": "quocGia",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "tinh",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "huyen",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "xa",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "thon",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "viDo",

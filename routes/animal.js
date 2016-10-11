@@ -115,8 +115,8 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 			}
 			else {
 				// responseSuccess(res, ['animal'], [animal]);
-				// responseSuccess(res, ['animal'], [flatAnimal(animal)]);
-				return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal)});
+				responseSuccess(res, ['animal'], [flatAnimal(animal)]);
+				// return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal)});
 			}
 		}
 		else{
@@ -308,9 +308,6 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 				function createAutoCompletionCallback(name, value) {
 					return function (err, autoCompletion) {
 						if (!err){
-							console.log(autoCompletion);
-							console.log(name);
-							console.log(autoCompletion[name]);
 							if (autoCompletion){
 								// Update
 								if (autoCompletion[name].indexOf(value) < 0){

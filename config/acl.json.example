@@ -15,6 +15,7 @@
     "57a5b396633907cc1bdc63aa": {
         "userId": "57a5b396633907cc1bdc63aa",
         "roles": [
+            "content",
             "admin"
         ]
     },

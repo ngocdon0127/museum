@@ -1,7 +1,7 @@
 app.factory('AuthService', ['$http', function($http){
 	
 	return ({
-		hostName : 'http://192.168.1.47:8000/content/dong-vat/auto'
+		hostName : 'http://localhost:8000/content/dong-vat/auto'
 	});
 }]);
 

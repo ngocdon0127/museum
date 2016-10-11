@@ -1,18 +1,45 @@
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
-	var url = AuthService.hostName;
-	console.log(url);
+
+	function autoCom(str) {
+		$("#"+str).autocomplete({
+			source : $scope.data[str]
+		})
+	};
+	var arrAuto = [
+	'tenDongNghia','gioi',
+	'nganh', 'lop', 
+	'phanLop', 
+	'bo', 
+	'phanBo', 
+	'lienHo',
+	'ho',
+	'phanHo',
+	'toc', 
+	'giong', 
+	'loai', 
+	'duoiLoai', 
+	'coQuanThuMau', 
+	'quocGia', 'tinh', 
+	'huyen', 'xa', 'thon', 
+	'coQuanToChucPhanTich', 
+	'coQuanXuLy'
+	,'boPhanLayMauDNA', 
+	'trangThaiGiuMauDNA',
+	'coQuanNhapVatMau'];
+
 	$http.get(AuthService.hostName).then(function(res) {
-		$scope.data = res;
-		console.log(data);
-		console.log("Hola");
+		$scope.data = res.data;
+		console.log($scope.data);
+		arrAuto.forEach(function (val) {
+			autoCom(val);
+		})
 	}, function (err) {
 		console.log(err);
 	});
 
+
 	// $scope.tenDongNghia = ['Hola', 'Don', 'Toan', 'DINH', 'Dang', 'Dn'];
-	$("#tenDongNghia").autocomplete({
-		source : $scope.data.tenDongNghia
-	});
+	
 	$scope.addPost = function(){
 		var fd = new FormData(document.getElementById('form-animal'));
 		$.ajax({

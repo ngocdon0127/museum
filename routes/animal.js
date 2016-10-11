@@ -1,12 +1,13 @@
-var multer             = require('multer');
-var fs                 = require('fs');
-var path               = require('path');
-var UPLOAD_DEST_ANIMAL = 'public/uploads/animal';
-var upload             = multer({dest: UPLOAD_DEST_ANIMAL});
-var mongoose           = require('mongoose');
-var Animal             = mongoose.model('Animal');
-var User               = mongoose.model('User');
-var Log                = mongoose.model('Log');
+var multer               = require('multer');
+var fs                   = require('fs');
+var path                 = require('path');
+var UPLOAD_DEST_ANIMAL   = 'public/uploads/animal';
+var upload               = multer({dest: UPLOAD_DEST_ANIMAL});
+var mongoose             = require('mongoose');
+var Animal               = mongoose.model('Animal');
+var AnimalAutoCompletion = mongoose.model('AnimalAutoCompletion');
+var User                 = mongoose.model('User');
+var Log                  = mongoose.model('Log');
 
 // Get shared functions
 var aclMiddleware       = global.myCustomVars.aclMiddleware;
@@ -69,6 +70,28 @@ router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (re
 			return responseError(res, 500, 'Error while reading database');
 		}
 		return responseSuccess(res, ['status', 'animals'], ['success', animals]);
+	})
+})
+
+router.get('/dong-vat/auto', aclMiddleware('/content/dong-vat', 'create'), function (req, res) {
+	// console.log(Object.keys(AnimalAutoCompletion.schema.paths));
+
+	AnimalAutoCompletion.findOne({}, function (err, autoCompletion) {
+		if (err){
+			return responseError(res, 500, "Error while reading AutoCompletion data.");
+		}
+		else{
+			var props = [];
+			var values = [];
+			for (var prop in AnimalAutoCompletion.schema.paths){
+				// console.log((prop + " : " + prop.localeCompare('_id')));
+				if ((prop.localeCompare('_id') != 0) && (prop.localeCompare('__v') != 0)){
+					props.push(prop);
+					values.push(autoCompletion[prop]);
+				}
+			}
+			return responseSuccess(res, props, values);
+		}
 	})
 })
 
@@ -236,19 +259,20 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 
 		switch (element.type){
 			case 'String':
+				var value = req.body[element.name].trim();
 				if ('min' in element){
-					if (req.body[element.name].length < element.min){
+					if (value.length < element.min){
 						return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
 					}
 				}
 
 				if ('max' in element){
-					if (req.body[element.name].length > element.max){
+					if (value.length > element.max){
 						return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
 					}
 				}
 				var regex = new RegExp(element.regex);
-				if (regex.test(req.body[element.name]) === false){
+				if (regex.test(value) === false){
 					return responseError(res, 400, element.name + ' is in wrong format.');
 				}
 				break;
@@ -274,7 +298,36 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 		// var tree = nodes.join('.');
 		// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
 		if (element.name in req.body){
-			objectChild(animal, element.animalSchemaProp)[element.name] = req.body[element.name];
+			objectChild(animal, element.animalSchemaProp)[element.name] = req.body[element.name].trim();
+
+			// Update Auto Completion
+			if (('autoCompletion' in element) && (element.autoCompletion)){
+
+				AnimalAutoCompletion.findOne({}, createAutoCompletionCallback(element.name, req.body[element.name].trim()));
+
+				function createAutoCompletionCallback(name, value) {
+					return function (err, autoCompletion) {
+						if (!err){
+							console.log(autoCompletion);
+							console.log(name);
+							console.log(autoCompletion[name]);
+							if (autoCompletion){
+								// Update
+								if (autoCompletion[name].indexOf(value) < 0){
+									autoCompletion[name].push(value);
+									autoCompletion.save();
+								}
+							}
+							else{
+								// Create new documents in AutoCompletion
+								autoCompletion = new AnimalAutoCompletion();
+								autoCompletion[name] = [value];
+								autoCompletion.save();
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -334,7 +387,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			newLog.save();
 			res.status(200).json({
 				status: 'success'
-			})
+			});
 		});
 	})
 }

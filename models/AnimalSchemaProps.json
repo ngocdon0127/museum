@@ -67,13 +67,15 @@
 		"name": "tenDongNghia",
 		"animalSchemaProp": "tenMau",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "gioi",
 		"animalSchemaProp": "tenMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "nganh",
@@ -388,7 +390,7 @@
 		"name": "anhMauSauCheTac",
 		"animalSchemaProp": "media.xuLyCheTac",
 		"required": false,
-		"type": "String",
+		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
 	},
 	{

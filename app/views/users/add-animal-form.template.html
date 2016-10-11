@@ -1,5 +1,5 @@
 <div class="container map-detail" style="margin-top: 50px;">
-	<form id="form-animal">
+	<form id="form-animal" name="FormAnimal">
 		<center><h2>Cơ sở dữ liệu mẫu động vật</h2></center>
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
@@ -257,7 +257,7 @@
 			</tr>
 			<tr>
 				<td><label>Tài liệu phân tích/giám định/phân loại đi kèm (*):</label></td>
-				<td><input type="file" multiple name="taiLieuPhanTich" class="input-form"  value="" required></td>
+				<td><input type="file" multiple name="taiLieuPhanTich" accept=".doc, .docx, .pdf" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
@@ -265,7 +265,7 @@
 			</tr>
 			<tr>
 				<td><label>Hình vẽ:</label></td>
-				<td><input type="file" multiple name="hinhVe" class="input-form"  value=""></td>
+				<td><input type="file" multiple name="hinhVe" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf"  value=""></td>
 			</tr>
 		</table>
 
@@ -273,7 +273,7 @@
 			<h3 class="h3-title">6. NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
 			<tr>
 				<td><label>Ảnh mẫu vật(*):</label></td>
-				<td><input type="file" multiple name="loaiHinhNguonGoc" class="input-form"  value="" required></td>
+				<td><input type="file" multiple name="loaiHinhNguonGoc" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Hình ảnh mẫu ngoài thực địa:</label></td>
@@ -288,7 +288,7 @@
 								<input type="text" name = "thongTinThemVePhim" class="input-form" placeholder="Thông tin thêm về phim">
 							</td>
 							<td>
-								<input type="file" name="thongTinVePhim" class="input-form"  value="" required>
+								<input type="file" accept="video/mp4,video/x-m4v,video/*" name="thongTinVePhim" class="input-form"  value="" required>
 							</td>
 
 						</tr>
@@ -314,7 +314,7 @@
 			</tr>
 			<tr>
 				<td><label>Hình ảnh đính kèm Xử lý chế tác:</label></td>
-				<td><input type="file" multiple name="hinhAnhDinhKem" class="input-form"  value=""></td>
+				<td><input type="file" multiple name="hinhAnhDinhKem" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Cơ quan xử lý, chế tác mẫu:</label></td>
@@ -322,7 +322,7 @@
 			</tr>
 			<tr>
 				<td><label>Hình ảnh sau chế tác:</label></td>
-				<td><input type="text" name="anhMauSauCheTac" class="input-form"  value=""></td>
+				<td><input type="text" name="anhMauSauCheTac" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf" value=""></td>
 			</tr>
 			<tr><td><h4>Thông tin DNA</h4></td></tr>
 			<tr>
@@ -431,11 +431,11 @@
 			</tr>
 			<tr>
 				<td><label>Giấy phép nhập mẫu:</label></td>
-				<td><input type="file" name="giayPhepNhapMau" class="input-form"  value=""></td>
+				<td><input type="file" name="giayPhepNhapMau" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Hồ sơ nhập mẫu vật đi kèm:</label></td>
-				<td><input type="file" name="giayPhepNhapMau" class="input-form"  value=""></td>
+				<td><input type="file" name="giayPhepNhapMau" class="input-form" accept=".doc, docx, .pdf" value=""></td>
 			</tr>
 			<tr>
 				<td><label>Người lập phiếu MV (*):</label></td>

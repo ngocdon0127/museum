@@ -8,8 +8,9 @@
 	{
 		"name": "soHieuBaoTangCS",
 		"animalSchemaProp": "soHieu",
-		"required": false,
-		"type": "String"
+		"required": true,
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "maKyHieuMauVatQuocTe",
@@ -21,19 +22,22 @@
 		"name": "soHieuThucDia",
 		"animalSchemaProp": "soHieu",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "soHieuBTTNVN",
 		"animalSchemaProp": "soHieu",
-		"required": true,
-		"type": "String"
+		"required": false,
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "kyHieuMauVatKhac",
 		"animalSchemaProp": "soHieu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "tenVietNam",
@@ -44,7 +48,7 @@
 	{
 		"name": "tenTiengAnh",
 		"animalSchemaProp": "tenMau",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
@@ -309,7 +313,8 @@
 		"name": "taiLieuPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
 		"required": true,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "moTaHinhThai",
@@ -321,7 +326,8 @@
 		"name": "hinhVe",
 		"animalSchemaProp": "duLieuPhanTichMau",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoVietNam",
@@ -375,13 +381,15 @@
 		"name": "hinhAnhDinhKem",
 		"animalSchemaProp": "media.xuLyCheTac",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
 	},
 	{
 		"name": "anhMauSauCheTac",
 		"animalSchemaProp": "media.xuLyCheTac",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
 	},
 	{
 		"name": "viTriLayMauDNA",

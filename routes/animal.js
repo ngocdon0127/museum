@@ -108,7 +108,6 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 			return responseError(res, 500, 'Error while reading database');
 		}
 		if (log){
-			
 			if ((log.action == 'update') && (req.params.position == 'diff')){
 				// return responseSuccess(res, ['obj1', 'obj2'], [flatAnimal(log.obj1), flatAnimal(log.obj2)]);
 				return res.render('display', {title: 'Các cập nhật', count: 2, obj1: flatAnimal(log.obj1), obj2: flatAnimal(log.obj2)});
@@ -247,6 +246,10 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					if (req.body[element.name].length > element.max){
 						return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
 					}
+				}
+				var regex = new RegExp(element.regex);
+				if (regex.test(req.body[element.name]) === false){
+					return responseError(res, 400, element.name + ' is in wrong format.');
 				}
 				break;
 			case 'Number':

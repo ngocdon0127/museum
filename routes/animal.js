@@ -265,8 +265,9 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 
 		switch (element.type){
 			case 'String':
+				var value = '';
 				try {
-					var value = req.body[element.name].trim();
+					value = req.body[element.name].trim();
 				}
 				catch (e){
 					console.log(element.name);

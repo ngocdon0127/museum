@@ -17,6 +17,12 @@ var responseSuccess     = global.myCustomVars.responseSuccess;
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/AnimalSchemaProps.json')).toString());
 
+var PROP_FIELDS_OBJ = {};
+
+PROP_FIELDS.map(function (element, index) {
+	PROP_FIELDS_OBJ[element.name] = index;
+});
+
 // File fields
 var IMG_FIELDS = PROP_FIELDS.filter(function (element) {
 	return !element.type.localeCompare('File')
@@ -245,7 +251,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 	for (var i = 0; i < PROP_FIELDS.length; i++) {
 		var element = PROP_FIELDS[i];
 		
-		if (action == ACTION_CREATE){
+		if ((action == ACTION_CREATE) && (element.type.localeCompare('Mixed') !== 0)) {
 			// Check required data props if action is create
 			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
 				return responseError(res, 400, "Missing " + element.name);
@@ -259,7 +265,12 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 
 		switch (element.type){
 			case 'String':
-				var value = req.body[element.name].trim();
+				try {
+					var value = req.body[element.name].trim();
+				}
+				catch (e){
+					console.log(element.name);
+				}
 				if ('min' in element){
 					if (value.length < element.min){
 						return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
@@ -271,9 +282,11 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 						return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
 					}
 				}
-				var regex = new RegExp(element.regex);
-				if (regex.test(value) === false){
-					return responseError(res, 400, element.name + ' is in wrong format.');
+				if ('regex' in element){
+					var regex = new RegExp(element.regex);
+					if (regex.test(value) === false){
+						return responseError(res, 400, element.name + ' is in wrong format.');
+					}
 				}
 				break;
 			case 'Number':
@@ -286,6 +299,37 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 				if ('max' in element){
 					if (req.body[element.name].length > element.max){
 						return responseError(res, 400, element.name + ' must not higher than ' + element.max);
+					}
+				}
+				break;
+			case 'Mixed':
+				// TODO Validate sub properties
+				var valid = false;
+				if (element.required){
+					for (var j = 0; j < element.subProps.length; j++) {
+						var prop = element.subProps[j];
+						var e = PROP_FIELDS[PROP_FIELDS_OBJ[prop]];
+						if (e.type.localeCompare('String') == 0 && (prop in req.body)){
+							if ('regex' in e){
+								var regex = new RegExp(e.regex);
+								if (regex.test(req.body.trim()) === false){
+									return responseError(res, 400, e.name + ' is in wrong format.');
+								}
+							}
+							valid = true;
+							break;
+						}
+						if (e.type.localeCompare('Date') == 0 && (prop in req.body)){
+							valid = true;
+							break;
+						}
+						if (e.type.localeCompare('File') == 0 && (prop in req.files)){
+							valid = true;
+							break;
+						}
+					}
+					if (!valid){
+						return responseError(res, 400, 'Missing ' + element.name);
 					}
 				}
 				break;

@@ -341,7 +341,20 @@
 		"name": "moTaHinhThai",
 		"animalSchemaProp": "duLieuPhanTichMau",
 		"required": true,
+		"type": "Mixed",
+		"subProps": ["moTaHinhThaiStr", "moTaHinhThaiFile"]
+	},
+	{
+		"name": "moTaHinhThaiStr",
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false,
 		"type": "String"
+	},
+	{
+		"name": "moTaHinhThaiFile",
+		"animalSchemaProp": "duLieuPhanTichMau",
+		"required": false,
+		"type": "File"
 	},
 	{
 		"name": "hinhVe",
@@ -366,6 +379,19 @@
 	},
 	{
 		"name": "video",
+		"animalSchemaProp": "media",
+		"required": false,
+		"type": "Mixed",
+		"subProps": ["videoStr", "videoFile"]
+	},
+	{
+		"name": "videoStr",
+		"animalSchemaProp": "media",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "videoFile",
 		"animalSchemaProp": "media",
 		"required": false,
 		"type": "File",
@@ -452,13 +478,39 @@
 		"name": "phanBoVietNam",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"required": true,
+		"type": "Mixed",
+		"subProps": ["phanBoVietNamStr", "phanBoVietNamFile"]
+	},
+	{
+		"name": "phanBoVietNamStr",
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": false,
 		"type": "String"
+	},
+	{
+		"name": "phanBoVietNamFile",
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": false,
+		"type": "File"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"required": false,
+		"type": "Mixed",
+		"subProps": ["phanBoTrenTheGioiStr", "phanBoTrenTheGioiFile"]
+	},
+	{
+		"name": "phanBoTheGioiStr",
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": false,
 		"type": "String"
+	},
+	{
+		"name": "phanBoTheGioiFile",
+		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"required": false,
+		"type": "File"
 	},
 	{
 		"name": "giaTriSuDung",

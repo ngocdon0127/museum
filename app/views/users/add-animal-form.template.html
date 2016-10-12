@@ -3,29 +3,29 @@
 		<center><h2>Cơ sở dữ liệu mẫu động vật</h2></center>
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
-			<tr>
+<!-- 			<tr>
 				<td><label>Mã bảo tàng:</label></td>
 				<td><input type="text" name="maBaoTang" class="input-form"  required="required"></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td><label>Số hiệu thực địa(*):</label></td>
-				<td><input type="text" name="soHieuThucDia"  class="input-form" ng-maxlength="100" required></td>
+				<td><input type="text" name="soHieuThucDia"  class="input-form" maxlength="100" required></td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu bảo tàng cơ sở:</label></td>
-				<td><input type="text" name="soHieuBaoTangCS" class="input-form" ng-maxlength="100" required="required"></td>
+				<td><input type="text" name="soHieuBaoTangCS" class="input-form" maxlength="100" required="required"></td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu BTTNVN(*):</label></td>
-				<td><input type="text" name="soHieuBTTNVN" class="input-form" ng-maxlength="100" value="" required></td>
+				<td><input type="text" name="soHieuBTTNVN" class="input-form" maxlength="100" value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Mã kí hiệu mẫu vật quốc tế:</label></td>
-				<td><input type="text" name="maKyHieuMauVatQuocTe" class="input-form" ng-maxlength="100" required="required"></td>
+				<td><input type="text" name="maKyHieuMauVatQuocTe" class="input-form" maxlength="100" required="required"></td>
 			</tr>
 			<tr>
 				<td><label>Các kí hiệu mẫu vật khác:</label></td>
-				<td><input type="text" ng-maxlength="100" name="kyHieuMauVatKhac" class="input-form"  value="" required></td>
+				<td><input type="text" maxlength="100" name="kyHieuMauVatKhac" class="input-form"  value="" required></td>
 			</tr>
 		</table>
 		<table>
@@ -261,7 +261,8 @@
 			</tr>
 			<tr>
 				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
-				<td><input type="text" name="moTaHinhThai" class="input-form"  value="" required></td>
+				<td><input type="text" name="moTaHinhThaiStr" class="input-form"  value="">
+				<input type="file" multiple accept="video/mp4,video/x-m4v,video/*" name="moTaHinhThaiFile" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Hình vẽ:</label></td>
@@ -285,10 +286,10 @@
 					<table>
 						<tr>
 							<td>
-								<input type="text" name = "thongTinThemVePhim" class="input-form" placeholder="Thông tin thêm về phim">
+								<input type="text" name = "videoStr" class="input-form" placeholder="Thông tin thêm về phim">
 							</td>
 							<td>
-								<input type="file" accept="video/mp4,video/x-m4v,video/*" name="thongTinVePhim" class="input-form"  value="" required>
+								<input type="file" accept="video/mp4,video/x-m4v,video/*" name="videoFile" class="input-form"  value="" required>
 							</td>
 
 						</tr>
@@ -355,15 +356,15 @@
 			<tr>
 				<td><label>Phân bố Việt Nam:</label></td>
 				<td>
-					<input type="text" name="phanBoVietNam" class="input-form"  value="" required>
-					<input type="file" multiple name="filePhanBoVietNam">
+					<input type="text" name="phanBoVietNamStr" class="input-form"  value="">
+					<input type="file" multiple name="phanBoVietNamFile">
 				</td>
 			</tr>
 			<tr>
 				<td><label>Phân bố trên thế giới (nếu có):</label></td>
 				<td>
-					<input type="text" name="phanBoTrenTheGioi" class="input-form"  value="">
-					<input type="file" multiple name="filePhanBoVietNam">
+					<input type="text" name="phanBoTrenTheGioiStr" class="input-form"  value="">
+					<input type="file" multiple name="phanBoTheGioiFile">
 				</td>
 			</tr>
 			<tr>

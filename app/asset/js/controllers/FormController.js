@@ -36,9 +36,6 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 		console.log(err);
 	});
 
-
-	// $scope.tenDongNghia = ['Hola', 'Don', 'Toan', 'DINH', 'Dang', 'Dn'];
-	
 	$scope.addPost = function(){
 		var fd = new FormData(document.getElementById('form-animal'));
 		$.ajax({
@@ -62,20 +59,17 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 app.controller('PlaceController', ['$scope','$http', function ($scope, $http) {
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
-		// console.log(res.data);
 	}, function(res){
 		console.log(res);
 	});
 	$http.get('/app/database/districts.json').then(function(res){
 		$scope.districts = res.data;
-		// console.log(res.data);
 	}, function(res){
 		console.log(res);
 	});
 
 	$http.get('/app/database/wards.json').then(function(res){
 		$scope.wards = res.data;
-		// console.log(res.data);
 	}, function(res){
 		console.log(res);
 	});

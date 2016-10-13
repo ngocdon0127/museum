@@ -174,7 +174,7 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 	})
 })
 
-router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
+router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), upload.fields(['someFileField']), function (req, res) {
 	var missingParam = checkRequiredParams(['animalId'], req.body);
 	if (missingParam){
 		return responseError(res, 400, 'Missing ' + missingParam);
@@ -373,6 +373,8 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					// 
 					// Actually, we don't need to validate these Mixed properties.
 					// Sub properties will be validated automatically
+					// But we need to delete data of this field
+					delete req.body[element.name];
 				}
 				break;
 			default:

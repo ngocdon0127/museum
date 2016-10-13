@@ -256,6 +256,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 	for (var i = 0; i < PROP_FIELDS.length; i++) {
 		var element = PROP_FIELDS[i];
 		
+		// Check required
 		if ((action == ACTION_CREATE) && (element.type.localeCompare('Mixed') !== 0)) {
 			// Check required data props if action is create
 			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
@@ -268,30 +269,28 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			}
 		}
 
+		// Validate data
 		switch (element.type){
 			case 'String':
 				var value = '';
-				try {
+				if (element.name in req.body){
 					value = req.body[element.name].trim();
-				}
-				catch (e){
-					// console.log(element.name);
-				}
-				if ('min' in element){
-					if (value.length < element.min){
-						return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
+					if ('min' in element){
+						if (value.length < element.min){
+							return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
+						}
 					}
-				}
 
-				if ('max' in element){
-					if (value.length > element.max){
-						return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
+					if ('max' in element){
+						if (value.length > element.max){
+							return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
+						}
 					}
-				}
-				if ('regex' in element){
-					var regex = new RegExp(element.regex);
-					if (regex.test(value) === false){
-						return responseError(res, 400, element.name + ' is in wrong format.');
+					if ('regex' in element){
+						var regex = new RegExp(element.regex);
+						if (regex.test(value) === false){
+							return responseError(res, 400, element.name + ' is in wrong format.');
+						}
 					}
 				}
 				break;
@@ -308,34 +307,53 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					}
 				}
 				break;
+			case 'File':
+				if ('regex' in element){
+					var regex = new RegExp(element.regex);
+					if (req.files && element.name in req.files){
+					// if (element.name in req.files){
+						var files = req.files[element.name];
+						for (var j = 0; j < files.length; j++) {
+							var file = files[j];
+							if (!regex.test(file.originalname)){
+								// console.log(regex);
+								// console.log(file.originalname);
+								return responseError(res, 400, 'File name in ' + element.name + ' is invalid');
+							}
+						}
+					}
+				}
+				break;
 			case 'Mixed':
 				// TODO Validate sub properties
 				var valid = false;
-				if (element.required){
-					for (var j = 0; j < element.subProps.length; j++) {
-						var prop = element.subProps[j];
-						var e = PROP_FIELDS[PROP_FIELDS_OBJ[prop]];
-						if (e.type.localeCompare('String') == 0 && (prop in req.body)){
-							if ('regex' in e){
-								var regex = new RegExp(e.regex);
-								if (regex.test(req.body.trim()) === false){
-									return responseError(res, 400, e.name + ' is in wrong format.');
+				if (action == ACTION_CREATE){
+					if (element.required){
+						for (var j = 0; j < element.subProps.length; j++) {
+							var prop = element.subProps[j];
+							var e = PROP_FIELDS[PROP_FIELDS_OBJ[prop]];
+							if (e.type.localeCompare('String') == 0 && (prop in req.body)){
+								if ('regex' in e){
+									var regex = new RegExp(e.regex);
+									if (regex.test(req.body.trim()) === false){
+										return responseError(res, 400, e.name + ' is in wrong format.');
+									}
 								}
+								valid = true;
+								break;
 							}
-							valid = true;
-							break;
+							if (e.type.localeCompare('Date') == 0 && (prop in req.body)){
+								valid = true;
+								break;
+							}
+							if (e.type.localeCompare('File') == 0 && (req.files) && (prop in req.files)){
+								valid = true;
+								break;
+							}
 						}
-						if (e.type.localeCompare('Date') == 0 && (prop in req.body)){
-							valid = true;
-							break;
+						if (!valid){
+							return responseError(res, 400, '111 ' + element.name);
 						}
-						if (e.type.localeCompare('File') == 0 && (prop in req.files)){
-							valid = true;
-							break;
-						}
-					}
-					if (!valid){
-						return responseError(res, 400, 'Missing ' + element.name);
 					}
 				}
 				break;
@@ -396,6 +414,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 
 		// rename images
 		IMG_FIELDS.map(function (element) {
+			// console.log(objectChild(animal, element.animalSchemaProp)[element.name]);
 			if (req.files && (element.name in req.files) && req.files[element.name]){
 				// var nodes = element.animalSchemaProp.split('.');
 				// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
@@ -407,6 +426,12 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					
 					// TODO
 					// need to delete old files.
+					// console.log('nhin gi');
+					var files = objectChild(animal, element.animalSchemaProp)[element.name];
+					// console.log(files);
+					for (var j = 0; j < files.length; j++) {
+						fs.unlink(UPLOAD_DEST_ANIMAL, files[j]);
+					}
 
 				}
 				objectChild(animal, element.animalSchemaProp)[element.name] = [];

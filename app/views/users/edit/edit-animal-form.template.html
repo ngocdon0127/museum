@@ -4,10 +4,6 @@
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
 			<tr>
-				<td><label>Mã bảo tàng:</label></td>
-				<td><input type="text" name="maBaoTang" ng-model="animal.maBaoTang" class="input-form"  required="required"></td>
-			</tr>
-			<tr>
 				<td><label>Số hiệu thực địa(*):</label></td>
 				<td><input type="text" name="soHieuThucDia"   ng-model="animal.soHieuThucDia" class="input-form" ng-maxlength="100" required></td>
 			</tr>
@@ -40,11 +36,11 @@
 			</tr>
 			<tr>
 				<td><label>Tên theo hệ thống PL của bảo tàng:</label></td>
-				<td><input type="text" name="tenPLBaoTang"  ng-model="animal.tenPLBaoTang" class="input-form"  value=""></td>
+				<td><input type="text" name="tenTheoBaoTang"  ng-model="animal.tenTheoBaoTang" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Tên theo hệ thống PL của Quốc tế:</label></td>
-				<td><input type="text" name="tenPLQuocTe"  ng-model="animal.tenPLQuocTe" class="input-form"  value=""></td>
+				<td><input type="text" name="tenTheoQuocTe"  ng-model="animal.tenTheoQuocTe" class="input-form"  value=""></td>
 			</tr>
 			<tr><td><h4>Tên khoa học (tên latin)</h4></td></tr>
 			<tr>
@@ -131,22 +127,22 @@
 			</tr>
 			<tr>
 				<td><label>Kích thước mẫu (*):</label></td>
-				<td><input type="number"  ng-model="animal.kichThuocMau" name="kichThuocMau" class="input-form"  value="" required></td>
+				<td><input type="text" ng-model="animal.kichThuocMau" name="kichThuocMau" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Tình trạng mẫu (*):</label></td>
-				<td><input type="text"  ng-model="animal.tinhTrangMau" name="tinhTrangMau" class="input-form"  value="" required></td>
+				<td><input type="text" ng-model="animal.tinhTrangMau" name="tinhTrangMau" class="input-form"  value="" required></td>
 			</tr>		
 		</table>
 		<table>
 			<h3 class="h3-title">4. NHÓM DỮ LIỆU THU MẪU</h3>
 			<tr>
 				<td><label>Thời gian thu mẫu (*):</label></td>
-				<td><input type="date"  ng-model="animal.thoigianThuMau" name="thoigianThuMau" class="input-form"  value="" required></td>
+				<td><input type="date" ng-model="animal.thoiGianThuMau" name="thoiGianThuMau" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Người thu mẫu (*):</label></td>
-				<td><input type="text"  ng-model="animal.nguoiThuMau" name="nguoiThuMau" class="input-form"  value="" required></td>
+				<td><input type="text" ng-model="animal.nguoiThuMau" name="nguoiThuMau" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Cơ quan thu mẫu: </label></td>
@@ -171,7 +167,7 @@
 					<tr>
 						<td>Tỉnh/Thành phố(*): </td>
 						<td>
-							<select class="select-box"  ng-model="animal.tinh" name="tinh" required ng-model= "animalForm.city">
+							<select class="select-box" name="tinh" required ng-model= "$parent.animal.tinh" ng-change="cityChange()">
 								<option  ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " +  city.name}}</option>
 							</select>
 						</td>
@@ -179,8 +175,8 @@
 					<tr>
 						<td>Huyện(*):</td>
 						<td>
-							<select class="select-box"  ng-model="animal.huyen" name="huyen" required ng-model= "animalForm.district">
-								<option ng-repeat="(key, district) in districts | customCity: animalForm.city" value="{{key}}">{{district.type + " " + district.name}}</option>
+							<select class="select-box" name="huyen" required ng-model= "$parent.animal.huyen" ng-change="districtChange()">
+								<option ng-repeat="(key, district) in districts | customCity: animal.tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
 							</select>
 						</td>
 					</tr>
@@ -188,7 +184,7 @@
 						<td>Xã(*): </td>
 						<td>
 							<select class="select-box"  ng-model="animal.xa" name="xa" required>
-								<option ng-repeat="(key, ward) in wards | customDistrict: animalForm.district" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
+								<option ng-repeat="(key, ward) in wards | customDistrict: animal.huyen" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
 							</select>
 						</td>
 					</tr>
@@ -202,11 +198,11 @@
 			<tr><td><h4>Vị trí toạ độ theo hệ toạ độ VN 2000 (*)</h4></td></tr>
 			<tr>
 				<td><label>Vĩ độ N(*): </label></td>
-				<td><input type="number"  ng-model="animal.viDo" name="viDo" class="input-form"  value="" required></td>
+				<td><input type="text"  ng-model="animal.viDo" name="viDo" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Kinh độ E(*):</label></td>
-				<td><input type="number"  ng-model="animal.kinhDo" name="kinhDo" class="input-form"  value="" required></td>
+				<td><input type="text"  ng-model="animal.kinhDo" name="kinhDo" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Độ cao (m) (*): </label></td>
@@ -230,38 +226,34 @@
 			</tr>
 			<tr>
 				<td><label>Ghi chép thực địa(*):</label></td>
-				<td><input type="text"  ng-model="animal.ghiChepThucDia" name="ghiChepThucDia" class="input-form"  value="" required></td>
+				<td><input type="text" ng-model="animal.ghiChepThucDia" name="ghiChepThucDia" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Bản đồ:</label></td>
-				<td><input type="text"  ng-model="animal.banDo" name="banDo" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Ghi chú (quan sát, thu mẫu, thấy dấu vết, kích cỡ mẫu,...):</label></td>
-				<td><input type="text"  ng-model="animal.ghiChu" name="ghiChu" class="input-form"  value=""></td>
+				<td><input type="text" ng-model="animal.banDo" name="banDo" class="input-form"  value=""></td>
 			</tr>
 		</table>
 		<table>
 			<h3 class="h3-title">5. NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
 				<td><label>Thời gian phân tích/giám định/định loại mẫu:</label></td>
-				<td><input type="date"  ng-model="animal.thoiGianPhanTich" name="thoiGianPhanTich" class="input-form"  value=""></td>
+				<td><input type="date" ng-model="animal.thoiGianPhanTich" name="thoiGianPhanTich" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Người phân tích/giám định/định loại mẫu (*):</label></td>
-				<td><input type="text"  ng-model="animal.nguoiPhanTich" name="nguoiPhanTich" class="input-form"  value="" required></td>
+				<td><input type="text" ng-model="animal.nguoiPhanTich" name="nguoiPhanTich" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Cơ quan/tổ chức phân tích/giám định/phân loại mẫu (*):</label></td>
-				<td><input type="text"  ng-model="animal.coQuanToChucPhanTich" name="coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form"  value="" required></td>
+				<td><input type="text" ng-model="animal.coQuanToChucPhanTich" name="coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Tài liệu phân tích/giám định/phân loại đi kèm (*):</label></td>
-				<td><input type="file"  ng-model="animal.taiLieuPhanTich" multiple name="taiLieuPhanTich" accept=".doc, .docx, .pdf" class="input-form"  value="" required></td>
+				<td><input type="file" ng-model="animal.taiLieuPhanTich" multiple name="taiLieuPhanTich" accept=".doc, .docx, .pdf" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
-				<td><input type="text"  ng-model="animal.moTaHinhThai" name="moTaHinhThai" class="input-form"  value="" required></td>
+				<td><input type="file"  ng-model="animal.moTaHinhThai" name="moTaHinhThai" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Hình vẽ:</label></td>
@@ -273,7 +265,7 @@
 			<h3 class="h3-title">6. NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
 			<tr>
 				<td><label>Ảnh mẫu vật(*):</label></td>
-				<td><input type="file" multiple  ng-model="animal.loaiHinhNguonGoc" name="loaiHinhNguonGoc" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"  value="" required></td>
+				<td><input type="file" multiple  ng-model="animal.anhMauVat" name="anhMauVat" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Hình ảnh mẫu ngoài thực địa:</label></td>
@@ -285,10 +277,10 @@
 					<table>
 						<tr>
 							<td>
-								<input type="text"  ng-model="animal.thongTinThemVePhim" name = "thongTinThemVePhim" class="input-form" placeholder="Thông tin thêm về phim">
+								<input type="text" ng-model="animal.videoStr" name="videoStr" class="input-form" placeholder="Thông tin thêm về phim">
 							</td>
 							<td>
-								<input type="file"  ng-model="animal.thongTinVePhim" accept="video/mp4,video/x-m4v,video/*" name="thongTinVePhim" class="input-form"  value="" required>
+								<input type="file"  ng-model="animal.videoFile" accept="video/mp4,video/x-m4v,video/*" name="videoFile" class="input-form"  value="" required>
 							</td>
 
 						</tr>
@@ -403,8 +395,8 @@
 				<td><label>Trao đổi mẫu: </label></td>
 				<td>
 					<select class="select-box" ng-model="animal.traoDoiMau"  name="traoDoiMau">
-						<option value="co-the">Có thể</option>
-						<option value="khong-the">Không thể</option>
+						<option value="Có thể">Có thể</option>
+						<option value="Không thể">Không thể</option>
 					</select>
 				</td>
 			</tr>
@@ -412,22 +404,18 @@
 				<td><label>Vay mượn:</label></td>
 				<td>
 					<select class="select-box"  ng-model="animal.vayMuon" name="vayMuon">
-						<option value="co-the">Có thể</option>
-						<option value="khong-the">Không thể</option>
+						<option value="Có thể">Có thể</option>
+						<option value="Không thể">Không thể</option>
 					</select>
 				</td>
-			</tr>
-			<tr>
-				<td><label>Hiến tặng</label></td>
-				<td><input type="text"  ng-model="animal.hienTang" name="hienTang" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Khu lưu trữ mẫu:</label></td>
 				<td><input type="text"  ng-model="animal.khuLuuTruMau" name="khuLuuTruMau" class="input-form"  value=""></td>
 			</tr>
 			<tr>
-				<td><label>Nơi lưu trữ(*):</label></td>
-				<td><input type="text"  ng-model="animal.noiLuuTru" name="noiLuuTru" class="input-form"  value="" required></td>
+				<td><label>Nơi lưu trữ mẫu:</label></td>
+				<td><input type="text"  ng-model="animal.noiLuuTruMau" name="noiLuuTruMau" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Giấy phép nhập mẫu:</label></td>
@@ -438,12 +426,12 @@
 				<td><input type="file"  ng-model="animal.giayPhepNhapMau" name="giayPhepNhapMau" class="input-form" accept=".doc, docx, .pdf" value=""></td>
 			</tr>
 			<tr>
-				<td><label>Người lập phiếu MV (*):</label></td>
-				<td><input type="text"  ng-model="animal.nguoiLapPhieuMauVat" name="nguoiLapPhieuMauVat" class="input-form"  value="" required></td>
+				<td><label>Người nhập phiếu MV (*):</label></td>
+				<td><input type="text"  ng-model="animal.nguoiNhapPhieuMauVat" name="nguoiNhapPhieuMauVat" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Người nhập vào phần mềm:</label></td>
-				<td><input type="text"  ng-model="animal.nguoiLapVaoPhanMem" name="nguoiLapVaoPhanMem" class="input-form"  value=""></td>
+				<td><input type="text"  ng-model="animal.nguoiNhapVaoPhanMem" name="nguoiNhapVaoPhanMem" class="input-form"  value=""></td>
 			</tr>
 		</table>
 
@@ -455,5 +443,5 @@
 			</tr>
 		</table>
 	</form>
-	<button type="submit" ng-click="addPost()" class="btn btn-success btn-lg">Thêm dữ liệu</button>
+	<button type="submit" ng-click="updatePost()" class="btn btn-success btn-lg">Thêm dữ liệu</button>
 </div>

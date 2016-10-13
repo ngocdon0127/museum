@@ -56,21 +56,25 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	}
 }]);
 
-app.controller('PlaceController', ['$scope','$http', function ($scope, $http) {
+app.controller('PlaceController', ['$scope','$http','$filter', function ($scope, $http, $filter) {
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
 	}, function(res){
 		console.log(res);
 	});
-	$http.get('/app/database/districts.json').then(function(res){
-		$scope.districts = res.data;
-	}, function(res){
-		console.log(res);
-	});
+	$scope.cityChange = function(){
+		$http.get('/app/database/districts.json').then(function(res){
+			$scope.districts = res.data;
+		}, function(res){
+			console.log(res);
+		});
+	}
 
-	$http.get('/app/database/wards.json').then(function(res){
-		$scope.wards = res.data;
-	}, function(res){
-		console.log(res);
-	});
-}])
+	$scope.districtChange = function() {
+		$http.get('/app/database/wards.json').then(function(res){
+			$scope.wards = res.data;
+		}, function(res){
+			console.log(res);
+		});
+	};
+}]);

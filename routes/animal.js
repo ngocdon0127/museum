@@ -358,7 +358,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 				function createAutoCompletionCallback(name, value) {
 					return function (err, autoCompletion) {
 						if (!err){
-							if (autoCompletion){
+							if (autoCompletion && (name in autoCompletion)){
 								// Update
 								if (autoCompletion[name].indexOf(value) < 0){
 									autoCompletion[name].push(value);

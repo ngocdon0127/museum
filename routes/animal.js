@@ -274,7 +274,13 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			case 'String':
 				var value = '';
 				if (element.name in req.body){
-					value = req.body[element.name].trim();
+					value = req.body[element.name];
+					try {
+						value = value.trim();
+					}
+					catch (e){
+						// do not care
+					}
 					if ('min' in element){
 						if (value.length < element.min){
 							return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
@@ -333,9 +339,16 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 							var prop = element.subProps[j];
 							var e = PROP_FIELDS[PROP_FIELDS_OBJ[prop]];
 							if (e.type.localeCompare('String') == 0 && (prop in req.body)){
+								var v = req.body[prop];
+								try {
+									v = v.trim();
+								}
+								catch (e){
+									// Do not care
+								}
 								if ('regex' in e){
 									var regex = new RegExp(e.regex);
-									if (regex.test(req.body.trim()) === false){
+									if (regex.test(v) === false){
 										return responseError(res, 400, e.name + ' is in wrong format.');
 									}
 								}
@@ -371,12 +384,19 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 		// var tree = nodes.join('.');
 		// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
 		if (element.name in req.body){
-			objectChild(animal, element.animalSchemaProp)[element.name] = req.body[element.name].trim();
+			var value = req.body[element.name];
+			try {
+				value = value.trim();
+			}
+			catch (e){
+				// do not care
+			}
+			objectChild(animal, element.animalSchemaProp)[element.name] = value;
 
 			// Update Auto Completion
 			if (('autoCompletion' in element) && (element.autoCompletion)){
 
-				AnimalAutoCompletion.findOne({}, createAutoCompletionCallback(element.name, req.body[element.name].trim()));
+				AnimalAutoCompletion.findOne({}, createAutoCompletionCallback(element.name, value));
 
 				function createAutoCompletionCallback(name, value) {
 					return function (err, autoCompletion) {

@@ -256,6 +256,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 	for (var i = 0; i < PROP_FIELDS.length; i++) {
 		var element = PROP_FIELDS[i];
 		
+		// Check required
 		if ((action == ACTION_CREATE) && (element.type.localeCompare('Mixed') !== 0)) {
 			// Check required data props if action is create
 			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
@@ -268,6 +269,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			}
 		}
 
+		// Validate data
 		switch (element.type){
 			case 'String':
 				var value = '';
@@ -305,6 +307,22 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 				if ('max' in element){
 					if (req.body[element.name].length > element.max){
 						return responseError(res, 400, element.name + ' must not higher than ' + element.max);
+					}
+				}
+				break;
+			case 'File':
+				if ('regex' in element){
+					var regex = new RegExp(element.regex);
+					if (element.name in req.files){
+						var files = req.files[element.name];
+						for (var j = 0; j < files.length; j++) {
+							var file = files[j];
+							if (!regex.test(file.originalname)){
+								// console.log(regex);
+								// console.log(file.originalname);
+								return responseError(res, 400, 'File name in ' + element.name + ' is invalid');
+							}
+						}
 					}
 				}
 				break;

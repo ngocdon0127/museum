@@ -93,7 +93,12 @@ router.get('/dong-vat/auto', aclMiddleware('/content/dong-vat', 'create'), funct
 				// console.log((prop + " : " + prop.localeCompare('_id')));
 				if ((prop.localeCompare('_id') != 0) && (prop.localeCompare('__v') != 0)){
 					props.push(prop);
-					values.push(autoCompletion[prop]);
+					if (autoCompletion && (prop in autoCompletion)){
+						values.push(autoCompletion[prop]);
+					}
+					else {
+						values.push([]);
+					}
 				}
 			}
 			return responseSuccess(res, props, values);

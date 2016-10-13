@@ -171,7 +171,7 @@
 					<tr>
 						<td>Tỉnh/Thành phố (*): </td>
 						<td>
-							<select class="select-box" name="tinh" required ng-model= "animalForm.city">
+							<select class="select-box" name="tinh" required ng-model= "$parent.animalForm.city" ng-change="cityChange()">
 								<option  ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " +  city.name}}</option>
 							</select>
 						</td>
@@ -179,7 +179,7 @@
 					<tr>
 						<td>Huyện (*):</td>
 						<td>
-							<select class="select-box" name="huyen" required ng-model= "animalForm.district">
+							<select class="select-box" name="huyen" required ng-model= "$parent.animalForm.district" ng-change="districtChange()">
 								<option ng-repeat="(key, district) in districts | customCity: animalForm.city" value="{{key}}">{{district.type + " " + district.name}}</option>
 							</select>
 						</td>
@@ -273,8 +273,8 @@
 		<table>
 			<h3 class="h3-title">6. NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
 			<tr>
-				<td><label>Ảnh mẫu vật (*):</label></td>
-				<td><input type="file" multiple name="loaiHinhNguonGoc" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"  value="" required></td>
+				<td><label>Ảnh mẫu vật(*):</label></td>
+				<td><input type="file" multiple name="anhMauVat" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Hình ảnh mẫu ngoài thực địa:</label></td>
@@ -404,8 +404,8 @@
 				<td><label>Trao đổi mẫu: </label></td>
 				<td>
 					<select class="select-box" name="traoDoiMau">
-						<option value="co-the">Có thể</option>
-						<option value="khong-the">Không thể</option>
+						<option value="Có thể">Có thể</option>
+						<option value="Không thể">Không thể</option>
 					</select>
 				</td>
 			</tr>
@@ -413,8 +413,8 @@
 				<td><label>Vay mượn:</label></td>
 				<td>
 					<select class="select-box" name="vayMuon">
-						<option value="co-the">Có thể</option>
-						<option value="khong-the">Không thể</option>
+						<option value="Có thể">Có thể</option>
+						<option value="Không thể">Không thể</option>
 					</select>
 				</td>
 			</tr>
@@ -423,8 +423,8 @@
 				<td><input type="text" name="khuLuuTruMau" class="input-form"  value=""></td>
 			</tr>
 			<tr>
-				<td><label>Nơi lưu trữ:</label></td>
-				<td><input type="text" name="noiLuuTru" class="input-form"  value=""></td>
+				<td><label>Nơi lưu trữ mẫu:</label></td>
+				<td><input type="text" name="noiLuuTruMau" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Giấy phép nhập mẫu:</label></td>
@@ -435,12 +435,12 @@
 				<td><input type="file" name="giayPhepNhapMau" class="input-form" accept=".doc, docx, .pdf" value=""></td>
 			</tr>
 			<tr>
-				<td><label>Người lập phiếu MV  (*):</label></td>
-				<td><input type="text" name="nguoiLapPhieuMauVat" class="input-form"  value="" required></td>
+				<td><label>Người nhập phiếu MV (*):</label></td>
+				<td><input type="text" name="nguoiNhapPhieuMauVat" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Người nhập vào phần mềm:</label></td>
-				<td><input type="text" name="nguoiLapVaoPhanMem" class="input-form"  value=""></td>
+				<td><input type="text" name="nguoiNhapVaoPhanMem" class="input-form"  value=""></td>
 			</tr>
 		</table>
 

@@ -275,7 +275,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					value = req.body[element.name].trim();
 				}
 				catch (e){
-					console.log(element.name);
+					// console.log(element.name);
 				}
 				if ('min' in element){
 					if (value.length < element.min){
@@ -359,15 +359,22 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					return function (err, autoCompletion) {
 						if (!err){
 							if (autoCompletion){
-								// Update
-								if (autoCompletion[name].indexOf(value) < 0){
-									autoCompletion[name].push(value);
+								if (name in autoCompletion){
+									// Update
+									if (autoCompletion[name].indexOf(value) < 0){
+										autoCompletion[name].push(value);
+										autoCompletion.save();
+									}
+								}
+								else{
+									autoCompletion[name] = [value];
 									autoCompletion.save();
 								}
 							}
 							else{
 								// Create new documents in AutoCompletion
 								autoCompletion = new AnimalAutoCompletion();
+								console.log('add new auto completion row');
 								autoCompletion[name] = [value];
 								autoCompletion.save();
 							}

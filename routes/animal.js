@@ -174,7 +174,7 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 	})
 })
 
-router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
+router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), uploads.fields(['someFileField']), function (req, res) {
 	var missingParam = checkRequiredParams(['animalId'], req.body);
 	if (missingParam){
 		return responseError(res, 400, 'Missing ' + missingParam);

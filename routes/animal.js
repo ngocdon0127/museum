@@ -60,7 +60,7 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 				return responseError(res, 500, "Error while reading database")
 			}
 			
-			if (animal){
+			if (animal && (!animal.deleted_at)) {
 				return saveOrUpdateAnimal(req, res, animal, ACTION_EDIT);
 			}
 
@@ -179,9 +179,9 @@ router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), functio
 	if (missingParam){
 		return responseError(res, 400, 'Missing ' + missingParam);
 	}
-	console.log(req.body);
+	// console.log(req.body);
 	Animal.findById(req.body.animalId, function (err, animal) {
-		console.log('function');
+		// console.log('function');
 		if (err){
 			console.log(err);
 			return responseError(res, 500, 'Error while reading database');
@@ -352,9 +352,14 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 							}
 						}
 						if (!valid){
-							return responseError(res, 400, '111 ' + element.name);
+							return responseError(res, 400, 'Missing ' + element.name);
 						}
 					}
+				}
+				else if (action == ACTION_EDIT){
+					// 
+					// Actually, we don't need to validate these Mixed properties.
+					// Sub properties will be validated automatically
 				}
 				break;
 			default:

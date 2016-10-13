@@ -373,6 +373,8 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					// 
 					// Actually, we don't need to validate these Mixed properties.
 					// Sub properties will be validated automatically
+					// But we need to delete data of this field
+					delete req.body[element.name];
 				}
 				break;
 			default:

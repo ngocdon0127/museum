@@ -42,5 +42,9 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 		templateUrl: 'views/users/edit/edit-geological-form.template.html',
 		controller: 'EditGeologicalFormCtrl'
 	})
+	.when('/bai-dang/dong-vat', {
+		templateUrl: 'views/users/manage-post/manage-post.template.html',
+		controller: 'AnimalManageController'
+	})
 	.otherwise({ redirectTo: '/dong-vat' })
 }]);

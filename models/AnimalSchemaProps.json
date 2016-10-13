@@ -413,7 +413,8 @@
 		"name": "coQuanXuLy",
 		"animalSchemaProp": "media.xuLyCheTac",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "nguoiXuLy",

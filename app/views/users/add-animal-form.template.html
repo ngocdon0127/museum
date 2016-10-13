@@ -40,11 +40,11 @@
 			</tr>
 			<tr>
 				<td><label>Tên theo hệ thống PL của bảo tàng:</label></td>
-				<td><input type="text" name="tenPLBaoTang" class="input-form"  value=""></td>
+				<td><input type="text" name="tenTheoBaoTang" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Tên theo hệ thống PL của Quốc tế:</label></td>
-				<td><input type="text" name="tenPLQuocTe" class="input-form"  value=""></td>
+				<td><input type="text" name="tenTheoQuocTe" class="input-form"  value=""></td>
 			</tr>
 			<tr><td><h4>Tên khoa học (tên latin)</h4></td></tr>
 			<tr>
@@ -131,7 +131,7 @@
 			</tr>
 			<tr>
 				<td><label>Kích thước mẫu  (*):</label></td>
-				<td><input type="number" name="kichThuocMau" class="input-form"  value="" required></td>
+				<td><input type="text" name="kichThuocMau" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Tình trạng mẫu  (*):</label></td>
@@ -142,7 +142,7 @@
 			<h3 class="h3-title">4. NHÓM DỮ LIỆU THU MẪU</h3>
 			<tr>
 				<td><label>Thời gian thu mẫu  (*):</label></td>
-				<td><input type="date" name="thoigianThuMau" class="input-form"  value="" required></td>
+				<td><input type="date" name="thoiGianThuMau" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Người thu mẫu  (*):</label></td>
@@ -202,11 +202,11 @@
 			<tr><td><h4>Vị trí toạ độ theo hệ toạ độ VN 2000  (*)</h4></td></tr>
 			<tr>
 				<td><label>Vĩ độ N (*): </label></td>
-				<td><input type="number" name="viDo" class="input-form"  value="" required></td>
+				<td><input type="text" name="viDo" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Kinh độ E (*):</label></td>
-				<td><input type="number" name="kinhDo" class="input-form"  value="" required></td>
+				<td><input type="text" name="kinhDo" class="input-form"  value="" required></td>
 			</tr>
 			<tr>
 				<td><label>Độ cao (m)  (*): </label></td>
@@ -234,11 +234,9 @@
 			</tr>
 			<tr>
 				<td><label>Bản đồ:</label></td>
-				<td><input type="text" name="banDo" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Ghi chú (quan sát, thu mẫu, thấy dấu vết, kích cỡ mẫu,...):</label></td>
-				<td><input type="text" name="ghiChu" class="input-form"  value=""></td>
+				<td>
+					<input type="file" name="banDo" accept=".pdf" class="input-form"  value="">
+				</td>
 			</tr>
 		</table>
 		<table>
@@ -286,7 +284,7 @@
 					<table>
 						<tr>
 							<td>
-								<input type="text" name = "videoStr" class="input-form" placeholder="Thông tin thêm về phim">
+								<input type="text" name="videoStr" class="input-form" placeholder="Thông tin thêm về phim">
 							</td>
 							<td>
 								<input type="file" accept="video/mp4,video/x-m4v,video/*" name="videoFile" class="input-form"  value="" required>
@@ -323,7 +321,7 @@
 			</tr>
 			<tr>
 				<td><label>Hình ảnh sau chế tác:</label></td>
-				<td><input type="text" name="anhMauSauCheTac" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf" value=""></td>
+				<td><input type="file" name="anhMauSauCheTac" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf" value=""></td>
 			</tr>
 			<tr><td colspan="2"><h4>Thông tin DNA</h4></td></tr>
 			<tr>

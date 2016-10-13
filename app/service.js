@@ -1,7 +1,8 @@
 app.factory('AuthService', ['$http', function($http){
 	
 	return ({
-		hostName : 'http://localhost:8000/content/dong-vat/auto'
+		// hostAnimal : 'http://localhost:8000/content/dong-vat/auto',
+		hostName: 'http://localhost:8000'
 	});
 }]);
 

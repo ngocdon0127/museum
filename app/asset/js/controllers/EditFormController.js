@@ -2,7 +2,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
 	$http.get(url).then(function (res) {
-		console.log(res.data.animal.ngayNhapMau);
+		// console.log(res.data.animal.ngayNhapMau);
 		res.data.animal.ngayNhapMau = new Date(res.data.animal.ngayNhapMau);
 		res.data.animal.thoigianThuMau = new Date(res.data.animal.thoigianThuMau);
 		res.data.animal.thoiGianPhanTich = new Date(res.data.animal.thoiGianPhanTich);

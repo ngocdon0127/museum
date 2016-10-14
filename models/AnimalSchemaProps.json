@@ -198,7 +198,7 @@
 		"type": "String"
 	},
 	{
-		"name": "thoigianThuMau",
+		"name": "thoiGianThuMau",
 		"animalSchemaProp": "duLieuThuMau",
 		"required": true,
 		"type": "Date"

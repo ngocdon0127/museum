@@ -4,6 +4,8 @@
 var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 require('./config/acl.js')(acl);
+var path = require('path');
+var fs = require('fs');
 
 function aclMiddleware (resource, action) {
 	return function (req, res, next) {
@@ -51,9 +53,29 @@ global.myCustomVars.checkRequiredParams = checkRequiredParams;
 
 /**
  * Send error message to response when some action failure
+ *
+ * @param {Object} req request (include uploaded files)
+ * @param {String} dir upload directory
+ * @param {Object} res response
+ * @param {Integer} errCode Status Code send to client
+ * @param {String} errMessage Error
  */
 
-function responseError (res, errCode, errMessage) {
+function responseError (req, dir, res, errCode, errMessage) {
+
+	// Delete files in request
+
+	if (req.files){
+		for (var field in req.files){
+			var files = req.files[field];
+			for (var i = 0; i < files.length; i++) {
+				fs.unlink(path.join(dir, files[i].filename));
+			}
+		}
+		
+	}
+
+	// Response to client
 	return res.status(errCode).json({
 		status: 'error',
 		error: errMessage

@@ -49,15 +49,15 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 		preArray.push({name: curElement.name}); 
 		return preArray;
 	}, [])),
-	function (req, res) {
+	function (req, res, next) {
 		var missingParam = checkRequiredParams(['animalId'], req.body);
 		if (missingParam){
-			return responseError(res, 400, 'Missing animalId');  
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Missing animalId');  
 		}
 		Animal.findById(req.body.animalId, function (err, animal) {
 			if (err){
 				console.log(err);
-				return responseError(res, 500, "Error while reading database")
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, "Error while reading database")
 			}
 			
 			if (animal && (!animal.deleted_at)) {
@@ -65,7 +65,7 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 			}
 
 			else {
-				return responseError(res, 400, 'Invalid animalId')
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Invalid animalId')
 			}
 		})
 })
@@ -73,7 +73,7 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 router.get('/dong-vat', aclMiddleware('/content/dong-vat', 'view'), function (req, res) {
 	Animal.find({deleted_at: {$eq: null}}, function (err, animals) {
 		if (err){
-			return responseError(res, 500, 'Error while reading database');
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, 'Error while reading database');
 		}
 		return responseSuccess(res, ['status', 'animals'], ['success', animals]);
 	})
@@ -84,7 +84,7 @@ router.get('/dong-vat/auto', aclMiddleware('/content/dong-vat', 'create'), funct
 
 	AnimalAutoCompletion.findOne({}, function (err, autoCompletion) {
 		if (err){
-			return responseError(res, 500, "Error while reading AutoCompletion data.");
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, "Error while reading AutoCompletion data.");
 		}
 		else{
 			var props = [];
@@ -111,17 +111,17 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 	// console.log(req.params.animalId);
 	Animal.findById(req.params.animalId, function (err, animal) {
 		if (err){
-			return responseError(res, 500, 'Error while reading database');
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, 'Error while reading database');
 		}
 		if (animal){
 			if (animal.deleted_at){
 				Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.animalId)}}, function (err, logs) {
 					if (err || (logs.length < 1)){
 						console.log(err);
-						return responseError(res, 404, "This animal has been deleted");
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, "This animal has been deleted");
 					}
 					// console.log(logs);
-					return responseError(res, 404, "This animal has been deleted by " + logs[0].userFullName);
+					return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, "This animal has been deleted by " + logs[0].userFullName);
 				})
 			}
 			else {
@@ -131,7 +131,7 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 			}
 		}
 		else{
-			responseError(res, 404, 'Not Found');
+			responseError(req, UPLOAD_DEST_ANIMAL, res, 404, 'Not Found');
 		}
 	})
 })
@@ -139,7 +139,7 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 router.get('/dong-vat/log/:logId/:position', function (req, res) {
 	Log.findById(req.params.logId, function (err, log) {
 		if (err){
-			return responseError(res, 500, 'Error while reading database');
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, 'Error while reading database');
 		}
 		if (log){
 			if ((log.action == 'update') && (req.params.position == 'diff')){
@@ -154,7 +154,7 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj1), obj2: {}});
 					}
 					else{
-						return responseError(res, 400, 'Invalid object')
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Invalid object')
 					}
 				case 2:
 					if (('obj2' in log) && (log.obj2)){
@@ -162,14 +162,14 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj2)])
 					}
 					else{
-						return responseError(res, 400, 'Invalid object')
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Invalid object')
 					}
 				default:
-					return responseError(res, 400, 'Invalid object')
+					return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Invalid object')
 			}
 		}
 		else {
-			return responseError(res, 400, 'Invalid logId')
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Invalid logId')
 		}
 	})
 })
@@ -177,14 +177,14 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
 	var missingParam = checkRequiredParams(['animalId'], req.body);
 	if (missingParam){
-		return responseError(res, 400, 'Missing ' + missingParam);
+		return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Missing ' + missingParam);
 	}
 
 	Animal.findById(req.body.animalId, function (err, animal) {
 		// console.log('function');
 		if (err){
 			console.log(err);
-			return responseError(res, 500, 'Error while reading database');
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, 'Error while reading database');
 		}
 		if (animal){
 			var date = new Date();
@@ -201,7 +201,7 @@ router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), functio
 			return responseSuccess(res, ['status'], ['success']);
 		}
 		else{
-			return responseError(res, 400, 'Invalid animalId');
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Invalid animalId');
 		}
 	})
 	// return res.end('ok');
@@ -260,12 +260,12 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 		if ((action == ACTION_CREATE) && (element.type.localeCompare('Mixed') !== 0)) {
 			// Check required data props if action is create
 			if (element.required && (element.type.localeCompare('File') != 0) && !(element.name in req.body)){
-				return responseError(res, 400, "Missing " + element.name);
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, "Missing " + element.name);
 			}
 
 			// Check required files if action is create
 			if (element.required && (element.type.localeCompare('File') == 0) && !(element.name in req.files)){
-				return responseError(res, 400, "Missing " + element.name);
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, "Missing " + element.name);
 			}
 		}
 
@@ -283,19 +283,19 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					}
 					if ('min' in element){
 						if (value.length < element.min){
-							return responseError(res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, element.name + ' must not shorter than ' + element.min + ' characters');
 						}
 					}
 
 					if ('max' in element){
 						if (value.length > element.max){
-							return responseError(res, 400, element.name + ' must not longer than ' + element.max + ' characters');
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, element.name + ' must not longer than ' + element.max + ' characters');
 						}
 					}
 					if ('regex' in element){
 						var regex = new RegExp(element.regex);
 						if (regex.test(value) === false){
-							return responseError(res, 400, element.name + ' is in wrong format.');
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, element.name + ' is in wrong format.');
 						}
 					}
 				}
@@ -303,13 +303,13 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			case 'Number':
 				if ('min' in element){
 					if (parseFloat(req.body[element.name]) < element.min){
-						return responseError(res, 400, element.name + ' must not lower than ' + element.min);
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, element.name + ' must not lower than ' + element.min);
 					}
 				}
 
 				if ('max' in element){
 					if (req.body[element.name].length > element.max){
-						return responseError(res, 400, element.name + ' must not higher than ' + element.max);
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, element.name + ' must not higher than ' + element.max);
 					}
 				}
 				break;
@@ -324,7 +324,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 							if (!regex.test(file.originalname)){
 								// console.log(regex);
 								// console.log(file.originalname);
-								return responseError(res, 400, 'File name in ' + element.name + ' is invalid');
+								return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'File name in ' + element.name + ' is invalid');
 							}
 						}
 					}
@@ -349,7 +349,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 								if ('regex' in e){
 									var regex = new RegExp(e.regex);
 									if (regex.test(v) === false){
-										return responseError(res, 400, e.name + ' is in wrong format.');
+										return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, e.name + ' is in wrong format.');
 									}
 								}
 								valid = true;
@@ -365,7 +365,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 							}
 						}
 						if (!valid){
-							return responseError(res, 400, 'Missing ' + element.name);
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Missing ' + element.name);
 						}
 					}
 				}
@@ -441,8 +441,19 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 
 		// rename images
 		IMG_FIELDS.map(function (element) {
+			// console.log('---');
+			// console.log(element.name);
+			// if (req.files){
+			// 	console.log(element.name in req.files);
+			// 	if (element.name in req.files){
+			// 		console.log(req.files[element.name]);
+			// 	}
+			// }
+			
+			// console.log('---');
 			// console.log(objectChild(animal, element.animalSchemaProp)[element.name]);
 			if (req.files && (element.name in req.files) && req.files[element.name]){
+				// console.log('new file for ' + element.name);
 				// var nodes = element.animalSchemaProp.split('.');
 				// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 				// var tree = nodes.join('.');
@@ -453,11 +464,11 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					
 					// TODO
 					// need to delete old files.
-					// console.log('nhin gi');
+					// console.log('delete old files');
 					var files = objectChild(animal, element.animalSchemaProp)[element.name];
 					// console.log(files);
 					for (var j = 0; j < files.length; j++) {
-						fs.unlink(UPLOAD_DEST_ANIMAL, files[j]);
+						fs.unlink(path.join(UPLOAD_DEST_ANIMAL, files[j]));
 					}
 
 				}

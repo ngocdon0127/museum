@@ -174,12 +174,12 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 	})
 })
 
-router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), upload.fields(['someFileField']), function (req, res) {
+router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
 	var missingParam = checkRequiredParams(['animalId'], req.body);
 	if (missingParam){
 		return responseError(res, 400, 'Missing ' + missingParam);
 	}
-	// console.log(req.body);
+
 	Animal.findById(req.body.animalId, function (err, animal) {
 		// console.log('function');
 		if (err){
@@ -555,3 +555,5 @@ function autoFill () {
 		}
 	}
 }
+
+// 39d318266c301583d6b74ac78db35354

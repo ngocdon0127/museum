@@ -40,7 +40,7 @@ module.exports = function (mongoose) {
 			tinhTrangMau: String
 		},
 		duLieuThuMau: {
-			thoigianThuMau: Date,
+			thoiGianThuMau: Date,
 			nguoiThuMau: String,
 			phuongPhapThuMau: String,
 			coQuanThuMau: String,

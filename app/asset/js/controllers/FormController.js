@@ -28,7 +28,6 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	'coQuanNhapVatMau'];
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.data = res.data;
-		console.log($scope.data);
 		arrAuto.forEach(function (val) {
 			autoCom(val);
 		})
@@ -46,7 +45,230 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 			data: fd,
 			success: function (data) {
 				alert(data.status);
-				console.log(data);
+			},
+			error: function (err) {
+				console.log(err);
+				alert(JSON.parse(err.responseText).error)
+			}
+		});
+	}
+}]);
+
+app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+
+	function autoCom(str) {
+		$("#"+str).autocomplete({
+			source : $scope.data[str]
+		})
+	};
+	var arrAuto = [
+	'tenDongNghia','gioi',
+	'nganh', 'lop', 
+	'phanLop', 
+	'bo', 
+	'phanBo', 
+	'lienHo',
+	'ho',
+	'phanHo',
+	'toc', 
+	'giong', 
+	'loai', 
+	'duoiLoai', 
+	'coQuanThuMau', 
+	'quocGia', 'tinh', 
+	'huyen', 'xa', 'thon', 
+	'coQuanToChucPhanTich', 
+	'coQuanXuLy'
+	,'boPhanLayMauDNA', 
+	'trangThaiGiuMauDNA',
+	'coQuanNhapVatMau'];
+	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
+		$scope.data = res.data;
+		arrAuto.forEach(function (val) {
+			autoCom(val);
+		})
+	}, function (err) {
+		console.log(err);
+	});
+
+	$scope.addPost = function(){
+		var fd = new FormData(document.getElementById('form-animal'));
+		$.ajax({
+			url: '/content/dong-vat',
+			method: 'POST',
+			contentType: false,
+			processData: false,
+			data: fd,
+			success: function (data) {
+				alert(data.status);
+			},
+			error: function (err) {
+				console.log(err);
+				alert(JSON.parse(err.responseText).error)
+			}
+		});
+	}
+}]);
+
+app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+
+	function autoCom(str) {
+		$("#"+str).autocomplete({
+			source : $scope.data[str]
+		})
+	};
+	var arrAuto = [
+	'tenDongNghia','gioi',
+	'nganh', 'lop', 
+	'phanLop', 
+	'bo', 
+	'phanBo', 
+	'lienHo',
+	'ho',
+	'phanHo',
+	'toc', 
+	'giong', 
+	'loai', 
+	'duoiLoai', 
+	'coQuanThuMau', 
+	'quocGia', 'tinh', 
+	'huyen', 'xa', 'thon', 
+	'coQuanToChucPhanTich', 
+	'coQuanXuLy'
+	,'boPhanLayMauDNA', 
+	'trangThaiGiuMauDNA',
+	'coQuanNhapVatMau'];
+	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
+		$scope.data = res.data;
+		arrAuto.forEach(function (val) {
+			autoCom(val);
+		})
+	}, function (err) {
+		console.log(err);
+	});
+
+	$scope.addPost = function(){
+		var fd = new FormData(document.getElementById('form-animal'));
+		$.ajax({
+			url: '/content/dong-vat',
+			method: 'POST',
+			contentType: false,
+			processData: false,
+			data: fd,
+			success: function (data) {
+				alert(data.status);
+			},
+			error: function (err) {
+				console.log(err);
+				alert(JSON.parse(err.responseText).error)
+			}
+		});
+	}
+}]);
+
+app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+
+	function autoCom(str) {
+		$("#"+str).autocomplete({
+			source : $scope.data[str]
+		})
+	};
+	var arrAuto = [
+	'tenDongNghia','gioi',
+	'nganh', 'lop', 
+	'phanLop', 
+	'bo', 
+	'phanBo', 
+	'lienHo',
+	'ho',
+	'phanHo',
+	'toc', 
+	'giong', 
+	'loai', 
+	'duoiLoai', 
+	'coQuanThuMau', 
+	'quocGia', 'tinh', 
+	'huyen', 'xa', 'thon', 
+	'coQuanToChucPhanTich', 
+	'coQuanXuLy'
+	,'boPhanLayMauDNA', 
+	'trangThaiGiuMauDNA',
+	'coQuanNhapVatMau'];
+	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
+		$scope.data = res.data;
+		arrAuto.forEach(function (val) {
+			autoCom(val);
+		})
+	}, function (err) {
+		console.log(err);
+	});
+
+	$scope.addPost = function(){
+		var fd = new FormData(document.getElementById('form-animal'));
+		$.ajax({
+			url: '/content/dong-vat',
+			method: 'POST',
+			contentType: false,
+			processData: false,
+			data: fd,
+			success: function (data) {
+				alert(data.status);
+			},
+			error: function (err) {
+				console.log(err);
+				alert(JSON.parse(err.responseText).error)
+			}
+		});
+	}
+}]);
+
+app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+
+	function autoCom(str) {
+		$("#"+str).autocomplete({
+			source : $scope.data[str]
+		})
+	};
+	var arrAuto = [
+	'tenDongNghia','gioi',
+	'nganh', 'lop', 
+	'phanLop', 
+	'bo', 
+	'phanBo', 
+	'lienHo',
+	'ho',
+	'phanHo',
+	'toc', 
+	'giong', 
+	'loai', 
+	'duoiLoai', 
+	'coQuanThuMau', 
+	'quocGia', 'tinh', 
+	'huyen', 'xa', 'thon', 
+	'coQuanToChucPhanTich', 
+	'coQuanXuLy'
+	,'boPhanLayMauDNA', 
+	'trangThaiGiuMauDNA',
+	'coQuanNhapVatMau'];
+	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
+		$scope.data = res.data;
+		arrAuto.forEach(function (val) {
+			autoCom(val);
+		})
+	}, function (err) {
+		console.log(err);
+	});
+
+	$scope.addPost = function(){
+		var fd = new FormData(document.getElementById('form-animal'));
+		$.ajax({
+			url: '/content/dong-vat',
+			method: 'POST',
+			contentType: false,
+			processData: false,
+			data: fd,
+			success: function (data) {
+				alert(data.status);
 			},
 			error: function (err) {
 				console.log(err);

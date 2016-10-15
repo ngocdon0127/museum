@@ -54,7 +54,16 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 		if (missingParam){
 			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, 'Missing animalId');  
 		}
-		Animal.findById(req.body.animalId, function (err, animal) {
+		// console.log(req.body.animalId);
+		var animalId = '';
+		try {
+			animalId = mongoose.Types.ObjectId(req.body.animalId);
+		}
+		catch (e){
+			console.log(e);
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, "Invalid animalId");
+		}
+		Animal.findById(animalId, function (err, animal) {
 			if (err){
 				console.log(err);
 				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, "Error while reading database")

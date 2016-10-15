@@ -68,14 +68,16 @@ module.exports = function (mongoose) {
 			nguoiPhanTich: String,
 			coQuanToChucPhanTich: String,
 			taiLieuPhanTich: [String],
-			moTaHinhThai: String,
+			moTaHinhThaiStr: String,
+			moTaHinhThaiFile: [String],
 			hinhVe: [String],
 		},
 		
 		media: {
 			anhMauVat: [String],
 			anhNgoaiThucDia: [String],
-			video: [String],
+			videoStr: String,
+			videoFile: [String],
 			xuLyCheTac: {
 				thuocTinhXuLy: String,
 				phuongThucXuLy: String,
@@ -96,8 +98,10 @@ module.exports = function (mongoose) {
 
 		phanBoVaSuDung: {
 			phanBoDiaLy: {
-				phanBoVietNam: String,
-				phanBoTrenTheGioi: String
+				phanBoVietNamStr: String,
+				phanBoVietNamFile: [String],
+				phanBoTrenTheGioiStr: String,
+				phanBoTrenTheGioiFile: [String]
 			},
 			giaTriSuDung: String
 		},

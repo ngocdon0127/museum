@@ -37,7 +37,8 @@
 		"name": "tenVietNam",
 		"animalSchemaProp": "tenMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "tenTiengAnh",
@@ -75,77 +76,88 @@
 		"animalSchemaProp": "tenMau",
 		"required": true,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "nganh",
 		"animalSchemaProp": "tenMau",
 		"required": true,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "lop",
 		"animalSchemaProp": "tenMau",
 		"required": true,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "phanLop",
 		"animalSchemaProp": "tenMau",
 		"required": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "bo",
 		"animalSchemaProp": "tenMau",
 		"required": true,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "phanBo",
 		"animalSchemaProp": "tenMau",
 		"required": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "lienHo",
 		"animalSchemaProp": "tenMau",
 		"required": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "ho",
 		"animalSchemaProp": "tenMau",
 		"required": true,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "phanHo",
 		"animalSchemaProp": "tenMau",
 		"required": true,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "toc",
 		"animalSchemaProp": "tenMau",
 		"required": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "giong",
 		"animalSchemaProp": "tenMau",
 		"required": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "loai",
@@ -213,7 +225,8 @@
 		"name": "phuongPhapThuMau",
 		"animalSchemaProp": "duLieuThuMau",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "coQuanThuMau",

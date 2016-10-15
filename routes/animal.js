@@ -52,7 +52,7 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 	function (req, res, next) {
 		var missingParam = checkRequiredParams(['animalId'], req.body);
 		if (missingParam){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Missing animalId']);  
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu animalId']);  
 		}
 		// console.log(req.body.animalId);
 		var animalId = '';
@@ -61,7 +61,7 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 		}
 		catch (e){
 			console.log(e);
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Invalid animalId"]);
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["animalId không đúng"]);
 		}
 		Animal.findById(animalId, function (err, animal) {
 			if (err){
@@ -74,7 +74,7 @@ router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'),
 			}
 
 			else {
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid animalId'])
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['animalId không đúng'])
 			}
 		})
 })
@@ -127,10 +127,10 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 				Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.animalId)}}, function (err, logs) {
 					if (err || (logs.length < 1)){
 						console.log(err);
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["This animal has been deleted"]);
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
 					}
 					// console.log(logs);
-					return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["This animal has been deleted by " + logs[0].userFullName]);
+					return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
 				})
 			}
 			else {
@@ -140,7 +140,7 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 			}
 		}
 		else{
-			responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ['Not Found']);
+			responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ['Không tìm thấy']);
 		}
 	})
 })
@@ -186,7 +186,7 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 router.delete('/dong-vat', aclMiddleware('/content/dong-vat', 'delete'), function (req, res) {
 	var missingParam = checkRequiredParams(['animalId'], req.body);
 	if (missingParam){
-		return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Missing ' + missingParam]);
+		return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + missingParam]);
 	}
 
 	Animal.findById(req.body.animalId, function (err, animal) {
@@ -272,13 +272,13 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			// Check required data props if action is create
 			if (element.required && (element.type.localeCompare('File') != 0) && (!(element.name in req.body) || !(req.body[element.name]))) {
 				console.log('resonpse error');
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Missing parameter", element.name]);
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
 			}
 
 			// Check required files if action is create
 			if (element.required && (element.type.localeCompare('File') == 0) && (!(element.name in req.files) || !(req.files[element.name]))){
 				console.log('missing file');
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Missing parameter", element.name]);
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
 			}
 		}
 
@@ -296,19 +296,19 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 					}
 					if ('min' in element){
 						if (value.length < element.min){
-							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' must not shorter than ' + element.min + ' characters', element.name]);
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.min + ' ký tự', element.name]);
 						}
 					}
 
 					if ('max' in element){
 						if (value.length > element.max){
-							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' must not longer than ' + element.max + ' characters', element.name]);
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.max + ' ký tự', element.name]);
 						}
 					}
 					if ('regex' in element){
 						var regex = new RegExp(element.regex);
 						if (regex.test(value) === false){
-							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Wrong format', element.name]);
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Sai định dạng', element.name]);
 						}
 					}
 				}
@@ -316,13 +316,13 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			case 'Number':
 				if ('min' in element){
 					if (parseFloat(req.body[element.name]) < element.min){
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' must not lower than ' + element.min, element.name]);
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được nhỏ hơn ' + element.min, element.name]);
 					}
 				}
 
 				if ('max' in element){
 					if (req.body[element.name].length > element.max){
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' must not higher than ' + element.max, element.name]);
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được lớn hơn ' + element.max, element.name]);
 					}
 				}
 				break;
@@ -337,7 +337,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 							if (!regex.test(file.originalname)){
 								// console.log(regex);
 								// console.log(file.originalname);
-								return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['File name in ' + element.name + ' is invalid', element.name]);
+								return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Tên file trong trường không hợp lệ', element.name]);
 							}
 						}
 					}
@@ -362,7 +362,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 								if ('regex' in e){
 									var regex = new RegExp(e.regex);
 									if (regex.test(v) === false){
-										return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Wrong format', e.name]);
+										return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Sai định dạng', e.name]);
 									}
 								}
 								valid = true;
@@ -378,7 +378,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 							}
 						}
 						if (!valid){
-							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Missing parameter', element.name]);
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Thiếu tham số', element.name]);
 						}
 					}
 				}

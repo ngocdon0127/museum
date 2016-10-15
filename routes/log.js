@@ -13,7 +13,26 @@ router.use(isLoggedIn);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	Log.find({userId: req.user.id}, {}, {sort: {time: -1}}, function (err, logs) {
+	var projection = {userId: req.user.id};
+
+	if ('action' in req.query){
+		projection.action = req.query.action;
+	}
+
+	if ('object' in req.query){
+		var arr = [];
+		arr.push(req.query.object);
+		try {
+			var mgOI = mongoose.Types.ObjectId(req.query.object);
+			arr.push(mgOI)
+		}
+		catch (e){
+			console.log(e);
+		}
+		projection['obj1._id'] = {$in: arr};
+	}
+
+	Log.find(projection, {}, {sort: {time: -1}}, function (err, logs) {
 		if (err){
 			console.log(err);
 			return res.status(500).json({
@@ -64,7 +83,7 @@ router.get('/all', aclMiddleware('/log/all', 'view'), function (req, res, next) 
 		// 	status: 'success',
 		// 	logs: logs
 		// })
-		return res.render('log', {user: req.user, logs: logs, path: req.path});
+		return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path});
 	})
 })
 

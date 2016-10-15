@@ -387,7 +387,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 		// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 		// var tree = nodes.join('.');
 		// objectChild(newAnimal, tree)[lastProp] = req.body[element.name];
-		if (element.name in req.body){
+		if (element.type.localeCompare('Mixed') && element.type.localeCompare('File') && (element.name in req.body)) {
 			var value = req.body[element.name];
 			try {
 				value = value.trim();

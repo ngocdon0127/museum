@@ -1,5 +1,6 @@
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
+//auto complete
 	function autoCom(str) {
 		$("#"+str).autocomplete({
 			source : $scope.data[str]

@@ -2,9 +2,11 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 	var url = AuthService.hostName + '/content/dong-vat';
 	$http.get(url).then(function (res) {
 		$scope.allPostAnimal = res.data.animals;
-		console.log(res);
+		console.log(res);	
+		$scope.status = res.data.status;
 	}, function (err) {
 		console.log(err);
+		$scope.status = res.data.status;
 	});
 
 	$scope.deletePost = function(id){

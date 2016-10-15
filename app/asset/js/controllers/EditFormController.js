@@ -4,7 +4,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	$http.get(url).then(function (res) {
 		// console.log(res.data.animal.ngayNhapMau);
 		res.data.animal.ngayNhapMau = new Date(res.data.animal.ngayNhapMau);
-		res.data.animal.thoigianThuMau = new Date(res.data.animal.thoigianThuMau);
+		res.data.animal.thoiGianThuMau = new Date(res.data.animal.thoiGianThuMau);
 		res.data.animal.thoiGianPhanTich = new Date(res.data.animal.thoiGianPhanTich);
 		$scope.animal = res.data.animal;
 		$scope.status = res.data.status;

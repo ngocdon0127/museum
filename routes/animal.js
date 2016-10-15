@@ -249,6 +249,8 @@ function objectChild (object, tree) {
 function saveOrUpdateAnimal (req, res, animal, action) {
 	var animalBeforeUpdate = {};
 	if (action == ACTION_EDIT){
+
+		// Date will be converted to String.
 		animalBeforeUpdate = JSON.parse(JSON.stringify(animal));
 	}
 	
@@ -494,11 +496,11 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 			newLog.objType = 'animal';
 			newLog.userId = req.user.id;
 			if (action == ACTION_CREATE){
-				newLog.obj1 = animal;
+				newLog.obj1 = JSON.parse(JSON.stringify(animal));
 			}
 			else {
 				newLog.obj1 = animalBeforeUpdate;
-				newLog.obj2 = animal;
+				newLog.obj2 = JSON.parse(JSON.stringify(animal));
 			}
 			newLog.userFullName = req.user.fullname;
 			newLog.save();

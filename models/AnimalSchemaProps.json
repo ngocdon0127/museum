@@ -278,7 +278,7 @@
 	{
 		"name": "doSau",
 		"animalSchemaProp": "duLieuThuMau",
-		"required": true,
+		"required": false,
 		"type": "Number"
 	},
 	{

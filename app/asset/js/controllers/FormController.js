@@ -49,7 +49,18 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 			},
 			error: function (err) {
 				console.log(err);
-				alert(JSON.parse(err.responseText).error)
+				alert(JSON.parse(err.responseText).error);
+				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+				try {
+					element.value = 'hehe';
+				}
+				catch (e){
+					// do not care
+				}
+				element.style.background = 'red';
+				$('html, body').animate({
+					scrollTop: $(element).offset().top - 50
+				}, 1000);
 			}
 		});
 	}

@@ -61,7 +61,7 @@ global.myCustomVars.checkRequiredParams = checkRequiredParams;
  * @param {String} errMessage Error
  */
 
-function responseError (req, dir, res, errCode, errMessage) {
+function responseError (req, dir, res, errCode, props, values) {
 
 	// Delete files in request
 
@@ -76,10 +76,15 @@ function responseError (req, dir, res, errCode, errMessage) {
 	}
 
 	// Response to client
-	return res.status(errCode).json({
-		status: 'error',
-		error: errMessage
-	})
+
+	if ((props instanceof Array) && (values instanceof Array) && (props.length == values.length)){
+		var result = {};
+		result.status = 'error';
+		for (var i = 0; i < props.length; i++) {
+			result[props[i]] = values[i];
+		}
+		return res.status(errCode).json(result);
+	}
 }
 
 global.myCustomVars.responseError = responseError;

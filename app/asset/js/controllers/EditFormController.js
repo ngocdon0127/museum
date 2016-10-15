@@ -1,6 +1,8 @@
 app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter', function($http,$scope,AuthService, $routeParams, $filter){
 
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
+	// console.log($routeParams.id);
+	
 	$http.get(url).then(function (res) {
 		// console.log(res.data.animal.ngayNhapMau);
 		res.data.animal.ngayNhapMau = new Date(res.data.animal.ngayNhapMau);
@@ -8,15 +10,14 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		res.data.animal.thoiGianPhanTich = new Date(res.data.animal.thoiGianPhanTich);
 		$scope.animal = res.data.animal;
 		$scope.status = res.data.status;
+		$scope.animal.animalId = $routeParams.id;
 	}, function (err){
 		// console.log(err);
 		$scope.status = err.data.status;
 	});
 
 	var url = AuthService.hostName + '/content/dong-vat';
-	
 	$scope.updatePost = function(){
-		$scope.animal.animalId = $routeParams.id;
 		var fd = new FormData(document.getElementById('form-animal'));
 		$.ajax({
 			url: '/content/dong-vat',

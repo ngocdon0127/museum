@@ -349,15 +349,15 @@
 			<tr>
 				<td><label>Phân bố Việt Nam:</label></td>
 				<td>
-					<input type="text" ng-model="animal.phanBoVietNam"  name="phanBoVietNam" class="input-form"  required>
-					<input type="file" ng-model="animal.maBaoTang"  multiple name="filePhanBoVietNam">
+					<input type="text" ng-model="animal.phanBoVietNamStr" name="phanBoVietNamStr" class="input-form"  value="">
+					<input type="file" ng-model="animal.phanBoVietNamFile" multiple name="phanBoVietNamFile">
 				</td>
 			</tr>
 			<tr>
 				<td><label>Phân bố trên thế giới (nếu có):</label></td>
 				<td>
-					<input type="text" ng-model="animal.phanBoTrenTheGioi"  name="phanBoTrenTheGioi" class="input-form" >
-					<input type="file"  ng-model="animal.filePhanBoVietNam" multiple name="filePhanBoVietNam">
+					<input type="text" ng-model="animal.phanBoTrenTheGioiStr" name="phanBoTrenTheGioiStr" class="input-form"  value="">
+					<input type="file" ng-model="animal.phanBoTrenTheGioiFile" multiple name="phanBoTrenTheGioiFile">
 				</td>
 			</tr>
 			<tr>
@@ -449,5 +449,5 @@
 </div>
 
 <div class="container map-detail" style="margin-top: 50px;" ng-if="status == 'error'">
-	<h2>Trang web khong tim thay</h2>
+	<h2>Xuất hiện lỗi: Trang web không tìm thấy</h2>
 </div>

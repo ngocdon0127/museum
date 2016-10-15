@@ -1,4 +1,4 @@
-<div class="container map-detail" style="margin-top: 50px;">
+<div class="container map-detail" style="margin-top: 50px;" ng-if="allPostAnimal">
 	<div class="list-group" ng-repeat="(key, post) in allPostAnimal">
 		<li class="list-group-item">
 			<span>{{post._id}}</span>
@@ -6,4 +6,8 @@
 			<a class="btn btn-danger" ng-click="deletePost(post._id)" href="" role="button">Xóa bài đăng</a>
 		</li>
 	</div>
+</div>
+
+<div class="container map-detail" style="margin-top: 50px;" ng-if="!allPostAnimal">
+	<h2>Khong co du lieu</h2>
 </div>

@@ -36,39 +36,45 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 		console.log(err);
 	});
 
-	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-animal'));
-		$.ajax({
-			url: '/content/dong-vat',
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-				try {
-					// element.value = '';
-					// element.setAttribute('placeholder', 'Wrong format');
-				}
-				catch (e){
-					// do not care
-				}
-				element.style.background = '#EE543A';
-				setTimeout((function (e) {
-					return function () {
-						e.style.background = 'white';
+	$scope.addPost = function(FormAnimal){
+		console.log($scope.FormAnimal.$valid);
+		if ($scope.FormAnimal.$valid) {
+			console.log("Submitted");
+			var fd = new FormData(document.getElementById('form-animal'));
+			$.ajax({
+				url: '/content/dong-vat',
+				method: 'POST',
+				contentType: false,
+				processData: false,
+				data: fd,
+				success: function (data) {
+					alert(data.status);
+				},
+				error: function (err) {
+					console.log(err);
+					alert(JSON.parse(err.responseText).error);
+					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+					try {
+						// element.value = '';
+						// element.setAttribute('placeholder', 'Wrong format');
 					}
-				})(element), 2000);
-				$('html, body').animate({
-					scrollTop: $(element).offset().top - 100
-				}, 500);
-			}
-		});
+					catch (e){
+						// do not care
+					}
+					element.style.background = '#EE543A';
+					setTimeout((function (e) {
+						return function () {
+							e.style.background = 'white';
+						}
+					})(element), 2000);
+					$('html, body').animate({
+						scrollTop: $(element).offset().top - 100
+					}, 500);
+				}
+			});
+		} else{
+			angular.element("[name='" + FormAnimal.$name + "']").find('.ng-invalid:visible:first').focus();
+		}
 	}
 }]);
 

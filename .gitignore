@@ -3,3 +3,4 @@ config/config.js
 config/acl.json
 config/roles.json
 public/uploads
+app/service.js

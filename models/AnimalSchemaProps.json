@@ -515,13 +515,13 @@
 		"subProps": ["phanBoTrenTheGioiStr", "phanBoTrenTheGioiFile"]
 	},
 	{
-		"name": "phanBoTheGioiStr",
+		"name": "phanBoTrenTheGioiStr",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"required": false,
 		"type": "String"
 	},
 	{
-		"name": "phanBoTheGioiFile",
+		"name": "phanBoTrenTheGioiFile",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"required": false,
 		"type": "File"

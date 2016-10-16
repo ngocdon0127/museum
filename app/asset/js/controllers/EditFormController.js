@@ -1,4 +1,4 @@
-app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter', function($http,$scope,AuthService, $routeParams, $filter){
+app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter','$timeout', '$window', function($http,$scope,AuthService, $routeParams, $filter, $timeout, $window){
 
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
 	// console.log($routeParams.id);
@@ -11,12 +11,16 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.animal = res.data.animal;
 		$scope.status = res.data.status;
 		$scope.animal.animalId = $routeParams.id;
+		$timeout(function(){
+			document.getElementsByName('tinh')[0].click()
+			document.getElementsByName('huyen')[0].click()
+		}, 1000);
 	}, function (err){
-		// console.log(err);
 		$scope.status = err.data.status;
 	});
 
 	var url = AuthService.hostName + '/content/dong-vat';
+	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.updatePost = function(){
 		var fd = new FormData(document.getElementById('form-animal'));
 		$.ajax({
@@ -27,6 +31,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 			data: fd,
 			success: function (data) {
 				alert(data.status);
+				$window.location.href = urlRe;
 			},
 			error: function (err) {
 				console.log(err);

@@ -161,14 +161,14 @@
 						<td>Quốc gia(*): </td>
 						<td>
 							<select class="select-box" ng-model="animal.quocGia"  name="quocGia" required>
-								<option value="VietNam">Việt Nam</option>
+								<option value="Việt Nam">Việt Nam</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>Tỉnh/Thành phố(*): </td>
 						<td>
-							<select class="select-box" name="tinh" required ng-model= "$parent.animal.tinh" ng-change="cityChange()">
+							<select class="select-box" name="tinh" required ng-model= "$parent.animal.tinh" ng-click="cityChange()">
 								<option  ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " +  city.name}}</option>
 							</select>
 						</td>
@@ -176,7 +176,7 @@
 					<tr>
 						<td>Huyện(*):</td>
 						<td>
-							<select class="select-box" name="huyen" required ng-model= "$parent.animal.huyen" ng-change="districtChange()">
+							<select class="select-box" name="huyen" required ng-model= "$parent.animal.huyen" ng-click="districtChange()">
 								<option ng-repeat="(key, district) in districts | customCity: animal.tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
 							</select>
 						</td>
@@ -253,9 +253,9 @@
 				<td><input type="file" ng-model="animal.taiLieuPhanTich" multiple name="taiLieuPhanTich" accept=".doc, .docx, .pdf" class="input-form"  required></td>
 			</tr>
 			<tr>
-				<td><label>Mô tả/đặc điểm hình thái  (*)</label></td>
-				<td><input type="text" name="moTaHinhThaiStr" class="input-form"  value="">
-				<input type="file" multiple accept="video/mp4,video/x-m4v,video/*" name="moTaHinhThaiFile" class="input-form"  value=""></td>
+				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
+				<td><input type="text" name="moTaHinhThaiStr"v ng-model="animal.moTaHinhThaiStr" class="input-form"  value="">
+				<input type="file" multiple accept="video/mp4,video/x-m4v,video/*" ng-model="animal.moTaHinhThaiFile" name="moTaHinhThaiFile" class="input-form"  value=""></td>
 			</tr>
 			<tr>
 				<td><label>Hình vẽ:</label></td>

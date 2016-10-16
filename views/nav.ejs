@@ -13,8 +13,9 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<% if (typeof(user) != 'undefined') { %>
 			<ul class="nav navbar-nav">
-				<% if (typeof(path) != 'undefined' && !path.localeCompare('/app')) { %>
+				<% if ((typeof(path) != 'undefined') && !(path.localeCompare('/app'))) { %>
 					<li class="active"><a href="/app">Nhập liệu</a></li>
 				<% } else { %>
 					<li><a href="/app">Nhập liệu</a></li>
@@ -32,6 +33,7 @@
 					<li><a href="/log">Lịch sử</a></li>
 				<% } %>
 			</ul>
+			<% } %>
 		<% if (user) { %>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">

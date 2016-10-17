@@ -1,7 +1,7 @@
 var multer               = require('multer');
 var fs                   = require('fs');
 var path                 = require('path');
-var UPLOAD_DEST_ANIMAL   = path.join('public/uploads/animal');
+var UPLOAD_DEST_ANIMAL   = 'public/uploads/animal';
 var upload               = multer({dest: UPLOAD_DEST_ANIMAL});
 var mongoose             = require('mongoose');
 var Animal               = mongoose.model('Animal');

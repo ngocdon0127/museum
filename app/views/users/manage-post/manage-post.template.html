@@ -1,13 +1,26 @@
 <div class="container map-detail" style="margin-top: 50px;" ng-if="allPostAnimal">
+	<center><h2>Các bài đã đăng</h2></center>
+	
 	<div class="list-group" ng-repeat="(key, post) in allPostAnimal">
 		<li class="list-group-item">
-			<span>{{post._id}}</span>
-			<a class="btn btn-success" href="#!/dong-vat/chinh-sua/{{post._id}}" role="button">Chỉnh sửa</a>
-			<a class="btn btn-danger" ng-click="deletePost(post._id)" href="" role="button">Xóa bài đăng</a>
+			<table>
+				<tr>
+					<td>
+						<p><b>Id: </b><span class=" label label-info">{{post._id}}</span></p>
+						<p><b>Người thu mẫu: </b>{{post.duLieuThuMau.nguoiThuMau}}</p>
+						<p><b>Tên mẫu: </b>{{post.tenMau.tenVietNam}}</p>
+						<p><b>Ngày đăng: </b>{{post.created_at}}</p>
+					</td>
+					<td style="right: 0px; position: absolute;">
+						<a class="btn btn-success" href="#!/dong-vat/chinh-sua/{{post._id}}" role="button">Chỉnh sửa</a>
+						<a class="btn btn-danger" ng-click="deletePost(post._id)" href="" role="button">Xóa bài đăng</a>
+					</td>
+				</tr>
+			</table>
 		</li>
 	</div>
 </div>
 
 <div class="container map-detail" style="margin-top: 50px;" ng-if="!allPostAnimal">
-	<h2>Không có dữ liệu!</h2>
+	<h2>Đang tải dữ liệu...</h2>
 </div>

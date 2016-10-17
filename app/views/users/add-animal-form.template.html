@@ -18,10 +18,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label>Số hiệu BTTNVN (*):</label></td>
+				<td><label>Số hiệu BTTNVN:</label></td>
 				<td>
-					<input type="text" name="soHieuBTTNVN" ng-class="{'has-error' : FormAnimal.soHieuBTTNVN.$error.required && FormAnimal.soHieuBTTNVN.$touched}" class="input-form" maxlength="100" required>
-					<span class="text-errors" ng-show="(FormAnimal.soHieuBTTNVN.$submitted || FormAnimal.soHieuBTTNVN.$touched) && FormAnimal.soHieuBTTNVN.$error.required">required!</span>
+					<input type="text" name="soHieuBTTNVN" class="input-form" maxlength="100">
 				</td>
 			</tr>
 			<tr>
@@ -132,14 +131,12 @@
 		<table>
 			<h3 class="h3-title">3. Số lượng và chất lượng mẫu vật</h3>
 			<tr>
-				<td><label>Số lượng mẫu vật (*):</label></td>
-				<td><input type="number" name="soLuongMauVat" ng-class="{'has-error' : FormAnimal.soLuongMauVat.$error.required && FormAnimal.soLuongMauVat.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.soLuongMauVat.$submitted || FormAnimal.soLuongMauVat.$touched) && FormAnimal.soLuongMauVat.$error.required">Required!</span></td>
+				<td><label>Số lượng mẫu vật:</label></td>
+				<td><input type="number" name="soLuongMauVat" min="0" class="input-form"  ></td>
 			</tr>
 			<tr>
-				<td><label>Số lượng tiêu bản (*):</label></td>
-				<td><input type="number" name="soLuongTieuBan" ng-class="{'has-error' : FormAnimal.soLuongTieuBan.$error.required && FormAnimal.soLuongTieuBan.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.soLuongTieuBan.$submitted || FormAnimal.soLuongTieuBan.$touched) && FormAnimal.soLuongTieuBan.$error.required">Required!</span></td>
+				<td><label>Số lượng tiêu bản:</label></td>
+				<td><input type="number" name="soLuongTieuBan" min="0" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>Loại mẫu (*):</label></td>
@@ -244,12 +241,12 @@
 			</tr>
 			<tr>
 				<td><label>Độ cao (m) (*): </label></td>
-				<td><input type="number" name="doCao" ng-class="{'has-error' : FormAnimal.doCao.$error.required && FormAnimal.doCao.$touched}" class="input-form" required>
+				<td><input type="number" name="doCao" min="0" ng-class="{'has-error' : FormAnimal.doCao.$error.required && FormAnimal.doCao.$touched}" class="input-form" required>
 				<span class="text-errors" ng-show="(FormAnimal.doCao.$submitted || FormAnimal.doCao.$touched) && FormAnimal.doCao.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Độ sâu(m):</label></td>
-				<td><input type="number" name="doSau" class="input-form" ></td>
+				<td><input type="number" name="doSau" min="0" class="input-form" ></td>
 			</tr>
 			<tr>
 				<td><label>Vùng biển:</label></td>
@@ -400,12 +397,12 @@
 				<td colspan="2"><h4>Phân bố địa lý của taxon định loại  (*)</h4></td>
 			</tr>
 			<tr>
-				<td><label>Phân bố Việt Nam:</label></td>
+				<td><label>Phân bố Việt Nam (*):</label></td>
 				<td>
 					<table>
 						<tr>
-							<td><input  type="text" name="phanBoVietNamStr" class="input-form"></td>
-							<td><input  type="file" multiple name="phanBoVietNamFile" class="input-form"></td>
+							<td><input type="text" name="phanBoVietNamStr" class="input-form"></td>
+							<td><input type="file" multiple name="phanBoVietNamFile" class="input-form"></td>
 						</tr>
 					</table>
 				</td>
@@ -502,11 +499,10 @@
 		<table>
 			<h3 class="h3-title">9. NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
 			<tr>
-				<td><label>Thông tin khác</label></td>
+				<td><label>Thông tin khác: </label></td>
 				<td><input type="text" name="thongTinKhac" style="width: 400px; height: 100px;" class="input-form"></td>
 			</tr>
 		</table>
 		<button type="submit" class="btn btn-success btn-lg">Thêm dữ liệu</button>
 	</form>
-	
 </div>

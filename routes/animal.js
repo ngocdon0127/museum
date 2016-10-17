@@ -1,7 +1,7 @@
 var multer               = require('multer');
 var fs                   = require('fs');
 var path                 = require('path');
-var UPLOAD_DEST_ANIMAL   = 'public/uploads/animal';
+var UPLOAD_DEST_ANIMAL   = path.join('public/uploads/animal');
 var upload               = multer({dest: UPLOAD_DEST_ANIMAL});
 var mongoose             = require('mongoose');
 var Animal               = mongoose.model('Animal');
@@ -134,9 +134,14 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 				})
 			}
 			else {
-				// responseSuccess(res, ['animal'], [animal]);
-				responseSuccess(res, ['animal'], [flatAnimal(animal)]);
-				// return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal)});
+				// return responseSuccess(res, ['animal'], [animal]);
+				if (req.query.display == 'html'){
+					return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal), props: propsName(), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
+				}
+				else {
+					return responseSuccess(res, ['animal'], [flatAnimal(animal)]);
+				}
+				
 			}
 		}
 		else{
@@ -153,21 +158,21 @@ router.get('/dong-vat/log/:logId/:position', function (req, res) {
 		if (log){
 			if ((log.action == 'update') && (req.params.position == 'diff')){
 				// return responseSuccess(res, ['obj1', 'obj2'], [flatAnimal(log.obj1), flatAnimal(log.obj2)]);
-				return res.render('display', {title: 'Các cập nhật', count: 2, obj1: flatAnimal(log.obj1), obj2: flatAnimal(log.obj2)});
+				return res.render('display', {title: 'Các cập nhật', count: 2, obj1: flatAnimal(log.obj1), obj2: flatAnimal(log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName()});
 			}
 
 			switch (parseInt(req.params.position)){
 				case 1:
 					if ('obj1' in log){
 						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj1)])
-						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj1), obj2: {}});
+						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj1), obj2: {}, staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName()});
 					}
 					else{
 						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
 					}
 				case 2:
 					if (('obj2' in log) && (log.obj2)){
-						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj2)});
+						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatAnimal(log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName()});
 						// return responseSuccess(res, ['animal'], [flatAnimal(log.obj2)])
 					}
 					else{
@@ -530,6 +535,18 @@ function flatAnimal (animal) {
 		// }
 	});
 	return result;
+}
+
+function propsName () {
+	return PROP_FIELDS.reduce(function (preObj, curElement) {
+		if (('label' in curElement) && (curElement.label)){
+			preObj[curElement.name] = curElement.label;
+		}
+		else {
+			preObj[curElement.name] = curElement.name;
+		}
+		return preObj;
+	}, {});
 }
 
 function generate (schema) {

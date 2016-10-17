@@ -2,6 +2,7 @@
 	{
 		"name": "soHieuBaoTangCS",
 		"animalSchemaProp": "soHieu",
+		"label": "Số hiệu Bảo tàng cơ sở",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$"
@@ -9,12 +10,14 @@
 	{
 		"name": "maKyHieuMauVatQuocTe",
 		"animalSchemaProp": "soHieu",
+		"label": "Mã ký hiệu mẫu vật quốc tế",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "soHieuThucDia",
 		"animalSchemaProp": "soHieu",
+		"label": "Số hiệu thực địa",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$"
@@ -22,6 +25,7 @@
 	{
 		"name": "soHieuBTTNVN",
 		"animalSchemaProp": "soHieu",
+		"label": "Số hiệu BTTNVN",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$"
@@ -29,6 +33,7 @@
 	{
 		"name": "kyHieuMauVatKhac",
 		"animalSchemaProp": "soHieu",
+		"label": "Các ký hiệu mẫu vật khác",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$"
@@ -36,6 +41,7 @@
 	{
 		"name": "tenVietNam",
 		"animalSchemaProp": "tenMau",
+		"label": "Tên Việt Nam (phổ thông)",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$"
@@ -43,30 +49,35 @@
 	{
 		"name": "tenTiengAnh",
 		"animalSchemaProp": "tenMau",
+		"label": "Tên tiếng Anh",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "tenTheoBaoTang",
 		"animalSchemaProp": "tenMau",
+		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "tenTheoQuocTe",
 		"animalSchemaProp": "tenMau",
+		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "tenKhoaHoc",
 		"animalSchemaProp": "tenMau",
+		"label": "Tên khoa học (tên latinh)",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "tenDongNghia",
 		"animalSchemaProp": "tenMau",
+		"label": "Tên đồng nghĩa (synonym)",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -74,6 +85,7 @@
 	{
 		"name": "gioi",
 		"animalSchemaProp": "tenMau",
+		"label": "Giới",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true,
@@ -82,6 +94,7 @@
 	{
 		"name": "nganh",
 		"animalSchemaProp": "tenMau",
+		"label": "Ngành",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true,
@@ -90,6 +103,7 @@
 	{
 		"name": "lop",
 		"animalSchemaProp": "tenMau",
+		"label": "Lớp",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true,
@@ -98,6 +112,7 @@
 	{
 		"name": "phanLop",
 		"animalSchemaProp": "tenMau",
+		"label": "Phân lớp",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
@@ -106,6 +121,7 @@
 	{
 		"name": "bo",
 		"animalSchemaProp": "tenMau",
+		"label": "Bộ",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true,
@@ -114,6 +130,7 @@
 	{
 		"name": "phanBo",
 		"animalSchemaProp": "tenMau",
+		"label": "Phân bộ",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
@@ -122,6 +139,7 @@
 	{
 		"name": "lienHo",
 		"animalSchemaProp": "tenMau",
+		"label": "Liên họ",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
@@ -130,6 +148,7 @@
 	{
 		"name": "ho",
 		"animalSchemaProp": "tenMau",
+		"label": "Họ",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true,
@@ -138,6 +157,7 @@
 	{
 		"name": "phanHo",
 		"animalSchemaProp": "tenMau",
+		"label": "Phân họ",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true,
@@ -146,6 +166,7 @@
 	{
 		"name": "toc",
 		"animalSchemaProp": "tenMau",
+		"label": "Tộc",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
@@ -154,6 +175,7 @@
 	{
 		"name": "giong",
 		"animalSchemaProp": "tenMau",
+		"label": "Giống",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
@@ -162,6 +184,7 @@
 	{
 		"name": "loai",
 		"animalSchemaProp": "tenMau",
+		"label": "Loài",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -169,6 +192,7 @@
 	{
 		"name": "duoiLoai",
 		"animalSchemaProp": "tenMau",
+		"label": "Dưới loài/phân loài",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -176,68 +200,79 @@
 	{
 		"name": "nguoiDinhTen",
 		"animalSchemaProp": "tenMau",
+		"label": "Người định tên",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "soLuongMauVat",
 		"animalSchemaProp": "soLuongChatLuong",
+		"label": "Số lượng mẫu vật",
 		"required": true,
 		"type": "Number"
 	},
 	{
 		"name": "soLuongTieuBan",
 		"animalSchemaProp": "soLuongChatLuong",
+		"label": "Số lượng tiêu bản",
 		"required": true,
 		"type": "Number"
 	},
 	{
 		"name": "kichThuocMau",
 		"animalSchemaProp": "soLuongChatLuong",
+		"label": "Kích thước mẫu vật(dài x rộng x cao)",
 		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "loaiMau",
 		"animalSchemaProp": "soLuongChatLuong",
+		"label": "Loại mẫu vật",
 		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "tinhTrangMau",
 		"animalSchemaProp": "soLuongChatLuong",
+		"label": "Tình trạng mẫu vật",
 		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "thoiGianThuMau",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Thời gian thu mẫu",
 		"required": true,
 		"type": "Date"
 	},
 	{
 		"name": "nguoiThuMau",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Người thu mẫu",
 		"required": true,
 		"type": "String"
 	},
 	{
-		"name": "phuongPhapThuMau",
-		"animalSchemaProp": "duLieuThuMau",
-		"required": true,
-		"type": "String",
-		"regex": "^.{1,100}$"
-	},
-	{
 		"name": "coQuanThuMau",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Cơ quan thu mẫu",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
 	},
 	{
+		"name": "phuongPhapThuMau",
+		"animalSchemaProp": "duLieuThuMau",
+		"label": "Phương pháp thu mẫu",
+		"required": true,
+		"type": "String",
+		"regex": "^.{1,100}$"
+	},
+	{
 		"name": "quocGia",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"label": "Quốc gia",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true
@@ -245,6 +280,7 @@
 	{
 		"name": "tinh",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"label": "Tỉnh",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true
@@ -252,6 +288,7 @@
 	{
 		"name": "huyen",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"label": "Huyện",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true
@@ -259,6 +296,7 @@
 	{
 		"name": "xa",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"label": "Xã",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true
@@ -266,6 +304,7 @@
 	{
 		"name": "thon",
 		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"label": "Thôn/bản",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -273,72 +312,84 @@
 	{
 		"name": "viDo",
 		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
+		"label": "Vĩ độ N",
 		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "kinhDo",
 		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
+		"label": "Kinh độ E",
 		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "doCao",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Độ cao (m)",
 		"required": true,
 		"type": "Number"
 	},
 	{
 		"name": "doSau",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Độ sâu (m)",
 		"required": false,
 		"type": "Number"
 	},
 	{
 		"name": "vungBien",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Vùng biển",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "sinhHoc",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Sinh học/sinh thái",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "thongTinDuAn",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
 		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "ghiChepThucDia",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Ghi chép thực địa",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "banDo",
 		"animalSchemaProp": "duLieuThuMau",
+		"label": "Bản đồ",
 		"required": false,
 		"type": "File"
 	},
 	{
 		"name": "thoiGianPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Thời gian phân tích/giám định/định loại mẫu",
 		"required": false,
 		"type": "Date"
 	},
 	{
 		"name": "nguoiPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Người phân tích/giám định/định loại mẫu",
 		"required": true,
 		"type": "String"
 	},
 	{
 		"name": "coQuanToChucPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
 		"required": true,
 		"type": "String",
 		"autoCompletion": true
@@ -346,6 +397,7 @@
 	{
 		"name": "taiLieuPhanTich",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Tài liệu phân tích/giám định/phân loại đi kèm",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"
@@ -353,6 +405,7 @@
 	{
 		"name": "moTaHinhThai",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Mô tả/đặc điểm hình thái",
 		"required": true,
 		"type": "Mixed",
 		"subProps": ["moTaHinhThaiStr", "moTaHinhThaiFile"]
@@ -360,18 +413,21 @@
 	{
 		"name": "moTaHinhThaiStr",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Mô tả/đặc điểm hình thái",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "moTaHinhThaiFile",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Mô tả/đặc điểm hình thái",
 		"required": false,
 		"type": "File"
 	},
 	{
 		"name": "hinhVe",
 		"animalSchemaProp": "duLieuPhanTichMau",
+		"label": "Hình vẽ",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
@@ -379,6 +435,7 @@
 	{
 		"name": "anhMauVat",
 		"animalSchemaProp": "media",
+		"label": "Ảnh mẫu vật",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
@@ -386,6 +443,7 @@
 	{
 		"name": "anhNgoaiThucDia",
 		"animalSchemaProp": "media",
+		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
@@ -393,6 +451,7 @@
 	{
 		"name": "video",
 		"animalSchemaProp": "media",
+		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "Mixed",
 		"subProps": ["videoStr", "videoFile"]
@@ -400,57 +459,66 @@
 	{
 		"name": "videoStr",
 		"animalSchemaProp": "media",
+		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "videoFile",
 		"animalSchemaProp": "media",
+		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
+		"name": "hinhAnhDinhKem",
+		"animalSchemaProp": "media.xuLyCheTac",
+		"label": "Hình ảnh đính kèm Xử lý chế tác",
+		"required": false,
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
+	},
+	{
+		"name": "dinhKemXuLy",
+		"animalSchemaProp": "media.xuLyCheTac",
+		"label": "Đính kèm Xử lý chế tác",
+		"required": false,
+		"type": "File"
+	},
+	{
 		"name": "thuocTinhXuLy",
 		"animalSchemaProp": "media.xuLyCheTac",
+		"label": "Thuộc tính Xử lý chế tác",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phuongThucXuLy",
 		"animalSchemaProp": "media.xuLyCheTac",
+		"label": "Phương thức xử lý chế tác",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "nguoiXuLy",
+		"animalSchemaProp": "media.xuLyCheTac",
+		"label": "Người xử lý, chế tác mẫu",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "coQuanXuLy",
 		"animalSchemaProp": "media.xuLyCheTac",
+		"label": "Cơ quan xử lý, chế tác mẫu",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
 	},
 	{
-		"name": "nguoiXuLy",
-		"animalSchemaProp": "media.xuLyCheTac",
-		"required": false,
-		"type": "String"
-	},
-	{
-		"name": "dinhKemXuLy",
-		"animalSchemaProp": "media.xuLyCheTac",
-		"required": false,
-		"type": "File"
-	},
-	{
-		"name": "hinhAnhDinhKem",
-		"animalSchemaProp": "media.xuLyCheTac",
-		"required": false,
-		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
-	},
-	{
 		"name": "anhMauSauCheTac",
 		"animalSchemaProp": "media.xuLyCheTac",
+		"label": "Ảnh mẫu sau chế tác",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
@@ -458,13 +526,7 @@
 	{
 		"name": "boPhanLayMauDNA",
 		"animalSchemaProp": "media.thongTinDNA",
-		"required": false,
-		"type": "String",
-		"autoCompletion": true
-	},
-	{
-		"name": "vungGenPhanTich",
-		"animalSchemaProp": "media.thongTinDNA",
+		"label": "Bộ phận lấy mẫu DNA (da, lông, máu, xương...)",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -472,6 +534,15 @@
 	{
 		"name": "trangThaiGiuMauDNA",
 		"animalSchemaProp": "media.thongTinDNA",
+		"label": "Trạng thái giữ mẫu DNA (khô, nước...)",
+		"required": false,
+		"type": "String",
+		"autoCompletion": true
+	},
+	{
+		"name": "vungGenPhanTich",
+		"animalSchemaProp": "media.thongTinDNA",
+		"label": "Vùng gen phân tích",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -479,18 +550,21 @@
 	{
 		"name": "dinhKemTrinhTuDNA",
 		"animalSchemaProp": "media.thongTinDNA",
+		"label": "Đính kèm Trình tự DNA",
 		"required": false,
 		"type": "File"
 	},
 	{
 		"name": "congBoQuocTe",
 		"animalSchemaProp": "media.thongTinDNA",
+		"label": "Công bố/thông tin quốc tế (genbank...)",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phanBoVietNam",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"label": "Phân bố Việt Nam",
 		"required": true,
 		"type": "Mixed",
 		"subProps": ["phanBoVietNamStr", "phanBoVietNamFile"]
@@ -498,18 +572,21 @@
 	{
 		"name": "phanBoVietNamStr",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"label": "Phân bố Việt Nam",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phanBoVietNamFile",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"label": "Phân bố Việt Nam",
 		"required": false,
 		"type": "File"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "Mixed",
 		"subProps": ["phanBoTrenTheGioiStr", "phanBoTrenTheGioiFile"]
@@ -517,79 +594,92 @@
 	{
 		"name": "phanBoTrenTheGioiStr",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phanBoTrenTheGioiFile",
 		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "File"
 	},
 	{
 		"name": "giaTriSuDung",
 		"animalSchemaProp": "phanBoVaSuDung",
+		"label": "Giá trị sử dụng",
 		"required": false,
 		"type": "String"
 	},
 	{
-		"name": "coQuanNhapVatMau",
-		"animalSchemaProp": "luuTruBaoQuan",
-		"required": false,
-		"type": "String",
-		"autoCompletion": true
-	},
-	{
 		"name": "ngayNhapMau",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Ngày nhập mẫu",
 		"required": false,
 		"type": "Date"
 	},
 	{
 		"name": "nguoiGiao",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Người giao mẫu",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "nguoiNhan",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Người nhận mẫu",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "coQuanNhapVatMau",
+		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Cơ quan nhập mẫu",
+		"required": false,
+		"type": "String",
+		"autoCompletion": true
+	},
+	{
+		"name": "hinhThucNhapMau",
+		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Hình thức nhập mẫu",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "traoDoiMau",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Trao đổi mẫu",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "vayMuon",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Vay mượn mẫu",
 		"required": false,
 		"type": "String"
 	},
 	{
-		"name": "nguoiNhapPhieuMauVat",
+		"name": "khuLuuTruMau",
 		"animalSchemaProp": "luuTruBaoQuan",
-		"required": true,
-		"type": "String"
-	},
-	{
-		"name": "nguoiNhapVaoPhanMem",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Khu lưu trữ mẫu",
 		"required": false,
 		"type": "String"
 	},
 	{
-		"name": "hinhThucNhapMau",
+		"name": "noiLuuTruMau",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Nơi lưu giữ mẫu",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "giayPhepNhapMau",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Giấy phép nhập mẫu",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
@@ -597,25 +687,29 @@
 	{
 		"name": "hoSoNhapMauVatDiKem",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Hồ sơ nhập mẫu vật đi kèm",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
-		"name": "khuLuuTruMau",
+		"name": "nguoiNhapPhieuMauVat",
 		"animalSchemaProp": "luuTruBaoQuan",
-		"required": false,
+		"label": "Người nhập phiếu mẫu vật",
+		"required": true,
 		"type": "String"
 	},
 	{
-		"name": "noiLuuTruMau",
+		"name": "nguoiNhapVaoPhanMem",
 		"animalSchemaProp": "luuTruBaoQuan",
+		"label": "Người nhập thông tin vào phần mềm",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "thongTinKhac",
 		"animalSchemaProp": "thongTinKhac",
+		"label": "Thông tin khác",
 		"required": false,
 		"type": "String"
 	}

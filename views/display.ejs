@@ -10,6 +10,24 @@
 		<div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<% 
+				var sp = staticPath;
+				// do not know why we need to declare this variable.
+				// staticPath can not be accessed inside below functions
+				function display(obj){
+					// console.log(staticPath)
+					// console.log(count)
+					if (obj instanceof Array){
+						var result =  obj.reduce(function (preStr, curElement){
+							// console.log(curElement.split('_+_')[1]);
+							preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+							return preStr;
+						}, '');
+						return result;
+					}
+					// Need to escape to prevent injected HTML + JS
+					return escape(obj);
+				}
+
 				function propDiff (obj1, obj2, prop) {
 					if ((prop in obj1) && !(prop in obj2)){
 						return true;
@@ -108,10 +126,10 @@
 					<tbody>
 				<% for (var i = 0; i < diffs.length; i++){ %>
 					<tr>
-						<td><b><%= diffs[i] %></b></td>
-						<td><span class="text-info"><%= obj1[diffs[i]] %></span></td>
+						<td><b><%= props[diffs[i]] %></b></td>
+						<td><span class="text-info"><%- display(obj1[diffs[i]]) %></span></td>
 						<% if (count == 2) { %>
-								<td><span class="text-success"><%= obj2[diffs[i]] %></span></td>
+								<td><span class="text-success"><%- display(obj2[diffs[i]]) %></span></td>
 						<% } %>
 						
 					</tr>

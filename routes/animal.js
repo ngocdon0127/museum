@@ -136,7 +136,7 @@ router.get('/dong-vat/:animalId', aclMiddleware('/content/dong-vat', 'view'), fu
 			else {
 				// return responseSuccess(res, ['animal'], [animal]);
 				if (req.query.display == 'html'){
-					return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal), props: propsName(), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
+					return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatAnimal(animal), animalId: animal.id, props: propsName(), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
 				}
 				else {
 					return responseSuccess(res, ['animal'], [flatAnimal(animal)]);

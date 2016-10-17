@@ -8,6 +8,10 @@
 	</head>
 	<body>
 		<div class="container">
+			<% if (typeof(animalId) != 'undefined') { %>
+				<a class="btn btn-success" role="button" href="<%= '/app/#!/dong-vat/chinh-sua/' + animalId %>">Chỉnh sửa mẫu dữ liệu này</a>
+				<a class="btn btn-primary" role="button" href="<%= '/app/#!/bai-dang/dong-vat' + animalId %>">Đến trang quản lý mẫu</a>
+			<% } %>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<% 
 				var sp = staticPath;
@@ -23,6 +27,9 @@
 							return preStr;
 						}, '');
 						return result;
+					}
+					else if (obj instanceof Date){
+						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
 					}
 					// Need to escape to prevent injected HTML + JS
 					return escape(obj);
@@ -116,7 +123,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>Thuộc tính</th>
+							<th><strong>Thuộc tính</strong></th>
 							<th>Giá trị</th>
 							<% if (count == 2) { %>
 								<th>Giá trị mới</th>

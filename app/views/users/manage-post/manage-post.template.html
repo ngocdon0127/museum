@@ -3,10 +3,11 @@
 	
 	<div class="list-group" ng-repeat="(key, post) in allPostAnimal">
 		<li class="list-group-item">
+			
 			<table>
 				<tr>
 					<td>
-						<p><b>Id: </b><span class=" label label-info">{{post._id}}</span></p>
+						<p><b>Id: </b><a style="text-decoration: none" href="/content/dong-vat/{{post._id}}?display=html"><span class="label label-info">{{post._id}}</span></a></p>
 						<p><b>Người thu mẫu: </b>{{post.duLieuThuMau.nguoiThuMau}}</p>
 						<p><b>Tên mẫu: </b>{{post.tenMau.tenVietNam}}</p>
 						<p><b>Ngày đăng: </b>{{post.created_at}}</p>

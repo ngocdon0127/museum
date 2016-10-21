@@ -189,7 +189,7 @@
 						<td>Quốc gia (*): </td>
 						<td>
 							<select class="select-box" name="quocGia" ng-class="{'has-error' : FormAnimal.quocGia.$error.required && FormAnimal.quocGia.$touched}" required>
-								<option value="Việt Nam">Việt Nam</option>
+								<option value="VietNam">Việt Nam</option>
 							</select>
 							<span class="text-errors" ng-show="(FormAnimal.quocGia.$submitted || FormAnimal.quocGia.$touched) && FormAnimal.quocGia.$error.required">Required!</span>
 						</td>
@@ -223,7 +223,7 @@
 					</tr>
 					<tr>
 						<td>Thôn/Xóm: </td>
-						<td><input type="text" name="thon" id="thon" class="input-form"></td>
+						<td><input type="text" name="thon" class="input-form"></td>
 					</tr>
 				</table>
 				</td>
@@ -483,7 +483,7 @@
 			</tr>
 			<tr>
 				<td><label>Hồ sơ nhập mẫu vật đi kèm:</label></td>
-				<td><input type="file" name="giayPhepNhapMau" class="input-form" accept=".doc, docx, .pdf"></td>
+				<td><input type="file" name="hoSoNhapMauVatDiKem" class="input-form" accept=".doc, docx, .pdf"></td>
 			</tr>
 			<tr>
 				<td><label>Người nhập phiếu MV (*):</label></td>

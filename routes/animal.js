@@ -24,7 +24,7 @@ PROP_FIELDS.map(function (element, index) {
 });
 
 // File fields
-var IMG_FIELDS = PROP_FIELDS.filter(function (element) {
+var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 	return !element.type.localeCompare('File')
 });
 
@@ -34,7 +34,7 @@ var ACTION_EDIT = 1;
 module.exports = function (router) {
 
 router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
-	upload.fields(IMG_FIELDS.reduce(function (preArray, curElement) {
+	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
 		return preArray;
 	}, [])), 
@@ -45,7 +45,7 @@ router.post('/dong-vat', aclMiddleware('/content/dong-vat', 'create'),
 })
 
 router.put('/dong-vat', aclMiddleware('/content/dong-vat', 'edit'), 
-	upload.fields(IMG_FIELDS.reduce(function (preArray, curElement) {
+	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
 		return preArray;
 	}, [])),
@@ -458,7 +458,7 @@ function saveOrUpdateAnimal (req, res, animal, action) {
 		}
 
 		// rename images
-		IMG_FIELDS.map(function (element) {
+		FILE_FIELDS.map(function (element) {
 			// console.log('---');
 			// console.log(element.name);
 			// if (req.files){
@@ -547,52 +547,4 @@ function propsName () {
 		}
 		return preObj;
 	}, {});
-}
-
-function generate (schema) {
-	if (typeof(schema) != 'object'){
-		tree = nodes.join('.');
-		var pos = tree.lastIndexOf('.');
-		(pos >= 0) ? (tree = tree.substring(0, pos)) : (tree = "");
-		arr.push({name: nodes[nodes.length - 1], animalSchemaProp: tree});
-	}
-	else {
-		for (var i in schema){
-			nodes.push(i);
-			generate(schema[i]);
-			nodes.splice(nodes.length - 1, 1);
-		}
-	}
-}
-
-function autoFill () {
-	var inputs = document.getElementsByTagName('input');
-	for(var i = 0; i < inputs.length; i++) {
-		try {
-			switch (inputs[i].getAttribute('type')){
-				case 'text':
-					console.log('text ' + i);
-					inputs[i].value = $($(inputs[i]).parent().parent().children()[0]).children()[0].innerHTML;
-					console.log('done text ' + i);
-					break;
-				case 'number':
-					console.log('number ' + i);
-					inputs[i].value = Math.floor(Math.random() * 100);
-					console.log('done number ' + i);
-					break;
-				case 'date':
-					console.log('date ' + i);
-					var x = new Date();
-					inputs[i].value = x.getFullYear() + '-' + (x.getMonth() >= 9 ? (x.getMonth() + 1) : ( '0' + (x.getMonth() + 1))) + '-' + x.getDate();
-					console.log('done date ' + i);
-					break;
-				default:
-					break;
-			}
-			
-		}
-		catch (e) {
-			console.log(e);
-		}
-	}
 }

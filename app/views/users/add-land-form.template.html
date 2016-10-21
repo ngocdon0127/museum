@@ -1,399 +1,358 @@
 <div class="container map-detail" style="margin-top: 50px;">
 	<form id="form-animal">
-		<center><h2>Cơ sở dữ liệu mẫu thổ nhưỡng</h2></center>
+		<center><h2>Thêm mẫu dữ liệu thổ nhưỡng</h2></center>
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
 			<tr>
-				<td><label>Mã bảo tàng(*):</label></td>
-				<td><input type="text" name="maBaoTang" class="input-form"  required></td>
+				<td><label>Số hiệu thực địa (*):</label></td>
+				<td><input type="text" maxlength="50" name="soHieuThucDia" class="input-form"  required></td>
 			</tr>
 			<tr>
-				<td><label>Số hiệu bảo tàng cơ sở:</label></td>
-				<td><input type="text" name="soHieuBaoTangCS" class="input-form"  required></td>
-			</tr>
-			<tr>
-				<td><label>Mã kí hiệu mẫu vật quốc tế:</label></td>
-				<td><input type="text" name="maKyHieuMauVatQuocTe" class="input-form"></td>
-			</tr>
-			<tr>
-				<td><label>Số hiệu thực địa(*):</label></td>
-				<td><input type="text" name="soHieuThucDia"  class="input-form"  required></td>
+				<td><label>Số hiệu bảo tàng cơ sở(*):</label></td>
+				<td><input type="text" maxlength="50" name="soHieuBaoTangCS" class="input-form"  required></td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu BTTNVN(*):</label></td>
-				<td><input type="text" name="soHieuBTTNVN" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" maxlength="50" name="soHieuBTTNVN"  class="input-form" required></td>
 			</tr>
 			<tr>
+				<td><label>Mã kí hiệu mẫu vật quốc tế:</label></td>
+				<td><input type="text" maxlength="50" name="maKyHieuMauVatQuocTe" class="input-form"></td>
+			</tr>
+
+			<tr>
 				<td><label>Các kí hiệu mẫu vật khác:</label></td>
-				<td><input type="text" name="kyHieuMauVatKhac" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" name="kyHieuMauVatKhac"  class="input-form" maxlength="50"  required></td>
 			</tr>
 		</table>
 		<table>
 			<h3 class="h3-title">2. Tên mẫu</h3>
 			<tr>
-				<td><label>Tên Việt Nam(*):</label></td>
-				<td><input type="text" name="tenVietNam" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Tên Tiếng Anh(*):</label></td>
-				<td><input type="text" name="tenTiengAnh" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Tên khoa học (tên latin) (*):</label></td>
-				<td><input type="text" name="tenKhoaHoc" id="input" class="input-form"  value="" required></td>
+				<td><label>Tên Việt Nam(phổ thông) (*):</label></td>
+				<td><input type="text" maxlength="250" name="tenVietNam"  class="input-form" required></td>
 			</tr>
 			<tr>
 				<td><label>Tên địa phương:</label></td>
-				<td><input type="text" name="tenDiaPhuong" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" maxlength="250" name="tenDiaPhuong"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Tên đồng nghĩa: </label></td>
-				<td><input type="text" name="tenDongNghia" id="input" class="input-form"  value=""></td>
+				<td><label>Tên Tiếng Anh:</label></td>
+				<td><input type="text" maxlength="250" name="tenTiengAnh"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Giới(*): </label></td>
-				<td><input type="text" name="gioi" id="input" class="input-form"  value="" required></td>
-			</tr>
-					<tr>
-				<td><label>Ngành(*): </label></td>
-				<td><input type="text" name="nganh" id="input" class="input-form"  value="" required></td>
+				<td><label>Tên theo hệ thống PL của bảo tàng:</label></td>
+				<td><input type="text" maxlength="250" name="tenTheoBaoTang" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Lớp(*): </label></td>
-				<td><input type="text" name="lop" id="input" class="input-form"  value="" required="required"></td>
-			</tr>
-			<tr>
-				<td><label>Phân lớp: </label></td>
-				<td><input type="text" name="phanLop" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Bộ(*): </label></td>
-				<td><input type="text" name="bo" id="input" class="input-form"  value="" required</td>
-			</tr>
-			<tr>
-				<td><label>Phân bộ: </label></td>
-				<td><input type="text" name="phanBo" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Liên họ: </label></td>
-				<td><input type="text" name="lienHo" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Họ(*): </label></td>
-				<td><input type="text" name="ho" id="input" class="input-form"  value="" required="required"</td>
-			</tr>
-			<tr>
-				<td><label>Phân họ(*): </label></td>
-				<td><input type="text" name="phanHo" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Tộc: </label></td>
-				<td><input type="text" name="toc" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Giống(*): </label></td>
-				<td><input type="text" name="giong" id="input" class="input-form"  value="" required></td>
-			</tr>
-
-			<tr>
-				<td><label>Loài: </label></td>
-				<td><input type="text" class="input-form" name="loai"></td>
-			</tr>
-			<tr>
-				<td><label>Dưới loài/phân loài: </label></td>
-				<td><input type="text" name="duoiLoai" class="input-form"  id="input"></td>
-			</tr>
-			<tr>
-				<td><label>Người định tên: </label></td>
-				<td><input type="text" name="nguoiDinhTen" class="input-form"  id="input"></td>
+				<td><label>Tên theo hệ thống PL của Quốc tế:</label></td>
+				<td><input type="text" maxlength="250" name="tenTheoQuocTe" class="input-form"></td>
 			</tr>
 		</table>
 		<table>
 			<h3 class="h3-title">3. Số lượng và chất lượng mẫu vật</h3>
 			<tr>
-				<td><label>Số lượng mẫu vật (*):</label></td>
-				<td><input type="text" name="soLuongMauVat" id="input" class="input-form"  value="" required></td>
+				<td><label>Số lượng mẫu vật:</label></td>
+				<td><input type="number" min="0" name="soLuongMauVat"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Số lượng tiêu bản (*):</label></td>
-				<td><input type="text" name="soLuongTieuBan" id="input" class="input-form"  value="" required></td>
+				<td><label>Số lượng tiêu bản:</label></td>
+				<td><input type="number" min = "0" name="soLuongTieuBan"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Kích thước mẫu (*):</label></td>
-				<td><input type="text" name="kichThuocMau" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Loại mẫu (*):</label></td>
+				<td><label>Loại mẫu vật(*):</label></td>
 				<td>
 					<select required name="loaiMau">
-						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
-						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
-						<option value="Mẫu type">Mẫu type</option>
+						<option>Mẫu nghiên cứu</option>
+						<option>Mẫu trưng bày</option>
+						<option>Mẫu type</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td><label>Tình trạng mẫu (*):</label></td>
-				<td><input type="text" name="tinhTrangMau" id="input" class="input-form"  value="" required></td>
+				<td><label>Kích thước mẫu (*):</label></td>
+				<td><input type="text" maxlength="50" name="kichThuocMau"  class="input-form" required></td>
 			</tr>
+			<tr>
+				<td><label>Tình trạng mẫu (*):</label></td>
+				<td><input type="text" maxlength="100" name="tinhTrangMau"  class="input-form" required></td>
+			</tr>		
 		</table>
 		<table>
 			<h3 class="h3-title">4. NHÓM DỮ LIỆU THU MẪU</h3>
 			<tr>
 				<td><label>Thời gian thu mẫu (*):</label></td>
-				<td><input type="date" name="thoigianThuMau" id="input" class="input-form"  value="" required></td>
+				<td><input type="date" name="thoigianThuMau"  class="input-form" required></td>
 			</tr>
 			<tr>
 				<td><label>Người thu mẫu (*):</label></td>
-				<td><input type="text" name="nguoiThuMau" id="input" class="input-form"  value="" required></td>
+				<td><input type="text" name="nguoiThuMau" maxlength="150" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Phương pháp thu (*):</label></td>
-				<td><input type="text" name="phuongPhapThuMau" id="input" class="input-form"  value="" required></td>
+				<td><label>Cơ quan thu mẫu: </label></td>
+				<td><input type="text" id="coQuanThuMau" name="coQuanThuMau" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>Địa điểm thu mẫu: </label></td>
-				<td>
-					<select name="quocGia" required>
-						<option></option>
-					</select>
-					<select name="tinh" required ng-change="cityChange()" ng-model= "animalForm.city">
-						<option  ng-repeat="place in places" value="{{place.name}}">{{place.name}}</option>
-					</select>
-					<select name="huyen" required>
-						<option ng-repeat="district in districts" value="{{district}}">{{district}}</option>
-					</select>
-					<select name="xa" required>
-						<option></option>
-					</select>
-					<select name="thon">
-						<option></option>
-					</select>
+				<td ng-controller="PlaceController">
+				<table>
+					<tr>
+						<td>Quốc gia(*): </td>
+						<td>
+							<select class="select-box" ng-model="animal.quocGia"  name="quocGia" required>
+								<option value="VietNam">Việt Nam</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Tỉnh/Thành phố(*): </td>
+						<td>
+							<select class="select-box" name="tinh" required ng-model= "$parent.animal.tinh" ng-change="cityChange()">
+								<option  ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " +  city.name}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Huyện(*):</td>
+						<td>
+							<select class="select-box" name="huyen" required ng-model= "$parent.animal.huyen" ng-change="districtChange()">
+								<option ng-repeat="(key, district) in districts | customCity: animal.tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Xã(*): </td>
+						<td>
+							<select class="select-box"  ng-model="animal.xa" name="xa" required>
+								<option ng-repeat="(key, ward) in wards | customDistrict: animal.huyen" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>Thôn/Xóm: </td>
+						<td><input type="text"  ng-model="animal.thon" name="thon" id="thon" class="input-form"></td>
+					</tr>
+				</table>
 				</td>
 			</tr>
-			<tr><td><h4>Vị trị tọa độ theo hệ tọa độ Việt Nam</h4></td></tr>
+			<tr><td><h4>Vị trị tọa độ theo hệ tọa độ Việt Nam 2000</h4></td></tr>
 			<tr>
-				<td><label>Vĩ độ N: </label></td>
-				<td><input type="text" name="viDo" id="input" class="input-form"  value="" required></td>
+				<td><label>Vĩ độ N (*): </label></td>
+				<td><input type="text" name="viDo"  class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Kinh độ E:</label></td>
-				<td><input type="text" name="kinhDo" id="input" class="input-form"  value="" required></td>
+				<td><label>Kinh độ E (*):</label></td>
+				<td><input type="text" name="kinhDo"  class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Độ cao: </label></td>
-				<td><input type="number" name="doCao" id="input" class="input-form"  value=""></td>
+				<td><label>Thông tin về dự án, đề tài đợt thu nhập mẫu (*):</label></td>
+				<td><input type="text" maxlength="250" name="thongTinDuAn"  class="input-form" required></td>
+			</tr>
+			<tr>
+				<td><label>Độ cao (*): </label></td>
+				<td><input type="number" min="0" name="doCao"  class="input-form" required ></td>
 			</tr>
 			<tr>
 				<td><label>Độ sâu:</label></td>
-				<td><input type="number" name="doSau" id="input" class="input-form"  value=""></td>
+				<td><input type="number" name="doSau" min="0"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Vùng biển:</label></td>
-				<td><input type="text" name="vungBien" id="input" class="input-form"  value=""></td>
+				<td><label>Độ dốc nơi thu mẫu (*):</label></td>
+				<td><input type="number" required min="0" name="doDocNoiThuMau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Sinh học/sinh thái:</label></td>
-				<td><input type="text" name="sinhHoc" id="input" class="input-form"  value=""></td>
+				<td><label>Mực nước ngầm nơi thu mẫu (*):</label></td>
+				<td><input type="number" name="mucNuocNgamNoiThuMau" id="mucNuocNgamNoiThuMau" required class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Thông tin về đợt thu mẫu (*):</label></td>
-				<td><input type="text" name="thongTinDuAn" id="input" class="input-form"  value="" required></td>
+				<td><label>Khả năng thoát nước nơi thu mẫu (*):</label></td>
+				<td><input type="number" maxlength="150" name="khaNangThoatNuoc" id="khaNangThoatNuoc" required class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Ghi chép thực địa:</label></td>
-				<td><input type="text" name="ghiChepThucDia" id="input" class="input-form"  value="" required></td>
+				<td><label>Thời tiết khi thu mẫu:</label></td>
+				<td><input type="number" maxlength="250" name="thoiTietKhiThuMau" id="thoiTietKhiThuMau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Bản đồ:</label></td>
-				<td><input type="text" name="banDo" id="input" class="input-form"  value="" required></td>
+				<td><label>Dạng địa hình nơi thu mẫu (*):</label></td>
+				<td><input type="number" name="dangDiaHinhNoiThuMau" id="dangDiaHinhNoiThuMau" maxlength="250" required class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Ghi chú:</label></td>
-				<td><input type="text" name="ghiChu" id="input" class="input-form"  value="" required></td>
+				<td><label>Thảm thực vật hiện tại nơi thu mẫu (*):</label></td>
+				<td><input type="number" maxlength="250" name="thamThucVatNoiThuMau" id="thamThucVatNoiThuMau" required class="input-form"></td>
+			</tr>
+			<tr>
+				<td><label>Ghi chép thực địa (*):</label></td>
+				<td><input type="text" name="ghiChepThucDia" maxlength="250" class="input-form" required></td>
 			</tr>
 		</table>
 		<table>
 			<h3 class="h3-title">5. NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
-				<td><label>Thời gian phân tích/giám định/định loại mẫu:</label></td>
-				<td><input type="text" name="thoiGianPhanTich" id="input" class="input-form"  value=""></td>
+				<td><label>Ngày phân tích mẫu đất:</label></td>
+				<td><input type="date" name="ngayPhanTichMauDat" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Người phân tích/giám định/định loại mẫu (*):</label></td>
-				<td><input type="text" name="nguoiPhanTich" id="input" class="input-form"  value="" required></td>
+				<td><label>Hồ sơ phân tích mẫu đất:</label></td>
+				<td><input type="file" name="hoSoPhanTichMauDat" accept=".doc, .docx, .pdf" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Cơ quan/tổ chức phân tích/giám định/phân loại mẫu (*):</label></td>
-				<td><input type="text" name="coQuanToChucPhanTich" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Tài liệu phân tích/giám định/phân loại đi kèm (*):</label></td>
-				<td><input type="file" multiple name="taiLieuPhanTich" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
-				<td><input type="text" name="moTaHinhThai" id="input" class="input-form"  value="" required></td>
-			</tr>
-			<tr>
-				<td><label>Hình vẽ:</label></td>
-				<td><input type="file" multiple name="hinhVe" id="input" class="input-form"  value=""></td>
+				<td><label>Kết quả phân tích (*):</label></td>
+				<td><input type="text" name="ketQuaPhanTich" id="ketQuaPhanTich" accept=".doc, .docx, .pdf" class="input-form" required></td>
 			</tr>
 		</table>
 		<table>
-			<h3 class="h3-title">6. NHÓM DỮ LIỆU PHÂN BỐ VÀ GIÁ TRỊ SỬ DỤNG</h3>
+			<h3 class="h3-title">6. NHÓM DỮ LIỆU GIÁM ĐỊNH MẪU</h3>
 			<tr>
-				<td colspan="2"><h4>Phân bố địa lý của taxon định loại (*)</h4></td>
+				<td><label>Thời gian giám định mẫu:</label></td>
+				<td><input type="date" name="thoiGianGiamDinhMau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Phân bố Việt Nam:</label></td>
-				<td><input type="text" name="phanBoVietNam" id="input" class="input-form"  value=""></td>
+				<td><label>Người giám định mẫu (*):</label></td>
+				<td><input type="text" name="nguoiGiamDinhMau" id="nguoiGiamDinhMau" class="input-form" maxlength="150" required></td>
 			</tr>
 			<tr>
-				<td><label>Phân bố trên thế giới:</label></td>
-				<td><input type="text" name="phanBoTrenTheGioi" id="input" class="input-form"  value=""></td>
+				<td><label>Cơ quan/tổ chức giám định mẫu (*):</label></td>
+				<td><input type="text" name="coQuanToChucGiamDinh" id="coQuanToChucGiamDinh" class="input-form" required></td>
 			</tr>
-			<tr>
-				<td><label>Giá trị sử dụng (tài nguyên) (*):</label></td>
-				<td><input type="text" name="giaTriSuDung" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
 		</table>
 		<table>
 			<h3 class="h3-title">7. NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
-			<tr><td><h4>Xử lý chế tác</h4></td></tr>
 			<tr>
-				<td><label>Thuộc tính Xử lý chế tác:</label></td>
-				<td><input type="text" name="thuocTinhXuLy" id="input" class="input-form"  value=""></td>
+				<td><label>Ảnh mẫu vật (*):</label></td>
+				<td><input type="file" multiple name="anhMauVat" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf" required></td>
 			</tr>
 			<tr>
-				<td><label>Phương thức xử lý chế tác:</label></td>
-				<td><input type="text" name="phuongThucXuLy" id="input" class="input-form"  value=""></td>
+				<td><label>Hình ảnh mẫu ngoài thực địa:</label></td>
+				<td><input type="file" accept="image/x-png, image/gif, image/jpeg, .pdf" multiple name="hinhAnhNgoaiThucDia"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Cơ quan xử lý, chế tác mẫu:</label></td>
-				<td><input type="text" name="coQuanXuLy" id="input" class="input-form"  value=""></td>
+				<td><label>Thông tin về phim, video:</label></td>
+				<td><input type="file" accept="video/mp4,video/x-m4v,video/*" name="videoFile" class="input-form" required></td>
 			</tr>
+			<tr><td colspan="2"><h4>Xử lý chế tác mẫu vật: </h4></td></tr>
 			<tr>
-				<td><label>Người xử lý, chế tác:</label></td>
-				<td><input type="text" name="nguoiXuLy" id="input" class="input-form"  value=""></td>
+				<td><label>Hình ảnh đính kèm Xử lý chế tác:</label></td>
+				<td><input type="file" multiple name="hinhAnhDinhKem" accept="image/x-png, image/gif, image/jpeg, .pdf" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>Đính kèm Xử lý chế tác:</label></td>
-				<td><input type="file" multiple name="dinhKemXuLy" id="input" class="input-form"  value=""></td>
+				<td><input type="file" multiple name="dinhKemXulyCheTac" accept=".doc, .pdf" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Hình ảnh đính kèm Xử lý chế tác:</label></td>
-				<td><input type="file" multiple name="hinhAnhDinhKem" id="input" class="input-form"  value=""></td>
+				<td><label>Phương thức xử lý chế tác:</label></td>
+				<td><input type="text" name="phuongThucXuLy" maxlength="250" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Hình ảnh sau chế tác:</label></td>
-				<td><input type="text" name="anhMauSauCheTac" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr><td><h4>Thông tin DNA</h4></td></tr>
-			<tr>
-				<td><label>Vị trí lấy mẫu DNA (da, lông, máu, xương...):</label></td>
-				<td><input type="text" name="viTriLayMauDNA" id="input" class="input-form"  value=""></td>
+				<td><label>Người xử lý, chế tác:</label></td>
+				<td><input type="text" name="nguoiXuLy" maxlength="250" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Mẫu DNA (khô, nước...):</label></td>
-				<td><input type="text" name="mauDNA" id="input" class="input-form"  value=""></td>
+				<td><label>Cơ quan xử lý, chế tác mẫu:</label></td>
+				<td><input type="text" name="coQuanXuLy" id="coQuanXuLy" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Đính kèm Chạy trình tự DNA</label></td>
-				<td><input type="file" multiple name="dinhKemChayTrinhTuDNA" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Trích dẫn Chạy trình tự DNA</label></td>
-				<td><input type="text" name="trichDanTrinhTuDNA" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Trình tự DNA</label></td>
-				<td><input type="text" name="trinhTuDNA" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Đính kèm Trình tự DNA</label></td>
-				<td><input type="file" multiple name="dinhKemTrinhTuDNA" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Công bố/thông tin quốc tế (genbank...)</label></td>
-				<td><input type="text" name="congBoQuocTe" id="input" class="input-form"  value=""></td>
+				<td><label>Tài liệu đi kèm:</label></td>
+				<td><input type="file" name="taiLieuDiKem" class="input-form" accept=".doc,.docx, .pdf" ></td>
 			</tr>
 		</table>
 		<table>
-			<h3 class="h3-title">8. NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
+			<h3 class="h3-title">8. NHÓM DỮ LIỆU PHÂN BỐ VÀ GIÁ TRỊ SỬ DỤNG</h3>
 			<tr>
-				<td><label>Cơ quan nhập mẫu: </label></td>
-				<td><input type="text" name="coQuanNhapVatMau" id="input" class="input-form"  value=""></td>
+				<td colspan="2"><h4>Phân bố địa lý của taxon định loại  (*)</h4></td>
 			</tr>
 			<tr>
+				<td><label>Phân bố Việt Nam (*):</label></td>
+				<td>
+					<input type="text" name="phanBoVietNamStr" maxlength="250" class="input-form">
+					<input type="file" multiple name="phanBoVietNamFile">
+				</td>
+			</tr>
+			<tr>
+				<td><label>Phân bố trên thế giới (nếu có):</label></td>
+				<td>
+					<input type="text" name="phanBoTrenTheGioiStr" maxlength="250" class="input-form">
+					<input type="file" multiple name="phanBoTrenTheGioiFile">
+				</td>
+			</tr>
+			<tr>
+				<td><label>Giá trị sử dụng:</label></td>
+				<td><input type="text" maxlength="250" name="giaTriSuDung" class="input-form"></td>
+			</tr>
+			<tr>
+		</table>
+		<table>
+			<h3 class="h3-title">9. NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
+			<tr>
 				<td><label>Ngày nhập mẫu: </label></td>
-				<td><input type="date" name="ngayNhapMau" id="input" class="input-form"  value=""></td>
+				<td><input type="date" name="ngayNhapMau"  class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>Người giao mẫu: </label></td>
-				<td><input type="text" name="nguoiGiao" id="input" class="input-form"  value=""></td>
+				<td><input type="text" maxlength="250" name="nguoiGiao"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Người Nhận mẫu</label></td>
-				<td><input type="text" name="nguoiNhan" id="input" class="input-form"  value=""></td>
+				<td><label>Người nhận mẫu</label></td>
+				<td><input type="text" maxlength="250" name="nguoiNhan"  class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Tình trạng mẫu (*):</label></td>
-				<td><input type="text" name="tinhTrangMauBaoQuan" id="input" class="input-form"  value="" required></td>
+				<td><label>Cơ quan nhập mẫu: </label></td>
+				<td><input type="text" name="coQuanNhapVatMau" id="coQuanNhapVatMau" class="input-form"></td>
 			</tr>
+			<tr>
+				<td><label>Hình thức nhập mẫu:</label></td>
+				<td>
+					<select class="select-box" name="hinhThucNhapMau">
+						<option value="Thu thập">Thu thập</option>
+						<option value="Hiến tặng">Hiến Tặng</option>
+						<option value="Khác">Khác</option>
+					</select>
+				</td>
+			</tr>
+
 			<tr>
 				<td><label>Trao đổi mẫu: </label></td>
 				<td>
 					<select name="traoDoiMau">
-						<option>Có</option>
-						<option>Không</option>
+						<option value="Có thể">Có thể</option>
+						<option value="Không thể">Không thể</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td><label>Mượn:</label></td>
-				<td><input type="text" name="vayMuon" id="input" class="input-form"  value=""></td>
+				<td><label>Vay mượn mẫu:</label></td>
+				<td>
+					<select class="select-box" name="vayMuon">
+						<option value="Có thể">Có thể</option>
+						<option value="Không thể">Không thể</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td><label>Hiến tặng</label></td>
-				<td><input type="text" name="hienTang" id="input" class="input-form"  value=""></td>
-			</tr>
-					<tr>
-				<td><label>Người lập phiếu MV:</label></td>
-				<td><input type="text" name="nguoiLapPhieuMauVat" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Người nhập vào phần mềm:</label></td>
-				<td><input type="text" name="nguoiLapVaoPhanMem" id="input" class="input-form"  value=""></td>
-			</tr>
-			<tr>
-				<td><label>Hình thức nhập mẫu:</label></td>
-				<td><input type="text" name="hinhThucNhapMau" id="input" class="input-form"  value=""></td>
+				<td><label>Khu lưu trữ mẫu (*):</label></td>
+				<td><input type="text" maxlength="150" name="khuLuuTruMau" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>Giấy phép nhập mẫu:</label></td>
-				<td><input type="text" name="giayPhepNhapMau" id="input" class="input-form"  value=""></td>
+				<td><input type="file" name="giayPhepNhapMau" class="input-form" accept=".pdf"></td>
 			</tr>
 			<tr>
-				<td><label>Số hiệu bảo tàng cơ sở (*):</label></td>
-				<td><input type="text" name="" id="input" class="input-form"  value="" required="required"></td>
+				<td><label>Hồ sơ nhập mẫu vật đi kèm:</label></td>
+				<td><input type="file" name="hoSoNhapMauVatDiKem" class="input-form" accept=".doc, docx, .pdf" ></td>
 			</tr>
 			<tr>
-				<td><label>Khu lưu trữ:</label></td>
-				<td><input type="text" name="khuLuuTruMau" id="input" class="input-form"  value=""></td>
+				<td><label>Người nhập phiếu mẫu vật (*):</label></td>
+				<td><input type="text" maxlength="250" name="nguoiNhapPhieuMauVat" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Hình ảnh mẫu khi lưu giữ:</label></td>
-				<td><input type="file" multiple name="" id="input" class="input-form"  value="" required></td>
+				<td><label>Người nhập thông tin vào phần mềm:</label></td>
+				<td><input type="text" maxlength="250" name="nguoiNhapVaoPhanMem" class="input-form"></td>
 			</tr>
 		</table>
 
 		<table>
-			<h3 class="h3-title">9. NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
+			<h3 class="h3-title">10. NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
 			<tr>
 				<td><label>Thông tin khác</label></td>
-				<td><input type="text" name="thongTinKhac" id="input" class="input-form"></td>
+				<td><input type="text" name="thongTinKhac" maxlength="250" class="input-form"></td>
 			</tr>
 		</table>
 	</form>

@@ -255,4 +255,3 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), func
 })
 
 }
-

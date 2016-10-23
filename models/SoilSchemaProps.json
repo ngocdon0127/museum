@@ -1,7 +1,7 @@
 [
 	{
 		"name": "soHieuThucDia",
-		"animalSchemaProp": "soHieu",
+		"schemaProp": "soHieu",
 		"label": "Số hiệu thực địa",
 		"required": true,
 		"type": "String",
@@ -10,7 +10,7 @@
 	},
 	{
 		"name": "soHieuBaoTangCS",
-		"animalSchemaProp": "soHieu",
+		"schemaProp": "soHieu",
 		"label": "Số hiệu Bảo tàng cơ sở (*)",
 		"required": true,
 		"type": "String",
@@ -19,7 +19,7 @@
 	},
 	{
 		"name": "soHieuBTTNVN",
-		"animalSchemaProp": "soHieu",
+		"schemaProp": "soHieu",
 		"label": "Số hiệu BTTNVN (*)",
 		"required": true,
 		"type": "String",
@@ -28,7 +28,7 @@
 	},
 	{
 		"name": "maKyHieuMauVatQuocTe",
-		"animalSchemaProp": "soHieu",
+		"schemaProp": "soHieu",
 		"label": "Mã ký hiệu mẫu vật quốc tế",
 		"required": false,
 		"type": "String",
@@ -37,7 +37,7 @@
 	},
 	{
 		"name": "kyHieuMauVatKhac",
-		"animalSchemaProp": "soHieu",
+		"schemaProp": "soHieu",
 		"label": "Các ký hiệu mẫu vật khác",
 		"required": false,
 		"type": "String",
@@ -46,7 +46,7 @@
 	},
 	{
 		"name": "tenVietNam",
-		"animalSchemaProp": "tenMau",
+		"schemaProp": "tenMau",
 		"label": "Tên Việt Nam (phổ thông)(*)",
 		"required": true,
 		"type": "String",
@@ -55,7 +55,7 @@
 	},
 	{
 		"name": "tenDiaPhuong",
-		"animalSchemaProp": "tenMau",
+		"schemaProp": "tenMau",
 		"label": "Tên địa phương",
 		"required": false,
 		"type": "String",
@@ -64,7 +64,7 @@
 	},
 	{
 		"name": "tenTiengAnh",
-		"animalSchemaProp": "tenMau",
+		"schemaProp": "tenMau",
 		"label": "Tên tiếng Anh",
 		"required": false,
 		"type": "String",
@@ -73,7 +73,7 @@
 	},
 	{
 		"name": "tenTheoBaoTang",
-		"animalSchemaProp": "tenMau",
+		"schemaProp": "tenMau",
 		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
 		"required": false,
 		"type": "String",
@@ -82,7 +82,7 @@
 	},
 	{
 		"name": "tenTheoQuocTe",
-		"animalSchemaProp": "tenMau",
+		"schemaProp": "tenMau",
 		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
 		"required": false,
 		"type": "String",
@@ -91,7 +91,7 @@
 	},
 	{
 		"name": "soLuongMauVat",
-		"animalSchemaProp": "soLuongChatLuong",
+		"schemaProp": "soLuongChatLuong",
 		"label": "Số lượng mẫu vật",
 		"required": false,
 		"type": "Number",
@@ -100,7 +100,7 @@
 	},
 	{
 		"name": "soLuongTieuBan",
-		"animalSchemaProp": "soLuongChatLuong",
+		"schemaProp": "soLuongChatLuong",
 		"label": "Số lượng tiêu bản",
 		"required": false,
 		"type": "Number",
@@ -109,7 +109,7 @@
 	},
 	{
 		"name": "loaiMau",
-		"animalSchemaProp": "soLuongChatLuong",
+		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật (Mẫu nghiên cứu – mẫu trưng bày – Mẫu Type)(*)",
 		"required": true,
 		"type": "String",
@@ -118,7 +118,7 @@
 	},
 	{
 		"name": "kichThuocMau",
-		"animalSchemaProp": "soLuongChatLuong",
+		"schemaProp": "soLuongChatLuong",
 		"label": "Kích thước mẫu vật (dài x rộng x cao) (m???) (*)",
 		"required": true,
 		"type": "String",
@@ -127,7 +127,7 @@
 	},
 	{
 		"name": "tinhTrangMau",
-		"animalSchemaProp": "soLuongChatLuong",
+		"schemaProp": "soLuongChatLuong",
 		"label": "Tình trạng mẫu vật (*)",
 		"required": true,
 		"type": "String",
@@ -136,7 +136,7 @@
 	},
 	{
 		"name": "thoiGianThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Thời gian thu mẫu (*)",
 		"required": true,
 		"type": "String",
@@ -145,7 +145,7 @@
 	},
 	{
 		"name": "nguoiThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Người thu mẫu (*)",
 		"required": true,
 		"type": "String",
@@ -154,7 +154,7 @@
 	},
 	{
 		"name": "coQuanThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Cơ quan thu mẫu",
 		"required": false,
 		"type": "String",
@@ -163,7 +163,7 @@
 	},
 	{
 		"name": "quocGia",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Quốc gia (*)",
 		"required": true,
 		"type": "String",
@@ -172,7 +172,7 @@
 	},
 	{
 		"name": "tinh",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Tỉnh (*)",
 		"required": true,
 		"type": "String",
@@ -181,7 +181,7 @@
 	},
 	{
 		"name": "huyen",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Huyện (*)",
 		"required": true,
 		"type": "String",
@@ -190,7 +190,7 @@
 	},
 	{
 		"name": "xa",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Xã (*)",
 		"required": true,
 		"type": "String",
@@ -199,7 +199,7 @@
 	},
 	{
 		"name": "thon",
-		"animalSchemaProp": "duLieuThuMau.diaDiemThuMau",
+		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Thôn/bản",
 		"required": false,
 		"type": "String",
@@ -208,7 +208,7 @@
 	},
 	{
 		"name": "viDo",
-		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
+		"schemaProp": "duLieuThuMau.viTriToaDo",
 		"label": "Vĩ độ N (*)",
 		"required": true,
 		"type": "String",
@@ -217,7 +217,7 @@
 	},
 	{
 		"name": "kinhDo",
-		"animalSchemaProp": "duLieuThuMau.viTriToaDo",
+		"schemaProp": "duLieuThuMau.viTriToaDo",
 		"label": "Kinh độ E (*)",
 		"required": true,
 		"type": "String",
@@ -226,7 +226,7 @@
 	},
 	{
 		"name": "thongTinDuAn",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật (*)",
 		"required": true,
 		"type": "String",
@@ -235,7 +235,7 @@
 	},
 	{
 		"name": "mauChatOViTriThumau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Mẫu chất ở vị trí thu mẫu (*)",
 		"required": true,
 		"type": "String",
@@ -244,7 +244,7 @@
 	},
 	{
 		"name": "doCao",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Độ cao (*)",
 		"required": true,
 		"type": "Number",
@@ -253,7 +253,7 @@
 	},
 	{
 		"name": "doSau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Độ sâu",
 		"required": false,
 		"type": "Number",
@@ -262,7 +262,7 @@
 	},
 	{
 		"name": "doDocNoiThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Độ dốc nơi thu mẫu(*)",
 		"required": true,
 		"type": "Number",
@@ -271,7 +271,7 @@
 	},
 	{
 		"name": "mucNuocNgamNoiThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Mực nước ngầm nơi thu mẫu(*)",
 		"required": true,
 		"type": "Number",
@@ -280,7 +280,7 @@
 	},
 	{
 		"name": "khaNangThoatNuoc",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Khả năng thoát nước nơi thu mẫu(*)",
 		"required": true,
 		"type": "String",
@@ -289,7 +289,7 @@
 	},
 	{
 		"name": "thoiTietKhiThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Thời tiết khi thu mẫu",
 		"required": false,
 		"type": "String",
@@ -298,7 +298,7 @@
 	},
 	{
 		"name": "dangDiaHinhNoiThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Dạng địa hình nơi thu mẫu(*)",
 		"required": true,
 		"type": "String",
@@ -307,7 +307,7 @@
 	},
 	{
 		"name": "thamThucVatNoiThuMau",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Thảm thực vật hiện tại nơi thu mẫu(*)",
 		"required": true,
 		"type": "String",
@@ -316,7 +316,7 @@
 	},
 	{
 		"name": "ghiChepThucDia",
-		"animalSchemaProp": "duLieuThuMau",
+		"schemaProp": "duLieuThuMau",
 		"label": "Ghi chép thực địa (*)",
 		"required": true,
 		"type": "String",
@@ -325,7 +325,7 @@
 	},
 	{
 		"name": "ngayPhanTich",
-		"animalSchemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau",
 		"label": "Ngày phân tích mẫu đất",
 		"required": false,
 		"type": "Date",
@@ -334,7 +334,7 @@
 	},
 	{
 		"name": "hoSoPhanTichMauDat",
-		"animalSchemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau",
 		"label": "Hồ sơ phân tích mẫu đất (file đính kèm)",
 		"required": false,
 		"type": "File",
@@ -343,7 +343,7 @@
 	},
 	{
 		"name": "ketQuaPhanTich",
-		"animalSchemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau",
 		"label": "Kết quả phân tích (*)",
 		"required": true,
 		"type": "File",
@@ -352,7 +352,7 @@
 	},
 	{
 		"name": "thoiGianGiamDinhMau",
-		"animalSchemaProp": "duLieuGiamDinhMau",
+		"schemaProp": "duLieuGiamDinhMau",
 		"label": "Thời gian giám định mẫu",
 		"required": false,
 		"type": "Date",
@@ -361,7 +361,7 @@
 	},
 	{
 		"name": "nguoiGiamDinhMau",
-		"animalSchemaProp": "duLieuGiamDinhMau",
+		"schemaProp": "duLieuGiamDinhMau",
 		"label": "Người giám định mẫu (*)",
 		"required": true,
 		"type": "String",
@@ -370,7 +370,7 @@
 	},
 	{
 		"name": "coQuanToChucGiamDinh",
-		"animalSchemaProp": "duLieuGiamDinhMau",
+		"schemaProp": "duLieuGiamDinhMau",
 		"label": "Cơ quan/tổ chức giám định mẫu(*)",
 		"required": true,
 		"type": "String",
@@ -379,7 +379,7 @@
 	},
 	{
 		"name": "anhMauVat",
-		"animalSchemaProp": "media",
+		"schemaProp": "media",
 		"label": "Ảnh mẫu vật (*)",
 		"required": true,
 		"type": "File",
@@ -388,7 +388,7 @@
 	},
 	{
 		"name": "anhNgoaiThucDia",
-		"animalSchemaProp": "media",
+		"schemaProp": "media",
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
 		"type": "File",
@@ -397,7 +397,7 @@
 	},
 	{
 		"name": "video",
-		"animalSchemaProp": "media",
+		"schemaProp": "media",
 		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "Mixed",
@@ -405,7 +405,7 @@
 	},
 	{
 		"name": "videoStr",
-		"animalSchemaProp": "media",
+		"schemaProp": "media",
 		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "String",
@@ -414,7 +414,7 @@
 	},
 	{
 		"name": "videoFile",
-		"animalSchemaProp": "media",
+		"schemaProp": "media",
 		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "File",
@@ -423,7 +423,7 @@
 	},
 	{
 		"name": "hinhAnhDinhKem",
-		"animalSchemaProp": "media.xuLyCheTac",
+		"schemaProp": "media.xuLyCheTac",
 		"label": "Hình ảnh đính kèm Xử lý chế tác",
 		"required": false,
 		"type": "File",
@@ -432,7 +432,7 @@
 	},
 	{
 		"name": "dinhKemXuLy",
-		"animalSchemaProp": "media.xuLyCheTac",
+		"schemaProp": "media.xuLyCheTac",
 		"label": "Đính kèm Xử lý chế tác",
 		"required": false,
 		"type": "File",
@@ -441,7 +441,7 @@
 	},
 	{
 		"name": "phuongThucXuLy",
-		"animalSchemaProp": "media.xuLyCheTac",
+		"schemaProp": "media.xuLyCheTac",
 		"label": "Phương thức xử lý chế tác",
 		"required": false,
 		"type": "String",
@@ -450,7 +450,7 @@
 	},
 	{
 		"name": "nguoiXuLy",
-		"animalSchemaProp": "media.xuLyCheTac",
+		"schemaProp": "media.xuLyCheTac",
 		"label": "Người xử lý, chế tác mẫu",
 		"required": false,
 		"type": "String",
@@ -459,7 +459,7 @@
 	},
 	{
 		"name": "coQuanXuLy",
-		"animalSchemaProp": "media.xuLyCheTac",
+		"schemaProp": "media.xuLyCheTac",
 		"label": "Cơ quan xử lý, chế tác mẫu",
 		"required": false,
 		"type": "String",
@@ -468,7 +468,7 @@
 	},
 	{
 		"name": "taiLieuDiKem",
-		"animalSchemaProp": "media.xuLyCheTac",
+		"schemaProp": "media.xuLyCheTac",
 		"label": "Tài liệu đi kèm (*)",
 		"required": false,
 		"type": "File",
@@ -477,7 +477,7 @@
 	},
 	{
 		"name": "phanBoVietNam",
-		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố Việt Nam",
 		"required": true,
 		"type": "Mixed",
@@ -485,7 +485,7 @@
 	},
 	{
 		"name": "phanBoVietNamStr",
-		"animalSchemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố ở Việt Nam (*)",
 		"required": false,
 		"type": "String",
@@ -494,7 +494,7 @@
 	},
 	{
 		"name": "phanBoVietNamFile",
-		"animalSchemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố ở Việt Nam (*)",
 		"required": false,
 		"type": "File",
@@ -503,7 +503,7 @@
 	},
 	{
 		"name": "phanBoTrenTheGioi",
-		"animalSchemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "Mixed",
@@ -511,7 +511,7 @@
 	},
 	{
 		"name": "phanBoTrenTheGioiStr",
-		"animalSchemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "String",
@@ -520,7 +520,7 @@
 	},
 	{
 		"name": "phanBoTrenTheGioiFile",
-		"animalSchemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "File",
@@ -529,7 +529,7 @@
 	},
 	{
 		"name": "giaTriSuDung",
-		"animalSchemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Giá trị sử dụng (*)",
 		"required": true,
 		"type": "String",
@@ -538,7 +538,7 @@
 	},
 	{
 		"name": "ngayNhapMau",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Ngày nhập mẫu (*)",
 		"required": false,
 		"type": "Date",
@@ -547,7 +547,7 @@
 	},
 	{
 		"name": "nguoiGiao",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Người giao mẫu",
 		"required": false,
 		"type": "String",
@@ -556,7 +556,7 @@
 	},
 	{
 		"name": "nguoiNhan",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Người nhận mẫu",
 		"required": false,
 		"type": "String",
@@ -565,7 +565,7 @@
 	},
 	{
 		"name": "coQuanNhapVatMau",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Cơ quan nhập mẫu",
 		"required": false,
 		"type": "String",
@@ -574,7 +574,7 @@
 	},
 	{
 		"name": "hinhThucNhapMau",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Hình thức nhập mẫu",
 		"required": false,
 		"type": "String",
@@ -583,7 +583,7 @@
 	},
 	{
 		"name": "traoDoiMau",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Trao đổi mẫu",
 		"required": false,
 		"type": "String",
@@ -592,7 +592,7 @@
 	},
 	{
 		"name": "vayMuon",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Vay mượn mẫu",
 		"required": false,
 		"type": "String",
@@ -601,7 +601,7 @@
 	},
 	{
 		"name": "khuLuuTruMau",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Khu lưu trữ mẫu (*)",
 		"required": true,
 		"type": "String",
@@ -610,7 +610,7 @@
 	},
 	{
 		"name": "giayPhepNhapMau",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Giấy phép nhập mẫu",
 		"required": false,
 		"type": "File",
@@ -619,7 +619,7 @@
 	},
 	{
 		"name": "hoSoNhapMauVatDiKem",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Hồ sơ nhập mẫu vật đi kèm",
 		"required": false,
 		"type": "File",
@@ -628,7 +628,7 @@
 	},
 	{
 		"name": "nguoiNhapPhieuMauVat",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Người lập phiếu mẫu vật (*)",
 		"required": true,
 		"type": "String",
@@ -637,7 +637,7 @@
 	},
 	{
 		"name": "nguoiNhapVaoPhanMem",
-		"animalSchemaProp": "luuTruBaoQuan",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Người nhập thông tin vào phần mềm",
 		"required": false,
 		"type": "String",
@@ -646,7 +646,7 @@
 	},
 	{
 		"name": "thongTinKhac",
-		"animalSchemaProp": "thongTinKhac",
+		"schemaProp": "thongTinKhac",
 		"label": "Thông tin khác",
 		"required": false,
 		"type": "String",

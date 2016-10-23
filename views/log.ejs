@@ -36,6 +36,28 @@
 					</li>
 					<% for (var i = 0; i < logs.length; i++) { 
 						var action = logs[i].action %>
+						<% 
+							var basePath = '/content/dong-vat';
+							var objectModelLabel = 'mẫu động vật';
+							var objectModelName = 'animal';
+							switch (logs[i].objType){
+								case 'animal':
+									basePath = '/content/dong-vat';
+									objectModelLabel = 'mẫu động vật';
+									objectModelName = 'animal';
+									break;
+								case 'soil':
+									basePath = '/content/tho-nhuong';
+									objectModelLabel = 'mẫu thổ nhưỡng';
+									objectModelName = 'soil';
+									break;
+								case 'geological':
+									basePath = '/content/dia-chat';
+									objectModelLabel = 'mẫu địa chất';
+									objectModelName = 'geological';
+									break;
+							}
+						%>
 						<% if (action == 'create') { %>
 							<li class="list-group-item list-group-item-info" />
 						<% } else if (action == 'update') { %>
@@ -53,32 +75,24 @@
 								</div>
 								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 									<% if (action == 'create') { %>
-										<a href="<%= path + '?action=create' %>"><h4>Tạo mới</h4></a>
-										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><h5>(<%= logs[i].obj1._id %>)</h5></a>
+										<a href="<%= path + '?action=create' %>"><h4>Tạo mới</h4></a> 
+										(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a>
+										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> - <%= logs[i].obj1._id %></span></a>)
 									<% } else if (action == 'update') { %>
 										<a href="<%= path + '?action=update' %>"><h4>Cập nhật</h4></a>
-										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><h5>(<%= logs[i].obj1._id %>)</h5></a>
+										(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a>
+	
+										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> - <%= logs[i].obj1._id %></span></a>)
 									<% } else if (action == 'delete') { %>
-										<a href="<%= path + '?action=delete' %>"><h4>Xóa</h4></a>
-										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><h5>(<%= logs[i].obj1._id %>)</h5></a>
+										<a href="<%= path + '?action=delete' %>"><h4>Xóa <%= objectModelLabel %></h4></a>
+										
+										(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a>
+	
+										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span>(<%= logs[i].obj1._id %>)</span></a>)
 									<% } %>
 								</div>
 								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 									<% if (logs[i].action == 'create') { %>
-										<% 
-											var basePath = '/content/dong-vat';
-											switch (logs[i].objType){
-												case 'animal':
-													basePath = '/content/dong-vat';
-													break;
-												case 'soil':
-													basePath = '/content/tho-nhuong';
-													break;
-												case 'geological':
-													basePath = '/content/dia-chat';
-													break;
-											}
-										%>
 										<a href="<%= basePath %>/log/<%= logs[i]._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
 										<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 									<% } else if (logs[i].action == 'update') { %>

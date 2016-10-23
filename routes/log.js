@@ -32,6 +32,10 @@ router.get('/', function(req, res, next) {
 		projection['obj1._id'] = {$in: arr};
 	}
 
+	if ('type' in req.query){
+		projection.objType = req.query.type;
+	}
+
 	Log.find(projection, {}, {sort: {time: -1}}, function (err, logs) {
 		if (err){
 			console.log(err);
@@ -69,6 +73,10 @@ router.get('/all', aclMiddleware('/log/all', 'view'), function (req, res, next) 
 			console.log(e);
 		}
 		projection['obj1._id'] = {$in: arr};
+	}
+
+	if ('type' in req.query){
+		projection.objType = req.query.type;
 	}
 
 	Log.find(projection, {}, {sort: {time: -1}}, function (err, logs) {

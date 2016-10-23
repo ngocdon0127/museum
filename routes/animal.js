@@ -22,7 +22,7 @@ var objectChild         = global.myCustomVars.objectChild;
 // Get Global variables
 
 var ACTION_CREATE = global.myCustomVars.ACTION_CREATE;
-var ACTION_EDIT = global.myCustomVars.ACTION_EDIT;
+var ACTION_EDIT   = global.myCustomVars.ACTION_EDIT;
 var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/AnimalSchemaProps.json')).toString());
@@ -38,24 +38,24 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 	return !element.type.localeCompare('File')
 });
 
-var aclMiddlewareBaseURL = '/content/dong-vat';
-var objectModelName = 'animal';
-var objectModelNames = 'animals';
+var aclMiddlewareBaseURL   = '/content/dong-vat';
+var objectModelName        = 'animal';
+var objectModelNames       = 'animals';
 var objectModelIdParamName = 'animalId';
-var objectBaseURL = '/dong-vat';
+var objectBaseURL          = '/dong-vat';
 
 var bundle = {
-	Log: Log,
-	AutoCompletion: AutoCompletion,
-	objectModelName: objectModelName,
-	objectModelNames: objectModelNames,
-	objectModelIdParamName: objectModelIdParamName,
-	objectBaseURL: objectBaseURL,
-	PROP_FIELDS: PROP_FIELDS,
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
+	Log                    : Log,
+	AutoCompletion         : AutoCompletion,
+	objectModelName        : objectModelName,
+	objectModelNames       : objectModelNames,
+	objectModelIdParamName : objectModelIdParamName,
+	objectBaseURL          : objectBaseURL,
+	PROP_FIELDS            : PROP_FIELDS,
+	UPLOAD_DEST_ANIMAL     : UPLOAD_DEST_ANIMAL
 }
 
-var saveOrUpdate        = global.myCustomVars.createSaveOrUpdateFunction(bundle);
+var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);
 
 
 // Change code above this line

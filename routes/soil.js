@@ -22,7 +22,7 @@ var objectChild         = global.myCustomVars.objectChild;
 // Get Global variables
 
 var ACTION_CREATE = global.myCustomVars.ACTION_CREATE;
-var ACTION_EDIT = global.myCustomVars.ACTION_EDIT;
+var ACTION_EDIT   = global.myCustomVars.ACTION_EDIT;
 var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/SoilSchemaProps.json')).toString());
@@ -38,24 +38,24 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 	return !element.type.localeCompare('File')
 });
 
-var aclMiddlewareBaseURL = '/content/tho-nhuong';
-var objectModelName = 'soil';
-var objectModelNames = 'soils';
+var aclMiddlewareBaseURL   = '/content/tho-nhuong';
+var objectModelName        = 'soil';
+var objectModelNames       = 'soils';
 var objectModelIdParamName = 'soilId';
-var objectBaseURL = '/tho-nhuong';
+var objectBaseURL          = '/tho-nhuong';
 
 var bundle = {
-	Log: Log,
-	AutoCompletion: AutoCompletion,
-	objectModelName: objectModelName,
-	objectModelNames: objectModelNames,
-	objectModelIdParamName: objectModelIdParamName,
-	objectBaseURL: objectBaseURL,
-	PROP_FIELDS: PROP_FIELDS,
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
+	Log                    : Log,
+	AutoCompletion         : AutoCompletion,
+	objectModelName        : objectModelName,
+	objectModelNames       : objectModelNames,
+	objectModelIdParamName : objectModelIdParamName,
+	objectBaseURL          : objectBaseURL,
+	PROP_FIELDS            : PROP_FIELDS,
+	UPLOAD_DEST_ANIMAL     : UPLOAD_DEST_ANIMAL
 }
 
-var saveOrUpdate        = global.myCustomVars.createSaveOrUpdateFunction(bundle);
+var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);
 
 
 // Change code above this line

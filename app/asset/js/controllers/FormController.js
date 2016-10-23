@@ -40,7 +40,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 		console.log($scope.FormAnimal.$valid);
 		if ($scope.FormAnimal.$valid) {
 			console.log("Submitted");
-			var fd = new FormData(document.getElementById('form-animal'));
+			var fd = new FormData(document.getElementById('form-content'));
 			$.ajax({
 				url: '/content/dong-vat',
 				method: 'POST',
@@ -106,7 +106,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 	,'boPhanLayMauDNA', 
 	'trangThaiGiuMauDNA',
 	'coQuanNhapVatMau'];
-	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
+	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
 		$scope.data = res.data;
 		arrAuto.forEach(function (val) {
 			autoCom(val);
@@ -116,9 +116,9 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 	});
 
 	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-animal'));
+		var fd = new FormData(document.getElementById('form-content'));
 		$.ajax({
-			url: '/content/dong-vat',
+			url: '/content/thuc-vat',
 			method: 'POST',
 			contentType: false,
 			processData: false,
@@ -172,9 +172,9 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	});
 
 	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-animal'));
+		var fd = new FormData(document.getElementById('form-content'));
 		$.ajax({
-			url: '/content/dong-vat',
+			url: '/content/dia-chat',
 			method: 'POST',
 			contentType: false,
 			processData: false,
@@ -228,9 +228,9 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	});
 
 	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-animal'));
+		var fd = new FormData(document.getElementById('form-content'));
 		$.ajax({
-			url: '/content/dong-vat',
+			url: '/content/tho-nhuong',
 			method: 'POST',
 			contentType: false,
 			processData: false,
@@ -284,9 +284,9 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 	});
 
 	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-animal'));
+		var fd = new FormData(document.getElementById('form-content'));
 		$.ajax({
-			url: '/content/dong-vat',
+			url: '/content/co-sinh',
 			method: 'POST',
 			contentType: false,
 			processData: false,

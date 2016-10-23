@@ -19,8 +19,16 @@ global.myCustomVars = {};
 var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);
 require('./models/User.js')(mongoose);
+
 require('./models/Animal.js')(mongoose);
 require('./models/AnimalAutoCompletion.js')(mongoose);
+
+require('./models/Soil.js')(mongoose);
+require('./models/SoilAutoCompletion.js')(mongoose);
+
+require('./models/Geological.js')(mongoose);
+require('./models/GeologicalAutoCompletion.js')(mongoose);
+
 require('./models/Log.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 

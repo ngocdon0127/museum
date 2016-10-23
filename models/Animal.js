@@ -72,7 +72,6 @@ module.exports = function (mongoose) {
 			moTaHinhThaiFile: [String],
 			hinhVe: [String],
 		},
-		
 		media: {
 			anhMauVat: [String],
 			anhNgoaiThucDia: [String],
@@ -95,7 +94,6 @@ module.exports = function (mongoose) {
 				congBoQuocTe: String
 			}
 		},
-
 		phanBoVaSuDung: {
 			phanBoDiaLy: {
 				phanBoVietNamStr: String,
@@ -105,7 +103,6 @@ module.exports = function (mongoose) {
 			},
 			giaTriSuDung: String
 		},
-
 		luuTruBaoQuan: {
 			coQuanNhapVatMau: String,
 			ngayNhapMau: Date,
@@ -121,13 +118,11 @@ module.exports = function (mongoose) {
 			khuLuuTruMau: String,
 			noiLuuTruMau: String
 		},
-		
 		thongTinKhac: {
 			thongTinKhac: String
 		}
 	};
 	var animalSchema = mongoose.Schema(schemaPrototype);
-
 	var Animal = mongoose.model("Animal", animalSchema);
 	return Animal;
 }

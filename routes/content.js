@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 require('./animal.js')(router);
 
 // handle data for soil form
-// require('./soil.js')(router);
+require('./soil.js')(router);
 
 function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()){

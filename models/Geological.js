@@ -15,7 +15,9 @@ module.exports = function (mongoose) {
 			tenDiaPhuong: String,
 			tenTiengAnh: String,
 			tenTheoBaoTang: String,
-			tenTheoQuocTe: String
+			tenTheoQuocTe: String,
+			tenKhoaHoc: String,
+			nguoiDinhTen: String
 		},
 		soLuongChatLuong: {
 			soLuongMauVat: Number,
@@ -40,26 +42,20 @@ module.exports = function (mongoose) {
 				kinhDo: String
 			},
 			thongTinDuAn: String,
-			mauChatOViTriThumau: String,
-			doCao: Number,
-			doSau : Number,
-			doDocNoiThuMau: Number,
-			mucNuocNgamNoiThuMau: Number,
-			khaNangThoatNuoc: String,
-			thoiTietKhiThuMau: String,
-			dangDiaHinhNoiThuMau: String,
-			thamThucVatNoiThuMau: String,
 			ghiChepThucDia: String,
 		},
 		duLieuPhanTichMau: {
-			ngayPhanTich: Date,
-			hoSoPhanTichMauDat: [String],
-			ketQuaPhanTich: [String]
-		},
-		duLieuGiamDinhMau: {
-			thoiGianGiamDinhMau: Date,
-			nguoiGiamDinhMau: String,
-			coQuanToChucGiamDinh: String,
+			thoiGianPhanTich: Date,
+			nguoiPhanTich: String,
+			coQuanToChucPhanTich: String,
+			taiLieuPhanTich: [String],
+			phanTichQuangHocStr: String,
+			phanTichQuangHocFile: [String],
+			ketQuaThanhPhanVatChat: [String],
+			ketQuaPhanTichDongVi: [String],
+			phanTichKhac: [String],
+			dacDiemDiaChat: String,
+			loaiHinhNguonGoc: String
 		},
 		media: {
 			anhMauVat: [String],
@@ -68,21 +64,24 @@ module.exports = function (mongoose) {
 			videoFile: [String],
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
-				dinhKemXuLy: [String],
 				phuongThucXuLy: String,
 				nguoiXuLy: String,
 				coQuanXuLy: String,
-				taiLieuDiKem: [String]
+				anhMauSauCheTac: [String]
 			}
 		},
-		phanBoVaSuDung: {
-			phanBoVietNamStr: String,
-			phanBoVietNamFile: [String],
-			phanBoTrenTheGioiStr: String,
-			phanBoTrenTheGioiFile: [String],
-			giaTriSuDung: String
+		dacDiemMauVat: {
+			loaiMau : String,
+			hinhDangMauTonTai : String,
+			mauSac : String,
+			phanLoaiSuDung : String,
+			thanhPhanKhoangVat : String,
+			tinhChatVatLy : String,
+			thanhPhanHoaHoc : String,
+			linhVucSuDung : String,
+			dacDiemPhanBo : String,
+			congThucHoaHoc : [String]
 		},
-
 		luuTruBaoQuan: {
 			ngayNhapMau: Date,
 			nguoiGiao: String,
@@ -92,6 +91,7 @@ module.exports = function (mongoose) {
 			traoDoiMau: String,
 			vayMuon: String,
 			khuLuuTruMau: String,
+			noiLuuTru: String,
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
 			nguoiNhapPhieuMauVat: String,
@@ -102,8 +102,8 @@ module.exports = function (mongoose) {
 			thongTinKhac: String
 		}
 	};
-	var soilSchema = mongoose.Schema(schemaPrototype);
+	var geologicalSchema = mongoose.Schema(schemaPrototype);
 
-	var Soil = mongoose.model("Soil", soilSchema);
-	return Soil;
+	var Geological = mongoose.model("Geological", geologicalSchema);
+	return Geological;
 }

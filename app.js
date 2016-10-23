@@ -26,6 +26,9 @@ require('./models/AnimalAutoCompletion.js')(mongoose);
 require('./models/Soil.js')(mongoose);
 require('./models/SoilAutoCompletion.js')(mongoose);
 
+require('./models/Geological.js')(mongoose);
+require('./models/GeologicalAutoCompletion.js')(mongoose);
+
 require('./models/Log.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 

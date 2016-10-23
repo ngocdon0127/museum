@@ -9,7 +9,7 @@ function generate (schema) {
 		(pos >= 0) ? (tree = tree.substring(0, pos)) : (tree = "");
 		arr.push({
 			name: nodes[nodes.length - 1], 
-			animalSchemaProp: tree,
+			schemaProp: tree,
 			label: '',
 			required: false,
 			type: "String",

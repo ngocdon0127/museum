@@ -16,6 +16,9 @@ require('./animal.js')(router);
 // handle data for soil form
 require('./soil.js')(router);
 
+// handle data for geological form
+require('./geological.js')(router);
+
 function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()){
 		return res.redirect('/auth/login');

@@ -18,11 +18,11 @@
 					<form class="form" name="form" method="post" onsubmit="handleSubmit()">
 						<div class="row">
 							<label for="email">Email</label>
-							<input type="email" name="email" class="form-control" required="">
+							<input type="email" name="email" id="email" class="form-control" required="" value="<%= oldEmail %>">
 						</div>
 						<div class="row">
 							<label for="password">Mật khẩu</label>
-							<input id="password" type="password" name="password" class="form-control" required="">
+							<input id="password" type="password" name="password" id="password" class="form-control" required="">
 						</div>
 						<div class="row">
 							<!-- <button class="btn btn-inverse btn-lg btn-login" type="button" onclick="handleSubmit()">Login</button> -->
@@ -38,6 +38,8 @@
 							function ob (x) {
 								return document.getElementById(x);
 							}
+
+							ob('email').focus();
 							
 							function handleSubmit () {
 								var plainPass = ob('password').value;

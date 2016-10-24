@@ -41,7 +41,7 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 var aclMiddlewareBaseURL   = '/content/dia-chat';
 var objectModelName        = 'geological';
 var objectModelNames       = 'geologicals';
-var objectModelIdParamName = 'geologicalId';
+var objectModelIdParamName = 'id';
 var objectBaseURL          = '/dia-chat';
 var objectModelLabel       = 'địa chất';
 

@@ -41,7 +41,7 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 var aclMiddlewareBaseURL   = '/content/dong-vat';
 var objectModelName        = 'animal';
 var objectModelNames       = 'animals';
-var objectModelIdParamName = 'animalId';
+var objectModelIdParamName = 'id';
 var objectBaseURL          = '/dong-vat';
 var objectModelLabel       = 'động vật';
 

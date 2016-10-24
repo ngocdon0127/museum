@@ -41,7 +41,7 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 var aclMiddlewareBaseURL   = '/content/tho-nhuong';
 var objectModelName        = 'soil';
 var objectModelNames       = 'soils';
-var objectModelIdParamName = 'soilId';
+var objectModelIdParamName = 'id';
 var objectBaseURL          = '/tho-nhuong';
 var objectModelLabel       = 'thổ nhưỡng';
 

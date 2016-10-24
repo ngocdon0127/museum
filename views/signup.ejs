@@ -17,10 +17,10 @@
 					<div class="container-fluid">
 						<form class="form" name="form" method="post" onsubmit="handleRegister()">
 							<div class="row" >
-								<label>Họ tên</label><input name="fullname" class="form-control" required="">
+								<label>Họ tên</label><input name="fullname" id="fullname" class="form-control" required="">
 							</div>
 							<div class="row" >
-								<label>Email</label><input type="email" name="email" class="form-control" required="">
+								<label>Email</label><input type="email" name="email" id="email" class="form-control" required="">
 							</div>
 							<div class="row">
 								<label>Mật khẩu</label><input type="password" name="password" id="password" class="form-control">
@@ -38,6 +38,8 @@
 								function ob (x) {
 									return document.getElementById(x);
 								}
+
+								ob('fullname').focus();
 								
 								function handleRegister () {
 									var plainPass = ob('password').value;

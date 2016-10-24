@@ -42,9 +42,28 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 		templateUrl: 'views/users/edit/edit-geological-form.template.html',
 		controller: 'EditGeologicalFormCtrl'
 	})
+	.when('/bai-dang', {
+		templateUrl: 'views/users/manage-post/manage.template.html'
+	})
 	.when('/bai-dang/dong-vat', {
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
 		controller: 'AnimalManageController'
+	})
+	.when('/bai-dang/thuc-vat', {
+		templateUrl: 'views/users/manage-post/manage-post.template.html',
+		controller: 'VegetableManageController'
+	})
+	.when('/bai-dang/tho-nhuong', {
+		templateUrl: 'views/users/manage-post/manage-post.template.html',
+		controller: 'LandManageController'
+	})
+	.when('/bai-dang/dia-chat', {
+		templateUrl: 'views/users/manage-post/manage-post.template.html',
+		controller: 'GeologicalManageController'
+	})
+	.when('/bai-dang/co-sinh', {
+		templateUrl: 'views/users/manage-post/manage-post.template.html',
+		controller: 'PaleontologicalManageController'
 	})
 	.otherwise({ redirectTo: '/dong-vat' })
 }]);

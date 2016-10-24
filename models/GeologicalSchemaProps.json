@@ -371,7 +371,7 @@
 		"name": "anhMauVat",
 		"schemaProp": "media",
 		"label": "Ảnh mẫu vật (*)",
-		"required": false,
+		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
 		"autoCompletion": false

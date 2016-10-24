@@ -22,7 +22,7 @@ var objectChild         = global.myCustomVars.objectChild;
 // Get Global variables
 
 var ACTION_CREATE = global.myCustomVars.ACTION_CREATE;
-var ACTION_EDIT = global.myCustomVars.ACTION_EDIT;
+var ACTION_EDIT   = global.myCustomVars.ACTION_EDIT;
 var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/GeologicalSchemaProps.json')).toString());
@@ -38,24 +38,25 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 	return !element.type.localeCompare('File')
 });
 
-var aclMiddlewareBaseURL = '/content/dia-chat';
-var objectModelName = 'geological';
-var objectModelNames = 'geologicals';
+var aclMiddlewareBaseURL   = '/content/dia-chat';
+var objectModelName        = 'geological';
+var objectModelNames       = 'geologicals';
 var objectModelIdParamName = 'geologicalId';
-var objectBaseURL = '/dia-chat';
+var objectBaseURL          = '/dia-chat';
+var objectModelLabel       = 'địa chất';
 
 var bundle = {
-	Log: Log,
-	AutoCompletion: AutoCompletion,
-	objectModelName: objectModelName,
-	objectModelNames: objectModelNames,
-	objectModelIdParamName: objectModelIdParamName,
-	objectBaseURL: objectBaseURL,
-	PROP_FIELDS: PROP_FIELDS,
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
+	Log                    : Log,
+	AutoCompletion         : AutoCompletion,
+	objectModelName        : objectModelName,
+	objectModelNames       : objectModelNames,
+	objectModelIdParamName : objectModelIdParamName,
+	objectBaseURL          : objectBaseURL,
+	PROP_FIELDS            : PROP_FIELDS,
+	UPLOAD_DEST_ANIMAL     : UPLOAD_DEST_ANIMAL
 }
 
-var saveOrUpdate        = global.myCustomVars.createSaveOrUpdateFunction(bundle);
+var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);
 
 
 // Change code above this line
@@ -169,7 +170,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 			else {
 				// return responseSuccess(res, ['objectInstance'], [objectInstance]);
 				if (req.query.display == 'html'){
-					return res.render('display', {title: 'Chi tiết mẫu dữ liệu', count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
+					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
 				}
 				else {
 					return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);
@@ -191,21 +192,21 @@ router.get(objectBaseURL + '/log/:logId/:position', function (req, res) {
 		if (log){
 			if ((log.action == 'update') && (req.params.position == 'diff')){
 				// return responseSuccess(res, ['obj1', 'obj2'], [flatObjectModel(PROP_FIELDS, log.obj1), flatObjectModel(PROP_FIELDS, log.obj2)]);
-				return res.render('display', {title: 'Các cập nhật', count: 2, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+				return res.render('display', {title: 'Các cập nhật', objectPath: objectBaseURL, count: 2, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
 			}
 
 			switch (parseInt(req.params.position)){
 				case 1:
 					if ('obj1' in log){
 						// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj1)])
-						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: {}, staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+						return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: {}, staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
 					}
 					else{
 						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
 					}
 				case 2:
 					if (('obj2' in log) && (log.obj2)){
-						return res.render('display', {title: 'Dữ liệu chi tiết', count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+						return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
 						// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj2)])
 					}
 					else{
@@ -255,4 +256,3 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), func
 })
 
 }
-

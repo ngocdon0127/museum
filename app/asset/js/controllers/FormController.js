@@ -36,10 +36,9 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 		console.log(err);
 	});
 
-	$scope.addPost = function(FormAnimal){
-		console.log($scope.FormAnimal.$valid);
-		if ($scope.FormAnimal.$valid) {
-			console.log("Submitted");
+	$scope.addPost = function(FormData){
+		console.log($scope.FormData.$valid);
+		if ($scope.FormData.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			$.ajax({
 				url: '/content/dong-vat',
@@ -55,25 +54,24 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 					alert(JSON.parse(err.responseText).error);
 					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
 					try {
-						// element.value = '';
-						// element.setAttribute('placeholder', 'Wrong format');
+						element.style.background = '#EE543A';
+						setTimeout((function (e) {
+							return function () {
+								e.style.background = 'white';
+							}
+						})(element), 2000);
+						$('html, body').animate({
+							scrollTop: $(element).offset().top - 100
+						}, 500);
 					}
 					catch (e){
 						// do not care
 					}
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
+					
 				}
 			});
 		} else{
-			angular.element("[name='" + FormAnimal.$name + "']").find('.ng-invalid:visible:first').focus();
+			angular.element("[name='" + FormData.$name + "']").find('.ng-invalid:visible:first').focus();
 		}
 	}
 }]);
@@ -128,7 +126,22 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 			},
 			error: function (err) {
 				console.log(err);
-				alert(JSON.parse(err.responseText).error)
+				alert(JSON.parse(err.responseText).error);
+				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+				try {
+					element.style.background = '#EE543A';
+					setTimeout((function (e) {
+						return function () {
+							e.style.background = 'white';
+						}
+					})(element), 2000);
+					$('html, body').animate({
+						scrollTop: $(element).offset().top - 100
+					}, 500);
+				}
+				catch (e){
+					// do not care
+				}
 			}
 		});
 	}
@@ -184,7 +197,22 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 			},
 			error: function (err) {
 				console.log(err);
-				alert(JSON.parse(err.responseText).error)
+				alert(JSON.parse(err.responseText).error);
+				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+				try {
+					element.style.background = '#EE543A';
+					setTimeout((function (e) {
+						return function () {
+							e.style.background = 'white';
+						}
+					})(element), 2000);
+					$('html, body').animate({
+						scrollTop: $(element).offset().top - 100
+					}, 500);
+				}
+				catch (e){
+					
+				}
 			}
 		});
 	}
@@ -240,7 +268,24 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 			},
 			error: function (err) {
 				console.log(err);
-				alert(JSON.parse(err.responseText).error)
+				alert(JSON.parse(err.responseText).error);
+				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+				try {
+					element.style.background = '#EE543A';
+					setTimeout((function (e) {
+						return function () {
+							e.style.background = 'white';
+						}
+					})(element), 2000);
+					$('html, body').animate({
+						scrollTop: $(element).offset().top - 100
+					}, 500);
+				}
+				catch (e){
+					// do not care
+					console.log(e);
+				}
+				
 			}
 		});
 	}
@@ -296,7 +341,22 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 			},
 			error: function (err) {
 				console.log(err);
-				alert(JSON.parse(err.responseText).error)
+				alert(JSON.parse(err.responseText).error);
+				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+				try {
+					element.style.background = '#EE543A';
+					setTimeout((function (e) {
+						return function () {
+							e.style.background = 'white';
+						}
+					})(element), 2000);
+					$('html, body').animate({
+						scrollTop: $(element).offset().top - 100
+					}, 500);
+				}
+				catch (e){
+					// do not care
+				}
 			}
 		});
 	}

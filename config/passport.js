@@ -24,10 +24,10 @@ module.exports = function (passport, User) {
 				return done(err);
 			}
 			if (!user){
-				return done(null, false, req.flash("loginMessage", "Invalid Email"));
+				return done(null, false, req.flash("loginMessage", "Invalid Email"), req.flash("oldEmail", username));
 			}
 			if (!user.validPassword(password)){
-				return done(null, false, req.flash("loginMessage", "Invalid password"));
+				return done(null, false, req.flash("loginMessage", "Invalid password"), req.flash("oldEmail", username));
 			}
 			// if (user.permission < PERM_ACCESS_PAGE){
 			// 	return done(null, false, req.flash('loginMessage', "Login successfully. But you do not have permission to access page. Contact Admin to update your account."));

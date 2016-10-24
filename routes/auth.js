@@ -9,7 +9,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/login", function (req, res) {
-	res.render("login", {message: req.flash("loginMessage"), title: "Login", user: req.user, path: '/auth/login'});
+	res.render("login", {
+		message: req.flash("loginMessage"), 
+		title: "Login", 
+		user: req.user, 
+		path: '/auth/login',
+		oldEmail: req.flash("oldEmail")
+	});
 });
 
 router.post("/login", passport.authenticate('local-login', {

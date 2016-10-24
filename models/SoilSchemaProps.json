@@ -234,7 +234,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "mauChatOViTriThumau",
+		"name": "mauChatOViTriThuMau",
 		"schemaProp": "duLieuThuMau",
 		"label": "Mẫu chất ở vị trí thu mẫu (*)",
 		"required": true,

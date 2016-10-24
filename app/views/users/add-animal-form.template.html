@@ -1,20 +1,20 @@
 <div class="container map-detail" style="margin-top: 50px;">
-	<form id="form-content" name="FormAnimal" ng-submit="addPost(FormAnimal)" novalidate>
+	<form id="form-content" name="FormData" ng-submit="addPost(FormData)" novalidate>
 		<center><h2>Thêm mẫu dữ liệu động vật</h2></center>
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
 			<tr>
 				<td><label>Số hiệu thực địa (*):</label></td>
 				<td>
-					<input type="text" name="soHieuThucDia" class="input-form" ng-class="{'has-error' : FormAnimal.soHieuThucDia.$error.required && FormAnimal.soHieuThucDia.$touched}" ng-model="animal.soHieuThucDia" maxlength="100" required>
-					<span class="text-errors" ng-show="(FormAnimal.soHieuThucDia.$submitted || FormAnimal.soHieuThucDia.$touched) && FormAnimal.soHieuThucDia.$error.required">required!</span>
+					<input type="text" name="soHieuThucDia" class="input-form" ng-class="{'has-error' : FormData.soHieuThucDia.$error.required && FormData.soHieuThucDia.$touched}" ng-model="animal.soHieuThucDia" maxlength="100" required>
+					<span class="text-errors" ng-show="(FormData.soHieuThucDia.$submitted || FormData.soHieuThucDia.$touched) && FormData.soHieuThucDia.$error.required">required!</span>
 				</td>
 			</tr>
 			<tr>
 				<td><label>Số hiệu bảo tàng cơ sở (*):</label></td>
 				<td>
-					<input type="text" name="soHieuBaoTangCS" ng-class="{'has-error' : FormAnimal.soHieuBaoTangCS.$error.required && FormAnimal.soHieuBaoTangCS.$touched}" class="input-form" maxlength="100" required>
-					<span class="text-errors" ng-show="(FormAnimal.soHieuBaoTangCS.$submitted || FormAnimal.soHieuBaoTangCS.$touched) && FormAnimal.soHieuBaoTangCS.$error.required">required!</span>
+					<input type="text" name="soHieuBaoTangCS" ng-class="{'has-error' : FormData.soHieuBaoTangCS.$error.required && FormData.soHieuBaoTangCS.$touched}" class="input-form" maxlength="100" required>
+					<span class="text-errors" ng-show="(FormData.soHieuBaoTangCS.$submitted || FormData.soHieuBaoTangCS.$touched) && FormData.soHieuBaoTangCS.$error.required">required!</span>
 				</td>
 			</tr>
 			<tr>
@@ -41,8 +41,8 @@
 			<tr>
 				<td><label>Tên Việt Nam (*):</label></td>
 				<td>
-					<input type="text" name="tenVietNam" ng-class="{'has-error' : FormAnimal.tenVietNam.$error.required && FormAnimal.tenVietNam.$touched}" class="input-form"  required>
-					<span class="text-errors" ng-show="(FormAnimal.tenVietNam.$submitted || FormAnimal.tenVietNam.$touched) && FormAnimal.tenVietNam.$error.required">Required!</span>
+					<input type="text" name="tenVietNam" ng-class="{'has-error' : FormData.tenVietNam.$error.required && FormData.tenVietNam.$touched}" class="input-form"  required>
+					<span class="text-errors" ng-show="(FormData.tenVietNam.$submitted || FormData.tenVietNam.$touched) && FormData.tenVietNam.$error.required">Required!</span>
 				</td>
 			</tr>
 			<tr>
@@ -65,19 +65,19 @@
 			<tr>
 				<td><label>Giới (*): </label></td>
 				<td>
-					<input type="text" id="gioi" name="gioi" ng-class="{'has-error' : FormAnimal.gioi.$error.required && FormAnimal.gioi.$touched}" class="input-form" required>
-					<span class="text-errors" ng-show="(FormAnimal.gioi.$submitted || FormAnimal.gioi.$touched) && FormAnimal.gioi.$error.required">Required!</span>
+					<input type="text" id="gioi" name="gioi" ng-class="{'has-error' : FormData.gioi.$error.required && FormData.gioi.$touched}" class="input-form" required>
+					<span class="text-errors" ng-show="(FormData.gioi.$submitted || FormData.gioi.$touched) && FormData.gioi.$error.required">Required!</span>
 				</td>
 			</tr>
 					<tr>
 				<td><label>Ngành (*): </label></td>
-				<td><input type="text" id="nganh" name="nganh" ng-class="{'has-error' : FormAnimal.nganh.$error.required && FormAnimal.nganh.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.nganh.$submitted || FormAnimal.nganh.$touched) && FormAnimal.nganh.$error.required">Required!</span></td>
+				<td><input type="text" id="nganh" name="nganh" ng-class="{'has-error' : FormData.nganh.$error.required && FormData.nganh.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.nganh.$submitted || FormData.nganh.$touched) && FormData.nganh.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Lớp (*): </label></td>
-				<td><input type="text" id="lop" name="lop" ng-class="{'has-error' : FormAnimal.lop.$error.required && FormAnimal.lop.$touched}" class="input-form" required="required">
-				<span class="text-errors" ng-show="(FormAnimal.lop.$submitted || FormAnimal.lop.$touched) && FormAnimal.lop.$error.required">Required!</span></td>
+				<td><input type="text" id="lop" name="lop" ng-class="{'has-error' : FormData.lop.$error.required && FormData.lop.$touched}" class="input-form" required="required">
+				<span class="text-errors" ng-show="(FormData.lop.$submitted || FormData.lop.$touched) && FormData.lop.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Phân lớp: </label></td>
@@ -85,8 +85,8 @@
 			</tr>
 			<tr>
 				<td><label>Bộ (*): </label></td>
-				<td><input type="text" id="bo" name="bo" ng-class="{'has-error' : FormAnimal.bo.$error.required && FormAnimal.bo.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.bo.$submitted || FormAnimal.bo.$touched) && FormAnimal.bo.$error.required">Required!</span></td>
+				<td><input type="text" id="bo" name="bo" ng-class="{'has-error' : FormData.bo.$error.required && FormData.bo.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.bo.$submitted || FormData.bo.$touched) && FormData.bo.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Phân bộ: </label></td>
@@ -98,8 +98,8 @@
 			</tr>
 			<tr>
 				<td><label>Họ (*): </label></td>
-				<td><input type="text" id="ho" name="ho" ng-class="{'has-error' : FormAnimal.ho.$error.required && FormAnimal.ho.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.ho.$submitted || FormAnimal.ho.$touched) && FormAnimal.ho.$error.required">Required!</span></td>
+				<td><input type="text" id="ho" name="ho" ng-class="{'has-error' : FormData.ho.$error.required && FormData.ho.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.ho.$submitted || FormData.ho.$touched) && FormData.ho.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Phân họ: </label></td>
@@ -111,8 +111,8 @@
 			</tr>
 			<tr>
 				<td><label>Giống (*): </label></td>
-				<td><input type="text" name="giong" id="giong" ng-class="{'has-error' : FormAnimal.giong.$error.required && FormAnimal.giong.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.giong.$submitted || FormAnimal.giong.$touched) && FormAnimal.giong.$error.required">Required!</span></td>
+				<td><input type="text" name="giong" id="giong" ng-class="{'has-error' : FormData.giong.$error.required && FormData.giong.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.giong.$submitted || FormData.giong.$touched) && FormData.giong.$error.required">Required!</span></td>
 			</tr>
 
 			<tr>
@@ -141,36 +141,36 @@
 			<tr>
 				<td><label>Loại mẫu (*):</label></td>
 				<td>
-					<select class="select-box" required name="loaiMau" ng-class="{'has-error' : FormAnimal.loaiMau.$error.required && FormAnimal.loaiMau.$touched}">
+					<select class="select-box" required name="loaiMau" ng-class="{'has-error' : FormData.loaiMau.$error.required && FormData.loaiMau.$touched}">
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
 						<option value="Mẫu type">Mẫu type</option>
 					</select>
-					<span class="text-errors" ng-show="(FormAnimal.loaiMau.$submitted || FormAnimal.loaiMau.$touched) && FormAnimal.loaiMau.$error.required">Required!</span>
+					<span class="text-errors" ng-show="(FormData.loaiMau.$submitted || FormData.loaiMau.$touched) && FormData.loaiMau.$error.required">Required!</span>
 				</td>
 			</tr>
 			<tr>
 				<td><label>Kích thước mẫu (*):</label></td>
-				<td><input type="text" name="kichThuocMau" ng-class="{'has-error' : FormAnimal.kichThuocMau.$error.required && FormAnimal.kichThuocMau.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.kichThuocMau.$submitted || FormAnimal.kichThuocMau.$touched) && FormAnimal.kichThuocMau.$error.required">Required!</span></td>
+				<td><input type="text" name="kichThuocMau" ng-class="{'has-error' : FormData.kichThuocMau.$error.required && FormData.kichThuocMau.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.kichThuocMau.$submitted || FormData.kichThuocMau.$touched) && FormData.kichThuocMau.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Tình trạng mẫu (*):</label></td>
-				<td><input type="text" name="tinhTrangMau" ng-class="{'has-error' : FormAnimal.tinhTrangMau.$error.required && FormAnimal.tinhTrangMau.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.tinhTrangMau.$submitted || FormAnimal.tinhTrangMau.$touched) && FormAnimal.tinhTrangMau.$error.required">Required!</span></td>
+				<td><input type="text" name="tinhTrangMau" ng-class="{'has-error' : FormData.tinhTrangMau.$error.required && FormData.tinhTrangMau.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.tinhTrangMau.$submitted || FormData.tinhTrangMau.$touched) && FormData.tinhTrangMau.$error.required">Required!</span></td>
 			</tr>		
 		</table>
 		<table>
 			<h3 class="h3-title">4. NHÓM DỮ LIỆU THU MẪU</h3>
 			<tr>
 				<td><label>Thời gian thu mẫu (*):</label></td>
-				<td><input type="date" name="thoiGianThuMau" ng-class="{'has-error' : FormAnimal.thoiGianThuMau.$error.required && FormAnimal.thoiGianThuMau.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.thoiGianThuMau.$submitted || FormAnimal.thoiGianThuMau.$touched) && FormAnimal.thoiGianThuMau.$error.required">Required!</span></td>
+				<td><input type="date" name="thoiGianThuMau" ng-class="{'has-error' : FormData.thoiGianThuMau.$error.required && FormData.thoiGianThuMau.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.thoiGianThuMau.$submitted || FormData.thoiGianThuMau.$touched) && FormData.thoiGianThuMau.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Người thu mẫu (*):</label></td>
-				<td><input type="text" name="nguoiThuMau" ng-class="{'has-error' : FormAnimal.nguoiThuMau.$error.required && FormAnimal.nguoiThuMau.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.nguoiThuMau.$submitted || FormAnimal.nguoiThuMau.$touched) && FormAnimal.nguoiThuMau.$error.required">Required!</span></td>
+				<td><input type="text" name="nguoiThuMau" ng-class="{'has-error' : FormData.nguoiThuMau.$error.required && FormData.nguoiThuMau.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.nguoiThuMau.$submitted || FormData.nguoiThuMau.$touched) && FormData.nguoiThuMau.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Cơ quan thu mẫu: </label></td>
@@ -178,8 +178,8 @@
 			</tr>
 			<tr>
 				<td><label>Phương pháp thu mẫu (*):</label></td>
-				<td><input type="text" name="phuongPhapThuMau" ng-class="{'has-error' : FormAnimal.phuongPhapThuMau.$error.required && FormAnimal.phuongPhapThuMau.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.phuongPhapThuMau.$submitted || FormAnimal.phuongPhapThuMau.$touched) && FormAnimal.phuongPhapThuMau.$error.required">Required!</span></td>
+				<td><input type="text" name="phuongPhapThuMau" ng-class="{'has-error' : FormData.phuongPhapThuMau.$error.required && FormData.phuongPhapThuMau.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.phuongPhapThuMau.$submitted || FormData.phuongPhapThuMau.$touched) && FormData.phuongPhapThuMau.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Địa điểm thu mẫu: </label></td>
@@ -188,37 +188,37 @@
 					<tr>
 						<td>Quốc gia (*): </td>
 						<td>
-							<select class="select-box" name="quocGia" ng-class="{'has-error' : FormAnimal.quocGia.$error.required && FormAnimal.quocGia.$touched}" required>
+							<select class="select-box" name="quocGia" ng-class="{'has-error' : FormData.quocGia.$error.required && FormData.quocGia.$touched}" required>
 								<option value="VietNam">Việt Nam</option>
 							</select>
-							<span class="text-errors" ng-show="(FormAnimal.quocGia.$submitted || FormAnimal.quocGia.$touched) && FormAnimal.quocGia.$error.required">Required!</span>
+							<span class="text-errors" ng-show="(FormData.quocGia.$submitted || FormData.quocGia.$touched) && FormData.quocGia.$error.required">Required!</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Tỉnh/Thành phố (*): </td>
 						<td>
-							<select class="select-box" name="tinh" ng-class="{'has-error' : FormAnimal.tinh.$error.required && FormAnimal.tinh.$touched}" required ng-model= "$parent.animal.city" ng-change="cityChange()">
+							<select class="select-box" name="tinh" ng-class="{'has-error' : FormData.tinh.$error.required && FormData.tinh.$touched}" required ng-model= "$parent.animal.city" ng-change="cityChange()">
 								<option  ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " +  city.name}}</option>
 							</select>
-							<span class="text-errors" ng-show="(FormAnimal.tinh.$submitted || FormAnimal.tinh.$touched) && FormAnimal.tinh.$error.required">Required!</span>
+							<span class="text-errors" ng-show="(FormData.tinh.$submitted || FormData.tinh.$touched) && FormData.tinh.$error.required">Required!</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Huyện (*):</td>
 						<td>
-							<select class="select-box" name="huyen" ng-class="{'has-error' : FormAnimal.huyen.$error.required && FormAnimal.huyen.$touched}" required ng-model= "$parent.animal.district" ng-change="districtChange()">
+							<select class="select-box" name="huyen" ng-class="{'has-error' : FormData.huyen.$error.required && FormData.huyen.$touched}" required ng-model= "$parent.animal.district" ng-change="districtChange()">
 								<option ng-repeat="(key, district) in districts | customCity: animal.city" value="{{key}}">{{district.type + " " + district.name}}</option>
 							</select>
-							<span class="text-errors" ng-show="(FormAnimal.huyen.$submitted || FormAnimal.huyen.$touched) && FormAnimal.huyen.$error.required">Required!</span>
+							<span class="text-errors" ng-show="(FormData.huyen.$submitted || FormData.huyen.$touched) && FormData.huyen.$error.required">Required!</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Xã (*): </td>
 						<td>
-							<select class="select-box" name="xa" ng-model="animal.ward" ng-class="{'has-error' : FormAnimal.xa.$error.required && FormAnimal.xa.$touched}" required>
+							<select class="select-box" name="xa" ng-model="animal.ward" ng-class="{'has-error' : FormData.xa.$error.required && FormData.xa.$touched}" required>
 								<option ng-repeat="(key, ward) in wards | customDistrict: animal.district" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
 							</select>
-							<span class="text-errors" ng-show="(FormAnimal.xa.$submitted || FormAnimal.xa.$touched) && FormAnimal.xa.$error.required">Required!</span>
+							<span class="text-errors" ng-show="(FormData.xa.$submitted || FormData.xa.$touched) && FormData.xa.$error.required">Required!</span>
 						</td>
 					</tr>
 					<tr>
@@ -231,18 +231,18 @@
 			<tr><td><h4>Vị trí toạ độ theo hệ toạ độ VN 2000 (*)</h4></td></tr>
 			<tr>
 				<td><label>Vĩ độ N (*): </label></td>
-				<td><input type="text" name="viDo" class="input-form" ng-class="{'has-error' : FormAnimal.viDo.$error.required && FormAnimal.viDo.$touched}"  required>
-				<span class="text-errors" ng-show="(FormAnimal.viDo.$submitted || FormAnimal.viDo.$touched) && FormAnimal.viDo.$error.required">Required!</span></td>
+				<td><input type="text" name="viDo" class="input-form" ng-class="{'has-error' : FormData.viDo.$error.required && FormData.viDo.$touched}"  required>
+				<span class="text-errors" ng-show="(FormData.viDo.$submitted || FormData.viDo.$touched) && FormData.viDo.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Kinh độ E (*):</label></td>
-				<td><input type="text" name="kinhDo" ng-class="{'has-error' : FormAnimal.kinhDo.$error.required && FormAnimal.kinhDo.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.kinhDo.$submitted || FormAnimal.kinhDo.$touched) && FormAnimal.kinhDo.$error.required">Required!</span></td>
+				<td><input type="text" name="kinhDo" ng-class="{'has-error' : FormData.kinhDo.$error.required && FormData.kinhDo.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.kinhDo.$submitted || FormData.kinhDo.$touched) && FormData.kinhDo.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Độ cao (m) (*): </label></td>
-				<td><input type="number" name="doCao" min="0" ng-class="{'has-error' : FormAnimal.doCao.$error.required && FormAnimal.doCao.$touched}" class="input-form" required>
-				<span class="text-errors" ng-show="(FormAnimal.doCao.$submitted || FormAnimal.doCao.$touched) && FormAnimal.doCao.$error.required">Required!</span></td>
+				<td><input type="number" name="doCao" min="0" ng-class="{'has-error' : FormData.doCao.$error.required && FormData.doCao.$touched}" class="input-form" required>
+				<span class="text-errors" ng-show="(FormData.doCao.$submitted || FormData.doCao.$touched) && FormData.doCao.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Độ sâu(m):</label></td>
@@ -258,13 +258,13 @@
 			</tr>
 			<tr>
 				<td><label>Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật (*):</label></td>
-				<td><input type="text" name="thongTinDuAn" ng-class="{'has-error' : FormAnimal.thongTinDuAn.$error.required && FormAnimal.thongTinDuAn.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.thongTinDuAn.$submitted || FormAnimal.thongTinDuAn.$touched) && FormAnimal.thongTinDuAn.$error.required">Required!</span></td>
+				<td><input type="text" name="thongTinDuAn" ng-class="{'has-error' : FormData.thongTinDuAn.$error.required && FormData.thongTinDuAn.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.thongTinDuAn.$submitted || FormData.thongTinDuAn.$touched) && FormData.thongTinDuAn.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Ghi chép thực địa (*):</label></td>
-				<td><input type="text" name="ghiChepThucDia" ng-class="{'has-error' : FormAnimal.ghiChepThucDia.$error.required && FormAnimal.ghiChepThucDia.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.ghiChepThucDia.$submitted || FormAnimal.ghiChepThucDia.$touched) && FormAnimal.ghiChepThucDia.$error.required">Required!</span></td>
+				<td><input type="text" name="ghiChepThucDia" ng-class="{'has-error' : FormData.ghiChepThucDia.$error.required && FormData.ghiChepThucDia.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.ghiChepThucDia.$submitted || FormData.ghiChepThucDia.$touched) && FormData.ghiChepThucDia.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Bản đồ:</label></td>
@@ -281,27 +281,27 @@
 			</tr>
 			<tr>
 				<td><label>Người phân tích/giám định/định loại mẫu (*):</label></td>
-				<td><input type="text" name="nguoiPhanTich" ng-class="{'has-error' : FormAnimal.nguoiPhanTich.$error.required && FormAnimal.nguoiPhanTich.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.nguoiPhanTich.$submitted || FormAnimal.nguoiPhanTich.$touched) && FormAnimal.nguoiPhanTich.$error.required">Required!</span></td>
+				<td><input type="text" name="nguoiPhanTich" ng-class="{'has-error' : FormData.nguoiPhanTich.$error.required && FormData.nguoiPhanTich.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.nguoiPhanTich.$submitted || FormData.nguoiPhanTich.$touched) && FormData.nguoiPhanTich.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Cơ quan/tổ chức phân tích/giám định/phân loại mẫu (*):</label></td>
-				<td><input type="text" name="coQuanToChucPhanTich" ng-class="{'has-error' : FormAnimal.coQuanToChucPhanTich.$error.required && FormAnimal.coQuanToChucPhanTich.$touched}" id="coQuanToChucPhanTich" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.coQuanToChucPhanTich.$submitted || FormAnimal.coQuanToChucPhanTich.$touched) && FormAnimal.coQuanToChucPhanTich.$error.required">Required!</span></td>
+				<td><input type="text" name="coQuanToChucPhanTich" ng-class="{'has-error' : FormData.coQuanToChucPhanTich.$error.required && FormData.coQuanToChucPhanTich.$touched}" id="coQuanToChucPhanTich" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.coQuanToChucPhanTich.$submitted || FormData.coQuanToChucPhanTich.$touched) && FormData.coQuanToChucPhanTich.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Tài liệu phân tích/giám định/phân loại đi kèm (*):</label></td>
-				<td><input type="file" multiple name="taiLieuPhanTich" ng-class="{'has-error' : FormAnimal.taiLieuPhanTich.$error.required && FormAnimal.taiLieuPhanTich.$touched}" accept=".doc, .docx, .pdf" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.taiLieuPhanTich.$submitted || FormAnimal.taiLieuPhanTich.$touched) && FormAnimal.taiLieuPhanTich.$error.required">Required!</span></td>
+				<td><input type="file" multiple name="taiLieuPhanTich" ng-class="{'has-error' : FormData.taiLieuPhanTich.$error.required && FormData.taiLieuPhanTich.$touched}" accept=".doc, .docx, .pdf" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.taiLieuPhanTich.$submitted || FormData.taiLieuPhanTich.$touched) && FormData.taiLieuPhanTich.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
 				<td>
 					<table>
 						<tr>
-							<td><input type="text" name="moTaHinhThaiStr" class="input-form" ng-class="{'has-error' : FormAnimal.moTaHinhThaiStr.$error.required && FormAnimal.moTaHinhThaiStr.$touched}"></td>
+							<td><input type="text" name="moTaHinhThaiStr" class="input-form" ng-class="{'has-error' : FormData.moTaHinhThaiStr.$error.required && FormData.moTaHinhThaiStr.$touched}"></td>
 							<td><input type="file" multiple accept="video/mp4,video/x-m4v,video/*" name="moTaHinhThaiFile" class="input-form"></td>
-							<span class="text-errors" ng-show="(FormAnimal.moTaHinhThaiStr.$submitted || FormAnimal.moTaHinhThaiStr.$touched) && FormAnimal.moTaHinhThaiStr.$error.required">Required!</span>
+							<span class="text-errors" ng-show="(FormData.moTaHinhThaiStr.$submitted || FormData.moTaHinhThaiStr.$touched) && FormData.moTaHinhThaiStr.$error.required">Required!</span>
 						</tr>
 					</table>				
 				</td>
@@ -316,8 +316,8 @@
 			<h3 class="h3-title">6. NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
 			<tr>
 				<td><label>Ảnh mẫu vật(*):</label></td>
-				<td><input type="file" multiple name="anhMauVat" ng-class="{'has-error' : FormAnimal.anhMauVat.$error.required && FormAnimal.anhMauVat.$touched}" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"  required>
-				<span class="text-errors" ng-show="(FormAnimal.anhMauVat.$submitted || FormAnimal.anhMauVat.$touched) && FormAnimal.anhMauVat.$error.required">Required!</span></td>
+				<td><input type="file" multiple name="anhMauVat" ng-class="{'has-error' : FormData.anhMauVat.$error.required && FormData.anhMauVat.$touched}" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"  required>
+				<span class="text-errors" ng-show="(FormData.anhMauVat.$submitted || FormData.anhMauVat.$touched) && FormData.anhMauVat.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Hình ảnh mẫu ngoài thực địa:</label></td>
@@ -487,8 +487,8 @@
 			</tr>
 			<tr>
 				<td><label>Người nhập phiếu MV (*):</label></td>
-				<td><input type="text" name="nguoiNhapPhieuMauVat" ng-class="{'has-error' : FormAnimal.nguoiNhapPhieuMauVat.$error.required && FormAnimal.nguoiNhapPhieuMauVat.$touched}" class="input-form"  required>
-				<span class="text-errors" ng-show="(FormAnimal.nguoiNhapPhieuMauVat.$submitted || FormAnimal.nguoiNhapPhieuMauVat.$touched) && FormAnimal.nguoiNhapPhieuMauVat.$error.required">Required!</span></td>
+				<td><input type="text" name="nguoiNhapPhieuMauVat" ng-class="{'has-error' : FormData.nguoiNhapPhieuMauVat.$error.required && FormData.nguoiNhapPhieuMauVat.$touched}" class="input-form"  required>
+				<span class="text-errors" ng-show="(FormData.nguoiNhapPhieuMauVat.$submitted || FormData.nguoiNhapPhieuMauVat.$touched) && FormData.nguoiNhapPhieuMauVat.$error.required">Required!</span></td>
 			</tr>
 			<tr>
 				<td><label>Người nhập vào phần mềm:</label></td>

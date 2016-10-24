@@ -1,6 +1,6 @@
 <div class="container map-detail" style="margin-top: 50px;" ng-if="status == 'success'">
 	<form id="form-content" name="FormAnimal">
-		<input type="text" name="animalId" style="display: none;" ng-model="animal.animalId">
+		<input type="text" name="id" style="display: none;" ng-model="animal.id">
 		<center><h2>Chỉnh sửa mẫu dữ liệu động vật</h2></center>
 		<table>
 			<h3 class="h3-title">1. Số hiệu</h3>
@@ -163,8 +163,6 @@
 							<select class="select-box" ng-model="animal.quocGia" name="quocGia" required>
 								<option value="Việt Nam">Việt Nam</option>
 							</select>
-<!-- 						<input type="text" name="quocGia" id="quocGiaInput" style="display: none;">
-							<button type="button" id="btnquocgia">Thêm</button> -->
 						</td>
 					</tr>
 					<tr>

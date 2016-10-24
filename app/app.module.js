@@ -1,5 +1,6 @@
 var app = angular.module('museumApp', [
 	'ngRoute',
-	'ngMessages'
+	'ngMessages',
+	'ui.bootstrap'
 	]);
 

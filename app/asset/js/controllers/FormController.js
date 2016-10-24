@@ -36,10 +36,9 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 		console.log(err);
 	});
 
-	$scope.addPost = function(FormAnimal){
-		console.log($scope.FormAnimal.$valid);
-		if ($scope.FormAnimal.$valid) {
-			console.log("Submitted");
+	$scope.addPost = function(FormData){
+		console.log($scope.FormData.$valid);
+		if ($scope.FormData.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			$.ajax({
 				url: '/content/dong-vat',
@@ -72,7 +71,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 				}
 			});
 		} else{
-			angular.element("[name='" + FormAnimal.$name + "']").find('.ng-invalid:visible:first').focus();
+			angular.element("[name='" + FormData.$name + "']").find('.ng-invalid:visible:first').focus();
 		}
 	}
 }]);

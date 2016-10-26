@@ -80,8 +80,14 @@
 					},
 					error: function (err) {
 						console.log(err);
-						alert(err.responseJSON.error);
-						window.location.reload(true);
+						try {
+							alert(err.responseJSON.error);
+						}
+						finally {
+							setTimeout(function () {
+								window.location.reload(true);
+							}, 1000);
+						}
 					}
 				})
 			}

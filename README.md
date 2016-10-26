@@ -4,7 +4,6 @@
 
 	$ cp config/config.js.example config/config.js
 	$ cp config/acl.json.example config/acl.json
-	$ cp config/roles.json.example config/roles.json
 
 
 ### Config file config/config.js

@@ -1,0 +1,84 @@
+{
+	"guest" : {
+		"role": "guest",
+		"rolename": "Khách",
+		"allows": [
+			{
+				"resource": "/test",
+				"actions": ["view"]
+			}
+		]
+	},
+	"content": {
+		"role": "content",
+		"rolename": "Nhân viên",
+		"allows": [
+			{
+				"resource": "/test",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/app",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/dong-vat",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/tho-nhuong",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/dia-chat",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/co-sinh",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/thuc-vat",
+				"actions": ["view", "create", "edit", "delete"]
+			}
+		]
+	},
+	"admin": {
+		"role": "admin",
+		"rolename": "Admin",
+		"allows": [
+			{
+				"resource": "/config",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/app",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/log/all",
+				"actions": ["view"]
+			},
+			{
+				"resource": "/content/dong-vat",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/tho-nhuong",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/dia-chat",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/co-sinh",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/thuc-vat",
+				"actions": ["view", "create", "edit", "delete"]
+			}
+		]
+	}
+}

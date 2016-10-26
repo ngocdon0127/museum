@@ -402,11 +402,19 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 		objectInstance.save(function (err, result) {
 			if (err){
-				console.log(err);
-				return res.status(500).json({
-					status: 'error',
-					error: 'Error while saving to database'
-				})
+				try {
+					var errField = err.errors[Object.keys(err.errors)[0]].path;
+					var dotPos = errField.lastIndexOf('.');
+					if (dotPos >= 0){
+						errField = errField.substring(dotPos + 1);
+					}
+					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Dữ liệu nhập vào không hợp lệ', errField]);
+				}
+				catch (e){
+					console.log(err);
+					console.log('Server error');
+				}
+				return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Error while saving to database']);
 			}
 
 			// rename images

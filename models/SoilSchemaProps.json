@@ -387,7 +387,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "anhNgoaiThucDia",
+		"name": "hinhAnhNgoaiThucDia",
 		"schemaProp": "media",
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
@@ -418,7 +418,7 @@
 		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "File",
-		"regex": "^.{0,100}$",
+		"regex": "^.+\\.(mp4|mpg|flv)$",
 		"autoCompletion": false
 	},
 	{

@@ -348,7 +348,7 @@
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
-		"name": "anhNgoaiThucDia",
+		"name": "hinhAnhNgoaiThucDia",
 		"schemaProp": "media",
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
@@ -376,7 +376,7 @@
 		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(mp4|mpg|flv)$"
 	},
 	{
 		"name": "hinhAnhDinhKem",

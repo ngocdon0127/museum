@@ -476,7 +476,7 @@
 		"label": "Thông tin về phim, video",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(mp4|mpg|flv)$"
 	},
 	{
 		"name": "hinhAnhDinhKem",

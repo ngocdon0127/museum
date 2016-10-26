@@ -377,7 +377,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "anhNgoaiThucDia",
+		"name": "hinhAnhNgoaiThucDia",
 		"schemaProp": "media",
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,

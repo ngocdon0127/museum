@@ -1,6 +1,6 @@
 # Config
 
-### From the root of source code, run these command:
+### From the root of source code, run these commands:
 
 	$ cp config/config.js.example config/config.js
 	$ cp config/acl.json.example config/acl.json

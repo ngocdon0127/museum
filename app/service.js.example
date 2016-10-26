@@ -2,8 +2,22 @@ app.factory('AuthService', ['$http', function($http){
 	
 	return ({
 		// hostAnimal : 'http://localhost:8000/content/dong-vat/auto',
-		hostName: 'http://localhost:8000'
+		hostName: 'http://localhost:8000',
+		deleteP: deleteP
 	});
+
+	function deleteP(id, urlDelete){
+		$http({
+			method: 'DELETE',
+			url: urlDelete,
+			headers: {'Content-Type': 'application/json'},
+			data: {id: id}
+		}).then(function (res) {
+			$route.reload();
+		}, function (err) {
+			console.log(err);
+		});
+	}
 }]);
 
 //Autocomplete

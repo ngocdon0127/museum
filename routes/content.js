@@ -19,6 +19,12 @@ require('./soil.js')(router);
 // handle data for geological form
 require('./geological.js')(router);
 
+// handle data for paleontological form
+require('./paleontological.js')(router);
+
+// handle data for paleontological form
+require('./vegetable.js')(router);
+
 function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()){
 		return res.redirect('/auth/login');

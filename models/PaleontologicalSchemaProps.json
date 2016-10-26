@@ -47,6 +47,14 @@
 		"regex": "^.{1,100}$"
 	},
 	{
+		"name": "tenDiaPhuong",
+		"schemaProp": "tenMau",
+		"label": "Tên địa phương",
+		"required": true,
+		"type": "String",
+		"regex": "^.{1,100}$"
+	},
+	{
 		"name": "tenTiengAnh",
 		"schemaProp": "tenMau",
 		"label": "Tên tiếng Anh",
@@ -110,15 +118,6 @@
 		"regex": "^.{1,100}$"
 	},
 	{
-		"name": "phanLop",
-		"schemaProp": "tenMau",
-		"label": "Phân lớp",
-		"required": false,
-		"type": "String",
-		"autoCompletion": true,
-		"regex": "^.{0,100}$"
-	},
-	{
 		"name": "bo",
 		"schemaProp": "tenMau",
 		"label": "Bộ",
@@ -128,24 +127,6 @@
 		"regex": "^.{1,100}$"
 	},
 	{
-		"name": "phanBo",
-		"schemaProp": "tenMau",
-		"label": "Phân bộ",
-		"required": false,
-		"type": "String",
-		"autoCompletion": true,
-		"regex": "^.{0,100}$"
-	},
-	{
-		"name": "lienHo",
-		"schemaProp": "tenMau",
-		"label": "Liên họ",
-		"required": false,
-		"type": "String",
-		"autoCompletion": true,
-		"regex": "^.{0,100}$"
-	},
-	{
 		"name": "ho",
 		"schemaProp": "tenMau",
 		"label": "Họ",
@@ -153,24 +134,6 @@
 		"type": "String",
 		"autoCompletion": true,
 		"regex": "^.{1,100}$"
-	},
-	{
-		"name": "phanHo",
-		"schemaProp": "tenMau",
-		"label": "Phân họ",
-		"required": true,
-		"type": "String",
-		"autoCompletion": true,
-		"regex": "^.{0,100}$"
-	},
-	{
-		"name": "toc",
-		"schemaProp": "tenMau",
-		"label": "Tộc",
-		"required": false,
-		"type": "String",
-		"autoCompletion": true,
-		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "giong",
@@ -188,21 +151,6 @@
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
-	},
-	{
-		"name": "duoiLoai",
-		"schemaProp": "tenMau",
-		"label": "Dưới loài/phân loài",
-		"required": false,
-		"type": "String",
-		"autoCompletion": true
-	},
-	{
-		"name": "nguoiDinhTen",
-		"schemaProp": "tenMau",
-		"label": "Người định tên",
-		"required": false,
-		"type": "String"
 	},
 	{
 		"name": "soLuongMauVat",
@@ -263,14 +211,6 @@
 		"autoCompletion": true
 	},
 	{
-		"name": "phuongPhapThuMau",
-		"schemaProp": "duLieuThuMau",
-		"label": "Phương pháp thu mẫu",
-		"required": true,
-		"type": "String",
-		"regex": "^.{1,100}$"
-	},
-	{
 		"name": "quocGia",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Quốc gia",
@@ -325,34 +265,6 @@
 		"type": "String"
 	},
 	{
-		"name": "doCao",
-		"schemaProp": "duLieuThuMau",
-		"label": "Độ cao (m)",
-		"required": true,
-		"type": "Number"
-	},
-	{
-		"name": "doSau",
-		"schemaProp": "duLieuThuMau",
-		"label": "Độ sâu (m)",
-		"required": false,
-		"type": "Number"
-	},
-	{
-		"name": "vungBien",
-		"schemaProp": "duLieuThuMau",
-		"label": "Vùng biển",
-		"required": false,
-		"type": "String"
-	},
-	{
-		"name": "sinhHoc",
-		"schemaProp": "duLieuThuMau",
-		"label": "Sinh học/sinh thái",
-		"required": false,
-		"type": "String"
-	},
-	{
 		"name": "thongTinDuAn",
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
@@ -367,9 +279,9 @@
 		"type": "String"
 	},
 	{
-		"name": "banDo",
+		"name": "thongTinDiaTang",
 		"schemaProp": "duLieuThuMau",
-		"label": "Bản đồ",
+		"label": "Thông tin địa tầng, địa lý và tuổi địa chất (*)",
 		"required": false,
 		"type": "File"
 	},
@@ -404,34 +316,28 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
-		"name": "moTaHinhThai",
+		"name": "phanTichTuoiDiaChat",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Mô tả/đặc điểm hình thái",
-		"required": true,
-		"type": "Mixed",
-		"subProps": ["moTaHinhThaiStr", "moTaHinhThaiFile"]
-	},
-	{
-		"name": "moTaHinhThaiStr",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Mô tả/đặc điểm hình thái",
-		"required": false,
-		"type": "String"
-	},
-	{
-		"name": "moTaHinhThaiFile",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Mô tả/đặc điểm hình thái",
-		"required": false,
-		"type": "File"
-	},
-	{
-		"name": "hinhVe",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Hình vẽ",
+		"label": "Phân tích tuổi địa chất",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(pdf|docx?)$"
+	},
+	{
+		"name": "dacDiemViCauTruc",
+		"schemaProp": "duLieuPhanTichMau",
+		"label": "Đặc điểm vi cấu trúc (*)",
+		"required": false,
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
+	},
+	{
+		"name": "dacDiemLatMong",
+		"schemaProp": "duLieuPhanTichMau",
+		"label": "Đặc điểm lát mỏng (*)",
+		"required": false,
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "anhMauVat",
@@ -525,25 +431,25 @@
 		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
 	},
 	{
-		"name": "boPhanLayMauDNA",
+		"name": "dinhKemChayTrinhTuDNA",
 		"schemaProp": "media.thongTinDNA",
-		"label": "Bộ phận lấy mẫu DNA (da, lông, máu, xương...)",
+		"label": "Đính kèm Chạy trình tự DNA",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
 	},
 	{
-		"name": "trangThaiGiuMauDNA",
+		"name": "trichDanTrinhTuDNA",
 		"schemaProp": "media.thongTinDNA",
-		"label": "Trạng thái giữ mẫu DNA (khô, nước...)",
+		"label": "Trích dẫn Chạy trình tự DNA",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
 	},
 	{
-		"name": "vungGenPhanTich",
+		"name": "trinhTuDNA",
 		"schemaProp": "media.thongTinDNA",
-		"label": "Vùng gen phân tích",
+		"label": "Trình tự DNA",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -561,6 +467,21 @@
 		"label": "Công bố/thông tin quốc tế (genbank...)",
 		"required": false,
 		"type": "String"
+	},
+	{
+		"name": "moTaHinhThai",
+		"schemaProp": "media.thongTinDNA",
+		"label": "Mô tả đặc điểm hình thái",
+		"required": true,
+		"type": "String"
+	},
+	{
+		"name": "hinhVe",
+		"schemaProp": "duLieuPhanTichMau",
+		"label": "Hình vẽ",
+		"required": false,
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoVietNam",

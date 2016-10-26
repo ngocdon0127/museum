@@ -24,6 +24,22 @@
 			{
 				"resource": "/content/dong-vat",
 				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/tho-nhuong",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/dia-chat",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/co-sinh",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/thuc-vat",
+				"actions": ["view", "create", "edit", "delete"]
 			}
 		]
 	},
@@ -42,6 +58,26 @@
 			{
 				"resource": "/log/all",
 				"actions": ["view"]
+			},
+			{
+				"resource": "/content/dong-vat",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/tho-nhuong",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/dia-chat",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/co-sinh",
+				"actions": ["view", "create", "edit", "delete"]
+			},
+			{
+				"resource": "/content/thuc-vat",
+				"actions": ["view", "create", "edit", "delete"]
 			}
 		]
 	}

@@ -1,16 +1,23 @@
 [
 	{
-		"name": "soHieuThucDia",
+		"name": "soHieuBaoTangCS",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu thực địa",
+		"label": "Số hiệu Bảo tàng cơ sở",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$"
 	},
 	{
-		"name": "soHieuBaoTangCS",
+		"name": "maKyHieuMauVatQuocTe",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu Bảo tàng cơ sở",
+		"label": "Mã ký hiệu mẫu vật quốc tế",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "soHieuThucDia",
+		"schemaProp": "soHieu",
+		"label": "Số hiệu thực địa",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$"
@@ -22,13 +29,6 @@
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$"
-	},
-	{
-		"name": "maKyHieuMauVatQuocTe",
-		"schemaProp": "soHieu",
-		"label": "Mã ký hiệu mẫu vật quốc tế",
-		"required": false,
-		"type": "String"
 	},
 	{
 		"name": "kyHieuMauVatKhac",
@@ -45,6 +45,13 @@
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$"
+	},
+	{
+		"name": "tenDiaPhuong",
+		"schemaProp": "tenMau",
+		"label": "Tên địa phương",
+		"required": false,
+		"type": "String"
 	},
 	{
 		"name": "tenTiengAnh",
@@ -164,19 +171,19 @@
 		"regex": "^.{0,100}$"
 	},
 	{
-		"name": "toc",
+		"name": "tong",
 		"schemaProp": "tenMau",
-		"label": "Tộc",
+		"label": "Tông",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
 		"regex": "^.{0,100}$"
 	},
 	{
-		"name": "giong",
+		"name": "chi",
 		"schemaProp": "tenMau",
-		"label": "Giống",
-		"required": false,
+		"label": "Chi",
+		"required": true,
 		"type": "String",
 		"autoCompletion": true,
 		"regex": "^.{1,100}$"
@@ -219,20 +226,19 @@
 		"type": "Number"
 	},
 	{
-		"name": "loaiMau",
-		"schemaProp": "soLuongChatLuong",
-		"label": "Loại mẫu vật",
-		"required": true,
-		"type": "String"
-	},
-	{
 		"name": "kichThuocMau",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Kích thước mẫu vật(dài x rộng x cao)",
 		"required": true,
 		"type": "String"
 	},
-	
+	{
+		"name": "loaiMau",
+		"schemaProp": "soLuongChatLuong",
+		"label": "Loại mẫu vật",
+		"required": true,
+		"type": "String"
+	},
 	{
 		"name": "tinhTrangMau",
 		"schemaProp": "soLuongChatLuong",
@@ -442,7 +448,7 @@
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
-		"name": "anhNgoaiThucDia",
+		"name": "hinhAnhNgoaiThucDia",
 		"schemaProp": "media",
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
@@ -479,20 +485,6 @@
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
-	},
-	{
-		"name": "dinhKemXuLy",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Đính kèm Xử lý chế tác",
-		"required": false,
-		"type": "File"
-	},
-	{
-		"name": "thuocTinhXuLy",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Thuộc tính Xử lý chế tác",
-		"required": false,
-		"type": "String"
 	},
 	{
 		"name": "phuongThucXuLy",
@@ -541,9 +533,25 @@
 		"autoCompletion": true
 	},
 	{
-		"name": "vungGenPhanTich",
+		"name": "dinhKemChayTrinhTuDNA",
 		"schemaProp": "media.thongTinDNA",
-		"label": "Vùng gen phân tích",
+		"label": "Đính kèm Chạy trình tự DNA",
+		"required": false,
+		"type": "File",
+		"autoCompletion": true
+	},
+	{
+		"name": "trichDanTrinhTuDNA",
+		"schemaProp": "media.thongTinDNA",
+		"label": "Trích dẫn Chạy trình tự DNA",
+		"required": false,
+		"type": "String",
+		"autoCompletion": true
+	},
+	{
+		"name": "trinhTuDNA",
+		"schemaProp": "media.thongTinDNA",
+		"label": "Trình tự DNA",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -559,6 +567,13 @@
 		"name": "congBoQuocTe",
 		"schemaProp": "media.thongTinDNA",
 		"label": "Công bố/thông tin quốc tế (genbank...)",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "thongTinMauHatPhan",
+		"schemaProp": "media.thongTinDNA",
+		"label": "Thông tin mẫu hạt phấn",
 		"required": false,
 		"type": "String"
 	},

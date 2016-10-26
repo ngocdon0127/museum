@@ -29,6 +29,12 @@ require('./models/SoilAutoCompletion.js')(mongoose);
 require('./models/Geological.js')(mongoose);
 require('./models/GeologicalAutoCompletion.js')(mongoose);
 
+require('./models/Paleontological.js')(mongoose);
+require('./models/PaleontologicalAutoCompletion.js')(mongoose);
+
+require('./models/Vegetable.js')(mongoose);
+require('./models/VegetableAutoCompletion.js')(mongoose);
+
 require('./models/Log.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 

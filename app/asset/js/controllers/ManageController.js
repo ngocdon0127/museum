@@ -3,6 +3,7 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.animals;
 		$scope.status = res.data.status;
+		$scope.link = 'dong-vat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -20,8 +21,9 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
 	var url = AuthService.hostName + '/content/thuc-vat';
 	$http.get(url).then(function (res) {
-		$scope.data = res.data.vegetable;
+		$scope.data = res.data.vegetables;
 		$scope.status = res.data.status;
+		$scope.link = 'thuc-vat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -39,8 +41,9 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '
 app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
 	var url = AuthService.hostName + '/content/tho-nhuong';
 	$http.get(url).then(function (res) {
-		$scope.data = res.data.animals;
+		$scope.data = res.data.soils;
 		$scope.status = res.data.status;
+		$scope.link = 'tho-nhuong';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -57,8 +60,9 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$rout
 app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
 	var url = AuthService.hostName + '/content/dia-chat';
 	$http.get(url).then(function (res) {
-		$scope.data = res.data.animals;
+		$scope.data = res.data.geologicals;
 		$scope.status = res.data.status;
+		$scope.link = 'dia-chat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -76,8 +80,9 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
 	var url = AuthService.hostName + '/content/co-sinh';
 	$http.get(url).then(function (res) {
-		$scope.data = res.data.animals;
+		$scope.data = res.data.paleontologicals;
 		$scope.status = res.data.status;
+		$scope.link ='co-sinh';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;

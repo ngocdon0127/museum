@@ -1,5 +1,4 @@
 app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter','$timeout', '$window', function($http,$scope,AuthService, $routeParams, $filter, $timeout, $window){
-
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
 	// console.log($routeParams.id);
 	
@@ -41,7 +40,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	}
 }]);
 
-app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$routeParams', function($http,$scope,AuthService, $routeParams){
+app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
 	var url = AuthService.hostName + '/content/co-sinh/' + $routeParams.id;
 	
 	$http.get(url).then(function (res) {
@@ -81,16 +80,16 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	}
 }]);
 
-app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeParams', function($http,$scope,AuthService, $routeParams){
+app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
 var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
 		// console.log(res.data.animal.ngayNhapMau);
-		res.data.paleontological.ngayNhapMau = new Date(res.data.paleontological.ngayNhapMau);
-		res.data.paleontological.thoiGianThuMau = new Date(res.data.paleontological.thoiGianThuMau);
-		res.data.paleontological.thoiGianPhanTich = new Date(res.data.paleontological.thoiGianPhanTich);
-		$scope.data = res.data.paleontological;
+		res.data.vegetable.ngayNhapMau = new Date(res.data.vegetable.ngayNhapMau);
+		res.data.vegetable.thoiGianThuMau = new Date(res.data.vegetable.thoiGianThuMau);
+		res.data.vegetable.thoiGianPhanTich = new Date(res.data.vegetable.thoiGianPhanTich);
+		$scope.data = res.data.vegetable;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
 		$timeout(function(){
@@ -123,16 +122,16 @@ var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 	}
 }]);
 
-app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$routeParams', function($http,$scope,AuthService, $routeParams){
+app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
 	var url = AuthService.hostName + '/content/dia-chat/' + $routeParams.id;
 	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
 		// console.log(res.data.animal.ngayNhapMau);
-		res.data.paleontological.ngayNhapMau = new Date(res.data.paleontological.ngayNhapMau);
-		res.data.paleontological.thoiGianThuMau = new Date(res.data.paleontological.thoiGianThuMau);
-		res.data.paleontological.thoiGianPhanTich = new Date(res.data.paleontological.thoiGianPhanTich);
-		$scope.data = res.data.paleontological;
+		res.data.geological.ngayNhapMau = new Date(res.data.geological.ngayNhapMau);
+		res.data.geological.thoiGianThuMau = new Date(res.data.geological.thoiGianThuMau);
+		res.data.geological.thoiGianPhanTich = new Date(res.data.geological.thoiGianPhanTich);
+		$scope.data = res.data.geological;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
 		$timeout(function(){
@@ -165,16 +164,16 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	}
 }]);
 
-app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams', function($http,$scope,AuthService, $routeParams){
+app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
 	var url = AuthService.hostName + '/content/tho-nhuong/' + $routeParams.id;
 	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
 		// console.log(res.data.animal.ngayNhapMau);
-		res.data.paleontological.ngayNhapMau = new Date(res.data.paleontological.ngayNhapMau);
-		res.data.paleontological.thoiGianThuMau = new Date(res.data.paleontological.thoiGianThuMau);
-		res.data.paleontological.thoiGianPhanTich = new Date(res.data.paleontological.thoiGianPhanTich);
-		$scope.data = res.data.paleontological;
+		res.data.land.ngayNhapMau = new Date(res.data.land.ngayNhapMau);
+		res.data.land.thoiGianThuMau = new Date(res.data.land.thoiGianThuMau);
+		res.data.land.thoiGianPhanTich = new Date(res.data.land.thoiGianPhanTich);
+		$scope.data = res.data.land;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
 		$timeout(function(){

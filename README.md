@@ -4,6 +4,7 @@
 
 	$ cp config/config.js.example config/config.js
 	$ cp config/acl.json.example config/acl.json
+	$ cp app/views/service.js.example app/views/service.js
 
 
 ### Config file config/config.js

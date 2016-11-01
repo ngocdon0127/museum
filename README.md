@@ -1,3 +1,7 @@
+# Prerequisites
+
+- [NodeJS 4.x](https://nodejs.org/en/download/)
+
 # Config
 
 ### From the root of source code, run these command:
@@ -8,7 +12,7 @@
 
 
 ### Config file config/config.js
-Change line 6 from url: 'mongodb://ngocdon:123123@127.0.0.1:27017/museum' to the real url of the database (in email)
+Change line 6 from url: 'mongodb://ngocdon:123123@127.0.0.1:27017/museum' to the real url of the database (in Facebook Group)
 
 # Run
 

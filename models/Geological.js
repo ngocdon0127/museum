@@ -8,28 +8,31 @@ module.exports = function (mongoose) {
 			soHieuBaoTangCS: String,
 			soHieuBTTNVN: String,
 			maKyHieuMauVatQuocTe: String,
-			kyHieuMauVatKhac: String
+			kyHieuMauVatKhac: String,
+			thongTinKhac1: String
 		},
 		tenMau: {
 			tenVietNam: String,
 			tenDiaPhuong: String,
 			tenTiengAnh: String,
 			tenTheoBaoTang: String,
-			tenTheoQuocTe: String,
 			tenKhoaHoc: String,
-			nguoiDinhTen: String
+			nguoiDinhTen: String,
+			thongTinKhac2: String
 		},
 		soLuongChatLuong: {
 			soLuongMauVat: Number,
 			soLuongTieuBan: Number,
 			loaiMau: String,
 			kichThuocMau: String,
-			tinhTrangMau: String
+			tinhTrangMau: String,
+			thongTinKhac3: String
 		},
 		duLieuThuMau: {
 			thoiGianThuMau: Date,
 			nguoiThuMau: String,
 			coQuanThuMau: String,
+			phuongPhapThuMau: String,
 			diaDiemThuMau: {
 				quocGia: String,
 				tinh: String,
@@ -43,6 +46,8 @@ module.exports = function (mongoose) {
 			},
 			thongTinDuAn: String,
 			ghiChepThucDia: String,
+			banDo: [String],
+			thongTinKhac4: String
 		},
 		duLieuPhanTichMau: {
 			thoiGianPhanTich: Date,
@@ -55,7 +60,8 @@ module.exports = function (mongoose) {
 			ketQuaPhanTichDongVi: [String],
 			phanTichKhac: [String],
 			dacDiemDiaChat: String,
-			loaiHinhNguonGoc: String
+			loaiHinhNguonGoc: String,
+			thongTinKhac5: String
 		},
 		media: {
 			anhMauVat: [String],
@@ -68,7 +74,8 @@ module.exports = function (mongoose) {
 				nguoiXuLy: String,
 				coQuanXuLy: String,
 				anhMauSauCheTac: [String]
-			}
+			},
+			thongTinKhac6: String
 		},
 		dacDiemMauVat: {
 			loaiMau : String,
@@ -77,10 +84,11 @@ module.exports = function (mongoose) {
 			phanLoaiSuDung : String,
 			thanhPhanKhoangVat : String,
 			tinhChatVatLy : String,
-			thanhPhanHoaHoc : String,
 			linhVucSuDung : String,
 			dacDiemPhanBo : String,
-			congThucHoaHoc : [String]
+			congThucHoaHoc : [String],
+			thanhPhanHoaHoc : String,
+			thongTinKhac7: String
 		},
 		luuTruBaoQuan: {
 			ngayNhapMau: Date,
@@ -95,11 +103,12 @@ module.exports = function (mongoose) {
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
 			nguoiNhapPhieuMauVat: String,
-			nguoiNhapVaoPhanMem: String
+			nguoiNhapVaoPhanMem: String,
+			thongTinKhac8: String
 		},
 		
 		thongTinKhac: {
-			thongTinKhac: String
+			thongTinKhac9: String
 		}
 	};
 	var geologicalSchema = mongoose.Schema(schemaPrototype);

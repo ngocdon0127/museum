@@ -153,6 +153,22 @@
 		"autoCompletion": true
 	},
 	{
+		"name": "duoiLoai",
+		"schemaProp": "tenMau",
+		"label": "Dưới loài",
+		"required": false,
+		"type": "String",
+		"autoCompletion": true
+	},
+	{
+		"name": "nguoiDinhTen",
+		"schemaProp": "tenMau",
+		"label": "Người định tên",
+		"required": false,
+		"type": "String",
+		"autoCompletion": true
+	},
+	{
 		"name": "soLuongMauVat",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Số lượng mẫu vật",
@@ -209,6 +225,14 @@
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
+	},
+	{
+		"name": "phuongPhapThuMau",
+		"schemaProp": "duLieuThuMau",
+		"label": "Phương pháp thu mẫu",
+		"required": true,
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "quocGia",
@@ -279,6 +303,14 @@
 		"type": "String"
 	},
 	{
+		"name": "banDo",
+		"schemaProp": "duLieuThuMau",
+		"label": "Bản đồ",
+		"required": true,
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
+	},
+	{
 		"name": "thongTinDiaTang",
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin địa tầng, địa lý và tuổi địa chất (*)",
@@ -338,6 +370,21 @@
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"
+	},
+	{
+		"name": "moTaHinhThai",
+		"schemaProp": "duLieuPhanTichMau",
+		"label": "Mô tả đặc điểm hình thái",
+		"required": true,
+		"type": "String"
+	},
+	{
+		"name": "hinhVe",
+		"schemaProp": "duLieuPhanTichMau",
+		"label": "Hình vẽ",
+		"required": false,
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
 		"name": "anhMauVat",
@@ -467,21 +514,6 @@
 		"label": "Công bố/thông tin quốc tế (genbank...)",
 		"required": false,
 		"type": "String"
-	},
-	{
-		"name": "moTaHinhThai",
-		"schemaProp": "media.thongTinDNA",
-		"label": "Mô tả đặc điểm hình thái",
-		"required": true,
-		"type": "String"
-	},
-	{
-		"name": "hinhVe",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Hình vẽ",
-		"required": false,
-		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoVietNam",

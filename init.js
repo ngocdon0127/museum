@@ -491,15 +491,19 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
+/**
 function datenum(v, date1904) {
 	if(date1904) v+=1462;
 	var epoch = Date.parse(v);
 	return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
 }
 
+
+
 global.myCustomVars.datenum = datenum;
 
 function sheet_from_array_of_arrays(data, opts) {
+	var XLSX = require('xlsx');
 	var ws = {};
 	var range = {s: {c:10000000, r:10000000}, e: {c:0, r:0 }};
 	for(var R = 0; R != data.length; ++R) {
@@ -536,3 +540,5 @@ function Workbook() {
 }
 
 global.myCustomVars.Workbook = Workbook;
+
+*/

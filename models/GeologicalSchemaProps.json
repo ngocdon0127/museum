@@ -81,15 +81,6 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "tenTheoQuocTe",
-		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
-		"required": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
-	},
-	{
 		"name": "tenKhoaHoc",
 		"schemaProp": "tenMau",
 		"label": "Tên khoa học (tên latinh)",
@@ -180,6 +171,14 @@
 		"autoCompletion": true
 	},
 	{
+		"name": "phuongPhapThuMau",
+		"schemaProp": "duLieuThuMau",
+		"label": "Phương pháp thu mẫu",
+		"required": true,
+		"type": "String",
+		"regex": "^.{1,100}$"
+	},
+	{
 		"name": "quocGia",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Quốc gia (*)",
@@ -258,6 +257,15 @@
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
+		"autoCompletion": false
+	},
+	{
+		"name": "banDo",
+		"schemaProp": "duLieuThuMau",
+		"label": "Bản đồ",
+		"required": true,
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -511,15 +519,6 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "thanhPhanHoaHoc",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Thành phần hoá học",
-		"required": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
-	},
-	{
 		"name": "linhVucSuDung",
 		"schemaProp": "dacDiemMauVat",
 		"label": "Lĩnh vực sử dụng",
@@ -544,6 +543,15 @@
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
+		"autoCompletion": false
+	},
+	{
+		"name": "thanhPhanHoaHoc",
+		"schemaProp": "dacDiemMauVat",
+		"label": "Thành phần hoá học",
+		"required": false,
+		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{

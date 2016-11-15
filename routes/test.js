@@ -1,14 +1,119 @@
 var express = require('express');
 var router = express.Router();
-var XLSX = require('xlsx');
-var datenum                    = global.myCustomVars.datenum;
-var sheet_from_array_of_arrays = global.myCustomVars.sheet_from_array_of_arrays;
-var Workbook                   = global.myCustomVars.Workbook;
+// var XLSX = require('xlsx');
+// var datenum                    = global.myCustomVars.datenum;
+// var sheet_from_array_of_arrays = global.myCustomVars.sheet_from_array_of_arrays;
+// var Workbook                   = global.myCustomVars.Workbook;
 
 /* GET users listing. */
 router.get('/wb', function(req, res, next) {
 
+	var officegen = require('officegen');
+	var docx = officegen({
+		type: 'docx',
+		subjects: 'Mẫu phiếu dữ liệu',
+	});
+
+	docx.on('finalize', function (written) {
+		console.log("Docx: written " + written + " bytes.");
+	});
+
+	docx.on('error', function (error) {
+		console.log("Docx: Error");
+		console.log(error);
+		console.log("===");
+	})
+
+	var pObj = docx.createP();
+	pObj.options.align = "justify";
+	pObj.addText("Nguyễn Ngọc Đôn\n", {color: 'ff0000', bold: true, font_face: 'Times New Roman'});
+	pObj.addText("Nguyễn Ngọc Đôn", {color: '00ff00', bold: true, font_face: 'Monospace', font_size: 40});
 	
+	var labelOpts = {
+		// cellColWidth: 2261,
+		// b:true,
+		sz: '48',
+		shd: {
+			fill: "DDDDDD",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Avenir Book"
+	};
+
+	var detailOpts = {
+		// cellColWidth: 2261,
+		// b:true,
+		sz: '24',
+		shd: {
+			fill: "FFFFFF",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Times New Roman"
+	};
+
+	var table = [
+		[
+			{
+				val: "No.",
+				opts: labelOpts
+			},
+			{
+				val: "Title1",
+				opts: labelOpts
+			},
+			{
+				val: "Title2",
+				opts: labelOpts
+			}
+		],
+		[
+			{
+				val: '1',
+				opts: detailOpts
+			},
+			{
+				val: 'All grown-ups were once children',
+				opts: detailOpts
+			},
+			''
+		],
+		[
+			2,
+			'there is no harm in putting off a piece of work until another day.',
+			''
+		],
+		[
+			3,
+			'But when it is a matter of baobabs, that always means a catastrophe.',
+			''
+		],
+		[
+			4,
+			'watch out for the baobabs!',
+			'END'
+		],
+	]
+
+	var tableStyle = {
+		// tableColWidth: 2261,
+		tableSize: 100,
+		// tableColor: "ada",
+		tableAlign: "left",
+		tableFontFamily: "Comic Sans MS",
+		borders: true
+	}
+
+	docx.createTable (table, tableStyle);
+
+	var fs = require('fs');
+	var outputStream = fs.createWriteStream('test.docx');
+	outputStream.on('close', function () {
+		console.log('output done.');
+	});
+	docx.generate(outputStream);
+
 
 	// var workbook = new Workbook()
 	// 	.addRowsToSheet("Main", [

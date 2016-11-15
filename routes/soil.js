@@ -8,7 +8,6 @@ var ObjectModel          = mongoose.model('Soil');
 var AutoCompletion       = mongoose.model('SoilAutoCompletion');
 var User                 = mongoose.model('User');
 var Log                  = mongoose.model('Log');
-var XLSX                 = require('XLSX');
 
 // Get shared functions
 var aclMiddleware              = global.myCustomVars.aclMiddleware;
@@ -179,16 +178,25 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 				if (req.query.display == 'xlsx'){
 					var obj = flatObjectModel(PROP_FIELDS, objectInstance);
 					var dataWriteToXLSX = [];
+					var stt = 1;
 					for(var prop in obj){
-						dataWriteToXLSX.push([PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label, obj[prop]]);
+						if (obj[prop]){
+							dataWriteToXLSX.push([stt++, PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label, obj[prop]]);
+						}
+						
 					}
-					var wb = new Workbook(), ws = sheet_from_array_of_arrays(dataWriteToXLSX);
+					var wb = new Workbook();
+					var ws = sheet_from_array_of_arrays(dataWriteToXLSX);
+
 					var ws_name = "Thổ nhưỡng";
 					wb.SheetNames.push(ws_name);
 					wb.Sheets[ws_name] = ws;
-					wb.Sheets[ws_name].Range("A1:A5").Font.Bold = true;
-					XLSX.writeFile(wb, 'test.xlsx');
-					res.download("test.xlsx");
+
+					// console.log(wb.Sheets[ws_name])
+					// wb.Sheets[ws_name].Range("A1:A5").Font.Bold = true;
+					XLSX.writeFile(wb, 'test.xlsx', {showGridLines: false});
+					res.download("test.xlsx", "hihi.xlsx");
+					// res.end("OK");
 					setTimeout(function (){
 						fs.unlink("test.xlsx");
 					}, 1000);

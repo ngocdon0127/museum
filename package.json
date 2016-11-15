@@ -21,11 +21,10 @@
     "mongoose": "^4.5.8",
     "morgan": "~1.6.1",
     "multer": "^1.2.0",
-    "node-msoffice-pdf": "0.0.7",
+    "officegen": "^0.4.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "serve-favicon": "~2.3.0",
-    "xlsx": "^0.8.0"
+    "serve-favicon": "~2.3.0"
   }
 }

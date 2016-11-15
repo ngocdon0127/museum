@@ -8,13 +8,13 @@ module.exports = function (mongoose) {
 			soHieuBaoTangCS: String,
 			soHieuBTTNVN: String,
 			maKyHieuMauVatQuocTe: String,
-			kyHieuMauVatKhac: String
+			kyHieuMauVatKhac: String,
+			thongTinKhac1: String
 		},
 		tenMau: {
 			tenVietNam: String,
 			tenTiengAnh: String,
 			tenTheoBaoTang: String,
-			tenTheoQuocTe: String,
 			tenKhoaHoc: String,
 			tenDongNghia: String,
 			gioi: String,
@@ -30,14 +30,16 @@ module.exports = function (mongoose) {
 			giong: String,
 			loai: String,
 			duoiLoai: String,
-			nguoiDinhTen: String
+			nguoiDinhTen: String,
+			thongTinKhac2: String
 		},
 		soLuongChatLuong: {
 			soLuongMauVat: Number,
 			soLuongTieuBan: Number,
 			loaiMau: String,
 			kichThuocMau: String,
-			tinhTrangMau: String
+			tinhTrangMau: String,
+			thongTinKhac3: String
 		},
 		duLieuThuMau: {
 			thoiGianThuMau: Date,
@@ -61,7 +63,8 @@ module.exports = function (mongoose) {
 			sinhHoc: String,
 			thongTinDuAn: String,
 			ghiChepThucDia: String,
-			banDo: [String]
+			banDo: [String],
+			thongTinKhac4: String
 		},
 		duLieuPhanTichMau: {
 			thoiGianPhanTich: Date,
@@ -71,6 +74,7 @@ module.exports = function (mongoose) {
 			moTaHinhThaiStr: String,
 			moTaHinhThaiFile: [String],
 			hinhVe: [String],
+			thongTinKhac5: String
 		},
 		media: {
 			anhMauVat: [String],
@@ -92,7 +96,8 @@ module.exports = function (mongoose) {
 				vungGenPhanTich: String,
 				dinhKemTrinhTuDNA: [String],
 				congBoQuocTe: String
-			}
+			},
+			thongTinKhac6: String
 		},
 		phanBoVaSuDung: {
 			phanBoDiaLy: {
@@ -101,7 +106,8 @@ module.exports = function (mongoose) {
 				phanBoTrenTheGioiStr: String,
 				phanBoTrenTheGioiFile: [String]
 			},
-			giaTriSuDung: String
+			giaTriSuDung: String,
+			thongTinKhac7: String
 		},
 		luuTruBaoQuan: {
 			ngayNhapMau: Date,
@@ -117,9 +123,10 @@ module.exports = function (mongoose) {
 			hoSoNhapMauVatDiKem: [String],
 			nguoiNhapPhieuMauVat: String,
 			nguoiNhapVaoPhanMem: String,
+			thongTinKhac8: String
 		},
 		thongTinKhac: {
-			thongTinKhac: String
+			thongTinKhac9: String
 		}
 	};
 	var animalSchema = mongoose.Schema(schemaPrototype);

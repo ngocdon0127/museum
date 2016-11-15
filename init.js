@@ -766,7 +766,6 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		res.download(path.join(__dirname, 'test.docx'));
 		setTimeout(function () {
 			fs.unlink(path.join(__dirname, 'test.docx'));
-			res.redirect('/');
 		}, 2000);
 		// res.end("OK");
 	});

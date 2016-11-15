@@ -3,3 +3,4 @@ config/config.js
 config/acl.json
 public/uploads
 app/service.js
+*.log

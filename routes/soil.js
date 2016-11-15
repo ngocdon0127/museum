@@ -8,16 +8,20 @@ var ObjectModel          = mongoose.model('Soil');
 var AutoCompletion       = mongoose.model('SoilAutoCompletion');
 var User                 = mongoose.model('User');
 var Log                  = mongoose.model('Log');
+var XLSX                 = require('XLSX');
 
 // Get shared functions
-var aclMiddleware       = global.myCustomVars.aclMiddleware;
-var checkRequiredParams = global.myCustomVars.checkRequiredParams;
-var responseError       = global.myCustomVars.responseError;
-var responseSuccess     = global.myCustomVars.responseSuccess;
-var rename              = global.myCustomVars.rename;
-var propsName           = global.myCustomVars.propsName;
-var flatObjectModel     = global.myCustomVars.flatObjectModel;
-var objectChild         = global.myCustomVars.objectChild;
+var aclMiddleware              = global.myCustomVars.aclMiddleware;
+var checkRequiredParams        = global.myCustomVars.checkRequiredParams;
+var responseError              = global.myCustomVars.responseError;
+var responseSuccess            = global.myCustomVars.responseSuccess;
+var rename                     = global.myCustomVars.rename;
+var propsName                  = global.myCustomVars.propsName;
+var flatObjectModel            = global.myCustomVars.flatObjectModel;
+var objectChild                = global.myCustomVars.objectChild;
+var datenum                    = global.myCustomVars.datenum;
+var sheet_from_array_of_arrays = global.myCustomVars.sheet_from_array_of_arrays;
+var Workbook                   = global.myCustomVars.Workbook;
 
 // Get Global variables
 
@@ -171,6 +175,23 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 				// return responseSuccess(res, ['objectInstance'], [objectInstance]);
 				if (req.query.display == 'html'){
 					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
+				}
+				if (req.query.display == 'xlsx'){
+					var obj = flatObjectModel(PROP_FIELDS, objectInstance);
+					var dataWriteToXLSX = [];
+					for(var prop in obj){
+						dataWriteToXLSX.push([PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label, obj[prop]]);
+					}
+					var wb = new Workbook(), ws = sheet_from_array_of_arrays(dataWriteToXLSX);
+					var ws_name = "Thổ nhưỡng";
+					wb.SheetNames.push(ws_name);
+					wb.Sheets[ws_name] = ws;
+					wb.Sheets[ws_name].Range("A1:A5").Font.Bold = true;
+					XLSX.writeFile(wb, 'test.xlsx');
+					res.download("test.xlsx");
+					setTimeout(function (){
+						fs.unlink("test.xlsx");
+					}, 1000);
 				}
 				else {
 					return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);

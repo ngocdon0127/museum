@@ -1,9 +1,14 @@
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
-//auto complete
+	$http.get('/app/database/tooltipsani.json').then(function(res){
+		$scope.tooltips = res.data;
+	}, function(err){
+		console.log(err);
+	});
+	//auto complete
 	function autoCom(str) {
-		$("#"+str).autocomplete({
-			source : $scope.data[str]
+		jQuery("#"+str).autocomplete({
+			source : $scope.auto[str]
 		})
 	};
 	var arrAuto = [
@@ -28,17 +33,17 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	'trangThaiGiuMauDNA',
 	'coQuanNhapVatMau'];
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
-		$scope.data = res.data;
+		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
 			autoCom(val);
 		})
 	}, function (err) {
 		console.log(err);
 	});
-
-	$scope.addPost = function(FormData){
-		console.log($scope.FormData.$valid);
-		if ($scope.FormData.$valid) {
+	
+	$scope.addPost = function(){
+		// console.log($scope.FormData.$valid);
+		// if ($scope.FormData.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			$.ajax({
 				url: '/content/dong-vat',
@@ -70,17 +75,23 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 					
 				}
 			});
-		} else{
-			angular.element("[name='" + FormData.$name + "']").find('.ng-invalid:visible:first').focus();
-		}
+		// } else{
+		// 	angular.element("[name='" + FormData.$name + "']").find('.ng-invalid:visible:first').focus();
+		// }
 	}
 }]);
 
 app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
+	$http.get('/app/database/tooltipsveg.json').then(function(res){
+		$scope.tooltips = res.data;
+	}, function(err){
+		console.log(err);
+	});
+
 	function autoCom(str) {
-		$("#"+str).autocomplete({
-			source : $scope.data[str]
+		jQuery("#"+str).autocomplete({
+			source : $scope.auto[str]
 		})
 	};
 	var arrAuto = [
@@ -105,13 +116,15 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 	'trangThaiGiuMauDNA',
 	'coQuanNhapVatMau'];
 	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
-		$scope.data = res.data;
+		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
 			autoCom(val);
 		})
 	}, function (err) {
 		console.log(err);
-	});
+	}); 
+
+	$scope.tooltips =
 
 	$scope.addPost = function(){
 		var fd = new FormData(document.getElementById('form-content'));
@@ -148,10 +161,15 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 }]);
 
 app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
-
+	
+	$http.get('/app/database/tooltipsgeo.json').then(function(res){
+		$scope.tooltips = res.data;
+	}, function(err){
+		console.log(err);
+	});
 	function autoCom(str) {
-		$("#"+str).autocomplete({
-			source : $scope.data[str]
+		jQuery("#"+str).autocomplete({
+			source : $scope.auto[str]
 		})
 	};
 	var arrAuto = [
@@ -176,7 +194,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	'trangThaiGiuMauDNA',
 	'coQuanNhapVatMau'];
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
-		$scope.data = res.data;
+		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
 			autoCom(val);
 		})
@@ -220,9 +238,15 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 
 app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
+	$http.get('/app/database/tooltipslan.json').then(function(res){
+		$scope.tooltips = res.data;
+	}, function(err){
+		console.log(err);
+	});
+
 	function autoCom(str) {
-		$("#"+str).autocomplete({
-			source : $scope.data[str]
+		jQuery("#"+str).autocomplete({
+			source : $scope.auto[str]
 		})
 	};
 	var arrAuto = [
@@ -247,7 +271,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	'trangThaiGiuMauDNA',
 	'coQuanNhapVatMau'];
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
-		$scope.data = res.data;
+		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
 			autoCom(val);
 		})
@@ -293,9 +317,15 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 
 app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
+	$http.get('/app/database/tooltipspal.json').then(function(res){
+		$scope.tooltips = res.data;
+	}, function(err){
+		console.log(err);
+	});
+
 	function autoCom(str) {
-		$("#"+str).autocomplete({
-			source : $scope.data[str]
+		jQuery("#"+str).autocomplete({
+			source : $scope.auto[str]
 		})
 	};
 	var arrAuto = [
@@ -320,7 +350,7 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 	'trangThaiGiuMauDNA',
 	'coQuanNhapVatMau'];
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
-		$scope.data = res.data;
+		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
 			autoCom(val);
 		})

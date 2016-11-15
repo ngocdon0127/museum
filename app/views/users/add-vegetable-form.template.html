@@ -1,130 +1,133 @@
-
 <div class="container map-detail" style="margin-top: 50px;">
 	<form id="form-content">
 		<center><h2>Thêm mẫu dữ liệu thực vật</h2></center>
 		<table>
-			<h3 class="h3-title">1. Số hiệu</h3>
+			<h3 class="h3-title">SỐ HIỆU</h3>
 			<tr>
-				<td><label>Số hiệu thực địa (*):</label></td>
-				<td><input type="text" maxlength="100" name="soHieuThucDia" class="input-form" required></td>
+				<td><label>1. Số hiệu thực địa (*):</label></td>
+				<td><input type="text" maxlength="100" title="{{tooltips[1]}}" name="soHieuThucDia" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Số hiệu bảo tàng cơ sở(*):</label></td>
-				<td><input type="text" maxlength="100" name="soHieuBaoTangCS" class="input-form" required></td>
+				<td><label>2. Số hiệu bảo tàng cơ sở(*):</label></td>
+				<td><input type="text" maxlength="100" title="{{tooltips[2]}}" name="soHieuBaoTangCS" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Số hiệu BTTNVN:</label></td>
-				<td><input type="text" maxlength="100" name="soHieuBTTNVN" class="input-form"></td>
+				<td><label>3. Số hiệu BTTNVN:</label></td>
+				<td><input type="text" maxlength="100" title="{{tooltips[3]}}" name="soHieuBTTNVN" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Mã kí hiệu mẫu vật quốc tế:</label></td>
-				<td><input type="text" maxlength="100" name="maKyHieuMauVatQuocTe" class="input-form"></td>
+				<td><label>4. Mã kí hiệu mẫu vật quốc tế:</label></td>
+				<td><input type="text" maxlength="100" title="{{tooltips[4]}}" name="maKyHieuMauVatQuocTe" class="input-form"></td>
 			</tr>
 
 			<tr>
-				<td><label>Các kí hiệu mẫu vật khác:</label></td>
-				<td><input type="text" name="kyHieuMauVatKhac" class="input-form" maxlength="100" required></td>
+				<td><label>5. Các kí hiệu mẫu vật khác:</label></td>
+				<td><input type="text" title="{{tooltips[5]}}" name="kyHieuMauVatKhac" class="input-form" maxlength="100" required></td>
+			</tr>
+			<tr>
+				<td><label>6. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[6]}}" name="thongTinKhac1" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
 		<table>
-			<h3 class="h3-title">2. Tên mẫu</h3>
+			<h3 class="h3-title">TÊN MẪU</h3>
 			<tr>
-				<td><label>Tên Việt Nam (*):</label></td>
-				<td><input type="text" name="tenVietNam" class="input-form" required></td>
+				<td><label>7. Tên Việt Nam (*):</label></td>
+				<td><input type="text" title="{{tooltips[7]}}" name="tenVietNam" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Tên địa phương:</label></td>
-				<td><input type="text" name="tenDiaPhuong" class="input-form"></td>
+				<td><label>8. Tên địa phương:</label></td>
+				<td><input type="text" title="{{tooltips[8]}}" name="tenDiaPhuong" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Tên Tiếng Anh:</label></td>
-				<td><input type="text" name="tenTiengAnh" class="input-form"></td>
+				<td><label>9. Tên Tiếng Anh:</label></td>
+				<td><input type="text" title="{{tooltips[9]}}" name="tenTiengAnh" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Tên theo hệ thống PL của bảo tàng:</label></td>
-				<td><input type="text" name="tenTheoBaoTang" class="input-form"></td>
+				<td><label>10. Tên theo hệ thống PL của bảo tàng:</label></td>
+				<td><input type="text" title="{{tooltips[10]}}" name="tenTheoBaoTang" class="input-form"></td>
+			</tr>
+			<tr><td><label>11. Tên khoa học (tên latin)</label></td></tr>
+			<tr>
+				<td>Tên đồng nghĩa: </td>
+				<td><input type="text" title="{{tooltips[11]}}" name="tenDongNghia" id="tenDongNghia" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Tên theo hệ thống PL của Quốc tế:</label></td>
-				<td><input type="text" name="tenTheoQuocTe" class="input-form"></td>
-			</tr>
-			<tr><td><h4>Tên khoa học (tên latin)</h4></td></tr>
-			<tr>
-				<td><label>Tên đồng nghĩa: </label></td>
-				<td><input type="text" name="tenDongNghia" id="tenDongNghia" class="input-form"></td>
-			</tr>
-			<tr>
-				<td><label>Giới (*): </label></td>
-				<td><input type="text" name="gioi" id="gioi" class="input-form" required></td>
+				<td>Giới (*): </td>
+				<td><input type="text" title="{{tooltips[12]}}" name="gioi" id="gioi" class="input-form" required></td>
 			</tr>
 					<tr>
-				<td><label>Ngành (*): </label></td>
-				<td><input type="text" name="nganh" id="nganh" class="input-form" required></td>
+				<td>Ngành (*): </td>
+				<td><input type="text" title="{{tooltips[13]}}" name="nganh" id="nganh" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Lớp (*): </label></td>
-				<td><input type="text" name="lop" id="lop" class="input-form" required></td>
+				<td>Lớp (*): </td>
+				<td><input type="text" title="{{tooltips[14]}}" name="lop" id="lop" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Phân lớp: </label></td>
-				<td><input type="text" id="phanLop" name="phanLop" class="input-form" ></td>
+				<td>Phân lớp: </td>
+				<td><input type="text" id="phanLop" title="{{tooltips[15]}}" name="phanLop" class="input-form" ></td>
 			</tr>
 			<tr>
-				<td><label>Bộ (*): </label></td>
-				<td><input type="text" name="bo" id="bo" class="input-form" required</td>
+				<td>Bộ (*): </td>
+				<td><input type="text" title="{{tooltips[16]}}" name="bo" id="bo" class="input-form" required</td>
 			</tr>
 			<tr>
-				<td><label>Phân bộ: </label></td>
-				<td><input type="text" name="phanBo" id="phanBo" class="input-form"></td>
+				<td>Phân bộ: </td>
+				<td><input type="text" title="{{tooltips[17]}}" name="phanBo" id="phanBo" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Liên họ: </label></td>
-				<td><input type="text" name="lienHo" id="lienHo" class="input-form"></td>
+				<td>Liên họ: </td>
+				<td><input type="text" title="{{tooltips[18]}}" name="lienHo" id="lienHo" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Họ (*): </label></td>
-				<td><input type="text" name="ho" id="ho" class="input-form" required="required"</td>
+				<td>Họ (*): </td>
+				<td><input type="text" title="{{tooltips[19]}}" name="ho" id="ho" class="input-form" required="required"</td>
 			</tr>
 			<tr>
-				<td><label>Phân họ: </label></td>
-				<td><input type="text" name="phanHo" id="phanHo" class="input-form"></td>
+				<td>Phân họ: </td>
+				<td><input type="text" title="{{tooltips[20]}}" name="phanHo" id="phanHo" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Tông: </label></td>
-				<td><input type="text" name="tong" id="tong" class="input-form"></td>
+				<td>Tông: </td>
+				<td><input type="text" title="{{tooltips[21]}}" name="tong" id="tong" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Chi (*): </label></td>
-				<td><input type="text" name="chi" id="chi" class="input-form" required></td>
+				<td>Chi (*): </td>
+				<td><input type="text" title="{{tooltips[22]}}" name="chi" id="chi" class="input-form" required></td>
 			</tr>
 
 			<tr>
-				<td><label>Loài: </label></td>
-				<td><input type="text" id="loai" class="input-form" name="loai"></td>
+				<td>Loài: </td>
+				<td><input type="text" id="loai" class="input-form" title="{{tooltips[23]}}" name="loai"></td>
 			</tr>
 			<tr>
-				<td><label>Dưới loài/phân loài: </label></td>
-				<td><input type="text" name="duoiLoai" class="input-form" id="duoiLoai"></td>
+				<td>Dưới loài/phân loài: </td>
+				<td><input type="text" title="{{tooltips[24]}}" name="duoiLoai" class="input-form" id="duoiLoai"></td>
 			</tr>
 			<tr>
-				<td><label>Người định tên: </label></td>
-				<td><input type="text" name="nguoiDinhTen" class="input-form" ></td>
+				<td><label>12. Người định tên: </label></td>
+				<td><input type="text" title="{{tooltips[25]}}" name="nguoiDinhTen" class="input-form" ></td>
+			</tr>
+			<tr>
+				<td><label>13. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[26]}}" name="thongTinKhac2" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
 		<table>
-			<h3 class="h3-title">3. Số lượng và chất lượng mẫu vật</h3>
+			<h3 class="h3-title">SỐ LƯỢNG VÀ CHẤT LƯỢNG MẪU VẬT</h3>
 			<tr>
-				<td><label>Số lượng mẫu vật:</label></td>
-				<td><input type="number" min="0" name="soLuongMauVat" class="input-form"></td>
+				<td><label>14. Số lượng mẫu vật:</label></td>
+				<td><input type="number" min="0" title="{{tooltips[27]}}" name="soLuongMauVat" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Số lượng tiêu bản:</label></td>
-				<td><input type="number" min = "0" name="soLuongTieuBan" class="input-form"></td>
+				<td><label>15. Số lượng tiêu bản:</label></td>
+				<td><input type="number" min = "0" title="{{tooltips[28]}}" name="soLuongTieuBan" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Loại mẫu vật(*):</label></td>
+				<td><label>16. Loại mẫu vật(*):</label></td>
 				<td>
-					<select required class="select-box" name="loaiMau">
+					<select required class="select-box" title="{{tooltips[29]}}" name="loaiMau">
 						<option>Mẫu nghiên cứu</option>
 						<option>Mẫu trưng bày</option>
 						<option>Mẫu type</option>
@@ -132,40 +135,44 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label>Kích thước mẫu (*):</label></td>
-				<td><input type="text" name="kichThuocMau" class="input-form" required></td>
+				<td><label>17. Kích thước mẫu (*):</label></td>
+				<td><input type="text" title="{{tooltips[30]}}" name="kichThuocMau" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Tình trạng mẫu (*):</label></td>
-				<td><input type="text" name="tinhTrangMau" class="input-form" required></td>
-			</tr>		
+				<td><label>18. Tình trạng mẫu (*):</label></td>
+				<td><input type="text" title="{{tooltips[31]}}" name="tinhTrangMau" class="input-form" required></td>
+			</tr>
+			<tr>
+				<td><label>19. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[32]}}" name="thongTinKhac3" class="input-form" maxlength="100" required></td>
+			</tr>
 		</table>
 		<table>
-			<h3 class="h3-title">4. NHÓM DỮ LIỆU THU MẪU</h3>
+			<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 			<tr>
-				<td><label>Thời gian thu mẫu (*):</label></td>
-				<td><input type="date" name="thoiGianThuMau" class="input-form" required></td>
+				<td><label>20. Thời gian thu mẫu (*):</label></td>
+				<td><input type="date" title="{{tooltips[33]}}" name="thoiGianThuMau" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Người thu mẫu (*):</label></td>
-				<td><input type="text" name="nguoiThuMau" class="input-form" required></td>
+				<td><label>21. Người thu mẫu (*):</label></td>
+				<td><input type="text" title="{{tooltips[34]}}" name="nguoiThuMau" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Cơ quan thu mẫu: </label></td>
-				<td><input type="text" id="coQuanThuMau" name="coQuanThuMau" class="input-form"></td>
+				<td><label>22. Cơ quan thu mẫu: </label></td>
+				<td><input type="text" id="coQuanThuMau" title="{{tooltips[35]}}" name="coQuanThuMau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Phương pháp thu mẫu (*):</label></td>
-				<td><input type="text" name="phuongPhapThuMau" class="input-form" required></td>
+				<td><label>23. Phương pháp thu mẫu (*):</label></td>
+				<td><input type="text" title="{{tooltips[36]}}" name="phuongPhapThuMau" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Địa điểm thu mẫu: </label></td>
+				<td><label>24. Địa điểm thu mẫu: </label></td>
 				<td ng-controller="PlaceController">
 				<table>
 					<tr>
 						<td>Quốc gia(*): </td>
 						<td>
-							<select class="select-box" ng-model="quocGia" name="quocGia" required>
+							<select class="select-box" ng-model="quocGia" title="{{tooltips[37]}}" name="quocGia" required>
 								<option value="VietNam">Việt Nam</option>
 							</select>
 						</td>
@@ -173,7 +180,7 @@
 					<tr>
 						<td>Tỉnh/Thành phố(*): </td>
 						<td>
-							<select class="select-box" name="tinh" required ng-model= "$parent.tinh" ng-change="cityChange()">
+							<select class="select-box" title="{{tooltips[38]}}" name="tinh" required ng-model= "$parent.tinh" ng-change="cityChange()">
 								<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " + city.name}}</option>
 							</select>
 						</td>
@@ -181,7 +188,7 @@
 					<tr>
 						<td>Huyện(*):</td>
 						<td>
-							<select class="select-box" name="huyen" required ng-model= "$parent.huyen" ng-change="districtChange()">
+							<select class="select-box" title="{{tooltips[39]}}" name="huyen" required ng-model= "$parent.huyen" ng-change="districtChange()">
 								<option ng-repeat="(key, district) in districts | customCity: tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
 							</select>
 						</td>
@@ -189,213 +196,238 @@
 					<tr>
 						<td>Xã(*): </td>
 						<td>
-							<select class="select-box" ng-model="xa" name="xa" required>
+							<select class="select-box" ng-model="xa" title="{{tooltips[40]}}" name="xa" required>
 								<option ng-repeat="(key, ward) in wards | customDistrict: huyen" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>Thôn/Xóm: </td>
-						<td><input type="text" ng-model="thon" name="thon" id="thon" class="input-form"></td>
+						<td><input type="text" ng-model="thon" title="{{tooltips[41]}}" name="thon" id="thon" class="input-form"></td>
 					</tr>
 				</table>
 				</td>
 			</tr>
-			<tr><td><h4>Vị trị tọa độ theo hệ tọa độ Việt Nam 2000</h4></td></tr>
+			<tr><td><label>25. Vị trị tọa độ theo hệ tọa độ Việt Nam 2000</label></td></tr>
 			<tr>
-				<td><label>Vĩ độ N (*): </label></td>
-				<td><input type="text" name="viDo" class="input-form" required></td>
+				<td>Vĩ độ N (*): </td>
+				<td><input type="text" title="{{tooltips[42]}}" name="viDo" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Kinh độ E (*):</label></td>
-				<td><input type="text" name="kinhDo" class="input-form" required></td>
+				<td>Kinh độ E (*):</td>
+				<td><input type="text" title="{{tooltips[43]}}" name="kinhDo" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Độ cao (*): </label></td>
-				<td><input type="text" name="doCao" class="input-form" required ></td>
+				<td><label>26. Độ cao (*)(m): </label></td>
+				<td><input type="text" title="{{tooltips[44]}}" name="doCao" class="input-form" required ></td>
 			</tr>
 			<tr>
-				<td><label>Độ sâu:</label></td>
-				<td><input type="number" name="doSau" class="input-form"></td>
+				<td><label>27. Độ sâu (m):</label></td>
+				<td><input type="number" title="{{tooltips[45]}}" name="doSau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Vùng biển:</label></td>
-				<td><input type="text" name="vungBien" class="input-form"></td>
+				<td><label>28. Vùng biển:</label></td>
+				<td><input type="text" title="{{tooltips[46]}}" name="vungBien" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Sinh học/sinh thái:</label></td>
-				<td><input type="text" name="sinhHoc" class="input-form"></td>
+				<td><label>29. Sinh học/sinh thái:</label></td>
+				<td><input type="text" title="{{tooltips[47]}}" name="sinhHoc" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Thông tin về dự án, đề tài đợt thu nhập mẫu (*):</label></td>
-				<td><input type="text" name="thongTinDuAn" class="input-form" required></td>
+				<td><label>30. Thông tin về dự án, đề tài đợt thu nhập mẫu (*):</label></td>
+				<td><input type="text" title="{{tooltips[48]}}" name="thongTinDuAn" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Ghi chép thực địa (*):</label></td>
-				<td><input type="text" name="ghiChepThucDia" class="input-form" required></td>
+				<td><label>31. Ghi chép thực địa (*):</label></td>
+				<td><input type="text" title="{{tooltips[49]}}" name="ghiChepThucDia" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Bản đồ:</label></td>
-				<td><input type="file" name="banDo" class="input-form" required></td>
-			</tr>
-		</table>
-		<table>
-			<h3 class="h3-title">5. NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
-			<tr>
-				<td><label>Thời gian phân tích/giám định/định loại mẫu:</label></td>
-				<td><input type="date" name="thoiGianPhanTich" class="input-form"></td>
+				<td><label>32. Bản đồ:</label></td>
+				<td><input type="file" title="{{tooltips[50]}}" name="banDo" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Người phân tích/giám định/định loại mẫu (*):</label></td>
-				<td><input type="text" name="nguoiPhanTich" class="input-form" required></td>
-			</tr>
-			<tr>
-				<td><label>Cơ quan/tổ chức phân tích/giám định/phân loại mẫu (*):</label></td>
-				<td><input type="text" name="coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form" required></td>
-			</tr>
-			<tr>
-				<td><label>Tài liệu phân tích/giám định/phân loại đi kèm (*):</label></td>
-				<td><input type="file" multiple name="taiLieuPhanTich" accept=".doc, .docx, .pdf" class="input-form" required></td>
-			</tr>
-			<tr>
-				<td><label>Mô tả/đặc điểm hình thái (*)</label></td>
-				<td><input type="text" name="moTaHinhThaiStr" class="input-form">
-				<input type="file" multiple accept="video/mp4,video/x-m4v,video/*" name="moTaHinhThaiFile" class="input-form"></td>
-			</tr>
-			<tr>
-				<td><label>Hình vẽ:</label></td>
-				<td><input type="file" name="hinhVe" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf" ></td>
+				<td><label>33. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[51]}}" name="thongTinKhac4" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
 		<table>
-			<h3 class="h3-title">6. NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
+			<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
-				<td><label>Ảnh mẫu vật (*):</label></td>
-				<td><input type="file" multiple name="anhMauVat" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf" required></td>
+				<td><label>34. Thời gian phân tích/giám định/định loại mẫu:</label></td>
+				<td><input type="date" title="{{tooltips[52]}}" name="thoiGianPhanTich" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Hình ảnh mẫu ngoài thực địa:</label></td>
-				<td><input type="file" accept="image/x-png, image/gif, image/jpeg, .pdf" multiple name="hinhAnhNgoaiThucDia" class="input-form"></td>
+				<td><label>35. Người phân tích/giám định/định loại mẫu (*):</label></td>
+				<td><input type="text" title="{{tooltips[53]}}" name="nguoiPhanTich" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Thông tin về phim, video:</label></td>
+				<td><label>36. Cơ quan/tổ chức phân tích/giám định/phân loại mẫu (*):</label></td>
+				<td><input type="text" title="{{tooltips[54]}}" name="coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form" required></td>
+			</tr>
+			<tr>
+				<td><label>37. Tài liệu phân tích/giám định/phân loại đi kèm (*):</label></td>
+				<td><input type="file" multiple title="{{tooltips[55]}}" name="taiLieuPhanTich" accept=".doc, .docx, .pdf" class="input-form" required></td>
+			</tr>
+			<tr>
+				<td><label>38. Mô tả/đặc điểm hình thái (*)</label></td>
+				<td><input type="text" title="{{tooltips[56]}}" name="moTaHinhThaiStr" class="input-form">
+				<input type="file" multiple accept="video/mp4,video/x-m4v,video/*" name ="moTaHinhThaiFile" class="input-form"></td>
+			</tr>
+			<tr>
+				<td><label>39. Giới tính, giống:</label></td>
+				<td><input type="text" title="{{tooltips[57]}}" name="gioiTinhGiong" class="input-form" required></td>
+			</tr>
+
+			<tr>
+				<td><label>40. Giai đoạn sống trong vòng đời:</label></td>
+				<td><input type="text" title="{{tooltips[58]}}" name="giaiDoanSongTrongVongDoi" class="input-form" required></td>
+			</tr>
+			<tr>
+				<td><label>41. Hình vẽ:</label></td>
+				<td><input type="file" title="{{tooltips[59]}}" name="hinhVe" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf" ></td>
+			</tr>
+			<tr>
+				<td><label>42. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[60]}}" name="thongTinKhac5" class="input-form" maxlength="100" required></td>
+			</tr>
+		</table>
+		<table>
+			<h3 class="h3-title">NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
+			<tr>
+				<td><label>43. Ảnh mẫu vật (*):</label></td>
+				<td><input type="file" multiple title="{{tooltips[61]}}" name="anhMauVat" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf" required></td>
+			</tr>
+			<tr>
+				<td><label>44. Hình ảnh mẫu ngoài thực địa:</label></td>
+				<td><input type="file" accept="image/x-png, image/gif, image/jpeg, .pdf" multiple title="{{tooltips[62]}}" name="hinhAnhNgoaiThucDia" class="input-form"></td>
+			</tr>
+			<tr>
+				<td><label>45. Thông tin về phim, video:</label></td>
 				<td>
 					<table>
 						<tr>
 							<td>
-								<input type="text" name = "videoStr" class="input-form" placeholder="Thông tin thêm về phim">
+								<input type="text" title="{{tooltips[63]}}" name= "videoStr" class="input-form" placeholder="Thông tin thêm về phim" required>
 							</td>
 							<td>
-								<input type="file" accept="video/mp4,video/x-m4v,video/*" name="videoFile" class="input-form" required>
+								<input type="file" accept="video/mp4,video/x-m4v,video/*" name ="videoFile" class="input-form" required>
 							</td>
 						</tr>
 					</table>	
 				</td>
 			</tr>
-			<tr><td colspan="2"><h4>Xử lý chế tác mẫu vật: </h4></td></tr>
+			<tr><td colspan="2"><label>46. Xử lý chế tác mẫu vật: </label></td></tr>
 			<tr>
-				<td><label>Hình ảnh đính kèm Xử lý chế tác:</label></td>
-				<td><input type="file" multiple name="hinhAnhDinhKem" accept="image/x-png, image/gif, image/jpeg, .pdf" class="input-form"></td>
+				<td>Hình ảnh đính kèm Xử lý chế tác:</td>
+				<td><input type="file" multiple title="{{tooltips[64]}}" name="hinhAnhDinhKem" accept="image/x-png, image/gif, image/jpeg, .pdf" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Phương thức xử lý chế tác:</label></td>
-				<td><input type="text" name="phuongThucXuLy" class="input-form"></td>
+				<td>Đính kèm xử lý chế tác:</td>
+				<td><input type="file" title="{{tooltips[65]}}" name="dinhKemXuLyCheTac" accept=".docx, .pdf" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Người xử lý, chế tác:</label></td>
-				<td><input type="text" name="nguoiXuLy" class="input-form"></td>
+				<td>Phương thức xử lý chế tác:</td>
+				<td><input type="text" title="{{tooltips[66]}}" name="phuongThucXuLy" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Cơ quan xử lý, chế tác mẫu:</label></td>
-				<td><input type="text" name="coQuanXuLy" id="coQuanXuLy" class="input-form"></td>
+				<td>Người xử lý, chế tác:</td>
+				<td><input type="text" title="{{tooltips[67]}}" name="nguoiXuLy" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Ảnh mẫu sau chế tác:</label></td>
-				<td><input type="file" name="anhMauSauCheTac" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf" ></td>
-			</tr>
-			<tr><td colspan="2"><h4>Thông tin DNA</h4></td></tr>
-			<tr>
-				<td><label>Vị trí lấy mẫu DNA (lá, thân, rễ,...):</label></td>
-				<td><input type="text" id="viTriLayMauDNA" name="boPhanLayMauDNA" class="input-form"></td>
+				<td>Cơ quan xử lý, chế tác mẫu:</td>
+				<td><input type="text" title="{{tooltips[68]}}" name="coQuanXuLy" id="coQuanXuLy" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Mẫu DNA (khô, nước...):</label></td>
-				<td><input type="text" id="mauDNA" name="trangThaiGiuMauDNA" class="input-form"></td>
+				<td>Ảnh mẫu sau chế tác:</td>
+				<td><input type="file" title="{{tooltips[69]}}" name="anhMauSauCheTac" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf" ></td>
+			</tr>
+			<tr><td colspan="2"><label>47. Thông tin DNA</label></td></tr>
+			<tr>
+				<td>Vị trí lấy mẫu DNA (lá, thân, rễ,...):</td>
+				<td><input type="text" id="viTriLayMauDNA" title="{{tooltips[70]}}" name="boPhanLayMauDNA" class="input-form"></td>
+			</tr>
+			<tr>
+				<td>Mẫu DNA (khô, nước...):</td>
+				<td><input type="text" id="mauDNA" title="{{tooltips[71]}}" name="trangThaiGiuMauDNA" class="input-form"></td>
 			</tr>
 
 			<tr>
-				<td><label>Đính kèm chạy trình tự DNA</label></td>
-				<td><input type="file" multiple name="dinhKemChayTrinhTuDNA" class="input-form"></td>
+				<td>Đính kèm chạy trình tự DNA</td>
+				<td><input type="file" multiple title="{{tooltips[72]}}" name="dinhKemChayTrinhTuDNA" class="input-form"></td>
 			</tr>
 
 			<tr>
-				<td><label>Trích dẫn chạy trình tự DNA</label></td>
-				<td><input type="text" multiple name="trichDanTrinhTuDNA" class="input-form"></td>
+				<td>Trích dẫn chạy trình tự DNA</td>
+				<td><input type="text" multiple title="{{tooltips[73]}}" name="trichDanTrinhTuDNA" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Trình tự DNA</label></td>
-				<td><input type="text" multiple name="trinhTuDNA" class="input-form"></td>
+				<td>Trình tự DNA</td>
+				<td><input type="text" multiple title="{{tooltips[74]}}" name="trinhTuDNA" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Đính kèm trình tự DNA</label></td>
-				<td><input type="file" multiple name="dinhKemTrinhTuDNA" class="input-form"></td>
+				<td>Đính kèm trình tự DNA</td>
+				<td><input type="file" multiple title="{{tooltips[75]}}" name="dinhKemTrinhTuDNA" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Công bố/thông tin quốc tế (genbank...)</label></td>
-				<td><input type="text" name="congBoQuocTe" class="input-form"></td>
+				<td>Công bố/thông tin quốc tế (genbank...)</td>
+				<td><input type="text" title="{{tooltips[76]}}" name="congBoQuocTe" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Thông tin mẫu hạt phấn</label></td>
-				<td><input type="text" multiple name="thongTinMauHatPhan" class="input-form"></td>
+				<td><label>48. Thông tin mẫu hạt phấn</label></td>
+				<td><input type="text" multiple title="{{tooltips[77]}}" name="thongTinMauHatPhan" class="input-form"></td>
 			</tr>
+			<tr>
+				<td><label>49. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[78]}}" name="thongTinKhac5" class="input-form" maxlength="100" required></td>
+			</tr>			
 		</table>
 		<table>
-			<h3 class="h3-title">7. NHÓM DỮ LIỆU PHÂN BỐ VÀ GIÁ TRỊ SỬ DỤNG</h3>
+			<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN BỐ VÀ GIÁ TRỊ SỬ DỤNG</h3>
 			<tr>
-				<td colspan="2"><h4>Phân bố địa lý của taxon định loại (*)</h4></td>
-			</tr>
-			<tr>
-				<td><label>Phân bố Việt Nam (*):</label></td>
+				<td><label>50. Phân bố Việt Nam (*):</label></td>
 				<td>
-					<input type="text" name="phanBoVietNamStr" class="input-form">
-					<input type="file" multiple name="phanBoVietNamFile">
+					<input type="text" title="{{tooltips[79]}}" name="phanBoVietNamStr" class="input-form">
+					<input type="file" multiple name ="phanBoVietNamFile">
 				</td>
 			</tr>
 			<tr>
-				<td><label>Phân bố trên thế giới (nếu có):</label></td>
+				<td><label>51. Phân bố trên thế giới (nếu có):</label></td>
 				<td>
-					<input type="text" name="phanBoTrenTheGioiStr" class="input-form">
-					<input type="file" multiple name="phanBoTrenTheGioiFile">
+					<input type="text" title="{{tooltips[80]}}" name="phanBoTrenTheGioiStr" class="input-form">
+					<input type="file" multiple name ="phanBoTrenTheGioiFile">
 				</td>
 			</tr>
 			<tr>
-				<td><label>Giá trị sử dụng:</label></td>
-				<td><input type="text" name="giaTriSuDung" class="input-form"></td>
+				<td><label>52. Giá trị sử dụng:</label></td>
+				<td><input type="text" title="{{tooltips[81]}}" name="giaTriSuDung" class="input-form"></td>
 			</tr>
 			<tr>
+				<td><label>53. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[82]}}" name="thongTinKhac6" class="input-form" maxlength="100" required></td>
+			</tr>
 		</table>
 		<table>
-			<h3 class="h3-title">8. NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
+			<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 			<tr>
-				<td><label>Ngày nhập mẫu: </label></td>
-				<td><input type="date" name="ngayNhapMau" class="input-form"></td>
+				<td><label>54. Ngày nhập mẫu: </label></td>
+				<td><input type="date" title="{{tooltips[83]}}" name="ngayNhapMau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Người giao mẫu: </label></td>
-				<td><input type="text" name="nguoiGiao" class="input-form"></td>
+				<td><label>55. Người giao mẫu: </label></td>
+				<td><input type="text" title="{{tooltips[84]}}" name="nguoiGiao" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Người nhận mẫu</label></td>
-				<td><input type="text" name="nguoiNhan" class="input-form"></td>
+				<td><label>56. Người nhận mẫu</label></td>
+				<td><input type="text" title="{{tooltips[85]}}" name="nguoiNhan" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Cơ quan nhập mẫu: </label></td>
-				<td><input type="text" name="coQuanNhapVatMau" id="coQuanNhapVatMau" class="input-form"></td>
+				<td><label>57. Cơ quan nhập mẫu: </label></td>
+				<td><input type="text" title="{{tooltips[86]}}" name="coQuanNhapVatMau" id="coQuanNhapVatMau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Hình thức nhập mẫu:</label></td>
+				<td><label>58. Hình thức nhập mẫu:</label></td>
 				<td>
-					<select class="select-box" name="hinhThucNhapMau">
+					<select class="select-box" title="{{tooltips[87]}}" name="hinhThucNhapMau">
 						<option value="Thu thập">Thu thập</option>
 						<option value="Hiến tặng">Hiến Tặng</option>
 						<option value="Khác">Khác</option>
@@ -404,56 +436,60 @@
 			</tr>
 
 			<tr>
-				<td><label>Trao đổi mẫu: </label></td>
+				<td><label>59. Trao đổi mẫu: </label></td>
 				<td>
-					<select name="traoDoiMau">
+					<select title="{{tooltips[88]}}" name="traoDoiMau">
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td><label>Vay mượn mẫu:</label></td>
+				<td><label>60. Vay mượn mẫu:</label></td>
 				<td>
-					<select class="select-box" name="vayMuon">
+					<select class="select-box" title="{{tooltips[89]}}" name="vayMuon">
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td><label>Khu lưu trữ mẫu:</label></td>
-				<td><input type="text" name="khuLuuTruMau" class="input-form"></td>
+				<td><label>61. Khu lưu trữ mẫu:</label></td>
+				<td><input type="text" title="{{tooltips[90]}}" name="khuLuuTruMau" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Nơi lưu trữ:</label></td>
-				<td><input type="text" name="noiLuuTru" class="input-form"></td>
+				<td><label>62. Nơi lưu trữ:</label></td>
+				<td><input type="text" title="{{tooltips[91]}}" name="noiLuuTru" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>Giấy phép nhập mẫu:</label></td>
-				<td><input type="file" name="giayPhepNhapMau" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf"></td>
+				<td><label>63. Giấy phép nhập mẫu:</label></td>
+				<td><input type="file" title="{{tooltips[92]}}" name="giayPhepNhapMau" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf"></td>
 			</tr>
 			<tr>
-				<td><label>Hồ sơ nhập mẫu vật đi kèm:</label></td>
-				<td><input type="file" name="hoSoNhapMauVatDiKem" class="input-form" accept=".doc, docx, .pdf" ></td>
+				<td><label>64. Hồ sơ nhập mẫu vật đi kèm:</label></td>
+				<td><input type="file" title="{{tooltips[93]}}" name="hoSoNhapMauVatDiKem" class="input-form" accept=".doc, docx, .pdf" ></td>
 			</tr>
 			<tr>
-				<td><label>Người nhập phiếu mẫu vật (*):</label></td>
-				<td><input type="text" name="nguoiNhapPhieuMauVat" class="input-form" required></td>
+				<td><label>65. Người nhập phiếu mẫu vật (*):</label></td>
+				<td><input type="text" title="{{tooltips[94]}}" name="nguoiNhapPhieuMauVat" class="input-form" required></td>
 			</tr>
 			<tr>
-				<td><label>Người nhập thông tin vào phần mềm:</label></td>
-				<td><input type="text" name="nguoiNhapVaoPhanMem" class="input-form"></td>
+				<td><label>66. Người nhập thông tin vào phần mềm:</label></td>
+				<td><input type="text" title="{{tooltips[95]}}" name="nguoiNhapVaoPhanMem" class="input-form"></td>
+			</tr>
+			<tr>
+				<td><label>67. Thông tin khác:</label></td>
+				<td><input type="text" title="{{tooltips[96]}}" name="thongTinKhac7" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
 
 		<table>
-			<h3 class="h3-title">9. NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
+			<h3 class="h3-title">NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
 			<tr>
-				<td><label>Thông tin khác</label></td>
-				<td><input type="text" name="thongTinKhac" class="input-form"></td>
+				<td><label>68. Thông tin khác</label></td>
+				<td><input type="text" title="{{tooltips[97]}}" name="thongTinKhac8" class="input-form"></td>
 			</tr>
 		</table>
 	</form>
-	<button type="button" ng-click="addPost()" class="btn btn-success btn-lg">Thêm</button>
+	<button type="button" ng-click="addPost()" class="btn btn-success btn-lg">Thêm mẫu</button>
 </div>

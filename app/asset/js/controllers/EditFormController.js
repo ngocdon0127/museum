@@ -1,15 +1,15 @@
 app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter','$timeout', '$window', function($http,$scope,AuthService, $routeParams, $filter, $timeout, $window){
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
-	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
-		// console.log(res.data.animal.ngayNhapMau);
+		console.log(res.data.animal);
 		res.data.animal.ngayNhapMau = new Date(res.data.animal.ngayNhapMau);
 		res.data.animal.thoiGianThuMau = new Date(res.data.animal.thoiGianThuMau);
 		res.data.animal.thoiGianPhanTich = new Date(res.data.animal.thoiGianPhanTich);
-		$scope.animal = res.data.animal;
+		$scope.data = res.data.animal;
 		$scope.status = res.data.status;
-		$scope.animal.id = $routeParams.id;
+		$scope.data.id = $routeParams.id;
+
 		$timeout(function(){
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
@@ -21,7 +21,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	var url = AuthService.hostName + '/content/dong-vat';
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.updatePost = function(){
-		var fd = new FormData(document.getElementById('form-data'));
+		var fd = new FormData(document.getElementById('form-content'));
 		$.ajax({
 			url: '/content/dong-vat',
 			method: 'PUT',

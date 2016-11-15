@@ -10,13 +10,11 @@ app.filter('customDistrict', function() {
         result[key] = input[key];
       }
     });
-    // console.log(result);
     return result;
   }
 });
 app.filter('customCity', function() {
   return function(input, search) {
-    // console.dir(input);
     if (!input) return input;
     if (!search) return input;
     var result = {};
@@ -25,7 +23,6 @@ app.filter('customCity', function() {
         result[key] = input[key];
       }
     });
-    // console.log(result);
     return result;
   }
 });

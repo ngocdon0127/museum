@@ -1,6 +1,3 @@
-jQuery(function () {
-	jQuery("#btnquocgia").click(function(){
-		console.log("Click");
-		jQuery("#quocGiaInput").css({"display" : "block"});
-	});
+jQuery(document).ready(function($) {
+	$('[data-toggle="tooltip"]').tooltip({"title" : "Hola", "delay" : 1000});
 });

@@ -21,6 +21,7 @@ var objectChild                = global.myCustomVars.objectChild;
 var datenum                    = global.myCustomVars.datenum;
 var sheet_from_array_of_arrays = global.myCustomVars.sheet_from_array_of_arrays;
 var Workbook                   = global.myCustomVars.Workbook;
+var exportFile          = global.myCustomVars.exportFile;
 
 // Get Global variables
 
@@ -31,10 +32,27 @@ var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/SoilSchemaProps.json')).toString());
 
 var PROP_FIELDS_OBJ = {};
+var LABEL = {};
 
 PROP_FIELDS.map(function (element, index) {
 	PROP_FIELDS_OBJ[element.name] = index;
+	LABEL[element.name] = element.label;
 });
+
+{
+	var index = 0;
+	while (true){
+		if (PROP_FIELDS[index] && (PROP_FIELDS[index].type == 'Metadata')){
+			PROP_FIELDS.splice(index, 1);
+		}
+		else {
+			index++;
+		}
+		if (index >= PROP_FIELDS.length){
+			break;
+		}
+	}
+}
 
 // File fields
 var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
@@ -175,7 +193,24 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 				if (req.query.display == 'html'){
 					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
 				}
-				if (req.query.display == 'xlsx'){
+				else if (req.query.display == 'docx'){
+					
+					var paragraph = {
+						text: [
+						'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỔ NHƯỠNG', 
+						'(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
+						],
+						style: [
+							{color: "000000", bold: true, font_face: "Times New Roman"},
+							{color: "000000", font_face: "Times New Roman"}
+						]
+
+					}
+
+					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph);
+					// return res.end("OK");
+				}
+				else if (req.query.display == 'xlsx'){
 					var obj = flatObjectModel(PROP_FIELDS, objectInstance);
 					var dataWriteToXLSX = [];
 					var stt = 1;

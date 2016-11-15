@@ -24,27 +24,28 @@ router.get('/wb', function(req, res, next) {
 		console.log("===");
 	})
 
-	var pObj = docx.createP();
-	pObj.options.align = "justify";
-	pObj.addText("Nguyễn Ngọc Đôn\n", {color: 'ff0000', bold: true, font_face: 'Times New Roman'});
-	pObj.addText("Nguyễn Ngọc Đôn", {color: '00ff00', bold: true, font_face: 'Monospace', font_size: 40});
+	// var pObj = docx.createP();
+	// pObj.options.align = "justify";
+	// pObj.addText("Nguyễn Ngọc Đôn\n", {color: 'ff0000', bold: true, font_face: 'Times New Roman'});
+	// pObj.addText("Nguyễn Ngọc Đôn", {color: '00ff00', bold: true, font_face: 'Monospace', font_size: 40});
 	
 	var labelOpts = {
 		// cellColWidth: 2261,
 		// b:true,
-		sz: '48',
+		sz: '20',
 		shd: {
-			fill: "DDDDDD",
+			fill: "FFFFFF",
 			// themeFill: "text1",
 			// "themeFillTint": "30"
 		},
-		fontFamily: "Avenir Book"
+		fontFamily: "Avenir Book",
+		alignment: 'center'
 	};
 
 	var detailOpts = {
 		// cellColWidth: 2261,
 		// b:true,
-		sz: '24',
+		sz: '12',
 		shd: {
 			fill: "FFFFFF",
 			// themeFill: "text1",
@@ -54,47 +55,66 @@ router.get('/wb', function(req, res, next) {
 	};
 
 	var table = [
-		[
-			{
-				val: "No.",
-				opts: labelOpts
-			},
-			{
-				val: "Title1",
-				opts: labelOpts
-			},
-			{
-				val: "Title2",
-				opts: labelOpts
+	[
+		{
+			val: "No.",
+			opts: labelOpts
+		},
+		{
+			val: "Title1",
+			opts: labelOpts
+		},
+		{
+			val: "Title2",
+			opts: labelOpts
+		}
+	],
+	[
+		{
+			val: "No.",
+			opts: labelOpts
+		},
+		{
+			val: "Title1",
+			opts: {
+				// cellColWidth: 2261,
+				// b:true,
+				sz: '20',
+				shd: {
+					fill: "FFFFFF",
+					// themeFill: "text1",
+					// "themeFillTint": "30"
+				},
+				gridSpan: 2,
+				fontFamily: "Avenir Book"
 			}
-		],
-		[
-			{
-				val: '1',
-				opts: detailOpts
-			},
-			{
-				val: 'All grown-ups were once children',
-				opts: detailOpts
-			},
-			''
-		],
-		[
-			2,
-			'there is no harm in putting off a piece of work until another day.',
-			''
-		],
-		[
-			3,
-			'But when it is a matter of baobabs, that always means a catastrophe.',
-			''
-		],
-		[
-			4,
-			'watch out for the baobabs!',
-			'END'
-		],
+		}
 	]
+	];
+
+	var data = [
+		[1,'All grown-ups were once children',''],
+		[2,'there is no harm in putting off a piece of work until another day.',''],
+		[3,'But when it is a matter of baobabs, that always means a catastrophe.',''],
+		[4,'watch out for the baobabs!','END'],
+	];
+
+	// for(var i = 0; i < data.length; i++){
+	// 	var row = data[i];
+	// 	var dt = JSON.parse(JSON.stringify(detailOpts));
+	// 	dt.cellColWidth = 1000;
+	// 	table.push([
+	// 	{
+	// 		val: data[i][0],
+	// 		opts: labelOpts
+	// 	},
+	// 	{
+	// 		val: data[i][1],
+	// 		opts: labelOpts
+	// 	},
+	// 	null
+	// 	])
+	// }
 
 	var tableStyle = {
 		// tableColWidth: 2261,
@@ -111,6 +131,7 @@ router.get('/wb', function(req, res, next) {
 	var outputStream = fs.createWriteStream('test.docx');
 	outputStream.on('close', function () {
 		console.log('output done.');
+		// res.download('test.docx');
 	});
 	docx.generate(outputStream);
 
@@ -143,7 +164,7 @@ router.get('/wb', function(req, res, next) {
 	// 	  "e": {"c": 2, "r": 0 }
 	// 	}).finalize();
 	// XLSX.writeFile(workbook, 'wb.xlsx');
-	res.end("Done");
+	// res.end("Done");
 });
 
 // router.get('/pdf', function (req, res, next) {

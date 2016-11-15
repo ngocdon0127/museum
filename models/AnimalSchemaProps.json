@@ -39,6 +39,14 @@
 		"regex": "^.{0,100}$"
 	},
 	{
+		"name": "thongTinKhac1",
+		"schemaProp": "soHieu",
+		"label": "Thông tin khác",
+		"required": false,
+		"type": "String",
+		"regex": "^.{0,100}$"
+	},
+	{
 		"name": "tenVietNam",
 		"schemaProp": "tenMau",
 		"label": "Tên Việt Nam (phổ thông)",
@@ -205,6 +213,13 @@
 		"type": "String"
 	},
 	{
+		"name": "thongTinKhac2",
+		"schemaProp": "tenMau",
+		"label": "Thông tin khác",
+		"required": false,
+		"type": "String"
+	},
+	{
 		"name": "soLuongMauVat",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Số lượng mẫu vật",
@@ -232,11 +247,17 @@
 		"required": true,
 		"type": "String"
 	},
-	
 	{
 		"name": "tinhTrangMau",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Tình trạng mẫu vật",
+		"required": true,
+		"type": "String"
+	},
+	{
+		"name": "thongTinKhac3",
+		"schemaProp": "soLuongChatLuong",
+		"label": "Thông tin khác",
 		"required": true,
 		"type": "String"
 	},
@@ -374,6 +395,13 @@
 		"type": "File"
 	},
 	{
+		"name": "thongTinKhac4",
+		"schemaProp": "duLieuThuMau",
+		"label": "Thông tin khác",
+		"required": true,
+		"type": "String"
+	},
+	{
 		"name": "thoiGianPhanTich",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Thời gian phân tích/giám định/định loại mẫu",
@@ -432,6 +460,13 @@
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+	},
+	{
+		"name": "thongTinKhac5",
+		"schemaProp": "duLieuPhanTichMau",
+		"label": "Thông tin khác",
+		"required": true,
+		"type": "String"
 	},
 	{
 		"name": "anhMauVat",
@@ -563,6 +598,13 @@
 		"type": "String"
 	},
 	{
+		"name": "thongTinKhac6",
+		"schemaProp": "media",
+		"label": "Thông tin khác",
+		"required": true,
+		"type": "String"
+	},
+	{
 		"name": "phanBoVietNam",
 		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố Việt Nam",
@@ -611,6 +653,13 @@
 		"schemaProp": "phanBoVaSuDung",
 		"label": "Giá trị sử dụng",
 		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "thongTinKhac7",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Thông tin khác",
+		"required": true,
 		"type": "String"
 	},
 	{
@@ -708,10 +757,62 @@
 		"type": "String"
 	},
 	{
-		"name": "thongTinKhac",
+		"name": "thongTinKhac8",
+		"schemaProp": "luuTruBaoQuan",
+		"label": "Thông tin khác",
+		"required": true,
+		"type": "String"
+	},
+	{
+		"name": "thongTinKhac9",
 		"schemaProp": "thongTinKhac",
 		"label": "Thông tin khác",
 		"required": false,
 		"type": "String"
+	},
+	{
+		"name": "soHieu",
+		"type": "Metadata",
+		"label": "Số hiệu mẫu vật"
+	},
+	{
+		"name": "tenMau",
+		"type": "Metadata",
+		"label": "Tên mẫu vật"
+	},
+	{
+		"name": "soLuongChatLuong",
+		"type": "Metadata",
+		"label": "Số lượng và chất lượng mẫu vật"
+	},
+	{
+		"name": "duLieuThuMau",
+		"type": "Metadata",
+		"label": "Nhóm dữ liệu Thu mẫu"
+	},
+	{
+		"name": "duLieuPhanTichMau",
+		"type": "Metadata",
+		"label": "Nhóm dữ liệu Phân tích mẫu/Giám định mẫu"
+	},
+	{
+		"name": "media",
+		"type": "Metadata",
+		"label": "Nhóm dữ liệu Hình ảnh/phim, tài liệu mẫu vật"
+	},
+	{
+		"name": "phanBoVaSuDung",
+		"type": "Metadata",
+		"label": "Nhóm dữ liệu Phân bố và giá trị sử dụng"
+	},
+	{
+		"name": "luuTruBaoQuan",
+		"type": "Metadata",
+		"label": "Nhóm dữ liệu Lưu trữ, bảo quản mẫu vật"
+	},
+	{
+		"name": "thongTinKhac",
+		"type": "Metadata",
+		"label": "Nhóm dữ liệu thông tin khác"
 	}
 ]

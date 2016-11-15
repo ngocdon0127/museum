@@ -182,7 +182,8 @@ function objectChild (object, tree) {
 			object = object[nodes[i]];
 		}
 		else {
-			object[nodes[i]] = {}
+			object[nodes[i]] = {};
+			object = object[nodes[i]];
 		}
 	}
 	return object;
@@ -491,54 +492,290 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
-/**
-function datenum(v, date1904) {
-	if(date1904) v+=1462;
-	var epoch = Date.parse(v);
-	return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
-}
+function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph) {
+	var fs = require('fs');
+	var officegen = require('officegen');
+	var docx = officegen({
+		type: 'docx',
+		subjects: 'Mẫu phiếu dữ liệu',
+		orientation: 'landscape'
+	});
+
+	docx.on('finalize', function (written) {
+		console.log("Docx: written " + written + " bytes.");
+	});
+
+	docx.on('error', function (error) {
+		console.log("Docx: Error");
+		console.log(error);
+		console.log("===");
+	})
+
+	var pObj = docx.createP();
+	pObj.options.align = "center";
+
+	for(var i = 0; i < paragraph.text.length; i++){
+		pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
+	}
+
+	var rowSpanOpts = {
+		// cellColWidth: 2261,
+		b:true,
+		sz: '24',
+		align: 'center',
+		shd: {
+			fill: "CCCCCC",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		gridSpan: 3,
+		fontFamily: "Times New Roman"
+	};
+
+	var labelOpts = {
+		cellColWidth: 500,
+		b:true,
+		sz: '24',
+		align: 'center',
+		shd: {
+			fill: "FFFFFF",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Times New Roman"
+	};
+
+	var detailOpts = {
+		// cellColWidth: 2261,
+		// b:true,
+		sz: '24',
+		shd: {
+			fill: "FFFFFF",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Times New Roman"
+	};
+
+	var table = [
+	[
+		{
+			val: "STT",
+			opts: labelOpts
+		},
+		{
+			val: "Trường dữ liệu",
+			opts: labelOpts
+		},
+		{
+			val: "Nội dung",
+			opts: labelOpts
+		},
+		{
+			val: "Ghi chú",
+			opts: labelOpts
+		}
+	]];
+	
+	var oi = {};
+	var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
+	PROP_FIELDS.map(function (field) {
+		objectChild(oi, field.schemaProp)[field.name] = {};
+		// console.log(oi);
+	});
+
+	var PROP_FIELDS_OBJ = {};
+
+	PROP_FIELDS.map(function (element, index) {
+		PROP_FIELDS_OBJ[element.name] = index;
+	});
+	var curDeep = 0;
+	var stt = 0;
+	
+	function display(obj){
+		// console.log(staticPath)
+		// console.log(count)
+		if (obj instanceof Array){
+			var result =  obj.reduce(function (preStr, curElement, curIndex){
+				// console.log(curElement.split('_+_')[1]);
+				preStr += curElement.split('_+_')[1];
+				if (curIndex < obj.length - 1){
+					preStr += '\n\n';
+				}
+				return preStr;
+			}, '');
+			return result;
+		}
+		else if (obj instanceof Date){
+			return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+		}
+		// Need to escape to prevent injected HTML + JS
+		return obj;
+	}
 
 
+	function inOrder (tree) {
+		if (!tree){
+			return;
+		}
+		if (tree instanceof Function){
+			return;
+		}
+		if (typeof(tree) == 'string'){
+			return;
+		}
+		for(var i = 0; i < Object.keys(tree).length; i++){
+			var prop = Object.keys(tree)[i];
+			console.log(stt + ' : ' + prop + ' : ' + curDeep);
+			// Add data to docx object
+			var p;
+			switch (curDeep){
+				case 0:
+					// Label
+					try{
+						p = LABEL[prop];
+					}
+					catch (e){
+						console.log(e);
+						// Do not care;
+						// break;
+					}
+					var row = [
+						{
+							val: p,
+							opts: rowSpanOpts
+						}
+					];
+					table.push(row);
+					break;
+				case 1:
+					stt++;
+					// console.log('printing ' + prop);
+					// var value = flatOI[prop];
+					// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
+					// 	value = JSON.stringify(flatOI[prop]);
+					// }
+					// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
+					// 	value = '';
+					// }
+					var value = display(flatOI[prop]);
+					try{
 
-global.myCustomVars.datenum = datenum;
+						if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+							p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+						}
+					}
+					catch (e){
+						// console.log(e);
+						// Do not care;
+						console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
+					}
 
-function sheet_from_array_of_arrays(data, opts) {
-	var XLSX = require('xlsx');
-	var ws = {};
-	var range = {s: {c:10000000, r:10000000}, e: {c:0, r:0 }};
-	for(var R = 0; R != data.length; ++R) {
-		for(var C = 0; C != data[R].length; ++C) {
-			if(range.s.r > R) range.s.r = R;
-			if(range.s.c > C) range.s.c = C;
-			if(range.e.r < R) range.e.r = R;
-			if(range.e.c < C) range.e.c = C;
-			var cell = {v: data[R][C] };
-			if(cell.v == null) continue;
-			var cell_ref = XLSX.utils.encode_cell({c:C,r:R});
-			
-			if(typeof cell.v === 'number') cell.t = 'n';
-			else if(typeof cell.v === 'boolean') cell.t = 'b';
-			else if(cell.v instanceof Date) {
-				cell.t = 'n'; cell.z = XLSX.SSF._table[14];
-				cell.v = datenum(cell.v);
+					
+					var row = [
+						{
+							val: stt,
+							opts: labelOpts
+						},
+						{
+							val: p,
+							opts: detailOpts
+						},
+						{
+							val: value,
+							opts: detailOpts
+						},
+						{
+							val: '',
+							opts: detailOpts
+						}
+					]
+					if (value && value.length > 0){
+						table.push(row);
+					}
+					break;
+				case 2:
+					// var value = flatOI[prop];
+					// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
+					// 	value = JSON.stringify(flatOI[prop]);
+					// }
+					// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
+					// 	value = '';
+					// }
+					var value = display(flatOI[prop]);
+					try{
+
+						if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+							p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+						}
+					}
+					catch (e){
+						console.log(e);
+						// Do not care;
+						console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
+					}
+					var row = [
+						{
+							val: '',
+							opts: labelOpts
+						},
+						{
+							val: p,
+							opts: detailOpts
+						},
+						{
+							val: value,
+							opts: detailOpts
+						},
+						{
+							val: '',
+							opts: detailOpts
+						}
+					]
+					if (value && value.length > 0){
+						table.push(row);
+					}
+					break;
 			}
-			else cell.t = 's';
+
+			// console.log('inc curDeep');
 			
-			ws[cell_ref] = cell;
+			// stt++;
+			curDeep++;
+			inOrder(tree[prop]);
+			curDeep--;
 		}
 	}
-	if(range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range);
-	return ws;
+
+	inOrder(oi);
+
+	var tableStyle = {
+		// tableColWidth: 2261,
+		// tableSize: 200,
+		// tableColor: "ada",
+		tableAlign: "left",
+		tableFontFamily: "Times New Roman",
+		borders: true
+	}
+
+	docx.createTable (table, tableStyle);
+	// var fs = require('fs');
+	var outputStream = fs.createWriteStream(path.join(__dirname, 'test.docx'));
+	outputStream.on('close', function () {
+		console.log('output done.');
+		res.download(path.join(__dirname, 'test.docx'));
+		setTimeout(function () {
+			fs.unlink(path.join(__dirname, 'test.docx'));
+			res.redirect('/');
+		}, 2000);
+		// res.end("OK");
+	});
+	docx.generate(outputStream);
+
+
+	// Assume objectInstance is a tree (JSON),
+	// with depth <= 3
+
 }
 
-global.myCustomVars.sheet_from_array_of_arrays = sheet_from_array_of_arrays;
-
-function Workbook() {
-	if(!(this instanceof Workbook)) return new Workbook();
-	this.SheetNames = [];
-	this.Sheets = {};
-}
-
-global.myCustomVars.Workbook = Workbook;
-
-*/
+global.myCustomVars.exportFile = exportFile;

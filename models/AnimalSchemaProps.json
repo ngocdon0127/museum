@@ -771,6 +771,13 @@
 		"type": "String"
 	},
 	{
+		"name": "maDeTai",
+		"schemaProp": "maDeTai",
+		"label": "Mã đề tài",
+		"required": true,
+		"type": "String"
+	},
+	{
 		"name": "soHieu",
 		"type": "Metadata",
 		"label": "Số hiệu mẫu vật"

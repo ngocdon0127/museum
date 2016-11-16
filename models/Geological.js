@@ -106,9 +106,11 @@ module.exports = function (mongoose) {
 			nguoiNhapVaoPhanMem: String,
 			thongTinKhac8: String
 		},
-		
 		thongTinKhac: {
 			thongTinKhac9: String
+		},
+		maDeTai: {
+			maDeTai: String
 		}
 	};
 	var geologicalSchema = mongoose.Schema(schemaPrototype);

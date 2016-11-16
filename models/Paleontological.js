@@ -122,6 +122,9 @@ module.exports = function (mongoose) {
 		},
 		thongTinKhac: {
 			thongTinKhac9: String
+		},
+		maDeTai: {
+			maDeTai: String
 		}
 	};
 	var paleontologicalSchema = mongoose.Schema(schemaPrototype);

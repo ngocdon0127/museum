@@ -109,9 +109,11 @@ module.exports = function (mongoose) {
 			nguoiNhapVaoPhanMem: String,
 			thongTinKhac8: String
 		},
-		
 		thongTinKhac: {
 			thongTinKhac9: String
+		},
+		maDeTai: {
+			maDeTai: String
 		}
 	};
 	var soilSchema = mongoose.Schema(schemaPrototype);

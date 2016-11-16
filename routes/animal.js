@@ -194,12 +194,12 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 					
 					var paragraph = {
 						text: [
-						'PHIẾU CƠ SỞ DỮ LIỆU MẪU ĐỘNG VÂT', 
+						'PHIẾU CƠ SỞ DỮ LIỆU MẪU ĐỘNG VẬT', 
 						'(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
 						],
 						style: [
-							{color: "000000", bold: true, font_face: "Times New Roman"},
-							{color: "000000", font_face: "Times New Roman"}
+							{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
+							{color: "000000", font_face: "Times New Roman", font_size: 12}
 						]
 
 					}

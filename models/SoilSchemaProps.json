@@ -762,6 +762,13 @@
 		"regex": "^.{0,500}$",
 		"autoCompletion": false
 	},
+	{
+		"name": "maDeTai",
+		"schemaProp": "maDeTai",
+		"label": "Mã đề tài",
+		"required": true,
+		"type": "String"
+	},
 	
 	{
 		"name": "soHieu",

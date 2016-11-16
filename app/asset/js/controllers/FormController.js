@@ -32,6 +32,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	,'boPhanLayMauDNA', 
 	'trangThaiGiuMauDNA',
 	'coQuanNhapVatMau'];
+	
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {

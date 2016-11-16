@@ -1,34 +1,47 @@
-<div class="container map-detail" style="margin-top: 50px;">
+<div class="" style="margin-top: 60px;">
 	<form id="form-content">
 		<center><h2>Thêm mẫu dữ liệu thực vật</h2></center>
-		<table>
-			<h3 class="h3-title">SỐ HIỆU</h3>
-			<tr>
-				<td><label>1. Số hiệu thực địa (*):</label></td>
-				<td><input type="text" maxlength="100" title="{{tooltips[1]}}" name="soHieuThucDia" class="input-form" required></td>
-			</tr>
-			<tr>
-				<td><label>2. Số hiệu bảo tàng cơ sở(*):</label></td>
-				<td><input type="text" maxlength="100" title="{{tooltips[2]}}" name="soHieuBaoTangCS" class="input-form" required></td>
-			</tr>
-			<tr>
-				<td><label>3. Số hiệu BTTNVN:</label></td>
-				<td><input type="text" maxlength="100" title="{{tooltips[3]}}" name="soHieuBTTNVN" class="input-form"></td>
-			</tr>
-			<tr>
-				<td><label>4. Mã kí hiệu mẫu vật quốc tế:</label></td>
-				<td><input type="text" maxlength="100" title="{{tooltips[4]}}" name="maKyHieuMauVatQuocTe" class="input-form"></td>
-			</tr>
+		<div class="container map-detail" style="margin-top: 50px;">
+			<table>
+				<tr>
+					<td><label>Mã đề tài (*)</label></td>
+					<td>
+						<input type="text" name="maDeTai" ng-model="data.maDeTai" class="input-form" maxlength="100" required>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
+			<table>
+				<h3 class="h3-title">SỐ HIỆU</h3>
+				<tr>
+					<td><label>1. Số hiệu thực địa (*):</label></td>
+					<td><input type="text" maxlength="100" title="{{tooltips[1]}}" name="soHieuThucDia" class="input-form" required></td>
+				</tr>
+				<tr>
+					<td><label>2. Số hiệu bảo tàng cơ sở(*):</label></td>
+					<td><input type="text" maxlength="100" title="{{tooltips[2]}}" name="soHieuBaoTangCS" class="input-form" required></td>
+				</tr>
+				<tr>
+					<td><label>3. Số hiệu BTTNVN:</label></td>
+					<td><input type="text" maxlength="100" title="{{tooltips[3]}}" name="soHieuBTTNVN" class="input-form"></td>
+				</tr>
+				<tr>
+					<td><label>4. Mã kí hiệu mẫu vật quốc tế:</label></td>
+					<td><input type="text" maxlength="100" title="{{tooltips[4]}}" name="maKyHieuMauVatQuocTe" class="input-form"></td>
+				</tr>
 
-			<tr>
-				<td><label>5. Các kí hiệu mẫu vật khác:</label></td>
-				<td><input type="text" title="{{tooltips[5]}}" name="kyHieuMauVatKhac" class="input-form" maxlength="100" required></td>
-			</tr>
-			<tr>
-				<td><label>6. Thông tin khác:</label></td>
-				<td><input type="text" title="{{tooltips[6]}}" name="thongTinKhac1" class="input-form" maxlength="100" required></td>
-			</tr>
-		</table>
+				<tr>
+					<td><label>5. Các kí hiệu mẫu vật khác:</label></td>
+					<td><input type="text" title="{{tooltips[5]}}" name="kyHieuMauVatKhac" class="input-form" maxlength="100" required></td>
+				</tr>
+				<tr>
+					<td><label>6. Thông tin khác:</label></td>
+					<td><input type="text" title="{{tooltips[6]}}" name="thongTinKhac1" class="input-form" maxlength="100" required></td>
+				</tr>
+			</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">TÊN MẪU</h3>
 			<tr>
@@ -66,11 +79,11 @@
 			</tr>
 			<tr>
 				<td>Phân lớp: </td>
-				<td><input type="text" id="phanLop" title="{{tooltips[15]}}" name="phanLop" class="input-form" ></td>
+				<td><input type="text" id="phanLop" title="{{tooltips[15]}}" name="phanLop" class="input-form"></td>
 			</tr>
 			<tr>
 				<td>Bộ (*): </td>
-				<td><input type="text" title="{{tooltips[16]}}" name="bo" id="bo" class="input-form" required</td>
+				<td><input type="text" title="{{tooltips[16]}}" name="bo" id="bo" class="input-form" required></td>
 			</tr>
 			<tr>
 				<td>Phân bộ: </td>
@@ -82,7 +95,7 @@
 			</tr>
 			<tr>
 				<td>Họ (*): </td>
-				<td><input type="text" title="{{tooltips[19]}}" name="ho" id="ho" class="input-form" required="required"</td>
+				<td><input type="text" title="{{tooltips[19]}}" name="ho" id="ho" class="input-form" required></td>
 			</tr>
 			<tr>
 				<td>Phân họ: </td>
@@ -114,6 +127,8 @@
 				<td><input type="text" title="{{tooltips[26]}}" name="thongTinKhac2" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">SỐ LƯỢNG VÀ CHẤT LƯỢNG MẪU VẬT</h3>
 			<tr>
@@ -147,6 +162,8 @@
 				<td><input type="text" title="{{tooltips[32]}}" name="thongTinKhac3" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 			<tr>
@@ -250,6 +267,8 @@
 				<td><input type="text" title="{{tooltips[51]}}" name="thongTinKhac4" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
@@ -291,6 +310,8 @@
 				<td><input type="text" title="{{tooltips[60]}}" name="thongTinKhac5" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
 			<tr>
@@ -381,6 +402,8 @@
 				<td><input type="text" title="{{tooltips[78]}}" name="thongTinKhac5" class="input-form" maxlength="100" required></td>
 			</tr>			
 		</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN BỐ VÀ GIÁ TRỊ SỬ DỤNG</h3>
 			<tr>
@@ -406,6 +429,8 @@
 				<td><input type="text" title="{{tooltips[82]}}" name="thongTinKhac6" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 			<tr>
@@ -438,7 +463,7 @@
 			<tr>
 				<td><label>59. Trao đổi mẫu: </label></td>
 				<td>
-					<select title="{{tooltips[88]}}" name="traoDoiMau">
+					<select title="{{tooltips[88]}}" class="select-box" name="traoDoiMau">
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
 					</select>
@@ -482,7 +507,8 @@
 				<td><input type="text" title="{{tooltips[96]}}" name="thongTinKhac7" class="input-form" maxlength="100" required></td>
 			</tr>
 		</table>
-
+		</div>
+		<div class="container map-detail" style="margin-top: 50px;">
 		<table>
 			<h3 class="h3-title">NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
 			<tr>
@@ -490,6 +516,7 @@
 				<td><input type="text" title="{{tooltips[97]}}" name="thongTinKhac8" class="input-form"></td>
 			</tr>
 		</table>
+		</div>
 	</form>
-	<button type="button" ng-click="addPost()" class="btn btn-success btn-lg">Thêm mẫu</button>
+	<center><button style="margin-top: 30px;" type="submit" ng-click="addPost()" class="btn btn-success btn-lg">Thêm mẫu</button></center>
 </div>

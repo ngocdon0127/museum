@@ -3,6 +3,14 @@
 		<input type="text" name="id" style="display: none;" ng-model="data.id">
 		<center><h2>Thêm mẫu dữ liệu cổ sinh</h2></center>
 		<table>
+				<tr>
+					<td><label>Mã đề tài (*)</label></td>
+					<td>
+						<input type="text" name="maDeTai" ng-model="data.maDeTai" class="input-form" maxlength="100" required>
+					</td>
+				</tr>
+			</table>
+		<table>
 			<h3 class="h3-title">SỐ HIỆU</h3>
 			<tr>
 				<td><label>1. Số hiệu thực địa (*):</label></td>
@@ -72,7 +80,7 @@
 			</tr>
 			<tr>
 				<td>Họ (*): </td>
-				<td><input type="text" title="{{tooltips[16]}}" name="ho" ng-model="data.ho" id="ho" class="input-form" required="required"</td>
+				<td><input type="text" title="{{tooltips[16]}}" name="ho" ng-model="data.ho" id="ho" class="input-form" required="required"></td>
 			</tr>
 			<tr>
 				<td>Chi/Giống(*): </td>
@@ -405,7 +413,7 @@
 			<tr>
 				<td><label>55. Trao đổi mẫu: </label></td>
 				<td>
-					<select title="{{tooltips[79]}}" name="traoDoiMau" ng-model="data.traoDoiMau">
+					<select title="{{tooltips[79]}}" class="select-box" name="traoDoiMau" ng-model="data.traoDoiMau">
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
 					</select>
@@ -458,5 +466,5 @@
 			</tr>
 		</table>
 	</form>
-	<button type="button" ng-click="updatePost()" class="btn btn-success btn-lg">Cập nhật</button>
+	<center><button type="submit" style="margin-top: 30px;" ng-click="updatePost()" class="btn btn-success btn-lg">Cập nhật</button></center>
 </div>

@@ -582,7 +582,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					catch (e){
 						// console.log(e);
 						// Do not care;
-						console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
+						// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 					}
 
 					

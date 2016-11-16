@@ -511,10 +511,11 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		console.log("===");
 	})
 
-	var pObj = docx.createP();
-	pObj.options.align = "center";
+	
 
 	for(var i = 0; i < paragraph.text.length; i++){
+		var pObj = docx.createP();
+		pObj.options.align = "center";
 		pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
 	}
 
@@ -528,7 +529,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			// themeFill: "text1",
 			// "themeFillTint": "30"
 		},
-		gridSpan: 3,
+		// gridSpan: 3,
 		fontFamily: "Times New Roman"
 	};
 
@@ -644,6 +645,18 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 						{
 							val: p,
 							opts: rowSpanOpts
+						},
+						{
+							val: '',
+							opts: rowSpanOpts
+						},
+						{
+							val: '',
+							opts: rowSpanOpts
+						},
+						{
+							val: '',
+							opts: rowSpanOpts
 						}
 					];
 					table.push(row);
@@ -750,7 +763,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	inOrder(oi);
 
 	var tableStyle = {
-		// tableColWidth: 2261,
+		tableColWidth: 3200,
 		// tableSize: 200,
 		// tableColor: "ada",
 		tableAlign: "left",

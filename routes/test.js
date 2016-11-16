@@ -39,7 +39,7 @@ router.get('/wb', function(req, res, next) {
 			// "themeFillTint": "30"
 		},
 		fontFamily: "Avenir Book",
-		alignment: 'center'
+		align: 'center'
 	};
 
 	var detailOpts = {
@@ -131,7 +131,7 @@ router.get('/wb', function(req, res, next) {
 	var outputStream = fs.createWriteStream('test.docx');
 	outputStream.on('close', function () {
 		console.log('output done.');
-		// res.download('test.docx');
+		res.download('test.docx');
 	});
 	docx.generate(outputStream);
 

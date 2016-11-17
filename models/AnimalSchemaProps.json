@@ -258,7 +258,7 @@
 		"name": "thongTinKhac3",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Thông tin khác",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
@@ -398,7 +398,7 @@
 		"name": "thongTinKhac4",
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin khác",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
@@ -465,7 +465,7 @@
 		"name": "thongTinKhac5",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Thông tin khác",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
@@ -601,7 +601,7 @@
 		"name": "thongTinKhac6",
 		"schemaProp": "media",
 		"label": "Thông tin khác",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
@@ -659,7 +659,7 @@
 		"name": "thongTinKhac7",
 		"schemaProp": "phanBoVaSuDung",
 		"label": "Thông tin khác",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
@@ -760,7 +760,7 @@
 		"name": "thongTinKhac8",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Thông tin khác",
-		"required": true,
+		"required": false,
 		"type": "String"
 	},
 	{
@@ -770,6 +770,14 @@
 		"required": false,
 		"type": "String"
 	},
+	{
+		"name": "maDeTai",
+		"schemaProp": "maDeTai",
+		"label": "Mã đề tài",
+		"required": true,
+		"type": "String"
+	},
+	
 	{
 		"name": "soHieu",
 		"type": "Metadata",

@@ -19,11 +19,12 @@ body {
   padding-bottom: 6rem;
   min-height: 100%;
   font-family: 'Roboto', sans-serif;
+  /*background-color: #F3F6F9;*/
 }
 
 
 .map-detail{
-    background-color: #f5f6f7;
+    background-color: #F3F6F9;
     padding: 15px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
 }
@@ -41,7 +42,7 @@ body {
 }
 
 .h3-title{
-    color: #f05424;
+    color: rgb(141,49,36);
 }
 
 .select-box{

@@ -129,6 +129,9 @@ module.exports = function (mongoose) {
 		},
 		thongTinKhac: {
 			thongTinKhac9: String
+		},
+		maDeTai: {
+			maDeTai: String
 		}
 	};
 	var vegetableSchema = mongoose.Schema(schemaPrototype);

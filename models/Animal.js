@@ -127,6 +127,9 @@ module.exports = function (mongoose) {
 		},
 		thongTinKhac: {
 			thongTinKhac9: String
+		},
+		maDeTai: {
+			maDeTai: String
 		}
 	};
 	var animalSchema = mongoose.Schema(schemaPrototype);

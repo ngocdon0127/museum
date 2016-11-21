@@ -169,11 +169,11 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
-		// console.log(res.data.animal.ngayNhapMau);
-		res.data.land.ngayNhapMau = new Date(res.data.land.ngayNhapMau);
-		res.data.land.thoiGianThuMau = new Date(res.data.land.thoiGianThuMau);
-		res.data.land.thoiGianPhanTich = new Date(res.data.land.thoiGianPhanTich);
-		$scope.data = res.data.land;
+		// console.log(res.data.soil);
+		res.data.soil.ngayNhapMau = new Date(res.data.soil.ngayNhapMau);
+		res.data.soil.thoiGianThuMau = new Date(res.data.soil.thoiGianThuMau);
+		res.data.soil.thoiGianPhanTich = new Date(res.data.soil.thoiGianPhanTich);
+		$scope.data = res.data.soil;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
 		$timeout(function(){

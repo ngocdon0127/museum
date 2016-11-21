@@ -604,7 +604,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 							opts: detailOpts
 						}
 					]
-					if (value && value.length > 0){
+					if (value){
 						table.push(row);
 					}
 					break;
@@ -646,7 +646,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 							opts: detailOpts
 						}
 					]
-					if (value && value.length > 0){
+					if (value){
 						table.push(row);
 					}
 					break;

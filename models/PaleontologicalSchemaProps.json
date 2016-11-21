@@ -57,7 +57,7 @@
 		"name": "tenDiaPhuong",
 		"schemaProp": "tenMau",
 		"label": "Tên địa phương",
-		"required": true,
+		"required": false,
 		"type": "String",
 		"regex": "^.{1,100}$"
 	},

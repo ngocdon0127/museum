@@ -64,6 +64,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/co-sinh';
 var objectModelLabel       = 'cổ sinh';
 
+LABEL.objectModelLabel = objectModelLabel;
+
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,

@@ -63,6 +63,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/dia-chat';
 var objectModelLabel       = 'địa chất';
 
+LABEL.objectModelLabel = objectModelLabel;
+
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,

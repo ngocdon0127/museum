@@ -63,6 +63,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/thuc-vat';
 var objectModelLabel       = 'thực vật';
 
+LABEL.objectModelLabel = objectModelLabel;
+
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,

@@ -63,6 +63,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/dong-vat';
 var objectModelLabel       = 'động vật';
 
+LABEL.objectModelLabel = objectModelLabel;
+
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,

@@ -551,7 +551,7 @@
 		"schemaProp": "media.thongTinDNA",
 		"label": "Vùng gen phân tích",
 		"required": false,
-		"type": "String",
+		"type": "String"
 	},
 	{
 		"name": "dinhKemTrinhTuDNA",

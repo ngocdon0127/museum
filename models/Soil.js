@@ -102,16 +102,23 @@ module.exports = function (mongoose) {
 			traoDoiMau: String,
 			vayMuon: String,
 			noiLuuTruMau: String,
-			khuLuuTruMau: String,
+			khuLuuTruMau: {
+				phong: String,
+				tuGia: String,
+				ngan: String,
+				hop: String,
+			},
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
 			nguoiNhapPhieuMauVat: String,
 			nguoiNhapVaoPhanMem: String,
 			thongTinKhac8: String
 		},
-		
 		thongTinKhac: {
 			thongTinKhac9: String
+		},
+		maDeTai: {
+			maDeTai: String
 		}
 	};
 	var soilSchema = mongoose.Schema(schemaPrototype);

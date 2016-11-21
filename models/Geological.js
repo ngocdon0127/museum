@@ -16,7 +16,7 @@ module.exports = function (mongoose) {
 			tenDiaPhuong: String,
 			tenTiengAnh: String,
 			tenTheoBaoTang: String,
-			tenKhoaHoc: String,
+			tenTheoQuocTe: String,
 			nguoiDinhTen: String,
 			thongTinKhac2: String
 		},
@@ -59,8 +59,10 @@ module.exports = function (mongoose) {
 			ketQuaThanhPhanVatChat: [String],
 			ketQuaPhanTichDongVi: [String],
 			phanTichKhac: [String],
-			dacDiemDiaChat: String,
-			loaiHinhNguonGoc: String,
+			duLieuDiaChat: {
+				dacDiemDiaChat: String,
+				loaiHinhNguonGoc: String,
+			},
 			thongTinKhac5: String
 		},
 		media: {
@@ -70,6 +72,7 @@ module.exports = function (mongoose) {
 			videoFile: [String],
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
+				dinhKemXuLy: [String],
 				phuongThucXuLy: String,
 				nguoiXuLy: String,
 				coQuanXuLy: String,
@@ -84,10 +87,15 @@ module.exports = function (mongoose) {
 			phanLoaiSuDung : String,
 			thanhPhanKhoangVat : String,
 			tinhChatVatLy : String,
-			linhVucSuDung : String,
-			dacDiemPhanBo : String,
 			congThucHoaHoc : [String],
 			thanhPhanHoaHoc : String,
+		},
+		phanBoVaSuDung: {
+			phanBoVietNamStr: String,
+			phanBoVietNamFile: [String],
+			phoBoTrenTheGioiStr: String,
+			phoBoTrenTheGioiFile: [String],
+			giaTriSuDung: String,
 			thongTinKhac7: String
 		},
 		luuTruBaoQuan: {
@@ -98,17 +106,24 @@ module.exports = function (mongoose) {
 			hinhThucNhapMau: String,
 			traoDoiMau: String,
 			vayMuon: String,
-			khuLuuTruMau: String,
 			noiLuuTru: String,
+			khuLuuTruMau: {
+				phong: String,
+				tuGia: String,
+				ngan: String,
+				hop: String,
+			},
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
 			nguoiNhapPhieuMauVat: String,
 			nguoiNhapVaoPhanMem: String,
 			thongTinKhac8: String
 		},
-		
 		thongTinKhac: {
 			thongTinKhac9: String
+		},
+		maDeTai: {
+			maDeTai: String
 		}
 	};
 	var geologicalSchema = mongoose.Schema(schemaPrototype);

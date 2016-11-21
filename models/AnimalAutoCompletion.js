@@ -1,5 +1,6 @@
 module.exports = function (mongoose) {
 	var schemaPrototype = {
+		tenTheoBaoTang: [String],
 		tenDongNghia: [String],
 		gioi: [String],
 		nganh: [String],
@@ -20,10 +21,9 @@ module.exports = function (mongoose) {
 		huyen: [String],
 		xa: [String],
 		thon: [String],
+		coQuanThuMau: [String],
 		coQuanToChucPhanTich: [String],
 		coQuanXuLy: [String],
-		boPhanLayMauDNA: [String],
-		trangThaiGiuMauDNA: [String],
 		coQuanNhapVatMau: [String]
 	};
 	var animalAutoCompletion = mongoose.Schema(schemaPrototype);

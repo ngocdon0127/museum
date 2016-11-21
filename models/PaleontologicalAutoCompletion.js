@@ -17,9 +17,7 @@ module.exports = function (mongoose) {
 		xa: [String],
 		thon: [String],
 		coQuanToChucPhanTich: [String],
-		coQuanXuLy: [String],
-		boPhanLayMauDNA: [String],
-		trangThaiGiuMauDNA: [String],
+		vungGenPhanTich: [String],
 		coQuanNhapVatMau: [String]
 	};
 	var paleontologicalAutoCompletion = mongoose.Schema(schemaPrototype);

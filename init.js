@@ -493,106 +493,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
 function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph) {
-	var fs = require('fs');
-	var officegen = require('officegen');
-	var docx = officegen({
-		type: 'docx',
-		subjects: 'Mẫu phiếu dữ liệu',
-		orientation: 'landscape'
-	});
 
-	docx.on('finalize', function (written) {
-		console.log("Docx: written " + written + " bytes.");
-	});
-
-	docx.on('error', function (error) {
-		console.log("Docx: Error");
-		console.log(error);
-		console.log("===");
-	})
-
-	
-
-	for(var i = 0; i < paragraph.text.length; i++){
-		var pObj = docx.createP();
-		pObj.options.align = "center";
-		pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
-	}
-
-	var rowSpanOpts = {
-		// cellColWidth: 2261,
-		b:true,
-		sz: '24',
-		align: 'center',
-		shd: {
-			fill: "CCCCCC",
-			// themeFill: "text1",
-			// "themeFillTint": "30"
-		},
-		// gridSpan: 3,
-		fontFamily: "Times New Roman"
-	};
-
-	var labelOpts = {
-		cellColWidth: 500,
-		b:true,
-		sz: '24',
-		align: 'center',
-		shd: {
-			fill: "FFFFFF",
-			// themeFill: "text1",
-			// "themeFillTint": "30"
-		},
-		fontFamily: "Times New Roman"
-	};
-
-	var detailOpts = {
-		// cellColWidth: 2261,
-		// b:true,
-		sz: '24',
-		shd: {
-			fill: "FFFFFF",
-			// themeFill: "text1",
-			// "themeFillTint": "30"
-		},
-		fontFamily: "Times New Roman"
-	};
-
-	var table = [
-	[
-		{
-			val: "STT",
-			opts: labelOpts
-		},
-		{
-			val: "Trường dữ liệu",
-			opts: labelOpts
-		},
-		{
-			val: "Nội dung",
-			opts: labelOpts
-		},
-		{
-			val: "Ghi chú",
-			opts: labelOpts
-		}
-	]];
-	
-	var oi = {};
-	var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
-	PROP_FIELDS.map(function (field) {
-		objectChild(oi, field.schemaProp)[field.name] = {};
-		// console.log(oi);
-	});
-
-	var PROP_FIELDS_OBJ = {};
-
-	PROP_FIELDS.map(function (element, index) {
-		PROP_FIELDS_OBJ[element.name] = index;
-	});
-	var curDeep = 0;
-	var stt = 0;
-	
 	function display(obj){
 		// console.log(staticPath)
 		// console.log(count)
@@ -681,7 +582,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					catch (e){
 						// console.log(e);
 						// Do not care;
-						console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
+						// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 					}
 
 					
@@ -703,7 +604,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 							opts: detailOpts
 						}
 					]
-					if (value && value.length > 0){
+					if (value){
 						table.push(row);
 					}
 					break;
@@ -745,7 +646,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 							opts: detailOpts
 						}
 					]
-					if (value && value.length > 0){
+					if (value){
 						table.push(row);
 					}
 					break;
@@ -759,6 +660,116 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			curDeep--;
 		}
 	}
+
+	var fs = require('fs');
+	var officegen = require('officegen');
+	var docx = officegen({
+		type: 'docx',
+		subjects: 'Mẫu phiếu dữ liệu',
+		orientation: 'landscape'
+	});
+
+	docx.on('finalize', function (written) {
+		console.log("Docx: written " + written + " bytes.");
+	});
+
+	docx.on('error', function (error) {
+		console.log("Docx: Error");
+		console.log(error);
+		console.log("===");
+	})
+
+	
+
+	for(var i = 0; i < paragraph.text.length; i++){
+		var pObj = docx.createP();
+		pObj.options.align = "center";
+		pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
+	}
+
+	var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
+
+	var pObj = docx.createP();
+	pObj.options.align = "center";
+	pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+
+	var rowSpanOpts = {
+		// cellColWidth: 2261,
+		b:true,
+		sz: '24',
+		align: 'center',
+		shd: {
+			fill: "CCCCCC",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		// gridSpan: 3,
+		fontFamily: "Times New Roman"
+	};
+
+	var labelOpts = {
+		cellColWidth: 500,
+		b:true,
+		sz: '24',
+		align: 'center',
+		shd: {
+			fill: "FFFFFF",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Times New Roman"
+	};
+
+	var detailOpts = {
+		// cellColWidth: 2261,
+		// b:true,
+		sz: '24',
+		shd: {
+			fill: "FFFFFF",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Times New Roman"
+	};
+
+	var table = [
+	[
+		{
+			val: "STT",
+			opts: labelOpts
+		},
+		{
+			val: "Trường dữ liệu",
+			opts: labelOpts
+		},
+		{
+			val: "Nội dung",
+			opts: labelOpts
+		},
+		{
+			val: "Ghi chú",
+			opts: labelOpts
+		}
+	]];
+	
+	var oi = {};
+	PROP_FIELDS.map(function (field) {
+		if (field.name != 'maDeTai'){
+			objectChild(oi, field.schemaProp)[field.name] = {};
+		}
+		
+		// console.log(oi);
+	});
+
+	var PROP_FIELDS_OBJ = {};
+
+	PROP_FIELDS.map(function (element, index) {
+		PROP_FIELDS_OBJ[element.name] = index;
+	});
+	var curDeep = 0;
+	var stt = 0;
+	
+	
 
 	inOrder(oi);
 

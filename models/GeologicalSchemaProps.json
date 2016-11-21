@@ -81,20 +81,20 @@
 	{
 		"name": "tenTheoBaoTang",
 		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
+		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
-		"name": "tenKhoaHoc",
+		"name": "tenTheoQuocTe",
 		"schemaProp": "tenMau",
-		"label": "Tên khoa học (tên latinh)",
+		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$",
-		"autoCompletion": true
+		"autoCompletion": false
 	},
 	{
 		"name": "nguoiDinhTen",
@@ -382,13 +382,13 @@
 		"label": "Các phân tích khác",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
 		"name": "dacDiemDiaChat",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "-Đặc điểm địa chất",
+		"schemaProp": "duLieuPhanTichMau.duLieuDiaChat",
+		"label": "Đặc điểm địa chất",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$",
@@ -396,7 +396,7 @@
 	},
 	{
 		"name": "loaiHinhNguonGoc",
-		"schemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau.duLieuDiaChat",
 		"label": "-Loại hình nguồn gốc",
 		"required": false,
 		"type": "String",
@@ -416,7 +416,7 @@
 		"label": "Ảnh mẫu vật (*)",
 		"required": true,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
 		"autoCompletion": false
 	},
 	{
@@ -425,34 +425,23 @@
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
 		"autoCompletion": false
-	},
-	{
-		"name": "video",
-		"schemaProp": "media",
-		"label": "Thông tin về phim, video",
-		"required": false,
-		"type": "Mixed",
-		"subProps": ["videoStr", "videoFile"]
 	},
 	{
 		"name": "videoStr",
 		"schemaProp": "media",
 		"label": "Thông tin về phim, video",
 		"required": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
+		"type": "String"
 	},
 	{
 		"name": "videoFile",
 		"schemaProp": "media",
-		"label": "Thông tin về phim, video",
+		"label": "Đính kèm phim, video",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(mp4|flv|mpg)$",
-		"autoCompletion": false
+		"regex": "^.+\\.(mp4|mpg|flv|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "hinhAnhDinhKem",
@@ -462,6 +451,14 @@
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
 		"autoCompletion": false
+	},
+	{
+		"name": "dinhKemXuLy",
+		"schemaProp": "media.xuLyCheTac",
+		"label": "Đính kèm Xử lý chế tác",
+		"required": false,
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "phuongThucXuLy",
@@ -561,24 +558,6 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "linhVucSuDung",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Lĩnh vực sử dụng",
-		"required": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "dacDiemPhanBo",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Đặc điểm phân bố (ở Việt Nam và trên thế giới)",
-		"required": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
-	},
-	{
 		"name": "congThucHoaHoc",
 		"schemaProp": "dacDiemMauVat",
 		"label": "Công thức hóa học",
@@ -597,8 +576,59 @@
 		"autoCompletion": false
 	},
 	{
+		"name": "phanBoVietNam",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Phân bố Việt Nam",
+		"required": true,
+		"type": "Mixed",
+		"subProps": ["phanBoVietNamStr", "phanBoVietNamFile"]
+	},
+	{
+		"name": "phanBoVietNamStr",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Phân bố Việt Nam",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "phanBoVietNamFile",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Phân bố Việt Nam",
+		"required": false,
+		"type": "File"
+	},
+	{
+		"name": "phanBoTrenTheGioi",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Phân bố trên thế giới",
+		"required": false,
+		"type": "Mixed",
+		"subProps": ["phanBoTrenTheGioiStr", "phanBoTrenTheGioiFile"]
+	},
+	{
+		"name": "phanBoTrenTheGioiStr",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Phân bố trên thế giới",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "phanBoTrenTheGioiFile",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Phân bố trên thế giới",
+		"required": false,
+		"type": "File"
+	},
+	{
+		"name": "giaTriSuDung",
+		"schemaProp": "phanBoVaSuDung",
+		"label": "Giá trị sử dụng",
+		"required": false,
+		"type": "String"
+	},
+	{
 		"name": "thongTinKhac7",
-		"schemaProp": "dacDiemMauVat",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Thông tin khác",
 		"required": false,
 		"type": "String"
@@ -667,15 +697,6 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "khuLuuTruMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Khu lưu trữ mẫu",
-		"required": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
-	},
-	{
 		"name": "noiLuuTru",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Nơi lưu giữ mẫu",
@@ -683,6 +704,34 @@
 		"type": "String",
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
+	},
+	{
+		"name": "phong",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Phòng",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "tuGia",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Tủ, giá",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "ngan",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Ngăn tủ, ngăn giá",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "hop",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Hộp",
+		"required": false,
+		"type": "String"
 	},
 	{
 		"name": "giayPhepNhapMau",
@@ -699,14 +748,14 @@
 		"label": "Hồ sơ nhập mẫu vật đi kèm",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
 		"name": "nguoiNhapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người lập phiếu mẫu vật (*)",
-		"required": false,
+		"required": true,
 		"type": "String",
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
@@ -736,6 +785,14 @@
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
+	{
+		"name": "maDeTai",
+		"schemaProp": "maDeTai",
+		"label": "Mã đề tài",
+		"required": true,
+		"type": "String"
+	},
+	
 	{
 		"name": "soHieu",
 		"type": "Metadata",

@@ -21,7 +21,7 @@
 		"name": "soHieuBTTNVN",
 		"schemaProp": "soHieu",
 		"label": "Số hiệu BTTNVN (*)",
-		"required": true,
+		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
@@ -169,7 +169,7 @@
 		"schemaProp": "duLieuThuMau",
 		"label": "Thời gian thu mẫu (*)",
 		"required": true,
-		"type": "String",
+		"type": "Date",
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
@@ -376,7 +376,7 @@
 		"label": "Kết quả phân tích định tuổi",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -447,7 +447,7 @@
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
-		"autoCompletion": true
+		"autoCompletion": false
 	},
 	{
 		"name": "thongTinKhac5",
@@ -462,7 +462,7 @@
 		"label": "Ảnh mẫu vật (*)",
 		"required": true,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
 		"autoCompletion": false
 	},
 	{
@@ -471,34 +471,23 @@
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
 		"autoCompletion": false
-	},
-	{
-		"name": "video",
-		"schemaProp": "media",
-		"label": "Thông tin về phim, video",
-		"required": false,
-		"type": "Mixed",
-		"subProps": ["videoStr", "videoFile"]
 	},
 	{
 		"name": "videoStr",
 		"schemaProp": "media",
 		"label": "Thông tin về phim, video",
 		"required": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
+		"type": "String"
 	},
 	{
 		"name": "videoFile",
 		"schemaProp": "media",
-		"label": "Thông tin về phim, video",
+		"label": "Đính kèm phim, video",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(mp4|mpg|flv)$",
-		"autoCompletion": false
+		"regex": "^.+\\.(mp4|mpg|flv|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "hinhAnhDinhKem",
@@ -702,13 +691,32 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "khuLuuTruMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Khu lưu trữ mẫu (*)",
-		"required": true,
-		"type": "String",
-		"regex": "^.{1,150}$",
-		"autoCompletion": false
+		"name": "phong",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Phòng",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "tuGia",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Tủ, giá",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "ngan",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Ngăn tủ, ngăn giá",
+		"required": false,
+		"type": "String"
+	},
+	{
+		"name": "hop",
+		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+		"label": "Hộp",
+		"required": false,
+		"type": "String"
 	},
 	{
 		"name": "giayPhepNhapMau",
@@ -761,6 +769,13 @@
 		"type": "String",
 		"regex": "^.{0,500}$",
 		"autoCompletion": false
+	},
+	{
+		"name": "maDeTai",
+		"schemaProp": "maDeTai",
+		"label": "Mã đề tài",
+		"required": true,
+		"type": "String"
 	},
 	
 	{

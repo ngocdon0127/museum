@@ -102,7 +102,12 @@ module.exports = function (mongoose) {
 			traoDoiMau: String,
 			vayMuon: String,
 			noiLuuTruMau: String,
-			khuLuuTruMau: String,
+			khuLuuTruMau: {
+				phong: String,
+				tuGia: String,
+				ngan: String,
+				hop: String,
+			},
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
 			nguoiNhapPhieuMauVat: String,

@@ -16,16 +16,17 @@ module.exports = function (mongoose) {
 			tenDiaPhuong: String,
 			tenTiengAnh: String,
 			tenTheoBaoTang: String,
-			tenKhoaHoc: String,
-			tenDongNghia: String,
-			gioi: String,
-			nganh: String,
-			lop: String,
-			bo: String,
-			ho: String,
-			giong: String,
-			loai: String,
-			duoiLoai: String,
+			tenKhoaHoc: {
+				tenDongNghia: String,
+				gioi: String,
+				nganh: String,
+				lop: String,
+				bo: String,
+				ho: String,
+				giong: String,
+				loai: String,
+				duoiLoai: String,
+			},
 			nguoiDinhTen: String,
 			thongTinKhac2: String
 		},
@@ -53,8 +54,8 @@ module.exports = function (mongoose) {
 				viDo: String,
 				kinhDo: String
 			},
-			thongTinDuAn: String,
 			thongTinDiaTang: String,
+			thongTinDuAn: String,
 			ghiChepThucDia: String,
 			banDo: [String],
 			thongTinKhac4: String
@@ -86,8 +87,7 @@ module.exports = function (mongoose) {
 				anhMauSauCheTac: [String]
 			},
 			thongTinDNA: {
-				dinhKemChayTrinhTuDNA: String,
-				trichDanTrinhTuDNA: String,
+				vungGenPhanTich: String,
 				trinhTuDNA: String,
 				dinhKemTrinhTuDNA: [String],
 				congBoQuocTe: String
@@ -112,8 +112,13 @@ module.exports = function (mongoose) {
 			hinhThucNhapMau: String,
 			traoDoiMau: String,
 			vayMuon: String,
-			khuLuuTruMau: String,
 			noiLuuTruMau: String,
+			khuLuuTruMau: {
+				phong: String,
+				tuGia: String,
+				ngan: String,
+				hop: String,
+			},
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
 			nguoiNhapPhieuMauVat: String,

@@ -289,5 +289,4 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), func
 	})
 	// return res.end('ok');
 })
-
 }

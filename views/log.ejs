@@ -106,7 +106,7 @@
 										<a href="<%= basePath %>/log/<%= logs[i]._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
 										<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 									<% } else if (logs[i].action == 'update') { %>
-										<!--<a href="<%= basePath %>/log/<%= logs[i]._id + '/diff' %>"><h4>Xem những cập nhật</h4></a>-->
+										<a href="<%= basePath %>/log/<%= logs[i]._id + '/diff' %>"><h4>Xem những cập nhật</h4></a>
 										<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 									<% } else if (logs[i].action == 'delete') { %>
 										<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>

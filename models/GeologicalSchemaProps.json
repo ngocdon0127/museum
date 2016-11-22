@@ -239,7 +239,7 @@
 		"name": "thon",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Thôn/bản",
-		"required": true,
+		"required": false,
 		"type": "String",
 		"regex": "^.{1,100}$",
 		"autoCompletion": true
@@ -284,7 +284,7 @@
 		"name": "banDo",
 		"schemaProp": "duLieuThuMau",
 		"label": "Bản đồ",
-		"required": true,
+		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
 		"autoCompletion": false

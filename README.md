@@ -1,6 +1,6 @@
 # Prerequisites
 
-- [NodeJS 4.x](https://nodejs.org/en/download/)
+- [NodeJS 6.x](https://nodejs.org/en/download/)
 
 - npm (Go with NodeJS)
 

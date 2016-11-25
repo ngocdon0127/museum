@@ -134,7 +134,7 @@
 		"name": "loaiMau",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
-		"required": false,
+		"required": true,
 		"type": "String",
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
@@ -266,7 +266,7 @@
 		"name": "thongTinDuAn",
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật (*)",
-		"required": false,
+		"required": true,
 		"type": "String",
 		"regex": "^.{0,100}$",
 		"autoCompletion": false
@@ -311,7 +311,7 @@
 		"label": "Người phân tích/giám định/định loại mẫu (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -509,7 +509,7 @@
 		"label": "Loại mẫu(*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -518,7 +518,7 @@
 		"label": "Hình dáng mẫu, dạng tồn tại (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -527,7 +527,7 @@
 		"label": "Màu sắc (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -545,7 +545,7 @@
 		"label": "Thành phần khoáng vật (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -554,7 +554,7 @@
 		"label": "Tính chất vật lý (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -595,7 +595,8 @@
 		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố Việt Nam",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
@@ -617,7 +618,8 @@
 		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
 	},
 	{
 		"name": "giaTriSuDung",
@@ -757,7 +759,7 @@
 		"label": "Người lập phiếu mẫu vật (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{

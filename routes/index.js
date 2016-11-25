@@ -37,6 +37,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 			user.id = users[i].id;
 			user.fullname = users[i].fullname;
 			user.username = users[i].username;
+			user.lastLogin = users[i].lastLogin;
 			// user.email = users[i].email;
 			result.users[user.id] = user;
 		}

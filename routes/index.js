@@ -30,6 +30,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 		}
 		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
 		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')))
 		var result = {};
 		result.users = {};
 		for (var i = 0; i < users.length; i++) {
@@ -66,6 +67,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 		res.render('config', {
 			users: result.users,
 			roles: result.roles,
+			cores: cores,
 			aclRules: result.aclRules,
 			user: req.user,
 			path: req.path
@@ -112,6 +114,11 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit')
 			})
 		}
 	})
+})
+
+router.get('/config/roles', aclMiddleware('/config', 'view'), function (req, res, next) {
+	
+	return res.render('roles', {cores: cores})
 })
 
 // router.get('/test', function (req, res, next) {

@@ -346,7 +346,7 @@
 		"label": "Vĩ độ N",
 		"required": true,
 		"type": "String",
-		"regex": "^.{1,100}$",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "kinhDo",

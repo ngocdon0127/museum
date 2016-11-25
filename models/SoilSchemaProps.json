@@ -5,7 +5,7 @@
 		"label": "Số hiệu thực địa",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -14,7 +14,7 @@
 		"label": "Số hiệu Bảo tàng cơ sở (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -145,7 +145,7 @@
 		"label": "Kích thước mẫu vật (dài x rộng x cao) (m???) (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -154,7 +154,7 @@
 		"label": "Tình trạng mẫu vật (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -170,7 +170,7 @@
 		"label": "Thời gian thu mẫu (*)",
 		"required": true,
 		"type": "Date",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -179,7 +179,7 @@
 		"label": "Người thu mẫu (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -205,7 +205,7 @@
 		"label": "Quốc gia (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -214,7 +214,7 @@
 		"label": "Tỉnh (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -223,7 +223,7 @@
 		"label": "Huyện (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -232,7 +232,7 @@
 		"label": "Xã (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -250,7 +250,7 @@
 		"label": "Vĩ độ N (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -259,7 +259,7 @@
 		"label": "Kinh độ E (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -268,7 +268,7 @@
 		"label": "Mẫu chất ở vị trí thu mẫu (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,150}$",
+		"regex": "^.{1,150}$",
 		"autoCompletion": false
 	},
 	{
@@ -277,7 +277,7 @@
 		"label": "Độ cao (*)",
 		"required": true,
 		"type": "Number",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -295,7 +295,7 @@
 		"label": "Độ dốc nơi thu mẫu(*)",
 		"required": true,
 		"type": "Number",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -304,7 +304,7 @@
 		"label": "Mực nước ngầm nơi thu mẫu(*)",
 		"required": true,
 		"type": "Number",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -331,7 +331,7 @@
 		"label": "Dạng địa hình nơi thu mẫu(*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,250}$",
+		"regex": "^.{1,250}$",
 		"autoCompletion": false
 	},
 	{
@@ -340,7 +340,7 @@
 		"label": "Thảm thực vật hiện tại nơi thu mẫu(*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,250}$",
+		"regex": "^.{1,250}$",
 		"autoCompletion": false
 	},
 	{
@@ -358,7 +358,7 @@
 		"label": "Ghi chép thực địa (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,250}$",
+		"regex": "^.{1,250}$",
 		"autoCompletion": false
 	},
 	{
@@ -685,9 +685,9 @@
 		"name": "noiLuuTruMau",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Nơi trữ mẫu (*)",
-		"required": true,
+		"required": false,
 		"type": "String",
-		"regex": "^.{1,150}$",
+		"regex": "^.{0,150}$",
 		"autoCompletion": false
 	},
 	{
@@ -724,7 +724,7 @@
 		"label": "Giấy phép nhập mẫu",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.pdf$",
+		"regex": "^.+\\.(png|gif|bmp|jpe?g|raw|docx?|pdf)$",
 		"autoCompletion": false
 	},
 	{
@@ -764,7 +764,7 @@
 	{
 		"name": "thongTinKhac9",
 		"schemaProp": "thongTinKhac",
-		"label": "Thông tin khác",
+		"label": "Các thông tin khác",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,500}$",

@@ -313,7 +313,13 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU ĐẶC ĐIỂM MẪU VẬT</h3>
 				<tr>
 					<td><label>46. Loại mẫu (*):</label></td>
-					<td><input type="text" title="{{tooltips[56]}}" name="loaiMau" ng-model="data.loaiMau" required id="loaiMau" class="input-form"></td>
+					<td>
+						<select required class="select-box" title="{{tooltips[56]}}" name="loaiMauVat" ng-model="data.loaiMauVat">
+							<option>Mẫu đá </option>
+							<option>Mẫu khoáng vật</option>
+							<option>Mẫu khoáng sản</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td><label>47. Hình dáng mẫu, dạng tồn tại (*):</label></td>

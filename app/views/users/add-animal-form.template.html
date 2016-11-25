@@ -1,3 +1,4 @@
+<div id="loading-bar-container"></div>
 <div style="margin-top: 60px;">
 	<form id="form-content" name="FormData">
 		<center><h2>Thêm mẫu dữ liệu động vật</h2></center>
@@ -188,7 +189,7 @@
 					<tr>
 						<td>Quốc gia(*): </td>
 						<td>
-							<select class="select-box" ng-model="data.quocGia" title="{{tooltips[37]}}" name="quocGia" required>
+							<select class="select-box" ng-model="quocGia" title="{{tooltips[37]}}" name="quocGia" required>
 								<option value="Việt Nam">Việt Nam</option>
 							</select>
 						</td>
@@ -196,7 +197,7 @@
 					<tr>
 						<td>Tỉnh/Thành phố(*): </td>
 						<td>
-							<select class="select-box" title="{{tooltips[38]}}" name="tinh" required ng-model= "$parent.data.tinh" ng-click="cityChange()">
+							<select class="select-box" title="{{tooltips[38]}}" name="tinh" required ng-model= "$parent.tinh" ng-click="cityChange()">
 								<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " + city.name}}</option>
 							</select>
 						</td>
@@ -204,22 +205,22 @@
 					<tr>
 						<td>Huyện(*):</td>
 						<td>
-							<select class="select-box" title="{{tooltips[39]}}" name="huyen" required ng-model= "$parent.data.huyen" ng-click="districtChange()">
-								<option ng-repeat="(key, district) in districts | customCity: data.tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
+							<select class="select-box" title="{{tooltips[39]}}" name="huyen" required ng-model= "$parent.huyen" ng-click="districtChange()">
+								<option ng-repeat="(key, district) in districts | customCity: tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>Xã(*): </td>
 						<td>
-							<select class="select-box" ng-model="data.xa" title="{{tooltips[40]}}" name="xa" required>
-								<option ng-repeat="(key, ward) in wards | customDistrict: data.huyen" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
+							<select class="select-box" ng-model="xa" title="{{tooltips[40]}}" name="xa" required>
+								<option ng-repeat="(key, ward) in wards | customDistrict: huyen" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>Thôn/Xóm: </td>
-						<td><input type="text" ng-model="data.thon" title="{{tooltips[41]}}" name="thon" class="input-form"></td>
+						<td><input type="text" ng-model="thon" title="{{tooltips[41]}}" name="thon" class="input-form"></td>
 					</tr>
 				</table>
 				</td>

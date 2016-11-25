@@ -19,6 +19,25 @@
 							<h3 class="panel-title">Users</h3>
 						</div>
 						<div class="panel-body">
+							<%
+								function display(obj){
+									// console.log(staticPath)
+									// console.log(count)
+									if (obj instanceof Array){
+										var result =  obj.reduce(function (preStr, curElement){
+											// console.log(curElement.split('_+_')[1]);
+											preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+											return preStr;
+										}, '');
+										return result;
+									}
+									else if (obj instanceof Date){
+										return [obj.getHours(), obj.getMinutes(), obj.getSeconds()].join(':') + '<br>' + [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+									}
+									// Need to escape to prevent injected HTML + JS
+									return escape(obj);
+								}
+							%>
 							<ul class="list-group">
 								<% for (var i in users) { %>
 									<li class="list-group-item">
@@ -27,6 +46,9 @@
 												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 													<h4><%= users[i].fullname %></h4>
 													<h5 class="text-info">(<%= users[i].username %>)</h5>
+													<% if (users[i].lastLogin) { %>
+													<h5 class="text-info">(<%- "Last Login:<br>" + users[i].lastLogin.toLocaleString() %>)</h5>
+													<% } %>
 													<input type="hidden" value="<%= i %>" name="userid" />
 												</div>
 												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">

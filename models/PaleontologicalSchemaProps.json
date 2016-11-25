@@ -77,7 +77,7 @@
 	},
 	{
 		"name": "tenDongNghia",
-		"schemaProp": "tenMau",
+		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Tên đồng nghĩa (synonym)",
 		"required": false,
 		"type": "String",
@@ -300,7 +300,7 @@
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin địa tầng, địa lý và tuổi địa chất (*)",
 		"required": true,
-		"type": "File",
+		"type": "String",
 		"regex": "^.{1,100}$"
 	},
 	{
@@ -391,7 +391,8 @@
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Mô tả đặc điểm hình thái",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "hinhVe",
@@ -452,7 +453,8 @@
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Đính kèm Xử lý chế tác",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "thuocTinhXuLy",
@@ -549,7 +551,8 @@
 		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố Việt Nam",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(png|jpe?g|bmp|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
@@ -571,7 +574,8 @@
 		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố trên thế giới",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(png|jpe?g|bmp|pdf|docx?)$"
 	},
 	{
 		"name": "giaTriSuDung",
@@ -633,7 +637,7 @@
 	{
 		"name": "vayMuon",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Vay mượn mẫu",
+		"label": "Vay mượn",
 		"required": false,
 		"type": "String"
 	},

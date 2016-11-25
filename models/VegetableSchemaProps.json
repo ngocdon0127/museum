@@ -58,28 +58,24 @@
 		"schemaProp": "tenMau",
 		"label": "Tên địa phương",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "tenTiengAnh",
 		"schemaProp": "tenMau",
 		"label": "Tên tiếng Anh",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "tenTheoBaoTang",
 		"schemaProp": "tenMau",
 		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
 		"required": false,
-		"type": "String"
-	},
-	{
-		"name": "tenKhoaHoc",
-		"schemaProp": "tenMau",
-		"label": "Tên khoa học (tên latinh)",
-		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "tenDongNghia",
@@ -87,6 +83,7 @@
 		"label": "Tên đồng nghĩa (synonym)",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -168,7 +165,7 @@
 		"required": true,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "tong",
@@ -194,6 +191,7 @@
 		"label": "Loài",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -202,6 +200,7 @@
 		"label": "Dưới loài/phân loài",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -237,28 +236,32 @@
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "kichThuocMau",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Kích thước mẫu vật(dài x rộng x cao)",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "tinhTrangMau",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Tình trạng mẫu vật",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "thongTinKhac3",
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin khác",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "thoiGianThuMau",
@@ -272,7 +275,8 @@
 		"schemaProp": "duLieuThuMau",
 		"label": "Người thu mẫu",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "coQuanThuMau",
@@ -280,6 +284,7 @@
 		"label": "Cơ quan thu mẫu",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -296,6 +301,7 @@
 		"label": "Quốc gia",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -304,6 +310,7 @@
 		"label": "Tỉnh",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -312,6 +319,7 @@
 		"label": "Huyện",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -320,6 +328,7 @@
 		"label": "Xã",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -328,6 +337,7 @@
 		"label": "Thôn/bản",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -335,14 +345,16 @@
 		"schemaProp": "duLieuThuMau.viTriToaDo",
 		"label": "Vĩ độ N",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$",
 	},
 	{
 		"name": "kinhDo",
 		"schemaProp": "duLieuThuMau.viTriToaDo",
 		"label": "Kinh độ E",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "doCao",
@@ -377,28 +389,32 @@
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "ghiChepThucDia",
 		"schemaProp": "duLieuThuMau",
 		"label": "Ghi chép thực địa",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "banDo",
 		"schemaProp": "duLieuThuMau",
 		"label": "Bản đồ",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac4",
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin khác",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "thoiGianPhanTich",
@@ -412,7 +428,8 @@
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Người phân tích/giám định/định loại mẫu",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "coQuanToChucPhanTich",
@@ -420,6 +437,7 @@
 		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -434,7 +452,7 @@
 		"name": "moTaHinhThaiFile",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Mô tả/đặc điểm hình thái",
-		"required": false,
+		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
@@ -505,14 +523,16 @@
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Phương thức xử lý chế tác",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "nguoiXuLy",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Người xử lý, chế tác mẫu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "coQuanXuLy",
@@ -520,6 +540,7 @@
 		"label": "Cơ quan xử lý, chế tác mẫu",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -536,6 +557,7 @@
 		"label": "Vị trí lấy mẫu",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -544,6 +566,7 @@
 		"label": "Mẫu DNA",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -551,35 +574,40 @@
 		"schemaProp": "media.thongTinDNA",
 		"label": "Vùng gen phân tích",
 		"required": false,
+		"regex": "^.{0,100}$",
 		"type": "String"
 	},
 	{
 		"name": "dinhKemTrinhTuDNA",
 		"schemaProp": "media.thongTinDNA",
-		"label": "Đính kèm Trình tự DNA",
+		"label": "Trình tự DNA",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "congBoQuocTe",
 		"schemaProp": "media.thongTinDNA",
 		"label": "Công bố/thông tin quốc tế (genbank...)",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "thongTinMauHatPhan",
 		"schemaProp": "media.thongTinDNA",
 		"label": "Thông tin mẫu hạt phấn",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "thongTinKhac6",
 		"schemaProp": "media",
 		"label": "Thông tin khác",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "phanBoVietNam",
@@ -594,14 +622,16 @@
 		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố Việt Nam",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "phanBoVietNamFile",
 		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố Việt Nam",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
@@ -616,28 +646,32 @@
 		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố trên thế giới",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "phanBoTrenTheGioiFile",
 		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
 		"label": "Phân bố trên thế giới",
 		"required": false,
-		"type": "File"
+		"type": "File",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "giaTriSuDung",
 		"schemaProp": "phanBoVaSuDung",
 		"label": "Giá trị sử dụng",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "thongTinKhac7",
 		"schemaProp": "giaTriSuDung",
 		"label": "Thông tin khác",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "ngayNhapMau",
@@ -651,14 +685,16 @@
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người giao mẫu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "nguoiNhan",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người nhận mẫu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "coQuanNhapVatMau",
@@ -666,6 +702,7 @@
 		"label": "Cơ quan nhập mẫu",
 		"required": false,
 		"type": "String",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -673,28 +710,32 @@
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Hình thức nhập mẫu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "traoDoiMau",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Trao đổi mẫu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "vayMuon",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Vay mượn mẫu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "noiLuuTruMau",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Nơi lưu giữ mẫu",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "phong",
@@ -745,28 +786,32 @@
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người nhập phiếu mẫu vật",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "nguoiNhapVaoPhanMem",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người nhập thông tin vào phần mềm",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "thongTinKhac8",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Thông tin khác",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "thongTinKhac9",
 		"schemaProp": "thongTinKhac",
 		"label": "Thông tin khác",
 		"required": false,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "maDeTai",

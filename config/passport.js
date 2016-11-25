@@ -37,6 +37,8 @@ module.exports = function (passport, User) {
 
 			// login passport
 			done(null, user);
+			user.lastLogin = new Date();
+			user.save()
 		})
 	}));
 

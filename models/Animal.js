@@ -73,7 +73,7 @@ module.exports = function (mongoose) {
 			nguoiPhanTich: String,
 			coQuanToChucPhanTich: String,
 			taiLieuPhanTich: [String],
-			moTaHinhThai: [String],
+			moTaHinhThaiFile: [String],
 			gioiTinh: String,
 			giaiDoanSong: String,
 			hinhVe: [String],

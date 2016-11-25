@@ -66,6 +66,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/tho-nhuong';
 var objectModelLabel       = 'thổ nhưỡng';
 
+LABEL.objectModelLabel = objectModelLabel;
+
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,

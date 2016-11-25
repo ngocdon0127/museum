@@ -387,7 +387,7 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
-		"name": "moTaHinhThai",
+		"name": "moTaHinhThaiStr",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Mô tả đặc điểm hình thái",
 		"required": true,

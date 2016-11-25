@@ -784,12 +784,32 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 	docx.createTable (table, tableStyle);
 	// var fs = require('fs');
-	var outputStream = fs.createWriteStream(path.join(__dirname, 'test.docx'));
+	var tmpFileName = (new Date()).getTime() + '.tmp.docx';
+	var outputStream = fs.createWriteStream(path.join(__dirname, tmpFileName));
 	outputStream.on('close', function () {
 		console.log('output done.');
-		res.download(path.join(__dirname, 'test.docx'));
+		console.log(LABEL);
+		var outputFileName = 'PCSDL';
+		try {
+			if (LABEL.objectModelLabel){
+				outputFileName += '_' + LABEL.objectModelLabel;
+			}
+			if (flatOI.tenVietNam){
+				outputFileName += '_' + flatOI.tenVietNam;
+			}
+			if (flatOI.soHieuBaoTangCS){
+				outputFileName += '_' + flatOI.soHieuBaoTangCS;
+			}
+		}
+		catch (e){
+			console.log(e);
+		}
+		finally {
+			outputFileName += '.docx';
+		}
+		res.download(path.join(__dirname, tmpFileName), outputFileName);
 		setTimeout(function () {
-			fs.unlink(path.join(__dirname, 'test.docx'));
+			fs.unlink(path.join(__dirname, tmpFileName));
 		}, 2000);
 		// res.end("OK");
 	});

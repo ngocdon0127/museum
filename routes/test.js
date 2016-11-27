@@ -1,5 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
+var officegen = require('officegen');
+var docx = officegen({
+	type: 'docx',
+	subjects: 'Mẫu phiếu dữ liệu',
+	// orientation: 'landscape'
+	orientation: 'portrait'
+});
+var fs = require('fs');
 // var XLSX = require('xlsx');
 // var datenum                    = global.myCustomVars.datenum;
 // var sheet_from_array_of_arrays = global.myCustomVars.sheet_from_array_of_arrays;
@@ -166,6 +175,173 @@ router.get('/wb', function(req, res, next) {
 	// XLSX.writeFile(workbook, 'wb.xlsx');
 	// res.end("Done");
 });
+
+router.get('/json', function (req, res, next) {
+	var table = [
+	    [{
+	        val: "No.",
+	        opts: {
+	            cellColWidth: 4261,
+	            b:true,
+	            sz: '48',
+	            shd: {
+	                fill: "7F7F7F",
+	                themeFill: "text1",
+	                "themeFillTint": "80"
+	            },
+	            fontFamily: "Avenir Book"
+	        }
+	    },{
+	        val: "Title1",
+	        opts: {
+	            b:true,
+	            u: true,
+	            color: "A00000",
+	            align: "right",
+	            shd: {
+	                fill: "92CDDC",
+	                themeFill: "text1",
+	                "themeFillTint": "80"
+	            }
+	        }
+	    },{
+	        val: "Title2",
+	        opts: {
+	            align: "center",
+	            cellColWidth: 42,
+	            b:true,
+	            sz: '48',
+	            shd: {
+	                fill: "92CDDC",
+	                themeFill: "text1",
+	                "themeFillTint": "80"
+	            }
+	        }
+	    }],
+	    [1,'All grown-ups were once children',''],
+	    [2,'there is no harm in putting off a piece of work until another day.',''],
+	    [3,'But when it is a matter of baobabs, that always means a catastrophe.',''],
+	    [4,'watch out for the baobabs!','END'],
+	]
+
+	var tableStyle = {
+	    tableColWidth: 4261,
+	    tableSize: 24,
+	    tableColor: "ada",
+	    tableAlign: "left",
+	    tableFontFamily: "Comic Sans MS"
+	}
+
+	var data = [[{
+	        type: "text",
+	        val: "Simple"
+	    }, {
+	        type: "text",
+	        val: " with color",
+	        opt: { color: '000088' }
+	    }, {
+	        type: "text",
+	        val: "  and back color.",
+	        opt: { color: '00ffff', back: '000088' }
+	    }, {
+	        type: "linebreak"
+	    }, {
+	        type: "text",
+	        val: "Bold + underline",
+	        opt: { bold: true, underline: true }
+	    }], {
+	        type: "horizontalline"
+	    }, [{ backline: 'EDEDED' }, {
+	        type: "text",
+	        val: "  backline text1.",
+	        opt: { bold: true }
+	    }, {
+	        type: "text",
+	        val: "  backline text2.",
+	        opt: { color: '000088' }
+	    }], {
+	        type: "text",
+	        val: "Left this text.",
+	        lopt: { align: 'left' }
+	    }, {
+	        type: "text",
+	        val: "Center this text.",
+	        lopt: { align: 'center' }
+	    }, {
+	        type: "text",
+	        val: "Right this text.",
+	        lopt: { align: 'right' }
+	    }, {
+	        type: "text",
+	        val: "Fonts face only.",
+	        opt: { font_face: 'Arial' }
+	    }, {
+	        type: "text",
+	        val: "Fonts face and size.",
+	        opt: { font_face: 'Arial', font_size: 40 }
+	    }, {
+	        type: "table",
+	        val: table,
+	        opt: tableStyle
+	    }, [{ // arr[0] is common option.
+	        align: 'right'
+	    }, {
+	        type: "text",
+	        val: 'hihi'
+	    },{
+	        type: "text",
+	        val: 'hihi1'
+	    }], {
+	        type: "pagebreak"
+	    }
+	]
+
+	docx.createByJson(data);
+
+	var tmpFileName = (new Date()).getTime() + '.tmp.docx';
+	var outputStream = fs.createWriteStream(path.join(__dirname, tmpFileName));
+	outputStream.on('close', function () {
+		console.log('output done.');
+		// console.log(LABEL);
+		var outputFileName = 'PCSDL';
+		
+		var extension = 'docx';
+		if (extension == 'docx'){
+			outputFileName += '.docx';
+			res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+				fs.unlink(path.join(__dirname, tmpFileName));
+			});
+		}
+		else if (extension == 'pdf'){
+			console.log('pdf');
+			outputFileName += '.pdf';
+			var exec = require('child_process').exec;
+			var cmd = 'libreoffice --invisible --convert-to pdf ' + tmpFileName;
+			exec(cmd, function (err, stdout, stderr) {
+				if (err){
+					console.log(err);
+					return res.end('err');
+				}
+				// console.log('---')
+				// console.log(stdout);
+				// console.log('---')
+				// console.log(stderr);
+				// console.log('---')
+				pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
+				// console.log(pdfFileName);
+				// console.log(outputFileName);
+				res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
+					fs.unlink(path.join(__dirname, pdfFileName));
+					fs.unlink(path.join(__dirname, tmpFileName));
+				});
+			})
+			// return res.end("ok")
+
+		}
+		// res.end("OK");
+	});
+	docx.generate(outputStream);
+})
 
 // router.get('/pdf', function (req, res, next) {
 // 	var msopdf = require('node-msoffice-pdf');

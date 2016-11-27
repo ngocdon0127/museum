@@ -516,6 +516,9 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	}
 
 
+	var curProp = '';
+	var addPropRow = true;
+
 	function inOrder (tree) {
 		if (!tree){
 			return;
@@ -533,6 +536,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			var p;
 			switch (curDeep){
 				case 0:
+					addPropRow = true;
 					// Label
 					try{
 						p = LABEL[prop];
@@ -564,6 +568,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					break;
 				case 1:
 					stt++;
+					curProp = prop;
+					addPropRow = true;
 					// console.log('printing ' + prop);
 					// var value = flatOI[prop];
 					// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
@@ -628,14 +634,46 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 						// Do not care;
 						console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 					}
-					var row = [
+					var row = null;
+					if (addPropRow){
+						try{
+							curProp = LABEL[curProp];
+						}
+						catch (e){
+							console.log(e);
+							// Do not care;
+							// break;
+						}
+						row = [
+							{
+								val: stt,
+								opts: labelOpts
+							},
+							{
+								val: curProp,
+								opts: detailOpts
+							},
+							{
+								val: '',
+								opts: detailOpts
+							},
+							{
+								val: '',
+								opts: detailOpts
+							}
+						]
+						table.push(row);
+						addPropRow = false;
+					}
+					
+					row = [
 						{
 							val: '',
 							opts: labelOpts
 						},
 						{
 							val: p,
-							opts: detailOpts
+							opts: detailItalicOpts
 						},
 						{
 							val: value,
@@ -666,7 +704,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	var docx = officegen({
 		type: 'docx',
 		subjects: 'Mẫu phiếu dữ liệu',
-		orientation: 'landscape'
+		// orientation: 'landscape'
+		orientation: 'portrait'
 	});
 
 	docx.on('finalize', function (written) {
@@ -732,6 +771,18 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		fontFamily: "Times New Roman"
 	};
 
+	var detailItalicOpts = {
+		// cellColWidth: 2261,
+		sz: '22',
+		bold: true,
+		shd: {
+			fill: "FFFFFF",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Times New Roman"
+	};
+
 	var table = [
 	[
 		{
@@ -754,6 +805,12 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	
 	var oi = {};
 	PROP_FIELDS.map(function (field) {
+		if (field.type == 'Mixed'){
+			// Do not add Mixed property to tree
+			// Mixed property has it's own name.
+			// Ex: phanBoVietNam => phanBoVietNameMixed
+			return;
+		}
 		if (field.name != 'maDeTai'){
 			objectChild(oi, field.schemaProp)[field.name] = {};
 		}

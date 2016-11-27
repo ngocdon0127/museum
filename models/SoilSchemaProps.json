@@ -552,7 +552,7 @@
 	},
 	{
 		"name": "phanBoVietNam",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố Việt Nam",
 		"required": true,
 		"type": "Mixed",
@@ -560,7 +560,7 @@
 	},
 	{
 		"name": "phanBoVietNamStr",
-		"schemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
 		"label": "Phân bố ở Việt Nam (*)",
 		"required": false,
 		"type": "String",
@@ -569,7 +569,7 @@
 	},
 	{
 		"name": "phanBoVietNamFile",
-		"schemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
 		"label": "Phân bố ở Việt Nam (*)",
 		"required": false,
 		"type": "File",
@@ -578,7 +578,7 @@
 	},
 	{
 		"name": "phanBoTrenTheGioi",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "Mixed",
@@ -586,7 +586,7 @@
 	},
 	{
 		"name": "phanBoTrenTheGioiStr",
-		"schemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "String",
@@ -595,7 +595,7 @@
 	},
 	{
 		"name": "phanBoTrenTheGioiFile",
-		"schemaProp": "phanBoVaSuDung",
+		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "File",
@@ -724,7 +724,7 @@
 		"label": "Giấy phép nhập mẫu",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(png|gif|bmp|jpe?g|raw|docx?|pdf)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -822,5 +822,45 @@
 		"name": "thongTinKhac",
 		"type": "Metadata",
 		"label": "Nhóm dữ liệu thông tin khác"
+	},
+	{
+		"name": "tenKhoaHoc",
+		"type": "Metadata",
+		"label": "Tên khoa học"
+	},
+	{
+		"name": "diaDiemThuMau",
+		"type": "Metadata",
+		"label": "Địa điểm thu mẫu"
+	},
+	{
+		"name": "viTriToaDo",
+		"type": "Metadata",
+		"label": "Vị trí toạ độ theo hệ toạ độ VN 2000"
+	},
+	{
+		"name": "xuLyCheTac",
+		"type": "Metadata",
+		"label": "Xử lý chế tác mẫu vật"
+	},
+	{
+		"name": "thongTinDNA",
+		"type": "Metadata",
+		"label": "Thông tin DNA"
+	},
+	{
+		"name": "khuLuuTruMau",
+		"type": "Metadata",
+		"label": "Khu lưu trữ mẫu"
+	},
+	{
+		"name": "phanBoVietNamMixed",
+		"type": "Metadata",
+		"label": "Phân bố Việt Nam"
+	},
+	{
+		"name": "phanBoTrenTheGioiMixed",
+		"type": "Metadata",
+		"label": "Phân bố trên thế giới"
 	}
 ]

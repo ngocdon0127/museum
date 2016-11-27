@@ -102,10 +102,14 @@ module.exports = function (mongoose) {
 			thongTinKhac6: String
 		},
 		phanBoVaSuDung: {
-			phanBoVietNamStr: String,
-			phanBoVietNamFile: [String],
-			phanBoTrenTheGioiStr: String,
-			phanBoTrenTheGioiFile: [String],
+			phanBoVietNamMixed: {
+				phanBoVietNamStr: String,
+				phanBoVietNamFile: [String],
+			},
+			phanBoTrenTheGioiMixed: {
+				phanBoTrenTheGioiStr: String,
+				phanBoTrenTheGioiFile: [String]
+			},
 			giaTriSuDung: String,
 			thongTinKhac7: String
 		},

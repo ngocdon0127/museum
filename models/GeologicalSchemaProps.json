@@ -586,14 +586,14 @@
 	{
 		"name": "phanBoVietNamStr",
 		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
-		"label": "Phân bố Việt Nam",
+		"label": "Phân bố",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phanBoVietNamFile",
 		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
-		"label": "Phân bố Việt Nam",
+		"label": "Đính kèm",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
@@ -609,14 +609,14 @@
 	{
 		"name": "phanBoTrenTheGioiStr",
 		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
-		"label": "Phân bố trên thế giới",
+		"label": "Phân bố",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phanBoTrenTheGioiFile",
 		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
-		"label": "Phân bố trên thế giới",
+		"label": "Đính kèm",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"

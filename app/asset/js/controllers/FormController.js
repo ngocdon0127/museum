@@ -42,9 +42,8 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		console.log(err);
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
-	$scope.addPost = function(){
-		// console.log($scope.FormData.$valid);
-		// if ($scope.FormData.$valid) {
+	$scope.addPost = function(FormContent, form){
+		if ($scope.FormContent.$valid) {
 			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			$.ajax({
@@ -81,9 +80,9 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 					
 				}
 			});
-		// } else{
-		// 	angular.element("[name='" + FormData.$name + "']").find('.ng-invalid:visible:first').focus();
-		// }
+		} else{
+			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		}
 	}
 }]);
 
@@ -132,38 +131,42 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
 
-	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/thuc-vat',
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
+	$scope.addPost = function(FormContent, form){
+		if ($scope.FormContent.$valid) {
+			var fd = new FormData(document.getElementById('form-content'));
+			$.ajax({
+				url: '/content/thuc-vat',
+				method: 'POST',
+				contentType: false,
+				processData: false,
+				data: fd,
+				success: function (data) {
+					alert(data.status);
+					window.location = urlRe;
+				},
+				error: function (err) {
+					console.log(err);
+					alert(JSON.parse(err.responseText).error);
+					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+					try {
+						element.style.background = '#EE543A';
+						setTimeout((function (e) {
+							return function () {
+								e.style.background = 'white';
+							}
+						})(element), 2000);
+						$('html, body').animate({
+							scrollTop: $(element).offset().top - 100
+						}, 500);
+					}
+					catch (e){
+						// do not care
+					}
 				}
-				catch (e){
-					// do not care
-				}
-			}
-		});
+			});
+		} else{
+			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		}
 	}
 }]);
 
@@ -210,38 +213,42 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	});
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
-	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/dia-chat',
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
+	$scope.addPost = function(FormContent, form){
+		if ($scope.FormContent.$valid) {
+			var fd = new FormData(document.getElementById('form-content'));
+			$.ajax({
+				url: '/content/dia-chat',
+				method: 'POST',
+				contentType: false,
+				processData: false,
+				data: fd,
+				success: function (data) {
+					alert(data.status);
+					window.location = urlRe;
+				},
+				error: function (err) {
+					console.log(err);
+					alert(JSON.parse(err.responseText).error);
+					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+					try {
+						element.style.background = '#EE543A';
+						setTimeout((function (e) {
+							return function () {
+								e.style.background = 'white';
+							}
+						})(element), 2000);
+						$('html, body').animate({
+							scrollTop: $(element).offset().top - 100
+						}, 500);
+					}
+					catch (e){
+						
+					}
 				}
-				catch (e){
-					
-				}
-			}
-		});
+			});
+		} else{
+			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		}
 	}
 }]);
 
@@ -289,40 +296,44 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	});
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
-	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/tho-nhuong',
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
+	$scope.addPost = function(FormContent, form){
+		if ($scope.FormContent.$valid) {
+			var fd = new FormData(document.getElementById('form-content'));
+			$.ajax({
+				url: '/content/tho-nhuong',
+				method: 'POST',
+				contentType: false,
+				processData: false,
+				data: fd,
+				success: function (data) {
+					alert(data.status);
+					window.location = urlRe;
+				},
+				error: function (err) {
+					console.log(err);
+					alert(JSON.parse(err.responseText).error);
+					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+					try {
+						element.style.background = '#EE543A';
+						setTimeout((function (e) {
+							return function () {
+								e.style.background = 'white';
+							}
+						})(element), 2000);
+						$('html, body').animate({
+							scrollTop: $(element).offset().top - 100
+						}, 500);
+					}
+					catch (e){
+						// do not care
+						console.log(e);
+					}
+					
 				}
-				catch (e){
-					// do not care
-					console.log(e);
-				}
-				
-			}
-		});
+			});
+		} else{
+			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		}
 	}
 }]);
 
@@ -370,38 +381,42 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 	});
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
-	$scope.addPost = function(){
-		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/co-sinh',
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
+	$scope.addPost = function(FormContent, form){
+		if ($scope.FormContent.$valid) {
+			var fd = new FormData(document.getElementById('form-content'));
+			$.ajax({
+				url: '/content/co-sinh',
+				method: 'POST',
+				contentType: false,
+				processData: false,
+				data: fd,
+				success: function (data) {
+					alert(data.status);
+					window.location = urlRe;
+				},
+				error: function (err) {
+					console.log(err);
+					alert(JSON.parse(err.responseText).error);
+					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+					try {
+						element.style.background = '#EE543A';
+						setTimeout((function (e) {
+							return function () {
+								e.style.background = 'white';
+							}
+						})(element), 2000);
+						$('html, body').animate({
+							scrollTop: $(element).offset().top - 100
+						}, 500);
+					}
+					catch (e){
+						// do not care
+					}
 				}
-				catch (e){
-					// do not care
-				}
-			}
-		});
+			});
+		} else{
+			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		}
 	}
 }]);
 

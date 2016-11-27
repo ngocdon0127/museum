@@ -6,117 +6,113 @@
 	</head>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<% include nav %>
+		<div class="container-fluid" style="margin-top: 50px">
 			<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-offset-3 col-md-offset-3">
-				<% include nav %>
-			</div>
-			</div>
-			<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-lg-offset-3 col-md-offset-3">
-				<h2>Lịch sử nhập liệu</h2>
-				<ul class="list-group">
-					<li class="list-group-item list-group-item-success">
-						<div class="row">
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<h3><b>Thời gian</b></h3>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<h3><b>Nhân viên</b></h3>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<h3><b>Hành động</b></h3>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<h3><b>Liên kết</b></h3>
-							</div>
-						</div>
-					</li>
-					<li class="list-group-item">
-					</li>
-					<% for (var i = 0; i < logs.length; i++) { 
-						var action = logs[i].action %>
-						<% 
-							var basePath = '/content/dong-vat';
-							var objectModelLabel = 'mẫu động vật';
-							var objectModelName = 'animal';
-							switch (logs[i].objType){
-								case 'animal':
-									basePath = '/content/dong-vat';
-									objectModelLabel = 'mẫu động vật';
-									objectModelName = 'animal';
-									break;
-								case 'soil':
-									basePath = '/content/tho-nhuong';
-									objectModelLabel = 'mẫu thổ nhưỡng';
-									objectModelName = 'soil';
-									break;
-								case 'geological':
-									basePath = '/content/dia-chat';
-									objectModelLabel = 'mẫu địa chất';
-									objectModelName = 'geological';
-									break;
-								case 'paleontological':
-									basePath = '/content/co-sinh';
-									objectModelLabel = 'mẫu cổ sinh';
-									objectModelName = 'paleontological';
-									break;
-								case 'vegetable':
-									basePath = '/content/thuc-vat';
-									objectModelLabel = 'mẫu thực vật';
-									objectModelName = 'vegetable';
-									break;
-							}
-						%>
-						<% if (action == 'create') { %>
-							<li class="list-group-item list-group-item-info" />
-						<% } else if (action == 'update') { %>
-							<li class="list-group-item list-group-item-warning" />
-						<% } else if (action == 'delete') { %>
-							<li class="list-group-item list-group-item-danger" />
-						<% } %>
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2">
+					<h2>Lịch sử nhập liệu</h2>
+					<ul class="list-group">
+						<li class="list-group-item list-group-item-success">
 							<div class="row">
 								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-									<% var date = (new Date(logs[i].time)).toLocaleString(); %>
-									<h4><%= (date != 'Invalid Date') ? date : '' %></h4>
+									<h3><b>Thời gian</b></h3>
 								</div>
 								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-									<a href="<%= path + '?user=' + logs[i].userId %>"><h4><%= logs[i].userFullName %></h4></a>
+									<h3><b>Nhân viên</b></h3>
 								</div>
 								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-									<% if (action == 'create') { %>
-										<a href="<%= path + '?action=create' %>"><h4>Tạo mới</h4></a> 
-										(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
-										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
-									<% } else if (action == 'update') { %>
-										<a href="<%= path + '?action=update' %>"><h4>Cập nhật</h4></a>
-										(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
-	
-										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
-									<% } else if (action == 'delete') { %>
-										<a href="<%= path + '?action=delete' %>"><h4>Xóa</h4></a>
-										
-										(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
-	
-										<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
-									<% } %>
+									<h3><b>Hành động</b></h3>
 								</div>
 								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-									<% if (logs[i].action == 'create') { %>
-										<a href="<%= basePath %>/log/<%= logs[i]._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
-										<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
-									<% } else if (logs[i].action == 'update') { %>
-										<a href="<%= basePath %>/log/<%= logs[i]._id + '/diff' %>"><h4>Xem những cập nhật</h4></a>
-										<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
-									<% } else if (logs[i].action == 'delete') { %>
-										<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>
-									<% } %>
+									<h3><b>Liên kết</b></h3>
 								</div>
 							</div>
 						</li>
-					<% } %>
-				</ul>
-			</div>
+						<li class="list-group-item">
+						</li>
+						<% for (var i = 0; i < logs.length; i++) { 
+							var action = logs[i].action %>
+							<% 
+								var basePath = '/content/dong-vat';
+								var objectModelLabel = 'mẫu động vật';
+								var objectModelName = 'animal';
+								switch (logs[i].objType){
+									case 'animal':
+										basePath = '/content/dong-vat';
+										objectModelLabel = 'mẫu động vật';
+										objectModelName = 'animal';
+										break;
+									case 'soil':
+										basePath = '/content/tho-nhuong';
+										objectModelLabel = 'mẫu thổ nhưỡng';
+										objectModelName = 'soil';
+										break;
+									case 'geological':
+										basePath = '/content/dia-chat';
+										objectModelLabel = 'mẫu địa chất';
+										objectModelName = 'geological';
+										break;
+									case 'paleontological':
+										basePath = '/content/co-sinh';
+										objectModelLabel = 'mẫu cổ sinh';
+										objectModelName = 'paleontological';
+										break;
+									case 'vegetable':
+										basePath = '/content/thuc-vat';
+										objectModelLabel = 'mẫu thực vật';
+										objectModelName = 'vegetable';
+										break;
+								}
+							%>
+							<% if (action == 'create') { %>
+								<li class="list-group-item list-group-item-info" />
+							<% } else if (action == 'update') { %>
+								<li class="list-group-item list-group-item-warning" />
+							<% } else if (action == 'delete') { %>
+								<li class="list-group-item list-group-item-danger" />
+							<% } %>
+								<div class="row">
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+										<% var date = (new Date(logs[i].time)).toLocaleString(); %>
+										<h4><%= (date != 'Invalid Date') ? date : '' %></h4>
+									</div>
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+										<a href="<%= path + '?user=' + logs[i].userId %>"><h4><%= logs[i].userFullName %></h4></a>
+									</div>
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+										<% if (action == 'create') { %>
+											<a href="<%= path + '?action=create' %>"><h4>Tạo mới</h4></a> 
+											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
+										<% } else if (action == 'update') { %>
+											<a href="<%= path + '?action=update' %>"><h4>Cập nhật</h4></a>
+											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
+		
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
+										<% } else if (action == 'delete') { %>
+											<a href="<%= path + '?action=delete' %>"><h4>Xóa</h4></a>
+											
+											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
+		
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
+										<% } %>
+									</div>
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+										<% if (logs[i].action == 'create') { %>
+											<a href="<%= basePath %>/log/<%= logs[i]._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
+											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
+										<% } else if (logs[i].action == 'update') { %>
+											<a href="<%= basePath %>/log/<%= logs[i]._id + '/diff' %>"><h4>Xem những cập nhật</h4></a>
+											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
+										<% } else if (logs[i].action == 'delete') { %>
+											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>
+										<% } %>
+									</div>
+								</div>
+							</li>
+						<% } %>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</body>

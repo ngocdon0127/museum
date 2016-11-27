@@ -6,69 +6,67 @@
 	</head>
 	
 	<body>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
-					<% include nav %>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-10 col-md-6 col-lg-4 col-lg-offset-4 col-md-offset-3">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">Users</h3>
-						</div>
-						<div class="panel-body">
-							<%
-								function display(obj){
-									// console.log(staticPath)
-									// console.log(count)
-									if (obj instanceof Array){
-										var result =  obj.reduce(function (preStr, curElement){
-											// console.log(curElement.split('_+_')[1]);
-											preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
-											return preStr;
-										}, '');
-										return result;
+		<% include nav %>
+		<div style="margin-top: 50px">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Users</h3>
+							</div>
+							<div class="panel-body">
+								<%
+									function display(obj){
+										// console.log(staticPath)
+										// console.log(count)
+										if (obj instanceof Array){
+											var result =  obj.reduce(function (preStr, curElement){
+												// console.log(curElement.split('_+_')[1]);
+												preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+												return preStr;
+											}, '');
+											return result;
+										}
+										else if (obj instanceof Date){
+											return [obj.getHours(), obj.getMinutes(), obj.getSeconds()].join(':') + '<br>' + [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+										}
+										// Need to escape to prevent injected HTML + JS
+										return escape(obj);
 									}
-									else if (obj instanceof Date){
-										return [obj.getHours(), obj.getMinutes(), obj.getSeconds()].join(':') + '<br>' + [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
-									}
-									// Need to escape to prevent injected HTML + JS
-									return escape(obj);
-								}
-							%>
-							<ul class="list-group">
-								<% for (var i in users) { %>
-									<li class="list-group-item">
-										<form action="/config" id="<%= i %>" method="post" >
-											<div class="row">
-												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-													<h4><%= users[i].fullname %></h4>
-													<h5 class="text-info">(<%= users[i].username %>)</h5>
-													<% if (users[i].lastLogin) { %>
-													<h5 class="text-info">(<%- "Last Login:<br>" + users[i].lastLogin.toLocaleString() %>)</h5>
-													<% } %>
-													<input type="hidden" value="<%= i %>" name="userid" />
-												</div>
-												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-													<ul class="list-group">
-														<% for (var j = 0; j < roles.length; j++) { %>
-															<li class="list-group-item">
-																<input name="<%= roles[j].role%>" type="checkbox" <%= (users[i].id in aclRules && aclRules[users[i].id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
-																<span> <%= roles[j].rolename %> </span>
-															</li>
+								%>
+								<ul class="list-group">
+									<% for (var i in users) { %>
+										<li class="list-group-item">
+											<form action="/config" id="<%= i %>" method="post" >
+												<div class="row">
+													<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+														<h4><%= users[i].fullname %></h4>
+														<h5 class="text-info">(<%= users[i].username %>)</h5>
+														<% if (users[i].lastLogin) { %>
+														<h5 class="text-info">(<%- "Last Login:<br>" + users[i].lastLogin.toLocaleString() %>)</h5>
 														<% } %>
-													</ul>
+														<input type="hidden" value="<%= i %>" name="userid" />
+													</div>
+													<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+														<ul class="list-group">
+															<% for (var j = 0; j < roles.length; j++) { %>
+																<li class="list-group-item">
+																	<input name="<%= roles[j].role%>" type="checkbox" <%= (users[i].id in aclRules && aclRules[users[i].id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
+																	<span> <%= roles[j].rolename %> </span>
+																</li>
+															<% } %>
+														</ul>
+													</div>
+													<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+														<button type="button" class="btn btn-primary" onclick="update('<%= i %>')" >Update</button>
+													</div>
 												</div>
-												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-													<button type="button" class="btn btn-primary" onclick="update('<%= i %>')" >Update</button>
-												</div>
-											</div>
-										</form>
-									</li>
-								 <% } %>
-							 </ul>
+											</form>
+										</li>
+									 <% } %>
+								 </ul>
+							</div>
 						</div>
 					</div>
 				</div>

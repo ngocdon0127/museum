@@ -156,6 +156,10 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 			r.allows.actions.push(act);
 		}
 	}
+	if ((r.allows.actions.indexOf('edit') >= 0) && (r.allows.actions.indexOf('view') < 0)) {
+		// If a role can edit, it can view, too.
+		r.allows.actions.push('view');
+	}
 
 	roles[role] = r;
 	// console.log(r);

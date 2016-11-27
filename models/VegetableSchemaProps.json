@@ -595,7 +595,7 @@
 	},
 	{
 		"name": "thongTinMauHatPhan",
-		"schemaProp": "media.thongTinDNA",
+		"schemaProp": "media",
 		"label": "Thông tin mẫu hạt phấn",
 		"required": false,
 		"type": "String",

@@ -367,7 +367,7 @@
 		"label": "Bản đồ",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -495,7 +495,7 @@
 		"label": "Hình ảnh đính kèm Xử lý chế tác",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -573,7 +573,7 @@
 		"label": "Phân bố ở Việt Nam (*)",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -599,7 +599,7 @@
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{

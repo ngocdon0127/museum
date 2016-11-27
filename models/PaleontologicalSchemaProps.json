@@ -400,7 +400,7 @@
 		"label": "Hình vẽ",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac5",
@@ -415,7 +415,7 @@
 		"label": "Ảnh mẫu vật",
 		"required": true,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "hinhAnhNgoaiThucDia",
@@ -423,7 +423,7 @@
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "videoStr",
@@ -446,7 +446,7 @@
 		"label": "Hình ảnh đính kèm Xử lý chế tác",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx)$"
 	},
 	{
 		"name": "dinhKemXuLy",
@@ -491,7 +491,7 @@
 		"label": "Ảnh mẫu sau chế tác",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "vungGenPhanTich",
@@ -552,7 +552,7 @@
 		"label": "Phân bố Việt Nam",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(png|jpe?g|bmp|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
@@ -575,7 +575,7 @@
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(png|jpe?g|bmp|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "giaTriSuDung",
@@ -682,7 +682,7 @@
 		"label": "Giấy phép nhập mẫu",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "hoSoNhapMauVatDiKem",

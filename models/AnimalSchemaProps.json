@@ -462,7 +462,7 @@
 		"label": "Hình vẽ",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac5",
@@ -477,7 +477,7 @@
 		"label": "Ảnh mẫu vật",
 		"required": true,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$"
 	},
 	{
 		"name": "hinhAnhNgoaiThucDia",
@@ -485,7 +485,7 @@
 		"label": "Hình ảnh mẫu vật ngoài thực địa",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$"
 	},
 	{
 		"name": "videoStr",

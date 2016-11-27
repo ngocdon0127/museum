@@ -533,7 +533,7 @@
 	},
 	{
 		"name": "phanBoVietNam",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố Việt Nam",
 		"required": true,
 		"type": "Mixed",
@@ -541,14 +541,14 @@
 	},
 	{
 		"name": "phanBoVietNamStr",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố Việt Nam",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phanBoVietNamFile",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố Việt Nam",
 		"required": false,
 		"type": "File",
@@ -556,7 +556,7 @@
 	},
 	{
 		"name": "phanBoTrenTheGioi",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "Mixed",
@@ -564,14 +564,14 @@
 	},
 	{
 		"name": "phanBoTrenTheGioiStr",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "String"
 	},
 	{
 		"name": "phanBoTrenTheGioiFile",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "File",

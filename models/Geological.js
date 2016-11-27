@@ -93,8 +93,8 @@ module.exports = function (mongoose) {
 		phanBoVaSuDung: {
 			phanBoVietNamStr: String,
 			phanBoVietNamFile: [String],
-			phoBoTrenTheGioiStr: String,
-			phoBoTrenTheGioiFile: [String],
+			phanBoTrenTheGioiStr: String,
+			phanBoTrenTheGioiFile: [String],
 			giaTriSuDung: String,
 			thongTinKhac7: String
 		},

@@ -704,8 +704,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	var docx = officegen({
 		type: 'docx',
 		subjects: 'Mẫu phiếu dữ liệu',
-		// orientation: 'landscape'
-		orientation: 'portrait'
+		orientation: 'landscape'
+		// orientation: 'portrait'
 	});
 
 	docx.on('finalize', function (written) {

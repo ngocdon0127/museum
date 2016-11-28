@@ -84,7 +84,7 @@ router.get('/wb', function(req, res, next) {
 			opts: labelOpts
 		},
 		{
-			val: "Title1",
+			val: "Title1\r\n\r\nHehe",
 			opts: {
 				// cellColWidth: 2261,
 				// b:true,

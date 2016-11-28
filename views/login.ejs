@@ -7,55 +7,48 @@
 	</head>
 	</head>
 	<body>
-		<div class="container">
-			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
-			<% include nav %>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
-			
-				
-				<div class="col-sm-12">
-					<form class="form" name="form" method="post" onsubmit="handleSubmit()">
-						<div class="row">
-							<label for="email">Email</label>
-							<input type="email" name="email" id="email" class="form-control" required="" value="<%= oldEmail %>">
-						</div>
-						<div class="row">
-							<label for="password">Mật khẩu</label>
-							<input id="password" type="password" name="password" id="password" class="form-control" required="">
-						</div>
-						<div class="row">
-							<!-- <button class="btn btn-inverse btn-lg btn-login" type="button" onclick="handleSubmit()">Login</button> -->
-							<button class="btn btn-inverse btn-lg btn-login" style="margin-top:10px" type="submit" id="btnSubmit">Đăng nhập</button>
-						</div>
-						<hr>
+		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+			<div class="modal-dialog">
+				<div class="loginmodal-container">
+					<h1>Đăng nhập</h1>
+					<br>
+					<form method="post" onsubmit="handleSubmit()">
+						<input type="text" name="email" id="email" placeholder="Username">
+						<input type="password" name="password" id="password" placeholder="Password">
 						<% if (message) { %>
-							<div class="col-sm-12">
-								<span class="text-danger"><%= message %></span>
-							</div>
+							<span class="text-danger"><%= message %></span>
 						<% } %>
-						<script type="text/javascript">
-							function ob (x) {
-								return document.getElementById(x);
-							}
-
-							ob('email').focus();
-							
-							function handleSubmit () {
-								var plainPass = ob('password').value;
-								var i = 0;
-								while (i < 1000){
-									plainPass = CryptoJS.MD5(plainPass).toString();
-									i++;
-								}
-								ob('password').value = plainPass;
-								// $('#btnSubmit').click();
-							}
-						</script>
+						<input type="submit" name="login" id="btnSubmit" class="login loginmodal-submit" value="Đăng nhập">
 					</form>
+					<div class="login-help">
+						<a href="/auth/signup">Đăng ký</a>
+					</div>
 				</div>
-				<hr>
+				
 			</div>
 		</div>
+		<script type="text/javascript">
+			$('#login-modal').modal({
+				backdrop: 'static',
+				keyboard: false
+			});
+			$('#login-modal').modal('show');
+			function ob (x) {
+				return document.getElementById(x);
+			}
+
+			ob('email').focus();
+			
+			function handleSubmit () {
+				var plainPass = ob('password').value;
+				var i = 0;
+				while (i < 1000){
+					plainPass = CryptoJS.MD5(plainPass).toString();
+					i++;
+				}
+				ob('password').value = plainPass;
+				// $('#btnSubmit').click();
+			}
+		</script>
 	</body>
 </html>

@@ -462,7 +462,7 @@
 		"label": "Hình vẽ",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac5",
@@ -508,7 +508,7 @@
 		"label": "Hình ảnh đính kèm Xử lý chế tác",
 		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|pdf)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "dinhKemXuLy",
@@ -595,7 +595,7 @@
 	},
 	{
 		"name": "thongTinMauHatPhan",
-		"schemaProp": "media.thongTinDNA",
+		"schemaProp": "media",
 		"label": "Thông tin mẫu hạt phấn",
 		"required": false,
 		"type": "String",
@@ -611,7 +611,7 @@
 	},
 	{
 		"name": "phanBoVietNam",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố Việt Nam",
 		"required": true,
 		"type": "Mixed",
@@ -619,23 +619,23 @@
 	},
 	{
 		"name": "phanBoVietNamStr",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
-		"label": "Phân bố Việt Nam",
+		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
+		"label": "Phân bố",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "phanBoVietNamFile",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
-		"label": "Phân bố Việt Nam",
+		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
+		"label": "Đính kèm",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
+		"schemaProp": "phanBoVaSuDung",
 		"label": "Phân bố trên thế giới",
 		"required": false,
 		"type": "Mixed",
@@ -643,16 +643,16 @@
 	},
 	{
 		"name": "phanBoTrenTheGioiStr",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
-		"label": "Phân bố trên thế giới",
+		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
+		"label": "Phân bố",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "phanBoTrenTheGioiFile",
-		"schemaProp": "phanBoVaSuDung.phanBoDiaLy",
-		"label": "Phân bố trên thế giới",
+		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
+		"label": "Đính kèm",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
@@ -865,5 +865,45 @@
 		"name": "thongTinKhac",
 		"type": "Metadata",
 		"label": "Nhóm dữ liệu thông tin khác"
+	},
+	{
+		"name": "tenKhoaHoc",
+		"type": "Metadata",
+		"label": "Tên khoa học"
+	},
+	{
+		"name": "diaDiemThuMau",
+		"type": "Metadata",
+		"label": "Địa điểm thu mẫu"
+	},
+	{
+		"name": "viTriToaDo",
+		"type": "Metadata",
+		"label": "Vị trí toạ độ theo hệ toạ độ VN 2000"
+	},
+	{
+		"name": "xuLyCheTac",
+		"type": "Metadata",
+		"label": "Xử lý chế tác mẫu vật"
+	},
+	{
+		"name": "thongTinDNA",
+		"type": "Metadata",
+		"label": "Thông tin DNA"
+	},
+	{
+		"name": "khuLuuTruMau",
+		"type": "Metadata",
+		"label": "Khu lưu trữ mẫu"
+	},
+	{
+		"name": "phanBoVietNamMixed",
+		"type": "Metadata",
+		"label": "Phân bố Việt Nam"
+	},
+	{
+		"name": "phanBoTrenTheGioiMixed",
+		"type": "Metadata",
+		"label": "Phân bố trên thế giới"
 	}
 ]

@@ -206,7 +206,24 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 
 					}
 
-					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph);
+					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
+					// return res.end("OK");
+				}
+				else if (req.query.display == 'pdf'){
+					
+					var paragraph = {
+						text: [
+						'PHIẾU CƠ SỞ DỮ LIỆU MẪU ĐỘNG VẬT', 
+						'(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
+						],
+						style: [
+							{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
+							{color: "000000", font_face: "Times New Roman", font_size: 12}
+						]
+
+					}
+
+					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
 					// return res.end("OK");
 				}
 				else {

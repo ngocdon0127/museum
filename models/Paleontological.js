@@ -95,9 +95,11 @@ module.exports = function (mongoose) {
 			thongTinKhac6: String
 		},
 		phanBoVaSuDung: {
-			phanBoDiaLy: {
+			phanBoVietNamMixed: {
 				phanBoVietNamStr: String,
 				phanBoVietNamFile: [String],
+			},
+			phanBoTrenTheGioiMixed: {
 				phanBoTrenTheGioiStr: String,
 				phanBoTrenTheGioiFile: [String]
 			},

@@ -29,32 +29,72 @@ function generate (schema) {
 // JSON.stringify(arr, null, 4);
 
 function autoFill () {
-	var inputs = document.getElementsByTagName('input');
-	for(var i = 0; i < inputs.length; i++) {
+	var animal = {
+		soHieuThucDia: "SHTD - Dinosauria",
+		soHieuBaoTangCS: "BTTT - Khủng Long",
+		soHieuBTTNVN: "BTTT-KL",
+		maKyHieuMauVatQuocTe: "VN-Dinosauria",
+		tenVietNam: "Khủng long ba sừng",
+		tenDiaPhuong: "Mặt ba sừng",
+		tenTiengAnh: "Triceratops",
+		tenTheoBaoTang: "BTTT-BaSung",
+		tenDongNghia: "Mặt ba sừng",
+		gioi: "Mặt ba sừng",
+		nganh: "Chordata",
+		lop: "Sauropsida",
+		bo: "Ornithischia",
+		phanBo: "Ceratopsia",
+		ho: "Ceratopsidae",
+		phanHo: "Ceratopsinae",
+		giong: "Triceratops",
+		loai: "T. horridus",
+		nguoiDinhTen: "Đinh Viết Sang",
+		soLuongMauVat: 2,
+		soLuongTieuBan: 4,
+		loaiMau: "Mẫu trưng bày",
+		kichThuocMau: "9",
+		tinhTrangMau: "Hóa thạch",
+		thongTinKhac3: "Hóa thạch vỡ",
+		thoiGianThuMau: "2016-11-02T00:00:00.000Z",
+		nguoiThuMau: "Đinh Viết Sang",
+		coQuanThuMau: "HUST",
+		phuongPhapThuMau: "Khai quật",
+		quocGia: "Việt Nam",
+		tinh: "01",
+		huyen: "007",
+		xa: "00250",
+		thon: "123132",
+		viDo: "21.003",
+		kinhDo: "105.83",
+		doCao: 20,
+		thongTinDuAn: "Đợt thu thập cuối năm 2016",
+		ghiChepThucDia: "Xương vỡ",
+		thongTinKhac4: "Thông tin khác",
+		thoiGianPhanTich: "2016-11-03T00:00:00.000Z",
+		nguoiPhanTich: "Đinh Viết Sang",
+		coQuanToChucPhanTich: "ICT HUST",
+		nguoiXuLy: "Đinh Viết Sang",
+		coQuanXuLy: "HUST",
+		boPhanLayMauDNA: "Xương",
+		trangThaiGiuMauDNA: "Khô",
+		vungGenPhanTich: "AUGX",
+		phanBoVietNamStr: "Hà Nội",
+		ngayNhapMau: "2016-11-04T00:00:00.000Z",
+		nguoiGiao: "Đinh Viết Sang",
+		nguoiNhan: "Đinh Viết Sang",
+		hinhThucNhapMau: "thu-thap",
+		traoDoiMau: "Có thể",
+		vayMuon: "Không thể",
+		nguoiNhapPhieuMauVat: "Đinh Viết Sang",
+		thongTinKhac9: "1 mẫu đã cho mượn",
+		maDeTai: "DT-001"
+	}
+
+	for(var prop in animal){
 		try {
-			switch (inputs[i].getAttribute('type')){
-				case 'text':
-					console.log('text ' + i);
-					inputs[i].value = $($(inputs[i]).parent().parent().children()[0]).children()[0].innerHTML;
-					console.log('done text ' + i);
-					break;
-				case 'number':
-					console.log('number ' + i);
-					inputs[i].value = Math.floor(Math.random() * 100);
-					console.log('done number ' + i);
-					break;
-				case 'date':
-					console.log('date ' + i);
-					var x = new Date();
-					inputs[i].value = x.getFullYear() + '-' + (x.getMonth() >= 9 ? (x.getMonth() + 1) : ( '0' + (x.getMonth() + 1))) + '-' + x.getDate();
-					console.log('done date ' + i);
-					break;
-				default:
-					break;
-			}
-			
+			document.getElementsByName(prop)[0].value = animal[prop];
 		}
-		catch (e) {
+		catch (e){
 			console.log(e);
 		}
 	}

@@ -492,7 +492,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
-function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph) {
+function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, extension) {
 
 	function display(obj){
 		// console.log(staticPath)
@@ -516,6 +516,9 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	}
 
 
+	var curProp = '';
+	var addPropRow = true;
+
 	function inOrder (tree) {
 		if (!tree){
 			return;
@@ -533,6 +536,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			var p;
 			switch (curDeep){
 				case 0:
+					addPropRow = true;
 					// Label
 					try{
 						p = LABEL[prop];
@@ -564,6 +568,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					break;
 				case 1:
 					stt++;
+					curProp = prop;
+					addPropRow = true;
 					// console.log('printing ' + prop);
 					// var value = flatOI[prop];
 					// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
@@ -628,14 +634,46 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 						// Do not care;
 						console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 					}
-					var row = [
+					var row = null;
+					if (addPropRow){
+						try{
+							curProp = LABEL[curProp];
+						}
+						catch (e){
+							console.log(e);
+							// Do not care;
+							// break;
+						}
+						row = [
+							{
+								val: stt,
+								opts: labelOpts
+							},
+							{
+								val: curProp,
+								opts: detailOpts
+							},
+							{
+								val: '',
+								opts: detailOpts
+							},
+							{
+								val: '',
+								opts: detailOpts
+							}
+						]
+						table.push(row);
+						addPropRow = false;
+					}
+					
+					row = [
 						{
 							val: '',
 							opts: labelOpts
 						},
 						{
 							val: p,
-							opts: detailOpts
+							opts: detailItalicOpts
 						},
 						{
 							val: value,
@@ -667,6 +705,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		type: 'docx',
 		subjects: 'Mẫu phiếu dữ liệu',
 		orientation: 'landscape'
+		// orientation: 'portrait'
 	});
 
 	docx.on('finalize', function (written) {
@@ -732,6 +771,18 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		fontFamily: "Times New Roman"
 	};
 
+	var detailItalicOpts = {
+		// cellColWidth: 2261,
+		sz: '22',
+		bold: true,
+		shd: {
+			fill: "FFFFFF",
+			// themeFill: "text1",
+			// "themeFillTint": "30"
+		},
+		fontFamily: "Times New Roman"
+	};
+
 	var table = [
 	[
 		{
@@ -754,6 +805,12 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	
 	var oi = {};
 	PROP_FIELDS.map(function (field) {
+		if (field.type == 'Mixed'){
+			// Do not add Mixed property to tree
+			// Mixed property has it's own name.
+			// Ex: phanBoVietNam => phanBoVietNameMixed
+			return;
+		}
 		if (field.name != 'maDeTai'){
 			objectChild(oi, field.schemaProp)[field.name] = {};
 		}
@@ -804,13 +861,38 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		catch (e){
 			console.log(e);
 		}
-		finally {
+		if (extension == 'docx'){
 			outputFileName += '.docx';
+			res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+				fs.unlink(path.join(__dirname, tmpFileName));
+			});
 		}
-		res.download(path.join(__dirname, tmpFileName), outputFileName);
-		setTimeout(function () {
-			fs.unlink(path.join(__dirname, tmpFileName));
-		}, 2000);
+		else if (extension == 'pdf'){
+			console.log('pdf');
+			outputFileName += '.pdf';
+			var exec = require('child_process').exec;
+			var cmd = 'libreoffice --invisible --convert-to pdf ' + tmpFileName;
+			exec(cmd, function (err, stdout, stderr) {
+				if (err){
+					console.log(err);
+					return res.end('err');
+				}
+				// console.log('---')
+				// console.log(stdout);
+				// console.log('---')
+				// console.log(stderr);
+				// console.log('---')
+				pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
+				// console.log(pdfFileName);
+				// console.log(outputFileName);
+				res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
+					fs.unlink(path.join(__dirname, pdfFileName));
+					fs.unlink(path.join(__dirname, tmpFileName));
+				});
+			})
+			// return res.end("ok")
+
+		}
 		// res.end("OK");
 	});
 	docx.generate(outputStream);

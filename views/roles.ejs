@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Roles</title>
+	<% include header %>
+	</head>
+	
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-lg-offset-2 col-md-offset-2">
+					<% include nav %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-10 col-md-8 col-lg-5">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Roles</h3>
+						</div>
+						<div class="panel-body">
+							<%
+								function display(obj){
+									// console.log(staticPath)
+									// console.log(count)
+									if (obj instanceof Array){
+										var result =  obj.reduce(function (preStr, curElement){
+											// console.log(curElement.split('_+_')[1]);
+											preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+											return preStr;
+										}, '');
+										return result;
+									}
+									else if (obj instanceof Date){
+										return [obj.getHours(), obj.getMinutes(), obj.getSeconds()].join(':') + '<br>' + [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+									}
+									// Need to escape to prevent injected HTML + JS
+									return escape(obj);
+								}
+							%>
+							<ul class="list-group">
+								<% for (var i in users) { %>
+									<li class="list-group-item">
+										<form action="/config" id="<%= i %>" method="post" >
+											<div class="row">
+												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+													<h4><%= users[i].fullname %></h4>
+													<h5 class="text-info">(<%= users[i].username %>)</h5>
+													<% if (users[i].lastLogin) { %>
+													<h5 class="text-info">(<%- "Last Login:<br>" + users[i].lastLogin.toLocaleString() %>)</h5>
+													<% } %>
+													<input type="hidden" value="<%= i %>" name="userid" />
+												</div>
+												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+													<ul class="list-group">
+														<% for (var j = 0; j < roles.length; j++) { %>
+															<li class="list-group-item">
+																<input name="<%= roles[j].role%>" type="checkbox" <%= (users[i].id in aclRules && aclRules[users[i].id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
+																<span> <%= roles[j].rolename %> </span>
+															</li>
+														<% } %>
+													</ul>
+												</div>
+												<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+													<button type="button" class="btn btn-primary" onclick="update('<%= i %>')" >Update</button>
+												</div>
+											</div>
+										</form>
+									</li>
+								 <% } %>
+							 </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function ob (x) {
+				return document.getElementById(x);
+			}
+
+			function update (id) {
+				console.log(id);
+				var fd = new FormData(document.getElementById(id));
+				console.log(fd);
+				console.log(ob(id));
+				$.ajax({
+					url: '/config',
+					method: 'post',
+					contentType: false,
+					processData: false,
+					dataType: 'json',
+					data: fd,
+					success: function (data) {
+						console.log(data);
+						if (data.status.localeCompare('success') == 0){
+							alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.');
+						}
+						setTimeout(function () {
+							window.location.reload(true);
+						}, 1000);
+					},
+					error: function (err) {
+						console.log(err);
+						try {
+							alert(err.responseJSON.error);
+						}
+						finally {
+							setTimeout(function () {
+								window.location.reload(true);
+							}, 1000);
+						}
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

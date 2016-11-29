@@ -229,7 +229,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			if ((action == ACTION_CREATE) && (element.type.localeCompare('Mixed') !== 0)) {
 				// Check required data props if action is create
 				if (element.required && (element.type.localeCompare('File') != 0) && (!(element.name in req.body) || !(req.body[element.name]))) {
-					console.log('resonpse error');
+					console.log('response error');
 					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
 				}
 

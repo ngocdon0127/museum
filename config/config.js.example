@@ -4,5 +4,8 @@ module.exports = {
 	},
 	database: {
 		url: 'mongodb://ngocdon:123123@127.0.0.1:27017/museum'
+	},
+	environment: {
+		env: 'production'
 	}
 }

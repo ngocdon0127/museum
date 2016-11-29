@@ -1,8 +1,8 @@
-app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter','$timeout', '$window', function($http,$scope,AuthService, $routeParams, $filter, $timeout, $window){
+app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $filter, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
 	
 	$http.get(url).then(function (res) {
-		console.log(res.data.animal);
+		// console.log(res.data.animal);
 		res.data.animal.ngayNhapMau = new Date(res.data.animal.ngayNhapMau);
 		res.data.animal.thoiGianThuMau = new Date(res.data.animal.thoiGianThuMau);
 		res.data.animal.thoiGianPhanTich = new Date(res.data.animal.thoiGianPhanTich);
@@ -21,6 +21,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	var url = AuthService.hostName + '/content/dong-vat';
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.updatePost = function(){
+		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		$.ajax({
 			url: '/content/dong-vat',
@@ -29,10 +30,13 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 			processData: false,
 			data: fd,
 			success: function (data) {
-				alert(data.status);
-				$window.location.href = urlRe;
+				cfpLoadingBar.complete();
+				// alert(data.status);
+				window.location = urlRe;
 			},
 			error: function (err) {
+				cfpLoadingBar.complete();
+				cfpLoadingBar.set(0);
 				console.log(err);
 				alert(JSON.parse(err.responseText).error);
 			}
@@ -70,7 +74,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 			data: fd,
 			success: function (data) {
 				alert(data.status);
-				$window.location.href = urlRe;
+				window.location = urlRe;
 			},
 			error: function (err) {
 				console.log(err);
@@ -112,7 +116,7 @@ var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 			data: fd,
 			success: function (data) {
 				alert(data.status);
-				$window.location.href = urlRe;
+				window.location = urlRe;
 			},
 			error: function (err) {
 				console.log(err);
@@ -154,7 +158,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 			data: fd,
 			success: function (data) {
 				alert(data.status);
-				$window.location.href = urlRe;
+				window.location = urlRe;
 			},
 			error: function (err) {
 				console.log(err);
@@ -196,7 +200,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 			data: fd,
 			success: function (data) {
 				alert(data.status);
-				$window.location.href = urlRe;
+				window.location = urlRe;
 			},
 			error: function (err) {
 				console.log(err);

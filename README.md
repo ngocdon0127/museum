@@ -10,11 +10,12 @@
 
 	$ cp config/config.js.example config/config.js
 	$ cp config/acl.json.example config/acl.json
+	$ cp config/roles.json.example config/roles.json
 	$ cp app/service.js.example app/service.js
 
 
 ### Config file config/config.js
-Change line 6 from url: 'mongodb://ngocdon:123123@127.0.0.1:27017/museum' to the real url of the database (in Facebook Group)
+Change line 6 from url: 'mongodb://ngocdon:123123@127.0.0.1:27017/museum' to the real url of the database (will email you)
 
 ### Install pm2
 	$ npm install -g pm2

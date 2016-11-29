@@ -130,6 +130,10 @@ a.nav:hover{
 .has-error{
     border-color: #a94442;
 }
+
+.has-required{
+    color: red;
+}
 .text-errors{
     color: red;
 }

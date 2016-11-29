@@ -192,23 +192,24 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 				if (req.query.display == 'html'){
 					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
 				}
-				else if (req.query.display == 'docx'){
+				else if (['docx', 'pdf'].indexOf(req.query.display) >= 0){
 					
 					var paragraph = {
 						text: [
 						'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỰC VẬT VÀ NẤM', 
-						'(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
+						// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
 						],
 						style: [
-							{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
-							{color: "000000", font_face: "Times New Roman", font_size: 12}
+							{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12}
+							// {color: "000000", font_face: "Times New Roman", font_size: 12}
 						]
 
 					}
-
-					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph);
+					
+					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
 					// return res.end("OK");
 				}
+				
 				else {
 					return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);
 				}

@@ -370,7 +370,7 @@
 		"name": "phanTichTuoiDiaChat",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Phân tích tuổi địa chất",
-		"required": true,
+		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"
 	},

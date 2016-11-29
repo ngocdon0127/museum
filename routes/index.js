@@ -139,26 +139,38 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	if (role in roles){
 		return res.status(400).json({
 			status: 'error',
-			'error': 'Trùng tên role'
+			error: 'Trùng tên role'
+		})
+	}
+	if (!cores.resources.hasOwnProperty(req.body.side)){
+		return res.status(400).json({
+			status: 'error',
+			error: 'Mẫu được chọn không tồn tại'
 		})
 	}
 	var r = {}
 	r.role = role;
 	r.rolename = rolename;
-	r.allows = {
-		resource: cores.resources[req.body.side].url,
-		actions: []
-	};
+	r.allows = [
+		{
+			resource: '/app',
+			actions: ['view']
+		},
+		{
+			resource: cores.resources[req.body.side].url,
+			actions: []
+		}
+	];
 	var actions = ['view', 'create', 'edit', 'delete'];
 	for (var i = 0; i < actions.length; i++) {
 		var act = actions[i];
 		if ((act in req.body) && (req.body[act] == 'on')){
-			r.allows.actions.push(act);
+			r.allows[1].actions.push(act);
 		}
 	}
-	if ((r.allows.actions.indexOf('edit') >= 0) && (r.allows.actions.indexOf('view') < 0)) {
+	if ((r.allows[1].actions.indexOf('edit') >= 0) && (r.allows[1].actions.indexOf('view') < 0)) {
 		// If a role can edit, it can view, too.
-		r.allows.actions.push('view');
+		r.allows[1].actions.push('view');
 	}
 
 	roles[role] = r;

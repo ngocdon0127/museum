@@ -1,0 +1,25 @@
+{
+	"resources": {
+		"dongvat": {
+			"resourceName": "Động vật",
+			"url": "/content/dong-vat"
+		},
+		"thucvat": {
+			"resourceName": "Thực vật",
+			"url": "/content/thuc-vat"
+		},
+		"thonhuong": {
+			"resourceName": "Thổ nhưỡng",
+			"url": "/content/tho-nhuong"
+		},
+		"diachat": {
+			"resourceName": "Địa chất",
+			"url": "/content/dia-chat"
+		},
+		"cosinh": {
+			"resourceName": "Cổ sinh",
+			"url": "/content/co-sinh"
+		}
+	}
+
+}

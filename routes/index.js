@@ -30,6 +30,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 		}
 		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
 		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
 		var result = {};
 		result.users = {};
 		for (var i = 0; i < users.length; i++) {
@@ -66,6 +67,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 		res.render('config', {
 			users: result.users,
 			roles: result.roles,
+			cores: cores,
 			aclRules: result.aclRules,
 			user: req.user,
 			path: req.path
@@ -112,6 +114,106 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit')
 			})
 		}
 	})
+})
+
+router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next) {
+	
+	console.log(req.body);
+	var rolename = req.body.rolename.trim();
+	rolename = rolename.replace(/\r+\n+/g, ' ');
+	rolename = rolename.replace(/ {2,}/g, ' ');
+	var role = req.body.side + '_' + rolename;
+	role = role.toLowerCase(); 
+	role = role.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a"); 
+	role = role.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e"); 
+	role = role.replace(/ì|í|ị|ỉ|ĩ/g, "i"); 
+	role = role.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o"); 
+	role = role.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); 
+	role = role.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); 
+	role = role.replace(/đ/g, "d"); 
+	role = role.replace(/ /g, "-");
+	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')))
+
+	if (role in roles){
+		return res.status(400).json({
+			status: 'error',
+			error: 'Trùng tên role'
+		})
+	}
+	if (!cores.resources.hasOwnProperty(req.body.side)){
+		return res.status(400).json({
+			status: 'error',
+			error: 'Mẫu được chọn không tồn tại'
+		})
+	}
+	var r = {}
+	r.role = role;
+	r.rolename = rolename;
+	r.allows = [
+		{
+			resource: '/app',
+			actions: ['view']
+		},
+		{
+			resource: cores.resources[req.body.side].url,
+			actions: []
+		}
+	];
+	var actions = ['view', 'create', 'edit', 'delete'];
+	for (var i = 0; i < actions.length; i++) {
+		var act = actions[i];
+		if ((act in req.body) && (req.body[act] == 'on')){
+			r.allows[1].actions.push(act);
+		}
+	}
+	if ((r.allows[1].actions.indexOf('edit') >= 0) && (r.allows[1].actions.indexOf('view') < 0)) {
+		// If a role can edit, it can view, too.
+		r.allows[1].actions.push('view');
+	}
+
+	roles[role] = r;
+	// console.log(r);
+	fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
+
+	return restart(res);
+})
+
+router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next) {
+	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString());
+	var role = req.body.deleteRole;
+	console.log(role);
+	if (role == 'admin'){
+		return res.status(403).json({
+			status: 'error',
+			error: 'Không thể xóa cấp Admin'
+		})
+	}
+	if (role in roles){
+		delete roles[role];
+		fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
+		for (var userId in aclRules){
+			
+			while (true){
+				var index = aclRules[userId].roles.indexOf(role);
+				if (index < 0){
+					break;
+				}
+				aclRules[userId].roles.splice(index, 1);
+			}
+		}
+		fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
+		return restart(res);
+	}
+	else {
+		return res.status(400).json({
+			status: 'error',
+			error: 'Role không hợp lệ'
+		})
+	}
 })
 
 // router.get('/test', function (req, res, next) {

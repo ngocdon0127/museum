@@ -31,7 +31,8 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 			data: fd,
 			success: function (data) {
 				cfpLoadingBar.complete();
-				// alert(data.status);
+				console.log(cfpLoadingBar)
+				alert(data.status);
 				window.location = urlRe;
 			},
 			error: function (err) {

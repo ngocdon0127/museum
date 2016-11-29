@@ -11,27 +11,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 			source : $scope.auto[str]
 		})
 	};
-	var arrAuto = [
-	'tenDongNghia','gioi',
-	'nganh', 'lop', 
-	'phanLop', 
-	'bo', 
-	'phanBo', 
-	'lienHo',
-	'ho',
-	'phanHo',
-	'toc', 
-	'giong', 
-	'loai', 
-	'duoiLoai', 
-	'coQuanThuMau', 
-	'quocGia', 'tinh', 
-	'huyen', 'xa', 'thon', 
-	'coQuanToChucPhanTich', 
-	'coQuanXuLy'
-	,'boPhanLayMauDNA', 
-	'trangThaiGiuMauDNA',
-	'coQuanNhapVatMau'];
+	var arrAuto = AuthService.arrAuto;
 	
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.auto = res.data;
@@ -42,44 +22,11 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		console.log(err);
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
-	$scope.addPost = function(FormContent, form){
+	$scope.addPost = function(FormContent){
 		if ($scope.FormContent.$valid) {
 			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
-			$.ajax({
-				url: '/content/dong-vat',
-				method: 'POST',
-				contentType: false,
-				processData: false,
-				data: fd,
-				success: function (data) {
-					cfpLoadingBar.complete();
-					alert(data.status);
-					window.location = urlRe;
-				},
-				error: function (err) {
-					cfpLoadingBar.complete();
-					cfpLoadingBar.set(0);
-					console.log(err);
-					alert(JSON.parse(err.responseText).error);
-					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-					try {
-						element.style.background = '#EE543A';
-						setTimeout((function (e) {
-							return function () {
-								e.style.background = 'white';
-							}
-						})(element), 2000);
-						$('html, body').animate({
-							scrollTop: $(element).offset().top - 100
-						}, 500);
-					}
-					catch (e){
-						// do not care
-					}
-					
-				}
-			});
+			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		} else{
 			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		}
@@ -99,27 +46,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 			source : $scope.auto[str]
 		})
 	};
-	var arrAuto = [
-	'tenDongNghia','gioi',
-	'nganh', 'lop', 
-	'phanLop', 
-	'bo', 
-	'phanBo', 
-	'lienHo',
-	'ho',
-	'phanHo',
-	'toc', 
-	'giong', 
-	'loai', 
-	'duoiLoai', 
-	'coQuanThuMau', 
-	'quocGia', 'tinh', 
-	'huyen', 'xa', 'thon', 
-	'coQuanToChucPhanTich', 
-	'coQuanXuLy'
-	,'boPhanLayMauDNA', 
-	'trangThaiGiuMauDNA',
-	'coQuanNhapVatMau'];
+	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
@@ -131,39 +58,10 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
 
-	$scope.addPost = function(FormContent, form){
+	$scope.addPost = function(FormContent){
 		if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
-			$.ajax({
-				url: '/content/thuc-vat',
-				method: 'POST',
-				contentType: false,
-				processData: false,
-				data: fd,
-				success: function (data) {
-					alert(data.status);
-					window.location = urlRe;
-				},
-				error: function (err) {
-					console.log(err);
-					alert(JSON.parse(err.responseText).error);
-					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-					try {
-						element.style.background = '#EE543A';
-						setTimeout((function (e) {
-							return function () {
-								e.style.background = 'white';
-							}
-						})(element), 2000);
-						$('html, body').animate({
-							scrollTop: $(element).offset().top - 100
-						}, 500);
-					}
-					catch (e){
-						// do not care
-					}
-				}
-			});
+			AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 		} else{
 			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		}
@@ -182,27 +80,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 			source : $scope.auto[str]
 		})
 	};
-	var arrAuto = [
-	'tenDongNghia','gioi',
-	'nganh', 'lop', 
-	'phanLop', 
-	'bo', 
-	'phanBo', 
-	'lienHo',
-	'ho',
-	'phanHo',
-	'toc', 
-	'giong', 
-	'loai', 
-	'duoiLoai', 
-	'coQuanThuMau', 
-	'quocGia', 'tinh', 
-	'huyen', 'xa', 'thon', 
-	'coQuanToChucPhanTich', 
-	'coQuanXuLy'
-	,'boPhanLayMauDNA', 
-	'trangThaiGiuMauDNA',
-	'coQuanNhapVatMau'];
+	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/dia-chat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
@@ -213,39 +91,10 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	});
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
-	$scope.addPost = function(FormContent, form){
+	$scope.addPost = function(FormContent){
 		if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
-			$.ajax({
-				url: '/content/dia-chat',
-				method: 'POST',
-				contentType: false,
-				processData: false,
-				data: fd,
-				success: function (data) {
-					alert(data.status);
-					window.location = urlRe;
-				},
-				error: function (err) {
-					console.log(err);
-					alert(JSON.parse(err.responseText).error);
-					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-					try {
-						element.style.background = '#EE543A';
-						setTimeout((function (e) {
-							return function () {
-								e.style.background = 'white';
-							}
-						})(element), 2000);
-						$('html, body').animate({
-							scrollTop: $(element).offset().top - 100
-						}, 500);
-					}
-					catch (e){
-						
-					}
-				}
-			});
+			AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 		} else{
 			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		}
@@ -265,27 +114,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 			source : $scope.auto[str]
 		})
 	};
-	var arrAuto = [
-	'tenDongNghia','gioi',
-	'nganh', 'lop', 
-	'phanLop', 
-	'bo', 
-	'phanBo', 
-	'lienHo',
-	'ho',
-	'phanHo',
-	'toc', 
-	'giong', 
-	'loai', 
-	'duoiLoai', 
-	'coQuanThuMau', 
-	'quocGia', 'tinh', 
-	'huyen', 'xa', 'thon', 
-	'coQuanToChucPhanTich', 
-	'coQuanXuLy'
-	,'boPhanLayMauDNA', 
-	'trangThaiGiuMauDNA',
-	'coQuanNhapVatMau'];
+	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/tho-nhuong/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
@@ -296,41 +125,10 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	});
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
-	$scope.addPost = function(FormContent, form){
+	$scope.addPost = function(FormContent){
 		if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
-			$.ajax({
-				url: '/content/tho-nhuong',
-				method: 'POST',
-				contentType: false,
-				processData: false,
-				data: fd,
-				success: function (data) {
-					alert(data.status);
-					window.location = urlRe;
-				},
-				error: function (err) {
-					console.log(err);
-					alert(JSON.parse(err.responseText).error);
-					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-					try {
-						element.style.background = '#EE543A';
-						setTimeout((function (e) {
-							return function () {
-								e.style.background = 'white';
-							}
-						})(element), 2000);
-						$('html, body').animate({
-							scrollTop: $(element).offset().top - 100
-						}, 500);
-					}
-					catch (e){
-						// do not care
-						console.log(e);
-					}
-					
-				}
-			});
+			AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 		} else{
 			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		}
@@ -350,27 +148,7 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 			source : $scope.auto[str]
 		})
 	};
-	var arrAuto = [
-	'tenDongNghia','gioi',
-	'nganh', 'lop', 
-	'phanLop', 
-	'bo', 
-	'phanBo', 
-	'lienHo',
-	'ho',
-	'phanHo',
-	'toc', 
-	'giong', 
-	'loai', 
-	'duoiLoai', 
-	'coQuanThuMau', 
-	'quocGia', 'tinh', 
-	'huyen', 'xa', 'thon', 
-	'coQuanToChucPhanTich', 
-	'coQuanXuLy'
-	,'boPhanLayMauDNA', 
-	'trangThaiGiuMauDNA',
-	'coQuanNhapVatMau'];
+	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/co-sinh/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
@@ -381,39 +159,10 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 	});
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
-	$scope.addPost = function(FormContent, form){
+	$scope.addPost = function(FormContent){
 		if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
-			$.ajax({
-				url: '/content/co-sinh',
-				method: 'POST',
-				contentType: false,
-				processData: false,
-				data: fd,
-				success: function (data) {
-					alert(data.status);
-					window.location = urlRe;
-				},
-				error: function (err) {
-					console.log(err);
-					alert(JSON.parse(err.responseText).error);
-					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-					try {
-						element.style.background = '#EE543A';
-						setTimeout((function (e) {
-							return function () {
-								e.style.background = 'white';
-							}
-						})(element), 2000);
-						$('html, body').animate({
-							scrollTop: $(element).offset().top - 100
-						}, 500);
-					}
-					catch (e){
-						// do not care
-					}
-				}
-			});
+			AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 		} else{
 			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		}

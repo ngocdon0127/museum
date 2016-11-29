@@ -93,7 +93,7 @@
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{1,100}$"
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "nganh",
@@ -102,7 +102,7 @@
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{1,100}$"
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "lop",
@@ -162,10 +162,10 @@
 		"name": "phanHo",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Phân họ",
-		"required": true,
+		"required": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{1,100}$"
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "tong",

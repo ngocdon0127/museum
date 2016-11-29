@@ -241,7 +241,7 @@
 		"label": "Thôn/bản",
 		"required": false,
 		"type": "String",
-		"regex": "^.{1,100}$",
+		"regex": "^.{0,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -250,7 +250,6 @@
 		"label": "Vĩ độ N(*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -259,7 +258,6 @@
 		"label": "Kinh độ E (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -268,7 +266,7 @@
 		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật (*)",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -504,7 +502,7 @@
 		"type": "String"
 	},
 	{
-		"name": "loaiMau",
+		"name": "loaiMauVat",
 		"schemaProp": "dacDiemMauVat",
 		"label": "Loại mẫu(*)",
 		"required": true,

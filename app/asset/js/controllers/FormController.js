@@ -24,8 +24,9 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.addPost = function(FormContent){
 		if ($scope.FormContent.$valid) {
-			cfpLoadingBar.start();
+			// cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
+			// Call function from service
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		} else{
 			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
@@ -33,7 +34,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}
 }]);
 
-app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
 
 	$http.get('/app/database/tooltipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -68,7 +69,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 	}
 }]);
 
-app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 	
 	$http.get('/app/database/tooltipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -101,7 +102,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	}
 }]);
 
-app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
 	$http.get('/app/database/tooltipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -135,7 +136,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	}
 }]);
 
-app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
 	$http.get('/app/database/tooltipspal.json').then(function(res){
 		$scope.tooltips = res.data;

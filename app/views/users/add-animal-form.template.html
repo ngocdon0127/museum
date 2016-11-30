@@ -1,4 +1,4 @@
-<div id="loading-bar-container"></div>
+<!-- <div id="loading-bar-container"></div> -->
 <div style="margin-top: 60px;">
 	<form id="form-content" name="FormContent" ng-submit="addPost(FormContent, form)" novalidate>
 		<center><h2>Thêm mẫu dữ liệu động vật</h2></center>
@@ -142,7 +142,8 @@
 			<tr>
 				<td><label>16. Loại mẫu <span class="has-required"> (*)</span>:</label></td>
 				<td>
-					<select class="select-box" ng-model="data.loaiMau" required title="{{tooltips[29]}}" name="loaiMau">
+					<select class="select-box" required title="{{tooltips[29]}}" name="loaiMau">
+						<option value=""></option>
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
 						<option value="Mẫu type">Mẫu type</option>
@@ -189,8 +190,8 @@
 						<tr>
 							<td>Quốc gia<span class="has-required"> (*)</span>: </td>
 							<td>
-								<select class="select-box" ng-model="quocGia" title="{{tooltips[32]}}" name="quocGia" required>
-									<option value="VietNam">Việt Nam</option>
+								<select class="select-box" title="{{tooltips[32]}}" name="quocGia" required>
+									<option value="Việt Nam">Việt Nam</option>
 								</select>
 							</td>
 						</tr>
@@ -449,16 +450,18 @@
 			<tr>
 				<td><label>58. Hình thức nhập mẫu:</label></td>
 				<td>
-					<select class="select-box" ng-model="data.hinhThucNhapMau" title="{{tooltips[83]}}" name="hinhThucNhapMau">
-						<option value="thu-thap">Thu thập</option>
-						<option value="hien-tang">Hiến Tặng</option>
+					<select class="select-box" title="{{tooltips[83]}}" name="hinhThucNhapMau">
+						<option value=""></option>
+						<option value="Thu thập">Thu thập</option>
+						<option value="Hiến tặng">Hiến Tặng</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td><label>59. Trao đổi mẫu: </label></td>
 				<td>
-					<select class="select-box" ng-model="data.traoDoiMau" title="{{tooltips[84]}}" name="traoDoiMau">
+					<select class="select-box" title="{{tooltips[84]}}" name="traoDoiMau">
+						<option value=""></option>
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
 					</select>
@@ -467,7 +470,8 @@
 			<tr>
 				<td><label>60. Vay mượn:</label></td>
 				<td>
-					<select class="select-box" ng-model="data.vayMuon" title="{{tooltips[85]}}" name="vayMuon">
+					<select class="select-box" title="{{tooltips[85]}}" name="vayMuon">
+						<option value=""></option>
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
 					</select>

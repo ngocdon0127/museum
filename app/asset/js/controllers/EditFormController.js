@@ -1,4 +1,4 @@
-app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$filter','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $filter, $timeout, cfpLoadingBar){
+app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
 	
 	$http.get(url).then(function (res) {
@@ -18,34 +18,15 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.status = err.data.status;
 	});
 
-	var url = AuthService.hostName + '/content/dong-vat';
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.updatePost = function(){
-		cfpLoadingBar.start();
+		// cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/dong-vat',
-			method: 'PUT',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				cfpLoadingBar.complete();
-				console.log(cfpLoadingBar)
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				cfpLoadingBar.complete();
-				cfpLoadingBar.set(0);
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-			}
-		});
+		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 	}
 }]);
 
-app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
+app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/co-sinh/' + $routeParams.id;
 	
 	$http.get(url).then(function (res) {
@@ -63,34 +44,19 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		$scope.status = err.data.status;
 	});
 
-	var url = AuthService.hostName + '/content/co-sinh';
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.updatePost = function(){
+		// cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/co-sinh',
-			method: 'PUT',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-			}
-		});
+		AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 	}
 }]);
 
-app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
+app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
-		// console.log(res.data.animal.ngayNhapMau);
 		res.data.vegetable.ngayNhapMau = new Date(res.data.vegetable.ngayNhapMau);
 		res.data.vegetable.thoiGianThuMau = new Date(res.data.vegetable.thoiGianThuMau);
 		res.data.vegetable.thoiGianPhanTich = new Date(res.data.vegetable.thoiGianPhanTich);
@@ -105,34 +71,18 @@ var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 		$scope.status = err.data.status;
 	});
 
-	var url = AuthService.hostName + '/content/thuc-vat';
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
 	$scope.updatePost = function(){
+		// cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/thuc-vat',
-			method: 'PUT',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-			}
-		});
+		AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 	}
 }]);
 
-app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
+app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dia-chat/' + $routeParams.id;
-	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
-		// console.log(res.data.animal.ngayNhapMau);
 		res.data.geological.ngayNhapMau = new Date(res.data.geological.ngayNhapMau);
 		res.data.geological.thoiGianThuMau = new Date(res.data.geological.thoiGianThuMau);
 		res.data.geological.thoiGianPhanTich = new Date(res.data.geological.thoiGianPhanTich);
@@ -147,29 +97,15 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		$scope.status = err.data.status;
 	});
 
-	var url = AuthService.hostName + '/content/dia-chat';
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.updatePost = function(){
+		// cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/dia-chat',
-			method: 'PUT',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-			}
-		});
+		AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 	}
 }]);
 
-app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout', function($http,$scope,AuthService, $routeParams, $timeout){
+app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/tho-nhuong/' + $routeParams.id;
 	// console.log($routeParams.id);
 	
@@ -189,24 +125,10 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 		$scope.status = err.data.status;
 	});
 
-	var url = AuthService.hostName + '/content/tho-nhuong';
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.updatePost = function(){
+		// cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
-		$.ajax({
-			url: '/content/tho-nhuong',
-			method: 'PUT',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				alert(data.status);
-				window.location = urlRe;
-			},
-			error: function (err) {
-				console.log(err);
-				alert(JSON.parse(err.responseText).error);
-			}
-		});
+		AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 	}
 }]);

@@ -59,7 +59,7 @@
 		"label": "Tên địa phương",
 		"required": false,
 		"type": "String",
-		"regex": "^.{1,100}$"
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "tenTiengAnh",
@@ -90,7 +90,7 @@
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{1,100}$"
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "nganh",
@@ -99,7 +99,7 @@
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{1,100}$"
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "lop",
@@ -135,7 +135,7 @@
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{1,100}$"
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "loai",
@@ -187,14 +187,16 @@
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "kichThuocMau",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Kích thước mẫu vật(dài x rộng x cao)",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	
 	{
@@ -202,7 +204,8 @@
 		"schemaProp": "soLuongChatLuong",
 		"label": "Tình trạng mẫu vật",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "thongTinKhac3",
@@ -223,7 +226,8 @@
 		"schemaProp": "duLieuThuMau",
 		"label": "Người thu mẫu",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "coQuanThuMau",
@@ -321,9 +325,9 @@
 		"name": "banDo",
 		"schemaProp": "duLieuThuMau",
 		"label": "Bản đồ",
-		"required": true,
+		"required": false,
 		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac4",
@@ -366,7 +370,7 @@
 		"name": "phanTichTuoiDiaChat",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Phân tích tuổi địa chất",
-		"required": true,
+		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"
 	},

@@ -227,15 +227,19 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			
 			// Check required
 			if ((action == ACTION_CREATE) && (element.type.localeCompare('Mixed') !== 0)) {
-				// Check required data props if action is create
-				if (element.required && (element.type.localeCompare('File') != 0) && (!(element.name in req.body) || !(req.body[element.name]))) {
-					console.log('response error');
-					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
-				}
 
 				// Check required files if action is create
 				if (element.required && (element.type.localeCompare('File') == 0) && (!(element.name in req.files) || !(req.files[element.name]))){
 					console.log('missing file');
+					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
+				}
+			}
+
+			// Check required
+			if (element.type.localeCompare('Mixed') !== 0) {
+				// Check required data props if action is create
+				if (element.required && (element.type.localeCompare('File') != 0) && (!(element.name in req.body) || !(req.body[element.name]))) {
+					console.log('response error');
 					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
 				}
 			}

@@ -11,6 +11,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.data.id = $routeParams.id;
 
 		$timeout(function(){
+			console.log($scope.data.huyen);
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -20,7 +21,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.updatePost = function(){
-		// cfpLoadingBar.start();
+		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 	}
@@ -46,7 +47,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.updatePost = function(){
-		// cfpLoadingBar.start();
+		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 	}
@@ -64,6 +65,7 @@ var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
 		$timeout(function(){
+			console.log($scope.data);
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -73,7 +75,7 @@ var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
 	$scope.updatePost = function(){
-		// cfpLoadingBar.start();
+		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 	}
@@ -99,7 +101,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.updatePost = function(){
-		// cfpLoadingBar.start();
+		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 	}
@@ -127,7 +129,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.updatePost = function(){
-		// cfpLoadingBar.start();
+		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 	}

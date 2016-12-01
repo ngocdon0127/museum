@@ -40,14 +40,20 @@ router.get('/logout', function (req, res) {
 
 
 router.get("/signup", function (req, res) {
+	// Disable signup
+	return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
 	res.render("signup", {message: req.flash("signupMessage"), title: "Register", user: req.user, path: '/auth/signup'})
 });
 
-router.post("/signup", passport.authenticate('local-signup', {
-	successRedirect: '/auth/login',
-	failureRedirect: 'signup',
-	failureFlash: true
-}));
+router.post('/signup', function (req, res) {
+	return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
+})
+
+// router.post("/signup", passport.authenticate('local-signup', {
+// 	successRedirect: '/auth/login',
+// 	failureRedirect: 'signup',
+// 	failureFlash: true
+// }));
 
 router.get('/settings', isLoggedIn, function (req, res, next) {
 	res.render('settings', {title: 'Settings', user: req.user});

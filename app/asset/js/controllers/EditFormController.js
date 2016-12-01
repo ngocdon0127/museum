@@ -11,6 +11,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.data.id = $routeParams.id;
 
 		$timeout(function(){
+			console.log($scope.data.huyen);
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -64,6 +65,7 @@ var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
 		$timeout(function(){
+			console.log($scope.data);
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);

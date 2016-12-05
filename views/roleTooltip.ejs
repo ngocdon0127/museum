@@ -1,0 +1,27 @@
+<p><%= role.rolename %></p>
+<% var allows = role.allows; %>
+<% var dic = {
+	view: 'Xem',
+	create: 'Thêm',
+	edit: 'Sửa',
+	delete: 'Xóa'
+} %>
+<% for (var i = 0; i < allows.length; i++) { %>
+	<% var allow = allows[i] %>
+	<% if (allow.hasOwnProperty('resourceName')) { %>
+		<div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
+			<label><%= allow.resourceName %></label>
+			<% var actions = allow.actions; %>
+			<% if (actions.length > 0) { %>
+				<ul class="list-group">
+					<% for (var j = 0; j < actions.length; j++) { %>
+						<li class="list-group-item">
+							<span> <%= dic[actions[j]] %> </span>
+						</li>
+					
+					<% } %>
+				</ul>
+			<% } %>
+		</div>
+	<% } %>
+<% } %>

@@ -75,6 +75,15 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 	})
 })
 
+router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (req, res, next) {
+	var role = req.query.role;
+	console.log(role);
+	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+	return res.render('roleTooltip', {
+		role: roles[role]
+	});
+})
+
 router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next){
 	console.log('---');
 	console.log(req.body);
@@ -158,6 +167,7 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 		},
 		{
 			resource: cores.resources[req.body.side].url,
+			resourceName: cores.resources[req.body.side].resourceName,
 			actions: []
 		}
 	];

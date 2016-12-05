@@ -35,6 +35,7 @@
             },
             {
                 "resource": "/content/dong-vat",
+                "resourceName": "Động vật",
                 "actions": [
                     "view",
                     "create",
@@ -44,6 +45,7 @@
             },
             {
                 "resource": "/content/tho-nhuong",
+                "resourceName": "Thổ nhưỡng",
                 "actions": [
                     "view",
                     "create",
@@ -53,6 +55,7 @@
             },
             {
                 "resource": "/content/dia-chat",
+                "resourceName": "Địa chất",
                 "actions": [
                     "view",
                     "create",
@@ -62,6 +65,7 @@
             },
             {
                 "resource": "/content/co-sinh",
+                "resourceName": "Cổ sinh",
                 "actions": [
                     "view",
                     "create",
@@ -71,6 +75,7 @@
             },
             {
                 "resource": "/content/thuc-vat",
+                "resourceName": "Thực vật",
                 "actions": [
                     "view",
                     "create",
@@ -80,52 +85,84 @@
             }
         ]
     },
-     "admin": {
+    "admin": {
         "role": "admin",
         "rolename": "Admin",
         "allows": [
-                {
-                        "resource": "/config",
-                        "actions": ["view", "create", "edit", "delete"]
-                },
-                {
-                        "resource": "/app",
-                        "actions": ["view", "create", "edit", "delete"]
-                },
-                {
-                        "resource": "/log/all",
-                        "actions": ["view"]
-                },
-                {
-                        "resource": "/content/dong-vat",
-                        "actions": ["view", "create", "edit", "delete"]
-                },
-                {
-                        "resource": "/content/tho-nhuong",
-                        "actions": ["view", "create", "edit", "delete"]
-                },
-                {
-                        "resource": "/content/dia-chat",
-                        "actions": ["view", "create", "edit", "delete"]
-                },
-                {
-                        "resource": "/content/co-sinh",
-                        "actions": ["view", "create", "edit", "delete"]
-                },
-                {
-                        "resource": "/content/thuc-vat",
-                        "actions": ["view", "create", "edit", "delete"]
-                }
+            {
+                "resource": "/config",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/app",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/log/all",
+                "actions": [
+                    "view"
+                ]
+            },
+            {
+                "resource": "/content/dong-vat",
+                "resourceName": "Động vật",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/tho-nhuong",
+                "resourceName": "Thổ nhưỡng",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/dia-chat",
+                "resourceName": "Địa chất",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/co-sinh",
+                "resourceName": "Cổ sinh",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/thuc-vat",
+                "resourceName": "Thực vật",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            }
         ]
-	},
-    "dongvat_don-don": {
-        "role": "dongvat_don-don",
-        "rolename": "Đôn đôn",
-        "allows": {
-            "resource": "/content/dong-vat",
-            "actions": [
-                "edit"
-            ]
-        }
     }
 }

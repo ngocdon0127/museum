@@ -9,6 +9,19 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 		$scope.status = res.data.status;
 	});
 
+	$scope.selectedAll = false;
+	$scope.selectAll = function () {
+		$scope.selectedAll = !$scope.selectedAll;
+		var arr = document.getElementsByClassName("check-box");
+		for (var i = arr.length - 1; i >= 0; i--) {
+			arr[i].checked = $scope.selectedAll;
+		}
+	}
+
+	$scope.export = function (id) {
+		AuthService.exportFile(id);
+	};
+
 	$scope.deletePost = function(id){
 		var urlDelete = AuthService.hostName + "/content/dong-vat";
 		var r = confirm("Xoá bài đăng");
@@ -28,6 +41,19 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '
 		console.log(err);
 		$scope.status = res.data.status;
 	});
+
+	$scope.selectedAll = false;
+	$scope.selectAll = function () {
+		$scope.selectedAll = !$scope.selectedAll;
+		var arr = document.getElementsByClassName("check-box");
+		for (var i = arr.length - 1; i >= 0; i--) {
+			arr[i].checked = $scope.selectedAll;
+		}
+	}
+
+	$scope.export = function (id) {
+		AuthService.exportFile(id);
+	};
 
 	$scope.deletePost = function(id){
 		var urlDelete = AuthService.hostName + "/content/thuc-vat";
@@ -49,6 +75,19 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$rout
 		$scope.status = res.data.status;
 	});
 
+	$scope.selectedAll = false;
+	$scope.selectAll = function () {
+		$scope.selectedAll = !$scope.selectedAll;
+		var arr = document.getElementsByClassName("check-box");
+		for (var i = arr.length - 1; i >= 0; i--) {
+			arr[i].checked = $scope.selectedAll;
+		}
+	}
+
+	$scope.export = function (id) {
+		AuthService.exportFile(id);
+	};
+
 	$scope.deletePost = function(id){
 		var urlDelete = AuthService.hostName + "/content/tho-nhuong";
 		var r = confirm("Xóa bài đăng?");
@@ -67,6 +106,19 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 		console.log(err);
 		$scope.status = res.data.status;
 	});
+
+	$scope.selectedAll = false;
+	$scope.selectAll = function () {
+		$scope.selectedAll = !$scope.selectedAll;
+		var arr = document.getElementsByClassName("check-box");
+		for (var i = arr.length - 1; i >= 0; i--) {
+			arr[i].checked = $scope.selectedAll;
+		}
+	}
+
+	$scope.export = function (id) {
+		AuthService.exportFile(id);
+	};
 
 	$scope.deletePost = function(id){
 		var urlDelete = AuthService.hostName + "/content/dia-chat";
@@ -87,6 +139,19 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 		console.log(err);
 		$scope.status = res.data.status;
 	});
+
+	$scope.selectedAll = false;
+	$scope.selectAll = function () {
+		$scope.selectedAll = !$scope.selectedAll;
+		var arr = document.getElementsByClassName("check-box");
+		for (var i = arr.length - 1; i >= 0; i--) {
+			arr[i].checked = $scope.selectedAll;
+		}
+	}
+
+	$scope.export = function (id) {
+		AuthService.exportFile(id);
+	};
 
 	$scope.deletePost = function(id){
 		var urlDelete = AuthService.hostName + "/content/co-sinh";

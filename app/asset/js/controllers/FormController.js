@@ -26,7 +26,6 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		if ($scope.FormContent.$valid) {
 			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
-			// Call function from service
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		} else{
 			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();

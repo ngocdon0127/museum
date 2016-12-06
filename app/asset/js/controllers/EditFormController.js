@@ -11,7 +11,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.data.id = $routeParams.id;
 
 		$timeout(function(){
-			console.log($scope.data.huyen);
+			// console.log($scope.data.huyen)
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -37,6 +37,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		$scope.data = res.data.paleontological;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
+
 		$timeout(function(){
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
@@ -55,7 +56,6 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 
 app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
-	// console.log($routeParams.id);
 	
 	$http.get(url).then(function (res) {
 		res.data.vegetable.ngayNhapMau = new Date(res.data.vegetable.ngayNhapMau);
@@ -65,7 +65,6 @@ var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
 		$timeout(function(){
-			console.log($scope.data);
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);

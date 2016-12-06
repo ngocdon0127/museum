@@ -165,7 +165,7 @@
 															<% for (var j = 0; j < roles.length; j++) { %>
 																<li class="list-group-item">
 																	<input name="<%= roles[j].role%>" type="checkbox" <%= (users[i].id in aclRules && aclRules[users[i].id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
-																	<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].rolename + i %>" class="jTip"><%= roles[j].rolename %></a> </span>
+																	<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + i %>" class="jTip"><%= roles[j].rolename %></a> </span>
 																</li>
 															<% } %>
 														</ul>

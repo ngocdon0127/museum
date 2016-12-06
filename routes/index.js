@@ -167,6 +167,7 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 		},
 		{
 			resource: cores.resources[req.body.side].url,
+			resourceId: req.body.side,
 			resourceName: cores.resources[req.body.side].resourceName,
 			actions: []
 		}

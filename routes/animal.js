@@ -104,6 +104,7 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 		return preArray;
 	}, [])),
 	function (req, res, next) {
+		console.log(req.body);
 		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
 		if (missingParam){
 			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  

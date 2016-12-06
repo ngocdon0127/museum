@@ -35,6 +35,7 @@
             },
             {
                 "resource": "/content/dong-vat",
+                "resourceId": "dongvat",
                 "resourceName": "Động vật",
                 "actions": [
                     "view",
@@ -45,6 +46,7 @@
             },
             {
                 "resource": "/content/tho-nhuong",
+                "resourceId": "thonhuong",
                 "resourceName": "Thổ nhưỡng",
                 "actions": [
                     "view",
@@ -55,6 +57,7 @@
             },
             {
                 "resource": "/content/dia-chat",
+                "resourceId": "diachat",
                 "resourceName": "Địa chất",
                 "actions": [
                     "view",
@@ -65,6 +68,7 @@
             },
             {
                 "resource": "/content/co-sinh",
+                "resourceId": "cosinh",
                 "resourceName": "Cổ sinh",
                 "actions": [
                     "view",
@@ -75,6 +79,7 @@
             },
             {
                 "resource": "/content/thuc-vat",
+                "resourceId": "thucvat",
                 "resourceName": "Thực vật",
                 "actions": [
                     "view",
@@ -115,6 +120,7 @@
             },
             {
                 "resource": "/content/dong-vat",
+                "resourceId": "dongvat",
                 "resourceName": "Động vật",
                 "actions": [
                     "view",
@@ -125,6 +131,7 @@
             },
             {
                 "resource": "/content/tho-nhuong",
+                "resourceId": "thonhuong",
                 "resourceName": "Thổ nhưỡng",
                 "actions": [
                     "view",
@@ -135,6 +142,7 @@
             },
             {
                 "resource": "/content/dia-chat",
+                "resourceId": "diachat",
                 "resourceName": "Địa chất",
                 "actions": [
                     "view",
@@ -145,6 +153,7 @@
             },
             {
                 "resource": "/content/co-sinh",
+                "resourceId": "cosinh",
                 "resourceName": "Cổ sinh",
                 "actions": [
                     "view",
@@ -155,6 +164,7 @@
             },
             {
                 "resource": "/content/thuc-vat",
+                "resourceId": "thucvat",
                 "resourceName": "Thực vật",
                 "actions": [
                     "view",

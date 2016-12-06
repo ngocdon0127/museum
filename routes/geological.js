@@ -134,6 +134,7 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 })
 
 router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), function (req, res) {
+	// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 	ObjectModel.find({deleted_at: {$eq: null}}, function (err, objectInstances) {
 		if (err){
 			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);

@@ -1,11 +1,21 @@
 <div class="container map-detail" style="margin-top: 50px;" ng-if="data">
-	<center><h2>Các bài đã đăng</h2></center>
-	
+	<center><h2>Các mẫu vật đã đăng</h2></center>
+	<div style="margin-bottom: 10px;">
+		<button type="button" class="btn btn-success" ng-click="selectAll()">Select all</button>
+		<button type="button" class="btn btn-primary" ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</button>
+		<button type="button" class="btn btn-primary" ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</button>
+	</div>
 	<div class="list-group" ng-repeat="(key, post) in data">
-		<li class="list-group-item">
-			
+		<li class="list-group-item">		
 			<table>
 				<tr>
+					<td>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" class="check-box" ng-model="post.selected" data-id='/content/{{link}}/{{post._id}}?display='>
+							</label>
+						</div>
+					</td>
 					<td>
 						<p><b>Id: </b><a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post._id}}</span></a></p>
 						<p><b>Người thu mẫu: </b>{{post.duLieuThuMau.nguoiThuMau}}</p>
@@ -13,7 +23,6 @@
 						<p><b>Ngày đăng: </b>{{post.created_at | date: "dd-MM-yyyy hh:mm:ss"}}</p>
 					</td>
 					<td style="right: 0px; position: absolute;">
-						<a class="btn btn-primary" href="/content/{{link}}/{{post._id}}?display=docx" role="button"><span class="glyphicon glyphicon-download"></span>Xuất docx</a>
 						<a class="btn btn-success" href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-pencil"></span>Chỉnh sửa</a>
 						<a class="btn btn-danger" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa bài đăng</a>
 					</td>

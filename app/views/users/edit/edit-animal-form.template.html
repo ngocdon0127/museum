@@ -144,6 +144,7 @@
 				<td><label>16. Loại mẫu <span class="has-required"> (*)</span>:</label></td>
 				<td>
 					<select class="select-box" ng-init="" ng-model="data.loaiMau" required title="{{tooltips[29]}}" name="loaiMau">
+						<option value=""></option>
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
 						<option value="Mẫu type">Mẫu type</option>
@@ -190,7 +191,7 @@
 						<tr>
 							<td>Quốc gia<span class="has-required"> (*)</span>: </td>
 							<td>
-								<select class="select-box" ng-model = "data.quocgia" title="{{tooltips[32]}}" name="quocGia" required>
+								<select class="select-box" ng-model = "data.quocGia" title="{{tooltips[32]}}" name="quocGia" required>
 									<option value="Việt Nam">Việt Nam</option>
 								</select>
 							</td>
@@ -198,15 +199,15 @@
 						<tr>
 							<td>Tỉnh/Thành phố<span class="has-required"> (*)</span>: </td>
 							<td>
-								<select class="select-box" title="{{tooltips[33]}}" name="tinh" required ng-model= "$parent.data.tinh" ng-change="cityChange()">
+								<select class="select-box" title="{{tooltips[33]}}" name="tinh" required ng-model= "$parent.data.tinh" ng-click="cityChange()">
 									<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " + city.name}}</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<td>Huyện<span class="has-required"> (*)</span>:</td>
+							<td>Huyện<span class="has-required">(*)</span>:</td>
 							<td>
-								<select class="select-box" title="{{tooltips[34]}}" name="huyen" required ng-model= "$parent.data.huyen" ng-change="districtChange()">
+								<select class="select-box" title="{{tooltips[34]}}" name="huyen" required ng-model= "$parent.data.huyen" ng-click="districtChange()">
 									<option ng-repeat="(key, district) in districts | customCity: data.tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
 								</select>
 							</td>
@@ -451,6 +452,7 @@
 				<td><label>58. Hình thức nhập mẫu:</label></td>
 				<td>
 					<select class="select-box" ng-init="" ng-model="data.hinhThucNhapMau" title="{{tooltips[83]}}" name="hinhThucNhapMau">
+						<option value=""></option>
 						<option value="Thu thập">Thu thập</option>
 						<option value="Hiến tặng">Hiến Tặng</option>
 					</select>
@@ -460,6 +462,7 @@
 				<td><label>59. Trao đổi mẫu: </label></td>
 				<td>
 					<select class="select-box" ng-init="" ng-model="data.traoDoiMau" title="{{tooltips[84]}}" name="traoDoiMau">
+						<option value=""></option>
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
 					</select>

@@ -25,6 +25,10 @@ module.exports = function (mongoose) {
 		coQuanToChucPhanTich: [String],
 		coQuanXuLy: [String],
 		coQuanNhapVatMau: [String]
+		// will update after 12 / 12 / 2016
+		// boPhanLayMauDNA: [String],
+		// trangThaiGiuMauDNA: [String]
+		//
 	};
 	var animalAutoCompletion = mongoose.Schema(schemaPrototype);
 

@@ -72,7 +72,7 @@
 	{
 		"name": "tenTheoBaoTang",
 		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
+		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng Thiên nhiên Việt Nam",
 		"required": false,
 		"type": "String"
 	},
@@ -295,6 +295,7 @@
 		"label": "Quốc gia",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -303,6 +304,7 @@
 		"label": "Tỉnh",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -311,6 +313,7 @@
 		"label": "Huyện",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -319,6 +322,7 @@
 		"label": "Xã",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -334,14 +338,16 @@
 		"schemaProp": "duLieuThuMau.viTriToaDo",
 		"label": "Vĩ độ N",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "kinhDo",
 		"schemaProp": "duLieuThuMau.viTriToaDo",
 		"label": "Kinh độ E",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "doCao",
@@ -452,7 +458,7 @@
 	{
 		"name": "giaiDoanSong",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Giới tính, giống",
+		"label": "Giai đoạn sống trong vòng đời",
 		"required": false,
 		"type": "String"
 	},
@@ -582,7 +588,7 @@
 	{
 		"name": "dinhKemTrinhTuDNA",
 		"schemaProp": "media.thongTinDNA",
-		"label": "Đính kèm Trình tự DNA",
+		"label": "Trình tự DNA",
 		"required": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"

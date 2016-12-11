@@ -146,7 +146,7 @@
 						<tr>
 							<td>Tỉnh/Thành phố<span class="has-required">(*)</span>: </td>
 							<td>
-								<select class="select-box" title="{{tooltips[25]}}" name="tinh" required ng-model= "$parent.data.tinh" ng-change="cityChange()">
+								<select class="select-box" title="{{tooltips[25]}}" name="tinh" required ng-model= "$parent.data.tinh" ng-click="cityChange()">
 									<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " + city.name}}</option>
 								</select>
 							</td>
@@ -154,7 +154,7 @@
 						<tr>
 							<td>Huyện<span class="has-required">(*)</span>:</td>
 							<td>
-								<select class="select-box" title="{{tooltips[26]}}" name="huyen" required ng-model= "$parent.data.huyen" ng-change="districtChange()">
+								<select class="select-box" title="{{tooltips[26]}}" name="huyen" required ng-model= "$parent.data.huyen" ng-click="districtChange()">
 									<option ng-repeat="(key, district) in districts | customCity: data.tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
 								</select>
 							</td>

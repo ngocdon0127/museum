@@ -2,7 +2,7 @@
 	{
 		"name": "soHieuThucDia",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu thực địa(*)",
+		"label": "Số hiệu thực địa",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -11,7 +11,7 @@
 	{
 		"name": "soHieuBaoTangCS",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu Bảo tàng cơ sở (*)",
+		"label": "Số hiệu Bảo tàng cơ sở",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -54,7 +54,7 @@
 	{
 		"name": "tenVietNam",
 		"schemaProp": "tenMau",
-		"label": "Tên Việt Nam (phổ thông) (*)",
+		"label": "Tên Việt Nam (phổ thông)",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -136,13 +136,13 @@
 		"label": "Loại mẫu vật",
 		"required": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
 		"name": "kichThuocMau",
 		"schemaProp": "soLuongChatLuong",
-		"label": "Kích thước mẫu vật (dài x rộng x cao) (*)",
+		"label": "Kích thước mẫu vật (dài x rộng x cao)",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -151,7 +151,7 @@
 	{
 		"name": "tinhTrangMau",
 		"schemaProp": "soLuongChatLuong",
-		"label": "Tình trạng mẫu vật (*)",
+		"label": "Tình trạng mẫu vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -167,16 +167,15 @@
 	{
 		"name": "thoiGianThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Thời gian thu mẫu (*)",
+		"label": "Thời gian thu mẫu",
 		"required": true,
 		"type": "Date",
-		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
 		"name": "nguoiThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Người thu mẫu (*)",
+		"label": "Người thu mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -202,7 +201,7 @@
 	{
 		"name": "quocGia",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Quốc gia (*)",
+		"label": "Quốc gia",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -211,7 +210,7 @@
 	{
 		"name": "tinh",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Tỉnh (*)",
+		"label": "Tỉnh",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -220,7 +219,7 @@
 	{
 		"name": "huyen",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Huyện (*)",
+		"label": "Huyện",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -229,7 +228,7 @@
 	{
 		"name": "xa",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Xã (*)",
+		"label": "Xã",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -247,7 +246,7 @@
 	{
 		"name": "viDo",
 		"schemaProp": "duLieuThuMau.viTriToaDo",
-		"label": "Vĩ độ N(*)",
+		"label": "Vĩ độ N",
 		"required": true,
 		"type": "String",
 		"autoCompletion": false
@@ -255,7 +254,7 @@
 	{
 		"name": "kinhDo",
 		"schemaProp": "duLieuThuMau.viTriToaDo",
-		"label": "Kinh độ E (*)",
+		"label": "Kinh độ E",
 		"required": true,
 		"type": "String",
 		"autoCompletion": false
@@ -263,7 +262,7 @@
 	{
 		"name": "thongTinDuAn",
 		"schemaProp": "duLieuThuMau",
-		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật (*)",
+		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -272,7 +271,7 @@
 	{
 		"name": "ghiChepThucDia",
 		"schemaProp": "duLieuThuMau",
-		"label": "Ghi chép thực địa (*)",
+		"label": "Ghi chép thực địa",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -300,13 +299,12 @@
 		"label": "Thời gian phân tích/giám định/định loại mẫu",
 		"required": false,
 		"type": "Date",
-		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
 		"name": "nguoiPhanTich",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Người phân tích/giám định/định loại mẫu (*)",
+		"label": "Người phân tích/giám định/định loại mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -315,7 +313,7 @@
 	{
 		"name": "coQuanToChucPhanTich",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu (*)",
+		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -324,7 +322,7 @@
 	{
 		"name": "taiLieuPhanTich",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Tài liệu phân tích/giám định/phân loại đi kèm (*)",
+		"label": "Tài liệu phân tích/giám định/phân loại đi kèm",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
@@ -411,7 +409,7 @@
 	{
 		"name": "anhMauVat",
 		"schemaProp": "media",
-		"label": "Ảnh mẫu vật (*)",
+		"label": "Ảnh mẫu vật",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
@@ -504,7 +502,7 @@
 	{
 		"name": "loaiMauVat",
 		"schemaProp": "dacDiemMauVat",
-		"label": "Loại mẫu(*)",
+		"label": "Loại mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -513,7 +511,7 @@
 	{
 		"name": "hinhDangMauTonTai",
 		"schemaProp": "dacDiemMauVat",
-		"label": "Hình dáng mẫu, dạng tồn tại (*)",
+		"label": "Hình dáng mẫu, dạng tồn tại",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -522,7 +520,7 @@
 	{
 		"name": "mauSac",
 		"schemaProp": "dacDiemMauVat",
-		"label": "Màu sắc (*)",
+		"label": "Màu sắc",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -540,7 +538,7 @@
 	{
 		"name": "thanhPhanKhoangVat",
 		"schemaProp": "dacDiemMauVat",
-		"label": "Thành phần khoáng vật (*)",
+		"label": "Thành phần khoáng vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -549,7 +547,7 @@
 	{
 		"name": "tinhChatVatLy",
 		"schemaProp": "dacDiemMauVat",
-		"label": "Tính chất vật lý (*)",
+		"label": "Tính chất vật lý",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -639,7 +637,6 @@
 		"label": "Ngày nhập mẫu",
 		"required": false,
 		"type": "Date",
-		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -754,7 +751,7 @@
 	{
 		"name": "nguoiNhapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Người lập phiếu mẫu vật (*)",
+		"label": "Người lập phiếu mẫu vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",

@@ -71,7 +71,7 @@
 	{
 		"name": "tenTheoBaoTang",
 		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
+		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
 		"required": false,
 		"type": "String"
 	},
@@ -131,7 +131,7 @@
 	{
 		"name": "giong",
 		"schemaProp": "tenMau.tenKhoaHoc",
-		"label": "Giống",
+		"label": "Chi/Giống",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true,
@@ -148,7 +148,7 @@
 	{
 		"name": "duoiLoai",
 		"schemaProp": "tenMau.tenKhoaHoc",
-		"label": "Dưới loài",
+		"label": "Dưới loài/phân loài",
 		"required": false,
 		"type": "String",
 		"autoCompletion": true
@@ -159,7 +159,7 @@
 		"label": "Người định tên",
 		"required": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": false
 	},
 	{
 		"name": "thongTinKhac1",
@@ -302,7 +302,7 @@
 	{
 		"name": "thongTinDiaTang",
 		"schemaProp": "duLieuThuMau",
-		"label": "Thông tin địa tầng, địa lý và tuổi địa chất (*)",
+		"label": "Thông tin địa tầng, địa lý và tuổi địa chất",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$"
@@ -312,14 +312,16 @@
 		"schemaProp": "duLieuThuMau",
 		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "ghiChepThucDia",
 		"schemaProp": "duLieuThuMau",
 		"label": "Ghi chép thực địa",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "banDo",
@@ -348,7 +350,8 @@
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Người phân tích/giám định/định loại mẫu",
 		"required": true,
-		"type": "String"
+		"type": "String",
+		"regex": "^.{1,100}$"
 	},
 	{
 		"name": "coQuanToChucPhanTich",
@@ -356,6 +359,7 @@
 		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
 		"required": true,
 		"type": "String",
+		"regex": "^.{1,100}$",
 		"autoCompletion": true
 	},
 	{
@@ -720,7 +724,7 @@
 	{
 		"name": "thongTinKhac9",
 		"schemaProp": "thongTinKhac",
-		"label": "Thông tin khác",
+		"label": "Các thông tin khác",
 		"required": false,
 		"type": "String"
 	},
@@ -780,7 +784,7 @@
 	{
 		"name": "tenKhoaHoc",
 		"type": "Metadata",
-		"label": "Tên khoa học"
+		"label": "Tên khoa học (tên latinh)"
 	},
 	{
 		"name": "diaDiemThuMau",

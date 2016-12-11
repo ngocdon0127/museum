@@ -824,6 +824,11 @@
 		"label": "Nhóm dữ liệu Hình ảnh/phim, tài liệu mẫu vật"
 	},
 	{
+		"name": "dacDiemMauVat",
+		"type": "Metadata",
+		"label": "Nhóm dữ liệu đặc điểm mẫu vật"
+	},
+	{
 		"name": "phanBoVaSuDung",
 		"type": "Metadata",
 		"label": "Nhóm dữ liệu Phân bố và giá trị sử dụng"

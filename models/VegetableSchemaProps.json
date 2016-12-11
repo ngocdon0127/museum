@@ -72,7 +72,7 @@
 	{
 		"name": "tenTheoBaoTang",
 		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
+		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$"

@@ -11,7 +11,7 @@
 	{
 		"name": "soHieuBaoTangCS",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu Bảo tàng cơ sở (*)",
+		"label": "Số hiệu Bảo tàng cơ sở",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -20,7 +20,7 @@
 	{
 		"name": "soHieuBTTNVN",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu BTTNVN (*)",
+		"label": "Số hiệu BTTNVN",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,100}$",
@@ -54,7 +54,7 @@
 	{
 		"name": "tenVietNam",
 		"schemaProp": "tenMau",
-		"label": "Tên Việt Nam (phổ thông)(*)",
+		"label": "Tên Việt Nam (phổ thông)",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,250}$",
@@ -81,7 +81,7 @@
 	{
 		"name": "tenTheoBaoTang",
 		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Bảo tàng",
+		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,250}$",
@@ -118,7 +118,6 @@
 		"label": "Số lượng mẫu vật",
 		"required": false,
 		"type": "Number",
-		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -127,13 +126,12 @@
 		"label": "Số lượng tiêu bản",
 		"required": false,
 		"type": "Number",
-		"regex": "^.{0,100}$",
 		"autoCompletion": false
 	},
 	{
 		"name": "loaiMau",
 		"schemaProp": "soLuongChatLuong",
-		"label": "Loại mẫu vật (Mẫu nghiên cứu – mẫu trưng bày – Mẫu Type)(*)",
+		"label": "Loại mẫu vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -142,7 +140,7 @@
 	{
 		"name": "kichThuocMau",
 		"schemaProp": "soLuongChatLuong",
-		"label": "Kích thước mẫu vật (dài x rộng x cao) (m???) (*)",
+		"label": "Kích thước mẫu vật (dài x rộng x cao) (m)",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -151,7 +149,7 @@
 	{
 		"name": "tinhTrangMau",
 		"schemaProp": "soLuongChatLuong",
-		"label": "Tình trạng mẫu vật (*)",
+		"label": "Tình trạng mẫu vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -167,16 +165,15 @@
 	{
 		"name": "thoiGianThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Thời gian thu mẫu (*)",
+		"label": "Thời gian thu mẫu",
 		"required": true,
 		"type": "Date",
-		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
 		"name": "nguoiThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Người thu mẫu (*)",
+		"label": "Người thu mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -202,7 +199,7 @@
 	{
 		"name": "quocGia",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Quốc gia (*)",
+		"label": "Quốc gia",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -211,7 +208,7 @@
 	{
 		"name": "tinh",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Tỉnh (*)",
+		"label": "Tỉnh",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -220,7 +217,7 @@
 	{
 		"name": "huyen",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Huyện (*)",
+		"label": "Huyện",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -229,7 +226,7 @@
 	{
 		"name": "xa",
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Xã (*)",
+		"label": "Xã",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -247,7 +244,7 @@
 	{
 		"name": "viDo",
 		"schemaProp": "duLieuThuMau.viTriToaDo",
-		"label": "Vĩ độ N (*)",
+		"label": "Vĩ độ N",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -256,7 +253,7 @@
 	{
 		"name": "kinhDo",
 		"schemaProp": "duLieuThuMau.viTriToaDo",
-		"label": "Kinh độ E (*)",
+		"label": "Kinh độ E",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,100}$",
@@ -265,7 +262,7 @@
 	{
 		"name": "mauChatOViTriThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Mẫu chất ở vị trí thu mẫu (*)",
+		"label": "Mẫu chất ở vị trí thu mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,150}$",
@@ -274,10 +271,9 @@
 	{
 		"name": "doCao",
 		"schemaProp": "duLieuThuMau",
-		"label": "Độ cao (*)",
+		"label": "Độ cao",
 		"required": true,
 		"type": "Number",
-		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
@@ -292,25 +288,23 @@
 	{
 		"name": "doDocNoiThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Độ dốc nơi thu mẫu(*)",
+		"label": "Độ dốc nơi thu mẫu",
 		"required": true,
 		"type": "Number",
-		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
 		"name": "mucNuocNgamNoiThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Mực nước ngầm nơi thu mẫu(*)",
+		"label": "Mực nước ngầm nơi thu mẫu",
 		"required": true,
 		"type": "Number",
-		"regex": "^.{1,100}$",
 		"autoCompletion": false
 	},
 	{
 		"name": "khaNangThoatNuoc",
 		"schemaProp": "duLieuThuMau",
-		"label": "Khả năng thoát nước nơi thu mẫu(*)",
+		"label": "Khả năng thoát nước nơi thu mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,150}$",
@@ -328,7 +322,7 @@
 	{
 		"name": "dangDiaHinhNoiThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Dạng địa hình nơi thu mẫu(*)",
+		"label": "Dạng địa hình nơi thu mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,250}$",
@@ -337,7 +331,7 @@
 	{
 		"name": "thamThucVatNoiThuMau",
 		"schemaProp": "duLieuThuMau",
-		"label": "Thảm thực vật hiện tại nơi thu mẫu(*)",
+		"label": "Thảm thực vật hiện tại nơi thu mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,250}$",
@@ -346,7 +340,7 @@
 	{
 		"name": "thongTinDuAn",
 		"schemaProp": "duLieuThuMau",
-		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật (*)",
+		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,250}$",
@@ -355,7 +349,7 @@
 	{
 		"name": "ghiChepThucDia",
 		"schemaProp": "duLieuThuMau",
-		"label": "Ghi chép thực địa (*)",
+		"label": "Ghi chép thực địa",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,250}$",
@@ -407,7 +401,7 @@
 	{
 		"name": "ketQuaPhanTich",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Kết quả phân tích (*)",
+		"label": "Kết quả phân tích",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
@@ -425,7 +419,7 @@
 	{
 		"name": "nguoiGiamDinhMau",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Người giám định mẫu (*)",
+		"label": "Người giám định mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,150}$",
@@ -434,7 +428,7 @@
 	{
 		"name": "coQuanToChucGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Cơ quan/tổ chức giám định mẫu(*)",
+		"label": "Cơ quan/tổ chức giám định mẫu",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,150}$",
@@ -443,7 +437,7 @@
 	{
 		"name": "taiLieuPhanTich",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Tài liệu phân tích/giám định/phân loại đi kèm (*)",
+		"label": "Tài liệu phân tích/giám định/phân loại đi kèm",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
@@ -459,7 +453,7 @@
 	{
 		"name": "anhMauVat",
 		"schemaProp": "media",
-		"label": "Ảnh mẫu vật (*)",
+		"label": "Ảnh mẫu vật",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
@@ -537,7 +531,7 @@
 	{
 		"name": "taiLieuDiKem",
 		"schemaProp": "media",
-		"label": "Tài liệu đi kèm (*)",
+		"label": "Tài liệu đi kèm",
 		"required": true,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
@@ -605,7 +599,7 @@
 	{
 		"name": "giaTriSuDung",
 		"schemaProp": "phanBoVaSuDung",
-		"label": "Giá trị sử dụng (*)",
+		"label": "Giá trị sử dụng",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,500}$",
@@ -621,7 +615,7 @@
 	{
 		"name": "ngayNhapMau",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Ngày nhập mẫu (*)",
+		"label": "Ngày nhập mẫu",
 		"required": false,
 		"type": "Date",
 		"regex": "^.{0,100}$",
@@ -684,7 +678,7 @@
 	{
 		"name": "noiLuuTruMau",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Nơi trữ mẫu (*)",
+		"label": "Nơi trữ mẫu",
 		"required": false,
 		"type": "String",
 		"regex": "^.{0,150}$",
@@ -739,7 +733,7 @@
 	{
 		"name": "nguoiNhapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Người lập phiếu mẫu vật (*)",
+		"label": "Người lập phiếu mẫu vật",
 		"required": true,
 		"type": "String",
 		"regex": "^.{1,250}$",

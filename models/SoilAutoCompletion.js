@@ -9,6 +9,8 @@ module.exports = function (mongoose) {
 		coQuanToChucGiamDinh: [String],
 		coQuanXuLy: [String],
 		coQuanNhapVatMau: [String]
+		// Update after 12 / 12 / 2016
+		// noiLuuTruMau: [String]
 	};
 	var soilAutoCompletion = mongoose.Schema(schemaPrototype);
 

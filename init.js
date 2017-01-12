@@ -405,6 +405,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			}
 		}
 
+		// process some special props
+		PROP_FIELDS.map(function (field) {
+			if (field.type == 'Unit'){
+				// TODO unit
+			}
+		})
+
 		objectInstance.save(function (err, result) {
 			if (err){
 				try {
@@ -508,6 +515,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		moneyPropFilledStr: '',
 		nonMoneyPropFilledStr: ''
 	};
+
+	PROP_FIELDS = JSON.parse(JSON.stringify(PROP_FIELDS));
 
 	function display(obj){
 		// console.log(staticPath)
@@ -851,7 +860,56 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			opts: labelOpts
 		}
 	]];
+
+	// Delete Unit fields
+	PROP_FIELDS.map(function (field) {
+		if (field.type == 'Unit' && flatOI[field.name.substring('donVi_'.length)] && flatOI[field.name]){
+			flatOI[field.name.substring('donVi_'.length)] += ' ' + flatOI[field.name];
+			flatOI[field.name.substring('donVi_'.length)].trim();
+			return;
+		}
+	})
+
+	{
+		var index = 0;
+		while (true){
+			if (PROP_FIELDS[index] && (PROP_FIELDS[index].type == 'Unit')){
+				PROP_FIELDS.splice(index, 1);
+			}
+			else {
+				index++;
+			}
+			if (index >= PROP_FIELDS.length){
+				break;
+			}
+		} // Delete Unit fields
+
+		PROP_FIELDS.map(function (element, index) {
+			if (element.type == 'Mixed'){
+				var sp_ = element.subProps;
+				var index = 0;
+				while (true){
+					if (sp_[index].indexOf('donVi_') >= 0){
+						sp_.splice(index, 1);
+					}
+					else {
+						index++;
+					}
+					if (index >= sp_.length){
+						break;
+					}
+				}
+			}
+		}) // Delete subprops
+	}
+
+	var PROP_FIELDS_OBJ = {};
+
+	PROP_FIELDS.map(function (element, index) {
+		PROP_FIELDS_OBJ[element.name] = index;
+	});
 	
+	// Reconstruct tree
 	var oi = {};
 	PROP_FIELDS.map(function (field) {
 
@@ -941,11 +999,6 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		// console.log(oi);
 	});
 
-	var PROP_FIELDS_OBJ = {};
-
-	PROP_FIELDS.map(function (element, index) {
-		PROP_FIELDS_OBJ[element.name] = index;
-	});
 	var curDeep = 0;
 	var stt = 0;
 	

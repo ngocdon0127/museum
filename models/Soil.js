@@ -24,7 +24,18 @@ module.exports = function (mongoose) {
 			soLuongMauVat: Number,
 			soLuongTieuBan: Number,
 			loaiMau: String,
-			kichThuocMau: String,
+			kichThuocMauMixed:{
+				chieuDai: Number,
+				donVi_chieuDai: String,
+				chieuRong: Number,
+				donVi_chieuRong: String,
+				chieuCao: Number,
+				donVi_chieuCao: String,
+				theTich: Number,
+				donVi_theTich: String,
+				trongLuong: Number,
+				donVi_trongLuong: String
+			},
 			tinhTrangMau: String,
 			thongTinKhac3: String
 		},

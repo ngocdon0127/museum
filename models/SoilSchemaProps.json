@@ -156,12 +156,101 @@
 	{
 		"name": "kichThuocMau",
 		"schemaProp": "soLuongChatLuong",
-		"label": "Kích thước mẫu vật (dài x rộng x cao) (m)",
+		"label": "Kích thước mẫu vật(dài x rộng x cao)",
 		"required": false,
 		"money": true,
+		"type": "Mixed",
+		"subProps": ["chieuDai", "donVi_chieuDai", "chieuRong", "donVi_chieuRong", "chieuCao", "donVi_chieuCao", "theTich", "donVi_theTich", "trongLuong", "donVi_trongLuong"]
+	},
+	{
+		"name": "chieuDai",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Chiều dài",
+		"required": false,
+		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "donVi_chieuDai",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Đơn vị chiều dài",
+		"required": false,
+		"money": false,
+		"type": "Unit",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "chieuRong",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Chiều rộng",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "donVi_chieuRong",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Đơn vị chiều rộng",
+		"required": false,
+		"money": false,
+		"type": "Unit",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "chieuCao",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Chiều cao",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "donVi_chieuCao",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Đơn vị chiều cao",
+		"required": false,
+		"money": false,
+		"type": "Unit",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "theTich",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Thể tích",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "donVi_theTich",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Đơn vị thể tích",
+		"required": false,
+		"money": false,
+		"type": "Unit",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "trongLuong",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Trọng lượng",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "donVi_trongLuong",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Đơn vị trọng lượng",
+		"required": false,
+		"money": false,
+		"type": "Unit",
+		"regex": "^.{0,100}$"
 	},
 	{
 		"name": "tinhTrangMau",
@@ -946,5 +1035,10 @@
 		"name": "phanBoTrenTheGioiMixed",
 		"type": "Metadata",
 		"label": "Phân bố trên thế giới"
+	},
+	{
+		"name": "kichThuocMauMixed",
+		"type": "Metadata",
+		"label": "Kích thước mẫu vật"
 	}
 ]

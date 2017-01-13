@@ -31,9 +31,13 @@ require('./vegetable.js')(router);
 router.get('/download/*', function (req, res, next) {
 	var path = require('path');
 	console.log(req.path);
-	var regex = new RegExp('\/download\/uploads[^.]+\.[^.]+$');
-	if (regex.test(req.path)){
-		var fileLocation = req.path.substring('/download/'.length);
+	var regex = new RegExp('^\/download\/uploads.*$');
+	var p = decodeURIComponent(req.path);
+	if (p.indexOf('..') >= 0){
+		return res.end('nice try.');
+	}
+	if (regex.test(p)){
+		var fileLocation = p.substring('/download/'.length);
 		console.log(path.join(__dirname, '../public', fileLocation));
 		try{
 			res.download(path.join(__dirname, '../public', fileLocation), fileLocation.split(STR_SEPERATOR)[1]);

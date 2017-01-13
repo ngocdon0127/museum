@@ -406,7 +406,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		}
 
 		// process some special props
-		PROP_FIELDS.map(function (field) {
+		_PROP_FIELDS.map(function (field) {
 			if (field.type == 'Unit'){
 				// TODO unit
 			}

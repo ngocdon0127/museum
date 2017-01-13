@@ -5,6 +5,8 @@ var multer = require('multer');
 
 router.use(isLoggedIn);
 
+var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.end("up content");
@@ -24,6 +26,29 @@ require('./paleontological.js')(router);
 
 // handle data for paleontological form
 require('./vegetable.js')(router);
+
+// handle download request
+router.get('/download/*', function (req, res, next) {
+	var path = require('path');
+	console.log(req.path);
+	var regex = new RegExp('\/download\/uploads[^.]+\.[^.]+$');
+	if (regex.test(req.path)){
+		var fileLocation = req.path.substring('/download/'.length);
+		console.log(path.join(__dirname, '../public', fileLocation));
+		try{
+			res.download(path.join(__dirname, '../public', fileLocation), fileLocation.split(STR_SEPERATOR)[1]);
+		}
+		catch (e){
+			console.log(e);
+			return res.end('Invalid file location')
+		}
+	}
+	else {
+		return res.end('Invalid file path');
+	}
+	
+	// res.end('ok');
+})
 
 function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()){

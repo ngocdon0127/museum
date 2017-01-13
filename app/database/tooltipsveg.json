@@ -26,7 +26,7 @@
   "25": "",
   "26": "",
   "27": "Trường dữ liệu cho phép nhập thông tin về số lượng tiêu bản hiện có về một loại mẫu vật, giúp ích cho hoạt động trưng bày hoặc trao đổi mẫu vật khi cần. Số lượng mẫu vật ở đây được thu cùng 1 cây hay 1 bụi cây, cùng một thời điểm, cùng ký hiệu và số hiệu,  có tên khoa học giống nhau. Vì vậy, có thể lấy 1 trong các mẫu vật này để trưng bày hay trao đổi mà vẫn giữ được các mẫu với giá trị tương đương ở phòng quản lý mẫu.",
-  "28": "",
+  "28": "Trường dữ liệu cho phép nhập thông tin về số lượng tiêu bản hiện có về một loại mẫu vật, giúp ích cho hoạt động trưng bày hoặc trao đổi mẫu vật khi cần.",
   "29": "Trường dữ liệu giúp phân biệt mẫu vật thuộc loại nào?, mẫu nghiên cứu hay mẫu trưng bày, mẫu chuẩn ?. Đây là trường bắt buộc nhằm xác định loại mẫu vật, có ảnh hưởng quan trọng đến giá trị của Bảo tàng",
   "30": "Giúp người quản lý hình dung được hình dáng của mẫu vật, giúp công tác quản lý, sắp xếp dễ dàng hơn",
   "31": "Trường dữ liệu về tình trạng mẫu vật cho biết về chất lượng mẫu vật hiện tại. Trường dữ liệu này có thể được cập nhật định kỳ theo thời gian.",

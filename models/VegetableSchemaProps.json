@@ -1012,6 +1012,14 @@
 		"money": true,
 		"type": "String"
 	},
+	{
+		"name": "fDiaDiemThuMau",
+		"schemaProp": "flag",
+		"label": "Địa điểm thu mẫu",
+		"required": false,
+		"money": false,
+		"type": "String"
+	},
 	
 	{
 		"name": "soHieu",

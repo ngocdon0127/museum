@@ -518,6 +518,48 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 	PROP_FIELDS = JSON.parse(JSON.stringify(PROP_FIELDS));
 
+	/** Tiền xử lý Schema
+	 * 1 vài thuộc tính phụ thuộc vào giá trị của 1 (hay nhiều) thuộc tính khác
+	 * Ví dụ, Mẫu trên đất liền thì Quốc gia, Tỉnh, Huyện, Xã là các thuộc tính có *
+	 * Nhưng Mẫu trên biển thì chỉ Quốc gia có *
+	 * => Cần xử lý cập nhật lại các required fields trong PROP_FIELDS.
+	 */
+
+	// TODO: Có thể phải thực hiện bước này ngay khi load Model. Tính sau :v
+
+	// DiaDiemThuMau
+
+	if (objectInstance.flag.fDiaDiemThuMau != 'dat-lien'){
+		for(var i = 0; i < PROP_FIELDS.length; i++){
+			var field = PROP_FIELDS[i];
+			if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
+				field.required = false;
+				field.money = false;
+				// console.log(field.name);
+			}
+		}
+	}
+
+	delete objectInstance.flag.fDiaDiemThuMau;
+	for(var i = 0; i < PROP_FIELDS.length; i++){
+		var field = PROP_FIELDS[i];
+		// console.log(field.name);
+		if (field.name == 'fDiaDiemThuMau'){
+			console.log('len: ' + PROP_FIELDS.length);
+			PROP_FIELDS.splice(i, 1);
+			console.log('len: ' + PROP_FIELDS.length);
+			break;
+		}
+	}
+
+	// End of DiaDiemThuMau
+
+
+	// delete objectInstance.flag;
+	/**
+	 * End of Tiền xử lý Schema
+	 */
+
 	function display(obj){
 		// console.log(staticPath)
 		// console.log(count)

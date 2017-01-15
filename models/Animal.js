@@ -151,6 +151,9 @@ module.exports = function (mongoose) {
 		},
 		maDeTai: {
 			maDeTai: String
+		},
+		flag: {
+			fDiaDiemThuMau: String
 		}
 	};
 	var animalSchema = mongoose.Schema(schemaPrototype);

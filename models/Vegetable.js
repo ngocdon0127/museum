@@ -150,6 +150,9 @@ module.exports = function (mongoose) {
 		},
 		maDeTai: {
 			maDeTai: String
+		},
+		flag: {
+			fDiaDiemThuMau: String
 		}
 	};
 	var vegetableSchema = mongoose.Schema(schemaPrototype);

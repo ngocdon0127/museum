@@ -6,7 +6,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "soHieuBaoTangCS",
@@ -15,7 +15,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "soHieuBTTNVN",
@@ -24,7 +24,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "kyHieuMauVatKhac",
@@ -33,7 +33,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "thongTinKhac1",
@@ -42,7 +42,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "tenVietNam",
@@ -51,7 +51,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "tenDiaPhuong",
@@ -60,7 +60,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "tenTiengAnh",
@@ -95,7 +95,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "nganh",
@@ -105,7 +105,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "lop",
@@ -115,7 +115,7 @@
 		"money": true,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "phanLop",
@@ -125,7 +125,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "bo",
@@ -135,7 +135,7 @@
 		"money": true,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "phanBo",
@@ -145,7 +145,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "lienHo",
@@ -155,7 +155,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "ho",
@@ -165,7 +165,7 @@
 		"money": true,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "phanHo",
@@ -175,7 +175,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "toc",
@@ -185,7 +185,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "giong",
@@ -195,7 +195,7 @@
 		"money": true,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "phanGiong",
@@ -205,7 +205,7 @@
 		"money": false,
 		"type": "String",
 		"autoCompletion": true,
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "loai",
@@ -256,7 +256,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "kichThuocMau",
@@ -274,7 +274,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_chieuDai",
@@ -283,7 +283,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "chieuRong",
@@ -292,7 +292,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_chieuRong",
@@ -301,7 +301,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "chieuCao",
@@ -310,7 +310,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_chieuCao",
@@ -319,7 +319,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "theTich",
@@ -328,7 +328,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_theTich",
@@ -337,7 +337,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "trongLuong",
@@ -346,7 +346,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_trongLuong",
@@ -355,7 +355,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "tinhTrangMau",
@@ -364,7 +364,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "thongTinKhac3",
@@ -389,7 +389,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "coQuanThuMau",
@@ -407,7 +407,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "quocGia",
@@ -416,7 +416,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -426,7 +426,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -436,7 +436,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -446,7 +446,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -465,7 +465,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "kinhDo",
@@ -474,7 +474,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "doCao",
@@ -515,7 +515,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "ghiChepThucDia",
@@ -558,7 +558,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "coQuanToChucPhanTich",
@@ -567,7 +567,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -586,7 +586,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "taiLieuPhanTichFile",
@@ -613,7 +613,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "moTaHinhThaiFile",
@@ -999,7 +999,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "nguoiNhapVaoPhanMem",

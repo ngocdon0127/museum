@@ -6,7 +6,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -16,7 +16,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -26,7 +26,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -36,7 +36,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -54,7 +54,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -64,7 +64,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -74,7 +74,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -84,7 +84,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -94,7 +94,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -104,7 +104,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -122,7 +122,7 @@
 		"required": false,
 		"money": false,
 		"type": "Number",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -132,7 +132,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -151,7 +151,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_chieuCao",
@@ -160,7 +160,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "chieuRong",
@@ -169,7 +169,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_chieuRong",
@@ -178,7 +178,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "chieuDai",
@@ -187,7 +187,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_chieuDai",
@@ -196,7 +196,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "trongLuong",
@@ -205,7 +205,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_trongLuong",
@@ -214,7 +214,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "theTich",
@@ -223,7 +223,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "donVi_theTich",
@@ -232,7 +232,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "tinhTrangMau",
@@ -241,7 +241,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -268,7 +268,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -278,7 +278,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -288,7 +288,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "quocGia",
@@ -297,7 +297,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -307,7 +307,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -317,7 +317,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -327,7 +327,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -337,7 +337,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -365,7 +365,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -412,7 +412,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -422,7 +422,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -441,7 +441,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "taiLieuPhanTichFile",
@@ -468,7 +468,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -606,7 +606,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -616,7 +616,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -626,7 +626,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -655,7 +655,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -665,7 +665,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -675,7 +675,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -685,7 +685,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -695,7 +695,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -705,7 +705,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -725,7 +725,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -813,7 +813,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -823,7 +823,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -833,7 +833,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": true
 	},
 	{
@@ -843,7 +843,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -853,7 +853,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -863,7 +863,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -873,7 +873,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -935,7 +935,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -945,7 +945,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -963,7 +963,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{

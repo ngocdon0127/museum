@@ -23,13 +23,13 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.addPost = function(FormContent){
-		if ($scope.FormContent.$valid) {
+		// if ($scope.FormContent.$valid) {
 			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
-		} else{
-			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-		}
+		// } else{
+		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		// }
 	}
 }]);
 
@@ -59,12 +59,12 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
 
 	$scope.addPost = function(FormContent){
-		if ($scope.FormContent.$valid) {
+		// if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
-		} else{
-			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-		}
+		// } else{
+		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		// }
 	}
 }]);
 
@@ -92,12 +92,12 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.addPost = function(FormContent){
-		if ($scope.FormContent.$valid) {
+		// if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
-		} else{
-			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-		}
+		// } else{
+		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		// }
 	}
 }]);
 
@@ -126,12 +126,12 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.addPost = function(FormContent){
-		if ($scope.FormContent.$valid) {
+		// if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
-		} else{
-			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-		}
+		// } else{
+		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		// }
 	}
 }]);
 
@@ -160,12 +160,12 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.addPost = function(FormContent){
-		if ($scope.FormContent.$valid) {
+		// if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
-		} else{
-			angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-		}
+		// } else{
+		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
+		// }
 	}
 }]);
 

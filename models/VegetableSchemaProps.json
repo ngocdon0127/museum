@@ -200,6 +200,16 @@
 		"regex": "^.{0,100}$"
 	},
 	{
+		"name": "phanChi",
+		"schemaProp": "tenMau.tenKhoaHoc",
+		"label": "Phân chi",
+		"required": false,
+		"money": true,
+		"type": "String",
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
+	},
+	{
 		"name": "loai",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Loài",
@@ -521,7 +531,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "banDo",
@@ -530,7 +540,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
+		"regex": "^.+\\.(zip|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac4",
@@ -579,7 +589,7 @@
 	},
 	{
 		"name": "taiLieuPhanTichStr",
-		"schemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
 		"label": "Tài liệu",
 		"required": false,
 		"money": false,
@@ -588,7 +598,7 @@
 	},
 	{
 		"name": "taiLieuPhanTichFile",
-		"schemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
 		"label": "Đính kèm",
 		"required": false,
 		"money": false,
@@ -596,11 +606,29 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
-		"name": "moTaHinhThaiFile",
+		"name": "moTaHinhThai",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Mô tả/đặc điểm hình thái",
+		"label": "Mô tả/đặc điểm hình thái ",
 		"required": false,
 		"money": true,
+		"type": "Mixed",
+		"subProps": ["moTaHinhThaiStr", "moTaHinhThaiFile"]
+	},
+	{
+		"name": "moTaHinhThaiStr",
+		"schemaProp": "duLieuPhanTichMau.moTaHinhThaiMixed",
+		"label": "Mô tả",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "moTaHinhThaiFile",
+		"schemaProp": "duLieuPhanTichMau.moTaHinhThaiMixed",
+		"label": "Đính kèm",
+		"required": false,
+		"money": false,
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
@@ -611,6 +639,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
+		"maxSize": 10485760,
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
@@ -628,6 +657,7 @@
 		"required": false,
 		"money": true,
 		"type": "File",
+		"maxSize": 10485760,
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$"
 	},
 	{
@@ -654,6 +684,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
+		"maxSize": 104857600,
 		"regex": "^.+\\.(mp4|mpg|flv|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
@@ -663,6 +694,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
+		"maxSize": 5242880,
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
@@ -709,6 +741,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
+		"maxSize": 5242880,
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$"
 	},
 	{
@@ -837,7 +870,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,100}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "thongTinKhac7",
@@ -1097,6 +1131,11 @@
 		"name": "taiLieuPhanTichMixed",
 		"type": "Metadata",
 		"label": "Tài liệu phân tích/giám định/phân loại đi kèm"
+	},
+	{
+		"name": "moTaHinhThaiMixed",
+		"type": "Metadata",
+		"label": "Mô tả/đặc điểm hình thái"
 	},
 	{
 		"name": "khuLuuTruMau",

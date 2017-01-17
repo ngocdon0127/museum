@@ -125,11 +125,31 @@
 		"regex": "^.{0,100}$"
 	},
 	{
+		"name": "phanLop",
+		"schemaProp": "tenMau.tenKhoaHoc",
+		"label": "Lớp",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
+	},
+	{
 		"name": "bo",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Bộ",
 		"required": false,
 		"money": true,
+		"type": "String",
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "lienHo",
+		"schemaProp": "tenMau.tenKhoaHoc",
+		"label": "Liên họ",
+		"required": false,
+		"money": false,
 		"type": "String",
 		"autoCompletion": true,
 		"regex": "^.{0,100}$"
@@ -145,9 +165,29 @@
 		"regex": "^.{0,100}$"
 	},
 	{
+		"name": "phanHo",
+		"schemaProp": "tenMau.tenKhoaHoc",
+		"label": "Họ",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
+	},
+	{
 		"name": "giong",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Chi/Giống",
+		"required": false,
+		"money": true,
+		"type": "String",
+		"autoCompletion": true,
+		"regex": "^.{0,100}$"
+	},
+	{
+		"name": "phanGiong",
+		"schemaProp": "tenMau.tenKhoaHoc",
+		"label": "Phân chi/Phân giống",
 		"required": false,
 		"money": false,
 		"type": "String",
@@ -443,7 +483,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,100}$"
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "banDo",
@@ -452,7 +492,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(zip|jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac4",
@@ -500,7 +540,7 @@
 	},
 	{
 		"name": "taiLieuPhanTichStr",
-		"schemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
 		"label": "Tài liệu",
 		"required": false,
 		"money": false,
@@ -509,7 +549,7 @@
 	},
 	{
 		"name": "taiLieuPhanTichFile",
-		"schemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
 		"label": "Đính kèm",
 		"required": false,
 		"money": false,
@@ -519,7 +559,7 @@
 	{
 		"name": "phanTichTuoiDiaChat",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Phân tích tuổi địa chất",
+		"label": "Kết quả phân tích định tuổi",
 		"required": false,
 		"money": false,
 		"type": "File",
@@ -528,7 +568,7 @@
 	{
 		"name": "dacDiemViCauTruc",
 		"schemaProp": "duLieuPhanTichMau",
-		"label": "Đặc điểm vi cấu trúc (*)",
+		"label": "Đặc điểm vi cấu trúc",
 		"required": false,
 		"money": false,
 		"type": "File",
@@ -765,7 +805,8 @@
 		"label": "Giá trị sử dụng",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "thongTinKhac7",

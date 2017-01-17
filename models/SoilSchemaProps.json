@@ -30,16 +30,6 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "maKyHieuMauVatQuocTe",
-		"schemaProp": "soHieu",
-		"label": "Mã ký hiệu mẫu vật quốc tế",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,100}$",
-		"autoCompletion": false
-	},
-	{
 		"name": "kyHieuMauVatKhac",
 		"schemaProp": "soHieu",
 		"label": "Các ký hiệu mẫu vật khác",
@@ -473,7 +463,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,250}$",
+		"regex": "^.{0,}$",
 		"autoCompletion": false
 	},
 	{
@@ -483,7 +473,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
+		"regex": "^.+\\.(zip|jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -575,7 +565,7 @@
 	},
 	{
 		"name": "taiLieuPhanTichStr",
-		"schemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
 		"label": "Tài liệu",
 		"required": false,
 		"money": false,
@@ -584,7 +574,7 @@
 	},
 	{
 		"name": "taiLieuPhanTichFile",
-		"schemaProp": "duLieuPhanTichMau",
+		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
 		"label": "Đính kèm",
 		"required": false,
 		"money": false,
@@ -606,6 +596,7 @@
 		"required": false,
 		"money": true,
 		"type": "File",
+		"maxSize": 10485760,
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
 		"autoCompletion": false
 	},
@@ -616,6 +607,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
+		"maxSize": 10485760,
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg)$",
 		"autoCompletion": false
 	},
@@ -634,6 +626,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
+		"maxSize": 104857600,
 		"regex": "^.+\\.(mp4|mpg|flv|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
@@ -643,6 +636,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
+		"maxSize": 5242880,
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
 		"autoCompletion": false
 	},
@@ -769,8 +763,8 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,500}$",
-		"autoCompletion": false
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "thongTinKhac7",

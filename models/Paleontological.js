@@ -21,9 +21,13 @@ module.exports = function (mongoose) {
 				gioi: String,
 				nganh: String,
 				lop: String,
+				phanLop: String,
 				bo: String,
+				lienHo: String,
 				ho: String,
+				phanHo: String,
 				giong: String,
+				phanGiong: String,
 				loai: String,
 				duoiLoai: String,
 			},
@@ -31,7 +35,6 @@ module.exports = function (mongoose) {
 			thongTinKhac2: String
 		},
 		soLuongChatLuong: {
-			soLuongMauVat: Number,
 			soLuongTieuBan: Number,
 			loaiMau: String,
 			kichThuocMauMixed:{
@@ -75,7 +78,10 @@ module.exports = function (mongoose) {
 			thoiGianPhanTich: Date,
 			nguoiPhanTich: String,
 			coQuanToChucPhanTich: String,
-			taiLieuPhanTich: [String],
+			taiLieuPhanTichMixed: {
+				taiLieuPhanTichStr: String,
+				taiLieuPhanTichFile: [String]
+			},
 			phanTichTuoiDiaChat: [String],
 			dacDiemViCauTruc: [String],
 			dacDiemLatMong: [String],

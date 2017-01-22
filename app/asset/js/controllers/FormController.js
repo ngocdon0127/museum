@@ -182,6 +182,14 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 			console.log(res);
 		});
 	}
+	$scope.star = true;
+	$scope.showstar = function () {
+		$scope.star = true;
+	}
+
+	$scope.hidestar = function () {
+		$scope.star = false;
+	}
 
 	$scope.districtChange = function() {
 		$http.get('/app/database/wards.json').then(function(res){

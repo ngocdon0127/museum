@@ -7,7 +7,7 @@
 			<tr>
 				<td><label >Mã đề tài <span class="has-required"> (*)</span>: </label></td>
 				<td>
-					<input type="text" name="maDeTai" ng-model="data.maDeTai" class="input-form"  required>
+					<input type="text" name="maDeTai" ng-model="data.maDeTai" class="input-form" required>
 				</td>
 			</tr>
 		</table>
@@ -146,25 +146,25 @@
 				<td><input type="number" min="0" ng-model="data.soLuongTieuBan" title="{{tooltips[28]}}" name="soLuongTieuBan" class="input-form"></td>
 			</tr>
 			<tr>
-				<td><label>14. Loại mẫu <span class="has-required"> (*)</span>:</label></td>
+				<td><label>14. Loại mẫu vật<span class="has-required"> (*)</span>:</label></td>
 				<td>
-					<select class="select-box" required title="{{tooltips[29]}}" name="loaiMau">
-						<option value=""></option>
+					<input type="text" title="{{tooltips[29]}}" name="loaiMauVat" class="input-form" ng-model="data.loaiMauVat" list="loaiMauVat">
+					<datalist id="loaiMauVat">
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
 						<option value="Mẫu type">Mẫu type</option>
-					</select>
+					</datalist>
 				</td>
 			</tr>
+			<tr><td><label>15. Kích thước mẫu vật<span class="has-required"> (*)</span>:</label></td></tr>
 			<tr>
-				<td><label>15. Kích thước mẫu <span class="has-required"> (*)</span>:</label></td>
 				<td>
-					<table style="margin-left: 7px;">						
+					<table style="margin-left: 7px;">
 						<tr>
 						<td><span>Chiều cao: </span></td>
 							<td>					    
 							    <span class="box">
-							      <input type="text" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
+							      <input type="text" title="{{tooltips[30]}}" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
 							      <select class="contentselect" ng-model="data.donVi_chieuCao" name="donVi_chieuCao">
 							          <option value="mm">mm</option>
 							          <option value="cm">cm</option>
@@ -177,7 +177,7 @@
 							<td><span>Chiều rộng: </span></td>
 							<td>					    
 							    <span class="box">
-							      <input type="text" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
+							      <input type="text" title="{{tooltips[30]}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
 							      <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
 							          <option value="mm">mm</option>
 							          <option value="cm">cm</option>
@@ -191,7 +191,7 @@
 							<td><span>Chiều dài: </span></td>
 							<td>					    
 							    <span class="box">
-							      <input type="text" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
+							      <input type="text" title="{{tooltips[30]}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
 							      <select class="contentselect" ng-model="data.donVi_chieuDai" name="donVi_chieuDai">
 							          <option value="mm">mm</option>
 							          <option value="cm">cm</option>
@@ -204,7 +204,7 @@
 							<td><span>Trọng lượng: </span></td>
 							<td>					    
 							    <span class="box">
-							      <input type="text" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
+							      <input type="text" title="{{tooltips[30]}}" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
 							      <select class="contentselect" ng-model="data.donVi_trongLuong" name="donVi_trongLuong">
 										<option value="mg">mg</option>
 							         	<option value="g">g</option>
@@ -218,7 +218,7 @@
 							<td><span>Thể tích</span></td>
 							<td>					    
 							    <span class="box">
-							      <input type="text" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
+							      <input type="text" title="{{tooltips[30]}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
 							      <select class="contentselect" ng-model="data.donVi_theTich" name="donVi_theTich">
 							          <option value="ml">ml</option>
 							          <option value="l">l</option>
@@ -258,58 +258,51 @@
 				<td><label>21. Phương pháp thu mẫu <span class="has-required"> (*)</span>:</label></td>
 				<td><input type="text" ng-model="data.phuongPhapThuMau" title="{{tooltips[36]}}" name="phuongPhapThuMau" class="input-form" required></td>
 			</tr>
+			<tr><td><label>22. Địa điểm thu mẫu: </label></td></tr>
 			<tr>
-				<td><label>22. Địa điểm thu mẫu: </label></td>
 				<td ng-controller="PlaceController">
 					<table>
 						<tr>
-							<td>Vị trí: <span class="has-required">(*)</span>: </td>
+							<td>Vị trí: </td>
 							<td>
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-success active">
-								        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" id="option2" autocomplete="off" disabled="disabled">Trên đất liền
-								    </label>
-								    <label class="btn btn-success">
-								        <input type="radio" name="fDiaDiemThuMau" value="bien" id="option1" autocomplete="off" checked disabled="disabled">Trên biển
-								    </label>
-								    
-								</div>
+						        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
+						        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên biển
 							</td>
 						</tr>
 						<tr>
-							<td class="align-td">Quốc gia<span class="has-required"> (*)</span>: </td>
+							<td>Quốc gia<span class="has-required"> (*)</span>: </td>
 							<td>
-								<select class="select-box" title="{{tooltips[37]}}" name="quocGia" required>
+								<select class="select-box" title="{{tooltips[37]}}" name="quocGia" id="quocGia" required>
 									<option value="Việt Nam">Việt Nam</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<td class="align-td">Tỉnh/Thành phố<span class="has-required"> (*)</span>: </td>
+							<td>Tỉnh/Thành phố<span ng-show="star" class="has-required"> (*)</span>: </td>
 							<td>
-								<select class="select-box" title="{{tooltips[38]}}" name="tinh" required ng-model= "tinh" ng-click="cityChange()">
-									<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " + city.name}}</option>
+								<select class="select-box" title="{{tooltips[38]}}" name="tinh" id="tinh" required ng-model= "tinh" ng-click="cityChange()">
+									<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.name}}</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<td class="align-td">Huyện<span class="has-required"> (*)</span>:</td>
+							<td>Huyện<span ng-show="star" class="has-required"> (*)</span>:</td>
 							<td>
-								<select class="select-box" title="{{tooltips[39]}}" name="huyen" required ng-model= "huyen" ng-click="districtChange()">
-									<option ng-repeat="(key, district) in districts | customCity: tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
+								<select class="select-box" title="{{tooltips[39]}}" name="huyen" id="huyen" required ng-model= "huyen" ng-click="districtChange()">
+									<option ng-repeat="(key, district) in districts | customCity: tinh" value="{{key}}">{{district.name}}</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<td class="align-td">Xã<span class="has-required"> (*)</span>: </td>
+							<td>Xã<span ng-show="star" class="has-required"> (*)</span>: </td>
 							<td>
-								<select class="select-box" ng-model="xa" title="{{tooltips[40]}}" name="xa" required>
-									<option ng-repeat="(key, ward) in wards | customDistrict: huyen" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
+								<select class="select-box" ng-model="xa" title="{{tooltips[40]}}" name="xa" id="xa" required>
+									<option ng-repeat="(key, ward) in wards | customDistrict: huyen" value="{{key}}">{{ward.name}}</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<td class="align-td">Thôn/Xóm: </td>
+							<td>Thôn/Xóm: </td>
 							<td><input type="text" ng-model="thon" title="{{tooltips[41]}}" name="thon" id="thon" class="input-form"></td>
 						</tr>
 					</table>
@@ -373,30 +366,18 @@
 				<td><label>34. Cơ quan/tổ chức phân tích/giám định/phân loại mẫu <span class="has-required"> (*)</span>:</label></td>
 				<td><input type="text" ng-model="data.coQuanToChucPhanTich" title="{{tooltips[54]}}" name="coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form" required></td>
 			</tr>
+			<tr><td><label>35. Tài liệu phân tích/giám định/phân loại đi kèm <span class="has-required"> (*)</span>:</label></td></tr>
 			<tr>
-				<td><label>35. Tài liệu phân tích/giám định/phân loại đi kèm <span class="has-required"> (*)</span>:</label></td>
-				<td>
-					<table>
-						<tr>
-							<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips[55]}}" name="taiLieuPhanTichStr" class="input-form" required>
-						</tr></td>
-						<tr>
-							<td><input type="file" ng-model="data.taiLieuPhanTichFile" multiple title="{{tooltips[55]}}" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="input-form" valid-file required>
-						</tr></td>
-					</table>
-				</td>
+				<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips[55]}}" name="taiLieuPhanTichStr" class="input-form" required></td>
+				<td><input type="file" ng-model="data.taiLieuPhanTichFile" multiple title="{{tooltips[55]}}" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="input-form" valid-file required></td>
 			</tr>
+			<tr><td><label>36. Mô tả/đặc điểm hình thái <span class="has-required"> (*)</span></label></td></tr>
 			<tr>
-				<td><label>36. Mô tả/đặc điểm hình thái <span class="has-required"> (*)</span></label></td>
 				<td>
-				<table>
-					<tr><td>
-						<input type="text" title="{{tooltips[56]}}" ng-model="data.moTaHinhThaiStr" name ="moTaHinhThaiStr" class="input-form">		
-					</td></tr>
-					<tr><td>
-						<input type="file" title="{{tooltips[56]}}" multiple accept=".docx, .doc, .pdf" ng-model="data.moTaHinhThaiFile" name ="moTaHinhThaiFile" valid-file required class="input-form">
-					</td></tr>
-				</table>
+					<input type="text" title="{{tooltips[56]}}" ng-model="data.moTaHinhThaiStr" name ="moTaHinhThaiStr" class="input-form">		
+				</td>
+				<td>
+					<input type="file" title="{{tooltips[56]}}" multiple accept=".docx, .doc, .pdf" ng-model="data.moTaHinhThaiFile" name ="moTaHinhThaiFile" valid-file required class="input-form">
 				</td>
 			</tr>
 			<tr>
@@ -436,7 +417,7 @@
 				</td>
 				</tr>
 			<tr>
-				<td><label>44. Video:</label></td>
+				<td><label>44. Đính kèm phim, video:</label></td>
 				<td>
 					<input type="file" accept="video/mp4,video/x-m4v,video/*" name ="videoFile" ng-model="data.videoFile" class="input-form">
 				</td>
@@ -509,8 +490,6 @@
 				<table>
 					<tr>
 						<td><input type="text" ng-model="data.phanBoVietNamStr" class="input-form" title="{{tooltips[75]}}" name="phanBoVietNamStr" required></td>
-					</tr>
-					</tr>
 						<td><input type="file" ng-model="data.phanBoVietNamFile" class="input-form" multiple name ="phanBoVietNamFile"></td>
 					</tr>
 				</table>		
@@ -522,8 +501,6 @@
 					<table>
 						<tr>
 							<td><input type="text" ng-model="data.phanBoTrenTheGioiStr" title="{{tooltips[76]}}" name="phanBoTrenTheGioiStr" class="input-form"></td>
-						</tr>
-						<tr>
 							<td><input type="file" ng-model="data.phanBoTrenTheGioiFile" class="input-form" multiple name ="phanBoTrenTheGioiFile"></td>
 						</tr>
 					</table>
@@ -569,11 +546,11 @@
 			<tr>
 				<td><label>56. Hình thức nhập mẫu:</label></td>
 				<td>
-					<select class="select-box" title="{{tooltips[83]}}" name="hinhThucNhapMau">
-						<option value=""></option>
+					<input type="text" list="hinhThucNhapMau" class="select-box" title="{{tooltips[83]}}" name="hinhThucNhapMau">
+					<datalist id="hinhThucNhapMau">
 						<option value="Thu thập">Thu thập</option>
 						<option value="Hiến tặng">Hiến Tặng</option>
-					</select>
+					</datalist>
 				</td>
 			</tr>
 			<tr>

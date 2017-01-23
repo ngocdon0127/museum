@@ -1144,8 +1144,13 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				// console.log(pdfFileName);
 				// console.log(outputFileName);
 				res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
-					fs.unlink(path.join(__dirname, pdfFileName));
-					fs.unlink(path.join(__dirname, tmpFileName));
+					try {
+						fs.unlink(path.join(__dirname, pdfFileName));
+						fs.unlink(path.join(__dirname, tmpFileName));
+					}
+					catch (e){
+						console.log(e);
+					}
 				});
 			})
 			// return res.end("ok")
@@ -1832,8 +1837,13 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				// console.log(pdfFileName);
 				// console.log(outputFileName);
 				res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
-					fs.unlink(path.join(__dirname, pdfFileName));
-					fs.unlink(path.join(__dirname, tmpFileName));
+					try {
+						fs.unlink(path.join(__dirname, pdfFileName));
+						fs.unlink(path.join(__dirname, tmpFileName));
+					}
+					catch (e){
+						console.log(e);
+					}
 				});
 			})
 			// return res.end("ok")

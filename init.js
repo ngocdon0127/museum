@@ -1455,7 +1455,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					// console.log(p + ' : ' + value)
 					if (value){
 
-						setCell(sheet, 2, sheetRowIndex, p, {iter: true});
+						setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
 						setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 						sheetRowIndex++;
 
@@ -1514,14 +1514,12 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 	var detailItalicOpts = {
 		// cellColWidth: 2261,
-		sz: '22',
-		bold: true,
-		shd: {
-			fill: "FFFFFF",
-			// themeFill: "text1",
-			// "themeFillTint": "30"
-		},
-		fontFamily: "Times New Roman"
+		// b:true,
+		sz: '12',
+		name: "Times New Roman",
+		scheme: '-',
+		family: '3',
+		iter: true
 	};
 	// End
 

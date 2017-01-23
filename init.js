@@ -1122,7 +1122,12 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		if (extension == 'docx'){
 			outputFileName += '.docx';
 			res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
-				fs.unlink(path.join(__dirname, tmpFileName));
+				try {
+					fs.unlink(path.join(__dirname, tmpFileName));
+				}
+				catch (e){
+					console.log(e);
+				}
 			});
 		}
 		else if (extension == 'pdf'){
@@ -1818,37 +1823,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				}
 			});
 		}
-		else if (extension == 'pdf'){
-			console.log('pdf');
-			outputFileName += '.pdf';
-			var exec = require('child_process').exec;
-			var cmd = 'libreoffice --invisible --convert-to pdf ' + tmpFileName;
-			exec(cmd, function (err, stdout, stderr) {
-				if (err){
-					console.log(err);
-					return res.end('err');
-				}
-				// console.log('---')
-				// console.log(stdout);
-				// console.log('---')
-				// console.log(stderr);
-				// console.log('---')
-				pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
-				// console.log(pdfFileName);
-				// console.log(outputFileName);
-				res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
-					try {
-						fs.unlink(path.join(__dirname, pdfFileName));
-						fs.unlink(path.join(__dirname, tmpFileName));
-					}
-					catch (e){
-						console.log(e);
-					}
-				});
-			})
-			// return res.end("ok")
-
-		}
+		
 		// res.end("OK");
 	});
 	// xlsx.generate(outputStream);

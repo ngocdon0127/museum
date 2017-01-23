@@ -31,7 +31,7 @@
   "30": "Toạ độ vị trí thu thập mẫu vật cho biết vị trí chính xác mẫu vật được thu thập. Tập hợp nhiều vị trí này có thể cho biết được sự phân bố của các mẫu vật theo không gian",
   "31": "",
   "32": "Không giới hạn trang",
-  "33": "Bản đồ số và 1 file scan của bản đồ: 1 file scan của bản đồ với các điểm phân bố được đánh dấu trên bản đồ",
+  "33": "Bản đồ số và 1 file scan của bản đồ: 1 file scan của bản đồ với các điểm phân bố được đánh dấu trên bản đồ. Sử dụng định dạng Mapinfo(Tab file) hoặc ESRI(Shp file). Bản đồ số thường có nhiều file. Đề nghị nén vào file zip rồi đính kèm.",
   "34": "",
   "35": "Thời gian giám định mẫu vật đảm bảo độ chính xác của kết quả giám định mẫu vật vì nhiều mẫu vật nếu thời gian trước giám định quá dài có thể ảnh hưởng đến kết quả giám định mẫu vật.",
   "36": "Trường cơ quan/tổ chức giám định mẫu vật thể hiện độ tin cậy, chất lượng và trách nhiệm giám định mẫu vật của cơ quan hoặc tổ chức giám định mẫu. Lưu ý: Ghi tên người phân tích phân tích, Nếu có nhiều người xử lý chế tác thì ghi tất cả các tên, các tên cách nhau bởi dấu chấm phảy.",

@@ -1444,7 +1444,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 						// table.push(row);
 
 
-						setCell(sheet, 1, sheetRowIndex, stt, detailOpts);
+						setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
 						setCell(sheet, 2, sheetRowIndex, curProp, detailOpts);
 						sheetRowIndex++;
 
@@ -1529,9 +1529,9 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	var _NUM_ROW = 200;
 	var _NUM_COL = 4;
 	var sheet = workbook.createSheet('PCSDL', _NUM_COL, _NUM_ROW);
-	sheet.width(1, 20);
+	sheet.width(1, 10);
 	sheet.width(2, 20);
-	sheet.width(3, 20);
+	sheet.width(3, 30);
 	sheet.width(4, 20);
 	// wrap + border all
 	for(var i = 1; i <= _NUM_COL; i++){
@@ -1565,7 +1565,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 	console.log('merged: ' + sheetRowIndex + ', 1 and ' + sheetRowIndex + ', 4.')
 	setCell(sheet, 1, sheetRowIndex, 'Mã đề tài: ' + display(flatOI.maDeTai), detailOpts);
 	sheet.font({col: 1, row: sheetRowIndex}, {bold: true, name: 'Times New Roman', sz: 12});
-	sheet.height(sheetRowIndex, 30);
+	sheet.height(sheetRowIndex, 50);
 	sheetRowIndex++;
 
 	setCell(sheet, 1, sheetRowIndex, 'STT', labelOpts);
@@ -1720,17 +1720,6 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 	inOrder(oi);
 
-	var tableStyle = {
-		tableColWidth: 3200,
-		// tableSize: 200,
-		// tableColor: "ada",
-		tableAlign: "left",
-		tableFontFamily: "Times New Roman",
-		borders: true
-	}
-
-	// docx.createTable (table, tableStyle);
-
 	// Những trường con của các trường Mixed luôn có money = false
 	// => Chúng luôn được thêm vào:
 	// statistics.totalNonMoneyProp, statistics.totalNonMoneyPropStr, statistics.nonMoneyPropFilled, statistics.nonMoneyPropFilledStr
@@ -1753,7 +1742,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 	// Make sure that all above cells has border
 
-	for(var i = 1; i < sheetRowIndex; i++){
+	for(var i = 3; i < sheetRowIndex; i++){
 		for(var j = 0; j <= _NUM_COL; j++){
 			sheet.border(j, i, {top: 'thin', right: 'thin', bottom: 'thin', left: 'thin'});
 		}

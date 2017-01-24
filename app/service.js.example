@@ -43,8 +43,12 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				window.location.href = urls[index];
 			}
 		}
+		var timeOut = 2000;
+		if (id == 'pdf'){
+			timeOut = 4000;
+		}
 		for(var i = 0; i < urls.length; i++){
-			setTimeout(createCB(i), 2000 * i)
+			setTimeout(createCB(i), timeOut * i)
 		}
 	}
 

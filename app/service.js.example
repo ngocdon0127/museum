@@ -32,20 +32,40 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	function exportFile(id){
 		var arr = document.getElementsByClassName("check-box");
 		var urls = [];
+		var totalFile = 0;
+		var step = 0;
+		var progressBar = document.getElementById('download-progress-bar');
+		var progressBarContainer = document.getElementById('download-progress-bar-container');
 		angular.forEach(arr, function (value) {
 			
 			if (value.checked) {
 				urls.push(value.getAttribute("data-id") + id);
+				totalFile++;
 			}
 		});
 		function createCB(index) {
 			return function () {
 				window.location.href = urls[index];
+				progressBar.style.width = (index + 1) / totalFile * 100 + '%';
+				progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
+				progressBar.setAttribute('aria-valuenow', index);
+				if (index >= totalFile - 1){
+					$(progressBarContainer).fadeOut(2000);
+
+				}
 			}
 		}
 		var timeOut = 2000;
 		if (id == 'pdf'){
 			timeOut = 4000;
+		}
+		if (totalFile){
+			// step = 100 / totalFile;
+			progressBar.setAttribute('aria-valuemax', totalFile);
+			progressBar.style.width = '0%';
+			progressBar.innerHTML = '0 / ' + totalFile;
+			progressBar.setAttribute('aria-valuenow', 0);
+			$(progressBarContainer).fadeIn();
 		}
 		for(var i = 0; i < urls.length; i++){
 			setTimeout(createCB(i), timeOut * i)

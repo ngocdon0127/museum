@@ -43,6 +43,19 @@ var STR_SEPERATOR = '_+_';
 global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 
 
+// ============== Places ================
+var CITIES = {};
+var DISTRICTS = {};
+var WARDS = {};
+CITIES = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'cities.json')));
+
+DISTRICTS = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'districts.json')));
+
+WARDS = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'wards.json')));
+
+
+
+
 // ============== Shared Functions ================
 
 /**
@@ -554,10 +567,23 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		}
 	}
 
+	// resolve place id to string
+	try {
+		objectInstance.duLieuThuMau.diaDiemThuMau.tinh = CITIES[objectInstance.duLieuThuMau.diaDiemThuMau.tinh].name;
+		objectInstance.duLieuThuMau.diaDiemThuMau.huyen = DISTRICTS[objectInstance.duLieuThuMau.diaDiemThuMau.huyen].name;
+		objectInstance.duLieuThuMau.diaDiemThuMau.xa = WARDS[objectInstance.duLieuThuMau.diaDiemThuMau.xa].name;
+	}
+
+	catch (e){
+		console.log(e);
+		// do not care
+	}
+
 	// End of DiaDiemThuMau
 
 
 	// delete objectInstance.flag;
+
 	/**
 	 * End of Tiền xử lý Schema
 	 */
@@ -1236,7 +1262,23 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		}
 	}
 
+	// resolve place id to string
+	try {
+		objectInstance.duLieuThuMau.diaDiemThuMau.tinh = CITIES[objectInstance.duLieuThuMau.diaDiemThuMau.tinh].name;
+		objectInstance.duLieuThuMau.diaDiemThuMau.huyen = DISTRICTS[objectInstance.duLieuThuMau.diaDiemThuMau.huyen].name;
+		objectInstance.duLieuThuMau.diaDiemThuMau.xa = WARDS[objectInstance.duLieuThuMau.diaDiemThuMau.xa].name;
+	}
+
+	catch (e){
+		console.log(e);
+		// do not care
+	}
+
+	
+
 	// End of DiaDiemThuMau
+
+
 
 
 	// delete objectInstance.flag;

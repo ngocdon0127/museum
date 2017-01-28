@@ -21,7 +21,8 @@ var objectChild                = global.myCustomVars.objectChild;
 var datenum                    = global.myCustomVars.datenum;
 var sheet_from_array_of_arrays = global.myCustomVars.sheet_from_array_of_arrays;
 var Workbook                   = global.myCustomVars.Workbook;
-var exportFile          = global.myCustomVars.exportFile;
+var exportFile                 = global.myCustomVars.exportFile;
+var exportXLSX                 = global.myCustomVars.exportXLSX;
 
 // Get Global variables
 
@@ -195,7 +196,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 				if (req.query.display == 'html'){
 					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
 				}
-				else if (['docx', 'pdf'].indexOf(req.query.display) >= 0){
+				else if (['docx', 'pdf', 'xlsx'].indexOf(req.query.display) >= 0){
 					
 					var paragraph = {
 						text: [
@@ -210,36 +211,17 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 					}
 					
 
-					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
+					var exportFuncs = {
+						docx: exportFile,
+						pdf: exportFile,
+						xlsx: exportXLSX
+					}
+
+					exportFuncs[req.query.display](objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
 					// return res.end("OK");
 				}
 				
-				else if (req.query.display == 'xlsx'){
-					var obj = flatObjectModel(PROP_FIELDS, objectInstance);
-					var dataWriteToXLSX = [];
-					var stt = 1;
-					for(var prop in obj){
-						if (obj[prop]){
-							dataWriteToXLSX.push([stt++, PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label, obj[prop]]);
-						}
-						
-					}
-					var wb = new Workbook();
-					var ws = sheet_from_array_of_arrays(dataWriteToXLSX);
-
-					var ws_name = "Thổ nhưỡng";
-					wb.SheetNames.push(ws_name);
-					wb.Sheets[ws_name] = ws;
-
-					// console.log(wb.Sheets[ws_name])
-					// wb.Sheets[ws_name].Range("A1:A5").Font.Bold = true;
-					XLSX.writeFile(wb, 'test.xlsx', {showGridLines: false});
-					res.download("test.xlsx", "hihi.xlsx");
-					// res.end("OK");
-					setTimeout(function (){
-						fs.unlink("test.xlsx");
-					}, 1000);
-				}
+				
 				else {
 					return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);
 				}

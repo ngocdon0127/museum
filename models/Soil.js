@@ -7,7 +7,6 @@ module.exports = function (mongoose) {
 			soHieuThucDia: String,
 			soHieuBaoTangCS: String,
 			soHieuBTTNVN: String,
-			maKyHieuMauVatQuocTe: String,
 			kyHieuMauVatKhac: String,
 			thongTinKhac1: String
 		},
@@ -21,10 +20,20 @@ module.exports = function (mongoose) {
 			thongTinKhac2: String
 		},
 		soLuongChatLuong: {
-			soLuongMauVat: Number,
 			soLuongTieuBan: Number,
 			loaiMau: String,
-			kichThuocMau: String,
+			kichThuocMauMixed:{
+				chieuDai: Number,
+				donVi_chieuDai: String,
+				chieuRong: Number,
+				donVi_chieuRong: String,
+				chieuCao: Number,
+				donVi_chieuCao: String,
+				theTich: Number,
+				donVi_theTich: String,
+				trongLuong: Number,
+				donVi_trongLuong: String
+			},
 			tinhTrangMau: String,
 			thongTinKhac3: String
 		},
@@ -66,7 +75,10 @@ module.exports = function (mongoose) {
 			thoiGianGiamDinhMau: Date,
 			nguoiGiamDinhMau: String,
 			coQuanToChucGiamDinh: String,
-			taiLieuPhanTich: [String],
+			taiLieuPhanTichMixed: {
+				taiLieuPhanTichStr: String,
+				taiLieuPhanTichFile: [String]
+			},
 			thongTinKhac5: String
 		},
 		media: {
@@ -123,6 +135,9 @@ module.exports = function (mongoose) {
 		},
 		maDeTai: {
 			maDeTai: String
+		},
+		flag: {
+			fDiaDiemThuMau: String
 		}
 	};
 	var soilSchema = mongoose.Schema(schemaPrototype);

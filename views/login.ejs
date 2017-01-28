@@ -13,7 +13,7 @@
 					<h1>Đăng nhập</h1>
 					<br>
 					<form method="post" onsubmit="handleSubmit()">
-						<input type="text" name="email" id="email" value="<%= oldEmail %>" placeholder="Username">
+						<input type="text" name="email" id="email" value="<%= oldEmail %>" placeholder="Email">
 						<input type="password" name="password" id="password" placeholder="Password">
 						<% if (message) { %>
 							<span class="text-danger"><%= message %></span>

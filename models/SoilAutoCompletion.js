@@ -8,7 +8,10 @@ module.exports = function (mongoose) {
 		thon: [String],
 		coQuanToChucGiamDinh: [String],
 		coQuanXuLy: [String],
-		coQuanNhapVatMau: [String]
+		coQuanNhapVatMau: [String],
+		giaTriSuDung: [String]
+		// Update after 12 / 12 / 2016
+		// noiLuuTruMau: [String]
 	};
 	var soilAutoCompletion = mongoose.Schema(schemaPrototype);
 

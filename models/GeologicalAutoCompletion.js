@@ -8,6 +8,7 @@ module.exports = function (mongoose) {
 		thon: [String],
 		coQuanToChucPhanTich: [String],
 		coQuanNhapVatMau: [String],
+		giaTriSuDung: [String]
 	};
 	var geologicalAutoCompletion = mongoose.Schema(schemaPrototype);
 

@@ -1,6 +1,28 @@
 app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
 	
+	$http.get('/app/database/tooltipsani.json').then(function(res){
+		$scope.tooltips = res.data;
+	}, function(err){
+		console.log(err);
+	});
+	//auto complete
+	function autoCom(str) {
+		jQuery("#"+str).autocomplete({
+			source : $scope.auto[str]
+		})
+	};
+	var arrAuto = AuthService.arrAuto;
+	
+	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
+		$scope.auto = res.data;
+		arrAuto.forEach(function (val) {
+			autoCom(val);
+		})
+	}, function (err) {
+		console.log(err);
+	});
+
 	$http.get(url).then(function (res) {
 		// console.log(res.data.animal);
 		res.data.animal.ngayNhapMau = new Date(res.data.animal.ngayNhapMau);

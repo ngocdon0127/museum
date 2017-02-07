@@ -17,6 +17,17 @@ app.directive('validFile', function () {
             ngModel.$render = function () {
                 ngModel.$setViewValue(el.val());
             };
+            // function bindEvent(element, type, handler) {
+            //     if (element.addEventListener) {
+            //         element.addEventListener(type, handler, false);
+            //     } else {
+            //         element.attachEvent('on' + type, handler);
+            //     }
+            // }
+
+            // bindEvent(el[0], 'change', function() {
+            //     alert('File size:' + this.files[0].size);
+            // });
 
             el.bind('change', function () {
                 scope.$apply(function () {

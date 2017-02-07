@@ -99,3 +99,7 @@ function autoFill () {
 		}
 	}
 }
+
+// Muốn convert docx sang pdf, phải cài Libreoffice và desktop environment cho server:
+// Libreoffice: https://rpmfind.net/linux/rpm2html/search.php?query=libcairo.so.2
+// yum groupinstall -y 'Desktop'

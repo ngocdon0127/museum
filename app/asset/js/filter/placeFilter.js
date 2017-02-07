@@ -8,7 +8,7 @@ app.filter('customDistrict', function() {
     var result = {};
     // var result = [];
     angular.forEach(input, function(value, key) {
-      console.log(value)
+      // console.log(value)
       if (input[key].districtId == search) {      
         // _tmp = JSON.parse(JSON.stringify(input[key]));
         // _tmp["id"] = key;
@@ -26,7 +26,7 @@ app.filter('customCity', function() {
     // var _tmp = {};
     var result = {};
     angular.forEach(input, function(value, key) {
-      console.log(value)
+      // console.log(value)
       if (input[key].cityId == search) {
         // _tmp = JSON.parse(JSON.stringify(input[key]));
         // _tmp["id"] = key;

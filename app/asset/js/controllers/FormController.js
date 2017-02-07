@@ -170,17 +170,41 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 }]);
 
 app.controller('PlaceController', ['$scope','$http','$filter', function ($scope, $http, $filter) {
+	var places = {};
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
+		places.cities = res.data;
+		$http.get('/app/database/districts.json').then(function(res){
+			// $scope.districts = res.data;
+			places.districts = res.data; // pre load
+			$http.get('/app/database/wards.json').then(function(res){
+				// $scope.wards = res.data;
+				places.wards = res.data // pre load
+				// console.log('cached');
+			}, function(res){
+				console.log(res);
+			});
+		}, function(res){
+			console.log(res);
+		});
 	}, function(res){
 		console.log(res);
 	});
 	$scope.cityChange = function(){
-		$http.get('/app/database/districts.json').then(function(res){
-			$scope.districts = res.data;
-		}, function(res){
-			console.log(res);
-		});
+		if ('districts' in places){
+			// console.log('districts cache hit');
+			$scope.districts = places.districts;
+		}
+		else {
+			// console.log('districts cache miss')
+			$http.get('/app/database/districts.json').then(function(res){
+				$scope.districts = res.data;
+				places.districts = res.data;
+			}, function(res){
+				console.log(res);
+			});
+		}
+		
 	}
 	$scope.star = true;
 	$scope.showstar = function () {
@@ -192,10 +216,19 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 	}
 
 	$scope.districtChange = function() {
-		$http.get('/app/database/wards.json').then(function(res){
-			$scope.wards = res.data;
-		}, function(res){
-			console.log(res);
-		});
+		if ('wards' in places){
+			// console.log('wards cache hit')
+			$scope.wards = places.wards;
+		}
+		else {
+			// console.log('wards cache miss')
+			$http.get('/app/database/wards.json').then(function(res){
+				$scope.wards = res.data;
+				places.wards = res.data
+			}, function(res){
+				console.log(res);
+			});
+		}
+		
 	};
 }]);

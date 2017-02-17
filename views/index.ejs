@@ -1,11 +1,73 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="/javascripts/jquery.js"></script>
+	<script src="/javascripts/FileSaver.js"></script>
+	
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+	<h1><%= title %></h1>
+	<p>Welcome to <%= title %></p>
+	<script>
+		$.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
+			// check for conditions and support for blob / arraybuffer response type
+			if (window.FormData && ((options.dataType && (options.dataType == 'binary')) || (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) || (window.Blob && options.data instanceof Blob)))))
+			{
+				return {
+					// create new XMLHttpRequest
+					send: function(headers, callback){
+						// setup all variables
+						var xhr = new XMLHttpRequest(),
+						url = options.url,
+						type = options.type,
+						async = options.async || true,
+						// blob or arraybuffer. Default is blob
+						dataType = options.responseType || "blob",
+						data = options.data || null,
+						username = options.username || null,
+						password = options.password || null;
+							
+						xhr.addEventListener('load', function(){
+							var data = {};
+							data[options.dataType] = xhr.response;
+							// make callback and send data
+							callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+						});
+		 
+						xhr.open(type, url, async, username, password);
+						
+						// setup custom headers
+						for (var i in headers ) {
+							xhr.setRequestHeader(i, headers[i] );
+						}
+						
+						xhr.responseType = dataType;
+						xhr.send(data);
+					},
+					abort: function(){
+						jqXHR.abort();
+					}
+				};
+			}
+		});
+		$.ajax({
+			url: 'http://localhost:8000/content/dia-chat/58459fc74737642118cc34b4?display=xlsx',
+			method: 'get',
+			dataType: 'binary',
+			processData: false,
+			success: function (data) {
+				console.log('success');
+				// console.log(data);
+				var blob = new Blob([data], {type: 'application/x-binary; charset=utf-8'});
+				saveAs(blob, 'hi.xlsx');
+			},
+			error: function (err) {
+				console.log('err');
+				console.log(err);
+			}
+		});
+	</script>
   </body>
 </html>

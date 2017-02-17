@@ -20,7 +20,7 @@ router.get('/home', isLoggedIn, function (req, res) {
 })
 
 router.get('/test', aclMiddleware('/test', 'view'), function (req, res, next) {
-	res.end("hehe");
+	res.render('index', {title: 'Test view'});
 })
 
 router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next) {

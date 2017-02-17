@@ -73,7 +73,7 @@
 		"label": "Ngày định tên",
 		"required": false,
 		"money": false,
-		"type": "Date",
+		"type": "Date"
 	},
 	{
 		"name": "tenVietNam",

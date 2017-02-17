@@ -675,7 +675,7 @@
 		"label": "Người xử lý, chế tác mẫu",
 		"required": false,
 		"money": false,
-		"type": "Date",
+		"type": "Date"
 	},
 	{
 		"name": "nguoiXuLy",

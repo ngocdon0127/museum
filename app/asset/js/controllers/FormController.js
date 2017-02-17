@@ -31,6 +31,16 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+	}
 }]);
 
 app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
@@ -66,6 +76,15 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+	}
 }]);
 
 app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
@@ -98,6 +117,15 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 		// } else{
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
+	}
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
@@ -133,6 +161,15 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+	}
 }]);
 
 app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
@@ -166,6 +203,15 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 		// } else{
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
+	}
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 

@@ -9,12 +9,12 @@
   "8": "Thông thường các mẫu vật thiên nhiên cũng như hiện vật văn hoá thường có tên địa phương.  Tên mẫu vật phổ thông cũng giúp ích cho công tác quản lý hoặc tìm kiếm mẫu vật trong CSDL khi cần thiết. Trong một số trường hợp người tìm kiếm có thể chỉ biết mỗi tên địa phương của mẫu vật.",
   "9": "Nếu có nhiều tên tiếng Anh, ghi tất cả các tên, các tên cách nhau bằng dấu chấm phảy.",
   "10": "Bảo tàng Thiên nhiên Việt Nam đã tổ chức nghiên cứu để lựa chọn các hệ thống phân loại về thực vật, động vật, địa chất và thổ nhưỡng cho Bảo tàng. Do vậy, khi mẫu vật được nhập kho vào Bảo tàng, cần thiết phải định được tên mẫu vật theo hệ thống phân loại của Bảo tàng. CSDL mẫu vật của Bảo tàng cần thiết phải có trường dữ liệu này để phục vụ công tác quản lý cũng như nghiên cứu khoa học.",
-  "11": "",
+  "11": "Trong xu thế hội nhập, Bảo tàng Thiên nhiên Việt Nam có các mối quan hệ quốc tế với các bảo tàng trên thế giới, các trung tâm nghiên cứu, trường đại học. Việc trao đổi mẫu vật, trao đổi nghiên cứu với các tổ chức trên là không thể thiếu. Do vậy, CSDL mẫu vật của bảo tàng cần thiết phải có trường dữ liệu này.",
   "12": "Ghi người xác định tên khoa học, không cần thiết phải ghi đầy đủ chức danh, học vị. Nếu có nhiều người định tên thì ghi tất cả các tên, các tên cách nhau bởi dấu chấm phảy. Lưu ý: Mục này ghi người xác định tên khoa học chứ không phải người đặt tên cho mẫu vật.",
   "13": "",
-  "14": "Trường dữ liệu cho phép nhập thông tin về số lượng tiêu bản hiện có về một loại mẫu vật, giúp ích cho hoạt động trưng bày hoặc trao đổi mẫu vật khi cần.",
-  "15": "Trường dữ liệu cho phép nhập thông tin về số lượng tiêu bản hiện có về một loại mẫu vật, giúp ích cho hoạt động trưng bày hoặc trao đổi mẫu vật khi cần.",
-  "16": "Mẫu dưới dạng mẫu cục,….",
+  "14": "",
+  "15": "Thể hiện số lượng mẫu vật cùng loài trong CSDL đã lưu trữ.",
+  "16": "Trường dữ liệu giúp phân biệt mẫu vật thuộc loại nào?, mẫu nghiên cứu hay mẫu trưng bày, mẫu chuẩn ?. Đây là trường bắt buộc nhằm xác định loại mẫu vật, có ảnh hưởng quan trọng đến giá trị của Bảo tàng",
   "17": "Giúp người quản lý hình dung được hình dáng của mẫu vật, giúp công tác quản lý, sắp xếp dễ dàng hơn.như thông tin trong trường CSDL đã viết “Dài x rộng x cao; hoặc trọng lượng, thể tích...;”. ở đây có thể là trọng lượng vì đối với mẫu địa chất để thuận tiện cho việc bảo quản và di chuyển mẫu thì thông tin về trọng lượng mẫu là rất quan trọng.",
   "18": "Trường dữ liệu về tình trạng mẫu vật cho biết về chất lượng mẫu vật hiện tại. Trường dữ liệu này có thể được cập nhật định kỳ theo thời gian.",
   "19": "",
@@ -36,7 +36,7 @@
   "35": "Thời gian giám định mẫu vật đảm bảo độ chính xác của kết quả giám định mẫu vật vì nhiều mẫu vật nếu thời gian trước giám định quá dài có thể ảnh hưởng đến kết quả giám định mẫu vật.",
   "36": "Trường cơ quan/tổ chức giám định mẫu vật thể hiện độ tin cậy, chất lượng và trách nhiệm giám định mẫu vật của cơ quan hoặc tổ chức giám định mẫu. Lưu ý: Ghi tên người phân tích phân tích, Nếu có nhiều người xử lý chế tác thì ghi tất cả các tên, các tên cách nhau bởi dấu chấm phảy.",
   "37": "",
-  "38": "",
+  "38": "Để bảo đảm mẫu vật được giảm định trên cơ sở tham khảo các tài liệu.",
   "39": "Bao gồm thạch học và khoáng tướng",
   "40": "Bao gồm phân tích thành phần khoáng vật học, phân tích thành phần hóa học và các phân tích khác (chẳng hạn nguyên tố vết hoặc nguyên tố đi kèm, v.v...)",
   "41": "",
@@ -80,5 +80,6 @@
   "79": "Cho biết thông tin về cá nhân lập phiếu hồ sơ của mẫu vật lưu trữ",
   "80": "Thông tin về người nhập vào phần mềm giúp nhà quản lý mẫu vật kiểm tra, chỉnh sửa, cập nhật thông tin về mẫu vật khi cần thiết",
   "81": "",
-  "82": ""
+  "82": "",
+  "83": "Thời gian định tên quốc tế của mẫu vật"
 }

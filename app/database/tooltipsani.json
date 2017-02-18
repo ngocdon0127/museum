@@ -93,5 +93,6 @@
   "92": "",
   "93": "",
   "94": "Giới tính/giống của một mẫu vật hay cá thể thu được/quan trắc được. Dữ liệu này nên là một bộ thuật ngữ (mã) thống nhất trong cả quần xã. Các giá trị đề xuất: M = đực, F = cái, H = lưỡng tính, I = không xác định (đã kiểm tra nhưng không xác định được), U = không biết (không kiểm tra), T = chuyển đổi (giữa các giống, hữu ích cho các loài lưỡng tính tuần tự), B = cả đực và cái",
-  "95": "Dữ liệu về giai đoạn sống trong vòng đời. Đòi hỏi cần phát triển một vốn từ kiểm soát. Có thể gồm nhiều giai đoạn với nhiều cá thể"
+  "95": "Dữ liệu về giai đoạn sống trong vòng đời. Đòi hỏi cần phát triển một vốn từ kiểm soát. Có thể gồm nhiều giai đoạn với nhiều cá thể",
+  "96": "Thời gian định tên khoa học của mẫu vật."
 }

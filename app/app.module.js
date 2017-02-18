@@ -4,7 +4,8 @@ var app = angular.module('museumApp', [
 	'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',
-	'ngAnimate'
+	'ngAnimate',
+    'ngCookies'
 	])
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;

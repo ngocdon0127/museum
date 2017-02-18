@@ -16,23 +16,17 @@
 			<table>
 				<h3 class="h3-title">SỐ HIỆU</h3>
 				<tr>
-					<td><label>01.Số hiệu thực địa <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text"  title="{{tooltips[1]}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form" required></td>
+					<td><label>03.Số hiệu BTTNVN:</label></td>
+					<td><input type="text"  title="{{tooltips[3]}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>02.Số hiệu bảo tàng cơ sở<span class="has-required">(*)</span>:</label></td>
 					<td><input type="text"  title="{{tooltips[2]}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form" required></td>
 				</tr>
 				<tr>
-					<td><label>03.Số hiệu BTTNVN:</label></td>
-					<td><input type="text"  title="{{tooltips[3]}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
-				</tr>
-<!-- 				<tr>
-					<td><label >04.Mã kí hiệu mẫu vật quốc tế:</label></td>
-					<td><input type="text"  title="{{tooltips[4]}}" name="maKyHieuMauVatQuocTe" ng-model="data.maKyHieuMauVatQuocTe" class="input-form"></td>
-				</tr> -->
-
-				<tr>
+					<td><label>01.Số hiệu thực địa <span class="has-required">(*)</span>:</label></td>
+					<td><input type="text"  title="{{tooltips[1]}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form" required></td>
+				</tr>				<tr>
 					<td><label>04.Các kí hiệu mẫu vật khác:</label></td>
 					<td><input type="text" title="{{tooltips[5]}}" name="kyHieuMauVatKhac" ng-model="data.kyHieuMauVatKhac" class="input-form"></td>
 				</tr>
@@ -45,22 +39,6 @@
 		<div class="container map-detail" style="margin-top: 50px;">
 			<table>
 				<h3 class="h3-title">TÊN MẪU VẬT</h3>
-				<tr>
-					<td><label>06.Tên Việt Nam <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips[7]}}" name="tenVietNam" ng-model="data.tenVietNam" class="input-form" required></td>
-				</tr>
-				<tr>
-					<td><label>07.Tên địa phương:</label></td>
-					<td><input type="text" title="{{tooltips[8]}}" name="tenDiaPhuong" ng-model="data.tenDiaPhuong" class="input-form"></td>
-				</tr>
-				<tr>
-					<td><label>08.Tên Tiếng Anh:</label></td>
-					<td><input type="text" title="{{tooltips[9]}}" name="tenTiengAnh" ng-model="data.tenTiengAnh" class="input-form"></td>
-				</tr>
-				<tr>
-					<td><label>09. Tên theo hệ thống PL của bảo tàng:</label></td>
-					<td><input type="text" title="{{tooltips[10]}}" name="tenTheoBaoTang" ng-model="data.tenTheoBaoTang" class="input-form"></td>
-				</tr>
 				<tr><td><label>10. Tên khoa học (tên latin)</label></td></tr>
 				<tr>
 					<td>Tên đồng nghĩa:</td>
@@ -128,6 +106,26 @@
 					<td><input type="text" title="{{tooltips[25]}}" name="nguoiDinhTen" ng-model="data.nguoiDinhTen" class="input-form" ></td>
 				</tr>
 				<tr>
+					<td><label>08. Ngày định tên: </label></td>
+					<td><input type="date" title="{{tooltips[82]}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form"></td>
+				</tr>
+				<tr>
+					<td><label>06.Tên Việt Nam <span class="has-required">(*)</span>:</label></td>
+					<td><input type="text" title="{{tooltips[7]}}" name="tenVietNam" ng-model="data.tenVietNam" class="input-form" required></td>
+				</tr>
+				<tr>
+					<td><label>07.Tên địa phương:</label></td>
+					<td><input type="text" title="{{tooltips[8]}}" name="tenDiaPhuong" ng-model="data.tenDiaPhuong" class="input-form"></td>
+				</tr>
+				<tr>
+					<td><label>08.Tên Tiếng Anh:</label></td>
+					<td><input type="text" title="{{tooltips[9]}}" name="tenTiengAnh" ng-model="data.tenTiengAnh" class="input-form"></td>
+				</tr>
+				<tr>
+					<td><label>09. Tên theo hệ thống phân loại của BTTNVN:</label></td>
+					<td><input type="text" title="{{tooltips[10]}}" name="tenTheoBaoTang" ng-model="data.tenTheoBaoTang" class="input-form"></td>
+				</tr>
+				<tr>
 					<td><label>12. Thông tin khác:</label></td>
 					<td><input type="text" title="{{tooltips[26]}}" name="thongTinKhac2" ng-model="data.thongTinKhac2" class="input-form"></td>
 				</tr>
@@ -136,10 +134,6 @@
 		<div class="container map-detail" style="margin-top: 50px;">
 			<table>
 				<h3 class="h3-title">SỐ LƯỢNG VÀ CHẤT LƯỢNG MẪU VẬT</h3>
-<!-- 				<tr>
-					<td><label >14. Số lượng mẫu vật:</label></td>
-					<td><input type="number" min="0" title="{{tooltips[27]}}" name="soLuongMauVat" ng-model="data.soLuongMauVat" class="input-form"></td>
-				</tr> -->
 				<tr>
 					<td><label>13. Số lượng tiêu bản:</label></td>
 					<td><input type="number" min = "0" title="{{tooltips[28]}}" name="soLuongTieuBan" ng-model="data.soLuongTieuBan" class="input-form"></td>
@@ -265,7 +259,7 @@
 								<td>Vị trí: </td>
 								<td>
 							        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-click="showstar()" id="datLien"> Trên đất liền 
-							        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên biển
+							        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
 								</td>
 							</tr>
 							<tr>
@@ -342,7 +336,7 @@
 				</tr>
 				<tr>
 					<td><label>30. Bản đồ:</label></td>
-					<td><input type="file" title="{{tooltips[50]}}" name="banDo" ng-model="data.banDo" class="input-form"></td>
+					<td><input type="file" title="{{tooltips[50]}}" name="banDo" accept=".zip, .rar" ng-model="data.banDo" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>31. Thông tin khác:</label></td>
@@ -424,6 +418,10 @@
 				<tr>
 					<td>Phương thức xử lý chế tác:</td>
 					<td><input type="text" title="{{tooltips[65]}}" name="phuongThucXuLy" ng-model="data.phuongThucXuLy" class="input-form"></td>
+				</tr>
+				<tr>
+					<td>Thời gian xử lý chế tác:</td>
+					<td><input type="text" title="{{tooltips[64]}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Người xử lý, chế tác:</td>

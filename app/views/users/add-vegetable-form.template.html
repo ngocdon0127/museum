@@ -300,14 +300,36 @@
 						</table>
 					</td>
 				</tr>
-				<tr><td><label>24. Vị trí tọa độ theo hệ tọa độ Việt Nam 2000</label></td></tr>
+				<tr>
+					<td colspan="2">
+						<label>24. Vị trí tọa độ theo hệ tọa độ Việt Nam 2000: </label>
+						<input type="radio" name="fViTriToaDo" ng-checked="'true'" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
+						<input type="radio" name="fViTriToaDo" value="false" ng-click="dd()"><span class="label label-default"> DD</span>
+					</td>
+				</tr>
 				<tr>
 					<td>Vĩ độ N <span class="has-required">(*)</span>:</td>
-					<td><input type="text" title="{{tooltips[42]}}" name="viDo" ng-model="data.viDo" class="input-form" required></td>
+					<td>
+						<input type="text" id="dms" ng-init="showCoor = 'false'; data.viDo=''" ng-show="!showCoor" title="{{tooltips[42]}}" name="viDo" ng-model="data.viDo" class="input-form" required>
+						<div id="dd" ng-show="showCoor" style="margin-top: 5px;">
+							<input type="text" ng-model= "vido_do" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
+							<input type="text" ng-model= "vido_phut" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
+							<input type="text" ng-model= "vido_giay" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
+						</div>
+					</td>
+
 				</tr>
 				<tr>
 					<td>Kinh độ E <span class="has-required">(*)</span>:</td>
-					<td><input type="text" title="{{tooltips[43]}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" required></td>
+					<td>
+						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips[43]}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" required>
+						<div id="dd" ng-show="showCoor" style="margin-top: 5px;">
+							<input type="text" ng-model="kinhdo_do" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
+							<input type="text" ng-model="kinhdo_phut" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
+							<input type="text" ng-model="kinhdo_giay" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
+						</div>
+					</td>
+					</td>
 				</tr>
 				<tr>
 					<td><label>25. Độ cao <span class="has-required">(*)</span>: </label></td>

@@ -32,6 +32,24 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		// }
 	}
 
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
 	$scope.saveCookies = function () {
 		console.log("saving data")
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
@@ -76,6 +94,25 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
 	$scope.saveCookies = function () {
 		console.log("saving data")
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
@@ -118,6 +155,25 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
 	$scope.saveCookies = function () {
 		console.log("saving data")
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
@@ -161,6 +217,25 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
 	$scope.saveCookies = function () {
 		console.log("saving data")
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
@@ -204,6 +279,25 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
 	$scope.saveCookies = function () {
 		console.log("saving data")
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))

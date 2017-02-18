@@ -2,7 +2,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	
 	return ({
 		// hostAnimal : 'http://localhost:8000/content/dong-vat/auto',
-		hostName: 'http://188.166.228.19',
+		hostName: 'http://localhost:8000',
 		deleteP: deleteP,
 		addSample: addSample,
 		editForm: editForm,
@@ -43,22 +43,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				totalFile++;
 			}
 		});
-		function createCB(index) {
-			return function () {
-				window.location.href = urls[index];
-				progressBar.style.width = (index + 1) / totalFile * 100 + '%';
-				progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
-				progressBar.setAttribute('aria-valuenow', index);
-				if (index >= totalFile - 1){
-					$(progressBarContainer).fadeOut(2000);
 
-				}
-			}
-		}
-		var timeOut = 2000;
-		if (id == 'pdf'){
-			timeOut = 4000;
-		}
 		if (totalFile){
 			// step = 100 / totalFile;
 			progressBar.setAttribute('aria-valuemax', totalFile);
@@ -67,9 +52,101 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			progressBar.setAttribute('aria-valuenow', 0);
 			$(progressBarContainer).fadeIn();
 		}
-		for(var i = 0; i < urls.length; i++){
-			setTimeout(createCB(i), timeOut * i)
+
+		download(0);
+
+		function download(index) {
+			console.log('processing ' + index);
+			if (index >= totalFile){
+				// progressBar.setAttribute('aria-valuemax', totalFile);
+				// progressBar.style.width = '0%';
+				// progressBar.innerHTML = '0 / ' + totalFile;
+				// progressBar.setAttribute('aria-valuenow', 0);
+				// $(progressBarContainer).fadeIn();
+				$(progressBarContainer).fadeOut(1000);
+			}
+			else {
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function () {
+					if ((xhr.readyState == 4) && (xhr.status == 200)){
+						console.log(xhr);
+						var disposition = xhr.getResponseHeader('Content-Disposition');
+						var fields = disposition.split([';']);
+						var fileNameIndex = -1;
+						fields.map(function (element, index) {
+							fields[index] = element.trim();
+							if (fields[index].indexOf('filename*') >= 0){
+								fileNameIndex = index;
+							}
+						})
+						var fileName = '';
+						if (fileNameIndex == -1){
+							for(var i = 0; i < fields.length; i++){
+								if (fields[i].indexOf('filename=') >= 0){
+									fileNameIndex = i;
+								}
+							}
+						}
+						if (fileNameIndex == -1){
+							fileName = 'PCSDL.' + id;
+						}
+						else {
+							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
+							fileName = decodeURIComponent(fileName);
+						}
+						console.log(fields);
+						var type = xhr.getResponseHeader('Content-Type');
+						console.log(type);
+						// var blob = new Blob([xhr.response], {type: 'application/x-binary; charset=utf-8'});
+						var blob = new Blob([xhr.response], {type: type});
+						saveAs(blob, fileName);
+						progressBar.style.width = (index + 1) / totalFile * 100 + '%';
+						progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
+						progressBar.setAttribute('aria-valuenow', index);
+						if (index >= totalFile - 1){
+							setTimeout(function () {
+								$(progressBarContainer).fadeOut(1000);
+							}, 500)
+
+						}
+						setTimeout(function () {
+							download(index + 1);
+						}, 100);
+					}
+				}
+				xhr.responseType = 'arraybuffer';
+				xhr.open('GET', urls[index], true);
+				xhr.send();
+			}
 		}
+
+		// function createCB(index) {
+		// 	return function () {
+		// 		window.location.href = urls[index];
+		// 		progressBar.style.width = (index + 1) / totalFile * 100 + '%';
+		// 		progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
+		// 		progressBar.setAttribute('aria-valuenow', index);
+		// 		if (index >= totalFile - 1){
+		// 			$(progressBarContainer).fadeOut(2000);
+
+		// 		}
+		// 	}
+		// }
+		// var timeOut = 2000;
+		// if (id == 'pdf'){
+		// 	timeOut = 4000;
+		// }
+		// if (totalFile){
+		// 	// step = 100 / totalFile;
+		// 	progressBar.setAttribute('aria-valuemax', totalFile);
+		// 	progressBar.style.width = '0%';
+		// 	progressBar.innerHTML = '0 / ' + totalFile;
+		// 	progressBar.setAttribute('aria-valuenow', 0);
+		// 	$(progressBarContainer).fadeIn();
+		// }
+		// for(var i = 0; i < urls.length; i++){
+		// 	setTimeout(createCB(i), timeOut * i)
+		// }
 	}
 
 	function addSample(fd, url, urlRe){

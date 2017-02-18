@@ -1,10 +1,10 @@
 [
 	{
-		"name": "soHieuThucDia",
+		"name": "soHieuBTTNVN",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu thực địa",
+		"label": "Số hiệu BTTNVN",
 		"required": false,
-		"money": true,
+		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false
@@ -20,11 +20,11 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "soHieuBTTNVN",
+		"name": "soHieuThucDia",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu BTTNVN",
+		"label": "Số hiệu thực địa",
 		"required": false,
-		"money": false,
+		"money": true,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false
@@ -46,6 +46,35 @@
 		"required": false,
 		"money": false,
 		"type": "String"
+	},
+	
+	{
+		"name": "tenTheoQuocTe",
+		"schemaProp": "tenMau",
+		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$",
+		"autoCompletion": false
+	},
+	{
+		"name": "nguoiDinhTen",
+		"schemaProp": "tenMau",
+		"label": "Người định tên",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$",
+		"autoCompletion": false
+	},
+	{
+		"name": "ngayDinhTen",
+		"schemaProp": "tenMau",
+		"label": "Người định tên",
+		"required": false,
+		"money": false,
+		"type": "Date"
 	},
 	{
 		"name": "tenVietNam",
@@ -81,26 +110,6 @@
 		"name": "tenTheoBaoTang",
 		"schemaProp": "tenMau",
 		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "tenTheoQuocTe",
-		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiDinhTen",
-		"schemaProp": "tenMau",
-		"label": "Người định tên",
 		"required": false,
 		"money": false,
 		"type": "String",
@@ -464,7 +473,7 @@
 		"money": true,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "banDo",
@@ -473,7 +482,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
+		"regex": "^.+\\.(zip|rar)$",
 		"autoCompletion": false
 	},
 	{
@@ -659,6 +668,14 @@
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false
+	},
+	{
+		"name": "thoiGianXuLy",
+		"schemaProp": "media.xuLyCheTac",
+		"label": "Người xử lý, chế tác mẫu",
+		"required": false,
+		"money": false,
+		"type": "Date"
 	},
 	{
 		"name": "nguoiXuLy",

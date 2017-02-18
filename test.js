@@ -1,22 +1,30 @@
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+var fs = require('fs');
 
-function wait(ms) {
-   return new Promise(r => setTimeout(r, ms))  
-}
-
-function hoho() {
+async(function () {
 	console.log('start');
-	async (function main() {
-		console.log('sắp rồi...')
-		await (wait(2007))
-		console.log('chờ tí...')
-		await (wait(2012))
-		console.log('thêm chút nữa thôi...')
-		await (wait(2016))
-		console.log('xong rồi đấy!')
-	})();
-	console.log('stop');
-}
+	var a1 = await (new Promise(function (resolve, reject) {
+		setTimeout(function () {
+			resolve('first timeout');
+		}, 1000);
+	}))
+	console.log(a1)
 
-hoho()
+	var a2 = await (new Promise(function (resolve, reject) {
+		setTimeout(function () {
+			resolve('second timeout');
+		}, 3000);
+	}))
+	console.log(a2)
+
+	var a3 = await (new Promise(function (resolve, reject) {
+		setTimeout(function () {
+			resolve('third timeout');
+		}, 2000);
+	}))
+	console.log(a3)
+	console.log('finish');
+})()
+
+console.log('out');

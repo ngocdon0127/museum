@@ -28,11 +28,6 @@
 				<td><input type="text" title="{{tooltips[3]}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
 			</tr>
 
-<!-- 			<tr>
-				<td><label >04. Mã kí hiệu mẫu vật quốc tế:</label></td>
-				<td><input type="text" title="{{tooltips[4]}}" name="maKyHieuMauVatQuocTe" ng-model="data.maKyHieuMauVatQuocTe" class="input-form" ></td>
-			</tr> -->
-
 			<tr>
 				<td><label>04. Các kí hiệu mẫu vật khác:</label></td>
 				<td><input type="text"  ng-model="data.kyHieuMauVatKhac" title="{{tooltips[5]}}" name="kyHieuMauVatKhac" class="input-form"></td>
@@ -137,10 +132,6 @@
 		<table>
 			<h3 class="h3-title">SỐ LƯỢNG VÀ CHẤT LƯỢNG MẪU VẬT</h3>
 
-<!-- 			<tr>
-				<td><label >14. Số lượng mẫu vật:</label></td>
-				<td><input type="number" ng-model="data.soLuongMauVat" min="0" title="{{tooltips[27]}}" name="soLuongMauVat" class="input-form"></td>
-			</tr> -->
 			<tr>
 				<td><label>13. Số lượng tiêu bản:</label></td>
 				<td><input type="number" min="0" ng-model="data.soLuongTieuBan" title="{{tooltips[28]}}" name="soLuongTieuBan" class="input-form"></td>
@@ -178,7 +169,7 @@
 							<td>					    
 							    <span class="box">
 							      <input type="text" title="{{tooltips[30]}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-							      <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+							      <select class="contentselect" ng-model="data.donVi_chieuRong" name="donVi_chieuRong">
 							          <option value="mm">mm</option>
 							          <option value="cm">cm</option>
 							          <option value="m">m</option>
@@ -265,8 +256,8 @@
 						<tr>
 							<td>Vị trí: </td>
 							<td>
-						        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
-						        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên biển
+						        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="data.datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
+						        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="data.trenBien"> Trên biển
 							</td>
 						</tr>
 						<tr>
@@ -310,8 +301,13 @@
 			</tr>
 			<tr><td><label>23. Vị trí toạ độ theo hệ toạ độ VN 2000 <span class="has-required">(*)</span></label></td></tr>
 			<tr>
-				<td>Vĩ độ N <span class="has-required"> (*)</span>: </td>
-				<td><input type="text" ng-model="data.viDo" title="{{tooltips[42]}}" name="viDo" class="input-form" required></td>
+				<td>Vĩ độ N<span class="has-required"> (*)</span>: </td>
+				<td>
+					<input type="text" ng-model="data.viDo" title="{{tooltips[42]}}" name="viDo" class="input-form" required>
+					<input type="text" ng-model="data.viDo" title="{{tooltips[42]}}" name="viDo_Gio" required> Giờ
+					<input type="text" ng-model="data.viDo" title="{{tooltips[42]}}" name="viDo_Phut" required> Phút
+					<input type="text" ng-model="data.viDo" title="{{tooltips[42]}}" name="viDo_Giay" required> Giây
+				</td>
 			</tr>
 			<tr>
 				<td>Kinh độ E<span class="has-required"> (*)</span>:</td>
@@ -556,7 +552,7 @@
 			<tr>
 				<td><label>57. Trao đổi mẫu: </label></td>
 				<td>
-					<select class="select-box" title="{{tooltips[84]}}" name="traoDoiMau">
+					<select class="select-box" title="{{tooltips[84]}}" ng-model="data.traoDoiMau" name="traoDoiMau">
 						<option value=""></option>
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
@@ -566,7 +562,7 @@
 			<tr>
 				<td><label>58. Vay mượn:</label></td>
 				<td>
-					<select class="select-box" title="{{tooltips[85]}}" name="vayMuon">
+					<select class="select-box" title="{{tooltips[85]}}" ng-model="data.vayMuon" name="vayMuon">
 						<option value=""></option>
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
@@ -627,7 +623,11 @@
 			</tr>
 		</table>
 		</div>
-		<center><button style="margin-top: 30px;" id="add-post" type="submit" class="btn btn-success btn-lg">Thêm mẫu</button></center>
+		<center>
+			<button style="margin-top: 30px;" id="add-post" type="submit" class="btn btn-success btn-lg">Thêm mẫu</button>
+			<button type="button" ng-click="saveCookies()" class="btn btn-default">Save draft</button>
+			<button type="button" ng-click="getCookies()" class="btn btn-default">Get data</button>
+		</center>
 	</form>
 	
 </div>

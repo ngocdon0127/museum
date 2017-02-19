@@ -31,6 +31,14 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+	$scope.saveCookies = function() {
+		localStorage.setItem("data", JSON.stringify($scope.data));
+		console.log($scope.data);
+	}
+
+	$scope.getCookies = function() {
+		$scope.data = JSON.parse(localStorage.getItem("data"));
+	}
 }]);
 
 app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
@@ -199,3 +207,18 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 		});
 	};
 }]);
+
+app.controller('CookiesManageController', ['$scope', '$cookies', function($scope, $cookies){
+	
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem('data', JSON.stringify($scope.data));
+		console.log("saved")
+	}
+
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem('data'));
+		$cookies.remove('data')
+	}
+}])

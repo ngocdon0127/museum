@@ -94,7 +94,13 @@ function responseError (req, dir, res, errCode, props, values) {
 		for (var field in req.files){
 			var files = req.files[field];
 			for (var i = 0; i < files.length; i++) {
-				fs.unlink(path.join(dir, files[i].filename));
+				console.log('in response error')
+				try {
+					fs.unlinkSync(path.join(dir, files[i].filename));
+				}
+				catch (e){
+					console.log(e)
+				}
 			}
 		}
 		
@@ -317,6 +323,22 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							}
 						}
 					}
+					if (element.hasOwnProperty('maxSize')){
+						// Check maxium file size
+						console.log(req.files)
+						if (req.files && (element.name in req.files)){
+							var files = req.files[element.name];
+							var maxFileSize = parseInt(element.maxSize);
+							for(var file of files){
+								// console.log(file)
+								var fileSize = parseInt(file.size); // bytes
+								if (fileSize > maxFileSize){
+									return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Kích thước file tối đa là ' + (maxFileSize / 1024 / 1024).toFixed(2) + ' MB', element.name])
+								}
+								// console.log(file.originalname + ' passed')
+							}
+						}
+					}
 					break;
 				case 'Mixed':
 					// TODO Validate sub properties
@@ -471,7 +493,15 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						var files = objectChild(objectInstance, element.schemaProp)[element.name];
 						// console.log(files);
 						for (var j = 0; j < files.length; j++) {
-							fs.unlink(path.join(_UPLOAD_DEST_ANIMAL, files[j]));
+							// fs.unlinkSync(path.join(_UPLOAD_DEST_ANIMAL, files[j]));
+							try {
+								fs.unlinkSync(path.join(_UPLOAD_DEST_ANIMAL, files[j]));
+								console.log('deleted ' + files[j])
+							}
+							catch (e){
+								console.log('delete failed ' + files[j])
+								console.log(e)
+							}
 						}
 
 					}
@@ -1164,7 +1194,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				outputFileName += '.docx';
 				res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
 					try {
-						fs.unlink(path.join(__dirname, tmpFileName));
+						fs.unlinkSync(path.join(__dirname, tmpFileName));
 					}
 					catch (e){
 						console.log(e);
@@ -1191,8 +1221,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					// console.log(outputFileName);
 					res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
 						try {
-							fs.unlink(path.join(__dirname, pdfFileName));
-							fs.unlink(path.join(__dirname, tmpFileName));
+							fs.unlinkSync(path.join(__dirname, pdfFileName));
+							fs.unlinkSync(path.join(__dirname, tmpFileName));
 						}
 						catch (e){
 							console.log(e);
@@ -1876,7 +1906,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				outputFileName += '.xlsx';
 				res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
 					try {
-						fs.unlink(path.join(__dirname, tmpFileName));
+						fs.unlinkSync(path.join(__dirname, tmpFileName));
 					}
 					catch (e){
 						console.log(e);

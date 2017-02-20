@@ -172,7 +172,7 @@
 							<td>					    
 							    <span class="box">
 							      <input type="text" title="{{tooltips[30]}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-							      <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+							      <select class="contentselect" ng-model="data.donVi_chieuRong" name="donVi_chieuRong">
 							          <option value="mm">mm</option>
 							          <option value="cm">cm</option>
 							          <option value="m">m</option>
@@ -319,7 +319,6 @@
 						<input type="text" ng-model= "vido_giay" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
 					</div>
 				</td>
-
 			</tr>
 			<tr>
 				<td>Kinh độ E <span class="has-required">(*)</span>:</td>
@@ -360,7 +359,7 @@
 			</tr>
 			<tr>
 				<td><label>31. Bản đồ:</label></td>
-				<td><input type="file" ng-model="data.banDo" title="{{tooltips[50]}}" accept=".zip, .rar" name="banDo" class="input-form"></td>
+				<td><input type="file" ng-model="data.banDo" title="{{tooltips[50]}}" valid-file accept=".zip, .rar" name="banDo" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>32. Thông tin khác </label></td>
@@ -575,7 +574,7 @@
 			<tr>
 				<td><label>58. Trao đổi mẫu: </label></td>
 				<td>
-					<select class="select-box" title="{{tooltips[84]}}" name="traoDoiMau">
+					<select class="select-box" title="{{tooltips[84]}}" ng-model="data.traoDoiMau" name="traoDoiMau">
 						<option value=""></option>
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>
@@ -585,7 +584,7 @@
 			<tr>
 				<td><label>59. Vay mượn mẫu:</label></td>
 				<td>
-					<select class="select-box" title="{{tooltips[85]}}" name="vayMuon">
+					<select class="select-box" title="{{tooltips[85]}}" ng-model="data.vayMuon" name="vayMuon">
 						<option value=""></option>
 						<option value="Có thể">Có thể</option>
 						<option value="Không thể">Không thể</option>

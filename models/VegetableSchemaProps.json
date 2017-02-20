@@ -1,10 +1,10 @@
 [
 	{
-		"name": "soHieuThucDia",
+		"name": "soHieuBTTNVN",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu thực địa",
+		"label": "Số hiệu BTTNVN",
 		"required": false,
-		"money": true,
+		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$"
 	},
@@ -18,11 +18,11 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "soHieuBTTNVN",
+		"name": "soHieuThucDia",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu BTTNVN",
+		"label": "Số hiệu thực địa",
 		"required": false,
-		"money": false,
+		"money": true,
 		"type": "String",
 		"regex": "^.{0,}$"
 	},
@@ -42,42 +42,6 @@
 		"required": false,
 		"money": false,
 		"type": "String"
-	},
-	{
-		"name": "tenVietNam",
-		"schemaProp": "tenMau",
-		"label": "Tên Việt Nam (phổ thông)",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "tenDiaPhuong",
-		"schemaProp": "tenMau",
-		"label": "Tên địa phương",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "tenTiengAnh",
-		"schemaProp": "tenMau",
-		"label": "Tên tiếng Anh",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "tenTheoBaoTang",
-		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
 	},
 	{
 		"name": "tenDongNghia",
@@ -236,6 +200,50 @@
 		"required": false,
 		"money": false,
 		"type": "String"
+	},
+	{
+		"name": "ngayDinhTen",
+		"schemaProp": "tenMau",
+		"label": "Người định tên",
+		"required": false,
+		"money": false,
+		"type": "Date"
+	},
+	{
+		"name": "tenVietNam",
+		"schemaProp": "tenMau",
+		"label": "Tên Việt Nam (phổ thông)",
+		"required": false,
+		"money": true,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "tenDiaPhuong",
+		"schemaProp": "tenMau",
+		"label": "Tên địa phương",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "tenTiengAnh",
+		"schemaProp": "tenMau",
+		"label": "Tên tiếng Anh",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "tenTheoBaoTang",
+		"schemaProp": "tenMau",
+		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
 	},
 	{
 		"name": "thongTinKhac2",
@@ -540,7 +548,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|pdf|docx?)$"
+		"regex": "^.+\\.(zip|rar)$"
 	},
 	{
 		"name": "thongTinKhac4",
@@ -714,6 +722,14 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thoiGianXyLys",
+		"schemaProp": "media.xuLyCheTac",
+		"label": "Thời gian xử lý chế tác",
+		"required": false,
+		"money": false,
+		"type": "Date"
 	},
 	{
 		"name": "nguoiXuLy",

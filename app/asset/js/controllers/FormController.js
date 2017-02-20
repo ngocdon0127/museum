@@ -31,13 +31,32 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
-	$scope.saveCookies = function() {
-		localStorage.setItem("data", JSON.stringify($scope.data));
-		console.log($scope.data);
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
 	}
 
-	$scope.getCookies = function() {
-		$scope.data = JSON.parse(localStorage.getItem("data"));
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
@@ -74,6 +93,34 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+	}
 }]);
 
 app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
@@ -106,6 +153,34 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 		// } else{
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
+	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
@@ -141,6 +216,34 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+	}
 }]);
 
 app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
@@ -175,20 +278,72 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+	}
+
+	$scope.dms = function () {
+		$scope.data.viDo = "";
+		$scope.data.kinhDo = "";
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.data.viDo = ""
+		$scope.data.kinhDo = ""
+		$scope.showCoor = false
+	}
+
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		console.log($scope.data);
+	}
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+	}
 }]);
 
 app.controller('PlaceController', ['$scope','$http','$filter', function ($scope, $http, $filter) {
+	var places = {};
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
+		places.cities = res.data;
+		$http.get('/app/database/districts.json').then(function(res){
+			// $scope.districts = res.data;
+			places.districts = res.data; // pre load
+			$http.get('/app/database/wards.json').then(function(res){
+				// $scope.wards = res.data;
+				places.wards = res.data // pre load
+				// console.log('cached');
+			}, function(res){
+				console.log(res);
+			});
+		}, function(res){
+			console.log(res);
+		});
 	}, function(res){
 		console.log(res);
 	});
 	$scope.cityChange = function(){
-		$http.get('/app/database/districts.json').then(function(res){
-			$scope.districts = res.data;
-		}, function(res){
-			console.log(res);
-		});
+		if ('districts' in places){
+			// console.log('districts cache hit');
+			$scope.districts = places.districts;
+		}
+		else {
+			// console.log('districts cache miss')
+			$http.get('/app/database/districts.json').then(function(res){
+				$scope.districts = res.data;
+				places.districts = res.data;
+			}, function(res){
+				console.log(res);
+			});
+		}
+		
 	}
 	$scope.star = true;
 	$scope.showstar = function () {
@@ -200,11 +355,20 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 	}
 
 	$scope.districtChange = function() {
-		$http.get('/app/database/wards.json').then(function(res){
-			$scope.wards = res.data;
-		}, function(res){
-			console.log(res);
-		});
+		if ('wards' in places){
+			// console.log('wards cache hit')
+			$scope.wards = places.wards;
+		}
+		else {
+			// console.log('wards cache miss')
+			$http.get('/app/database/wards.json').then(function(res){
+				$scope.wards = res.data;
+				places.wards = res.data
+			}, function(res){
+				console.log(res);
+			});
+		}
+		
 	};
 }]);
 

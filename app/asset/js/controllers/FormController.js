@@ -1,4 +1,37 @@
-
+function initDefaultUnits() {
+	setTimeout(function () {
+		var donVis = [
+			{
+				field: 'chieuCao',
+				unitField: 'donVi_chieuCao',
+				defaultValue: 'm'
+			},
+			{
+				field: 'chieuRong',
+				unitField: 'donVi_chieuRong',
+				defaultValue: 'm'
+			},
+			{
+				field: 'chieuDai',
+				unitField: 'donVi_chieuDai',
+				defaultValue: 'm'
+			},
+			{
+				field: 'trongLuong',
+				unitField: 'donVi_trongLuong',
+				defaultValue: 'kg'
+			},
+			{
+				field: 'theTich',
+				unitField: 'donVi_theTich',
+				defaultValue: 'l'
+			}
+		]
+		donVis.map(function (donVi) {
+			document.getElementsByName(donVi.unitField)[0].value = donVi.defaultValue;
+		})
+	}, 1000);
+}
 
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
@@ -7,6 +40,11 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}, function(err){
 		console.log(err);
 	});
+
+	// default unit
+	initDefaultUnits();
+
+
 	//auto complete
 
 	var arrAuto = AuthService.arrAuto;
@@ -31,10 +69,10 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}
 
 	$scope.latChange = function () {
-		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
 	}
 	$scope.lonChange = function () {
-		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
 	}
 
 	$scope.dms = function () {
@@ -66,6 +104,9 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 	}, function(err){
 		console.log(err);
 	});
+
+	// default unit
+	initDefaultUnits();
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
@@ -129,6 +170,10 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	}, function(err){
 		console.log(err);
 	});
+
+	// default unit
+	initDefaultUnits();
+
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
 	// 		source : $scope.auto[str]
@@ -191,6 +236,9 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 		console.log(err);
 	});
 
+	// default unit
+	initDefaultUnits();
+
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
 	// 		source : $scope.auto[str]
@@ -252,6 +300,9 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 	}, function(err){
 		console.log(err);
 	});
+
+	// default unit
+	initDefaultUnits();
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({

@@ -58,7 +58,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		download(0);
 
 		function download(index) {
-			console.log('processing ' + index);
+			// console.log('processing ' + index);
 			if (index >= totalFile){
 				// progressBar.setAttribute('aria-valuemax', totalFile);
 				// progressBar.style.width = '0%';
@@ -71,7 +71,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						console.log(xhr);
+						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
@@ -96,9 +96,9 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
 							fileName = decodeURIComponent(fileName);
 						}
-						console.log(fields);
+						// console.log(fields);
 						var type = xhr.getResponseHeader('Content-Type');
-						console.log(type);
+						// console.log(type);
 						// var blob = new Blob([xhr.response], {type: 'application/x-binary; charset=utf-8'});
 						var blob = new Blob([xhr.response], {type: type});
 						saveAs(blob, fileName);
@@ -269,7 +269,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			}
 		}
 		catch (err){
-			console.log(err);
+			// console.log(err);
 		}
 	};
 }]);

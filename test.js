@@ -30,6 +30,6 @@
 // console.log('out');
 
 var x = [1, 2, 3]
-for(var i of x){
+for(let i of x){
 	console.log(i)
 }

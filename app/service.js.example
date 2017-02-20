@@ -7,6 +7,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		addSample: addSample,
 		editForm: editForm,
 		exportFile: exportFile,
+		autoCom: autoCom,
 		arrAuto: [	'tenDongNghia','gioi',
 					'nganh', 'lop', 
 					'phanLop', 
@@ -26,7 +27,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'coQuanXuLy'
 					,'boPhanLayMauDNA', 
 					'trangThaiGiuMauDNA',
-					'coQuanNhapVatMau']
+					'coQuanNhapVatMau',
+					'giaTriSuDung']
 	});
 
 	function exportFile(id){
@@ -100,6 +102,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 						// var blob = new Blob([xhr.response], {type: 'application/x-binary; charset=utf-8'});
 						var blob = new Blob([xhr.response], {type: type});
 						saveAs(blob, fileName);
+						arr[index].checked = false;
 						progressBar.style.width = (index + 1) / totalFile * 100 + '%';
 						progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
 						progressBar.setAttribute('aria-valuenow', index);
@@ -232,6 +235,43 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			console.log(err);
 		});
 	}
+
+	function autoCom(str, _scope) {
+		// jQuery("#"+str).autocomplete({
+		// 	source : $scope.auto[str]
+		// })
+		var dtl = document.createElement('datalist')
+		dtl.setAttribute('id', 'datalist-' + str);
+		// console.log(_scope.auto[str])
+		try {
+			_scope.auto[str].forEach(function(val) {
+				// console.log(val);
+				if (!val){
+					return;
+				}
+				var opt = document.createElement('option');
+				opt.innerHTML = val;
+				try {
+					dtl.appendChild(opt);
+				}
+				catch (e){
+
+				}
+			})
+			try {
+				var input = document.getElementsByName(str)[0];
+				$(dtl).appendTo($(input).parent())
+				input.setAttribute('list', 'datalist-' + str);
+			}
+			catch (e){
+				// console.log(e);
+				// console.log(str);
+			}
+		}
+		catch (err){
+			console.log(err);
+		}
+	};
 }]);
 
 //Autocomplete

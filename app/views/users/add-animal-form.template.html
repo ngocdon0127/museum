@@ -96,7 +96,7 @@
 			</tr>
 			<tr>
 				<td>Loài: </td>
-				<td><input type="text" id="loai" ng-model="data.loai" class="input-form" title="{{tooltips[23]}}" name="loai"></td>
+				<td><input type="text" ng-model="data.loai" class="input-form" title="{{tooltips[23]}}" name="loai"></td>
 			</tr>
 			<tr>
 				<td>Dưới loài/phân loài: </td>
@@ -528,13 +528,7 @@
 			<tr>
 				<td><label>51. Giá trị sử dụng (tài nguyên)(nếu có):</label></td>
 				<td>
-					<input type="" title="{{tooltips[77]}}" name="giaTriSuDung" class="input-form" ng-model="data.giaTriSuDung" list="giaTriSuDung">
-					<datalist id="giaTriSuDung">
-						<option>Khoa học</option>
-						<option>Y học</option>
-						<option>Dinh Dưỡng</option>
-						<option>Thẩm mĩ</option>
-					</datalist>
+					<input type="" id="giaTriSuDung" title="{{tooltips[77]}}" name="giaTriSuDung" class="input-form" ng-model="data.giaTriSuDung">
 				</td>
 			</tr>
 			<tr>

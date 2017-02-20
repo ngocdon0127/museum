@@ -307,6 +307,10 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						}
 					}
 					break;
+				case 'Date':
+					console.log('date');
+					console.log(req.body[element.name]);
+					break;
 				case 'File':
 					if ('regex' in element){
 						var regex = new RegExp(element.regex);

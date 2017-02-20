@@ -1,3 +1,5 @@
+
+
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
 	$http.get('/app/database/tooltipsani.json').then(function(res){
@@ -6,17 +8,13 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		console.log(err);
 	});
 	//auto complete
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+
 	var arrAuto = AuthService.arrAuto;
 	
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
@@ -69,16 +67,16 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 		console.log(err);
 	});
 
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
@@ -131,16 +129,16 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	}, function(err){
 		console.log(err);
 	});
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/dia-chat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
@@ -193,16 +191,16 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 		console.log(err);
 	});
 
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/tho-nhuong/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
@@ -255,16 +253,16 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 		console.log(err);
 	});
 
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/co-sinh/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);

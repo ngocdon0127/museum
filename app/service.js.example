@@ -9,6 +9,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		exportFile: exportFile,
 		autoCom: autoCom,
 		renderFlexdatalist: renderFlexdatalist,
+		fetchFlexdatalist: fetchFlexdatalist,
 		arrAuto: [	'tenDongNghia','gioi',
 					'nganh', 'lop', 
 					'phanLop', 
@@ -241,6 +242,9 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		// jQuery("#"+str).autocomplete({
 		// 	source : $scope.auto[str]
 		// })
+		
+		
+		// console.log('autoCom ' + str);
 		var dtl = document.createElement('datalist')
 		dtl.setAttribute('id', 'datalist-' + str);
 		// console.log(_scope.auto[str])
@@ -256,17 +260,19 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					dtl.appendChild(opt);
 				}
 				catch (e){
-
+					console.log(e)
 				}
 			})
 			try {
 				var input = document.getElementsByName(str)[0];
+				// console.log('input');
+				// console.log(input)
 				$(dtl).appendTo($(input).parent())
 				input.setAttribute('list', 'datalist-' + str);
 			}
 			catch (e){
 				// console.log(e);
-				// console.log(str);
+				console.log(str);
 			}
 		}
 		catch (err){
@@ -281,6 +287,26 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			});
 		}, 1000)
 	}
+
+	function fetchFlexdatalist(_scope) {
+		setTimeout(function () {
+			console.log('render1')
+			// Render
+			$('.flexdatalist').flexdatalist({
+				toggleSelected: true
+			});
+
+			// Must call another time. Do not know why.
+			$('.flexdatalist').flexdatalist({
+				toggleSelected: true
+			});
+			console.log('done render');
+
+			// After rendering flexdatalist, giaTriSuDung will be focused.
+			document.getElementsByName('maDeTai')[0].focus(); // Call this to scroll to top.
+		}, 2000);
+	}
+
 }]);
 
 //Autocomplete

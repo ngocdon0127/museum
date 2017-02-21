@@ -142,13 +142,20 @@
 			<tr>
 				<td><label>15. Loại mẫu vật<span class="has-required"> (*)</span>:</label></td>
 				<td>
-					<input type="text" title="{{tooltips[29]}}" name="loaiMauVat" class="input-form" ng-model="data.loaiMauVat" list="loaiMauVat">
+					<input type="text" multiple title="{{tooltips[29]}}" name="loaiMauVat" class="input-form flexdatalist" ng-model="data.loaiMauVat" list="loaiMauVat" data-min-length='1' data-toggle-selected='true' multiple='multiple' >
 					<datalist id="loaiMauVat">
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
 						<option value="Mẫu type">Mẫu type</option>
 					</datalist>
 				</td>
+				<script type="text/javascript">
+					setTimeout(function () {
+						$('.flexdatalist').flexdatalist({
+							toggleSelected: true
+						});
+					}, 1000)
+				</script>
 			</tr>
 			<tr><td><label>16. Kích thước mẫu vật<span class="has-required"> (*)</span>:</label></td></tr>
 			<tr>
@@ -157,67 +164,67 @@
 						<tr>
 						<td><span>Chiều cao: </span></td>
 							<td>					    
-							    <span class="box">
-							      <input type="text" title="{{tooltips[30]}}" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
-							      <select class="contentselect" ng-model="data.donVi_chieuCao" name="donVi_chieuCao">
-							          <option value="mm">mm</option>
-							          <option value="cm">cm</option>
-							          <option value="m">m</option>
-							       </select>
-							    </span>
+								<span class="box">
+								  <input type="text" title="{{tooltips[30]}}" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
+								  <select class="contentselect" ng-model="data.donVi_chieuCao" name="donVi_chieuCao">
+									  <option value="mm">mm</option>
+									  <option value="cm">cm</option>
+									  <option value="m">m</option>
+								   </select>
+								</span>
 							</td>
 						</tr>
 						<tr>
 							<td><span>Chiều rộng: </span></td>
 							<td>					    
-							    <span class="box">
-							      <input type="text" title="{{tooltips[30]}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-							      <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
-							          <option value="mm">mm</option>
-							          <option value="cm">cm</option>
-							          <option value="m">m</option>
-							       </select>
-							    </span>
+								<span class="box">
+								  <input type="text" title="{{tooltips[30]}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
+								  <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+									  <option value="mm">mm</option>
+									  <option value="cm">cm</option>
+									  <option value="m">m</option>
+								   </select>
+								</span>
 							</td>
 						</tr>
 					
 						<tr>
 							<td><span>Chiều dài: </span></td>
 							<td>					    
-							    <span class="box">
-							      <input type="text" title="{{tooltips[30]}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
-							      <select class="contentselect" ng-model="data.donVi_chieuDai" name="donVi_chieuDai">
-							          <option value="mm">mm</option>
-							          <option value="cm">cm</option>
-							          <option value="m">m</option>
-							       </select>
-							    </span>
+								<span class="box">
+								  <input type="text" title="{{tooltips[30]}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
+								  <select class="contentselect" ng-model="data.donVi_chieuDai" name="donVi_chieuDai">
+									  <option value="mm">mm</option>
+									  <option value="cm">cm</option>
+									  <option value="m">m</option>
+								   </select>
+								</span>
 							</td>
 						</tr>
 						<tr>
 							<td><span>Trọng lượng: </span></td>
 							<td>					    
-							    <span class="box">
-							      <input type="text" title="{{tooltips[30]}}" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
-							      <select class="contentselect" ng-model="data.donVi_trongLuong" name="donVi_trongLuong">
+								<span class="box">
+								  <input type="text" title="{{tooltips[30]}}" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
+								  <select class="contentselect" ng-model="data.donVi_trongLuong" name="donVi_trongLuong">
 										<option value="mg">mg</option>
-							         	<option value="g">g</option>
-							          	<option value="kg">kg</option>
-							       </select>
-							    </span>
+										<option value="g">g</option>
+										<option value="kg">kg</option>
+								   </select>
+								</span>
 							</td>
 						</tr>
 					
 						<tr>		
 							<td><span>Thể tích</span></td>
 							<td>					    
-							    <span class="box">
-							      <input type="text" title="{{tooltips[30]}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
-							      <select class="contentselect" ng-model="data.donVi_theTich" name="donVi_theTich">
-							          <option value="ml">ml</option>
-							          <option value="l">l</option>
-							       </select>
-							    </span>
+								<span class="box">
+								  <input type="text" title="{{tooltips[30]}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
+								  <select class="contentselect" ng-model="data.donVi_theTich" name="donVi_theTich">
+									  <option value="ml">ml</option>
+									  <option value="l">l</option>
+								   </select>
+								</span>
 							</td>
 						</tr>						
 					</table>
@@ -259,8 +266,8 @@
 						<tr>
 							<td>Vị trí: </td>
 							<td>
-						        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
-						        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
+								<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
+								<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
 							</td>
 						</tr>
 						<tr>
@@ -528,7 +535,9 @@
 			<tr>
 				<td><label>51. Giá trị sử dụng (tài nguyên)(nếu có):</label></td>
 				<td>
-					<input type="" id="giaTriSuDung" title="{{tooltips[77]}}" name="giaTriSuDung" class="input-form" ng-model="data.giaTriSuDung">
+					<input type="" id="giaTriSuDung" title="{{tooltips[77]}}" name="giaTriSuDung" multiple='multiple' class="input-form flexdatalist" data-toggle-selected='true' data-min-length='1' data-toggle-selected='true' ng-model="data.giaTriSuDung" list="datalist-giaTriSuDung">
+					
+					
 				</td>
 			</tr>
 			<tr>

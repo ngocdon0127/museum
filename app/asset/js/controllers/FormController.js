@@ -62,6 +62,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.addPost = function(FormContent){
+		console.log($scope.data)
 		// if ($scope.FormContent.$valid) {
 			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));

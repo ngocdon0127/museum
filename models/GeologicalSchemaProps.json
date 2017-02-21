@@ -134,7 +134,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "loaiMau",
+		"name": "loaiMauVat",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
 		"required": false,
@@ -665,7 +665,7 @@
 		"type": "String"
 	},
 	{
-		"name": "loaiMauVat",
+		"name": "loaiMau",
 		"schemaProp": "dacDiemMauVat",
 		"label": "Loại mẫu",
 		"required": false,

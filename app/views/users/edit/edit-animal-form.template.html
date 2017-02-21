@@ -144,7 +144,7 @@
 			<tr>
 				<td><label>15. Loại mẫu <span class="has-required"> (*)</span>:</label></td>
 				<td>
-					<input type="text" title="{{tooltips[29]}}" name="loaiMauVat" class="input-form" ng-model="data.loaiMauVat" list="loaiMauVat">
+					<input type="text" title="{{tooltips[29]}}" name="loaiMauVat" ng-model="data.loaiMauVat" list="loaiMauVat" multiple='multiple' class="input-form flexdatalist" data-toggle-selected='true' data-min-length='1' data-toggle-selected='true'>
 					<datalist id="loaiMauVat">
 						<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 						<option value="Mẫu trưng bày">Mẫu trưng bày</option>
@@ -510,7 +510,7 @@
 			</tr>
 			<tr>
 				<td><label>51. Giá trị sử dụng (tài nguyên)(nếu có):</label></td>
-				<td><input type="text" ng-model="data.giaTriSuDung" title="{{tooltips[77]}}" name="giaTriSuDung" class="input-form"></td>
+				<td><input type="" ng-model="data.giaTriSuDung" title="{{tooltips[77]}}" name="giaTriSuDung" multiple='multiple' class="input-form flexdatalist" data-toggle-selected='true' data-min-length='1' data-toggle-selected='true'></td>
 			</tr>
 			<tr>
 				<td><label>52. Thông tin khác </label></td>

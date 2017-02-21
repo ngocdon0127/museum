@@ -57,6 +57,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.auto = res.data;
+		// console.log(res.data);
 		arrAuto.forEach(function (val) {
 			AuthService.autoCom(val, $scope);
 		})

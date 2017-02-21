@@ -411,8 +411,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 				// Update Auto Completion
 				if (('autoCompletion' in element) && (element.autoCompletion)){
-
-					AutoCompletion.findOne({}, createAutoCompletionCallback(element.name, value));
+					var value_ = value.split(',');
+					for(let v of value_){
+						v = v.trim();
+						if (v){
+							AutoCompletion.findOne({}, createAutoCompletionCallback(element.name, v));
+						}
+					}
+					
 
 					function createAutoCompletionCallback(name, value) {
 						return function (err, autoCompletion) {

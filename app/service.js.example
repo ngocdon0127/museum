@@ -8,6 +8,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		editForm: editForm,
 		exportFile: exportFile,
 		autoCom: autoCom,
+		renderFlexdatalist: renderFlexdatalist,
 		arrAuto: [	'tenDongNghia','gioi',
 					'nganh', 'lop', 
 					'phanLop', 
@@ -272,6 +273,14 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			// console.log(err);
 		}
 	};
+
+	function renderFlexdatalist() {
+		setTimeout(function () {
+			$('.flexdatalist').flexdatalist({
+				toggleSelected: true
+			});
+		}, 1000)
+	}
 }]);
 
 //Autocomplete

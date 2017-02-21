@@ -47,6 +47,9 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	// default unit
 	initDefaultUnits($scope);
 
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
 
 	//auto complete
 
@@ -111,6 +114,9 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 
 	// default unit
 	initDefaultUnits($scope);
+
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
@@ -178,6 +184,9 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	// default unit
 	initDefaultUnits($scope);
 
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
 	// 		source : $scope.auto[str]
@@ -243,6 +252,9 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 	// default unit
 	initDefaultUnits($scope);
 
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
 	// 		source : $scope.auto[str]
@@ -307,6 +319,9 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 
 	// default unit
 	initDefaultUnits($scope);
+
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({

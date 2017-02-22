@@ -10,6 +10,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		autoCom: autoCom,
 		renderFlexdatalist: renderFlexdatalist,
 		fetchFlexdatalist: fetchFlexdatalist,
+		initDatePicker: initDatePicker,
 		arrAuto: [	'tenDongNghia','gioi',
 					'nganh', 'lop', 
 					'phanLop', 
@@ -303,8 +304,44 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			console.log('done render');
 
 			// After rendering flexdatalist, giaTriSuDung will be focused.
-			document.getElementsByName('maDeTai')[0].focus(); // Call this to scroll to top.
+			// Call this to scroll to top.
+			$('html, body').animate({
+				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
+			}, 100);
 		}, 2000);
+	}
+
+	function initDatePicker(_scope, _model) {
+		setTimeout(function () {
+			if (_scope || _model){
+				
+				// Edit Form
+				$('.datepicker').each(function (index, element) {
+					try {
+						if (element.nodeName.toUpperCase() == 'INPUT'){
+							var name = element.getAttribute('name');
+							console.log(name);
+							var date = new Date(_model[name]);
+							_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+						}
+					}
+					catch (e){
+						console.log(e)
+					}
+
+				})
+			}
+			
+
+			$( ".datepicker" ).datepicker({
+				dateFormat: 'dd/mm/yy',
+				changeMonth: 'true',
+				changeYear: true,
+				showAnim: 'slideDown',
+
+			});
+		}, 1000)
+		
 	}
 
 }]);

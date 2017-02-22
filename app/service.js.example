@@ -311,9 +311,9 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		}, 2000);
 	}
 
-	function initDatePicker(_scope, _model) {
+	function initDatePicker(_scopeData) {
 		setTimeout(function () {
-			if (_scope || _model){
+			if (_scopeData){
 				
 				// Edit Form
 				$('.datepicker').each(function (index, element) {
@@ -321,8 +321,9 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 						if (element.nodeName.toUpperCase() == 'INPUT'){
 							var name = element.getAttribute('name');
 							console.log(name);
-							var date = new Date(_model[name]);
-							_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+							var date = new Date(_scopeData[name]);
+							_scopeData[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+							console.log(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear())
 						}
 					}
 					catch (e){
@@ -338,7 +339,6 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				changeMonth: 'true',
 				changeYear: true,
 				showAnim: 'slideDown',
-
 			});
 		}, 1000)
 		

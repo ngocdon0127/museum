@@ -43,7 +43,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.data.id = $routeParams.id;
 
 		// DatePicker
-		AuthService.initDatePicker($scope.data, res.data.animal);
+		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
 			// console.log($scope.data.huyen)
@@ -103,9 +103,10 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		$scope.data = res.data.paleontological;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
+		console.log($scope.data)
 
 		// DatePicker
-		AuthService.initDatePicker($scope.data, res.data.animal);
+		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
 			document.getElementsByName('tinh')[0].click()
@@ -166,7 +167,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 		$scope.data.id = $routeParams.id;
 
 		// DatePicker
-		AuthService.initDatePicker($scope.data, res.data.animal);
+		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
 			document.getElementsByName('tinh')[0].click()
@@ -224,7 +225,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		// res.data.geological.thoiGianPhanTich = new Date(res.data.geological.thoiGianPhanTich);
 
 		// DatePicker
-		AuthService.initDatePicker($scope.data, res.data.animal);
+		AuthService.initDatePicker($scope.data);
 
 		$scope.data = res.data.geological;
 		$scope.status = res.data.status;
@@ -290,7 +291,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 		$scope.data.id = $routeParams.id;
 		
 		// DatePicker
-		AuthService.initDatePicker($scope.data, res.data.animal);
+		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
 			document.getElementsByName('tinh')[0].click()

@@ -706,7 +706,7 @@
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$"
 	},
 	{
-		"name": "dinhKemXuLy",
+		"name": "dinhKemXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Đính kèm Xử lý chế tác",
 		"required": false,
@@ -724,7 +724,7 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "thoiGianXyLys",
+		"name": "thoiGianXuLy",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Thời gian xử lý chế tác",
 		"required": false,
@@ -790,7 +790,7 @@
 		"type": "String"
 	},
 	{
-		"name": "dinhKemTrinhTuDNA",
+		"name": "trinhTuDNA",
 		"schemaProp": "media.thongTinDNA",
 		"label": "Trình tự DNA",
 		"required": false,
@@ -962,7 +962,7 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "noiLuuTruMau",
+		"name": "noiLuuTru",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Nơi lưu giữ mẫu",
 		"required": false,

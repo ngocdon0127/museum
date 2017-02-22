@@ -87,7 +87,7 @@ module.exports = function (mongoose) {
 			videoFile: [String],
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
-				dinhKemXuLy: [String],
+				dinhKemXuLyCheTac: [String],
 				phuongThucXuLy: String,
 				thoiGianXuLy: Date,
 				nguoiXuLy: String,

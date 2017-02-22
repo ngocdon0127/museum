@@ -599,7 +599,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "dinhKemXuLy",
+		"name": "dinhKemXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Đính kèm Xử lý chế tác",
 		"required": false,

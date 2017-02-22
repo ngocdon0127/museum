@@ -258,7 +258,7 @@
 		"type": "Number"
 	},
 	{
-		"name": "loaiMau",
+		"name": "loaiMauVat",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
 		"required": false,

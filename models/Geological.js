@@ -22,7 +22,7 @@ module.exports = function (mongoose) {
 		},
 		soLuongChatLuong: {
 			soLuongTieuBan: Number,
-			loaiMau: String,
+			loaiMauVat: String,
 			kichThuocMauMixed:{
 				chieuDai: Number,
 				donVi_chieuDai: String,
@@ -97,7 +97,7 @@ module.exports = function (mongoose) {
 			thongTinKhac6: String
 		},
 		dacDiemMauVat: {
-			loaiMauVat : String,
+			loaiMau : String,
 			hinhDangMauTonTai : String,
 			mauSac : String,
 			phanLoaiSuDung : String,

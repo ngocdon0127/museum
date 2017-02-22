@@ -50,7 +50,9 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
 
-
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+	
 	//auto complete
 
 	var arrAuto = AuthService.arrAuto;
@@ -118,6 +120,9 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
@@ -188,6 +193,9 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
 
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
 	// 		source : $scope.auto[str]
@@ -256,6 +264,9 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
 
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
 	// 		source : $scope.auto[str]
@@ -323,6 +334,9 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({

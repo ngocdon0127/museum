@@ -87,7 +87,7 @@
 				</tr>
 				<tr>
 					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="text" title="{{tooltips[89]}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form"></td>
+					<td><input type="text" title="{{tooltips[89]}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form datepicker"></td>
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam  <span class="has-required">(*)</span>:</label></td>
@@ -218,7 +218,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="date" title="{{tooltips[28]}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau" class="input-form" required></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[28]}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
 				</tr>
 				<tr>
 					<td><label>20. Người thu mẫu <span class="has-required">(*)</span>:</label></td>
@@ -319,7 +319,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 				<tr>
 					<td><label>30. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-					<td><input type="date" title="{{tooltips[44]}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[44]}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich" ></td>
 				</tr>
 				<tr>
 					<td><label>31. Người phân tích/giám định/định loại mẫu  <span class="has-required">(*)</span>:</label></td>
@@ -401,6 +401,10 @@
 				<tr>
 					<td>Phương thức xử lý chế tác:</td>
 					<td><input type="text" title="{{tooltips[60]}}" name="phuongThucXuLy" ng-model="data.phuongThucXuLy" class="input-form"></td>
+				</tr>
+				<tr>
+					<td>Thời gian xử lý chế tác:</td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[60]}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy"></td>
 				</tr>
 				<tr>
 					<td>Người xử lý, chế tác:</td>
@@ -486,7 +490,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 				<tr>
 					<td><label>51. Ngày nhập mẫu: </label></td>
-					<td><input type="date" title="{{tooltips[74]}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[74]}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
 				</tr>
 				<tr>
 					<td><label>52. Người giao mẫu: </label></td>

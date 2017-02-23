@@ -103,7 +103,6 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		$scope.data = res.data.paleontological;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
-		console.log($scope.data)
 
 		// DatePicker
 		AuthService.initDatePicker($scope.data);
@@ -224,12 +223,13 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		// res.data.geological.thoiGianThuMau = new Date(res.data.geological.thoiGianThuMau);
 		// res.data.geological.thoiGianPhanTich = new Date(res.data.geological.thoiGianPhanTich);
 
-		// DatePicker
-		AuthService.initDatePicker($scope.data);
-
 		$scope.data = res.data.geological;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
+
+		// DatePicker
+		AuthService.initDatePicker($scope.data);
+		
 		$timeout(function(){
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()

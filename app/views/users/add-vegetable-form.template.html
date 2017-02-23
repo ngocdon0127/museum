@@ -394,7 +394,7 @@
 					</td>
 				<tr>
 					<td><label>38. Hình vẽ:</label></td>
-					<td><input type="file" title="{{tooltips[57]}}" name="hinhVe" ng-model="data.hinhVe" class="input-form" accept="image/x-png, image/gif, image/jpeg"></td>
+					<td><input type="file" multiple title="{{tooltips[57]}}" name="hinhVe" ng-model="data.hinhVe" class="input-form" accept="image/x-png, image/gif, image/jpeg"></td>
 				</tr>
 				<tr>
 					<td><label>39. Thông tin khác:</label></td>
@@ -432,7 +432,7 @@
 				</tr>
 				<tr>
 					<td>Đính kèm xử lý chế tác:</td>
-					<td><input type="file" title="{{tooltips[64]}}" ng-model="data.dinhKemXuLyCheTac" title="{{tooltips[64]}}" name="dinhKemXuLyCheTac" accept=".docx, .pdf, .doc" class="input-form"></td>
+					<td><input type="file" multiple title="{{tooltips[64]}}" ng-model="data.dinhKemXuLyCheTac" title="{{tooltips[64]}}" name="dinhKemXuLyCheTac" accept=".docx, .pdf, .doc" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Phương thức xử lý chế tác:</td>
@@ -452,16 +452,16 @@
 				</tr>
 				<tr>
 					<td>Ảnh mẫu sau chế tác:</td>
-					<td><input type="file" title="{{tooltips[68]}}" name="anhMauSauCheTac" ng-model="data.anhMauSauCheTac" class="input-form" accept="image/x-png, image/gif, image/jpeg" ></td>
+					<td><input type="file" multiple title="{{tooltips[68]}}" name="anhMauSauCheTac" ng-model="data.anhMauSauCheTac" class="input-form" accept="image/x-png, image/gif, image/jpeg" ></td>
 				</tr>
 				<tr><td><label>45. Thông tin DNA</label></td></tr>
 				<tr>
 					<td>Vị trí lấy mẫu DNA (lá, thân, rễ,...):</td>
-					<td><input type="text" id="viTriLayMauDNA" title="{{tooltips[69]}}" name="boPhanLayMauDNA" ng-model="data.boPhanLayMauDNA" class="input-form"></td>
+					<td><input type="text" id="viTriLayMauDNA" title="{{tooltips[69]}}" name="viTriLayMauDNA" ng-model="data.viTriLayMauDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Mẫu DNA (khô, nước...):</td>
-					<td><input type="text" id="mauDNA" title="{{tooltips[70]}}" name="trangThaiGiuMauDNA" ng-model="data.trangThaiGiuMauDNA" class="input-form"></td>
+					<td><input type="text" id="mauDNA" title="{{tooltips[70]}}" name="mauDNA" ng-model="data.mauDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Vùng gen phân tích: </td>
@@ -469,7 +469,7 @@
 				</tr>
 				<tr>
 					<td>Trình tự DNA</td>
-					<td><input type="text" multiple title="{{tooltips[72]}}" name="trinhTuDNA" ng-model="data.trinhTuDNA" class="input-form"></td>
+					<td><input type="file" multiple accept="image/x-png, image/gif, image/jpeg, .doc, .docx, .pdf" multiple title="{{tooltips[72]}}" name="trinhTuDNA" ng-model="data.trinhTuDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Công bố/thông tin quốc tế (genbank...)</td>

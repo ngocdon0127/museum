@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
+	<head>
 	<title><%= title %></title>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<script src="/javascripts/jquery.js"></script>
-	<script src="/javascripts/FileSaver.js"></script>
+	<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
 	
-  </head>
-  <body>
+	
+	<link rel="stylesheet" href="/stylesheets/datetimepicker.min.css">
+	<script src="/javascripts/jquery.js"></script>
+	<script src="/app/asset/js/jquery/bootstrap.js"></script>
+	<script src="/javascripts/FileSaver.js"></script>
+	<script src="/javascripts/datetimepicker.min.js"></script>
+
+    </script>
+
+	
+	</head>
+	<body>
 	<h1><%= title %></h1>
 	<p>Welcome to <%= title %></p>
+	<div class="well">
+		<div class="input-append datetimepicker">
+			<input data-format="dd-MM-yyyy" type="text" name="hehe"></input>
+			<span class="add-on">
+				<i data-time-icon="icon-time" data-date-icon="icon-calendar">
+				</i>
+			</span>
+		</div>
+	</div>
+	<script type="text/javascript">
+		jQuery(function() {
+			console.log('dmm')
+			jQuery('.datetimepicker').datetimepicker({
+				pickTime: false
+			});
+		});
+	</script>
 	<script>
+		/*
 		$.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
 			// check for conditions and support for blob / arraybuffer response type
 			if (window.FormData && ((options.dataType && (options.dataType == 'binary')) || (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) || (window.Blob && options.data instanceof Blob)))))
@@ -33,6 +59,9 @@
 							var data = {};
 							data[options.dataType] = xhr.response;
 							// make callback and send data
+							console.log(xhr);
+							var resHeaders = xhr.getAllResponseHeaders();
+							console.log(resHeaders)
 							callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
 						});
 		 
@@ -59,15 +88,55 @@
 			processData: false,
 			success: function (data) {
 				console.log('success');
-				// console.log(data);
+				console.log(data);
 				var blob = new Blob([data], {type: 'application/x-binary; charset=utf-8'});
-				saveAs(blob, 'hi.xlsx');
+				// saveAs(blob, 'hi.xlsx');
 			},
 			error: function (err) {
 				console.log('err');
 				console.log(err);
 			}
 		});
+		*/
+		// var xhr = new XMLHttpRequest();
+		// xhr.onreadystatechange = function () {
+		// 	if ((xhr.readyState == 4) && (xhr.status == 200)){
+		// 		console.log(xhr);
+		// 		var disposition = xhr.getResponseHeader('Content-Disposition');
+		// 		var fields = disposition.split([';']);
+		// 		var fileNameIndex = -1;
+		// 		fields.map(function (element, index) {
+		// 			fields[index] = element.trim();
+		// 			if (fields[index].indexOf('filename*') >= 0){
+		// 				fileNameIndex = index;
+		// 			}
+		// 		})
+		// 		var fileName = '';
+		// 		if (fileNameIndex == -1){
+		// 			for(var i = 0; i < fields.length; i++){
+		// 				if (fields[i].indexOf('filename=') >= 0){
+		// 					fileNameIndex = i;
+		// 				}
+		// 			}
+		// 		}
+		// 		if (fileNameIndex == -1){
+		// 			fileName = 'PCSDL.xlsx';
+		// 		}
+		// 		else {
+		// 			fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
+		// 			fileName = decodeURIComponent(fileName);
+		// 		}
+		// 		console.log(fields);
+		// 		var type = xhr.getResponseHeader('Content-Type');
+		// 		console.log(type);
+		// 		// var blob = new Blob([xhr.response], {type: 'application/x-binary; charset=utf-8'});
+		// 		var blob = new Blob([xhr.response], {type: type});
+		// 		saveAs(blob, fileName);
+		// 	}
+		// }
+		// xhr.responseType = 'arraybuffer';
+		// xhr.open('GET', 'http://localhost:8000/content/dia-chat/58459fc74737642118cc34b4?display=xlsx', true);
+		// xhr.send();
 	</script>
-  </body>
+	</body>
 </html>

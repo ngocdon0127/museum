@@ -32,7 +32,7 @@
   "31": "Trường dữ liệu về tình trạng mẫu vật cho biết về chất lượng mẫu vật hiện tại. Trường dữ liệu này có thể được cập nhật định kỳ theo thời gian.",
   "32": "",
   "33": "Thời gian thu mẫu vật quan trọng cho người tra cứu, người nghiên cứu mẫu vật vì có thể ở một thời gian thu mẫu nhất định hoặc ở một thời điểm trong mùa, mẫu vật có thể có màu sắc khác. Ngoài ra, thời gian thu mẫu còn cho biết tuổi của mẫu vật được lưu trữ trong bảo tàng.",
-  "34": "Trường người thu mẫu vật trong CSDL vừa là để vinh danh đóng góp của người thu mẫu vừa là để thể hiện trách nhiệm, vai trò của cá nhân đối với bộ sưu tập mẫu vật trong bảo tàng. Và có thể nó còn thể hiện chất lượng của mẫu vật, độ tin cậy.",
+  "34": "Trường người thu mẫu vật trong CSDL vừa là để vinh danh đóng góp của người thu mẫu vừa là để thể hiện trách nhiệm, vai trò của cá nhân đối với bộ sưu tập mẫu vật trong bảo tàng. Và có thể nó còn thể hiện chất lượng của mẫu vật, độ tin cậy. Lưu ý: Nếu có nhiều người thu mẫu thì ghi tất cả các tên, các tên cách nhau bởi dấu chấm phảy.",
   "35": "Cũng như trường dữ liệu “Người thu mẫu”, trường dữ liệu cơ quan thu mẫu vừa vinh danh những đóng góp của cơ quan chịu trách nhiệm về thu thậpmẫu vật, vừa thể hiện độ tin cậy, chất lượng của mẫu vật lưu trữ tại Bảo tàng.",
   "36": "Mô tả chi tiết phương pháp thu mẫu. Không giới hạn trang.",
   "37": "Trường dữ liệu “địa điểm thu mẫu” cho biết vị trí mẫu vật được thu thập ở địa danh nào.",

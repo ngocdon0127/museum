@@ -258,7 +258,7 @@
 		"type": "Number"
 	},
 	{
-		"name": "loaiMau",
+		"name": "loaiMauVat",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
 		"required": false,
@@ -729,7 +729,8 @@
 		"label": "Thuộc tính Xử lý chế tác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "phuongThucXuLy",

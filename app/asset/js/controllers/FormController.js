@@ -1,3 +1,41 @@
+function initDefaultUnits(_scope) {
+	setTimeout((function (_scope) {
+		return function () {
+			var donVis = [
+				{
+					field: 'chieuCao',
+					unitField: 'donVi_chieuCao',
+					defaultValue: 'm'
+				},
+				{
+					field: 'chieuRong',
+					unitField: 'donVi_chieuRong',
+					defaultValue: 'm'
+				},
+				{
+					field: 'chieuDai',
+					unitField: 'donVi_chieuDai',
+					defaultValue: 'm'
+				},
+				{
+					field: 'trongLuong',
+					unitField: 'donVi_trongLuong',
+					defaultValue: 'kg'
+				},
+				{
+					field: 'theTich',
+					unitField: 'donVi_theTich',
+					defaultValue: 'l'
+				}
+			]
+			donVis.map(function (donVi) {
+				// document.getElementsByName(donVi.unitField)[0].value = donVi.defaultValue;
+				_scope.data[donVi.unitField] = donVi.defaultValue;
+			})
+		}
+	})(_scope), 1000);
+}
+
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
 	$http.get('/app/database/tipsani.json').then(function(res){
@@ -5,24 +43,32 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}, function(err){
 		console.log(err);
 	});
+
+	// default unit
+	initDefaultUnits($scope);
+
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+	
 	//auto complete
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+
 	var arrAuto = AuthService.arrAuto;
 	
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.auto = res.data;
+		// console.log(res.data);
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.addPost = function(FormContent){
+		console.log($scope.data)
 		// if ($scope.FormContent.$valid) {
 			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
@@ -32,10 +78,10 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		// }
 	}
 	$scope.latChange = function () {
-		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
+		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
 	}
 	$scope.lonChange = function () {
-		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
+		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
 	}
 
 	$scope.dms = function () {
@@ -68,16 +114,25 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 		console.log(err);
 	});
 
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+	// default unit
+	initDefaultUnits($scope);
+
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
@@ -130,16 +185,26 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	}, function(err){
 		console.log(err);
 	});
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+
+	// default unit
+	initDefaultUnits($scope);
+
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/dia-chat/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
@@ -192,16 +257,25 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 		console.log(err);
 	});
 
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+	// default unit
+	initDefaultUnits($scope);
+
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/tho-nhuong/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);
@@ -254,16 +328,25 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 		console.log(err);
 	});
 
-	function autoCom(str) {
-		jQuery("#"+str).autocomplete({
-			source : $scope.auto[str]
-		})
-	};
+	// default unit
+	initDefaultUnits($scope);
+
+	// render flexdatalist
+	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/co-sinh/auto').then(function(res) {
 		$scope.auto = res.data;
 		arrAuto.forEach(function (val) {
-			autoCom(val);
+			AuthService.autoCom(val, $scope);
 		})
 	}, function (err) {
 		console.log(err);

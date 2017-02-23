@@ -50,7 +50,7 @@
 				</tr>
 				<tr>
 					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="date" title="{{tooltips[83]}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[83]}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam (phổ thông) <span class="has-required">(*)</span>:</label></td>
@@ -79,12 +79,12 @@
 				<h3 class="h3-title">SỐ LƯỢNG VÀ CHẤT LƯỢNG MẪU VẬT</h3>
 				<tr>
 					<td><label>14. Số lượng tiêu bản:</label></td>
-					<td><input type="number" min = "0" title="{{tooltips[15]}}" name="soLuongTieuBan" ng-model="data.soLuongTieuBan" class="input-form"></td>
+					<td><input type="number" disabled min = "0" title="{{tooltips[15]}}" name="soLuongTieuBan" ng-model="data.soLuongTieuBan" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>15. Loại mẫu vật<span class="has-required"> (*)</span>:</label></td>
 					<td>
-						<input type="text" title="{{tooltips[16]}}" name="loaiMauVat" class="input-form" ng-model="data.loaiMauVat" list="loaiMauVat">
+						<input type="text" title="{{tooltips[16]}}" name="loaiMauVat" multiple='multiple' class="input-form flexdatalist" data-toggle-selected='true' data-min-length='1' data-toggle-selected='true' ng-model="data.loaiMauVat" list="loaiMauVat">
 						<datalist id="loaiMauVat">
 							<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 							<option value="Mẫu trưng bày">Mẫu trưng bày</option>
@@ -181,7 +181,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="date" title="{{tooltips[20]}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau" class="input-form" required></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[20]}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
 				</tr>
 				<tr>
 					<td><label>20. Người thu mẫu <span class="has-required">(*)</span>:</label></td>
@@ -280,7 +280,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 				<tr>
 					<td><label>29. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-					<td><input type="date" title="{{tooltips[35]}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[35]}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich" ></td>
 				</tr>
 				<tr>
 					<td><label>30. Người phân tích/giám định/định loại mẫu <span class="has-required">(*)</span>:</label></td>
@@ -302,7 +302,7 @@
 				</tr>
 				<tr>
 					<td><input type="text" title="{{tooltips[39]}}" name="phanTichQuangHocStr" ng-model="data.phanTichQuangHocStr" class="input-form"></td>
-					<td><input type="file" multiple accept="video/mp4,video/x-m4v,video/*" name ="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="input-form"></td>
+					<td><input type="file" multiple accept=".doc, .docx, .pdf" name ="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>34. Các kết quả phân tích thành phần vật chất:</label></td>
@@ -459,7 +459,7 @@
 				<tr>
 					<td><label>55. Giá trị sử dụng (tài nguyên)(nếu có):</label></td>
 					<td>
-						<input type="" title="{{tooltips[66]}}" name="giaTriSuDung" class="input-form" ng-model="data.giaTriSuDung" list="giaTriSuDung">
+						<input type="" title="{{tooltips[66]}}" name="giaTriSuDung" multiple='multiple' class="input-form flexdatalist" data-toggle-selected='true' data-min-length='1' data-toggle-selected='true' ng-model="data.giaTriSuDung" list="giaTriSuDung">
 						<datalist id="giaTriSuDung">
 							<option>Khoa học</option>
 							<option>Y học</option>
@@ -479,7 +479,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 				<tr>
 					<td><label>57. Ngày nhập mẫu: </label></td>
-					<td><input type="date" title="{{tooltips[68]}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[68]}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
 				</tr>
 				<tr>
 					<td><label>58. Người giao mẫu: </label></td>

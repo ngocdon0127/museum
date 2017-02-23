@@ -133,7 +133,7 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "giong",
+		"name": "chi",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Chi/Giống",
 		"required": false,
@@ -143,7 +143,7 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "phanGiong",
+		"name": "chiGiong",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Phân chi/Phân giống",
 		"required": false,
@@ -238,7 +238,7 @@
 		"type": "Number"
 	},
 	{
-		"name": "loaiMau",
+		"name": "loaiMauVat",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
 		"required": false,
@@ -659,7 +659,7 @@
 		"regex": "^.+\\.(jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx)$"
 	},
 	{
-		"name": "dinhKemXuLy",
+		"name": "dinhKemXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Đính kèm Xử lý chế tác",
 		"required": false,
@@ -668,12 +668,13 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
-		"name": "thuocTinhXuLy",
+		"name": "thuocTinhXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Thuộc tính Xử lý chế tác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "File",
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "phuongThucXuLy",
@@ -888,7 +889,7 @@
 		"type": "String"
 	},
 	{
-		"name": "noiLuuTruMau",
+		"name": "noiLuuTru",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Nơi lưu giữ mẫu",
 		"required": false,

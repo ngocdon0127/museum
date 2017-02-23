@@ -1,6 +1,6 @@
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipsani.json').then(function(res){
+	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -248,7 +248,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 
 app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipspal.json').then(function(res){
+	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);

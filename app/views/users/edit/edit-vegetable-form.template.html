@@ -107,7 +107,7 @@
 				</tr>
 				<tr>
 					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="date" title="{{tooltips[82]}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[82]}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
 				</tr>
 				<tr>
 					<td><label>06.Tên Việt Nam <span class="has-required">(*)</span>:</label></td>
@@ -237,7 +237,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>18. Thời gian thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="date" title="{{tooltips[33]}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau" class="input-form" required></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[33]}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
 				</tr>
 				<tr>
 					<td><label>19. Người thu mẫu <span class="has-required">(*)</span>:</label></td>
@@ -349,7 +349,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 				<tr>
 					<td><label>32. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-					<td><input type="date" title="{{tooltips[52]}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[52]}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich" ></td>
 				</tr>
 				<tr>
 					<td><label>33. Người phân tích/giám định/định loại mẫu <span class="has-required">(*)</span>:</label></td>
@@ -438,11 +438,11 @@
 				<tr><td><label>44. Thông tin DNA</label></td></tr>
 				<tr>
 					<td>Vị trí lấy mẫu DNA (lá, thân, rễ,...):</td>
-					<td><input type="text" id="viTriLayMauDNA" title="{{tooltips[69]}}" name="boPhanLayMauDNA" ng-model="data.boPhanLayMauDNA" class="input-form"></td>
+					<td><input type="text" id="viTriLayMauDNA" title="{{tooltips[69]}}" name="viTriLayMauDNA" ng-model="data.viTriLayMauDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Mẫu DNA (khô, nước...):</td>
-					<td><input type="text" id="mauDNA" title="{{tooltips[70]}}" name="trangThaiGiuMauDNA" ng-model="data.trangThaiGiuMauDNA" class="input-form"></td>
+					<td><input type="text" id="mauDNA" title="{{tooltips[70]}}" name="mauDNA" ng-model="data.mauDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Vùng gen phân tích: </td>
@@ -450,7 +450,7 @@
 				</tr>
 				<tr>
 					<td>Trình tự DNA</td>
-					<td><input type="text" multiple title="{{tooltips[72]}}" name="trinhTuDNA" ng-model="data.trinhTuDNA" class="input-form"></td>
+					<td><input type="file" multiple accept="image/x-png, image/gif, image/jpeg, .doc, .docx, .pdf" multiple title="{{tooltips[72]}}" name="trinhTuDNA" ng-model="data.trinhTuDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Công bố/thông tin quốc tế (genbank...)</td>
@@ -514,7 +514,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 				<tr>
 					<td><label>51. Ngày nhập mẫu: </label></td>
-					<td><input type="date" title="{{tooltips[80]}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" class="input-form"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips[80]}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
 				</tr>
 				<tr>
 					<td><label>52. Người giao mẫu: </label></td>

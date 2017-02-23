@@ -38,7 +38,7 @@ function initDefaultUnits(_scope) {
 
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipsani.json').then(function(res){
+	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -50,7 +50,9 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
 
-
+	// DatePicker
+	AuthService.initDatePicker(null, null);
+	
 	//auto complete
 
 	var arrAuto = AuthService.arrAuto;
@@ -75,7 +77,6 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
-
 	$scope.latChange = function () {
 		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
 	}
@@ -107,7 +108,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 
 app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipsveg.json').then(function(res){
+	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -118,6 +119,9 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
@@ -176,7 +180,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 
 app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 	
-	$http.get('/app/database/tooltipsgeo.json').then(function(res){
+	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -187,6 +191,9 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
@@ -244,7 +251,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 
 app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipslan.json').then(function(res){
+	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -255,6 +262,9 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
@@ -312,7 +322,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 
 app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipspal.json').then(function(res){
+	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -323,6 +333,9 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
+
+	// DatePicker
+	AuthService.initDatePicker(null, null);
 
 	// function autoCom(str) {
 	// 	jQuery("#"+str).autocomplete({
@@ -441,3 +454,18 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 		
 	};
 }]);
+
+app.controller('CookiesManageController', ['$scope', '$cookies', function($scope, $cookies){
+	
+	$scope.saveCookies = function () {
+		console.log("saving data")
+		localStorage.setItem('data', JSON.stringify($scope.data));
+		console.log("saved")
+	}
+
+	$scope.getCookies = function () {
+		console.log("Get data")
+		$scope.data = JSON.parse(localStorage.getItem('data'));
+		$cookies.remove('data')
+	}
+}])

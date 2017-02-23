@@ -310,6 +310,20 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				case 'Date':
 					console.log('date');
 					console.log(req.body[element.name]);
+					
+					// Preprocess Date: Change from '23/02/2017' to '2017/02/23'
+					// Catch error later
+					try {
+						let dateValue_ = req.body[element.name].split('/');
+						dateValue_.reverse();
+						req.body[element.name] = dateValue_.join('/')
+						console.log(req.body[element.name]);
+					}
+					catch (e){
+						console.log(e)
+					}
+					
+
 					break;
 				case 'File':
 					if ('regex' in element){
@@ -459,6 +473,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 		objectInstance.save(function (err, result) {
 			if (err){
+				console.log('======')
+				console.log(err)
+				console.log('======')
 				try {
 					var errField = err.errors[Object.keys(err.errors)[0]].path;
 					var dotPos = errField.lastIndexOf('.');

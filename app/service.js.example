@@ -10,6 +10,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		autoCom: autoCom,
 		renderFlexdatalist: renderFlexdatalist,
 		fetchFlexdatalist: fetchFlexdatalist,
+		initDatePicker: initDatePicker,
 		arrAuto: [	'tenDongNghia','gioi',
 					'nganh', 'lop', 
 					'phanLop', 
@@ -290,7 +291,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 
 	function fetchFlexdatalist(_scope) {
 		setTimeout(function () {
-			console.log('render1')
+			// console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
 				toggleSelected: true
@@ -300,11 +301,48 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			$('.flexdatalist').flexdatalist({
 				toggleSelected: true
 			});
-			console.log('done render');
+			console.log('flexdatalist ok');
 
 			// After rendering flexdatalist, giaTriSuDung will be focused.
-			document.getElementsByName('maDeTai')[0].focus(); // Call this to scroll to top.
-		}, 2000);
+			// Call this to scroll to top.
+			$('html, body').animate({
+				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
+			}, 100);
+		}, 1000);
+	}
+
+	function initDatePicker(_scopeData) {
+		// console.log('datepicker triggered')
+		setTimeout(function () {
+			if (_scopeData){
+				// console.log('start fetching')
+				// Edit Form
+				$('.datepicker').each(function (index, element) {
+					try {
+						if (element.nodeName.toUpperCase() == 'INPUT'){
+							var name = element.getAttribute('name');
+							// console.log(name);
+							var date = new Date(_scopeData[name]);
+							_scopeData[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+							// console.log(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear())
+						}
+					}
+					catch (e){
+						console.log(e)
+					}
+
+				})
+			}
+			
+
+			$( ".datepicker" ).datepicker({
+				dateFormat: 'dd/mm/yy',
+				changeMonth: 'true',
+				changeYear: true,
+				showAnim: 'slideDown',
+			});
+		}, 1000)
+		
 	}
 
 }]);

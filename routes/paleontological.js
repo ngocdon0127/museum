@@ -19,6 +19,7 @@ var propsName           = global.myCustomVars.propsName;
 var flatObjectModel     = global.myCustomVars.flatObjectModel;
 var objectChild         = global.myCustomVars.objectChild;
 var exportFile          = global.myCustomVars.exportFile;
+var exportXLSX          = global.myCustomVars.exportXLSX;
 
 // Get Global variables
 
@@ -193,7 +194,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 				if (req.query.display == 'html'){
 					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
 				}
-				else if (['docx', 'pdf'].indexOf(req.query.display) >= 0){
+				else if (['docx', 'pdf', 'xlsx'].indexOf(req.query.display) >= 0){
 					
 					var paragraph = {
 						text: [
@@ -208,7 +209,13 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 					}
 					
 
-					exportFile(objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
+					var exportFuncs = {
+						docx: exportFile,
+						pdf: exportFile,
+						xlsx: exportXLSX
+					}
+
+					exportFuncs[req.query.display](objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
 					// return res.end("OK");
 				}
 				

@@ -2,11 +2,15 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	
 	return ({
 		// hostAnimal : 'http://localhost:8000/content/dong-vat/auto',
-		hostName: 'http://188.166.228.19',
+		hostName: 'http://localhost:8000',
 		deleteP: deleteP,
 		addSample: addSample,
 		editForm: editForm,
 		exportFile: exportFile,
+		autoCom: autoCom,
+		renderFlexdatalist: renderFlexdatalist,
+		fetchFlexdatalist: fetchFlexdatalist,
+		initDatePicker: initDatePicker,
 		arrAuto: [	'tenDongNghia','gioi',
 					'nganh', 'lop', 
 					'phanLop', 
@@ -23,29 +27,133 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'quocGia', 'tinh', 
 					'huyen', 'xa', 'thon', 
 					'coQuanToChucPhanTich', 
-					'coQuanXuLy'
-					,'boPhanLayMauDNA', 
+					'coQuanXuLy',
+					'boPhanLayMauDNA', 
 					'trangThaiGiuMauDNA',
-					'coQuanNhapVatMau']
+					'coQuanNhapVatMau',
+					'giaTriSuDung',
+					'hinhThucNhapMau']
 	});
 
 	function exportFile(id){
 		var arr = document.getElementsByClassName("check-box");
 		var urls = [];
+		var totalFile = 0;
+		var step = 0;
+		var progressBar = document.getElementById('download-progress-bar');
+		var progressBarContainer = document.getElementById('download-progress-bar-container');
 		angular.forEach(arr, function (value) {
 			
 			if (value.checked) {
 				urls.push(value.getAttribute("data-id") + id);
+				totalFile++;
 			}
 		});
-		function createCB(index) {
-			return function () {
-				window.location.href = urls[index];
+
+		if (totalFile){
+			// step = 100 / totalFile;
+			progressBar.setAttribute('aria-valuemax', totalFile);
+			progressBar.style.width = '0%';
+			progressBar.innerHTML = '0 / ' + totalFile;
+			progressBar.setAttribute('aria-valuenow', 0);
+			$(progressBarContainer).fadeIn();
+		}
+
+		download(0);
+
+		function download(index) {
+			// console.log('processing ' + index);
+			if (index >= totalFile){
+				// progressBar.setAttribute('aria-valuemax', totalFile);
+				// progressBar.style.width = '0%';
+				// progressBar.innerHTML = '0 / ' + totalFile;
+				// progressBar.setAttribute('aria-valuenow', 0);
+				// $(progressBarContainer).fadeIn();
+				$(progressBarContainer).fadeOut(1000);
+			}
+			else {
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function () {
+					if ((xhr.readyState == 4) && (xhr.status == 200)){
+						// console.log(xhr);
+						var disposition = xhr.getResponseHeader('Content-Disposition');
+						var fields = disposition.split([';']);
+						var fileNameIndex = -1;
+						fields.map(function (element, index) {
+							fields[index] = element.trim();
+							if (fields[index].indexOf('filename*') >= 0){
+								fileNameIndex = index;
+							}
+						})
+						var fileName = '';
+						if (fileNameIndex == -1){
+							for(var i = 0; i < fields.length; i++){
+								if (fields[i].indexOf('filename=') >= 0){
+									fileNameIndex = i;
+								}
+							}
+						}
+						if (fileNameIndex == -1){
+							fileName = 'PCSDL.' + id;
+						}
+						else {
+							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
+							fileName = decodeURIComponent(fileName);
+						}
+						// console.log(fields);
+						var type = xhr.getResponseHeader('Content-Type');
+						// console.log(type);
+						// var blob = new Blob([xhr.response], {type: 'application/x-binary; charset=utf-8'});
+						var blob = new Blob([xhr.response], {type: type});
+						saveAs(blob, fileName);
+						arr[index].checked = false;
+						progressBar.style.width = (index + 1) / totalFile * 100 + '%';
+						progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
+						progressBar.setAttribute('aria-valuenow', index);
+						if (index >= totalFile - 1){
+							setTimeout(function () {
+								$(progressBarContainer).fadeOut(1000);
+							}, 500)
+
+						}
+						setTimeout(function () {
+							download(index + 1);
+						}, 100);
+					}
+				}
+				xhr.responseType = 'arraybuffer';
+				xhr.open('GET', urls[index], true);
+				xhr.send();
 			}
 		}
-		for(var i = 0; i < urls.length; i++){
-			setTimeout(createCB(i), 2000 * i)
-		}
+
+		// function createCB(index) {
+		// 	return function () {
+		// 		window.location.href = urls[index];
+		// 		progressBar.style.width = (index + 1) / totalFile * 100 + '%';
+		// 		progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
+		// 		progressBar.setAttribute('aria-valuenow', index);
+		// 		if (index >= totalFile - 1){
+		// 			$(progressBarContainer).fadeOut(2000);
+
+		// 		}
+		// 	}
+		// }
+		// var timeOut = 2000;
+		// if (id == 'pdf'){
+		// 	timeOut = 4000;
+		// }
+		// if (totalFile){
+		// 	// step = 100 / totalFile;
+		// 	progressBar.setAttribute('aria-valuemax', totalFile);
+		// 	progressBar.style.width = '0%';
+		// 	progressBar.innerHTML = '0 / ' + totalFile;
+		// 	progressBar.setAttribute('aria-valuenow', 0);
+		// 	$(progressBarContainer).fadeIn();
+		// }
+		// for(var i = 0; i < urls.length; i++){
+		// 	setTimeout(createCB(i), timeOut * i)
+		// }
 	}
 
 	function addSample(fd, url, urlRe){
@@ -131,6 +239,112 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			console.log(err);
 		});
 	}
+
+	function autoCom(str, _scope) {
+		// jQuery("#"+str).autocomplete({
+		// 	source : $scope.auto[str]
+		// })
+		
+		
+		// console.log('autoCom ' + str);
+		var dtl = document.createElement('datalist')
+		dtl.setAttribute('id', 'datalist-' + str);
+		// console.log(_scope.auto[str])
+		try {
+			_scope.auto[str].forEach(function(val) {
+				// console.log(val);
+				if (!val){
+					return;
+				}
+				var opt = document.createElement('option');
+				opt.innerHTML = val;
+				try {
+					dtl.appendChild(opt);
+				}
+				catch (e){
+					console.log(e)
+				}
+			})
+			try {
+				var input = document.getElementsByName(str)[0];
+				// console.log('input');
+				// console.log(input)
+				$(dtl).appendTo($(input).parent())
+				input.setAttribute('list', 'datalist-' + str);
+			}
+			catch (e){
+				// console.log(e);
+				console.log(str);
+			}
+		}
+		catch (err){
+			// console.log(err);
+		}
+	};
+
+	function renderFlexdatalist() {
+		setTimeout(function () {
+			$('.flexdatalist').flexdatalist({
+				toggleSelected: true
+			});
+		}, 1000)
+	}
+
+	function fetchFlexdatalist(_scope) {
+		setTimeout(function () {
+			console.log('render1')
+			// Render
+			$('.flexdatalist').flexdatalist({
+				toggleSelected: true
+			});
+
+			// Must call another time. Do not know why.
+			$('.flexdatalist').flexdatalist({
+				toggleSelected: true
+			});
+			console.log('done render');
+
+			// After rendering flexdatalist, giaTriSuDung will be focused.
+			// Call this to scroll to top.
+			$('html, body').animate({
+				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
+			}, 100);
+		}, 2000);
+	}
+
+	function initDatePicker(_scope, _model) {
+		setTimeout(function () {
+			if (_scope || _model){
+				
+				// Edit Form
+				$('.datepicker').each(function (index, element) {
+					try {
+						if (element.nodeName.toUpperCase() == 'INPUT'){
+							var name = element.getAttribute('name');
+							console.log(name);
+							var date = new Date(_model[name]);
+							_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+						}
+					}
+					catch (e){
+						console.log(e)
+					}
+
+				})
+			}
+			
+
+			$( ".datepicker" ).datepicker({
+				dateFormat: 'dd/mm/yy',
+				changeMonth: 'true',
+				changeYear: true,
+				showAnim: 'slideDown',
+
+			});
+		}, 1000)
+		
+	}
+
 }]);
 
 //Autocomplete

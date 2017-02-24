@@ -1,9 +1,21 @@
 <div class="container map-detail" style="margin-top: 50px;" ng-if="data">
+	<script src="/javascripts/FileSaver.js"></script>
 	<center><h2>Các mẫu vật đã đăng</h2></center>
 	<div style="margin-bottom: 10px;">
 		<button type="button" class="btn btn-success" ng-click="selectAll()">Select all</button>
 		<button type="button" class="btn btn-primary" ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</button>
 		<button type="button" class="btn btn-primary" ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</button>
+		<button type="button" class="btn btn-primary" ng-click="export('xlsx')"><span class="glyphicon glyphicon-download"></span> Xuất xlsx</button>
+	</div>
+	<div id="download-progress-bar-container" style="margin-bottom: 10px; margin-top: 20px; margin-left: 0px; display: none">
+		<div class="container" style="padding-left: 0px;">
+			
+			<div class="progress">
+				<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%" id="download-progress-bar">
+					70%
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="list-group" ng-repeat="(key, post) in data">
 		<li class="list-group-item">		
@@ -17,9 +29,9 @@
 						</div>
 					</td>
 					<td>
-						<p><b>Id: </b><a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post._id}}</span></a></p>
+						<p><b>Tên mẫu: </b><a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenMau.tenVietNam}}</span></a></p>
 						<p><b>Người thu mẫu: </b>{{post.duLieuThuMau.nguoiThuMau}}</p>
-						<p><b>Tên mẫu: </b>{{post.tenMau.tenVietNam}}</p>
+						<p style="display: none"><b>Id: </b>{{post._id}}</p>
 						<p><b>Ngày đăng: </b>{{post.created_at | date: "dd-MM-yyyy hh:mm:ss"}}</p>
 					</td>
 					<td style="right: 0px; position: absolute;">

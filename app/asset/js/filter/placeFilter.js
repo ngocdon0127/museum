@@ -1,9 +1,8 @@
 //select the house by the district, wards
 app.filter('customDistrict', function() {
   return function(input, search) {
-  	// console.dir(input);
     if (!input) return input;
-    if (!search) return input;
+    if (!search) return search;
     // var _tmp = {}
     var result = {};
     // var result = [];
@@ -21,7 +20,7 @@ app.filter('customDistrict', function() {
 app.filter('customCity', function() {
   return function(input, search) {
     if (!input) return input;
-    if (!search) return input;
+    if (!search) return search;
     // var _tmp = {};
     var result = {};
     angular.forEach(input, function(value, key) {

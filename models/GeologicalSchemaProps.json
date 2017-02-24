@@ -1,10 +1,10 @@
 [
 	{
-		"name": "soHieuThucDia",
+		"name": "soHieuBTTNVN",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu thực địa",
+		"label": "Số hiệu BTTNVN",
 		"required": false,
-		"money": true,
+		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false
@@ -20,11 +20,11 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "soHieuBTTNVN",
+		"name": "soHieuThucDia",
 		"schemaProp": "soHieu",
-		"label": "Số hiệu BTTNVN",
+		"label": "Số hiệu thực địa",
 		"required": false,
-		"money": false,
+		"money": true,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false
@@ -46,6 +46,34 @@
 		"required": false,
 		"money": false,
 		"type": "String"
+	},
+	{
+		"name": "tenTheoQuocTe",
+		"schemaProp": "tenMau",
+		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$",
+		"autoCompletion": false
+	},
+	{
+		"name": "nguoiDinhTen",
+		"schemaProp": "tenMau",
+		"label": "Người định tên",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$",
+		"autoCompletion": false
+	},
+	{
+		"name": "ngayDinhTen",
+		"schemaProp": "tenMau",
+		"label": "Ngày định tên",
+		"required": false,
+		"money": false,
+		"type": "Date"
 	},
 	{
 		"name": "tenVietNam",
@@ -88,26 +116,6 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "tenTheoQuocTe",
-		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiDinhTen",
-		"schemaProp": "tenMau",
-		"label": "Người định tên",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
 		"name": "thongTinKhac2",
 		"schemaProp": "tenMau",
 		"label": "Thông tin khác",
@@ -126,7 +134,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "loaiMau",
+		"name": "loaiMauVat",
 		"schemaProp": "soLuongChatLuong",
 		"label": "Loại mẫu vật",
 		"required": false,
@@ -385,7 +393,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|jpe?g|gif|png|tif|raw|bmp|bpg|pdf|docx?)$",
+		"regex": "^.+\\.(zip|rar)$",
 		"autoCompletion": false
 	},
 	{
@@ -591,7 +599,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "dinhKemXuLy",
+		"name": "dinhKemXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Đính kèm Xử lý chế tác",
 		"required": false,
@@ -608,6 +616,14 @@
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false
+	},
+	{
+		"name": "thoiGianXuLy",
+		"schemaProp": "media.xuLyCheTac",
+		"label": "Thời gian xử lý chế tác",
+		"required": false,
+		"money": false,
+		"type": "Date"
 	},
 	{
 		"name": "nguoiXuLy",
@@ -649,7 +665,7 @@
 		"type": "String"
 	},
 	{
-		"name": "loaiMauVat",
+		"name": "loaiMau",
 		"schemaProp": "dacDiemMauVat",
 		"label": "Loại mẫu",
 		"required": false,
@@ -844,7 +860,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "traoDoiMau",

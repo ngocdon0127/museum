@@ -4,17 +4,13 @@ module.exports = function (mongoose) {
 		updated_at: Date,
 		deleted_at: Date,
 		soHieu: {
-			soHieuThucDia: String,
-			soHieuBaoTangCS: String,
 			soHieuBTTNVN: String,
+			soHieuBaoTangCS: String,
+			soHieuThucDia: String,
 			kyHieuMauVatKhac: String,
 			thongTinKhac1: String
 		},
 		tenMau: {
-			tenVietNam: String,
-			tenDiaPhuong: String,
-			tenTiengAnh: String,
-			tenTheoBaoTang: String,
 			tenKhoaHoc: {
 				tenDongNghia: String,
 				gioi: String,
@@ -33,11 +29,16 @@ module.exports = function (mongoose) {
 				duoiLoai: String
 			},
 			nguoiDinhTen: String,
+			ngayDinhTen: Date,
+			tenVietNam: String,
+			tenDiaPhuong: String,
+			tenTiengAnh: String,
+			tenTheoBaoTang: String,
 			thongTinKhac2: String
 		},
 		soLuongChatLuong: {
 			soLuongTieuBan: Number,
-			loaiMau: String,
+			loaiMauVat: String,
 			kichThuocMauMixed:{
 				chieuDai: Number,
 				donVi_chieuDai: String,
@@ -100,8 +101,9 @@ module.exports = function (mongoose) {
 			videoFile: [String],
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
-				dinhKemXuLy: [String],
+				dinhKemXuLyCheTac: [String],
 				phuongThucXuLy: String,
+				thoiGianXuLy: Date,
 				nguoiXuLy: String,
 				coQuanXuLy: String,
 				anhMauSauCheTac: [String]
@@ -110,7 +112,7 @@ module.exports = function (mongoose) {
 				viTriLayMauDNA: String,
 				mauDNA: String,
 				vungGenPhanTich: String,
-				dinhKemTrinhTuDNA: [String],
+				trinhTuDNA: [String],
 				congBoQuocTe: String
 			},
 			thongTinMauHatPhan: String,
@@ -136,7 +138,7 @@ module.exports = function (mongoose) {
 			hinhThucNhapMau: String,
 			traoDoiMau: String,
 			vayMuon: String,
-			noiLuuTruMau: String,
+			noiLuuTru: String,
 			khuLuuTruMau: {
 				phong: String,
 				tuGia: String,

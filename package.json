@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "acl": "^0.4.9",
+    "asyncawait": "^1.0.6",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
     "connect-flash": "^0.1.1",
@@ -20,6 +21,7 @@
     "mongodb": "^2.2.5",
     "mongoose": "^4.5.8",
     "morgan": "~1.6.1",
+    "msexcel-builder": "0.0.2",
     "multer": "^1.2.0",
     "officegen": "^0.4.0",
     "passport": "^0.3.2",

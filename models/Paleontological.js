@@ -4,18 +4,13 @@ module.exports = function (mongoose) {
 		updated_at: Date,
 		deleted_at: Date,
 		soHieu: {
-			soHieuThucDia: String,
-			soHieuBaoTangCS: String,
 			soHieuBTTNVN: String,
-			maKyHieuMauVatQuocTe: String,
+			soHieuBaoTangCS: String,
+			soHieuThucDia: String,
 			kyHieuMauVatKhac: String,
 			thongTinKhac1: String
 		},
 		tenMau: {
-			tenVietNam: String,
-			tenDiaPhuong: String,
-			tenTiengAnh: String,
-			tenTheoBaoTang: String,
 			tenKhoaHoc: {
 				tenDongNghia: String,
 				gioi: String,
@@ -26,17 +21,22 @@ module.exports = function (mongoose) {
 				lienHo: String,
 				ho: String,
 				phanHo: String,
-				giong: String,
-				phanGiong: String,
+				chi: String,
+				chiGiong: String,
 				loai: String,
 				duoiLoai: String,
 			},
 			nguoiDinhTen: String,
+			ngayDinhTen: Date,
+			tenVietNam: String,
+			tenDiaPhuong: String,
+			tenTiengAnh: String,
+			tenTheoBaoTang: String,
 			thongTinKhac2: String
 		},
 		soLuongChatLuong: {
 			soLuongTieuBan: Number,
-			loaiMau: String,
+			loaiMauVat: String,
 			kichThuocMauMixed:{
 				chieuDai: Number,
 				donVi_chieuDai: String,
@@ -85,20 +85,21 @@ module.exports = function (mongoose) {
 			phanTichTuoiDiaChat: [String],
 			dacDiemViCauTruc: [String],
 			dacDiemLatMong: [String],
-			moTaHinhThai: String,
+			moTaHinhThaiStr: String,
 			hinhVe: [String],
 			thongTinKhac5: String
 		},
 		media: {
 			anhMauVat: [String],
-			anhNgoaiThucDia: [String],
+			hinhAnhNgoaiThucDia: [String],
 			videoStr: String,
 			videoFile: [String],
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
-				dinhKemXuLy: [String],
-				thuocTinhXuLy: String,
+				dinhKemXuLyCheTac: [String],
+				thuocTinhXuLyCheTac: [String],
 				phuongThucXuLy: String,
+				thoiGianXuLy: Date,
 				nguoiXuLy: String,
 				coQuanXuLy: String,
 				anhMauSauCheTac: [String]
@@ -131,7 +132,7 @@ module.exports = function (mongoose) {
 			hinhThucNhapMau: String,
 			traoDoiMau: String,
 			vayMuon: String,
-			noiLuuTruMau: String,
+			noiLuuTru: String,
 			khuLuuTruMau: {
 				phong: String,
 				tuGia: String,

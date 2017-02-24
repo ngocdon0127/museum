@@ -108,7 +108,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 
 app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipsveg.json').then(function(res){
+	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -180,7 +180,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 
 app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 	
-	$http.get('/app/database/tooltipsgeo.json').then(function(res){
+	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -251,7 +251,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 
 app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
-	$http.get('/app/database/tooltipslan.json').then(function(res){
+	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);

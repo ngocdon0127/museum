@@ -19,7 +19,8 @@ module.exports = function (mongoose) {
 		coQuanToChucPhanTich: [String],
 		vungGenPhanTich: [String],
 		coQuanNhapVatMau: [String],
-		giaTriSuDung: [String]
+		giaTriSuDung: [String],
+		hinhThucNhapMau: [String]
 	};
 	var paleontologicalAutoCompletion = mongoose.Schema(schemaPrototype);
 

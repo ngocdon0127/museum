@@ -933,7 +933,8 @@
 		"label": "Hình thức nhập mẫu",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "traoDoiMau",

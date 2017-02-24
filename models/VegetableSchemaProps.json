@@ -941,7 +941,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "traoDoiMau",

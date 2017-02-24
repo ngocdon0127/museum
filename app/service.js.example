@@ -27,11 +27,12 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'quocGia', 'tinh', 
 					'huyen', 'xa', 'thon', 
 					'coQuanToChucPhanTich', 
-					'coQuanXuLy'
-					,'boPhanLayMauDNA', 
+					'coQuanXuLy',
+					'boPhanLayMauDNA', 
 					'trangThaiGiuMauDNA',
 					'coQuanNhapVatMau',
-					'giaTriSuDung']
+					'giaTriSuDung',
+					'hinhThucNhapMau']
 	});
 
 	function exportFile(id){
@@ -291,7 +292,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 
 	function fetchFlexdatalist(_scope) {
 		setTimeout(function () {
-			// console.log('render1')
+			console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
 				toggleSelected: true
@@ -301,30 +302,28 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			$('.flexdatalist').flexdatalist({
 				toggleSelected: true
 			});
-			console.log('flexdatalist ok');
+			console.log('done render');
 
 			// After rendering flexdatalist, giaTriSuDung will be focused.
 			// Call this to scroll to top.
 			$('html, body').animate({
 				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
 			}, 100);
-		}, 1000);
+		}, 2000);
 	}
 
-	function initDatePicker(_scopeData) {
-		// console.log('datepicker triggered')
+	function initDatePicker(_scope, _model) {
 		setTimeout(function () {
-			if (_scopeData){
-				// console.log('start fetching')
+			if (_scope || _model){
+				
 				// Edit Form
 				$('.datepicker').each(function (index, element) {
 					try {
 						if (element.nodeName.toUpperCase() == 'INPUT'){
 							var name = element.getAttribute('name');
-							// console.log(name);
-							var date = new Date(_scopeData[name]);
-							_scopeData[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-							// console.log(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear())
+							console.log(name);
+							var date = new Date(_model[name]);
+							_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 						}
 					}
 					catch (e){
@@ -340,6 +339,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				changeMonth: 'true',
 				changeYear: true,
 				showAnim: 'slideDown',
+
 			});
 		}, 1000)
 		

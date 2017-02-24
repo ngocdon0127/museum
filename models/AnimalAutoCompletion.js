@@ -27,7 +27,8 @@ module.exports = function (mongoose) {
 		boPhanLayMauDNA: [String],
 		trangThaiGiuMauDNA: [String],
 		coQuanNhapVatMau: [String],
-		giaTriSuDung: [String]
+		giaTriSuDung: [String],
+		hinhThucNhapMau: [String]
 		// will update after 12 / 12 / 2016
 		// boPhanLayMauDNA: [String],
 		// trangThaiGiuMauDNA: [String]

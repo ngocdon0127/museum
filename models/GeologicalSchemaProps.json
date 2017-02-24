@@ -860,7 +860,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "traoDoiMau",

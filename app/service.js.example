@@ -292,7 +292,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 
 	function fetchFlexdatalist(_scope) {
 		setTimeout(function () {
-			console.log('render1')
+			// console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
 				toggleSelected: true
@@ -302,7 +302,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			$('.flexdatalist').flexdatalist({
 				toggleSelected: true
 			});
-			console.log('done render');
+			// console.log('done render');
 
 			// After rendering flexdatalist, giaTriSuDung will be focused.
 			// Call this to scroll to top.
@@ -312,17 +312,17 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		}, 2000);
 	}
 
-	function initDatePicker(_scope, _model) {
+	function initDatePicker(_scope) {
 		setTimeout(function () {
-			if (_scope || _model){
+			if (_scope){
 				
 				// Edit Form
 				$('.datepicker').each(function (index, element) {
 					try {
 						if (element.nodeName.toUpperCase() == 'INPUT'){
 							var name = element.getAttribute('name');
-							console.log(name);
-							var date = new Date(_model[name]);
+							// console.log(name);
+							var date = new Date(_scope[name]);
 							_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 						}
 					}

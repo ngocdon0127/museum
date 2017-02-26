@@ -39,8 +39,7 @@ async(() => {
 	var mongooseConnection = mongoose.connect(configDB.url);
 	require('./models/User.js')(mongoose);
 	var User = mongoose.model('User');
-
-
+	var CryptoJS = require('crypto-js');
 
 	var result = await(new Promise((resolve, reject) => {
 		User.remove({}, (err) => {
@@ -76,8 +75,8 @@ async(() => {
 			roles: ['content']
 		},
 		{
-			username: 'ngocdon127@gmail.com',
-			password: 'museumhust0941',
+			username: 'adminaccount@gmail.com',
+			password: 'adminmuseumhust',
 			fullname: 'Admin Account',
 			roles: ['content', 'admin']
 		}
@@ -89,6 +88,11 @@ async(() => {
 			var newUser = new User();
 
 			newUser.username = user.username;
+			var l = 0;
+			while (l < 1000){
+				user.password = CryptoJS.MD5(user.password).toString();
+				l++;
+			}
 			newUser.password = newUser.hashPassword(user.password);
 			
 			newUser.fullname = user.fullname;

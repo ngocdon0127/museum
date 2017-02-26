@@ -38,7 +38,7 @@ app.directive('validFile', function ($parse) {
         link: function (scope, el, attrs, ngModel) {
             var model = $parse(attrs.ngModel);
             var modelSetter = model.assign;
-            var maxSize = 10000;
+            var maxSize = 10;
             el.bind('change', function () {
                 scope.$apply(function () {
                     console.log(el[0].files)
@@ -47,13 +47,11 @@ app.directive('validFile', function ($parse) {
                     } else{
                         modelSetter(scope, el[0].files[0])
                     }
-                    var fileSize = el[0].files[0].size/1000;
+                    var fileSize = el[0].files[0].size/1024/1024;
                     console.log(fileSize)
                     if (fileSize > maxSize) {
                         alert("Kich thuoc file vuot qua dung luong cho phep");
                         return false;
-                    } else{
-                        alert("Kich thuoc file duoc chap nhan")
                     }
                 });
             });

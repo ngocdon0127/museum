@@ -36,7 +36,17 @@ function initDefaultUnits(_scope) {
 	})(_scope), 1000);
 }
 
+function saveData(id, data) {
+		return function () {
+			localStorage.setItem(id, JSON.stringify(data))
+			console.log(data);
+		}
+	}
+
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+
+	setInterval(saveData("dataAni", $scope.data), 2000);
+	// setTimeout(getData("dataAni"), 1000);
 
 	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -45,7 +55,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	});
 
 	// default unit
-	initDefaultUnits($scope);
+	// initDefaultUnits($scope);
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()
@@ -96,12 +106,10 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}
 
 	$scope.saveCookies = function () {
-		console.log("saving data")
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);

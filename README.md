@@ -11,7 +11,7 @@
 	$ cp config/config.js.example config/config.js
 	$ npm install
 
-
+ 
 ### 2. Config database
 
 ##### Copy file initDB.js to the folder you installed MongoDB (usually C:\Program Files\MongoDB\Server\xxx\bin) and run this command from there:

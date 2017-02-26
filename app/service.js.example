@@ -1,7 +1,6 @@
 app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $route, cfpLoadingBar){
 	
 	return ({
-		// hostAnimal : 'http://localhost:8000/content/dong-vat/auto',
 		hostName: 'http://localhost:8000',
 		deleteP: deleteP,
 		addSample: addSample,

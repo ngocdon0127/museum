@@ -1,7 +1,7 @@
 app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
 	
-	$http.get('/app/database/tooltipsani.json').then(function(res){
+	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -65,7 +65,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/co-sinh/' + $routeParams.id;
 	
-	$http.get('/app/database/tooltipsani.json').then(function(res){
+	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -76,8 +76,6 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	// 		source : $scope.auto[str]
 	// 	})
 	// };
-
-	
 
 	var arrAuto = AuthService.arrAuto;
 	
@@ -126,7 +124,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
 	
-	$http.get('/app/database/tooltipsani.json').then(function(res){
+	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -187,7 +185,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dia-chat/' + $routeParams.id;
 	
-	$http.get('/app/database/tooltipsani.json').then(function(res){
+	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
@@ -250,7 +248,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	var url = AuthService.hostName + '/content/tho-nhuong/' + $routeParams.id;
 	// console.log($routeParams.id);
 	
-	$http.get('/app/database/tooltipsani.json').then(function(res){
+	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);

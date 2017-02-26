@@ -65,5 +65,5 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
 		controller: 'PaleontologicalManageController'
 	})
-	.otherwise({ redirectTo: '/dong-vat' })
+	.otherwise({ redirectTo: '/co-sinh' })
 }]);

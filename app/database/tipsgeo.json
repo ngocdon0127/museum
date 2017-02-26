@@ -6,12 +6,8 @@
 	"thongTinKhac1" : "",
 	"tenTheoQuocTe" : "Trong xu thế hội nhập, Bảo tàng Thiên nhiên Việt Nam có các mối quan hệ quốc tế với các bảo tàng trên thế giới, các trung tâm nghiên cứu, trường đại học. Việc trao đổi mẫu vật, trao đổi nghiên cứu với các tổ chức trên là không thể thiếu. Do vậy, CSDL mẫu vật của bảo tàng cần thiết phải có trường dữ liệu này.",
 	"nguoiDinhTen" : "Ghi người xác định tên Quốc tế, không cần thiết phải ghi đầy đủ chức danh, học vị. Nếu có nhiều người định tên thì ghi tất cả các tên, các tên cách nhau bởi dấu chấm phảy. Lưu ý: Mục này ghi người xác định tên khoa học chứ không phải người đặt tên cho mẫu vật.",
-	"""ngayDinhTen"" : ""
-	Thời gian định tên Quốc tế của mẫu vật
-	"","
-	"""tenVietNam"" : ""
-	Thông thường các mẫu vật thiên nhiên cũng như hiện vật văn hoá thường có tên địa phương, ví dụ như đất đỏ, cỏ hổng hay cỏ đuôi chồn ở Đà Lạt…. Tên mẫu vật phổ thông cũng giúp ích cho công tác quản lý hoặc tìm kiếm mẫu vật trong CSDL khi cần thiết. Trong một số trường hợp người tìm kiếm có thể chỉ biết mỗi tên địa phương của mẫu vật.
-	"","
+	"ngayDinhTen" : "Thời gian định tên Quốc tế của mẫu vật",
+	"tenVietNam" : "Thông thường các mẫu vật thiên nhiên cũng như hiện vật văn hoá thường có tên địa phương, ví dụ như đất đỏ, cỏ hổng hay cỏ đuôi chồn ở Đà Lạt…. Tên mẫu vật phổ thông cũng giúp ích cho công tác quản lý hoặc tìm kiếm mẫu vật trong CSDL khi cần thiết. Trong một số trường hợp người tìm kiếm có thể chỉ biết mỗi tên địa phương của mẫu vật.",
 	"tenDiaPhuong" : "Thông thường các mẫu vật thiên nhiên cũng như hiện vật văn hoá thường có tên địa phương.  Tên mẫu vật phổ thông cũng giúp ích cho công tác quản lý hoặc tìm kiếm mẫu vật trong CSDL khi cần thiết. Trong một số trường hợp người tìm kiếm có thể chỉ biết mỗi tên địa phương của mẫu vật.",
 	"tenTiengAnh" : "Nếu có nhiều tên tiếng Anh, ghi tất cả các tên, các tên cách nhau bằng dấu chấm phảy.",
 	"tenTheoBaoTang" : "Bảo tàng Thiên nhiên Việt Nam đã tổ chức nghiên cứu để lựa chọn các hệ thống phân loại về thực vật, động vật, địa chất và thổ nhưỡng cho Bảo tàng. Do vậy, khi mẫu vật được nhập kho vào Bảo tàng, cần thiết phải định được tên mẫu vật theo hệ thống phân loại của Bảo tàng. CSDL mẫu vật của Bảo tàng cần thiết phải có trường dữ liệu này để phục vụ công tác quản lý cũng như nghiên cứu khoa học.",

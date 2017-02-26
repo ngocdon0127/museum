@@ -6,14 +6,6 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	}, function(err){
 		console.log(err);
 	});
-	//auto complete
-	// function autoCom(str) {
-	// 	jQuery("#"+str).autocomplete({
-	// 		source : $scope.auto[str]
-	// 	})
-	// };
-
-	
 
 	var arrAuto = AuthService.arrAuto;
 	
@@ -33,10 +25,6 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	});
 
 	$http.get(url).then(function (res) {
-		// console.log(res.data.animal);
-		// res.data.animal.ngayNhapMau = new Date(res.data.animal.ngayNhapMau);
-		// res.data.animal.thoiGianThuMau = new Date(res.data.animal.thoiGianThuMau);
-		// res.data.animal.thoiGianPhanTich = new Date(res.data.animal.thoiGianPhanTich);
 
 		$scope.data = res.data.animal;
 		$scope.status = res.data.status;
@@ -70,12 +58,6 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	}, function(err){
 		console.log(err);
 	});
-	//auto complete
-	// function autoCom(str) {
-	// 	jQuery("#"+str).autocomplete({
-	// 		source : $scope.auto[str]
-	// 	})
-	// };
 
 	var arrAuto = AuthService.arrAuto;
 	
@@ -95,9 +77,6 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	});
 
 	$http.get(url).then(function (res) {
-		// res.data.paleontological.ngayNhapMau = new Date(res.data.paleontological.ngayNhapMau);
-		// res.data.paleontological.thoiGianThuMau = new Date(res.data.paleontological.thoiGianThuMau);
-		// res.data.paleontological.thoiGianPhanTich = new Date(res.data.paleontological.thoiGianPhanTich);
 		$scope.data = res.data.paleontological;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
@@ -129,14 +108,6 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	}, function(err){
 		console.log(err);
 	});
-	//auto complete
-	// function autoCom(str) {
-	// 	jQuery("#"+str).autocomplete({
-	// 		source : $scope.auto[str]
-	// 	})
-	// };
-
-	
 
 	var arrAuto = AuthService.arrAuto;
 	
@@ -156,9 +127,6 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	});
 
 	$http.get(url).then(function (res) {
-		// res.data.vegetable.ngayNhapMau = new Date(res.data.vegetable.ngayNhapMau);
-		// res.data.vegetable.thoiGianThuMau = new Date(res.data.vegetable.thoiGianThuMau);
-		// res.data.vegetable.thoiGianPhanTich = new Date(res.data.vegetable.thoiGianPhanTich);
 		$scope.data = res.data.vegetable;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
@@ -190,14 +158,6 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	}, function(err){
 		console.log(err);
 	});
-	//auto complete
-	// function autoCom(str) {
-	// 	jQuery("#"+str).autocomplete({
-	// 		source : $scope.auto[str]
-	// 	})
-	// };
-
-	
 
 	var arrAuto = AuthService.arrAuto;
 	
@@ -217,9 +177,6 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	});
 
 	$http.get(url).then(function (res) {
-		// res.data.geological.ngayNhapMau = new Date(res.data.geological.ngayNhapMau);
-		// res.data.geological.thoiGianThuMau = new Date(res.data.geological.thoiGianThuMau);
-		// res.data.geological.thoiGianPhanTich = new Date(res.data.geological.thoiGianPhanTich);
 
 		$scope.data = res.data.geological;
 		$scope.status = res.data.status;
@@ -253,14 +210,6 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	}, function(err){
 		console.log(err);
 	});
-	//auto complete
-	// function autoCom(str) {
-	// 	jQuery("#"+str).autocomplete({
-	// 		source : $scope.auto[str]
-	// 	})
-	// };
-
-	
 
 	var arrAuto = AuthService.arrAuto;
 	
@@ -280,10 +229,6 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	});
 
 	$http.get(url).then(function (res) {
-		// console.log(res.data.soil);
-		// res.data.soil.ngayNhapMau = new Date(res.data.soil.ngayNhapMau);
-		// res.data.soil.thoiGianThuMau = new Date(res.data.soil.thoiGianThuMau);
-		// res.data.soil.thoiGianPhanTich = new Date(res.data.soil.thoiGianPhanTich);
 		$scope.data = res.data.soil;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;

@@ -18,7 +18,7 @@
 	$ mongo initDB.js
 
 
-##### Or change line 6 of file config/config.js from url: 'mongodb://ngocdon:123123@127.0.0.1:27017/museum' to the url in mLab server (will email you)
+##### Or change line 6 of file config/config.js from url: `'mongodb://ngocdon:123123@127.0.0.1:27017/museum'` to the url in mLab server (will email you)
 
 ### 3. Initialize
 

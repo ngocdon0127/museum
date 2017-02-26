@@ -311,16 +311,24 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					console.log('date');
 					console.log(req.body[element.name]);
 					
-					// Preprocess Date: Change from '23/02/2017' to '2017/02/23'
-					// Catch error later
-					try {
-						let dateValue_ = req.body[element.name].split('/');
-						dateValue_.reverse();
-						req.body[element.name] = dateValue_.join('/')
-						console.log(req.body[element.name]);
-					}
-					catch (e){
-						console.log(e)
+					if (req.body[element.name]){
+						// Preprocess Date: Change from '23/02/2017' to '2017/02/23'
+						// Catch error later
+						try {
+							let dateValue_ = req.body[element.name].split('/');
+							if (dateValue_.length < 3){
+								return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+							}
+							dateValue_.map((element, index) => {
+								dateValue_[index] = element.trim();
+							})
+							dateValue_.reverse();
+							req.body[element.name] = dateValue_.join('/')
+							console.log(req.body[element.name]);
+						}
+						catch (e){
+							console.log(e)
+						}
 					}
 					
 

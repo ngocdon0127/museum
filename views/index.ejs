@@ -10,30 +10,59 @@
 	<script src="/app/asset/js/jquery/bootstrap.js"></script>
 	<script src="/javascripts/FileSaver.js"></script>
 	<script src="/javascripts/datetimepicker.min.js"></script>
+	<script src="/javascripts/webgazer.js"></script>
 
     </script>
 
 	
 	</head>
 	<body>
-	<h1><%= title %></h1>
-	<p>Welcome to <%= title %></p>
-	<div class="well">
-		<div class="input-append datetimepicker">
-			<input data-format="dd-MM-yyyy" type="text" name="hehe"></input>
-			<span class="add-on">
-				<i data-time-icon="icon-time" data-date-icon="icon-calendar">
-				</i>
-			</span>
-		</div>
-	</div>
+	<canvas id="myCanvas" width="1920" height="1080" style="border:1px solid #c3c3c3;">
+	<script>
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+		ctx.fillStyle = "#FF0000";
+		ctx.fillRect(0,0,150,150);
+	</script>
+	<script>
+		webgazer.setGazeListener(function(data, elapsedTime) {
+			// return;
+			ctx.fillStyle = "#FF0000";
+		    if (data == null) {
+		    	console.log('data null')
+		    	// ctx.fillRect(102,120,150,150);
+		    	// ctx.fillRect(Math.floor(Math.random() * 400), Math.floor(Math.random() * 500), 10, 10);
+		        return;
+		    }
+		    console.log('data ok')
+		    var xprediction = data.x; //these x coordinates are relative to the viewport 
+		    var yprediction = data.y; //these y coordinates are relative to the viewport
+		    // ctx.fillRect(Math.floor(xprediction), Math.floor(yprediction), 10, 10);
+		    // ctx.fillRect(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), 10, 10);
+		    console.log("time:  " + elapsedTime + ", " + xprediction + " " + yprediction); //elapsed time is based on time since begin was called
+		}).begin();
+
+		setInterval(function () {
+			var prediction = webgazer.getCurrentPrediction();
+			if (prediction) {
+			    var x = prediction.x;
+			    var y = prediction.y;
+			    ctx.fillStyle = "#00FF00";
+				ctx.fillRect(x,y,10,10);
+			}
+			else {
+				console.log('predict null')
+			}
+		}, 1000)
+
+	</script>
 	<script type="text/javascript">
-		jQuery(function() {
-			console.log('dmm')
-			jQuery('.datetimepicker').datetimepicker({
-				pickTime: false
-			});
-		});
+		// jQuery(function() {
+		// 	console.log('dmm')
+		// 	jQuery('.datetimepicker').datetimepicker({
+		// 		pickTime: false
+		// 	});
+		// });
 	</script>
 	<script>
 		/*

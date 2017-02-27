@@ -258,7 +258,7 @@
 					<td>Vĩ độ N <span class="has-required">(*)</span>:</td>
 					<td>
 						<input type="text" id="dms" ng-init="showCoor = 'false'; data.viDo=''" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form" required>
-						<div id="dd" ng-show="showCoor" style="margin-top: 5px;">
+						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
 							<input type="text" ng-model= "vido_do" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
 							<input type="text" ng-model= "vido_phut" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
 							<input type="text" ng-model= "vido_giay" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
@@ -269,7 +269,7 @@
 					<td>Kinh độ E <span class="has-required">(*)</span>:</td>
 					<td>
 						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" required>
-						<div id="dd" ng-show="showCoor" style="margin-top: 5px;">
+						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
 							<input type="text" ng-model="kinhdo_do" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
 							<input type="text" ng-model="kinhdo_phut" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
 							<input type="text" ng-model="kinhdo_giay" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây

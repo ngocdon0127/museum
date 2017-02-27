@@ -321,8 +321,10 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 						if (element.nodeName.toUpperCase() == 'INPUT'){
 							var name = element.getAttribute('name');
 							// console.log(name);
-							var date = new Date(_scope[name]);
-							_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+							if (_scope[name]){
+								var date = new Date(_scope[name]);
+								_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+							}
 						}
 					}
 					catch (e){

@@ -284,6 +284,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	function renderFlexdatalist() {
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
+				minLength: 0,
 				toggleSelected: true
 			});
 		}, 1000)

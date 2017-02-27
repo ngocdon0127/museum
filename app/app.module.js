@@ -18,7 +18,7 @@ var app = angular.module('museumApp', [
 //             var model = $parse(attrs.model);
 //             var modelSetter = model.assign;
 //             var maxSize = 10000;
-            
+
 //             ngModel.$render = function () {
 //                 ngModel.$setViewValue(el.val());
 //             };

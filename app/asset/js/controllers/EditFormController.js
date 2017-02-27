@@ -27,7 +27,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.data = res.data.animal;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
-		console.log($scope.data)
+		// console.log($scope.data)
 
 		// DatePicker
 		AuthService.initDatePicker($scope.data);

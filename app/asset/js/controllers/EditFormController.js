@@ -67,6 +67,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 	}
 
+	//coordinate change
 	$scope.latChange = function () {
 		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
 	}
@@ -95,10 +96,8 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	
 	$http.get(AuthService.hostName + '/content/co-sinh/auto').then(function(res) {
 		$scope.auto = res.data;
-		// console.log(res.data);
 		setTimeout(function () {
 			arrAuto.forEach(function (val) {
-				// autoCom(val);
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
@@ -117,6 +116,26 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
+			if (isNaN($scope.data.viDo)) {
+				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.vido_do = coor[1].trim();
+				$scope.vido_phut = coor[2].trim();
+				$scope.vido_giay = coor[3].trim();
+				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.kinhdo_do = coor[1].trim();
+				$scope.kinhdo_phut = coor[2].trim();
+				$scope.kinhdo_giay = coor[3].trim();
+				document.getElementById("vitri-dms").checked = true;
+				$scope.showCoor = true;
+			} else {
+				document.getElementById("vitri-dd").checked = true;
+				$scope.showCoor = false;
+			}
+			if ($scope.data.fDiaDiemThuMau == "bien") {
+				document.getElementById("trenBien").checked = true;
+			} else{
+				document.getElementById("datLien").checked = true;
+			}
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -129,6 +148,21 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe);
+	}
+
+	//coordinate change
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+	}
+
+	$scope.dms = function () {
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.showCoor = false
 	}
 }]);
 
@@ -145,10 +179,8 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	
 	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
 		$scope.auto = res.data;
-		// console.log(res.data);
 		setTimeout(function () {
 			arrAuto.forEach(function (val) {
-				// autoCom(val);
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
@@ -167,6 +199,26 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
+			if (isNaN($scope.data.viDo)) {
+				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.vido_do = coor[1].trim();
+				$scope.vido_phut = coor[2].trim();
+				$scope.vido_giay = coor[3].trim();
+				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.kinhdo_do = coor[1].trim();
+				$scope.kinhdo_phut = coor[2].trim();
+				$scope.kinhdo_giay = coor[3].trim();
+				document.getElementById("vitri-dms").checked = true;
+				$scope.showCoor = true;
+			} else {
+				document.getElementById("vitri-dd").checked = true;
+				$scope.showCoor = false;
+			}
+			if ($scope.data.fDiaDiemThuMau == "bien") {
+				document.getElementById("trenBien").checked = true;
+			} else{
+				document.getElementById("datLien").checked = true;
+			}
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -179,6 +231,21 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
+	}
+
+	//coordinate change
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+	}
+
+	$scope.dms = function () {
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.showCoor = false
 	}
 }]);
 
@@ -195,10 +262,8 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	
 	$http.get(AuthService.hostName + '/content/dia-chat/auto').then(function(res) {
 		$scope.auto = res.data;
-		// console.log(res.data);
 		setTimeout(function () {
 			arrAuto.forEach(function (val) {
-				// autoCom(val);
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
@@ -218,6 +283,26 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		AuthService.initDatePicker($scope.data);
 		
 		$timeout(function(){
+			if (isNaN($scope.data.viDo)) {
+				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.vido_do = coor[1].trim();
+				$scope.vido_phut = coor[2].trim();
+				$scope.vido_giay = coor[3].trim();
+				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.kinhdo_do = coor[1].trim();
+				$scope.kinhdo_phut = coor[2].trim();
+				$scope.kinhdo_giay = coor[3].trim();
+				document.getElementById("vitri-dms").checked = true;
+				$scope.showCoor = true;
+			} else {
+				document.getElementById("vitri-dd").checked = true;
+				$scope.showCoor = false;
+			}
+			if ($scope.data.fDiaDiemThuMau == "bien") {
+				document.getElementById("trenBien").checked = true;
+			} else{
+				document.getElementById("datLien").checked = true;
+			}
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -231,11 +316,25 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 	}
+
+	//coordinate change
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+	}
+
+	$scope.dms = function () {
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.showCoor = false
+	}
 }]);
 
 app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/tho-nhuong/' + $routeParams.id;
-	// console.log($routeParams.id);
 	
 	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -247,10 +346,8 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	
 	$http.get(AuthService.hostName + '/content/tho-nhuong/auto').then(function(res) {
 		$scope.auto = res.data;
-		// console.log(res.data);
 		setTimeout(function () {
 			arrAuto.forEach(function (val) {
-				// autoCom(val);
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
@@ -269,6 +366,26 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
+			if (isNaN($scope.data.viDo)) {
+				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.vido_do = coor[1].trim();
+				$scope.vido_phut = coor[2].trim();
+				$scope.vido_giay = coor[3].trim();
+				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.kinhdo_do = coor[1].trim();
+				$scope.kinhdo_phut = coor[2].trim();
+				$scope.kinhdo_giay = coor[3].trim();
+				document.getElementById("vitri-dms").checked = true;
+				$scope.showCoor = true;
+			} else {
+				document.getElementById("vitri-dd").checked = true;
+				$scope.showCoor = false;
+			}
+			if ($scope.data.fDiaDiemThuMau == "bien") {
+				document.getElementById("trenBien").checked = true;
+			} else{
+				document.getElementById("datLien").checked = true;
+			}
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -281,5 +398,20 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
+	}
+
+	//coordinate change
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+	}
+
+	$scope.dms = function () {
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.showCoor = false
 	}
 }]);

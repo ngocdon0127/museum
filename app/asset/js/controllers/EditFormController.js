@@ -11,10 +11,8 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.auto = res.data;
-		// console.log(res.data);
 		setTimeout(function () {
 			arrAuto.forEach(function (val) {
-				// autoCom(val);
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
@@ -29,12 +27,32 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.data = res.data.animal;
 		$scope.status = res.data.status;
 		$scope.data.id = $routeParams.id;
+		console.log($scope.data)
 
 		// DatePicker
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			// console.log($scope.data.huyen)
+			if (isNaN($scope.data.viDo)) {
+				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.vido_do = coor[1].trim();
+				$scope.vido_phut = coor[2].trim();
+				$scope.vido_giay = coor[3].trim();
+				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+				$scope.kinhdo_do = coor[1].trim();
+				$scope.kinhdo_phut = coor[2].trim();
+				$scope.kinhdo_giay = coor[3].trim();
+				document.getElementById("vitri-dms").checked = true;
+				$scope.showCoor = true;
+			} else {
+				document.getElementById("vitri-dd").checked = true;
+				$scope.showCoor = false;
+			}
+			if ($scope.data.fDiaDiemThuMau == "bien") {
+				document.getElementById("trenBien").checked = true;
+			} else{
+				document.getElementById("datLien").checked = true;
+			}
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
 		}, 1000);
@@ -47,6 +65,20 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		cfpLoadingBar.start();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
+	}
+
+	$scope.latChange = function () {
+		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+	}
+	$scope.lonChange = function () {
+		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+	}
+
+	$scope.dms = function () {
+		$scope.showCoor = true;
+	}
+	$scope.dd = function () {
+		$scope.showCoor = false
 	}
 }]);
 

@@ -45,7 +45,7 @@ function saveData(id, data) {
 
 app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
-	setInterval(saveData("dataAni", $scope.data), 2000);
+	// setInterval(saveData("dataAni", $scope.data), 2000);
 	// setTimeout(getData("dataAni"), 1000);
 
 	$http.get('/app/database/tipsani.json').then(function(res){
@@ -55,7 +55,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	});
 
 	// default unit
-	// initDefaultUnits($scope);
+	initDefaultUnits($scope);
 
 	// render flexdatalist
 	AuthService.renderFlexdatalist()

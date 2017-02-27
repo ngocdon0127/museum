@@ -1254,7 +1254,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				console.log('pdf');
 				outputFileName += '.pdf';
 				var exec = require('child_process').exec;
-				var cmd = 'libreoffice --invisible --convert-to pdf ' + tmpFileName;
+				var cmd = 'libreoffice5.3 --invisible --convert-to pdf ' + tmpFileName;
 				exec(cmd, function (err, stdout, stderr) {
 					if (err){
 						console.log(err);

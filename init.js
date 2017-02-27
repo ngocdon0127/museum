@@ -341,6 +341,20 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							var files = req.files[element.name];
 							for (var j = 0; j < files.length; j++) {
 								var file = files[j];
+
+								// rename ABCDEF.PNG => ABCDEF.png
+								// console.log(file.originalname)
+								var fn_ = file.originalname.split('.');
+								if (fn_.length < 2){
+									return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['File thiếu định dạng', element.name]);
+								}
+
+								fn_[fn_.length - 1] = fn_[fn_.length - 1].toLowerCase();
+								file.originalname = fn_.join('.')
+								// console.log(file.originalname)
+
+								// Now, test the name of file
+
 								if (!regex.test(file.originalname)){
 									// console.log(regex);
 									// console.log(file.originalname);

@@ -31,7 +31,11 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'trangThaiGiuMauDNA',
 					'coQuanNhapVatMau',
 					'giaTriSuDung',
-					'hinhThucNhapMau']
+					'hinhThucNhapMau',
+					'tong',
+					'chi',
+					'phanChi',
+					'loai']
 	});
 
 	function exportFile(id){

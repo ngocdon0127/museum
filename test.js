@@ -1,35 +1,33 @@
-var async = require('asyncawait/async');
-var await = require('asyncawait/await');
+
 var fs = require('fs');
+var path = require('path');
 
-async(function () {
-	console.log('start');
-	var a1 = await (new Promise(function (resolve, reject) {
-		setTimeout(function () {
-			resolve('first timeout');
-		}, 1000);
-	}))
-	console.log(a1)
+var CITIES = {};
+var DISTRICTS = {};
+var WARDS = {};
 
-	var a2 = await (new Promise(function (resolve, reject) {
-		setTimeout(function () {
-			resolve('second timeout');
-		}, 3000);
-	}))
-	console.log(a2)
+WARDS = JSON.parse(fs.readFileSync(path.join(__dirname, 'wards.json')));
 
-	var a3 = await (new Promise(function (resolve, reject) {
-		setTimeout(function () {
-			resolve('third timeout');
-		}, 2000);
-	}))
-	console.log(a3)
-	console.log('finish');
-})()
+console.log(WARDS);
 
-// console.log('out');
+var wardsArr = [];
 
-var x = [1, 2, 3]
-for(let i of x){
-	console.log(i)
+for(let prop in WARDS){
+	wardsArr.push({
+		id: prop,
+		name: WARDS[prop]["name"],
+		type: WARDS[prop]["type"],
+		"lon, lat": WARDS[prop]["lon, lat"],
+		districtId: WARDS[prop]["districtId"],
+	})
 }
+
+
+
+wardsArr.sort((a, b) => {
+	return a.name.localeCompare(b.name);
+})
+
+console.log(wardsArr)
+
+fs.writeFileSync(path.join(__dirname, 'wards-sort.json'), JSON.stringify(wardsArr, null, 4));

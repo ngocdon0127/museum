@@ -276,7 +276,7 @@
 							<td>Tỉnh/Thành phố<span ng-show="star" class="has-required"> (*)</span>: </td>
 							<td>
 								<select class="select-box" title="{{tooltips['tinh']}}" name="tinh" id="tinh" required ng-model= "tinh" ng-click="cityChange()">
-									<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.name}}</option>
+									<option ng-repeat="city in cities | orderBy: 'name'" value="{{city.id}}">{{city.name}}</option>
 								</select>
 							</td>
 						</tr>
@@ -284,7 +284,7 @@
 							<td>Huyện<span ng-show="star" class="has-required"> (*)</span>:</td>
 							<td>
 								<select class="select-box" title="{{tooltips['huyen']}}" name="huyen" id="huyen" required ng-model= "huyen" ng-click="districtChange()">
-									<option ng-repeat="(key, district) in districts | customCity: tinh" value="{{key}}">{{district.name}}</option>
+									<option ng-repeat="district in districts | customCity: tinh | orderBy: 'name'" value="{{district.id}}">{{district.name}}</option>
 								</select>
 							</td>
 						</tr>
@@ -292,7 +292,7 @@
 							<td>Xã<span ng-show="star" class="has-required"> (*)</span>: </td>
 							<td>
 								<select class="select-box" ng-model="xa" title="{{tooltips['xa']}}" name="xa" id="xa" required>
-									<option ng-repeat="(key, ward) in wards | customDistrict: huyen" value="{{key}}">{{ward.name}}</option>
+									<option ng-repeat="ward in wards | customDistrict: huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
 								</select>
 							</td>
 						</tr>

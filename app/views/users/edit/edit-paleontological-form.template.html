@@ -255,7 +255,7 @@
 								<td>Tỉnh/Thành phố<span ng-show="star" class="has-required"> (*)</span>: </td>
 								<td>
 									<select class="select-box" title="{{tooltips['tinh']}}" name="tinh" required ng-model= "$parent.data.tinh" ng-click="cityChange()">
-										<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.type +" " + city.name}}</option>
+										<option ng-repeat="city in cities | orderBy: 'name'" value="{{city.id}}">{{city.name}}</option>
 									</select>
 								</td>
 							</tr>
@@ -263,7 +263,7 @@
 								<td>Huyện<span ng-show="star" class="has-required">(*)</span>:</td>
 								<td>
 									<select class="select-box" title="{{tooltips['huyen']}}" name="huyen" required ng-model= "$parent.data.huyen" ng-click="districtChange()">
-										<option ng-repeat="(key, district) in districts | customCity: data.tinh" value="{{key}}">{{district.type + " " + district.name}}</option>
+										<option ng-repeat="district in districts | customCity: data.tinh | orderBy: 'name'" value="{{district.id}}">{{district.name}}</option>
 									</select>
 								</td>
 							</tr>
@@ -271,7 +271,7 @@
 								<td>Xã<span ng-show="star" class="has-required"> (*)</span>: </td>
 								<td>
 									<select class="select-box" ng-model="data.xa" title="{{tooltips['xa']}}" name="xa" required>
-										<option ng-repeat="(key, ward) in wards | customDistrict: data.huyen" value="{{key}}">{{ward.type+ " " + ward.name}}</option>
+										<option ng-repeat="ward in wards | customDistrict: data.huyen | orderBy: 'name'" value="{{ward.id}}">{{ward.name}}</option>
 									</select>
 								</td>
 							</tr>
@@ -282,14 +282,35 @@
 						</table>
 					</td>
 				</tr>
-				<tr><td><label>24. Vị trí tọa độ theo hệ tọa độ Việt Nam 2000</label></td></tr>
 				<tr>
-					<td>Vĩ độ N  <span class="has-required">(*)</span>: </td>
-					<td><input type="text" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form" required></td>
+					<td colspan="2">
+						<label>24. Vị trí tọa độ theo hệ tọa độ Việt Nam 2000: </label>
+						<input type="radio" name="fViTriToaDo" id="vitri-dms" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
+						<input type="radio" name="fViTriToaDo" id="vitri-dd" value="false" ng-click="dd()"><span class="label label-default"> DD</span>
+					</td>
 				</tr>
 				<tr>
-					<td>Kinh độ E  <span class="has-required">(*)</span>:</td>
-					<td><input type="text" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" required></td>
+					<td>Vĩ độ N <span class="has-required">(*)</span>:</td>
+					<td>
+						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form" required>
+						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
+							<input type="text" ng-model= "vido_do" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
+							<input type="text" ng-model= "vido_phut" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
+							<input type="text" ng-model= "vido_giay" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Kinh độ E <span class="has-required">(*)</span>:</td>
+					<td>
+						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" required>
+						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
+							<input type="text" ng-model="kinhdo_do" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
+							<input type="text" ng-model="kinhdo_phut" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
+							<input type="text" ng-model="kinhdo_giay" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
+						</div>
+					</td>
+					</td>
 				</tr>
 				<tr>
 					<td><label>25. Thông tin địa tầng và tuổi địa chất <span class="has-required">(*)</span>:</label></td>

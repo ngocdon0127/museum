@@ -15,23 +15,23 @@
 			<table>
 				<h3 class="h3-title">SỐ HIỆU</h3>
 				<tr>
-					<td><label>01.Số hiệu BTTNVN:</label></td>
+					<td><label>01. Số hiệu BTTNVN:</label></td>
 					<td><input type="text"  title="{{tooltips['soHieuBTTNVN']}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
 				</tr>
 				<tr>
-					<td><label>02.Số hiệu bảo tàng cơ sở<span class="has-required">(*)</span>:</label></td>
+					<td><label>02. Số hiệu bảo tàng cơ sở<span class="has-required">(*)</span>:</label></td>
 					<td><input type="text"  title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form" required></td>
 				</tr>
 				<tr>
-					<td><label>03.Số hiệu thực địa <span class="has-required">(*)</span>:</label></td>
+					<td><label>03. Số hiệu thực địa <span class="has-required">(*)</span>:</label></td>
 					<td><input type="text"  title="{{tooltips['soHieuThucDia']}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form" required></td>
 				</tr>
 				<tr>
-					<td><label>04.Các kí hiệu mẫu vật khác:</label></td>
+					<td><label>04. Các kí hiệu mẫu vật khác:</label></td>
 					<td><input type="text" title="{{tooltips['kyHieuMauVatKhac']}}" name="kyHieuMauVatKhac" ng-model="data.kyHieuMauVatKhac" class="input-form"></td>
 				</tr>
 				<tr>
-					<td><label>05.Thông tin khác:</label></td>
+					<td><label>05. Thông tin khác:</label></td>
 					<td><input type="text" title="{{tooltips['thongTinKhac1']}}" name="thongTinKhac1" ng-model="data.thongTinKhac1" class="input-form"></td>
 				</tr>
 			</table>
@@ -109,15 +109,15 @@
 					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
 				</tr>
 				<tr>
-					<td><label>09.Tên Việt Nam (phổ thông) <span class="has-required">(*)</span>:</label></td>
+					<td><label>09. Tên Việt Nam (phổ thông) <span class="has-required">(*)</span>:</label></td>
 					<td><input type="text" title="{{tooltips['tenVietNam']}}" name="tenVietNam" ng-model="data.tenVietNam" class="input-form" required></td>
 				</tr>
 				<tr>
-					<td><label>10.Tên địa phương:</label></td>
+					<td><label>10. Tên địa phương:</label></td>
 					<td><input type="text" title="{{tooltips['tenDiaPhuong']}}" name="tenDiaPhuong" ng-model="data.tenDiaPhuong" class="input-form"></td>
 				</tr>
 				<tr>
-					<td><label>11.Tên Tiếng Anh:</label></td>
+					<td><label>11. Tên Tiếng Anh:</label></td>
 					<td><input type="text" title="{{tooltips['tenTiengAnh']}}" name="tenTiengAnh" ng-model="data.tenTiengAnh" class="input-form"></td>
 				</tr>
 				<tr>
@@ -257,8 +257,8 @@
 							<tr>
 								<td>Vị trí: </td>
 								<td>
-							        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
-							        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
+									<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
+									<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
 								</td>
 							</tr>
 							<tr>
@@ -273,7 +273,7 @@
 								<td>Tỉnh/Thành phố<span ng-show="star" class="has-required"> (*)</span>: </td>
 								<td>
 									<select class="select-box" title="{{tooltips['tinh']}}" name="tinh" id="tinh" required ng-model= "tinh" ng-click="cityChange()">
-										<option ng-repeat="(key, city) in cities" value="{{key}}">{{city.name}}</option>
+										<option ng-repeat="city in cities | orderBy: 'name'" value="{{city.id}}">{{city.name}}</option>
 									</select>
 								</td>
 							</tr>
@@ -281,7 +281,7 @@
 								<td>Huyện<span ng-show="star" class="has-required"> (*)</span>:</td>
 								<td>
 									<select class="select-box" title="{{tooltips['huyen']}}" name="huyen" id="huyen" required ng-model= "huyen" ng-click="districtChange()">
-										<option ng-repeat="(key, district) in districts | customCity: tinh" value="{{key}}">{{district.name}}</option>
+										<option ng-repeat="district in districts | customCity: tinh | orderBy: 'name'" value="{{district.id}}">{{district.name}}</option>
 									</select>
 								</td>
 							</tr>
@@ -289,7 +289,7 @@
 								<td>Xã<span ng-show="star" class="has-required"> (*)</span>: </td>
 								<td>
 									<select class="select-box" ng-model="xa" title="{{tooltips['xa']}}" name="xa" id="xa" required>
-										<option ng-repeat="(key, ward) in wards | customDistrict: huyen" value="{{key}}">{{ward.name}}</option>
+										<option ng-repeat="ward in wards | customDistrict: huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
 									</select>
 								</td>
 							</tr>
@@ -332,11 +332,11 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label>25. Độ cao <span class="has-required">(*)</span>: </label></td>
+					<td><label>25. Độ cao (m) <span class="has-required">(*)</span>: </label></td>
 					<td><input type="text" title="{{tooltips['doCao']}}" name="doCao" ng-model="data.doCao" class="input-form" required ></td>
 				</tr>
 				<tr>
-					<td><label>26. Độ sâu:</label></td>
+					<td><label>26. Độ sâu (m):</label></td>
 					<td><input type="number" title="{{tooltips['doSau']}}" name="doSau" ng-model="data.doSau" class="input-form"></td>
 				</tr>
 				<tr>

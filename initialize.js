@@ -75,9 +75,9 @@ async(() => {
 			roles: ['content']
 		},
 		{
-			username: 'adminaccount@gmail.com',
-			password: 'adminmuseumhust',
-			fullname: 'Admin Account',
+			username: 'kevinhoa95@gmail.com',
+			password: 'museumhust1536',
+			fullname: 'Hola',
 			roles: ['content', 'admin']
 		}
 	]

@@ -239,6 +239,68 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			// Date will be converted to String.
 			objectBeforeUpdate = JSON.parse(JSON.stringify(objectInstance));
 		}
+
+		// =============== Validate special fields ===============
+
+		// Trường dữ liệu theo yêu cầu là số, nhưng thực tế cần phải lưu là String
+		// VD: Chiều cao: "3 mét"
+
+		let specialFields = {};
+		specialFields.unitFields = [
+			{
+				fieldName: 'chieuCao'
+			},
+			{
+				fieldName: 'chieuRong'
+			},
+			{
+				fieldName: 'chieuDai'
+			},
+			{
+				fieldName: 'trongLuong'
+			},
+			{
+				fieldName: 'theTich'
+			}
+		]
+
+		for(let field of specialFields.unitFields){
+			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
+				req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+			}
+		}
+		delete specialFields.unitFields;
+
+		// VD: Kinh độ, Vĩ độ: '1 ° 2 \' 3"'
+
+		specialFields.coordinations = [
+			{
+				fieldName: 'kinhDo'
+			},
+			{
+				fieldName: 'viDo'
+			}
+		]
+
+		for(let field of specialFields.coordinations){
+			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
+				console.log(req.body[field.fieldName]);
+				if (!(/([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/.test(req.body[field.fieldName].toLowerCase()))){
+					console.log('Tọa độ thực')
+					req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+				}
+				else {
+					console.log('Tọa độ rời rạc')
+					req.body[field.fieldName] = req.body[field.fieldName].toLowerCase();
+				}
+			}
+		}
+		delete specialFields.coordinations;
+
+		delete specialFields;
+		// End of Number Fields
+
+		// =============== End of Validate special fields ===============
 		
 		// save props
 		for (var i = 0; i < _PROP_FIELDS.length; i++) {
@@ -302,14 +364,21 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					}
 
 					if ('max' in element){
-						if (req.body[element.name].length > element.max){
+						if (parseFloat(req.body[element.name]) > element.max){
 							return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được lớn hơn ' + element.max, element.name]);
 						}
 					}
+					// console.log('number in ' + element.name);
+					// console.log(req.body[element.name])
+					// console.log(typeof(req.body[element.name]));
+					if (req.body[element.name]){
+						req.body[element.name] = parseFloat(req.body[element.name]);
+					}
+					// return;
 					break;
 				case 'Date':
-					console.log('date');
-					console.log(req.body[element.name]);
+					// console.log('date');
+					// console.log(req.body[element.name]);
 					
 					if (req.body[element.name]){
 						// Preprocess Date: Change from '23/02/2017' to '2017/02/23'

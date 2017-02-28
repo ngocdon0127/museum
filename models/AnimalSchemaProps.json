@@ -958,7 +958,8 @@
 		"label": "Nơi lưu giữ mẫu",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "phong",

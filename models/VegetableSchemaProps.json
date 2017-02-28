@@ -963,13 +963,14 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "noiLuuTru",
+		"name": "noiLuuTruMau",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Nơi lưu giữ mẫu",
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "phong",

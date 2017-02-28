@@ -890,12 +890,13 @@
 		"type": "String"
 	},
 	{
-		"name": "noiLuuTru",
+		"name": "noiLuuTruMau",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Nơi lưu giữ mẫu",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "phong",

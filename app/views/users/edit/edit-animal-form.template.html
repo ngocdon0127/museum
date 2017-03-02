@@ -411,7 +411,7 @@
 			</tr>
 			<tr>
 				<td><label>40. Hình vẽ:</label></td>
-				<td><input type="file" multiple ng-model="data.hinhVe" title="{{tooltips['hinhVe']}}" name="hinhVe" class="input-form" accept="image/x-png, image/gif, image/jpeg, .docx, .doc, .pdf"></td>
+				<td><input type="file" multiple ng-model="data.hinhVe" title="{{tooltips['hinhVe']}}" name="hinhVe" class="input-form" accept="image/*, .docx, .doc, .pdf"></td>
 			</tr>
 			<tr>
 				<td><label>41. Thông tin khác </label></td>
@@ -425,11 +425,11 @@
 			<h3 class="h3-title">NHÓM DỮ LIỆU HÌNH ẢNH, PHIM, TÀI LIỆU MẪU VẬT</h3>
 			<tr>
 				<td><label>42. Ảnh mẫu vật<span class="has-required"> (*)</span>:</label></td>
-				<td><input type="file" multiple ng-model="data.anhMauVat" title="{{tooltips['anhMauVat']}}" name="anhMauVat" class="input-form" accept="image/x-png, image/gif, image/jpeg" valid-file required></td>
+				<td><input type="file" multiple ng-model="data.anhMauVat" title="{{tooltips['anhMauVat']}}" name="anhMauVat" class="input-form" accept="image/*" valid-file required></td>
 			</tr>
 			<tr>
 				<td><label>43. Hình ảnh mẫu ngoài thực địa:</label></td>
-				<td><input type="file" multiple accept="image/x-png, image/gif, image/jpeg" ng-model="data.hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}" name="hinhAnhNgoaiThucDia" class="input-form"></td>
+				<td><input type="file" multiple accept="image/*" ng-model="data.hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}" name="hinhAnhNgoaiThucDia" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>44. Thông tin về phim, video: </label></td>
@@ -440,13 +440,13 @@
 			<tr>
 				<td><label>45. Đính kèm phim, video:</label></td>
 				<td>
-					<input type="file" accept="video/mp4,video/x-m4v,video/*" name ="videoFile" ng-model="data.videoFile" class="input-form">
+					<input type="file" accept="video/*" name ="videoFile" ng-model="data.videoFile" class="input-form">
 				</td>
 			</tr>
 			<tr><td><label>46. Xử lý chế tác mẫu vật</label></td></tr>
 			<tr>
 				<td>Hình ảnh đính kèm Xử lý chế tác:</td>
-				<td><input type="file" ng-model="data.hinhAnhDinhKem" multiple title="{{tooltips['hinhAnhDinhKem']}}" name="hinhAnhDinhKem" accept="image/x-png, image/gif, image/jpeg" class="input-form"></td>
+				<td><input type="file" ng-model="data.hinhAnhDinhKem" multiple title="{{tooltips['hinhAnhDinhKem']}}" name="hinhAnhDinhKem" accept="image/*" class="input-form"></td>
 			</tr>
 			<tr>
 				<td>Đính kèm Xử lý chế tác:</td>
@@ -474,7 +474,7 @@
 			</tr>
 			<tr>
 				<td>Ảnh mẫu sau chế tác:</td>
-				<td><input type="file" ng-model="data.anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}" name="anhMauSauCheTac" class="input-form" multiple accept="image/x-png, image/gif, image/jpeg"></td>
+				<td><input type="file" ng-model="data.anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}" name="anhMauSauCheTac" class="input-form" multiple accept="image/*"></td>
 			</tr>
 			<tr><td><label>47. Thông tin DNA</label></td></tr>
 			<tr>
@@ -609,11 +609,11 @@
 			</tr>
 			<tr>
 				<td><label>62. Giấy phép nhập mẫu:</label></td>
-				<td><input type="file" ng-model="data.giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}" name="giayPhepNhapMau" class="input-form" accept="image/x-png, image/gif, image/jpeg, .pdf"></td>
+				<td><input type="file" ng-model="data.giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}" name="giayPhepNhapMau" class="input-form" accept="image/*, .pdf"></td>
 			</tr>
 			<tr>
 				<td><label>63. Hồ sơ nhập mẫu vật đi kèm:</label></td>
-				<td><input type="file" ng-model="data.hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}" name="hoSoNhapMauVatDiKem" class="input-form" accept=".doc, docx, .pdf"></td>
+				<td><input type="file" ng-model="data.hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}" name="hoSoNhapMauVatDiKem" class="input-form" accept=".doc, .docx, .pdf"></td>
 			</tr>
 			<tr>
 				<td><label>64. Người nhập phiếu MV <span class="has-required"> (*)</span>:</label></td>

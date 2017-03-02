@@ -132,7 +132,7 @@ module.exports = function (mongoose) {
 			hinhThucNhapMau: String,
 			traoDoiMau: String,
 			vayMuon: String,
-			noiLuuTru: String,
+			noiLuuTruMau: String,
 			khuLuuTruMau: {
 				phong: String,
 				tuGia: String,

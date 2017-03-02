@@ -2,6 +2,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	
 	return ({
 		hostName: 'http://localhost:8000',
+		//hostName: 'http://baotangvn.online',
 		deleteP: deleteP,
 		addSample: addSample,
 		editForm: editForm,
@@ -35,7 +36,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'tong',
 					'chi',
 					'phanChi',
-					'loai']
+					'loai',
+					'noiLuuTruMau']
 	});
 
 	function exportFile(id){

@@ -81,13 +81,13 @@ app.use(flash());
 // 	next();
 // });
 
-app.use(function (req, res, next) {
-	console.log(req.session);
-	if ('user' in req){
-		console.log(req.user);
-	}
-	next();
-})
+// app.use(function (req, res, next) {
+	// console.log(req.session);
+	// if ('user' in req){
+		// console.log(req.user);
+	// }
+	// next();
+// })
 
 var routes = require('./routes/index');
 app.use('/', routes);

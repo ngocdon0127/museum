@@ -9,7 +9,8 @@ module.exports = function (mongoose) {
 		coQuanToChucPhanTich: [String],
 		coQuanNhapVatMau: [String],
 		giaTriSuDung: [String],
-		hinhThucNhapMau: [String]
+		hinhThucNhapMau: [String],
+		noiLuuTruMau: [String]
 	};
 	var geologicalAutoCompletion = mongoose.Schema(schemaPrototype);
 

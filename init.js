@@ -47,12 +47,22 @@ global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var CITIES = {};
 var DISTRICTS = {};
 var WARDS = {};
-CITIES = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'cities.json')));
+var tmpCities = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'cities.json')));
+for(let tc of tmpCities){
+	CITIES[tc.id] = tc;
+}
+// console.log(CITIES)
 
-DISTRICTS = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'districts.json')));
-
-WARDS = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'wards.json')));
-
+var tmpDistricts = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'districts.json')));
+for(let td of tmpDistricts){
+	DISTRICTS[td.id] = td;
+}
+// console.log(DISTRICTS)
+var tmpWards = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'wards.json')));
+for(let tw of tmpWards){
+	WARDS[tw.id] = tw;
+}
+// console.log(WARDS)
 
 
 
@@ -674,9 +684,9 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		// Tiền xử lý không đồng bộ.
 		// Bắt buộc phải dùng Promise, async/await
 		var re = await (new Promise(function (resolve, reject) {
-			console.log('dmm');
+			// console.log('dmm');
 			setTimeout(function () {
-				console.log('hehe');
+				// console.log('hehe');
 				resolve('ok')
 			}, 1);
 		}))
@@ -723,9 +733,9 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			var field = PROP_FIELDS[i];
 			// console.log(field.name);
 			if (field.name == 'fDiaDiemThuMau'){
-				console.log('len: ' + PROP_FIELDS.length);
+				// console.log('len: ' + PROP_FIELDS.length);
 				PROP_FIELDS.splice(i, 1);
-				console.log('len: ' + PROP_FIELDS.length);
+				// console.log('len: ' + PROP_FIELDS.length);
 				break;
 			}
 		}

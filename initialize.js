@@ -2,7 +2,7 @@ var fs = require('fs-extra')
 var path = require('path')
 
 var cleanUser = false;
-var cleanAutoCompletion = false;
+var cleanAutoCompletion = true;
 
 console.log('Initializing...');
 
@@ -167,10 +167,100 @@ async(() => {
 						'Mẫu trưng bày',
 						'Mẫu Type'
 					],
-					'hinhThucNhapMau': [
-						'Thu thập',
-						'Hiến tặng'
-					]
+					"coQuanNhapVatMau" : [ 
+				        "Bảo tàng Thiên nhiên Việt Nam", 
+				    ],
+				    "trangThaiGiuMauDNA" : ["Khô"],
+				    "boPhanLayMauDNA" : ["Thân"],
+				    "coQuanXuLy" : [ 
+				        "HUST"
+				    ],
+				    "coQuanToChucPhanTich" : [ 
+				        
+				        "BTTNVN", 
+				        "Phòng Địa chất- BTTNVN"
+				    ],
+				    "thon" : [ 
+				        "Suối Ke", 
+				        "Đỉnh đèo Gia Luận, bên phải đường ô tô đi bến phà Gia Luận", 
+				        "Đỉnh đèo Gia Luận", 
+				        "bên phải đường ô tô đi bến phà Gia Luận"
+				    ],
+				    "xa" : [ 
+				        
+				        "14704", 
+				        "13135", 
+				        "11935"
+				    ],
+				    "huyen" : [  
+				        "232", 
+				        "662", 
+				        
+				    ],
+				    "tinh" : [ 
+				        "? undefined:undefined ?", 
+				        "25", 
+				        "67", 
+				        "12", 
+				        "36", 
+				        "37", 
+				        "34", 
+				        "31", 
+				    ],
+				    "quocGia" : [ 
+				        "VietNam", 
+				        "Việt Nam"
+				    ],
+				    "coQuanThuMau" : [ 
+				        "Bách Khoa", 
+				        "KHMT Cổ Sinh 01"
+				    ],
+				    "duoiLoai" : [ 
+				        "KHMT Cổ Sinh 01"
+				    ],
+				    "loai" : [ 
+				        "Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)"
+				    ],
+				    "giong" : [
+				        "Triceratops", 
+				        "Gigantoproductus Prentice, 1950", 
+				        "Panthera", 
+				        "Hổ", 
+				        "KHMT01"
+				    ],
+				    "ho" : [ 
+				        
+				        "Loliginidae", 
+				        "Gigantoproductidae Muir-Wood & Cooper, 1960"
+				    ],
+				    "bo" : [ 
+				        "Productida Sarytcheva & Sokolskaya, 1959"
+				    ],
+				    "lop" : [ 
+				        "Strophomenata Williams, Carlson, Bruton, Homer et Popov, 1996"
+				    ],
+				    "nganh" : [ 
+				        "Tay cuộn (Brachiopoda) Duméril, 1806"
+				    ],
+				    "gioi" : [ 
+				        "Động vật (Animalia) Linnaeus, 1758"
+				    ],
+				    "tenDongNghia" : [ 
+				        "GIGANTOPRODUCTUS  CF.  SUBMAXIMUS (BOLKHOVITINOVA, 1932)"
+				    ],
+				    "vungGenPhanTich" : ["Gen gốc"],
+				    "giaTriSuDung" : [ "Khoa học", "Y học", "Dinh dưỡng"
+				    ],
+				    "chi" : [ 
+				        "KHMT Cổ Sinh 01"
+				    ],
+				    "hinhThucNhapMau" : [ 
+				        "Thu thập", 
+				        "Hiến tặng"
+				    ],
+				    "noiLuuTruMau" : [ 
+				        "BTTNVN", 
+				    ]
 				}
 			},
 			{
@@ -182,10 +272,151 @@ async(() => {
 						'Mẫu trưng bày',
 						'Mẫu Type'
 					],
-					'hinhThucNhapMau': [
-						'Thu thập',
-						'Hiến tặng'
-					]
+					"coQuanNhapVatMau" : [ 
+				        "Bảo tàng Thiên nhiên Việt Nam", 
+				        "KHMT01"
+				    ],
+				    "trangThaiGiuMauDNA" : [ 
+				        "ádfasdf"
+				    ],
+				    "boPhanLayMauDNA" : [ 
+				        "Xương", 
+				    ],
+				    "coQuanXuLy" : [ 
+				        "HUST", 
+				        "KHMT01", 
+				    ],
+				    "coQuanToChucPhanTich" : [ 
+				        "ICT HUST", 
+				        "Vườn thú Hà Nội", 
+				        "KHMT01", 
+				    ],
+				    "thon" : [ 
+				        "Vũ Xá", 
+				        "Vu Xa", 
+				        "Trần Phú", 
+				        "Thôn Nam", 
+				        "Đỉnh đèo Gia Luận, bên phải đường ô tô đi bến phà Gia Luận", 
+				        "KHMT01", 
+				        "B1"
+				    ],
+				    "xa" : [ 
+				        
+				        "03979", 
+				        "03982", 
+				        "02716", 
+				        "30577", 
+				        "12745", 
+				        "31594", 
+				    ],
+				    "huyen" : [ 
+				        "327", 
+				        "152", 
+				        "101", 
+				        "199", 
+				        "339", 
+				        "007", 
+				        "356", 
+				        "001", 
+				    ],
+				    "tinh" : [ 
+				        "31", 
+				        "33", 
+				        "17", 
+				        "11", 
+				    ],
+				    "quocGia" : [ 
+				        "VietNam", 
+				        "Việt Nam"
+				    ],
+				    "coQuanThuMau" : [ 
+				        "HUST", 
+				        "Vườn Thú Hà Nội", 
+				        "KHMT01", 
+				        "BTTNVN"
+				    ],
+				    "duoiLoai" : [ 
+				        "KHMT01"
+				    ],
+				    "loai" : [ 
+				        "T. horridus", 
+				        "Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)", 
+				        "Panthera pardus", 
+				        "KHMT01"
+				    ],
+				    "giong" : [ 
+				        "Triceratops", 
+				        "Gigantoproductus Prentice, 1950", 
+				        "Panthera", 
+				        "Hổ", 
+				        "KHMT01"
+				    ],
+				    "toc" : [ 
+				        "Tộc", 
+				        "KHMT01"
+				    ],
+				    "phanHo" : [ 
+				        "Ceratopsinae", 
+				        "Gigantoproductidae Muir-Wood & Cooper, 1960", 
+				        "KHMT01", 
+				    ],
+				    "ho" : [ 
+				        "Ceratopsidae", 
+				        "Gigantoproductidae Muir-Wood & Cooper, 1960", 
+				        "Felidae", 
+				        "Mèo", 
+				        "KHMT01"
+				    ],
+				    "lienHo" : [ 
+				        "Productacea  Gray, 1840", 
+				        "KHMT01"
+				    ],
+				    "phanBo" : [ 
+				        "Ceratopsia", 
+				        "Productidina Waagen, 1883", 
+				        "KHMT01"
+				    ],
+				    "bo" : [ 
+				        "Ornithischia", 
+				        "Productida Sarytcheva & Sokolskaya, 1959", 
+				        "KHMT01"
+				    ],
+				    "phanLop" : [ 
+				        "KHMT01"
+				    ],
+				    "lop" : [ 
+				        "Sauropsida", 
+				        "Strophomenata Williams, Carlson, Bruton, Homer et Popov, 1996", 
+				        "Mammalia", 
+				        "Có vú", 
+				        "KHMT01", 
+				    ],
+				    "nganh" : [ 
+				        "Chordata", 
+				        "Tay cuộn (Brachiopoda) Duméril, 1806", 
+				    ],
+				    "gioi" : [ 
+				        "Animalia", 
+				        "Mặt ba sừng", 
+				        "Động vật (Animalia) Linnaeus, 1758", 
+				        "KHMT01", 
+				    ],
+				    "tenDongNghia" : [ 
+				        "Mặt ba sừng", 
+				        "Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)", 
+				    ],
+				    "tenTheoBaoTang" : [],
+				    "giaTriSuDung" : [ 
+				        "Khoa học", 
+				        "Y học", 
+				    ],
+				    "hinhThucNhapMau" : [ 
+				        "Thu thập", 
+				        "Hiến tặng", 
+				    ],
+				    "noiLuuTruMau" : [ 
+				        "B1"
+				    ]
 				}
 			},
 			{
@@ -197,10 +428,152 @@ async(() => {
 						'Mẫu trưng bày',
 						'Mẫu Type'
 					],
-					'hinhThucNhapMau': [
-						'Thu thập',
-						'Hiến tặng'
-					]
+					"coQuanNhapVatMau" : [ 
+				        "Bảo tàng Thiên nhiên Việt Nam", 
+				        "KHMT01"
+				    ],
+				    "trangThaiGiuMauDNA" : [ 
+				        "ádfasdf"
+				    ],
+				    "boPhanLayMauDNA" : [ 
+				        "Xương", 
+				    ],
+				    "coQuanXuLy" : [ 
+				        "HUST", 
+				        "KHMT01", 
+				    ],
+				    "coQuanToChucPhanTich" : [ 
+				        "ICT HUST", 
+				        "Vườn thú Hà Nội", 
+				        "KHMT01", 
+				    ],
+				    "thon" : [ 
+				        "Vũ Xá", 
+				        "Vu Xa", 
+				        "Trần Phú", 
+				        "Thôn Nam", 
+				        "Đỉnh đèo Gia Luận, bên phải đường ô tô đi bến phà Gia Luận", 
+				        "KHMT01", 
+				        "B1"
+				    ],
+				    "xa" : [ 
+				        
+				        "03979", 
+				        "03982", 
+				        "02716", 
+				        "30577", 
+				        "12745", 
+				        "31594", 
+				    ],
+				    "huyen" : [ 
+				        "327", 
+				        "152", 
+				        "101", 
+				        "199", 
+				        "339", 
+				        "007", 
+				        "356", 
+				        "001", 
+				    ],
+				    "tinh" : [ 
+				        "31", 
+				        "33", 
+				        "17", 
+				        "11", 
+				    ],
+				    "quocGia" : [ 
+				        "VietNam", 
+				        "Việt Nam"
+				    ],
+				    "coQuanThuMau" : [ 
+				        "HUST", 
+				        "Vườn Thú Hà Nội", 
+				        "KHMT01", 
+				        "BTTNVN"
+				    ],
+				    "duoiLoai" : [ 
+				        "KHMT01"
+				    ],
+				    "loai" : [ 
+				        "T. horridus", 
+				        "Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)", 
+				        "Panthera pardus", 
+				        "KHMT01"
+				    ],
+				    "giong" : [ 
+				        "Triceratops", 
+				        "Gigantoproductus Prentice, 1950", 
+				        "Panthera", 
+				        "Hổ", 
+				        "KHMT01"
+				    ],
+				    "toc" : [ 
+				        "Tộc", 
+				        "KHMT01"
+				    ],
+				    "phanHo" : [ 
+				        "Ceratopsinae", 
+				        "Gigantoproductidae Muir-Wood & Cooper, 1960", 
+				        "KHMT01", 
+				    ],
+				    "ho" : [ 
+				        "Ceratopsidae", 
+				        "Gigantoproductidae Muir-Wood & Cooper, 1960", 
+				        "Felidae", 
+				        "Mèo", 
+				        "KHMT01"
+				    ],
+				    "lienHo" : [ 
+				        "Productacea  Gray, 1840", 
+				        "KHMT01"
+				    ],
+				    "phanBo" : [ 
+				        "Ceratopsia", 
+				        "Productidina Waagen, 1883", 
+				        "KHMT01"
+				    ],
+				    "bo" : [ 
+				        "Ornithischia", 
+				        "Productida Sarytcheva & Sokolskaya, 1959", 
+				        "KHMT01"
+				    ],
+				    "phanLop" : [ 
+				        "Phan Lop", 
+				        "KHMT01"
+				    ],
+				    "lop" : [ 
+				        "Sauropsida", 
+				        "Strophomenata Williams, Carlson, Bruton, Homer et Popov, 1996", 
+				        "Mammalia", 
+				        "Có vú", 
+				        "KHMT01", 
+				    ],
+				    "nganh" : [ 
+				        "Chordata", 
+				        "Tay cuộn (Brachiopoda) Duméril, 1806", 
+				    ],
+				    "gioi" : [ 
+				        "Animalia", 
+				        "Mặt ba sừng", 
+				        "Động vật (Animalia) Linnaeus, 1758", 
+				        "KHMT01", 
+				    ],
+				    "tenDongNghia" : [ 
+				        "Mặt ba sừng", 
+				        "Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)", 
+				    ],
+				    "tenTheoBaoTang" : [],
+				    "giaTriSuDung" : [ 
+				        "Khoa học", 
+				        "Y học", 
+				    ],
+				    "hinhThucNhapMau" : [ 
+				        "Thu thập", 
+				        "Hiến tặng", 
+				    ],
+				    "noiLuuTruMau" : [ 
+				        "B1"
+				    ]
 				}
 			},
 			{
@@ -212,10 +585,53 @@ async(() => {
 						'Mẫu trưng bày',
 						'Mẫu Type'
 					],
-					'hinhThucNhapMau': [
-						'Thu thập',
-						'Hiến tặng'
-					]
+					"coQuanNhapVatMau" : [ 
+				        "HUST", 
+				        "Bảo tàng Thiên nhiên Việt Nam"
+				    ],
+				    "coQuanXuLy" : [ 
+				        "SOICT", 
+				        "Bảo Tàng Thiên Nhiên VN", 
+				    ],
+				    "coQuanToChucGiamDinh" : [ 
+				        "Soict", 
+				        "Bảo Tàng Thiên Nhiên VN"
+				    ],
+				    "thon" : [ 
+				        "Đồ Sơn", 
+				    ],
+				    "xa" : [ 
+				        "14266", 
+				        "11455", 
+				        "12043", 
+				        "00028", 
+				    ],
+				    "huyen" : [ 
+				        "366", 
+				        "308", 
+				        "326", 
+				        "001", 
+				    ],
+				    "tinh" : [ 
+				        "36", 
+				        "31", 
+				        "33", 
+				    ],
+				    "quocGia" : [ 
+				        "VietNam", 
+				        "Việt Nam"
+				    ],
+				    "coQuanThuMau" : [ 
+				        "Bảo Tàng Thiên Nhiên VN", 
+				    ],
+				    "giaTriSuDung" : [ 
+				        "Trưng bày"
+				    ],
+				    "noiLuuTruMau" : ["HUST", "B1"],
+				    "hinhThucNhapMau" : [ 
+				        "Thu thập", 
+				        "Hiến tặng"
+				    ]
 				}
 			},
 			{
@@ -227,10 +643,127 @@ async(() => {
 						'Mẫu trưng bày',
 						'Mẫu Type'
 					],
-					'hinhThucNhapMau': [
-						'Thu thập',
-						'Hiến tặng'
-					]
+					"coQuanNhapVatMau" : [ 
+				        "Bảo tàng Thiên nhiên Việt Nam"
+				    ],
+				    "coQuanXuLy" : [ 
+				        "Bảo Tàng Thiên Nhiên VN"
+				    ],
+				    "coQuanToChucPhanTich" : [ 
+				        "Viện sinh thái học miền nam", 
+				        "Bảo tàng Thiên nhiên Việt Nam", 
+				    ],
+				    "thon" : [ 
+				        "Thôn Nam", 
+				        "Xóm 1"
+				    ],
+				    "xa" : [ 
+				        "13549", 
+				        "13021", 
+				        "30808", 
+				        "15622", 
+				        "08908", 
+				        "03004", 
+				        "12442", 
+				        "12523", 
+				        "14803"
+				    ],
+				    "huyen" : [ 
+				        "352", 
+				        "342", 
+				        "902", 
+				        "396", 
+				        "248", 
+				        "088", 
+				        "336", 
+				    ],
+				    "tinh" : [ 
+				        "35", 
+				        "34", 
+				        "91", 
+				        "38", 
+				        "42"
+				    ],
+				    "quocGia" : [ 
+				        "VietNam", 
+				        "Việt Nam"
+				    ],
+				    "coQuanThuMau" : [ 
+				        "Viện sinh thái học Miền Nam"
+				    ],
+				    "duoiLoai" : [ 
+				        "Morinda tomentosa", 
+				    ],
+				    "loai" : [ 
+				        "crenulatum", 
+				        "Tarenna latifolia Pit.", 
+				        "Morinda cochinchinensis", 
+				    ],
+				    "chi" : [ 
+				        "Memecylon", 
+				        "Pseuderanthemum", 
+				        "Tarenna", 
+				        "Morinda", 
+				    ],
+				    "tong" : [ 
+				        "Melastomataceae"
+				    ],
+				    "phanHo" : [ 
+				        "Rubiaceae1", 
+				    ],
+				    "ho" : [ 
+				        "Melastomataceae", 
+				        "ACANTHACEAE", 
+				        "Rubiaceae", 
+				        "Melastomataceaeilhb"
+				    ],
+				    "lienHo" : [ 
+				        "Rubiaceae", 
+				    ],
+				    "phanBo" : [ 
+				        "Gentianales", 
+				    ],
+				    "bo" : [ 
+				        "Myrtales", 
+				        "Scrophulariales", 
+				        "Gentianales"
+				    ],
+				    "phanLop" : [ 
+				        "KHMT01"
+				    ],
+				    "lop" : [ 
+				        "Magnoliopsida", 
+				        "Magnoliopsida1"
+				    ],
+				    "nganh" : [ 
+				        "Magnoliophyta", 
+				        "Angiospermae", 
+				        "Angiospermae1", 
+				    ],
+				    "gioi" : [ 
+				        "Plantae", 
+				    ],
+				    "tenDongNghia" : [ 
+				        "Morinda tomentosa",
+				    ],
+				    "mauDNA" : [ 
+				        "nước"
+				    ],
+				    "viTriLayMauDNA" : [ 
+				        "lá"
+				    ],
+				    "giaTriSuDung" : [ 
+				        "Dinh dưỡng", 
+				        "Khoa học", 
+				        "LÀM THUỐC", 
+				    ],
+				    "hinhThucNhapMau" : [ 
+				        "Thu thập", 
+				        "Hiến tặng"
+				    ],
+				    "noiLuuTruMau" : [ 
+				        "BKHN"
+				    ]
 				}
 			},
 		]

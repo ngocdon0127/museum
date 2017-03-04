@@ -37,7 +37,10 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'chi',
 					'phanChi',
 					'loai',
-					'noiLuuTruMau']
+					'noiLuuTruMau',
+					'viTriLayMauDNA',
+					'mauDNA'
+		]
 	});
 
 	function exportFile(id){
@@ -293,6 +296,12 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				minLength: 0,
 				toggleSelected: true
 			});
+			
+			$('.flextdatalist-force').flexdatalist({
+				minLength: 0,
+				selectionRequired: true,
+				toggleSelected: true
+			});
 		}, 1000)
 	}
 
@@ -347,7 +356,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				changeMonth: 'true',
 				changeYear: true,
 				showAnim: 'slideDown',
-
+				yearRange: ((new Date()).getFullYear() - 200) + ':' + ((new Date()).getFullYear() + 10)
 			});
 		}, 1000)
 		

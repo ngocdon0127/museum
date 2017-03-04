@@ -656,7 +656,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac5",
@@ -674,7 +674,7 @@
 		"money": true,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
 		"name": "hinhAnhNgoaiThucDia",
@@ -684,7 +684,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
 		"name": "videoStr",
@@ -712,7 +712,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
 		"name": "dinhKemXuLy",
@@ -773,7 +773,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
 		"name": "boPhanLayMauDNA",
@@ -1000,7 +1000,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "hoSoNhapMauVatDiKem",

@@ -35,13 +35,13 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$timeout(function(){
 			if (isNaN($scope.data.viDo)) {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = coor[1].trim();
-				$scope.vido_phut = coor[2].trim();
-				$scope.vido_giay = coor[3].trim();
+				$scope.vido_do = parseInt(coor[1].trim());
+				$scope.vido_phut = parseInt(coor[2].trim());
+				$scope.vido_giay = parseInt(coor[3].trim());
 				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = coor[1].trim();
-				$scope.kinhdo_phut = coor[2].trim();
-				$scope.kinhdo_giay = coor[3].trim();
+				$scope.kinhdo_do = parseInt(coor[1].trim());
+				$scope.kinhdo_phut = parseInt(coor[2].trim());
+				$scope.kinhdo_giay = parseInt(coor[3].trim());
 				document.getElementById("vitri-dms").checked = true;
 				$scope.showCoor = true;
 			} else {
@@ -118,13 +118,13 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		$timeout(function(){
 			if (isNaN($scope.data.viDo)) {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = coor[1].trim();
-				$scope.vido_phut = coor[2].trim();
-				$scope.vido_giay = coor[3].trim();
+				$scope.vido_do = parseInt(coor[1].trim());
+				$scope.vido_phut = parseInt(coor[2].trim());
+				$scope.vido_giay = parseInt(coor[3].trim());
 				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = coor[1].trim();
-				$scope.kinhdo_phut = coor[2].trim();
-				$scope.kinhdo_giay = coor[3].trim();
+				$scope.kinhdo_do = parseInt(coor[1].trim());
+				$scope.kinhdo_phut = parseInt(coor[2].trim());
+				$scope.kinhdo_giay = parseInt(coor[3].trim());
 				document.getElementById("vitri-dms").checked = true;
 				$scope.showCoor = true;
 			} else {
@@ -201,13 +201,13 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 		$timeout(function(){
 			if (isNaN($scope.data.viDo)) {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = coor[1].trim();
-				$scope.vido_phut = coor[2].trim();
-				$scope.vido_giay = coor[3].trim();
+				$scope.vido_do = parseInt(coor[1].trim());
+				$scope.vido_phut = parseInt(coor[2].trim());
+				$scope.vido_giay = parseInt(coor[3].trim());
 				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = coor[1].trim();
-				$scope.kinhdo_phut = coor[2].trim();
-				$scope.kinhdo_giay = coor[3].trim();
+				$scope.kinhdo_do = parseInt(coor[1].trim());
+				$scope.kinhdo_phut = parseInt(coor[2].trim());
+				$scope.kinhdo_giay = parseInt(coor[3].trim());
 				document.getElementById("vitri-dms").checked = true;
 				$scope.showCoor = true;
 			} else {
@@ -285,13 +285,13 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		$timeout(function(){
 			if (isNaN($scope.data.viDo)) {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = coor[1].trim();
-				$scope.vido_phut = coor[2].trim();
-				$scope.vido_giay = coor[3].trim();
+				$scope.vido_do = parseInt(coor[1].trim());
+				$scope.vido_phut = parseInt(coor[2].trim());
+				$scope.vido_giay = parseInt(coor[3].trim());
 				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = coor[1].trim();
-				$scope.kinhdo_phut = coor[2].trim();
-				$scope.kinhdo_giay = coor[3].trim();
+				$scope.kinhdo_do = parseInt(coor[1].trim());
+				$scope.kinhdo_phut = parseInt(coor[2].trim());
+				$scope.kinhdo_giay = parseInt(coor[3].trim());
 				document.getElementById("vitri-dms").checked = true;
 				$scope.showCoor = true;
 			} else {
@@ -368,13 +368,13 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 		$timeout(function(){
 			if (isNaN($scope.data.viDo)) {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = coor[1].trim();
-				$scope.vido_phut = coor[2].trim();
-				$scope.vido_giay = coor[3].trim();
+				$scope.vido_do = parseInt(coor[1].trim());
+				$scope.vido_phut = parseInt(coor[2].trim());
+				$scope.vido_giay = parseInt(coor[3].trim());
 				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = coor[1].trim();
-				$scope.kinhdo_phut = coor[2].trim();
-				$scope.kinhdo_giay = coor[3].trim();
+				$scope.kinhdo_do = parseInt(coor[1].trim());
+				$scope.kinhdo_phut = parseInt(coor[2].trim());
+				$scope.kinhdo_giay = parseInt(coor[3].trim());
 				document.getElementById("vitri-dms").checked = true;
 				$scope.showCoor = true;
 			} else {

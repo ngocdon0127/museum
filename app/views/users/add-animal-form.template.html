@@ -315,9 +315,9 @@
 				<td>
 					<input type="text" id="dms" ng-init="showCoor = 'false'; data.viDo=''" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form" required>
 					<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
-						<input type="text" ng-model= "vido_do" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
-						<input type="text" ng-model= "vido_phut" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
-						<input type="text" ng-model= "vido_giay" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
+						<input type="number" step="1" ng-model= "vido_do" ng-change="latChange()" style="width: 40px; border-width: 1px; border-radius: 3px;" name=""> độ
+						<input type="number" step="1" ng-model= "vido_phut" ng-change="latChange()" style="width: 40px; border-width: 1px; border-radius: 3px;" name=""> phút
+						<input type="number" step="1" ng-model= "vido_giay" ng-change="latChange()" style="width: 40px; border-width: 1px; border-radius: 3px;" name=""> giây
 					</div>
 				</td>
 			</tr>
@@ -326,11 +326,10 @@
 				<td>
 					<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" required>
 					<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
-						<input type="text" ng-model="kinhdo_do" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
-						<input type="text" ng-model="kinhdo_phut" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
-						<input type="text" ng-model="kinhdo_giay" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> giây
+						<input type="number" step="1" ng-model="kinhdo_do" ng-change="lonChange()" style="width: 40px; border-width: 1px; border-radius: 3px;" name=""> độ
+						<input type="number" step="1" ng-model="kinhdo_phut" ng-change="lonChange()" style="width: 40px; border-width: 1px; border-radius: 3px;" name=""> phút
+						<input type="number" step="1" ng-model="kinhdo_giay" ng-change="lonChange()" style="width: 40px; border-width: 1px; border-radius: 3px;" name=""> giây
 					</div>
-				</td>
 				</td>
 			</tr>
 
@@ -407,7 +406,7 @@
 			</tr>
 			<tr>
 				<td><label>40. Hình vẽ:</label></td>
-				<td><input type="file" multiple ng-model="data.hinhVe" title="{{tooltips['hinhVe']}}" name="hinhVe" class="input-form" accept="image/*, .docx, .doc, .pdf"></td>
+				<td><input type="file" multiple ng-model="data.hinhVe" title="{{tooltips['hinhVe']}}" name="hinhVe" class="input-form" accept="image/*, .docx, .doc, .pdf" valid-image></td>
 			</tr>
 			<tr>
 				<td><label>41. Thông tin khác </label></td>
@@ -425,7 +424,7 @@
 			</tr>
 			<tr>
 				<td><label>43. Hình ảnh mẫu ngoài thực địa:</label></td>
-				<td><input type="file" multiple accept="image/*" ng-model="data.hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}" name="hinhAnhNgoaiThucDia" class="input-form"></td>
+				<td><input type="file" multiple accept="image/*" valid-file ng-model="data.hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}" name="hinhAnhNgoaiThucDia" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>44. Thông tin về phim, video: </label></td>
@@ -442,7 +441,7 @@
 			<tr><td><label>46. Xử lý chế tác mẫu vật</label></td></tr>
 			<tr>
 				<td>Hình ảnh đính kèm Xử lý chế tác:</td>
-				<td><input type="file" ng-model="data.hinhAnhDinhKem" multiple title="{{tooltips['hinhAnhDinhKem']}}" name="hinhAnhDinhKem" accept="image/*" class="input-form"></td>
+				<td><input type="file" ng-model="data.hinhAnhDinhKem" multiple title="{{tooltips['hinhAnhDinhKem']}}" name="hinhAnhDinhKem" accept="image/*" valid-image class="input-form"></td>
 			</tr>
 			<tr>
 				<td>Đính kèm Xử lý chế tác:</td>
@@ -470,7 +469,7 @@
 			</tr>
 			<tr>
 				<td>Ảnh mẫu sau chế tác:</td>
-				<td><input type="file" ng-model="data.anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}" name="anhMauSauCheTac" class="input-form" multiple accept="image/*"></td>
+				<td><input type="file" ng-model="data.anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}" name="anhMauSauCheTac" class="input-form" multiple accept="image/*" valid-image></td>
 			</tr>
 			<tr><td><label>47. Thông tin DNA</label></td></tr>
 			<tr>
@@ -614,7 +613,7 @@
 				<td><input type="file" ng-model="data.hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}" name="hoSoNhapMauVatDiKem" class="input-form" accept=".doc, .docx, .pdf"></td>
 			</tr>
 			<tr>
-				<td><label>64. Người nhập phiếu mẫu vật<span class="has-required"> (*)</span>:</label></td>
+				<td><label>64. Người lập phiếu mẫu vật<span class="has-required"> (*)</span>:</label></td>
 				<td><input type="text" ng-model="data.nguoiNhapPhieuMauVat" title="{{tooltips['nguoiNhapPhieuMauVat']}}" name="nguoiNhapPhieuMauVat" class="input-form" required></td>
 			</tr>
 			<tr>

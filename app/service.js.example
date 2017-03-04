@@ -297,7 +297,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				toggleSelected: true
 			});
 			
-			$('.flextdatalist-force').flexdatalist({
+			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
 				toggleSelected: true
@@ -313,18 +313,26 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				toggleSelected: true
 			});
 
+
+
 			// Must call another time. Do not know why.
 			$('.flexdatalist').flexdatalist({
 				toggleSelected: true
 			});
 			// console.log('done render');
 
+			$('.flexdatalist-force').flexdatalist({
+				minLength: 0,
+				selectionRequired: true,
+				toggleSelected: true
+			});
+
 			// After rendering flexdatalist, giaTriSuDung will be focused.
 			// Call this to scroll to top.
 			$('html, body').animate({
 				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
-			}, 100);
-		}, 2000);
+			}, 1);
+		}, 10);
 	}
 
 	function initDatePicker(_scope) {

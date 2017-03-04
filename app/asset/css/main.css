@@ -125,6 +125,34 @@ a.nav:hover{
     color: #000;
 }
 /*------------------END-NAVBAR---------------------*/
+
+/*------------------START-CUSTOM-FILE---------------------*/
+.custom-input{
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.custom-input + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+.custom-input:focus + label,
+.custom-input + label:hover {
+    background-color: red;
+}
+.custom-input + label {
+    cursor: pointer; /* "hand" cursor */
+}
+/*------------------END-CUSTOM-FILE---------------------*/
+
 /*------------------FORM_DATA---------------------*/
 .has-error{
     border-color: #a94442;

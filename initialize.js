@@ -507,6 +507,9 @@ async(() => {
 				        "Hổ", 
 				        "KHMT01"
 				    ],
+				    "phanGiong": [
+				    	"Triceratops"
+				    ],
 				    "toc" : [ 
 				        "Tộc", 
 				        "KHMT01"

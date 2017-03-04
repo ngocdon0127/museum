@@ -21,6 +21,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'phanHo',
 					'toc', 
 					'giong', 
+					'phanGiong',
 					'loai', 
 					'duoiLoai', 
 					'coQuanThuMau', 
@@ -294,13 +295,13 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
 				minLength: 0,
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 			
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 		}, 1000)
 	}
@@ -310,21 +311,21 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			// console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 
 
 
 			// Must call another time. Do not know why.
 			$('.flexdatalist').flexdatalist({
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 			// console.log('done render');
 
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 
 			// After rendering flexdatalist, giaTriSuDung will be focused.
@@ -371,6 +372,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	}
 
 }]);
+
+var STR_AUTOCOMPLETION_SEPERATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
 
 //Autocomplete
 // app.directive('autoComplete', function($timeout) {

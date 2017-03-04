@@ -13,6 +13,7 @@ module.exports = function (mongoose) {
 		phanHo: [String],
 		toc: [String],
 		giong: [String],
+		phanGiong: [String],
 		loai: [String],
 		duoiLoai: [String],
 		coQuanThuMau: [String],

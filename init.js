@@ -41,6 +41,8 @@ var ACTION_EDIT = 1;
 global.myCustomVars.ACTION_EDIT = ACTION_EDIT;
 var STR_SEPERATOR = '_+_';
 global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
+var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
+global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
 
 
 // ============== Places ================
@@ -526,7 +528,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 				// Update Auto Completion
 				if (('autoCompletion' in element) && (element.autoCompletion)){
-					var value_ = value.split(',');
+					var value_ = value.split(STR_AUTOCOMPLETION_SEPERATOR);
 					for(let v of value_){
 						v = v.trim();
 						if (v){
@@ -1151,6 +1153,31 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		PROP_FIELDS.map(function (element, index) {
 			PROP_FIELDS_OBJ[element.name] = index;
 		});
+
+		// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
+
+		PROP_FIELDS.map((element, index) => {
+			if (('autoCompletion' in element) && (element.autoCompletion)){
+				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		})
+
+		{
+			// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
+			// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+			// Bọc trong ngoặc cho đỡ trùng tên biến :v
+			let fields = [
+				{
+					fieldName: 'loaiMauVat'
+				}
+			]
+
+			for(let f of fields){
+				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		}
+
+		// End of STR_AUTOCOMPLETION_SEPERATOR
 		
 		// Reconstruct tree
 		var oi = {};
@@ -1853,6 +1880,31 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		PROP_FIELDS.map(function (element, index) {
 			PROP_FIELDS_OBJ[element.name] = index;
 		});
+
+		// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
+
+		PROP_FIELDS.map((element, index) => {
+			if (('autoCompletion' in element) && (element.autoCompletion)){
+				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		})
+
+		{
+			// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
+			// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+			// Bọc trong ngoặc cho đỡ trùng tên biến :v
+			let fields = [
+				{
+					fieldName: 'loaiMauVat'
+				}
+			]
+
+			for(let f of fields){
+				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		}
+
+		// End of STR_AUTOCOMPLETION_SEPERATOR
 		
 		// Reconstruct tree
 		var oi = {};

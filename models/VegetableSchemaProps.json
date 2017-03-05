@@ -380,7 +380,7 @@
 	},
 	{
 		"name": "thongTinKhac3",
-		"schemaProp": "duLieuThuMau",
+		"schemaProp": "soLuongChatLuong",
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,

@@ -541,8 +541,11 @@
 				<tr>
 					<td><label>55. Hình thức nhập mẫu:</label></td>
 					<td>
-						<input type="text" list="hinhThucNhapMau" class="input-form flexdatalist" data-min-length='0'  multiple='multiple' title="{{tooltips['hinhThucNhapMau']}}" ng-model="data.hinhThucNhapMau" name="hinhThucNhapMau">
-						
+						<input type="text" list="hinhThucNhapMau" class="input-form flexdatalist" data-min-length='0'   title="{{tooltips['hinhThucNhapMau']}}" ng-model="data.hinhThucNhapMau" name="hinhThucNhapMau">
+						<datalist id="hinhThucNhapMau">
+							<option value="Thu thập">Thu thập</option>
+							<option value="Hiến tặng">Hiến tặng</option>
+						</datalist>
 					</td>
 				</tr>
 

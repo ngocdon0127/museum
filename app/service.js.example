@@ -34,7 +34,6 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'trangThaiGiuMauDNA',
 					'coQuanNhapVatMau',
 					'giaTriSuDung',
-					'hinhThucNhapMau',
 					'tong',
 					'chi',
 					'phanChi',

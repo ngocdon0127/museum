@@ -28,7 +28,7 @@ module.exports = function (mongoose) {
 		mauDNA: [String],
 		coQuanNhapVatMau: [String],
 		giaTriSuDung: [String],
-		hinhThucNhapMau: [String],
+		// hinhThucNhapMau: [String],
 		noiLuuTruMau: [String]
 	};
 	var vegetableAutoCompletion = mongoose.Schema(schemaPrototype);

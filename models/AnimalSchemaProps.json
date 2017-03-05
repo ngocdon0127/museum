@@ -934,7 +934,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": false
 	},
 	{
 		"name": "traoDoiMau",
@@ -1014,7 +1014,7 @@
 	{
 		"name": "nguoiNhapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Người nhập phiếu mẫu vật",
+		"label": "Người lập phiếu mẫu vật",
 		"required": false,
 		"money": true,
 		"type": "String",

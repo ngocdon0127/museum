@@ -204,7 +204,7 @@
 	{
 		"name": "ngayDinhTen",
 		"schemaProp": "tenMau",
-		"label": "Người định tên",
+		"label": "Ngày định tên",
 		"required": false,
 		"money": false,
 		"type": "Date"
@@ -944,7 +944,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": true
+		"autoCompletion": false
 	},
 	{
 		"name": "traoDoiMau",
@@ -1027,7 +1027,7 @@
 	{
 		"name": "nguoiNhapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Người nhập phiếu mẫu vật",
+		"label": "Người lập phiếu mẫu vật",
 		"required": false,
 		"money": true,
 		"type": "String",

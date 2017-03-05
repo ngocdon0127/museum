@@ -472,8 +472,8 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
+		"regex": "^(.|\r|\n){0,}$",
+		"autoCompletion": false
 	},
 	{
 		"name": "banDo",

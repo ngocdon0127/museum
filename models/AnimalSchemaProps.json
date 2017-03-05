@@ -532,7 +532,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^(.|\r|\n){0,}$"
 	},
 	{
 		"name": "banDo",

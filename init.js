@@ -1410,9 +1410,9 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		// Tiền xử lý không đồng bộ.
 		// Bắt buộc phải dùng Promise, async/await
 		var re = await (new Promise(function (resolve, reject) {
-			console.log('dmm');
+			// console.log('dmm');
 			setTimeout(function () {
-				console.log('hehe');
+				// console.log('hehe');
 				resolve('ok')
 			}, 1);
 		}))

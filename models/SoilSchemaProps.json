@@ -71,7 +71,7 @@
 	{
 		"name": "ngayDinhTen",
 		"schemaProp": "tenMau",
-		"label": "Người định tên",
+		"label": "Ngày định tên",
 		"required": false,
 		"money": false,
 		"type": "Date"
@@ -672,7 +672,7 @@
 	{
 		"name": "thoiGianXuLy",
 		"schemaProp": "media.xuLyCheTac",
-		"label": "Người xử lý, chế tác mẫu",
+		"label": "Thời gian xử lý, chế tác",
 		"required": false,
 		"money": false,
 		"type": "Date"

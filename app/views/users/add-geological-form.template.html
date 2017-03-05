@@ -303,55 +303,55 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 				<tr>
 					<td><label>29. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips[35]}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich"></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianPhanTich']}}" name="thoiGianPhanTich" ng-model="data.thoiGianPhanTich"></td>
 				</tr>
 				<tr>
 					<td><label>30. Người phân tích/giám định/định loại mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips[36]}}" name="nguoiPhanTich" ng-model="data.nguoiPhanTich" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['nguoiPhanTich']}}" name="nguoiPhanTich" ng-model="data.nguoiPhanTich" class="input-form" required></td>
 				</tr>
 				<tr>
 					<td><label>31. Cơ quan/tổ chức phân tích/giám định/phân loại mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips[37]}}" name="coQuanToChucPhanTich" ng-model="data.coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['coQuanToChucPhanTich']}}" name="coQuanToChucPhanTich" ng-model="data.coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form" required></td>
 				</tr>
 				<tr>
 					<td><label>32. Tài liệu phân tích/giám định/phân loại đi kèm <span class="has-required">(*)</span>:</label></td>
 				</tr>
 				<tr>
-						<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips[38]}}" name="taiLieuPhanTichStr" class="input-form" required></td>
-						<td><input type="file" multiple ng-model="data.taiLieuPhanTichFile"   title="{{tooltips[38]}}" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="input-form" valid-file required></td>
+						<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips['taiLieuPhanTichStr']}}" name="taiLieuPhanTichStr" class="input-form" required></td>
+						<td><input type="file" multiple ng-model="data.taiLieuPhanTichFile"   title="{{tooltips['taiLieuPhanTichFile']}}" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="input-form" valid-file required></td>
 				</tr>
 				<tr>
 					<td><label>33. Các phân tích quang học: </label></td>
 				</tr>
 				<tr>
-					<td><input type="text" title="{{tooltips[39]}}" name="phanTichQuangHocStr" ng-model="data.phanTichQuangHocStr" class="input-form"></td>
+					<td><input type="text" title="{{tooltips['phanTichQuangHocStr']}}" name="phanTichQuangHocStr" ng-model="data.phanTichQuangHocStr" class="input-form"></td>
 					<td><input type="file" multiple   accept=".doc, .docx, .pdf" name ="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>34. Các kết quả phân tích thành phần vật chất:</label></td>
-					<td><input type="file" multiple title="{{tooltips[40]}}" name="ketQuaThanhPhanVatChat" ng-model="data.ketQuaThanhPhanVatChat" class="input-form" accept=".docx, .doc, .pdf" ></td>
+					<td><input type="file" multiple title="{{tooltips['ketQuaThanhPhanVatChat']}}" name="ketQuaThanhPhanVatChat" ng-model="data.ketQuaThanhPhanVatChat" class="input-form" accept=".docx, .doc, .pdf" ></td>
 				</tr>
 				<tr>
 					<td><label>35. Kết quả phân tích đồng vị và định tuổi:</label></td>
-					<td><input type="file" multiple title="{{tooltips[41]}}" name="ketQuaPhanTichDongVi" ng-model="data.ketQuaPhanTichDongVi" class="input-form" accept=".docx, .doc, .pdf" ></td>
+					<td><input type="file" multiple title="{{tooltips['ketQuaPhanTichDongVi']}}" name="ketQuaPhanTichDongVi" ng-model="data.ketQuaPhanTichDongVi" class="input-form" accept=".docx, .doc, .pdf" ></td>
 				</tr>
 				<tr>
 					<td><label>36. Các phân tích khác:</label></td>
-					<td><input type="file" multiple title="{{tooltips[42]}}" name="phanTichKhac" ng-model="data.phanTichKhac" class="input-form" accept=".docx, .doc, .pdf"></td>
+					<td><input type="file" multiple title="{{tooltips['phanTichKhac']}}" name="phanTichKhac" ng-model="data.phanTichKhac" class="input-form" accept=".docx, .doc, .pdf"></td>
 				</tr>
 					<td><label>37. Nhóm dữ liệu địa chất</label></td>
 				<tr>
 					<td>Đặc điểm địa chất: </td>
-					<td><input type="text" title="{{tooltips[43]}}" name="dacDiemDiaChat" ng-model="data.dacDiemDiaChat" class="input-form"></td>
+					<td><input type="text" title="{{tooltips['dacDiemDiaChat']}}" name="dacDiemDiaChat" ng-model="data.dacDiemDiaChat" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Loại hình nguồn gốc:</td>
-					<td><input type="text" title="{{tooltips[44]}}" name="loaiHinhNguonGoc" ng-model="data.loaiHinhNguonGoc" class="input-form"></td>
+					<td><input type="text" title="{{tooltips['loaiHinhNguonGoc']}}" name="loaiHinhNguonGoc" ng-model="data.loaiHinhNguonGoc" class="input-form"></td>
 				</tr>
 
 				<tr>
 					<td><label>38. Thông tin khác: </label></td>
-					<td><input type="text" ng-model="data.thongTinKhac5" title="{{tooltips[45]}}" name="thongTinKhac5" class="input-form"></td>
+					<td><input type="text" ng-model="data.thongTinKhac5" title="{{tooltips['thongTinKhac5']}}" name="thongTinKhac5" class="input-form"></td>
 				</tr>
 			</table>
 		</div>
@@ -393,7 +393,7 @@
 				</tr>
 				<tr>
 					<td>Thời gian xử lý chế tác:</td>
-					<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form"></td>
+					<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
 				</tr>
 				<tr>
 					<td>Người xử lý, chế tác:</td>

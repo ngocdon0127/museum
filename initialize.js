@@ -584,7 +584,7 @@ async(() => {
 				        "Mặt ba sừng", 
 				        "Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)", 
 				    ],
-				    "tenTheoBaoTang" : [],
+				    "tenTheoBaoTang" : ["Mặt ba sừng"],
 				    "giaTriSuDung" : [ 
 				        "Khoa học", 
 				        "Y học", 

@@ -309,9 +309,36 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		}
 		delete specialFields.coordinations;
 
-		delete specialFields;
 		// End of Number Fields
 
+		// =============== Handle undefined Tỉnh, Huyện, Xã ===============
+
+		specialFields.placeFields = [
+			{
+				fieldName: 'tinh'
+			},
+			{
+				fieldName: 'huyen'
+			},
+			{
+				fieldName: 'xa'
+			}
+		]
+
+		for(let field of specialFields.placeFields){
+			if (field.fieldName in req.body){
+				let value_ = req.body[field.fieldName]
+				if ((value_.indexOf('undefined') >= 0) || (value_.indexOf('string') >= 0) || (value_.indexOf('?') >= 0)){
+					req.body[field.fieldName] = ''
+				}
+			}
+		}
+
+		delete specialFields.placeFields
+
+		// =============== End of Handle undefined Tỉnh, Huyện, Xã ===============
+
+		delete specialFields;
 		// =============== End of Validate special fields ===============
 		
 		// save props

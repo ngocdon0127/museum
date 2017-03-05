@@ -2,7 +2,9 @@ var fs = require('fs-extra')
 var path = require('path')
 
 var cleanUser = false;
+var cleanConfigFiles = false;
 var cleanAutoCompletion = true;
+
 
 console.log('Initializing...');
 
@@ -20,17 +22,19 @@ var files = [
 
 ]
 
-files.map((file, index) => {
-	try {
-		fs.copySync(path.join(__dirname, file.example), path.join(__dirname, file.original))
-		// console.log("success!")
-	} catch (err) {
-		console.error(err)
-		process.exit(1)
-	}
-});
+if (cleanConfigFiles){
+	files.map((file, index) => {
+		try {
+			fs.copySync(path.join(__dirname, file.example), path.join(__dirname, file.original))
+			// console.log("success!")
+		} catch (err) {
+			console.error(err)
+			process.exit(1)
+		}
+	});
 
-console.log('config files OK')
+	console.log('config files OK')
+}
 
 console.log('preparing DB...')
 
@@ -233,11 +237,23 @@ async(() => {
 				        "Loliginidae", 
 				        "Gigantoproductidae Muir-Wood & Cooper, 1960"
 				    ],
+				    "lienHo" : [ 
+				        "Productacea  Gray, 1840", 
+				        "KHMT01"
+				    ],
+				    "phanHo" : [ 
+				        "Ceratopsinae", 
+				        "Gigantoproductidae Muir-Wood & Cooper, 1960", 
+				        "KHMT01", 
+				    ],
 				    "bo" : [ 
 				        "Productida Sarytcheva & Sokolskaya, 1959"
 				    ],
 				    "lop" : [ 
 				        "Strophomenata Williams, Carlson, Bruton, Homer et Popov, 1996"
+				    ],
+				    "phanLop" : [ 
+				        "KHMT01"
 				    ],
 				    "nganh" : [ 
 				        "Tay cuộn (Brachiopoda) Duméril, 1806"
@@ -253,6 +269,9 @@ async(() => {
 				    ],
 				    "chi" : [ 
 				        "KHMT Cổ Sinh 01"
+				    ],
+				    "chiGiong": [
+				    	"Triceratops"
 				    ],
 				    "hinhThucNhapMau" : [ 
 				        "Thu thập", 

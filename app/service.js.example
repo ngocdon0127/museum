@@ -28,6 +28,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 					'quocGia', 'tinh', 
 					'huyen', 'xa', 'thon', 
 					'coQuanToChucPhanTich', 
+					'coQuanToChucGiamDinh',
 					'coQuanXuLy',
 					'boPhanLayMauDNA', 
 					'trangThaiGiuMauDNA',

@@ -245,8 +245,17 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		var FILE_FIELDS = _PROP_FIELDS.filter(function (element) {
 			return !element.type.localeCompare('File')
 		});
+
+		if (action == ACTION_CREATE){
+			objectInstance.created_by.userId = req.user.id // Owner
+			objectInstance.created_by.userFullName = req.user.fullname // Owner
+		}
+
 		var objectBeforeUpdate = {};
 		if (action == ACTION_EDIT){
+
+			objectInstance.updated_by.userId = req.user.id
+			objectInstance.updated_by.userFullName = req.user.fullname
 
 			// Date will be converted to String.
 			objectBeforeUpdate = JSON.parse(JSON.stringify(objectInstance));

@@ -11,20 +11,60 @@
 	<script src="/javascripts/FileSaver.js"></script>
 	<script src="/javascripts/datetimepicker.min.js"></script>
 	<script src="/javascripts/webgazer.js"></script>
+	<script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
 
-    </script>
+	</script>
 
 	
 	</head>
 	<body>
 	<!--<canvas id="myCanvas" width="1920" height="1080" style="border:1px solid #c3c3c3;">-->
-	<div width="160" height="120">
+	<!--<div width="160" height="120">
 		<video width="320" height="240" controls>
 		  <source src="http://localhost:8000/content/download/uploads/paleontological/58bb801f0462a106bc432fde_+_Video%204.mp4">
 		</video>
-	</div>
-  <script src="https://cdn.plyr.io/2.0.11/plyr.js"></script>
-  <script>plyr.setup();</script>
+	</div>-->
+	<div id="foo">hehe</div>
+  <!--<script src="https://cdn.plyr.io/2.0.11/plyr.js.noload"></script>-->
+  <script>//plyr.setup();</script>
+  <script>
+	var opts = {
+		  lines: 13 // The number of lines to draw
+		, length: 28 // The length of each line
+		, width: 14 // The line thickness
+		, radius: 42 // The radius of the inner circle
+		, scale: 1 // Scales overall size of the spinner
+		, corners: 1 // Corner roundness (0..1)
+		, color: '#000' // #rgb or #rrggbb or array of colors
+		, opacity: 0.25 // Opacity of the lines
+		, rotate: 0 // The rotation offset
+		, direction: 1 // 1: clockwise, -1: counterclockwise
+		, speed: 1 // Rounds per second
+		, trail: 60 // Afterglow percentage
+		, fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+		, zIndex: 2e9 // The z-index (defaults to 2000000000)
+		, className: 'spinner' // The CSS class to assign to the spinner
+		, top: '50%' // Top position relative to parent
+		, left: '50%' // Left position relative to parent
+		, shadow: false // Whether to render a shadow
+		, hwaccel: false // Whether to use hardware acceleration
+		, position: 'absolute' // Element positioning
+	}
+	var target = document.getElementById('foo')
+	var spinner = new Spinner(opts).spin();
+	console.log('created');
+	spinner.spin(target);
+	console.log('spinned')
+	setTimeout(function () {
+		console.log('stop')
+		spinner.stop();
+	}, 2000)
+
+	setTimeout(function () {
+		console.log('spin')
+		spinner.spin(target);
+	}, 4000)
+  </script>
 	<script>
 		// var canvas = document.getElementById("myCanvas");
 		// var ctx = canvas.getContext("2d");

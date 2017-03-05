@@ -3,7 +3,7 @@
 	<head>
 	<title><%= title %></title>
 	<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-	
+	<link rel="stylesheet" href="https://cdn.plyr.io/2.0.11/plyr.css">
 	
 	<link rel="stylesheet" href="/stylesheets/datetimepicker.min.css">
 	<script src="/javascripts/jquery.js"></script>
@@ -17,43 +17,50 @@
 	
 	</head>
 	<body>
-	<canvas id="myCanvas" width="1920" height="1080" style="border:1px solid #c3c3c3;">
+	<!--<canvas id="myCanvas" width="1920" height="1080" style="border:1px solid #c3c3c3;">-->
+	<div width="160" height="120">
+		<video width="320" height="240" controls>
+		  <source src="http://localhost:8000/content/download/uploads/paleontological/58bb801f0462a106bc432fde_+_Video%204.mp4">
+		</video>
+	</div>
+  <script src="https://cdn.plyr.io/2.0.11/plyr.js"></script>
+  <script>plyr.setup();</script>
 	<script>
-		var canvas = document.getElementById("myCanvas");
-		var ctx = canvas.getContext("2d");
-		ctx.fillStyle = "#FF0000";
-		ctx.fillRect(0,0,150,150);
+		// var canvas = document.getElementById("myCanvas");
+		// var ctx = canvas.getContext("2d");
+		// ctx.fillStyle = "#FF0000";
+		// ctx.fillRect(0,0,150,150);
 	</script>
 	<script>
-		webgazer.setGazeListener(function(data, elapsedTime) {
-			// return;
-			ctx.fillStyle = "#FF0000";
-		    if (data == null) {
-		    	console.log('data null')
-		    	// ctx.fillRect(102,120,150,150);
-		    	// ctx.fillRect(Math.floor(Math.random() * 400), Math.floor(Math.random() * 500), 10, 10);
-		        return;
-		    }
-		    console.log('data ok')
-		    var xprediction = data.x; //these x coordinates are relative to the viewport 
-		    var yprediction = data.y; //these y coordinates are relative to the viewport
-		    // ctx.fillRect(Math.floor(xprediction), Math.floor(yprediction), 10, 10);
-		    // ctx.fillRect(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), 10, 10);
-		    console.log("time:  " + elapsedTime + ", " + xprediction + " " + yprediction); //elapsed time is based on time since begin was called
-		}).begin();
+		// webgazer.setGazeListener(function(data, elapsedTime) {
+		// 	// return;
+		// 	ctx.fillStyle = "#FF0000";
+		//     if (data == null) {
+		//     	console.log('data null')
+		//     	// ctx.fillRect(102,120,150,150);
+		//     	// ctx.fillRect(Math.floor(Math.random() * 400), Math.floor(Math.random() * 500), 10, 10);
+		//         return;
+		//     }
+		//     console.log('data ok')
+		//     var xprediction = data.x; //these x coordinates are relative to the viewport 
+		//     var yprediction = data.y; //these y coordinates are relative to the viewport
+		//     // ctx.fillRect(Math.floor(xprediction), Math.floor(yprediction), 10, 10);
+		//     // ctx.fillRect(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), 10, 10);
+		//     console.log("time:  " + elapsedTime + ", " + xprediction + " " + yprediction); //elapsed time is based on time since begin was called
+		// }).begin();
 
-		setInterval(function () {
-			var prediction = webgazer.getCurrentPrediction();
-			if (prediction) {
-			    var x = prediction.x;
-			    var y = prediction.y;
-			    ctx.fillStyle = "#00FF00";
-				ctx.fillRect(x,y,10,10);
-			}
-			else {
-				console.log('predict null')
-			}
-		}, 1000)
+		// setInterval(function () {
+		// 	var prediction = webgazer.getCurrentPrediction();
+		// 	if (prediction) {
+		// 	    var x = prediction.x;
+		// 	    var y = prediction.y;
+		// 	    ctx.fillStyle = "#00FF00";
+		// 		ctx.fillRect(x,y,10,10);
+		// 	}
+		// 	else {
+		// 		console.log('predict null')
+		// 	}
+		// }, 1000)
 
 	</script>
 	<script type="text/javascript">

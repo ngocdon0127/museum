@@ -22,6 +22,7 @@ module.exports = function (mongoose) {
 		coQuanToChucPhanTich: [String],
 		vungGenPhanTich: [String],
 		coQuanNhapVatMau: [String],
+		coQuanXuLy: [String],
 		giaTriSuDung: [String],
 		// hinhThucNhapMau: [String],
 		noiLuuTruMau: [String]

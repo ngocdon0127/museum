@@ -85,7 +85,7 @@
 	{
 		"name": "phanLop",
 		"schemaProp": "tenMau.tenKhoaHoc",
-		"label": "Lớp",
+		"label": "Phân lớp",
 		"required": false,
 		"money": false,
 		"type": "String",
@@ -125,7 +125,7 @@
 	{
 		"name": "phanHo",
 		"schemaProp": "tenMau.tenKhoaHoc",
-		"label": "Họ",
+		"label": "Phân họ",
 		"required": false,
 		"money": false,
 		"type": "String",
@@ -744,7 +744,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "congBoQuocTe",

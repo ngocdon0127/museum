@@ -43,7 +43,7 @@ function saveData(id, data) {
 		}
 	}
 
-app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	// setInterval(saveData("dataAni", $scope.data), 2000);
 	// setTimeout(getData("dataAni"), 1000);
@@ -80,7 +80,6 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	$scope.addPost = function(FormContent){
 		console.log($scope.data)
 		// if ($scope.FormContent.$valid) {
-			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		// } else{
@@ -114,7 +113,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}
 }]);
 
-app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
+app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -186,7 +185,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 	}
 }]);
 
-app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 	
 	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -257,7 +256,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	}
 }]);
 
-app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -328,7 +327,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 	}
 }]);
 
-app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoadingOverlayService', function ($scope, $http, AuthService, bsLoadingOverlayService) {
 
 	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -477,3 +476,16 @@ app.controller('CookiesManageController', ['$scope', '$cookies', function($scope
 		$cookies.remove('data')
 	}
 }])
+
+app.controller('HttpIntegrationController', function($scope, $http, $sce, bsLoadingOverlayService) {
+	$scope.result = $sce.trustAsHtml('Fetch result here');
+	$scope.fetchRandomText = function() {
+		$http.get('http://hipsterjesus.com/api/')
+			.success(function(data) {
+				$scope.result = $sce.trustAsHtml(data.text);
+			})
+			.error(function() {
+				$scope.result = $sce.trustAsHtml('Can not get the article');
+			});
+	};
+});

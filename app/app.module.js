@@ -1,14 +1,23 @@
 var app = angular.module('museumApp', [
 	'ngRoute',
 	'ngMessages',
-	'ui.bootstrap',
-	'angular-loading-bar',
-	'cfp.loadingBar',
+    'bsLoadingOverlay',
+    'bsLoadingOverlayHttpInterceptor',
+    'ui.bootstrap',
+	// 'angular-loading-bar',
+	// 'cfp.loadingBar',
 	'ngAnimate'
 	])
-.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.includeSpinner = false;
-  }]);
+.factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
+    return bsLoadingOverlayHttpInterceptorFactoryFactory();
+})
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push('allHttpInterceptor');
+}).run(function(bsLoadingOverlayService) {
+    bsLoadingOverlayService.setGlobalConfig({
+        templateUrl: 'views/users/loading-overlay-template.html'
+    });
+});
 
 // app.directive('validFile', function ($parse) {
 //     return {
@@ -58,4 +67,3 @@ app.directive('validFile', function ($parse) {
         }
     };
 });
-

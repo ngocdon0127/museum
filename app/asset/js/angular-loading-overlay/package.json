@@ -1,0 +1,116 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "angular-loading-overlay",
+        "scope": null,
+        "escapedName": "angular-loading-overlay",
+        "name": "angular-loading-overlay",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\Hola\\museum\\app"
+    ]
+  ],
+  "_from": "angular-loading-overlay@latest",
+  "_id": "angular-loading-overlay@1.1.1",
+  "_inCache": true,
+  "_location": "/angular-loading-overlay",
+  "_nodeVersion": "6.2.2",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-loading-overlay-1.1.1.tgz_1467837620978_0.28605545428581536"
+  },
+  "_npmUser": {
+    "name": "bsalex",
+    "email": "bs.alex.mail@gmail.com"
+  },
+  "_npmVersion": "3.9.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular-loading-overlay",
+    "scope": null,
+    "escapedName": "angular-loading-overlay",
+    "name": "angular-loading-overlay",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-loading-overlay/-/angular-loading-overlay-1.1.1.tgz",
+  "_shasum": "94f1356b327c2ec79c1b39eaa473b01ec808cea6",
+  "_shrinkwrap": null,
+  "_spec": "angular-loading-overlay",
+  "_where": "D:\\Hola\\museum\\app",
+  "author": {
+    "name": "Oleksandr Beshchuk",
+    "email": "bs.alex.mail@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/bsalex/angular-loading-overlay/issues"
+  },
+  "dependencies": {},
+  "description": "Service and directive to manipulate overlays on async operations.",
+  "devDependencies": {
+    "angular": "^1.5.0-beta.0",
+    "angular-mocks": "^1.5.0-beta.0",
+    "bower": "^1.5.2",
+    "husky": "^0.10.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.10",
+    "karma-coverage": "^0.5.2",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-growler-reporter": "0.0.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sinon": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "github:webpack/karma-webpack#pull/127/head",
+    "ng-describe": "^1.3.0",
+    "phantomjs": "^1.9.18",
+    "sinon": "^1.17.0",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.10.2",
+    "tslint-loader": "^2.1.4",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.5",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "94f1356b327c2ec79c1b39eaa473b01ec808cea6",
+    "tarball": "https://registry.npmjs.org/angular-loading-overlay/-/angular-loading-overlay-1.1.1.tgz"
+  },
+  "gitHead": "b4d6da7d734878135e2b1f06547901a70145a2b6",
+  "homepage": "https://github.com/bsalex/angular-loading-overlay#readme",
+  "license": "Apache-2.0",
+  "main": "./dist/angular-loading-overlay.js",
+  "maintainers": [
+    {
+      "name": "bsalex",
+      "email": "bs.alex.mail@gmail.com"
+    }
+  ],
+  "name": "angular-loading-overlay",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsalex/angular-loading-overlay.git"
+  },
+  "scripts": {
+    "build": "webpack",
+    "lint": "tslint ./source/*.ts",
+    "prepare-development": "typings install",
+    "prepush": "npm test && npm run build && git add -u && git diff-index --quiet HEAD || git commit -q -m 'Build'",
+    "test": "karma start --single-run",
+    "test:watch": "karma start",
+    "watch": "webpack-dev-server --host 0.0.0.0"
+  },
+  "version": "1.1.1"
+}

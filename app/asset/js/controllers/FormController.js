@@ -43,7 +43,7 @@ function saveData(id, data) {
 		}
 	}
 
-app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', 'spinnerService', function ($scope, $http, AuthService, spinnerService) {
 
 	// setInterval(saveData("dataAni", $scope.data), 2000);
 	// setTimeout(getData("dataAni"), 1000);
@@ -77,10 +77,15 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		console.log(err);
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
+
 	$scope.addPost = function(FormContent){
-		console.log($scope.data)
+			
 		// if ($scope.FormContent.$valid) {
-			cfpLoadingBar.start();
+			spinnerService.show('loadingSpinner');
+			for (var i = 500; i >= 0; i--) {
+				console.log("Hola Nguyen")
+				$http.get(urlRe);
+			}
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		// } else{
@@ -114,7 +119,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}
 }]);
 
-app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
+app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -147,6 +152,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 		// if ($scope.FormContent.$valid) {
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
+		
 		// } else{
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
@@ -183,7 +189,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 	}
 }]);
 
-app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 	
 	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -249,7 +255,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	}
 }]);
 
-app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -315,7 +321,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 	}
 }]);
 
-app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;

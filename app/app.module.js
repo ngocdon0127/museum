@@ -4,6 +4,7 @@ var app = angular.module('museumApp', [
 	'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',
+    'angularSpinners',
 	'ngAnimate'
 	])
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {

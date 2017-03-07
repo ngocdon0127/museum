@@ -1,5 +1,6 @@
 <!-- <div id="loading-bar-container"></div> -->
 <div style="margin-top: 60px;">
+	<spinner name="loadingSpinner" img-src="asset/image/progress.gif"></spinner>
 	<form id="form-content" name="FormContent" ng-submit="addPost(FormContent, form)" novalidate>
 		<center><h2>Thêm mẫu dữ liệu động vật</h2></center>
 		<div class="container map-detail" style="margin-top: 50px;">
@@ -627,13 +628,13 @@
 		</table>
 		</div>
 		<div class="container map-detail" style="margin-top: 50px;">
-		<table>
-			<h3 class="h3-title">NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
-			<tr>
-				<td><label>67. Thông tin khác</label></td>
-				<td><input type="text" ng-model="data.thongTinKhac9" title="{{tooltips['thongTinKhac9']}}" name="thongTinKhac9" class="input-form"></td>
-			</tr>
-		</table>
+			<table>
+				<h3 class="h3-title">NHÓM DỮ LIỆU THÔNG TIN KHÁC</h3>
+				<tr>
+					<td><label>67. Thông tin khác</label></td>
+					<td><input type="text" ng-model="data.thongTinKhac9" title="{{tooltips['thongTinKhac9']}}" name="thongTinKhac9" class="input-form"></td>
+				</tr>
+			</table>
 		</div>
 		<center>
 			<button style="margin-top: 30px;" id="add-post" type="submit" class="btn btn-success btn-lg">Thêm mẫu</button>
@@ -641,5 +642,4 @@
 			<button style="margin-top: 30px;" ng-click="getCookies()" type="button" class="btn btn-success btn-lg">Lấy lại bản nháp</button>
 		</center>
 	</form>
-	
 </div>

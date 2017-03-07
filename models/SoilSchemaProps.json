@@ -71,7 +71,7 @@
 	{
 		"name": "ngayDinhTen",
 		"schemaProp": "tenMau",
-		"label": "Người định tên",
+		"label": "Ngày định tên",
 		"required": false,
 		"money": false,
 		"type": "Date"
@@ -472,8 +472,8 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
+		"regex": "^(.|\r|\n){0,}$",
+		"autoCompletion": false
 	},
 	{
 		"name": "banDo",
@@ -606,7 +606,7 @@
 		"money": true,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$",
 		"autoCompletion": false
 	},
 	{
@@ -617,7 +617,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$",
 		"autoCompletion": false
 	},
 	{
@@ -646,7 +646,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -672,7 +672,7 @@
 	{
 		"name": "thoiGianXuLy",
 		"schemaProp": "media.xuLyCheTac",
-		"label": "Người xử lý, chế tác mẫu",
+		"label": "Thời gian xử lý, chế tác",
 		"required": false,
 		"money": false,
 		"type": "Date"
@@ -741,7 +741,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -770,7 +770,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{
@@ -839,7 +839,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": true
+		"autoCompletion": false
 	},
 	{
 		"name": "traoDoiMau",
@@ -910,7 +910,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$",
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
 		"autoCompletion": false
 	},
 	{

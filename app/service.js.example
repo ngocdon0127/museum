@@ -11,33 +11,43 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		renderFlexdatalist: renderFlexdatalist,
 		fetchFlexdatalist: fetchFlexdatalist,
 		initDatePicker: initDatePicker,
-		arrAuto: [	'tenDongNghia','gioi',
-					'nganh', 'lop', 
-					'phanLop', 
-					'bo', 
-					'phanBo', 
-					'lienHo',
-					'ho',
-					'phanHo',
-					'toc', 
-					'giong', 
-					'loai', 
-					'duoiLoai', 
-					'coQuanThuMau', 
-					'quocGia', 'tinh', 
-					'huyen', 'xa', 'thon', 
-					'coQuanToChucPhanTich', 
-					'coQuanXuLy',
-					'boPhanLayMauDNA', 
-					'trangThaiGiuMauDNA',
-					'coQuanNhapVatMau',
-					'giaTriSuDung',
-					'hinhThucNhapMau',
-					'tong',
-					'chi',
-					'phanChi',
-					'loai',
-					'noiLuuTruMau']
+		startSpinner: startSpinner,
+		stopSpinner: stopSpinner,
+		arrAuto: [	
+			'tenDongNghia',
+			'tenTheoBaoTang',
+			'gioi',
+			'nganh', 'lop', 
+			'phanLop', 
+			'bo', 
+			'phanBo', 
+			'lienHo',
+			'ho',
+			'phanHo',
+			'toc', 
+			'giong', 
+			'phanGiong',
+			'loai', 
+			'duoiLoai', 
+			'coQuanThuMau', 
+			'quocGia', 'tinh', 
+			'huyen', 'xa', 'thon', 
+			'coQuanToChucPhanTich', 
+			'coQuanToChucGiamDinh',
+			'coQuanXuLy',
+			'boPhanLayMauDNA', 
+			'trangThaiGiuMauDNA',
+			'coQuanNhapVatMau',
+			'giaTriSuDung',
+			'tong',
+			'chi',
+			'phanChi',
+			'chiGiong',
+			'loai',
+			'noiLuuTruMau',
+			'viTriLayMauDNA',
+			'mauDNA'
+		]
 	});
 
 	function exportFile(id){
@@ -163,42 +173,49 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 
 	function addSample(fd, url, urlRe){
 		$.ajax({
-				url: url,
-				method: 'POST',
-				contentType: false,
-				processData: false,
-				data: fd,
-				success: function (data) {
-					cfpLoadingBar.complete();
+			url: url,
+			method: 'POST',
+			contentType: false,
+			processData: false,
+			data: fd,
+			success: function (data) {
+				cfpLoadingBar.complete();
+				stopSpinner();
+				setTimeout(function () { // Stop spinner before alerting
 					alert(data.status);
 					window.location = urlRe;
-				},
-				error: function (err) {
-					cfpLoadingBar.complete();
-					cfpLoadingBar.set(0);
-					console.log(err);
+				}, 100)
+			},
+			error: function (err) {
+				cfpLoadingBar.complete();
+				stopSpinner();
+				cfpLoadingBar.set(0);
+				setTimeout(function () { // Stop spinner before alerting
 					alert(JSON.parse(err.responseText).error);
-					var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-					try {
-						element.style.background = '#EE543A';
-						setTimeout((function (e) {
-							return function () {
-								e.style.background = 'white';
-							}
-						})(element), 2000);
-						$('html, body').animate({
-							scrollTop: $(element).offset().top - 100
-						}, 500);
-					}
-					catch (e){
-						// do not care
-					}
+				}, 100)
+				console.log(err);
+
+				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+				try {
+					element.style.background = '#EE543A';
+					setTimeout((function (e) {
+						return function () {
+							e.style.background = 'white';
+						}
+					})(element), 2000);
+					$('html, body').animate({
+						scrollTop: $(element).offset().top - 100
+					}, 500);
 				}
-			});
+				catch (e){
+					// do not care
+				}
+			}
+		});
 	}
 
 	function editForm(fd, url, urlRe){
-			$.ajax({
+		$.ajax({
 			url: url,
 			method: 'PUT',
 			contentType: false,
@@ -206,14 +223,20 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			data: fd,
 			success: function (data) {
 				cfpLoadingBar.complete();
-				alert(data.status);
-				window.location = urlRe;
+				stopSpinner();
+				setTimeout(function () { // Stop spinner before alerting
+					alert(data.status);
+					window.location = urlRe;
+				}, 100)
 			},
 			error: function (err) {
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
+				stopSpinner();
 				console.log(err);
-				alert(JSON.parse(err.responseText).error);
+				setTimeout(function () { // Stop spinner before alerting
+					alert(JSON.parse(err.responseText).error);
+				}, 100)
 				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
 				try {
 					element.style.background = '#EE543A';
@@ -291,7 +314,13 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
 				minLength: 0,
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+			});
+			
+			$('.flexdatalist-force').flexdatalist({
+				minLength: 0,
+				selectionRequired: true,
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 		}, 1000)
 	}
@@ -301,21 +330,29 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			// console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
+
+
 
 			// Must call another time. Do not know why.
 			$('.flexdatalist').flexdatalist({
-				toggleSelected: true
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 			// console.log('done render');
+
+			$('.flexdatalist-force').flexdatalist({
+				minLength: 0,
+				selectionRequired: true,
+				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+			});
 
 			// After rendering flexdatalist, giaTriSuDung will be focused.
 			// Call this to scroll to top.
 			$('html, body').animate({
 				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
-			}, 100);
-		}, 2000);
+			}, 1);
+		}, 10);
 	}
 
 	function initDatePicker(_scope) {
@@ -347,13 +384,61 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				changeMonth: 'true',
 				changeYear: true,
 				showAnim: 'slideDown',
-
+				yearRange: ((new Date()).getFullYear() - 200) + ':' + ((new Date()).getFullYear() + 10)
 			});
 		}, 1000)
 		
 	}
 
+	function startSpinner() {
+		if (SPINNER){
+			SPINNER.stop();
+		}
+		var opts = {
+			  lines: 13 // The number of lines to draw
+			, length: 28 // The length of each line
+			, width: 14 // The line thickness
+			, radius: 42 // The radius of the inner circle
+			, scale: 2.25 // Scales overall size of the spinner
+			, corners: 1 // Corner roundness (0..1)
+			, color: '#000' // #rgb or #rrggbb or array of colors
+			, opacity: 0.25 // Opacity of the lines
+			, rotate: 0 // The rotation offset
+			, direction: 1 // 1: clockwise, -1: counterclockwise
+			, speed: 1.8 // Rounds per second
+			, trail: 60 // Afterglow percentage
+			, fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+			, zIndex: 2e9 // The z-index (defaults to 2000000000)
+			, className: 'spinner' // The CSS class to assign to the spinner
+			, top: '95%' // Top position relative to parent
+			, left: '50%' // Left position relative to parent
+			, shadow: false // Whether to render a shadow
+			, hwaccel: false // Whether to use hardware acceleration
+			, position: 'absolute' // Element positioning
+		}
+		// var target = document.getElementById('form-content');
+		target = document.getElementById('form-content');
+		// console.log('starting spinner');
+		// console.log(target)
+		SPINNER = new Spinner(opts).spin(target);
+		// console.log('start spinning');
+		$('html, body').animate({
+			scrollTop: $(document.getElementsByClassName('spinner')[0]).offset().top
+		}, 500);
+
+		setTimeout(function () {
+			// stopSpinner();
+		}, 2000)
+	}
+
+	function stopSpinner() {
+		SPINNER.stop();
+	}
+
 }]);
+
+var STR_AUTOCOMPLETION_SEPERATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
+var SPINNER = null;
 
 //Autocomplete
 // app.directive('autoComplete', function($timeout) {

@@ -63,6 +63,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 	}
@@ -146,6 +147,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 	}
@@ -229,6 +231,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 	}
@@ -313,6 +316,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 	}
@@ -396,6 +400,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 	}

@@ -80,6 +80,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	$scope.addPost = function(FormContent){
 		console.log($scope.data)
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		// } else{
@@ -144,6 +145,8 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
+
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 		// } else{
@@ -212,6 +215,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 		// } else{
@@ -278,6 +282,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 		// } else{
@@ -344,6 +349,7 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 		// } else{

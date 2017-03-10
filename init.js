@@ -1194,7 +1194,12 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		PROP_FIELDS.map((element, index) => {
 			if (('autoCompletion' in element) && (element.autoCompletion)){
-				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
 			}
 		})
 
@@ -1209,7 +1214,13 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			]
 
 			for(let f of fields){
-				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
+
 			}
 		}
 
@@ -1921,7 +1932,12 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		PROP_FIELDS.map((element, index) => {
 			if (('autoCompletion' in element) && (element.autoCompletion)){
-				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
 			}
 		})
 
@@ -1936,7 +1952,12 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			]
 
 			for(let f of fields){
-				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
 			}
 		}
 

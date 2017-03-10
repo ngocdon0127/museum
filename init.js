@@ -766,7 +766,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			}
 		}
 
-		delete objectInstance.flag.fDiaDiemThuMau;
+		delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don'y know why, check later
 		for(var i = 0; i < PROP_FIELDS.length; i++){
 			var field = PROP_FIELDS[i];
 			// console.log(field.name);

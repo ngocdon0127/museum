@@ -214,7 +214,8 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "tenDiaPhuong",
@@ -223,7 +224,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTiengAnh",
@@ -231,7 +233,8 @@
 		"label": "Tên tiếng Anh",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTheoBaoTang",
@@ -730,8 +733,7 @@
 		"label": "Thuộc tính Xử lý chế tác",
 		"required": false,
 		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
+		"type": "String"
 	},
 	{
 		"name": "phuongThucXuLy",

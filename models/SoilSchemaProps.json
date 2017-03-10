@@ -56,7 +56,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "nguoiDinhTen",
@@ -84,7 +84,7 @@
 		"money": true,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "tenDiaPhuong",
@@ -94,7 +94,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTiengAnh",
@@ -104,7 +104,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTheoBaoTang",
@@ -114,7 +114,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "thongTinKhac2",
@@ -658,6 +658,14 @@
 		"type": "File",
 		"regex": "^.+\\.(pdf|docx?)$",
 		"autoCompletion": false
+	},
+	{
+		"name": "thuocTinhXuLy",
+		"schemaProp": "media.xuLyCheTac",
+		"label": "Thuộc tính Xử lý chế tác",
+		"required": false,
+		"money": false,
+		"type": "String"
 	},
 	{
 		"name": "phuongThucXuLy",

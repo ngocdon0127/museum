@@ -1,6 +1,5 @@
 app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
-	
 	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
@@ -63,6 +62,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 	}
@@ -146,6 +146,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 	}
@@ -229,6 +230,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 	}
@@ -285,13 +287,17 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		$timeout(function(){
 			if (isNaN($scope.data.viDo)) {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = parseInt(coor[1].trim());
-				$scope.vido_phut = parseInt(coor[2].trim());
-				$scope.vido_giay = parseInt(coor[3].trim());
-				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = parseInt(coor[1].trim());
-				$scope.kinhdo_phut = parseInt(coor[2].trim());
-				$scope.kinhdo_giay = parseInt(coor[3].trim());
+				try{
+					$scope.vido_do = parseInt(coor[1].trim());
+					$scope.vido_phut = parseInt(coor[2].trim());
+					$scope.vido_giay = parseInt(coor[3].trim());
+					var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+					$scope.kinhdo_do = parseInt(coor[1].trim());
+					$scope.kinhdo_phut = parseInt(coor[2].trim());
+					$scope.kinhdo_giay = parseInt(coor[3].trim());
+				} catch(e){
+					console.log(e)
+				}
 				document.getElementById("vitri-dms").checked = true;
 				$scope.showCoor = true;
 			} else {
@@ -313,6 +319,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 	}
@@ -396,6 +403,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
+		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 	}

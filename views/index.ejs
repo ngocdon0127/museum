@@ -3,7 +3,7 @@
 	<head>
 	<title><%= title %></title>
 	<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-	
+	<link rel="stylesheet" href="https://cdn.plyr.io/2.0.11/plyr.css">
 	
 	<link rel="stylesheet" href="/stylesheets/datetimepicker.min.css">
 	<script src="/javascripts/jquery.js"></script>
@@ -11,49 +11,96 @@
 	<script src="/javascripts/FileSaver.js"></script>
 	<script src="/javascripts/datetimepicker.min.js"></script>
 	<script src="/javascripts/webgazer.js"></script>
+	<script type="text/javascript" src="http://fgnass.github.io/spin.js/spin.min.js"></script>
 
-    </script>
+	</script>
 
 	
 	</head>
 	<body>
-	<canvas id="myCanvas" width="1920" height="1080" style="border:1px solid #c3c3c3;">
+	<!--<canvas id="myCanvas" width="1920" height="1080" style="border:1px solid #c3c3c3;">-->
+	<!--<div width="160" height="120">
+		<video width="320" height="240" controls>
+		  <source src="http://localhost:8000/content/download/uploads/paleontological/58bb801f0462a106bc432fde_+_Video%204.mp4">
+		</video>
+	</div>-->
+	<div id="foo">hehe</div>
+  <!--<script src="https://cdn.plyr.io/2.0.11/plyr.js.noload"></script>-->
+  <script>//plyr.setup();</script>
+  <script>
+	var opts = {
+		  lines: 13 // The number of lines to draw
+		, length: 28 // The length of each line
+		, width: 14 // The line thickness
+		, radius: 42 // The radius of the inner circle
+		, scale: 1 // Scales overall size of the spinner
+		, corners: 1 // Corner roundness (0..1)
+		, color: '#000' // #rgb or #rrggbb or array of colors
+		, opacity: 0.25 // Opacity of the lines
+		, rotate: 0 // The rotation offset
+		, direction: 1 // 1: clockwise, -1: counterclockwise
+		, speed: 1 // Rounds per second
+		, trail: 60 // Afterglow percentage
+		, fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+		, zIndex: 2e9 // The z-index (defaults to 2000000000)
+		, className: 'spinner' // The CSS class to assign to the spinner
+		, top: '50%' // Top position relative to parent
+		, left: '50%' // Left position relative to parent
+		, shadow: false // Whether to render a shadow
+		, hwaccel: false // Whether to use hardware acceleration
+		, position: 'absolute' // Element positioning
+	}
+	var target = document.getElementById('foo')
+	var spinner = new Spinner(opts).spin();
+	console.log('created');
+	spinner.spin(target);
+	console.log('spinned')
+	setTimeout(function () {
+		console.log('stop')
+		spinner.stop();
+	}, 2000)
+
+	setTimeout(function () {
+		console.log('spin')
+		spinner.spin(target);
+	}, 4000)
+  </script>
 	<script>
-		var canvas = document.getElementById("myCanvas");
-		var ctx = canvas.getContext("2d");
-		ctx.fillStyle = "#FF0000";
-		ctx.fillRect(0,0,150,150);
+		// var canvas = document.getElementById("myCanvas");
+		// var ctx = canvas.getContext("2d");
+		// ctx.fillStyle = "#FF0000";
+		// ctx.fillRect(0,0,150,150);
 	</script>
 	<script>
-		webgazer.setGazeListener(function(data, elapsedTime) {
-			// return;
-			ctx.fillStyle = "#FF0000";
-		    if (data == null) {
-		    	console.log('data null')
-		    	// ctx.fillRect(102,120,150,150);
-		    	// ctx.fillRect(Math.floor(Math.random() * 400), Math.floor(Math.random() * 500), 10, 10);
-		        return;
-		    }
-		    console.log('data ok')
-		    var xprediction = data.x; //these x coordinates are relative to the viewport 
-		    var yprediction = data.y; //these y coordinates are relative to the viewport
-		    // ctx.fillRect(Math.floor(xprediction), Math.floor(yprediction), 10, 10);
-		    // ctx.fillRect(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), 10, 10);
-		    console.log("time:  " + elapsedTime + ", " + xprediction + " " + yprediction); //elapsed time is based on time since begin was called
-		}).begin();
+		// webgazer.setGazeListener(function(data, elapsedTime) {
+		// 	// return;
+		// 	ctx.fillStyle = "#FF0000";
+		//     if (data == null) {
+		//     	console.log('data null')
+		//     	// ctx.fillRect(102,120,150,150);
+		//     	// ctx.fillRect(Math.floor(Math.random() * 400), Math.floor(Math.random() * 500), 10, 10);
+		//         return;
+		//     }
+		//     console.log('data ok')
+		//     var xprediction = data.x; //these x coordinates are relative to the viewport 
+		//     var yprediction = data.y; //these y coordinates are relative to the viewport
+		//     // ctx.fillRect(Math.floor(xprediction), Math.floor(yprediction), 10, 10);
+		//     // ctx.fillRect(Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), 10, 10);
+		//     console.log("time:  " + elapsedTime + ", " + xprediction + " " + yprediction); //elapsed time is based on time since begin was called
+		// }).begin();
 
-		setInterval(function () {
-			var prediction = webgazer.getCurrentPrediction();
-			if (prediction) {
-			    var x = prediction.x;
-			    var y = prediction.y;
-			    ctx.fillStyle = "#00FF00";
-				ctx.fillRect(x,y,10,10);
-			}
-			else {
-				console.log('predict null')
-			}
-		}, 1000)
+		// setInterval(function () {
+		// 	var prediction = webgazer.getCurrentPrediction();
+		// 	if (prediction) {
+		// 	    var x = prediction.x;
+		// 	    var y = prediction.y;
+		// 	    ctx.fillStyle = "#00FF00";
+		// 		ctx.fillRect(x,y,10,10);
+		// 	}
+		// 	else {
+		// 		console.log('predict null')
+		// 	}
+		// }, 1000)
 
 	</script>
 	<script type="text/javascript">

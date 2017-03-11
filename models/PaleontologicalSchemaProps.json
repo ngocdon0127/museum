@@ -85,7 +85,7 @@
 	{
 		"name": "phanLop",
 		"schemaProp": "tenMau.tenKhoaHoc",
-		"label": "Lớp",
+		"label": "Phân lớp",
 		"required": false,
 		"money": false,
 		"type": "String",
@@ -125,7 +125,7 @@
 	{
 		"name": "phanHo",
 		"schemaProp": "tenMau.tenKhoaHoc",
-		"label": "Họ",
+		"label": "Phân họ",
 		"required": false,
 		"money": false,
 		"type": "String",
@@ -483,7 +483,7 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^(.|\r|\n){0,}$"
 	},
 	{
 		"name": "banDo",
@@ -600,7 +600,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac5",
@@ -617,8 +617,8 @@
 		"required": false,
 		"money": true,
 		"type": "File",
-		"maxSize": 104857600,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"maxSize": 10485760,
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "hinhAnhNgoaiThucDia",
@@ -628,7 +628,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "videoStr",
@@ -656,7 +656,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx)$"
 	},
 	{
 		"name": "dinhKemXuLyCheTac",
@@ -717,7 +717,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "vungGenPhanTich",
@@ -744,7 +744,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "congBoQuocTe",
@@ -786,7 +786,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
@@ -812,7 +812,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "giaTriSuDung",
@@ -871,7 +871,7 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"autoCompletion": true
+		"autoCompletion": false
 	},
 	{
 		"name": "traoDoiMau",
@@ -937,7 +937,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "hoSoNhapMauVatDiKem",
@@ -951,7 +951,7 @@
 	{
 		"name": "nguoiNhapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
-		"label": "Người nhập phiếu mẫu vật",
+		"label": "Người lập phiếu mẫu vật",
 		"required": false,
 		"money": true,
 		"type": "String"

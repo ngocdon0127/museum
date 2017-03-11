@@ -41,18 +41,30 @@ var ACTION_EDIT = 1;
 global.myCustomVars.ACTION_EDIT = ACTION_EDIT;
 var STR_SEPERATOR = '_+_';
 global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
+var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
+global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
 
 
 // ============== Places ================
 var CITIES = {};
 var DISTRICTS = {};
 var WARDS = {};
-CITIES = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'cities.json')));
+var tmpCities = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'cities.json')));
+for(let tc of tmpCities){
+	CITIES[tc.id] = tc;
+}
+// console.log(CITIES)
 
-DISTRICTS = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'districts.json')));
-
-WARDS = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'wards.json')));
-
+var tmpDistricts = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'districts.json')));
+for(let td of tmpDistricts){
+	DISTRICTS[td.id] = td;
+}
+// console.log(DISTRICTS)
+var tmpWards = JSON.parse(fs.readFileSync(path.join(__dirname, 'app', 'database', 'wards.json')));
+for(let tw of tmpWards){
+	WARDS[tw.id] = tw;
+}
+// console.log(WARDS)
 
 
 
@@ -233,8 +245,17 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		var FILE_FIELDS = _PROP_FIELDS.filter(function (element) {
 			return !element.type.localeCompare('File')
 		});
+
+		if (action == ACTION_CREATE){
+			objectInstance.created_by.userId = req.user.id // Owner
+			objectInstance.created_by.userFullName = req.user.fullname // Owner
+		}
+
 		var objectBeforeUpdate = {};
 		if (action == ACTION_EDIT){
+
+			objectInstance.updated_by.userId = req.user.id
+			objectInstance.updated_by.userFullName = req.user.fullname
 
 			// Date will be converted to String.
 			objectBeforeUpdate = JSON.parse(JSON.stringify(objectInstance));
@@ -297,9 +318,36 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		}
 		delete specialFields.coordinations;
 
-		delete specialFields;
 		// End of Number Fields
 
+		// =============== Handle undefined Tỉnh, Huyện, Xã ===============
+
+		specialFields.placeFields = [
+			{
+				fieldName: 'tinh'
+			},
+			{
+				fieldName: 'huyen'
+			},
+			{
+				fieldName: 'xa'
+			}
+		]
+
+		for(let field of specialFields.placeFields){
+			if (field.fieldName in req.body){
+				let value_ = req.body[field.fieldName]
+				if ((value_.indexOf('undefined') >= 0) || (value_.indexOf('string') >= 0) || (value_.indexOf('?') >= 0)){
+					req.body[field.fieldName] = ''
+				}
+			}
+		}
+
+		delete specialFields.placeFields
+
+		// =============== End of Handle undefined Tỉnh, Huyện, Xã ===============
+
+		delete specialFields;
 		// =============== End of Validate special fields ===============
 		
 		// save props
@@ -516,7 +564,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 				// Update Auto Completion
 				if (('autoCompletion' in element) && (element.autoCompletion)){
-					var value_ = value.split(',');
+					var value_ = value.split(STR_AUTOCOMPLETION_SEPERATOR);
 					for(let v of value_){
 						v = v.trim();
 						if (v){
@@ -674,9 +722,9 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		// Tiền xử lý không đồng bộ.
 		// Bắt buộc phải dùng Promise, async/await
 		var re = await (new Promise(function (resolve, reject) {
-			console.log('dmm');
+			// console.log('dmm');
 			setTimeout(function () {
-				console.log('hehe');
+				// console.log('hehe');
 				resolve('ok')
 			}, 1);
 		}))
@@ -723,9 +771,9 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			var field = PROP_FIELDS[i];
 			// console.log(field.name);
 			if (field.name == 'fDiaDiemThuMau'){
-				console.log('len: ' + PROP_FIELDS.length);
+				// console.log('len: ' + PROP_FIELDS.length);
 				PROP_FIELDS.splice(i, 1);
-				console.log('len: ' + PROP_FIELDS.length);
+				// console.log('len: ' + PROP_FIELDS.length);
 				break;
 			}
 		}
@@ -1141,6 +1189,31 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		PROP_FIELDS.map(function (element, index) {
 			PROP_FIELDS_OBJ[element.name] = index;
 		});
+
+		// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
+
+		PROP_FIELDS.map((element, index) => {
+			if (('autoCompletion' in element) && (element.autoCompletion)){
+				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		})
+
+		{
+			// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
+			// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+			// Bọc trong ngoặc cho đỡ trùng tên biến :v
+			let fields = [
+				{
+					fieldName: 'loaiMauVat'
+				}
+			]
+
+			for(let f of fields){
+				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		}
+
+		// End of STR_AUTOCOMPLETION_SEPERATOR
 		
 		// Reconstruct tree
 		var oi = {};
@@ -1373,9 +1446,9 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		// Tiền xử lý không đồng bộ.
 		// Bắt buộc phải dùng Promise, async/await
 		var re = await (new Promise(function (resolve, reject) {
-			console.log('dmm');
+			// console.log('dmm');
 			setTimeout(function () {
-				console.log('hehe');
+				// console.log('hehe');
 				resolve('ok')
 			}, 1);
 		}))
@@ -1843,6 +1916,31 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		PROP_FIELDS.map(function (element, index) {
 			PROP_FIELDS_OBJ[element.name] = index;
 		});
+
+		// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
+
+		PROP_FIELDS.map((element, index) => {
+			if (('autoCompletion' in element) && (element.autoCompletion)){
+				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		})
+
+		{
+			// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
+			// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+			// Bọc trong ngoặc cho đỡ trùng tên biến :v
+			let fields = [
+				{
+					fieldName: 'loaiMauVat'
+				}
+			]
+
+			for(let f of fields){
+				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+			}
+		}
+
+		// End of STR_AUTOCOMPLETION_SEPERATOR
 		
 		// Reconstruct tree
 		var oi = {};

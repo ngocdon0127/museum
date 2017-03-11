@@ -43,7 +43,7 @@ function saveData(id, data) {
 		}
 	}
 
-app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', 'spinnerService', function ($scope, $http, AuthService, spinnerService) {
+app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	// setInterval(saveData("dataAni", $scope.data), 2000);
 	// setTimeout(getData("dataAni"), 1000);
@@ -81,11 +81,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', 'spinnerServic
 	$scope.addPost = function(FormContent){
 			
 		// if ($scope.FormContent.$valid) {
-			spinnerService.show('loadingSpinner');
-			for (var i = 500; i >= 0; i--) {
-				console.log("Hola Nguyen")
-				$http.get(urlRe);
-			}
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		// } else{
@@ -150,6 +146,8 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
+
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 		
@@ -219,6 +217,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 		// } else{
@@ -285,6 +284,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 		// } else{
@@ -321,7 +321,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	}
 }]);
 
-app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoadingOverlayService', function ($scope, $http, AuthService, bsLoadingOverlayService) {
 
 	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -351,6 +351,7 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
+			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 		// } else{
@@ -387,7 +388,7 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService', funct
 	}
 }]);
 
-app.controller('PlaceController', ['$scope','$http','$filter', function ($scope, $http, $filter) {
+app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$timeout', function ($scope, $http, $filter, AuthService, $timeout) {
 	var places = {};
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
@@ -410,8 +411,22 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 	});
 	$scope.cityChange = function(){
 		if ('districts' in places){
-			// console.log('districts cache hit');
-			$scope.districts = places.districts;
+			var x = document.getElementById($scope.data.tinh);
+			if (x == null) {
+				$scope.data.huyen = ""
+				$scope.data.xa = ""
+			} else {
+				// Get id to render data for district
+				$scope.id_tinh = x.value
+				$scope.districts = places.districts;
+				$timeout(function () {
+					$('#render_districts').flexdatalist({
+						minLength: 0
+					});
+				}, 200)
+				// })
+				// console.log($scope.districts);
+			}
 		}
 		else {
 			// console.log('districts cache miss')
@@ -435,8 +450,18 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 
 	$scope.districtChange = function() {
 		if ('wards' in places){
-			// console.log('wards cache hit')
-			$scope.wards = places.wards;
+			var x = document.getElementById($scope.data.huyen);
+			if (x == null) {
+				$scope.data.xa = ""
+			} else{
+				$scope.id_huyen = x.value
+				$scope.wards = places.wards;
+				$timeout(function () {
+					$('#render_wards').flexdatalist({
+						minLength: 0
+					});
+				}, 200)
+			}
 		}
 		else {
 			// console.log('wards cache miss')
@@ -465,3 +490,16 @@ app.controller('CookiesManageController', ['$scope', '$cookies', function($scope
 		$cookies.remove('data')
 	}
 }])
+
+app.controller('HttpIntegrationController', function($scope, $http, $sce, bsLoadingOverlayService) {
+	$scope.result = $sce.trustAsHtml('Fetch result here');
+	$scope.fetchRandomText = function() {
+		$http.get('http://hipsterjesus.com/api/')
+			.success(function(data) {
+				$scope.result = $sce.trustAsHtml(data.text);
+			})
+			.error(function() {
+				$scope.result = $sce.trustAsHtml('Can not get the article');
+			});
+	};
+});

@@ -14,18 +14,52 @@
 			<% } %>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<%
-				console.log("here");
-				console.log(staticPath);
+				// console.log("here");
+				// console.log(staticPath);
 				var sp = staticPath;
 				// do not know why we need to declare this variable.
 				// staticPath can not be accessed inside below functions
 				function display(obj){
 					// console.log(staticPath)
 					// console.log(count)
+					function extension(filename) {
+						var idx = filename.lastIndexOf('.');
+						if (idx >= 0){
+							return filename.substring(idx + 1);
+						}
+						return 'nothing';
+					}
+					function mediaType(extension) {
+						// console.log(extension)
+						var imgs = ["jpg", "jpeg", "gif", "png", "tif", "tiff", "raw", "bmp", "bpg", "eps"];
+						var videos = ["mp4","mpg","flv","rm","webm","mkv","ogg","avi","mov","wmv","3gp","m4v"];
+						if (imgs.indexOf(extension) >= 0){
+							return 'image';
+						}
+						if (videos.indexOf(extension) >= 0){
+							return 'video';
+						}
+						return 'document'
+					}
 					if (obj instanceof Array){
+
 						var result =  obj.reduce(function (preStr, curElement){
 							// console.log(curElement.split('_+_')[1]);
-							preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+							if (curElement.length < 1){
+								return preStr;
+							}
+							var ext = extension(curElement);
+							switch (mediaType(ext)){
+								case 'video':
+									preStr += '<video width="160" height="120" controls> <source src="/content/download' + sp + '/' + curElement + '"></video>'
+									break;
+								case 'image':
+									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + '<img class="img-responsive" width="160" src="' + sp + '/' + curElement + '">' + '</a><br/>\n';
+									break;
+								default:
+									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+									break;
+							}
 							return preStr;
 						}, '');
 						return result;

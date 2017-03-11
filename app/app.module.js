@@ -1,15 +1,24 @@
 var app = angular.module('museumApp', [
 	'ngRoute',
 	'ngMessages',
-	'ui.bootstrap',
+    // 'angularSpinners',
+    'bsLoadingOverlay',
+    'bsLoadingOverlayHttpInterceptor',
+    'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',
-    'angularSpinners',
 	'ngAnimate'
 	])
-.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.includeSpinner = false;
-  }]);
+.factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
+    return bsLoadingOverlayHttpInterceptorFactoryFactory();
+})
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push('allHttpInterceptor');
+}).run(function(bsLoadingOverlayService) {
+    bsLoadingOverlayService.setGlobalConfig({
+        templateUrl: 'views/users/loading-overlay-template.html'
+    });
+});
 
 // app.directive('validFile', function ($parse) {
 //     return {
@@ -42,7 +51,7 @@ app.directive('validFile', function ($parse) {
             var maxSize = 10;
             el.bind('change', function () {
                 scope.$apply(function () {
-                    console.log(el[0].files)
+                    // console.log(el[0].files)
                     if (el[0].files.length > 1) {
                         modelSetter(scope, el[0].files)
                     } else{
@@ -59,7 +68,6 @@ app.directive('validFile', function ($parse) {
         }
     };
 });
-
 app.directive('validImage', function ($parse) {
     return {
         require: 'ngModel',
@@ -70,7 +78,7 @@ app.directive('validImage', function ($parse) {
             var maxSize = 5;
             el.bind('change', function () {
                 scope.$apply(function () {
-                    console.log(el[0].files)
+                    // console.log(el[0].files)
                     if (el[0].files.length > 1) {
                         modelSetter(scope, el[0].files)
                     } else{
@@ -87,4 +95,3 @@ app.directive('validImage', function ($parse) {
         }
     };
 });
-

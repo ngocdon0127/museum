@@ -365,7 +365,7 @@
 			<tr>
 				<td><label>31. Bản đồ:</label></td>
 				<td>
-					<input type="file" multiple ng-model="data.banDo" id="banDo" title="{{tooltips['banDo']}}" accept=".zip, .rar" name="banDo" class="input-form">
+					<input type="file" multiple name-old-file="{{data.banDo}}" id="banDo" title="{{tooltips['banDo']}}" accept=".zip, .rar" name="banDo" class="input-form">
 				</td>
 			</tr>
 			<tr>
@@ -669,10 +669,5 @@
 <!-- <script type="text/javascript">
 	$('#banDo').jfilestyle({
 		placeholder: document.getElementById("banDo").getAttribute("name-old-file")
-	});
-
-	$('#input07').jfilestyle({
-		placeholder: document.getElementById("input07").getAttribute("data-name-old-file")
-	});
-	
+	});	
 </script> -->

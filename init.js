@@ -2366,6 +2366,7 @@ var putHandler = function (options) {
 		var objectModelIdParamName = options.objectModelIdParamName
 		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL
 		var ObjectModel = options.ObjectModel
+		var saveOrUpdate = options.saveOrUpdate;
 		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
 		if (missingParam){
 			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  

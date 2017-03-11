@@ -81,7 +81,7 @@ router.get('/users', function (req, res, next) {
 			else {
 				result.maDeTais = []
 			}
-			res.render('admin/pages/tables/users', result)
+			res.render('admin/pages/tables/data', result)
 		})
 		
 	})

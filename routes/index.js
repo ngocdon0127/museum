@@ -260,17 +260,6 @@ function isLoggedIn (req, res, next) {
 	return next();
 }
 
-function restart (res) {
-	res.status(200).json({
-		status: 'success'
-	});
-
-	console.log('res sent');
-
-	setTimeout(function () {
-		console.log('halt');
-		process.exit(0);
-	}, 1000)
-}
+var restart = global.myCustomVars.restart;
 
 module.exports = router;

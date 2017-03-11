@@ -2487,3 +2487,18 @@ var postHandler = function (options) {
 }
 
 global.myCustomVars.postHandler = postHandler;
+
+var restart = function (res) {
+	res.status(200).json({
+		status: 'success'
+	});
+
+	console.log('res sent');
+
+	setTimeout(function () {
+		console.log('halt');
+		process.exit(0);
+	}, 1000)
+}
+
+global.myCustomVars.restart = restart;

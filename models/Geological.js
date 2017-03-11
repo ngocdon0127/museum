@@ -100,6 +100,7 @@ module.exports = function (mongoose) {
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
 				dinhKemXuLyCheTac: [String],
+				thuocTinhXuLyCheTac: String,
 				phuongThucXuLy: String,
 				thoiGianXuLy: Date,
 				nguoiXuLy: String,
@@ -112,7 +113,6 @@ module.exports = function (mongoose) {
 			loaiMau : String,
 			hinhDangMauTonTai : String,
 			mauSac : String,
-			phanLoaiSuDung : String,
 			thanhPhanKhoangVat : String,
 			tinhChatVatLy : String,
 			congThucHoaHoc : [String],

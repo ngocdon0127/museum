@@ -216,7 +216,8 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "tenDiaPhuong",
@@ -225,7 +226,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTiengAnh",
@@ -234,7 +236,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTheoBaoTang",
@@ -243,7 +246,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "thongTinKhac2",
@@ -717,6 +721,14 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
+		"name": "thuocTinhXuLy",
+		"schemaProp": "media.xuLyCheTac",
+		"label": "Thuộc tính Xử lý chế tác",
+		"required": false,
+		"money": false,
+		"type": "String"
+	},
+	{
 		"name": "phuongThucXuLy",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Phương thức xử lý chế tác",
@@ -798,7 +810,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
 		"name": "congBoQuocTe",

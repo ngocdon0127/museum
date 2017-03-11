@@ -136,7 +136,7 @@
 				<h3 class="h3-title">SỐ LƯỢNG VÀ CHẤT LƯỢNG MẪU VẬT</h3>
 				<tr>
 					<td><label>14. Số lượng tiêu bản:</label></td>
-					<td><input type="number" disabled min = "0" title="{{tooltips['soLuongTieuBan']}}" name="soLuongTieuBan" ng-model="data.soLuongTieuBan" class="input-form"></td>
+					<td><input type="number" min = "0" title="{{tooltips['soLuongTieuBan']}}" name="soLuongTieuBan" ng-model="data.soLuongTieuBan" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>15. Loại mẫu vật<span class="has-required"> (*)</span>:</label></td>
@@ -167,7 +167,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><span>Chiều rộng: </span></td>
+								<td><span>Chiều rộng<span class="has-required"> (*)</span>: </span></td>
 								<td>					    
 								    <span class="box">
 								      <input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
@@ -181,7 +181,7 @@
 							</tr>
 						
 							<tr>
-								<td><span>Chiều dài: </span></td>
+								<td><span>Chiều dài<span class="has-required"> (*)</span>: </span></td>
 								<td>					    
 								    <span class="box">
 								      <input type="text" title="{{tooltips['chieuDai']}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
@@ -441,6 +441,10 @@
 					<td><input type="text" title="{{tooltips['phuongThucXuLy']}}" name="phuongThucXuLy" ng-model="data.phuongThucXuLy" class="input-form"></td>
 				</tr>
 				<tr>
+					<td>Thuộc tính xử lý chế tác </td>
+					<td><input type="text" title="{{tooltips['thuocTinhXuLy']}}" name="thuocTinhXuLy" ng-model="data.thuocTinhXuLy" class="input-form"></td>
+				</tr>
+				<tr>
 					<td>Thời gian xử lý chế tác:</td>
 					<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
 				</tr>
@@ -471,7 +475,7 @@
 				</tr>
 				<tr>
 					<td>Trình tự DNA</td>
-					<td><input type="file" multiple multiple accept="image/*, .doc, .docx, .pdf"   title="{{tooltips['trinhTuDNA']}}" name="trinhTuDNA" ng-model="data.trinhTuDNA" class="input-form"></td>
+					<td><input type="file" multiple multiple accept=".doc, .docx, .pdf"   title="{{tooltips['trinhTuDNA']}}" name="trinhTuDNA" ng-model="data.trinhTuDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Công bố/thông tin quốc tế (genbank...)</td>

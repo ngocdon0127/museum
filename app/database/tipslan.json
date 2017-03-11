@@ -1,6 +1,6 @@
 {
   "soHieuBTTNVN": "Mỗi bảo tàng đều có quy ước về số hiệu mẫu được lưu trữ trong bảo tàng. Đây là số hiệu mẫu vật giúp các nhà quản lý mẫu vật trong bảo tàng có thể quản lý, theo dõi các bộ sưu tập mẫu vật trong bảo tàng. Do vậy, trong CSDL về mẫu vật không thể thiếu số hiệu mẫu vật của Bảo tàng, đây được hiểu là mã code để quản lý.",
-  "soHieuBaoTangCS": "",
+  "soHieuBaoTangCS": "Là số hiệu của mẫu vật tại Bảo tàng cơ s",
   "soHieuThucDia": "Người thu thập mẫu đất thường có cách đánh số hiệu mẫu riêng ngoài thực địa. Ví dụ, số hiệu mẫu của người thu thập có thể đánh số mẫu theo địa danh, hoặc theo đề tài, dự án… Số hiệu này nên đưa vào CSDL vì khi cần thiết phải kiểm chứng lại thông tin về mẫu vật, số hiệu sẽ dễ dàng giúp người thu thập tìm lại các tài liệu liên quan đến việc thu thập mẫu vật đó.",
   "kyHieuMauVatKhac": "Ghi số hiệu mẫu vật khác (nếu có)",
   "thongTinKhac1": "",
@@ -94,5 +94,6 @@
   "nguoiNhapPhieuMauVat": "Cho biết thông tin về cá nhân lập phiếu hồ sơ của mẫu vật lưu trữ",
   "nguoiNhapVaoPhanMem": "Thông tin về người nhập vào phần mềm giúp nhà quản lý mẫu vật kiểm tra, chỉnh sửa, cập nhật thông tin về mẫu vật khi cần thiết",
   "thongTinKhac8": "",
-  "thongTinKhac9": "Các ghi chú khác khi cần thiết"
+  "thongTinKhac9": "Các ghi chú khác khi cần thiết",
+  "thuocTinhXuLy": ""
 }

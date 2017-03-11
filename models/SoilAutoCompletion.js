@@ -1,5 +1,10 @@
 module.exports = function (mongoose) {
 	var schemaPrototype = {
+		tenTheoQuocTe: [String],
+		tenVietNam: [String],
+		tenDiaPhuong: [String],
+		tenTiengAnh: [String],
+		tenTheoBaoTang: [String],
 		coQuanThuMau: [String],
 		quocGia: [String],
 		tinh: [String],

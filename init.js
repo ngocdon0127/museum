@@ -266,7 +266,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		// Trường dữ liệu theo yêu cầu là số, nhưng thực tế cần phải lưu là String
 		// VD: Chiều cao: "3 mét"
 
-		let specialFields = {};
+		var specialFields = {};
 		specialFields.unitFields = [
 			{
 				fieldName: 'chieuCao'
@@ -766,7 +766,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			}
 		}
 
-		delete objectInstance.flag.fDiaDiemThuMau;
+		delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don'y know why, check later
 		for(var i = 0; i < PROP_FIELDS.length; i++){
 			var field = PROP_FIELDS[i];
 			// console.log(field.name);
@@ -1194,7 +1194,12 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		PROP_FIELDS.map((element, index) => {
 			if (('autoCompletion' in element) && (element.autoCompletion)){
-				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
 			}
 		})
 
@@ -1209,7 +1214,13 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			]
 
 			for(let f of fields){
-				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
+
 			}
 		}
 
@@ -1921,7 +1932,12 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		PROP_FIELDS.map((element, index) => {
 			if (('autoCompletion' in element) && (element.autoCompletion)){
-				flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
 			}
 		})
 
@@ -1936,7 +1952,12 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			]
 
 			for(let f of fields){
-				flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				try {
+					flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+				}
+				catch (e){
+					console.log(e);
+				}
 			}
 		}
 
@@ -2141,3 +2162,250 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 }
 
 global.myCustomVars.exportXLSX = exportXLSX;
+
+var getAllHandler = function (options) {
+	return function (req, res) {
+		// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+		var ObjectModel = options.ObjectModel;
+		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		var objectModelNames = options.objectModelNames;
+		ObjectModel.find({deleted_at: {$eq: null}}, function (err, objectInstances) {
+			if (err){
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+			}
+			return responseSuccess(res, ['status', objectModelNames], ['success', objectInstances]);
+		})
+	}
+}
+
+global.myCustomVars.getAllHandler = getAllHandler;
+
+var getAutoCompletionHandler = function (options) {
+	return function (req, res) {
+		// console.log(Object.keys(AutoCompletion.schema.paths));
+		var AutoCompletion = options.AutoCompletion;
+		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		AutoCompletion.findOne({}, function (err, autoCompletion) {
+			if (err){
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading AutoCompletion data"]);
+			}
+			else{
+				var props = [];
+				var values = [];
+				for (var prop in AutoCompletion.schema.paths){
+					// console.log((prop + " : " + prop.localeCompare('_id')));
+					if ((prop.localeCompare('_id') != 0) && (prop.localeCompare('__v') != 0)){
+						props.push(prop);
+						if (autoCompletion && (prop in autoCompletion)){
+							values.push(autoCompletion[prop]);
+						}
+						else {
+							values.push([]);
+						}
+					}
+				}
+				return responseSuccess(res, props, values);
+			}
+		})
+	}
+}
+
+global.myCustomVars.getAutoCompletionHandler = getAutoCompletionHandler;
+
+var getSingleHandler = function (options) {
+	return function (req, res) {
+		// console.log(ObjectId(req.params.animalId));
+		// console.log(req.params.animalId);
+		var ObjectModel = options.ObjectModel;
+		var objectModelName = options.objectModelName;
+		var PROP_FIELDS = options.PROP_FIELDS;
+		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		var objectModelIdParamName = options.objectModelIdParamName;
+		var objectBaseURL = options.objectBaseURL;
+		var LABEL = options.LABEL;
+		var objectModelLabel = options.objectModelLabel;
+		ObjectModel.findById(req.params.objectModelIdParamName, function (err, objectInstance) {
+			if (err){
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+			}
+			if (objectInstance){
+				if (objectInstance.deleted_at){
+					Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.objectModelIdParamName)}}, function (err, logs) {
+						if (err || (logs.length < 1)){
+							console.log(err);
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
+						}
+						// console.log(logs);
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
+					})
+				}
+				else {
+					// return responseSuccess(res, ['objectInstance'], [objectInstance]);
+					if (req.query.display == 'html'){
+						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
+					}
+					else if (['docx', 'pdf', 'xlsx'].indexOf(req.query.display) >= 0){
+
+						console.log('combined');
+						
+						var paragraph = options.paragraph;
+						
+						var exportFuncs = {
+							docx: exportFile,
+							pdf: exportFile,
+							xlsx: exportXLSX
+						}
+
+						exportFuncs[req.query.display](objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
+						// return res.end("OK");
+					}
+					
+					else {
+						return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);
+					}
+					
+				}
+			}
+			else{
+				responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ['Không tìm thấy']);
+			}
+		})
+	}
+}
+
+global.myCustomVars.getSingleHandler = getSingleHandler;
+
+// hanle route: objectBaseURL + '/log/:logId/:position'
+var getLogHandler = function (options) {
+	return function (req, res) {
+		Log.findById(req.params.logId, function (err, log) {
+			if (err){
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+			}
+			if (log){
+				if ((log.action == 'update') && (req.params.position == 'diff')){
+					// return responseSuccess(res, ['obj1', 'obj2'], [flatObjectModel(PROP_FIELDS, log.obj1), flatObjectModel(PROP_FIELDS, log.obj2)]);
+					return res.render('display', {title: 'Các cập nhật', objectPath: objectBaseURL, count: 2, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+				}
+
+				switch (parseInt(req.params.position)){
+					case 1:
+						if ('obj1' in log){
+							// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj1)])
+							return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: {}, staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+						}
+						else{
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
+						}
+					case 2:
+						if (('obj2' in log) && (log.obj2)){
+							return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+							// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj2)])
+						}
+						else{
+							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
+						}
+					default:
+						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
+				}
+			}
+			else {
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid logId'])
+			}
+		})
+	}
+}
+
+global.myCustomVars.getLogHandler = getLogHandler;
+
+var deleteHandler = function (options) {
+	return function (req, res) {
+		var objectModelIdParamName = options.objectModelIdParamName;
+		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		var objectModelName = options.objectModelName;
+		var objectModelIdParamName = options.objectModelIdParamName
+		var ObjectModel = options.ObjectModel;
+		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
+		if (missingParam){
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + missingParam]);
+		}
+
+		ObjectModel.findById(req.body[objectModelIdParamName], function (err, objectInstance) {
+			// console.log('function');
+			if (err){
+				console.log(err);
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+			}
+			if (objectInstance){
+				var date = new Date();
+				objectInstance.deleted_at = date;
+				objectInstance.save();
+				var newLog = new Log();
+				newLog.action = 'delete';
+				newLog.userId = req.user.id;
+				newLog.userFullName = req.user.fullname;
+				newLog.objType = objectModelName;
+				newLog.obj1 = objectInstance;
+				newLog.time = date;
+				newLog.save();
+				return responseSuccess(res, ['status'], ['success']);
+			}
+			else{
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid ' + objectModelIdParamName]);
+			}
+		})
+		// return res.end('ok');
+	}
+}
+
+global.myCustomVars.deleteHandler = deleteHandler;
+
+var putHandler = function (options) {
+	return function (req, res, next) {
+		// console.log(req.body);
+		var objectModelIdParamName = options.objectModelIdParamName
+		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL
+		var ObjectModel = options.ObjectModel
+		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
+		if (missingParam){
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
+		}
+		// console.log(req.body.animalId);
+		var objectModelId = '';
+		try {
+			objectModelId = mongoose.Types.ObjectId(req.body[objectModelIdParamName]);
+		}
+		catch (e){
+			console.log(e);
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
+		}
+		ObjectModel.findById(objectModelId, function (err, objectInstance) {
+			if (err){
+				console.log(err);
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading database"])
+			}
+			
+			if (objectInstance && (!objectInstance.deleted_at)) {
+				return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
+			}
+
+			else {
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
+			}
+		})
+	}
+}
+
+global.myCustomVars.putHandler = putHandler;
+
+var postHandler = function (options) {
+	var ObjectModel = options.ObjectModel;
+	var saveOrUpdate = options.saveOrUpdate;
+	return function (req, res, next) {
+		var newInstance = new ObjectModel();
+
+		return saveOrUpdate(req, res, newInstance, ACTION_CREATE);
+	}
+}
+
+global.myCustomVars.postHandler = postHandler;

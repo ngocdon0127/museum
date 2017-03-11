@@ -55,7 +55,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "nguoiDinhTen",
@@ -83,7 +83,7 @@
 		"money": true,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "tenDiaPhuong",
@@ -93,7 +93,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTiengAnh",
@@ -103,7 +103,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "tenTheoBaoTang",
@@ -113,7 +113,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "thongTinKhac2",
@@ -608,6 +608,14 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
+		"name": "thuocTinhXuLyCheTac",
+		"schemaProp": "media.xuLyCheTac",
+		"label": "Thuộc tính Xử lý chế tác",
+		"required": false,
+		"money": false,
+		"type": "String"
+	},
+	{
 		"name": "phuongThucXuLy",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Phương thức xử lý chế tác",
@@ -643,7 +651,7 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": true
 	},
 	{
 		"name": "anhMauSauCheTac",
@@ -690,16 +698,6 @@
 		"label": "Màu sắc",
 		"required": false,
 		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "phanLoaiSuDung",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Phân loại sử dụng mẫu",
-		"required": false,
-		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false

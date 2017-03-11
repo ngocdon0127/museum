@@ -3,6 +3,10 @@ var router = express.Router();
 var passport = require('passport');
 var User = require('mongoose').model('User');
 
+var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
+var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
+var PERM_USER = global.myCustomVars.PERM_USER;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.redirect('/auth/login');

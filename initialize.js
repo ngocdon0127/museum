@@ -1,9 +1,16 @@
 var fs = require('fs-extra')
 var path = require('path')
 
-var cleanUser = true;
-var cleanConfigFiles = true;
+var cleanUser = false;
+var cleanConfigFiles = false;
 var cleanAutoCompletion = true;
+var cleanData = true;
+
+var mongoose = require('mongoose');
+var configDB = require('./config/config').database;
+var mongooseConnection = mongoose.connect(configDB.url);
+require('./models/User.js')(mongoose);
+require('./models/SharedData.js')(mongoose);
 
 
 console.log('Initializing...');
@@ -41,10 +48,7 @@ console.log('preparing DB...')
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 async(() => {
-	var mongoose = require('mongoose');
-	var configDB = require('./config/config').database;
-	var mongooseConnection = mongoose.connect(configDB.url);
-	require('./models/User.js')(mongoose);
+	
 	var User = mongoose.model('User');
 	var CryptoJS = require('crypto-js');
 	var result = '';
@@ -838,6 +842,37 @@ async(() => {
 			console.log(model.modelName + 'AutoCompletion: OK');
 		}
 		// End
+	}
+
+	if (cleanData){
+		var result = await (new Promise((resolve, reject) => {
+			var Data = mongoose.model('SharedData');
+			Data.remove({}, (err) => {
+				if (err){
+					resolve('error');
+				}
+				else {
+					var data = new Data();
+					data.maDeTai = ['DT-001', 'DT-002']
+					data.save((err) => {
+						if (err){
+							resolve('err')
+						}
+						else {
+							resolve('OK')
+						}
+					})
+				}
+			})
+		}))
+
+		if (result == 'OK'){
+			console.log('Clean Data OK')
+		}
+		else {
+			console.log('Clean Data error')
+		}
+		
 	}
 
 	console.log('\nSuccess!\n')

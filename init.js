@@ -7,6 +7,8 @@ require('./config/acl.js')(acl);
 var path = require('path');
 var fs = require('fs');
 
+global.myCustomVars.acl = acl;
+
 function aclMiddleware (resource, action) {
 	return function (req, res, next) {
 		if (!('userId' in req.session)){
@@ -43,6 +45,17 @@ var STR_SEPERATOR = '_+_';
 global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
+var PERM_MANAGER = 500;
+global.myCustomVars.PERM_MANAGER = PERM_MANAGER;
+var PERM_ADMIN = 1000;
+global.myCustomVars.PERM_ADMIN = PERM_ADMIN;
+var PERM_USER = 0;
+global.myCustomVars.PERM_USER = PERM_USER;
+var PERM_ACCESS_SAME_MUSEUM = global.myCustomVars.PERM_ADMIN;
+global.myCustomVars.PERM_ACCESS_SAME_MUSEUM = PERM_ACCESS_SAME_MUSEUM;
+var PERM_ACCESS_ALL = global.myCustomVars.PERM_ADMIN;
+global.myCustomVars.PERM_ACCESS_ALL = PERM_ACCESS_ALL;
+
 
 
 // ============== Places ================
@@ -2165,16 +2178,44 @@ global.myCustomVars.exportXLSX = exportXLSX;
 
 var getAllHandler = function (options) {
 	return function (req, res) {
-		// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
-		var ObjectModel = options.ObjectModel;
-		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
-		var objectModelNames = options.objectModelNames;
-		ObjectModel.find({deleted_at: {$eq: null}}, function (err, objectInstances) {
-			if (err){
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+		var async = require('asyncawait/async')
+		var await = require('asyncawait/await')
+		async(() => {
+			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			var ObjectModel = options.ObjectModel;
+			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+			var objectModelNames = options.objectModelNames;
+			var projection = {deleted_at: {$eq: null}};
+			// var result = await(new Promise((resolve, reject) => {
+			// 	if (!req.user.level || (parseInt(req.user.level) < global.myCustomVars.PERM_ACCESS_SAME_MUSEUM)){
+			// 	// if (!req.user.level || (parseInt(req.user.level) < 10000)){
+			// 		// Nếu level user nhỏ hơn PERM_ACCESS_SAME_MUSEUM => chỉ có thể xem dữ liệu của mình
+			// 		projection['created_by.userId'] = req.user._id;
+			// 	}
+			// }))
+			if (!req.user.level || (parseInt(req.user.level) < global.myCustomVars.PERM_ACCESS_SAME_MUSEUM)){
+				// Nếu level user nhỏ hơn PERM_ACCESS_SAME_MUSEUM => chỉ có thể xem dữ liệu của mình
+				projection['created_by.userId'] = req.user._id;
 			}
-			return responseSuccess(res, ['status', objectModelNames], ['success', objectInstances]);
-		})
+			if (req.user.level){
+				let level = parseInt(req.user.level);
+				if ((level >= PERM_ACCESS_SAME_MUSEUM) && (level < PERM_ACCESS_ALL)){
+					// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
+					delete projection['created_by.userId'];
+					projection['maDeTai.maDeTai'] = req.user.maDeTai;
+				}
+				else if (level >= PERM_ACCESS_ALL){
+					delete projection['maDeTai.maDeTai'];
+				}
+			}
+			// console.log(projection);
+			ObjectModel.find(projection, function (err, objectInstances) {
+				if (err){
+					return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+				}
+				return responseSuccess(res, ['status', objectModelNames], ['success', objectInstances]);
+			})
+		})();
 	}
 }
 
@@ -2337,6 +2378,24 @@ var deleteHandler = function (options) {
 				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
 			}
 			if (objectInstance){
+				var canDelete = false;
+				if (objectInstance.created_by.userId == req.user.id){
+					canDelete = true; // Nếu mẫu do chính user tạo, có thể xóa
+				}
+				if (req.user.level){
+					let level = parseInt(req.user.level);
+					if (level >= PERM_ACCESS_ALL){
+						canDelete = true; // Nếu là SUPERUSER, xóa đẹp
+					}
+					else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+						canDelete = true; // Nếu là chủ nhiệm đề tài, cũng OK
+					}
+				}
+				
+				if (!canDelete){
+					return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Bạn không có quyền xóa mẫu dữ liệu này'])
+				}
+
 				var date = new Date();
 				objectInstance.deleted_at = date;
 				objectInstance.save();
@@ -2366,6 +2425,8 @@ var putHandler = function (options) {
 		var objectModelIdParamName = options.objectModelIdParamName
 		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL
 		var ObjectModel = options.ObjectModel
+		var saveOrUpdate = options.saveOrUpdate;
+		// console.log(objectModelIdParamName);
 		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
 		if (missingParam){
 			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
@@ -2373,6 +2434,7 @@ var putHandler = function (options) {
 		// console.log(req.body.animalId);
 		var objectModelId = '';
 		try {
+			// console.log(req.body[objectModelIdParamName]);
 			objectModelId = mongoose.Types.ObjectId(req.body[objectModelIdParamName]);
 		}
 		catch (e){
@@ -2386,6 +2448,22 @@ var putHandler = function (options) {
 			}
 			
 			if (objectInstance && (!objectInstance.deleted_at)) {
+				var canEdit = true;
+				if (objectInstance.created_by.userId == req.user.id){
+					canEdit = true; // Nếu mẫu do chính user tạo, có thể cập nhật
+				}
+				if (req.user.level){
+					let level = parseInt(req.user.level);
+					if (level >= PERM_ACCESS_ALL){
+						canEdit = true; // Nếu là SUPERUSER, cập nhật đẹp
+					}
+					else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+						canEdit = true; // Nếu là chủ nhiệm đề tài, cũng OK
+					}
+				}
+				if (!canEdit){
+					return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Bạn không có quyền sửa đổi mẫu dữ liệu này'])
+				}
 				return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
 			}
 

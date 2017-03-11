@@ -8,6 +8,8 @@ module.exports = function (passport, User) {
 
 	passport.deserializeUser(function (id, done) {
 		User.findById(id, function (err, user) {
+			// var u = JSON.parse(JSON.stringify(user));
+			// delete u.password;
 			done(err, user);
 		})
 	});
@@ -67,7 +69,7 @@ module.exports = function (passport, User) {
 			
 			// But fullname must be access through request 's body.
 			newUser.fullname = req.body.fullname;
-			// newUser.permission = 0;
+			newUser.level = global.myCustomVars.PERM_USER;
 			newUser.save(function (err, user) {
 				if (err){
 					throw err;

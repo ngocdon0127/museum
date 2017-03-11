@@ -9,6 +9,7 @@ var multer = require('multer');
 var uploads = multer({dest: 'public/uploads/animal'});
 
 var aclMiddleware = global.myCustomVars.aclMiddleware;
+var acl = global.myCustomVars.acl;
 
 router.use(function (req, res, next) {
 	console.log(req.url);
@@ -19,8 +20,22 @@ router.get('/home', isLoggedIn, function (req, res) {
 	res.render('home', {user: req.user, path: req.path});
 })
 
-router.get('/test', aclMiddleware('/test', 'view'), function (req, res, next) {
-	res.render('index', {title: 'Test view'});
+router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {
+	
+	acl.userRoles(req.session.userId, (err, roles) => {
+		if (err){
+			console.log(err);
+			res.json({
+				status: 'error'
+			})
+		}
+		else {
+			res.json({
+				roles: roles
+			})
+		}
+	})
+	
 })
 
 router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next) {
@@ -84,7 +99,8 @@ router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (re
 	});
 })
 
-router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next){
+router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next){
+	// Cập nhật role cho user
 	console.log('---');
 	console.log(req.body);
 	// console.log(JSON.parse(req.body));
@@ -125,8 +141,8 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit')
 	})
 })
 
-router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next) {
-	
+router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next) {
+	// Tạo role mới
 	console.log(req.body);
 	var rolename = req.body.rolename.trim();
 	rolename = rolename.replace(/\r+\n+/g, ' ');
@@ -191,7 +207,7 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	return restart(res);
 })
 
-router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next) {
+router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'delete'), function (req, res, next) {
 	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString());
@@ -200,7 +216,7 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 	if (role == 'admin'){
 		return res.status(403).json({
 			status: 'error',
-			error: 'Không thể xóa cấp Admin'
+			error: 'Không thể xóa cấp admin'
 		})
 	}
 	if (role in roles){

@@ -4,9 +4,10 @@
 */
 
 'use strict';
-
-;( function ( document, window, index )
+console.log("running");
+( function ( document, window, index )
 {
+	console.log('inside');
 	var inputs = document.querySelectorAll( '.custom-input' );
 	Array.prototype.forEach.call( inputs, function( input )
 	{

@@ -2186,29 +2186,52 @@ var getAllHandler = function (options) {
 			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
 			var objectModelNames = options.objectModelNames;
 			var projection = {deleted_at: {$eq: null}};
-			// var result = await(new Promise((resolve, reject) => {
-			// 	if (!req.user.level || (parseInt(req.user.level) < global.myCustomVars.PERM_ACCESS_SAME_MUSEUM)){
-			// 	// if (!req.user.level || (parseInt(req.user.level) < 10000)){
-			// 		// Nếu level user nhỏ hơn PERM_ACCESS_SAME_MUSEUM => chỉ có thể xem dữ liệu của mình
-			// 		projection['created_by.userId'] = req.user._id;
+			var userRoles = await(new Promise((resolve, reject) => {
+				acl.userRoles(req.session.userId, (err, roles) => {
+					// console.log('promised userRoles called');
+					if (err){
+						resolve([])
+					}
+					else {
+						resolve(roles)
+					}
+				})
+			}))
+
+			// console.log(userRoles);
+
+			// Default. User chỉ có thể xem những phiếu do chính mình tạo
+			projection['created_by.userId'] = req.user._id;
+
+			if (userRoles.indexOf('manager') >= 0){
+				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
+				delete projection['created_by.userId'];
+				projection['maDeTai.maDeTai'] = req.user.maDeTai;
+			}
+
+			if (userRoles.indexOf('admin') >= 0){
+				// Admin, Xem tất
+				delete projection['maDeTai.maDeTai'];
+			}
+
+			// ===
+			// if (!req.user.level || (parseInt(req.user.level) < global.myCustomVars.PERM_ACCESS_SAME_MUSEUM)){
+			// 	// Nếu level user nhỏ hơn PERM_ACCESS_SAME_MUSEUM => chỉ có thể xem dữ liệu của mình
+			// 	projection['created_by.userId'] = req.user._id;
+			// }
+			// if (req.user.level){
+			// 	let level = parseInt(req.user.level);
+			// 	if ((level >= PERM_ACCESS_SAME_MUSEUM) && (level < PERM_ACCESS_ALL)){
+			// 		// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
+			// 		delete projection['created_by.userId'];
+			// 		projection['maDeTai.maDeTai'] = req.user.maDeTai;
 			// 	}
-			// }))
-			if (!req.user.level || (parseInt(req.user.level) < global.myCustomVars.PERM_ACCESS_SAME_MUSEUM)){
-				// Nếu level user nhỏ hơn PERM_ACCESS_SAME_MUSEUM => chỉ có thể xem dữ liệu của mình
-				projection['created_by.userId'] = req.user._id;
-			}
-			if (req.user.level){
-				let level = parseInt(req.user.level);
-				if ((level >= PERM_ACCESS_SAME_MUSEUM) && (level < PERM_ACCESS_ALL)){
-					// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
-					delete projection['created_by.userId'];
-					projection['maDeTai.maDeTai'] = req.user.maDeTai;
-				}
-				else if (level >= PERM_ACCESS_ALL){
-					delete projection['maDeTai.maDeTai'];
-				}
-			}
-			// console.log(projection);
+			// 	else if (level >= PERM_ACCESS_ALL){
+			// 		delete projection['maDeTai.maDeTai'];
+			// 	}
+			// }
+			// ===
+			console.log(projection);
 			ObjectModel.find(projection, function (err, objectInstances) {
 				if (err){
 					return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
@@ -2361,36 +2384,70 @@ global.myCustomVars.getLogHandler = getLogHandler;
 
 var deleteHandler = function (options) {
 	return function (req, res) {
-		var objectModelIdParamName = options.objectModelIdParamName;
-		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
-		var objectModelName = options.objectModelName;
-		var objectModelIdParamName = options.objectModelIdParamName
-		var ObjectModel = options.ObjectModel;
-		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
-		if (missingParam){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + missingParam]);
-		}
-
-		ObjectModel.findById(req.body[objectModelIdParamName], function (err, objectInstance) {
-			// console.log('function');
-			if (err){
-				console.log(err);
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+		var async = require('asyncawait/async')
+		var await = require('asyncawait/await')
+		async(() => {
+			var objectModelIdParamName = options.objectModelIdParamName;
+			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+			var objectModelName = options.objectModelName;
+			var objectModelIdParamName = options.objectModelIdParamName
+			var ObjectModel = options.ObjectModel;
+			var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
+			if (missingParam){
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + missingParam]);
 			}
+
+			var objectInstance = await(new Promise((resolve, reject) => {
+				ObjectModel.findById(req.body[objectModelIdParamName], function (err, objectInstance) {
+					// console.log('function');
+					if (err){
+						console.log(err);
+						responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+						resolve(null)
+					}
+					resolve(objectInstance);
+				})
+			}))
 			if (objectInstance){
 				var canDelete = false;
+				var userRoles = await(new Promise((resolve, reject) => {
+					acl.userRoles(req.session.userId, (err, roles) => {
+						console.log('promised userRoles called');
+						if (err){
+							resolve([])
+						}
+						else {
+							resolve(roles)
+						}
+					})
+				}))
+
+				if (userRoles.indexOf('admin') >= 0){
+					// Nếu là Admin, xóa đẹp
+					canDelete = true;
+				}
+				if ((userRoles.indexOf('manager') >= 0) && req.user.maDeTai == objectInstance.maDeTai.maDeTai){
+					// Nếu là chủ nhiệm đề tài, cũng OK
+					canDelete = true;
+				}
 				if (objectInstance.created_by.userId == req.user.id){
 					canDelete = true; // Nếu mẫu do chính user tạo, có thể xóa
 				}
-				if (req.user.level){
-					let level = parseInt(req.user.level);
-					if (level >= PERM_ACCESS_ALL){
-						canDelete = true; // Nếu là SUPERUSER, xóa đẹp
-					}
-					else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
-						canDelete = true; // Nếu là chủ nhiệm đề tài, cũng OK
-					}
-				}
+
+				// ===
+				
+				// if (objectInstance.created_by.userId == req.user.id){
+				// 	canDelete = true; // Nếu mẫu do chính user tạo, có thể xóa
+				// }
+				// if (req.user.level){
+				// 	let level = parseInt(req.user.level);
+				// 	if (level >= PERM_ACCESS_ALL){
+				// 		canDelete = true; // Nếu là SUPERUSER, xóa đẹp
+				// 	}
+				// 	else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				// 		canDelete = true; // Nếu là chủ nhiệm đề tài, cũng OK
+				// 	}
+				// }
 				
 				if (!canDelete){
 					return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Bạn không có quyền xóa mẫu dữ liệu này'])
@@ -2412,7 +2469,7 @@ var deleteHandler = function (options) {
 			else{
 				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid ' + objectModelIdParamName]);
 			}
-		})
+		})()
 		// return res.end('ok');
 	}
 }
@@ -2422,55 +2479,98 @@ global.myCustomVars.deleteHandler = deleteHandler;
 var putHandler = function (options) {
 	return function (req, res, next) {
 		// console.log(req.body);
-		var objectModelIdParamName = options.objectModelIdParamName
-		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL
-		var ObjectModel = options.ObjectModel
-		var saveOrUpdate = options.saveOrUpdate;
-		// console.log(objectModelIdParamName);
-		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
-		if (missingParam){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
-		}
-		// console.log(req.body.animalId);
-		var objectModelId = '';
-		try {
-			// console.log(req.body[objectModelIdParamName]);
-			objectModelId = mongoose.Types.ObjectId(req.body[objectModelIdParamName]);
-		}
-		catch (e){
-			console.log(e);
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
-		}
-		ObjectModel.findById(objectModelId, function (err, objectInstance) {
-			if (err){
-				console.log(err);
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading database"])
+		var async = require('asyncawait/async')
+		var await = require('asyncawait/await')
+		delete req.body.maDeTai;
+
+		async(() => {
+			var objectModelIdParamName = options.objectModelIdParamName
+			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL
+			var ObjectModel = options.ObjectModel
+			var saveOrUpdate = options.saveOrUpdate;
+			// console.log(objectModelIdParamName);
+			var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
+			if (missingParam){
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
 			}
-			
-			if (objectInstance && (!objectInstance.deleted_at)) {
+			// console.log(req.body.animalId);
+			var objectModelId = '';
+			try {
+				// console.log(req.body[objectModelIdParamName]);
+				objectModelId = mongoose.Types.ObjectId(req.body[objectModelIdParamName]);
+			}
+			catch (e){
+				console.log(e);
+				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
+			}
+			var objectInstance = await(new Promise((resolve, reject) => {
+				ObjectModel.findById(objectModelId, function (err, objectInstance) {
+					if (err){
+						console.log(err);
+						responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading database"])
+						resolve(null)
+					}
+					
+					if (objectInstance && (!objectInstance.deleted_at)) {
+						resolve(objectInstance);
+					}
+
+					else {
+						responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
+						resolve(null)
+					}
+				})
+			}))
+			if (objectInstance){
 				var canEdit = true;
+
+				var userRoles = await(new Promise((resolve, reject) => {
+					acl.userRoles(req.session.userId, (err, roles) => {
+						console.log('promised userRoles called');
+						if (err){
+							resolve([])
+						}
+						else {
+							resolve(roles)
+						}
+					})
+				}))
+
+				if (userRoles.indexOf('admin') >= 0){
+					// Nếu là Admin, cập nhật đẹp
+					canEdit = true;
+				}
+				if ((userRoles.indexOf('manager') >= 0) && req.user.maDeTai == objectInstance.maDeTai.maDeTai){
+					// Nếu là chủ nhiệm đề tài, cũng OK
+					canEdit = true;
+				}
 				if (objectInstance.created_by.userId == req.user.id){
 					canEdit = true; // Nếu mẫu do chính user tạo, có thể cập nhật
 				}
-				if (req.user.level){
-					let level = parseInt(req.user.level);
-					if (level >= PERM_ACCESS_ALL){
-						canEdit = true; // Nếu là SUPERUSER, cập nhật đẹp
-					}
-					else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
-						canEdit = true; // Nếu là chủ nhiệm đề tài, cũng OK
-					}
-				}
+
+				// ===
+				// if (objectInstance.created_by.userId == req.user.id){
+				// 	canEdit = true; // Nếu mẫu do chính user tạo, có thể cập nhật
+				// }
+				// if (req.user.level){
+				// 	let level = parseInt(req.user.level);
+				// 	if (level >= PERM_ACCESS_ALL){
+				// 		canEdit = true; // Nếu là SUPERUSER, cập nhật đẹp
+				// 	}
+				// 	else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				// 		canEdit = true; // Nếu là chủ nhiệm đề tài, cũng OK
+				// 	}
+				// }
+				// ===
+
 				if (!canEdit){
 					return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Bạn không có quyền sửa đổi mẫu dữ liệu này'])
 				}
 				return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
 			}
+		})();
 
-			else {
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
-			}
-		})
+		
 	}
 }
 
@@ -2479,8 +2579,17 @@ global.myCustomVars.putHandler = putHandler;
 var postHandler = function (options) {
 	var ObjectModel = options.ObjectModel;
 	var saveOrUpdate = options.saveOrUpdate;
+	var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
 	return function (req, res, next) {
 		var newInstance = new ObjectModel();
+
+		if (!req.user.maDeTai){
+			return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Tài khoản của bạn chưa được liên kết với bất kỳ bảo tàng nào. Liên hệ chủ nhiệm đề tài để được cập nhật tài khoản.']);
+
+		}
+
+		newInstance.maDeTai.maDeTai = req.user.maDeTai;
+		delete req.body.maDeTai;
 
 		return saveOrUpdate(req, res, newInstance, ACTION_CREATE);
 	}

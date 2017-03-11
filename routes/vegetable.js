@@ -96,7 +96,8 @@ router.post(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'create'),
 	}, [])),
 	postHandler({
 		ObjectModel: ObjectModel,
-		saveOrUpdate: saveOrUpdate
+		saveOrUpdate: saveOrUpdate,
+		UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
 	})
 )
 

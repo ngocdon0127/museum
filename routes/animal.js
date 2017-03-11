@@ -88,7 +88,7 @@ var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bund
 
 module.exports = function (router) {
 
-var postHandler = global.myCustomVars.postHandler;
+var postHandler = global.myCustomVars.postHandler; // OK
 router.post(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'create'),
 	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
@@ -96,11 +96,12 @@ router.post(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'create'),
 	}, [])),
 	postHandler({
 		ObjectModel: ObjectModel,
-		saveOrUpdate: saveOrUpdate
+		saveOrUpdate: saveOrUpdate,
+		UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
 	})
 )
 
-var putHandler = global.myCustomVars.putHandler; // Check owner, Admin bypass. OK
+var putHandler = global.myCustomVars.putHandler; // Check owner, Admin bypass. OK OK OK
 router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'), 
 	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
@@ -115,7 +116,7 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 )
 
 
-var getAllHandler = global.myCustomVars.getAllHandler; // Check owner, Admin bypass. OK OK
+var getAllHandler = global.myCustomVars.getAllHandler; // Check owner, Admin bypass. OK OK OK
 router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHandler({
 	ObjectModel: ObjectModel,
 	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
@@ -158,7 +159,7 @@ router.get(objectBaseURL + '/log/:logId/:position', getLogHandler({
 	PROP_FIELDS
 }))
 
-var deleteHandler = global.myCustomVars.deleteHandler; // Check owner, Admin bypass. OK OK
+var deleteHandler = global.myCustomVars.deleteHandler; // Check owner, Admin bypass. OK OK OK
 router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteHandler({
 	objectModelIdParamName: objectModelIdParamName,
 	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,

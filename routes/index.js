@@ -118,7 +118,9 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 			var newRoles = [];
 			for (var i in roles){
 				var r = roles[i].role;
-				if ((r in req.body) && (req.body[r] == 'on')){
+				if ((['admin', 'manager'].indexOf(r) < 0) && (r in req.body) && (req.body[r] == 'on')){
+					// Không thể cấp phát quyền admin, manager tại route này ('/config')
+					// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
 					newRoles.push(r);
 				}
 			}
@@ -126,8 +128,15 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 			if (!(user.id in aclRules)){
 				aclRules[user.id] = {};
 				aclRules[user.id].userId = user.id;
+				aclRules[user.id].roles = []
 			}
-			aclRules[user.id].roles = newRoles;
+			
+			for(let nr of newRoles){
+				// Phải giữ lại roles cũ, trong trường hợp tài khoản đã là Admin hoặc Manager.
+				if (aclRules[user.id].roles.indexOf(nr) < 0){
+					aclRules[user.id].roles.push(nr)
+				}
+			}
 			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
 			console.log("OK. restarting server");
 			return restart(res);
@@ -213,10 +222,10 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString());
 	var role = req.body.deleteRole;
 	console.log(role);
-	if (role == 'admin'){
+	if ((role == 'admin') || (role == 'manager')){
 		return res.status(403).json({
 			status: 'error',
-			error: 'Không thể xóa cấp admin'
+			error: 'Không thể xóa cấp ' + role
 		})
 	}
 	if (role in roles){

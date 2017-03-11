@@ -16,20 +16,20 @@ var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
 var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
 var PERM_USER = global.myCustomVars.PERM_USER;
 var LEVEL = {};
-LEVEL[PERM_ADMIN] = {
+LEVEL['admin'] = {
 	name: 'Admin',
 	class: 'label label-danger'
 }
-LEVEL[PERM_MANAGER] = {
+LEVEL['manager'] = {
 	name: 'Manager',
 	class: 'label label-success'
 }
-LEVEL[PERM_USER] = {
+LEVEL['user'] = {
 	name: 'Normal User',
 	class: 'label label-primary'
 }
 
-// console.log(LEVEL)
+console.log(LEVEL)
 
 /* GET home page. */
 // router.get('/', isLoggedIn, function(req, res, next) {
@@ -45,46 +45,78 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/users', function (req, res, next) {
-	var user = JSON.parse(JSON.stringify(req.user));
-	delete user.level;
-	delete user.password;
+	var async = require('asyncawait/async')
+	var await = require('asyncawait/await')
+	async(() => {
+		var user = JSON.parse(JSON.stringify(req.user));
+		delete user.level;
+		delete user.password;
 
-	User.find({}, function (err, users) {
-		if (err){
-			console.log(err);
-			return res.json({status: 500, error: 'Error while reading database'})
+		var users = await(new Promise((resolve, reject) => {
+			User.find({}, function (err, users) {
+				if (err){
+					console.log(err);
+					res.status(500).json({status: 'error', error: 'Error while reading database'})
+					resolve([])
+				}
+				users_ = JSON.parse(JSON.stringify(users))
+				for(let i = 0; i < users_.length; i++){
+					let u = users_[i];
+					delete u.password;
+				}
+				// console.log(users_)
+				resolve(users_);
+			})
+		}))
+		var result = {
+			user: user
 		}
-		users_ = JSON.parse(JSON.stringify(users))
-		for(let i = 0; i < users_.length; i++){
-			let u = users_[i];
-			delete u.password;
-			if (u.level) {
-				console.log(u.level)
-				u.level = LEVEL[u.level]
+		result.maDeTais = await(new Promise((resolve, reject) => {
+			SharedData.findOne({}, (err, sharedData) => {
+				if (!err && sharedData){
+					resolve(sharedData.maDeTai);
+				}
+				else {
+					resolve([])
+				}
+			})
+		}))
+
+		for(let i = 0; i < users.length; i++){
+			var u = users[i];
+			var userRoles = await(new Promise((resolve, reject) => {
+				acl.userRoles(u._id, (err, roles) => {
+					console.log('promised userRoles called');
+					if (err){
+						resolve([])
+					}
+					else {
+						resolve(roles)
+					}
+				})
+			}))
+			// console.log('userRoles done');
+			// console.log(userRoles);
+			if (userRoles.indexOf('admin') >= 0){
+				console.log('admin ' + u._id);
+				u.level = LEVEL['admin'];
+			}
+			else if (userRoles.indexOf('manager') >= 0){
+				console.log('manage ' + u._id);
+				u.level = LEVEL['manager'];
 			}
 			else {
-				// console.log(e);
-				users[i].level = PERM_USER;
-				users[i].save();
-				u.level = LEVEL[PERM_USER]
+				console.log('user ' + u._id);
+				u.level = LEVEL['user']
 			}
 		}
-		console.log(users_)
-		SharedData.findOne({}, (err, sharedData) => {
-			var result = {
-				user: user,
-				users: users_
-			}
-			if (!err && sharedData){
-				result.maDeTais = sharedData.maDeTai
-			}
-			else {
-				result.maDeTais = []
-			}
-			res.render('admin/pages/tables/data', result)
-		})
-		
-	})
+		result.users = users
+
+		console.log(result);
+
+		res.render('admin/pages/tables/data', result)
+
+	})()
 	
 })
 
@@ -93,7 +125,7 @@ router.get('/test', function (req, res, next) {
 })
 
 // require extra permission: admin-edit
-router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
+router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 	async(() => {
@@ -115,7 +147,7 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 			// console.log('cdcmm');
 			if (!req.body.maDeTai){
 				console.log('missing maDeTai');
-				return res.json({
+				return res.status(400).json({
 					status: 'error',
 					error: 'Invalid maDeTai'
 				})
@@ -134,7 +166,7 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 					// console.log('done query');
 					if (err){
 						console.log(err);
-						res.json({
+						res.status(500).json({
 							status: 'error',
 							error: 'Error while reading user info'
 						})
@@ -143,7 +175,7 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 					else {
 						if (!user) {
 							console.log('invalid user');
-							res.json({
+							res.status(400).json({
 								status: 'error',
 								error: 'Invalid userId'
 							})
@@ -172,7 +204,7 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 				// console.log('userRoles done');
 				// console.log(userRoles);
 				if (userRoles.indexOf('admin') >= 0){
-					return res.json({
+					return res.status(403).json({
 						status: 'error',
 						error: 'Không thể giảm cấp 1 Admin xuống Manager'
 					})
@@ -182,7 +214,7 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 					user.level = PERM_MANAGER;
 					user.save((err) => {
 						if (err){
-							res.json({
+							res.status(500).json({
 								status: 'error',
 								error: 'Error while saving user info'
 							})
@@ -193,7 +225,7 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 								result.save((err) => {
 									if (err){
 										console.log(err);
-										return res.json({
+										return res.status(500).json({
 											status: 'error',
 											error: 'Error while saving new MaDeTai'
 										})
@@ -244,7 +276,7 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 			}
 		}
 		else {
-			res.json({
+			res.status(500).json({
 				status: 'error'
 			})
 		}
@@ -252,13 +284,13 @@ router.post('/make/manager', aclMiddleware('/admin', 'edit'), function (req, res
 	})();
 })
 
-router.post('/remove/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
+router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 	async(() => {
 		if (req.body.userId == req.session.userId){
 			console.log('dcmm');
-			return res.json({
+			return res.status(403).json({
 				status: 'error',
 				error: 'Không thể tự sửa đổi cấp bậc của mình'
 			})
@@ -269,7 +301,7 @@ router.post('/remove/manager', aclMiddleware('/admin', 'edit'), function (req, r
 			// console.log('done query');
 			if (err){
 				console.log(err);
-				res.json({
+				res.status(500).json({
 					status: 'error',
 					error: 'Error while reading user info'
 				})
@@ -278,7 +310,7 @@ router.post('/remove/manager', aclMiddleware('/admin', 'edit'), function (req, r
 			else {
 				if (!user) {
 					console.log('invalid user');
-					res.json({
+					res.status(400).json({
 						status: 'error',
 						error: 'Invalid userId'
 					})
@@ -307,7 +339,7 @@ router.post('/remove/manager', aclMiddleware('/admin', 'edit'), function (req, r
 		// console.log('userRoles done');
 		// console.log(userRoles);
 		if (userRoles.indexOf('admin') >= 0){
-			return res.json({
+			return res.status(403).json({
 				status: 'error',
 				error: 'Không thể thay đổi quyền của 1 Admin'
 			})

@@ -2,8 +2,8 @@
 //filter wards by district id
 app.filter('customDistrict', function() {
   return function(input, search) {
-    if (!input) return input;
-    if (!search) return search;
+    if (!input) return [""];
+    if (!search) return [""];
     var result = [];
     angular.forEach(input, function(value, key) {
       if (value.districtId == search) {
@@ -17,8 +17,8 @@ app.filter('customDistrict', function() {
 //filter district by city id
 app.filter('customCity', function() {
   return function(input, search) {
-    if (!input) return input;
-    if (!search) return search;
+    if (!input) return [""];
+    if (!search) return [""];
     var result = [];
     angular.forEach(input, function(value, key) {
       if (value.cityId == search) {

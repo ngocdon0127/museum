@@ -1,6 +1,5 @@
 app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
 	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
-	
 	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
@@ -288,13 +287,17 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		$timeout(function(){
 			if (isNaN($scope.data.viDo)) {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = parseInt(coor[1].trim());
-				$scope.vido_phut = parseInt(coor[2].trim());
-				$scope.vido_giay = parseInt(coor[3].trim());
-				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = parseInt(coor[1].trim());
-				$scope.kinhdo_phut = parseInt(coor[2].trim());
-				$scope.kinhdo_giay = parseInt(coor[3].trim());
+				try{
+					$scope.vido_do = parseInt(coor[1].trim());
+					$scope.vido_phut = parseInt(coor[2].trim());
+					$scope.vido_giay = parseInt(coor[3].trim());
+					var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+					$scope.kinhdo_do = parseInt(coor[1].trim());
+					$scope.kinhdo_phut = parseInt(coor[2].trim());
+					$scope.kinhdo_giay = parseInt(coor[3].trim());
+				} catch(e){
+					console.log(e)
+				}
 				document.getElementById("vitri-dms").checked = true;
 				$scope.showCoor = true;
 			} else {

@@ -65,5 +65,8 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
 		controller: 'PaleontologicalManageController'
 	})
+	.when('/bai-dang/test-over', {
+		templateUrl: 'views/testover.template.html'
+	})
 	.otherwise({ redirectTo: '/co-sinh' })
 }]);

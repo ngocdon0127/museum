@@ -130,6 +130,10 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 				aclRules[user.id].userId = user.id;
 				aclRules[user.id].roles = []
 			}
+
+			aclRules[user.id].roles = aclRules[user.id].roles.filter((r, index) => {
+				return ['admin', 'manager'].indexOf(r) >= 0; // Chỉ giữ lại 2 roles: admin, manager nếu đã có từ trước.
+			})
 			
 			for(let nr of newRoles){
 				// Phải giữ lại roles cũ, trong trường hợp tài khoản đã là Admin hoặc Manager.

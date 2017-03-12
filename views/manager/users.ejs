@@ -185,11 +185,11 @@
 										<% var date = new Date(u.lastLogin) %>
 										<td><%= [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') %></td>
 										<% if (u.level.name == 'Pending User') { %>
-											<td><button type="button" class="btn btn-success" onclick="assignTo('<%= u._id %>')">Assign to my team</button>
+											<td><button type="button" class="btn btn-block btn-success" onclick="assignTo('<%= u._id %>')">Assign to my team</button>
 											</td>
 										<% } else if (u.level.name == 'Normal User') { %>
 											<td>
-												
+												<button type="button" class="btn btn-block btn-danger" onclick="fire('<%= u._id %>')">Fire</button>
 											</td>
 										<% } else { %>
 											<td></td>
@@ -476,6 +476,32 @@
 		
 		$.ajax({
 			url: '/manager/assign/',
+			method: 'POST',
+			data: {
+				userId: userId
+			},
+			success: function (data) {
+				// console.log('success');
+				// console.log(data);
+				if (data.status == 'success'){
+					alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.')
+				}
+				setTimeout(function () {
+					window.location.reload(true);
+				}, 1000);
+			},
+			error: function (err) {
+				// console.log('error');
+				// console.log(err);
+				alert(err.responseJSON.error)
+			}
+		})
+	}
+
+	function fire(userId) {
+		
+		$.ajax({
+			url: '/manager/fire/',
 			method: 'POST',
 			data: {
 				userId: userId

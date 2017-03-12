@@ -233,6 +233,86 @@ router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, ne
 	})()
 })
 
+router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next) {
+	// Coi vai trò của user đang request là manager.
+	// Admin sẽ có route fire riêng
+	var async = require('asyncawait/async');
+	var await = require('asyncawait/await');
+
+	var nullParam = checkUnNullParams(['userId'], req.body);
+
+	if (nullParam){
+		return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
+	}
+	async(() => {
+		var user = await(new Promise((resolve, reject) => {
+			User.findById(req.body.userId, (err, user) => {
+				if (err){
+					console.log(err);
+					res.status(500).json({
+						status: 'error',
+						error: 'Error while reading user info'
+					})
+					resolve(null)
+				}
+				else {
+					if (user){
+						resolve(user)
+					}
+					else {
+						res.status(400).json({
+							status: 'error',
+							error: 'Invalid userId'
+						})
+						resolve(null)
+					}
+				}
+			})
+		}))
+		if (!user){
+			// do not care. Handle inside the above await
+		}
+		else {
+			var userRoles = await(new Promise((resolve, reject) => {
+				acl.userRoles(user.id, (err, roles) => {
+					if (err){
+						console.log(err);
+						resolve([])
+					}
+					else {
+						resolve(roles)
+					}
+				})
+			}))
+
+			if (userRoles.indexOf('admin') >= 0){
+				return responseError(req, '', res, 403, ['error'], ['wanna fire an admin? :))']);
+			}
+			else if (userRoles.indexOf('manager') >= 0){
+				return responseError(req, '', res, 403, ['error'], ['Không thể thu hồi quyền hạn của 1 manager bằng thao tác này']);
+			}
+			else {
+
+				if (user.maDeTai == req.user.maDeTai){
+					user.maDeTai = '';
+					user.save((err) => {
+						if (err){
+							console.log(err);
+							return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
+						}
+						else {
+							return responseSuccess(res, [], []);
+						}
+					})
+				}
+				else {
+					return responseError(req, '', res, 403, ['error'], ['Tài khoản này không thuộc quyền quản lý của bạn'])
+				}
+			}
+		}
+	})()
+})
+
 function isLoggedIn (req, res, next) {
 	console.log('accessing ' + req.path);
 	if (!req.isAuthenticated()){

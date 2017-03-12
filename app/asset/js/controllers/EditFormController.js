@@ -373,28 +373,30 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
-				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.vido_do = parseInt(coor[1].trim());
-				$scope.vido_phut = parseInt(coor[2].trim());
-				$scope.vido_giay = parseInt(coor[3].trim());
-				var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-				$scope.kinhdo_do = parseInt(coor[1].trim());
-				$scope.kinhdo_phut = parseInt(coor[2].trim());
-				$scope.kinhdo_giay = parseInt(coor[3].trim());
-				document.getElementById("vitri-dms").checked = true;
-				$scope.showCoor = true;
-			} else {
-				document.getElementById("vitri-dd").checked = true;
-				$scope.showCoor = false;
-			}
-			if ($scope.data.fDiaDiemThuMau == "bien") {
-				document.getElementById("trenBien").checked = true;
-			} else{
-				document.getElementById("datLien").checked = true;
-			}
-			document.getElementsByName('tinh')[0].click()
-			document.getElementsByName('huyen')[0].click()
+			// if ($scope.data.viDo != null) {
+				if (isNaN($scope.data.viDo)) {
+					var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+					$scope.vido_do = parseInt(coor[1].trim());
+					$scope.vido_phut = parseInt(coor[2].trim());
+					$scope.vido_giay = parseInt(coor[3].trim());
+					var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+					$scope.kinhdo_do = parseInt(coor[1].trim());
+					$scope.kinhdo_phut = parseInt(coor[2].trim());
+					$scope.kinhdo_giay = parseInt(coor[3].trim());
+					document.getElementById("vitri-dms").checked = true;
+					$scope.showCoor = true;
+				} else {
+					document.getElementById("vitri-dd").checked = true;
+					$scope.showCoor = false;
+				}
+				if ($scope.data.fDiaDiemThuMau == "bien") {
+					document.getElementById("trenBien").checked = true;
+				} else{
+					document.getElementById("datLien").checked = true;
+				}
+				document.getElementsByName('tinh')[0].click()
+				document.getElementsByName('huyen')[0].click()
+			// }
 		}, 1000);
 	}, function (err){
 		$scope.status = err.data.status;

@@ -364,7 +364,9 @@
 			</tr>
 			<tr>
 				<td><label>31. Bản đồ:</label></td>
-				<td><input type="file" multiple ng-model="data.banDo" title="{{tooltips['banDo']}}" valid-file accept=".zip, .rar" name="banDo" class="input-form"></td>
+				<td>
+					<input type="file" name="banDo" id="banDo" ng-model="data.banDo" class="input-form" title="{{tooltips['banDo']}}" accept=".zip, .rar" multiple/>
+				</td>
 			</tr>
 			<tr>
 				<td><label>32. Thông tin khác </label></td>
@@ -390,7 +392,7 @@
 			<tr><td><label>36. Tài liệu phân tích/giám định/phân loại đi kèm <span class="has-required"> (*)</span>:</label></td></tr>
 			<tr>
 				<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips['taiLieuPhanTichStr']}}" name="taiLieuPhanTichStr" class="input-form" required></td>
-				<td><input type="file" multiple ng-model="data.taiLieuPhanTichFile"   title="{{tooltips['taiLieuPhanTichFile']}}" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="input-form" valid-file required></td>
+				<td><input type="file" multiple ng-model="data.taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="input-form" valid-file required></td>
 			</tr>
 			<tr><td><label>37. Mô tả/đặc điểm hình thái <span class="has-required"> (*)</span></label></td></tr>
 			<tr>

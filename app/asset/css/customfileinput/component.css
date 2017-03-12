@@ -1,0 +1,59 @@
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.no-js .inputfile + label {
+    display: none;
+}
+
+/* style 6 */
+
+.customfile + label {
+    color: #00994c;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.customfile + label {
+    border: 1px solid #ccc;
+}
+
+.customfile + label span,
+.customfile + label strong {
+    padding: 0.625rem 1.25rem;
+}
+
+.customfile + label span {
+    width: 200px;
+    min-height: 2em;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.customfile + label strong {
+    color: #f1e5e6;
+    background-color: #d3394c;
+    display: inline-block;
+}
+
+@media screen and (max-width: 50em) {
+	.customfile + label strong {
+		display: block;
+	}
+}

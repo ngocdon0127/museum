@@ -71,7 +71,7 @@
 							<!-- Menu Body -->
 							<li class="user-body bg-success">
 								<div class="pull-left">
-									<a href="/home" class="btn btn-primary btn-flat">Home</a>
+									<a href="/home" class="btn btn-success btn-flat">Home</a>
 								</div>
 								<div class="pull-right">
 									<a href="/auth/logout" class="btn btn-warning btn-flat">Sign out</a>
@@ -182,7 +182,8 @@
 										<td><%= u.username %></td>
 										<td><%= u.fullname %></td>
 										<td><span class="<%= u.level.class %>" title="<%= u.maDeTai %>"><%= u.level.name %></span></td>
-										<td><%= u.lastLogin %></td>
+										<% var date = new Date(u.lastLogin) %>
+										<td><%= [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') %></td>
 										<% if (u.level.name == 'Pending User') { %>
 											<td><button type="button" class="btn btn-success" onclick="assignTo('<%= u._id %>')">Assign to my team</button>
 											</td>

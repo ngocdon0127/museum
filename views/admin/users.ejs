@@ -184,7 +184,8 @@
 										<td><%= u.username %></td>
 										<td><%= u.fullname %></td>
 										<td><span class="<%= u.level.class %>" title="<%= u.maDeTai %>"><%= u.level.name %></span></td>
-										<td><%= u.lastLogin %></td>
+										<% var date = new Date(u.lastLogin) %>
+										<td><%= [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') %></td>
 										<% if (u.level.name == 'Admin') { %>
 											<td>
 												<% if (u._id == user._id) { %>

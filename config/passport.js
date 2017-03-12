@@ -61,6 +61,11 @@ module.exports = function (passport, User) {
 				console.log("exist");
 				return done(null, false, req.flash("signupMessage", "Email already exist."));
 			}
+			var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			if (!emailRegex.test(username)){
+				console.log('invalid email');
+				return done(null, false, req.flash('signupMessage', 'Invalid Email.'))
+			}
 			var newUser = new User();
 
 			// username + password can be passed as arguments.

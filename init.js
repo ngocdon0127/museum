@@ -9,10 +9,11 @@ var fs = require('fs');
 
 global.myCustomVars.acl = acl;
 
-function aclMiddleware (resource, action) {
+function aclMiddleware (resource, action, url) {
+	var redirectURL = (url) ? url : '/home';
 	return function (req, res, next) {
 		if (!('userId' in req.session)){
-			return res.redirect('/home');
+			return res.redirect(redirectURL);
 		}
 		acl.isAllowed(req.session.userId, resource, action, function (err, result) {
 			if (err){
@@ -23,7 +24,7 @@ function aclMiddleware (resource, action) {
 				next();
 			}
 			else {
-				return res.redirect('/home');
+				return res.redirect(redirectURL);
 			}
 		});
 	}

@@ -50,6 +50,7 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 var angular = require('./routes/angular');
 var admin = require('./routes/admin')
+var manager = require('./routes/manager')
 var content = require('./routes/content');
 var log = require('./routes/log.js');
 var test = require('./routes/test.js');
@@ -98,6 +99,7 @@ app.use('/users', users);
 app.use('/auth', auth);
 app.use('/app', angular);
 app.use('/admin', admin);
+app.use('/manager', manager);
 app.use('/content', content);
 app.use('/log', log);
 app.use('/test', test);

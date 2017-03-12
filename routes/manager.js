@@ -22,18 +22,22 @@ var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
 var PERM_USER = global.myCustomVars.PERM_USER;
 var LEVEL = {};
 LEVEL['admin'] = {
+	id: 'admin',
 	name: 'Admin',
 	class: 'label label-danger'
 }
 LEVEL['manager'] = {
+	id: 'manager',
 	name: 'Manager',
 	class: 'label label-success'
 }
 LEVEL['user'] = {
+	id: 'user',
 	name: 'Normal User',
 	class: 'label label-primary'
 }
 LEVEL['pending-user'] = {
+	id: 'pending-user',
 	name: 'Pending User',
 	class: 'label label-warning'
 }
@@ -46,7 +50,7 @@ LEVEL['pending-user'] = {
 // });
 
 // Only admin can access these routes
-router.use('/', isLoggedIn, aclMiddleware('/admin', 'view'));
+router.use('/', isLoggedIn, aclMiddleware('/manager', 'view'), express.static(path.join(__dirname, '../views/admin/')));
 
 // redirect to /admin/users
 router.get('/', function (req, res, next) {
@@ -123,11 +127,17 @@ router.get('/users', function (req, res, next) {
 				}
 			}
 		}
-		result.users = users
+		result.users = users.filter((u, index) => {
+			return (u._id == req.session.userId) || // Chính mình
+			(	
+				(['admin', 'manager'].indexOf(u.level.id) < 0) && // Không thuộc các cấp Quản lý
+				((u.maDeTai == req.user.maDeTai) || (!u.maDeTai)) // Và chưa được gán và Đề tài nào, hoặc cùng đề tài với Manager
+			)
+		})
 
 		console.log(result);
 
-		res.render('admin/users', result)
+		res.render('manager/users', result)
 
 	})()
 	
@@ -137,8 +147,95 @@ router.get('/test', function (req, res, next) {
 	res.end('access granted')
 })
 
+router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, next) {
+	// Coi vai trò của user đang request là manager.
+	// Admin sẽ có route assign riêng
+	var async = require('asyncawait/async');
+	var await = require('asyncawait/await');
+
+	var nullParam = checkUnNullParams(['userId'], req.body);
+
+	if (nullParam){
+		return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
+	}
+
+	async(() => {
+		var user = await(new Promise((resolve, reject) => {
+			User.findById(req.body.userId, (err, user) => {
+				if (err){
+					console.log(err);
+					res.status(500).json({
+						status: 'error',
+						error: 'Error while reading user info'
+					})
+					resolve(null)
+				}
+				else {
+					if (user){
+						resolve(user)
+					}
+					else {
+						res.status(400).json({
+							status: 'error',
+							error: 'Invalid userId'
+						})
+						resolve(null)
+					}
+				}
+			})
+		}))
+		if (!user){
+			// do not care. Handle inside the above await
+		}
+		else {
+			var userRoles = await(new Promise((resolve, reject) => {
+				acl.userRoles(user.id, (err, roles) => {
+					if (err){
+						console.log(err);
+						resolve([])
+					}
+					else {
+						resolve(roles)
+					}
+				})
+			}))
+			var maDeTais = await(new Promise((resolve, reject) => {
+				SharedData.findOne({}, (err, sharedData) => {
+					if (err){
+						resolve([])
+					}
+					else {
+						resolve(sharedData.maDeTai)
+					}
+				})
+			}))
+
+			if (userRoles.indexOf('admin') >= 0){
+				return responseError(req, '', res, 403, ['error'], ['Bạn không thể thay đổi thông tin của 1 Admin bằng thao tác này']);
+			}
+			else if (userRoles.indexOf('manager') >= 0){
+				return responseError(req, '', res, 403, ['error'], ['Không thể thay đổi thông tin của 1 Manager bằng thao tác này']);
+			}
+			else {
+				// Giả sử rằng maDeTai của manager đã hợp lệ.
+				user.maDeTai = req.user.maDeTai;
+				user.save((err) => {
+					if (err){
+						console.log(err);
+						return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
+					}
+					else {
+						return responseSuccess(res, [], []);
+					}
+				})
+			}
+		}
+	})()
+})
+
 // require extra permission: admin-edit
 router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
+	res.redirect('/manager')
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 	async(() => {
@@ -298,6 +395,7 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 })
 
 router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
+	res.redirect('/manager')
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 	async(() => {
@@ -379,118 +477,6 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 		}
 	}
 	})();
-})
-
-router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next) {
-	// Coi vai trò của user đang request là manager.
-	// Admin sẽ có route assign riêng
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
-
-	var nullParam = checkUnNullParams(['userId', 'maDeTai'], req.body);
-
-	if (nullParam){
-		return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
-	}
-
-	async(() => {
-		var user = await(new Promise((resolve, reject) => {
-			User.findById(req.body.userId, (err, user) => {
-				if (err){
-					console.log(err);
-					res.status(500).json({
-						status: 'error',
-						error: 'Error while reading user info'
-					})
-					resolve(null)
-				}
-				else {
-					if (user){
-						resolve(user)
-					}
-					else {
-						res.status(400).json({
-							status: 'error',
-							error: 'Invalid userId'
-						})
-						resolve(null)
-					}
-				}
-			})
-		}))
-		if (!user){
-			// do not care. Handle inside the above await
-		}
-		else {
-			var userRoles = await(new Promise((resolve, reject) => {
-				acl.userRoles(user.id, (err, roles) => {
-					if (err){
-						console.log(err);
-						resolve([])
-					}
-					else {
-						resolve(roles)
-					}
-				})
-			}))
-			var maDeTais = await(new Promise((resolve, reject) => {
-				SharedData.findOne({}, (err, sharedData) => {
-					if (err){
-						resolve([])
-					}
-					else {
-						resolve(sharedData.maDeTai)
-					}
-				})
-			}))
-
-			if (userRoles.indexOf('admin') >= 0){
-				if (req.body.userId == req.session.userId){
-					// Chính mình
-					if (maDeTais.indexOf(req.body.maDeTai) < 0){
-						return responseError(req, '', res, 400, ['error'], ['Mã đề tài không hợp lệ']);
-					}
-					else {
-						user.maDeTai = req.body.maDeTai;
-						user.save((err) => {
-							if (err){
-								console.log(err);
-								return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
-							}
-							else {
-								return responseSuccess(res, [], []);
-							}
-						})
-					}
-					
-				}
-				else {
-					return responseError(req, '', res, 403, ['error'], ['Bạn không thể thay đổi thông tin của 1 Admin khác']);
-				}
-			}
-			else if (userRoles.indexOf('manager') >= 0){
-				return responseError(req, '', res, 403, ['error'], ['Không thể thay đổi thông tin của 1 Manager bằng thao tác này. Thay vào đó, hãy thu hồi quyền của Manager đó (Revoke Manager Role), sau đó cấp phát lại. (Grant Manager Role on ...)']);
-			}
-			else {
-				if (maDeTais.indexOf(req.body.maDeTai) < 0){
-					return responseError(req, '', res, 400, ['error'], ['Mã đề tài không hợp lệ']);
-				}
-				else {
-					user.maDeTai = req.body.maDeTai;
-					user.save((err) => {
-						if (err){
-							console.log(err);
-							return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
-						}
-						else {
-							return responseSuccess(res, [], []);
-						}
-					})
-				}
-				
-			}
-		}
-	})()
 })
 
 function isLoggedIn (req, res, next) {

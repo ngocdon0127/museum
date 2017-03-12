@@ -539,7 +539,7 @@
 									<tr>
 										<td><%= u.username %></td>
 										<td><%= u.fullname %></td>
-										<td><span class="<%= u.level.class %>"><%= u.level.name %></span></td>
+										<td><span class="<%= u.level.class %>" title="<%= u.maDeTai %>"><%= u.level.name %></span></td>
 										<td><%= u.lastLogin %></td>
 										<% if (u.level.name == 'Manager') { %>
 											<td><button type="button" class="btn btn-danger" onclick="revokeManager('<%= u._id %>')">Revoke Manager Role</button></td>

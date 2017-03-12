@@ -100,6 +100,23 @@ function checkRequiredParams (requiredParams, object) {
 
 global.myCustomVars.checkRequiredParams = checkRequiredParams;
 
+/**
+ * Check required parameters
+ */
+
+function checkUnNullParams (requiredParams, object) {
+	if (requiredParams instanceof Array){
+		for (var i = 0; i < requiredParams.length; i++) {
+			if (!(object[requiredParams[i]])){
+				return requiredParams[i];
+			}
+		}
+	}
+	return false;
+}
+
+global.myCustomVars.checkUnNullParams = checkUnNullParams;
+
 
 /**
  * Send error message to response when some action failure

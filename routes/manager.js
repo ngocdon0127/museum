@@ -130,7 +130,7 @@ router.get('/users', function (req, res, next) {
 		result.users = users.filter((u, index) => {
 			return (u._id == req.session.userId) || // Chính mình
 			(	
-				(['admin', 'manager'].indexOf(u.level.id) < 0) && // Không thuộc các cấp Quản lý
+				(['admin'].indexOf(u.level.id) < 0) && // Không thuộc cấp Admin
 				((u.maDeTai == req.user.maDeTai) || (!u.maDeTai)) // Và chưa được gán và Đề tài nào, hoặc cùng đề tài với Manager
 			)
 		})

@@ -1,4 +1,4 @@
-<div class="" style="margin-top: 60px;">
+<div class="" style="margin-top: 60px;" bs-loading-overlay bs-loading-overlay-delay="2000">
 	<form id="form-content">
 		<input type="text" name="id" style="display: none;" ng-model="data.id">
 		<center><h2>Thêm mẫu dữ liệu cổ sinh</h2></center>
@@ -132,7 +132,7 @@
 				<h3 class="h3-title">SỐ LƯỢNG VÀ CHẤT LƯỢNG MẪU VẬT</h3>
 				<tr>
 					<td><label>14. Số lượng tiêu bản:</label></td>
-					<td><input type="number" disabled min = "0" title="{{tooltips['soLuongTieuBan']}}" name="soLuongTieuBan" ng-model="data.soLuongTieuBan" class="input-form"></td>
+					<td><input type="number" min = "0" title="{{tooltips['soLuongTieuBan']}}" name="soLuongTieuBan" ng-model="data.soLuongTieuBan" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>15. Loại mẫu vật<span class="has-required"> (*)</span>:</label></td>
@@ -255,39 +255,44 @@
 							<tr>
 								<td>Vị trí: </td>
 								<td>
-							        <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-click="showstar()" id="datLien"> Trên đất liền 
-							        <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
+									<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
+									<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
 								</td>
 							</tr>
 							<tr>
 								<td>Quốc gia<span class="has-required"> (*)</span>: </td>
 								<td>
-									<select class="select-box" ng-model = "data.quocGia" title="{{tooltips['quocGia']}}" name="quocGia" required>
+									<input type="text" list="quocGia" class="input-form flexdatalist" data-min-length='0' ng-model="data.quocGia" title="{{tooltips['quocGia']}}" name="quocGia">
+									<datalist id="quocGia">
 										<option value="Việt Nam">Việt Nam</option>
-									</select>
+									</datalist>
 								</td>
 							</tr>
 							<tr>
 								<td>Tỉnh/Thành phố<span ng-show="star" class="has-required"> (*)</span>: </td>
 								<td>
-									<select class="select-box" title="{{tooltips['tinh']}}" name="tinh" required ng-model= "$parent.data.tinh" ng-click="cityChange()">
-										<option ng-repeat="city in cities | orderBy: 'name'" value="{{city.id}}">{{city.name}}</option>
-									</select>
+									<input type="text" list="tinh" class="input-form flexdatalist" ng-model="data.tinh" ng-change="cityChange()" data-min-length='0' title="{{tooltips['tinh']}}" name="tinh"> 
+									<datalist id="tinh">
+										<option ng-repeat="city in cities | orderBy: 'name'" id="{{city.name}}" value="{{city.id}}">{{city.name}}</option>
+									</datalist>
+									<!-- {{tinh}} -->
 								</td>
 							</tr>
 							<tr>
-								<td>Huyện<span ng-show="star" class="has-required">(*)</span>:</td>
+								<td>Huyện<span ng-show="star" class="has-required"> (*)</span>:</td>
 								<td>
-									<select class="select-box" title="{{tooltips['huyen']}}" name="huyen" required ng-model= "$parent.data.huyen" ng-click="districtChange()">
-										<option ng-repeat="district in districts | customCity: data.tinh | orderBy: 'name'" value="{{district.id}}">{{district.name}}</option>
-									</select>
+									<input type="text" class="input-form flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" required ng-model= "data.huyen" ng-change="districtChange()">
+									<datalist id="huyen">
+										<option ng-repeat="district in districts | customCity: id_tinh | orderBy: 'name'" id="{{district.name}}" value="{{district.id}}">{{district.name}}</option>
+									</datalist>
 								</td>
 							</tr>
 							<tr>
 								<td>Xã<span ng-show="star" class="has-required"> (*)</span>: </td>
 								<td>
-									<select class="select-box" ng-model="data.xa" title="{{tooltips['xa']}}" name="xa" required>
-										<option ng-repeat="ward in wards | customDistrict: data.huyen | orderBy: 'name'" value="{{ward.id}}">{{ward.name}}</option>
+									<input type="text" class="input-form flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" required>
+									<datalist id="xa">
+										<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
 									</select>
 								</td>
 							</tr>
@@ -433,7 +438,7 @@
 				</tr>
 				<tr>
 					<td>Thuộc tính Xử lý chế tác:</td>
-					<td><input type="file" multiple   title="{{tooltips['thuocTinhXuLyCheTac']}}" name="thuocTinhXuLyCheTac" ng-model="data.thuocTinhXuLyCheTac" accept=".doc, .docx, .pdf" class="input-form"></td>
+					<td><input type="text" title="{{tooltips['thuocTinhXuLyCheTac']}}" name="thuocTinhXuLyCheTac" ng-model="data.thuocTinhXuLyCheTac" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Phương thức xử lý chế tác:</td>
@@ -460,14 +465,13 @@
 					<td>Vùng gen phân tích</td>
 					<td><input type="text" title="{{tooltips['vungGenPhanTich']}}" id="vungGenPhanTich" name="vungGenPhanTich" ng-model="data.vungGenPhanTich" class="input-form"></td>
 				</tr>
-
 				<tr>
 					<td>Trình tự DNA</td>
 					<td><input type="text" multiple title="{{tooltips['trinhTuDNA']}}" name="trinhTuDNA" ng-model="data.trinhTuDNA" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Đính kèm trình tự DNA</td>
-					<td><input type="file" multiple   title="{{tooltips['dinhKemTrinhTuDNA']}}" name="dinhKemTrinhTuDNA" ng-model="data.dinhKemTrinhTuDNA" accept="image/*, .doc, .docx, .pdf" class="input-form"></td>
+					<td><input type="file" multiple title="{{tooltips['dinhKemTrinhTuDNA']}}" name="dinhKemTrinhTuDNA" ng-model="data.dinhKemTrinhTuDNA" accept=".doc, .docx, .pdf" class="input-form"></td>
 				</tr>
 				<tr>
 					<td>Công bố/thông tin quốc tế (genbank...)</td>

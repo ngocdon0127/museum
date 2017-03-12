@@ -43,7 +43,7 @@ function saveData(id, data) {
 		}
 	}
 
-app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	// setInterval(saveData("dataAni", $scope.data), 2000);
 	// setTimeout(getData("dataAni"), 1000);
@@ -77,11 +77,11 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 		console.log(err);
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
+
 	$scope.addPost = function(FormContent){
-		console.log($scope.data)
+			
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
-			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		// } else{
@@ -115,7 +115,7 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar'
 	}
 }]);
 
-app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
+app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -147,10 +147,10 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
-			cfpLoadingBar.start();
 
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
+		
 		// } else{
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
@@ -187,7 +187,7 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingB
 	}
 }]);
 
-app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 	
 	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -218,7 +218,6 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
-			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 		// } else{
@@ -255,7 +254,7 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoading
 	}
 }]);
 
-app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
 
 	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -286,7 +285,6 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
-			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 		// } else{
@@ -323,7 +321,7 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', 
 	}
 }]);
 
-app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
+app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoadingOverlayService', function ($scope, $http, AuthService, bsLoadingOverlayService) {
 
 	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -354,7 +352,6 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
-			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 		// } else{
@@ -391,7 +388,7 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLo
 	}
 }]);
 
-app.controller('PlaceController', ['$scope','$http','$filter', function ($scope, $http, $filter) {
+app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$timeout', function ($scope, $http, $filter, AuthService, $timeout) {
 	var places = {};
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
@@ -414,8 +411,22 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 	});
 	$scope.cityChange = function(){
 		if ('districts' in places){
-			// console.log('districts cache hit');
-			$scope.districts = places.districts;
+			var x = document.getElementById($scope.data.tinh);
+			if (x == null) {
+				$scope.data.huyen = ""
+				$scope.data.xa = ""
+			} else {
+				// Get id to render data for district
+				$scope.id_tinh = x.value
+				$scope.districts = places.districts;
+				$timeout(function () {
+					$('#render_districts').flexdatalist({
+						minLength: 0
+					});
+				}, 200)
+				// })
+				// console.log($scope.districts);
+			}
 		}
 		else {
 			// console.log('districts cache miss')
@@ -439,8 +450,18 @@ app.controller('PlaceController', ['$scope','$http','$filter', function ($scope,
 
 	$scope.districtChange = function() {
 		if ('wards' in places){
-			// console.log('wards cache hit')
-			$scope.wards = places.wards;
+			var x = document.getElementById($scope.data.huyen);
+			if (x == null) {
+				$scope.data.xa = ""
+			} else{
+				$scope.id_huyen = x.value
+				$scope.wards = places.wards;
+				$timeout(function () {
+					$('#render_wards').flexdatalist({
+						minLength: 0
+					});
+				}, 200)
+			}
 		}
 		else {
 			// console.log('wards cache miss')
@@ -469,3 +490,16 @@ app.controller('CookiesManageController', ['$scope', '$cookies', function($scope
 		$cookies.remove('data')
 	}
 }])
+
+app.controller('HttpIntegrationController', function($scope, $http, $sce, bsLoadingOverlayService) {
+	$scope.result = $sce.trustAsHtml('Fetch result here');
+	$scope.fetchRandomText = function() {
+		$http.get('http://hipsterjesus.com/api/')
+			.success(function(data) {
+				$scope.result = $sce.trustAsHtml(data.text);
+			})
+			.error(function() {
+				$scope.result = $sce.trustAsHtml('Can not get the article');
+			});
+	};
+});

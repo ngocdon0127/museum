@@ -1,0 +1,85 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "angular-spinners",
+        "scope": null,
+        "escapedName": "angular-spinners",
+        "name": "angular-spinners",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "E:\\WorkSpace\\Bao tang thien nhien\\museum\\app\\asset\\js"
+    ]
+  ],
+  "_from": "angular-spinners@latest",
+  "_id": "angular-spinners@3.1.2",
+  "_inCache": true,
+  "_location": "/angular-spinners",
+  "_nodeVersion": "5.5.0",
+  "_npmUser": {
+    "name": "chevex",
+    "email": "alex.ford@codetunnel.com"
+  },
+  "_npmVersion": "3.3.12",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular-spinners",
+    "scope": null,
+    "escapedName": "angular-spinners",
+    "name": "angular-spinners",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-spinners/-/angular-spinners-3.1.2.tgz",
+  "_shasum": "e5df18d90674ef933ed52bb91875971f8d057697",
+  "_shrinkwrap": null,
+  "_spec": "angular-spinners",
+  "_where": "E:\\WorkSpace\\Bao tang thien nhien\\museum\\app\\asset\\js",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/codetunnel/angular-spinners/issues"
+  },
+  "dependencies": {},
+  "description": "A library for easily adding spinners and a spinner hide/show API to your Angular application.",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-concat-util": "^0.5.2",
+    "gulp-ng-annotate": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "e5df18d90674ef933ed52bb91875971f8d057697",
+    "tarball": "https://registry.npmjs.org/angular-spinners/-/angular-spinners-3.1.2.tgz"
+  },
+  "gitHead": "e4a1774ef9c9dc1882f60bb55687ba3428f7b502",
+  "homepage": "https://github.com/codetunnel/angular-spinners#readme",
+  "license": "MIT",
+  "main": "dist/angular-spinners.js",
+  "maintainers": [
+    {
+      "name": "chevex",
+      "email": "alex.ford@codetunnel.com"
+    }
+  ],
+  "name": "angular-spinners",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codetunnel/angular-spinners.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "3.1.2"
+}

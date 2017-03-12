@@ -2228,7 +2228,7 @@ var getAllHandler = function (options) {
 
 			if (userRoles.indexOf('admin') >= 0){
 				// Admin, Xem tất
-				delete projection['created_by.userId'];
+				delete projection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
 				delete projection['maDeTai.maDeTai'];
 			}
 
@@ -2360,6 +2360,9 @@ global.myCustomVars.getSingleHandler = getSingleHandler;
 // hanle route: objectBaseURL + '/log/:logId/:position'
 var getLogHandler = function (options) {
 	return function (req, res) {
+		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		var objectBaseURL = options.objectBaseURL;
+		var PROP_FIELDS = options.PROP_FIELDS;
 		Log.findById(req.params.logId, function (err, log) {
 			if (err){
 				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);

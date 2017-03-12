@@ -7,7 +7,8 @@ module.exports = function (mongoose) {
 		maDeTai: String,
 		password: String,
 		fullname: String,
-		lastLogin: Date
+		lastLogin: Date,
+		created_at: Date
 	});
 	
 	userSchema.methods.hashPassword = function (plainPassword) {

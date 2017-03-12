@@ -70,6 +70,7 @@ module.exports = function (passport, User) {
 			// But fullname must be access through request 's body.
 			newUser.fullname = req.body.fullname;
 			// newUser.level = global.myCustomVars.PERM_USER;
+			newUser.created_at = new Date();
 			newUser.save(function (err, user) {
 				if (err){
 					throw err;

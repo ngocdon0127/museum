@@ -1,5 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
-var PERM_ACCESS_PAGE = 1000;
+// var PERM_ACCESS_PAGE = 1000;
 
 module.exports = function (passport, User) {
 	passport.serializeUser(function (user, done) {
@@ -69,7 +69,7 @@ module.exports = function (passport, User) {
 			
 			// But fullname must be access through request 's body.
 			newUser.fullname = req.body.fullname;
-			newUser.level = global.myCustomVars.PERM_USER;
+			// newUser.level = global.myCustomVars.PERM_USER;
 			newUser.save(function (err, user) {
 				if (err){
 					throw err;

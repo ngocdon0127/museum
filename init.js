@@ -45,16 +45,16 @@ var STR_SEPERATOR = '_+_';
 global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
-var PERM_MANAGER = 500;
-global.myCustomVars.PERM_MANAGER = PERM_MANAGER;
-var PERM_ADMIN = 1000;
-global.myCustomVars.PERM_ADMIN = PERM_ADMIN;
-var PERM_USER = 0;
-global.myCustomVars.PERM_USER = PERM_USER;
-var PERM_ACCESS_SAME_MUSEUM = global.myCustomVars.PERM_ADMIN;
-global.myCustomVars.PERM_ACCESS_SAME_MUSEUM = PERM_ACCESS_SAME_MUSEUM;
-var PERM_ACCESS_ALL = global.myCustomVars.PERM_ADMIN;
-global.myCustomVars.PERM_ACCESS_ALL = PERM_ACCESS_ALL;
+// var PERM_MANAGER = 500;
+// global.myCustomVars.PERM_MANAGER = PERM_MANAGER;
+// var PERM_ADMIN = 1000;
+// global.myCustomVars.PERM_ADMIN = PERM_ADMIN;
+// var PERM_USER = 0;
+// global.myCustomVars.PERM_USER = PERM_USER;
+// var PERM_ACCESS_SAME_MUSEUM = global.myCustomVars.PERM_ADMIN;
+// global.myCustomVars.PERM_ACCESS_SAME_MUSEUM = PERM_ACCESS_SAME_MUSEUM;
+// var PERM_ACCESS_ALL = global.myCustomVars.PERM_ADMIN;
+// global.myCustomVars.PERM_ACCESS_ALL = PERM_ACCESS_ALL;
 
 
 
@@ -2228,6 +2228,7 @@ var getAllHandler = function (options) {
 
 			if (userRoles.indexOf('admin') >= 0){
 				// Admin, Xem tất
+				delete projection['created_by.userId'];
 				delete projection['maDeTai.maDeTai'];
 			}
 

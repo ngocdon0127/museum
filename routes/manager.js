@@ -17,9 +17,9 @@ var responseError = global.myCustomVars.responseError;
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
 
-var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
-var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
-var PERM_USER = global.myCustomVars.PERM_USER;
+// var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
+// var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
+// var PERM_USER = global.myCustomVars.PERM_USER;
 var LEVEL = {};
 LEVEL['admin'] = {
 	id: 'admin',

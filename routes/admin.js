@@ -17,9 +17,9 @@ var responseError = global.myCustomVars.responseError;
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
 
-var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
-var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
-var PERM_USER = global.myCustomVars.PERM_USER;
+// var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
+// var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
+// var PERM_USER = global.myCustomVars.PERM_USER;
 var LEVEL = {};
 LEVEL['admin'] = {
 	name: 'Admin',
@@ -224,7 +224,7 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 				}
 				else{
 					user.maDeTai = req.body.maDeTai;
-					user.level = PERM_MANAGER;
+					// user.level = PERM_MANAGER;
 					user.save((err) => {
 						if (err){
 							res.status(500).json({
@@ -492,6 +492,8 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 		}
 	})()
 })
+
+
 
 function isLoggedIn (req, res, next) {
 	console.log('accessing ' + req.path);

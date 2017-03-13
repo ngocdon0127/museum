@@ -278,20 +278,20 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			data: {
 				id: id,
 				form: link,
-				approved: val + ''
+				approved: val ? '0' : '1'
 			}
 		}).then(function (res) {
-			console.log(res);
+			// console.log(res);
 			if (res.data.status == 'success'){
 				alert('success')
 			}
 			else {
-				alert('Có lỗi xảy ra.');
+				alert('Bạn không thể phê duyệt mẫu dữ liệu này.');
 			}
 			$route.reload();
 		}, function (err) {
-			console.log(err);
-			alert('Có lỗi xảy ra')
+			// console.log(err);
+			alert('Bạn không thể phê duyệt mẫu dữ liệu này');
 			$route.reload();
 		});
 	}

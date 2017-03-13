@@ -30,12 +30,7 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 		}
 	}
 	$scope.approvePost = function (id, approved) {
-		if (approved){
-			AuthService.approvePost(id, 0, $scope.link)
-		}
-		else {
-			AuthService.approvePost(id, 1, $scope.link)
-		}
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 
 }]);
@@ -72,12 +67,7 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '
 		}
 	}
 	$scope.approvePost = function (id, approved) {
-		if (approved){
-			AuthService.approvePost(id, 0, $scope.link)
-		}
-		else {
-			AuthService.approvePost(id, 1, $scope.link)
-		}
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
 
@@ -113,12 +103,7 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$rout
 		}
 	}
 	$scope.approvePost = function (id, approved) {
-		if (approved){
-			AuthService.approvePost(id, 0, $scope.link)
-		}
-		else {
-			AuthService.approvePost(id, 1, $scope.link)
-		}
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
 app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
@@ -153,12 +138,7 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 		}
 	}
 	$scope.approvePost = function (id, approved) {
-		if (approved){
-			AuthService.approvePost(id, 0, $scope.link)
-		}
-		else {
-			AuthService.approvePost(id, 1, $scope.link)
-		}
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
 
@@ -194,11 +174,6 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 		}
 	}
 	$scope.approvePost = function (id, approved) {
-		if (approved){
-			AuthService.approvePost(id, 0, $scope.link)
-		}
-		else {
-			AuthService.approvePost(id, 1, $scope.link)
-		}
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);

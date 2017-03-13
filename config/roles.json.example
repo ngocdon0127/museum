@@ -90,10 +90,122 @@
             }
         ]
     },
+    "manager": {
+        "role": "manager",
+        "rolename": "Chủ nhiệm",
+        "allows": [
+            {
+                "resource": "/manager",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/config",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/app",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/log/all",
+                "actions": [
+                    "view"
+                ]
+            },
+            {
+                "resource": "/content/dong-vat",
+                "resourceId": "dongvat",
+                "resourceName": "Động vật",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/tho-nhuong",
+                "resourceId": "thonhuong",
+                "resourceName": "Thổ nhưỡng",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/dia-chat",
+                "resourceId": "diachat",
+                "resourceName": "Địa chất",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/co-sinh",
+                "resourceId": "cosinh",
+                "resourceName": "Cổ sinh",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/thuc-vat",
+                "resourceId": "thucvat",
+                "resourceName": "Thực vật",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            }
+        ]
+    },
     "admin": {
         "role": "admin",
         "rolename": "Admin",
         "allows": [
+            {
+                "resource": "/admin",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/manager",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
             {
                 "resource": "/config",
                 "actions": [

@@ -23,14 +23,14 @@ var app = angular.module('museumApp', [
 app.directive('validFile', function ($parse) {
     return {
         require: 'ngModel',
-        restrict: 'AE',
+        restrict: 'A',
         link: function (scope, el, attrs, ngModel) {
             var model = $parse(attrs.ngModel);
             var modelSetter = model.assign;
             var maxSize = 10;
             el.bind('change', function () {
                 scope.$apply(function () {
-                    // console.log(el[0].files)
+                    console.log(el[0].files)
                     if (el[0].files.length > 1) {
                         modelSetter(scope, el[0].files)
                     } else{
@@ -47,10 +47,11 @@ app.directive('validFile', function ($parse) {
         }
     };
 });
+
 app.directive('validImage', function ($parse) {
     return {
         require: 'ngModel',
-        restrict: 'AE',
+        restrict: 'A',
         link: function (scope, el, attrs, ngModel) {
             var model = $parse(attrs.ngModel);
             var modelSetter = model.assign;

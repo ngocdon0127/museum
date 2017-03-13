@@ -9,6 +9,7 @@ var multer = require('multer');
 var uploads = multer({dest: 'public/uploads/animal'});
 
 var aclMiddleware = global.myCustomVars.aclMiddleware;
+var acl = global.myCustomVars.acl;
 
 router.use(function (req, res, next) {
 	console.log(req.url);
@@ -19,8 +20,22 @@ router.get('/home', isLoggedIn, function (req, res) {
 	res.render('home', {user: req.user, path: req.path});
 })
 
-router.get('/test', aclMiddleware('/test', 'view'), function (req, res, next) {
-	res.render('index', {title: 'Test view'});
+router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {
+	
+	acl.userRoles(req.session.userId, (err, roles) => {
+		if (err){
+			console.log(err);
+			res.json({
+				status: 'error'
+			})
+		}
+		else {
+			res.json({
+				roles: roles
+			})
+		}
+	})
+	
 })
 
 router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next) {
@@ -84,7 +99,8 @@ router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (re
 	});
 })
 
-router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next){
+router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next){
+	// Cập nhật role cho user
 	console.log('---');
 	console.log(req.body);
 	// console.log(JSON.parse(req.body));
@@ -102,7 +118,9 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit')
 			var newRoles = [];
 			for (var i in roles){
 				var r = roles[i].role;
-				if ((r in req.body) && (req.body[r] == 'on')){
+				if ((['admin', 'manager'].indexOf(r) < 0) && (r in req.body) && (req.body[r] == 'on')){
+					// Không thể cấp phát quyền admin, manager tại route này ('/config')
+					// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
 					newRoles.push(r);
 				}
 			}
@@ -110,8 +128,19 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit')
 			if (!(user.id in aclRules)){
 				aclRules[user.id] = {};
 				aclRules[user.id].userId = user.id;
+				aclRules[user.id].roles = []
 			}
-			aclRules[user.id].roles = newRoles;
+
+			aclRules[user.id].roles = aclRules[user.id].roles.filter((r, index) => {
+				return ['admin', 'manager'].indexOf(r) >= 0; // Chỉ giữ lại 2 roles: admin, manager nếu đã có từ trước.
+			})
+			
+			for(let nr of newRoles){
+				// Phải giữ lại roles cũ, trong trường hợp tài khoản đã là Admin hoặc Manager.
+				if (aclRules[user.id].roles.indexOf(nr) < 0){
+					aclRules[user.id].roles.push(nr)
+				}
+			}
 			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
 			console.log("OK. restarting server");
 			return restart(res);
@@ -125,8 +154,8 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'edit')
 	})
 })
 
-router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next) {
-	
+router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next) {
+	// Tạo role mới
 	console.log(req.body);
 	var rolename = req.body.rolename.trim();
 	rolename = rolename.replace(/\r+\n+/g, ' ');
@@ -191,16 +220,16 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	return restart(res);
 })
 
-router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'edit'), function (req, res, next) {
+router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'delete'), function (req, res, next) {
 	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString());
 	var role = req.body.deleteRole;
 	console.log(role);
-	if (role == 'admin'){
+	if ((role == 'admin') || (role == 'manager')){
 		return res.status(403).json({
 			status: 'error',
-			error: 'Không thể xóa cấp Admin'
+			error: 'Không thể xóa cấp ' + role
 		})
 	}
 	if (role in roles){
@@ -244,17 +273,6 @@ function isLoggedIn (req, res, next) {
 	return next();
 }
 
-function restart (res) {
-	res.status(200).json({
-		status: 'success'
-	});
-
-	console.log('res sent');
-
-	setTimeout(function () {
-		console.log('halt');
-		process.exit(0);
-	}, 1000)
-}
+var restart = global.myCustomVars.restart;
 
 module.exports = router;

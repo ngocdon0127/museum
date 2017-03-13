@@ -1,7 +1,6 @@
 var bcrypt = require('bcrypt-nodejs');
 
 var mongoose = require('mongoose');
-var Animal = mongoose.model('Animal');
 
 module.exports = function (mongoose) {
 	var logSchema = mongoose.Schema({

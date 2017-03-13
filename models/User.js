@@ -3,9 +3,12 @@ var bcrypt = require('bcrypt-nodejs');
 module.exports = function (mongoose) {
 	var userSchema = mongoose.Schema({
 		username: String,
+		// level: Number,
+		maDeTai: String,
 		password: String,
 		fullname: String,
-		lastLogin: Date
+		lastLogin: Date,
+		created_at: Date
 	});
 	
 	userSchema.methods.hashPassword = function (plainPassword) {

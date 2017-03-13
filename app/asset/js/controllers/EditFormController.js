@@ -11,6 +11,10 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
 		$scope.auto = res.data;
 		setTimeout(function () {
+			// Load name for input file
+			$scope.getName = function (arr) {
+				return arr.length ? arr[0] : "No file chosen...";
+			}
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
@@ -95,6 +99,10 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	$http.get(AuthService.hostName + '/content/co-sinh/auto').then(function(res) {
 		$scope.auto = res.data;
 		setTimeout(function () {
+			// Load name for input file
+			$scope.getName = function (arr) {
+				return arr.length ? arr[0] : "No file chosen...";
+			}
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
@@ -179,6 +187,10 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
 		$scope.auto = res.data;
 		setTimeout(function () {
+			// Load name for input file
+			$scope.getName = function (arr) {
+				return arr.length ? arr[0] : "No file chosen...";
+			}
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
@@ -263,6 +275,10 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	$http.get(AuthService.hostName + '/content/dia-chat/auto').then(function(res) {
 		$scope.auto = res.data;
 		setTimeout(function () {
+			// Load name for input file
+			$scope.getName = function (arr) {
+				return arr.length ? arr[0] : "No file chosen...";
+			}
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
@@ -352,6 +368,10 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	$http.get(AuthService.hostName + '/content/tho-nhuong/auto').then(function(res) {
 		$scope.auto = res.data;
 		setTimeout(function () {
+			// Load name for input file
+			$scope.getName = function (arr) {
+				return arr.length ? arr[0] : "No file chosen...";
+			}
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})

@@ -11,7 +11,6 @@ $(document).ready(function () {
 		//catch event file change
 		input.addEventListener('change', function(e)
 		{
-			// console.log("File changed");
 			var max_sizes = this.getAttribute('max-file-size');
 			//Kiem tra xem dung luong file co vuot qua dung luong cho phep
 			var fileName = '';
@@ -52,11 +51,11 @@ $(document).ready(function () {
 				}
 
 				if( fileName )
-					label.querySelector( 'span' ).innerHTML = fileName;
+					label.querySelector('span').innerHTML = fileName;
 				else
 					label.innerHTML = labelVal;
 			}
-			console.log(fileName);
+			// console.log(fileName);
 		});
 
 		// Firefox bug fix

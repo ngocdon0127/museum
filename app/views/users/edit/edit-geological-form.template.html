@@ -294,7 +294,7 @@
 					<td><label>27. Bản đồ:</label></td>
 					<td>
 						<input type="file" multiple id="banDo" accept=".zip, .rar" name="banDo" class="inputfile customfile">
-						<label for="banDo" title="{{tooltips['banDo']}}"><span>{{data.banDo}}</span><strong>Choose file</strong></label>
+						<label for="banDo" title="{{tooltips['banDo']}}"><span>{{getName(data.banDo)}}</span><strong>Choose file</strong></label>
 				</td>
 				</tr>
 				<tr>
@@ -326,7 +326,7 @@
 					<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips['taiLieuPhanTichStr']}}" name="taiLieuPhanTichStr" class="input-form" required></td>
 					<td>
 						<input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" max-file-size="10" required>
-						<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{data.taiLieuPhanTichFile}}</span><strong>Choose file</strong></label>
+						<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{getName(data.taiLieuPhanTichFile)}}</span><strong>Choose file</strong></label>
 				</td>
 				</tr>
 				<tr>
@@ -336,28 +336,28 @@
 					<td><input type="text" title="{{tooltips['phanTichQuangHocStr']}}" name="phanTichQuangHocStr" ng-model="data.phanTichQuangHocStr" class="input-form"></td>
 					<td>
 						<input type="file" id="phanTichQuangHocFile" multiple accept=".doc, .docx, .pdf" name="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="inputfile customfile">
-						<label for="phanTichQuangHocFile" title="{{tooltips['phanTichQuangHocFile']}}"><span>{{data.phanTichQuangHocFile}}</span><strong>Choose file</strong></label>
+						<label for="phanTichQuangHocFile" title="{{tooltips['phanTichQuangHocFile']}}"><span>{{getName(data.phanTichQuangHocFile)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td><label>34. Các kết quả phân tích thành phần vật chất:</label></td>
 					<td>
 						<input type="file" multiple id="ketQuaThanhPhanVatChat" name="ketQuaThanhPhanVatChat" ng-model="data.ketQuaThanhPhanVatChat" class="inputfile customfile" accept=".docx, .doc, .pdf">
-						<label for="ketQuaThanhPhanVatChat" title="{{tooltips['ketQuaThanhPhanVatChat']}}"><span>{{data.ketQuaThanhPhanVatChat}}</span><strong>Choose file</strong></label>
+						<label for="ketQuaThanhPhanVatChat" title="{{tooltips['ketQuaThanhPhanVatChat']}}"><span>{{getName(data.ketQuaThanhPhanVatChat)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td><label>35. Kết quả phân tích đồng vị và định tuổi:</label></td>
 					<td>
 						<input type="file" multiple id="ketQuaPhanTichDongVi" name="ketQuaPhanTichDongVi" ng-model="data.ketQuaPhanTichDongVi" class="inputfile customfile" accept=".docx, .doc, .pdf">
-						<label for="ketQuaPhanTichDongVi" title="{{tooltips['ketQuaPhanTichDongVi']}}"><span>{{data.ketQuaPhanTichDongVi}}</span><strong>Choose file</strong></label>
+						<label for="ketQuaPhanTichDongVi" title="{{tooltips['ketQuaPhanTichDongVi']}}"><span>{{getName(data.ketQuaPhanTichDongVi)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td><label>36. Các phân tích khác:</label></td>
 					<td>
 						<input type="file" multiple id="phanTichKhac" name="phanTichKhac" ng-model="data.phanTichKhac" class="inputfile customfile" accept=".docx, .doc, .pdf">
-						<label for="phanTichKhac" title="{{tooltips['phanTichKhac']}}"><span>{{data.phanTichKhac}}</span><strong>Choose file</strong></label>
+						<label for="phanTichKhac" title="{{tooltips['phanTichKhac']}}"><span>{{getName(data.phanTichKhac)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 					<td><label>37. Nhóm dữ liệu địa chất</label></td>
@@ -383,14 +383,14 @@
 					<td><label>39. Ảnh mẫu vật <span class="has-required">(*)</span>:</label></td>
 					<td>
 						<input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" accept="image/*" max-file-size="10" required>
-						<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{data.anhMauVat}}</span><strong>Choose file</strong></label>
+						<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{getName(data.anhMauVat)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td><label>40. Hình ảnh mẫu ngoài thực địa:</label></td>
 					<td>
 						<input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile">
-						<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{data.hinhAnhNgoaiThucDia}}</span><strong>Choose file</strong></label>
+						<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{getName(data.hinhAnhNgoaiThucDia)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
@@ -403,7 +403,7 @@
 					<td><label>42. Đính kèm phim, video:</label></td>
 					<td>
 						<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile">
-						<label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{data.videoFile}}</span><strong>Choose file</strong></label>
+						<label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{getName(data.videoFile)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr><td><label>43. Xử lý chế tác mẫu vật: </label></td></tr>
@@ -411,14 +411,14 @@
 					<td>Hình ảnh đính kèm Xử lý chế tác:</td>
 					<td>
 						<input type="file" multiple id="hinhAnhDinhKem" ng-model="data.hinhAnhDinhKem" name="hinhAnhDinhKem" accept="image/*" max-file-size="5" class="inputfile customfile">
-						<label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>{{data.hinhAnhDinhKem}}</span><strong>Choose file</strong></label>
+						<label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>{{getName(data.hinhAnhDinhKem)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td>Đính kèm xử lý chế tác:</td>
 					<td>
 						<input type="file" multiple ng-model="data.dinhKemXuLyCheTac" id="dinhKemXuLyCheTac" accept=".docx, .doc, .pdf" name="dinhKemXuLyCheTac" class="inputfile customfile">
-						<label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>{{data.dinhKemXuLyCheTac}}</span><strong>Choose file</strong></label>
+						<label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>{{getName(data.dinhKemXuLyCheTac)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
@@ -445,7 +445,7 @@
 					<td>Ảnh mẫu sau chế tác:</td>
 					<td>
 						<input type="file" id="anhMauSauCheTac" multiple ng-model="data.anhMauSauCheTac" name="anhMauSauCheTac" class="inputfile customfile" accept="image/*" max-file-size="5">
-						<label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>{{data.anhMauSauCheTac}}</span><strong>Choose file</strong></label>
+						<label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>{{getName(data.anhMauSauCheTac)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
@@ -489,7 +489,7 @@
 					<td><label>50. Công thức hóa học:</label></td>
 					<td>
 						<input type="file" id="congThucHoaHoc" multiple ng-model="data.congThucHoaHoc" name="congThucHoaHoc" class="inputfile customfile" accept=".doc, .docx, .pdf" max-file-size="10">
-						<label for="congThucHoaHoc" title="{{tooltips['congThucHoaHoc']}}"><span>{{data.congThucHoaHoc}}</span><strong>Choose file</strong></label>
+						<label for="congThucHoaHoc" title="{{tooltips['congThucHoaHoc']}}"><span>{{getName(data.congThucHoaHoc)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
@@ -508,7 +508,7 @@
 					<td><input type="text" ng-model="data.phanBoVietNamStr" class="input-form" title="{{tooltips['phanBoVietNamStr']}}" name="phanBoVietNamStr" required></td>
 					<td>
 						<input type="file" multiple ng-model="data.phanBoVietNamFile" class="inputfile customfile" id="phanBoVietNamFile" name ="phanBoVietNamFile">
-						<label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>{{data.phanBoVietNamFile}}</span><strong>Choose file</strong></label>
+						<label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>{{getName(data.phanBoVietNamFile)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
@@ -520,7 +520,7 @@
 					</td>
 					<td>
 						<input type="file" id="phanBoTrenTheGioiFile" multiple ng-model="data.phanBoTrenTheGioiFile" class="inputfile customfile" name ="phanBoTrenTheGioiFile">
-						<label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>{{data.phanBoTrenTheGioiFile}}</span><strong>Choose file</strong></label>
+						<label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>{{getName(data.phanBoTrenTheGioiFile)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
@@ -618,14 +618,14 @@
 					<td><label>65. Giấy phép nhập mẫu:</label></td>
 					<td>
 						<input type="file" multiple id="giayPhepNhapMau" ng-model="data.giayPhepNhapMau" name="giayPhepNhapMau" class="inputfile customfile" accept="image/*, .pdf">
-						<label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>{{data.giayPhepNhapMau}}</span><strong>Choose file</strong></label>
+						<label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>{{getName(data.giayPhepNhapMau)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td><label>66. Hồ sơ nhập mẫu vật đi kèm:</label></td>
 					<td>
 						<input type="file" multiple ng-model="data.hoSoNhapMauVatDiKem" id="hoSoNhapMauVatDiKem" name="hoSoNhapMauVatDiKem" class="inputfile customfile" accept=".doc, .docx, .pdf">
-						<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{data.hoSoNhapMauVatDiKem}}</span><strong>Choose file</strong></label>
+						<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{getName(data.hoSoNhapMauVatDiKem)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>

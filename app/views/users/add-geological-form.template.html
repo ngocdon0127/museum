@@ -212,7 +212,7 @@
 							<tr>
 								<td>Quốc gia<span class="has-required"> (*)</span>: </td>
 								<td>
-									<input type="text" list="quocGia" class="input-form flexdatalist" data-min-length='0' ng-model="data.quocGia" title="{{tooltips['quocGia']}}" name="quocGia">
+									<input type="text" list="quocGia" class="input-form flexdatalist" data-min-length='0' ng-model="data.quocGia" ng-change="countryChange()" title="{{tooltips['quocGia']}}" name="quocGia">
 									<datalist id="quocGia">
 										<option value="Việt Nam">Việt Nam</option>
 									</datalist>

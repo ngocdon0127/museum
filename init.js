@@ -435,6 +435,23 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						}
 					}
 					break;
+				case 'Integer':
+					// console.log('Integer nè');
+					// console.log(req.body[element.name]);
+					// console.log(parseInt(req.body[element.name]));
+					if (req.body[element.name]){
+						if (req.body[element.name] != parseInt(req.body[element.name])){
+							let label = element.name;
+							try {
+								label = element.label;
+							}
+							catch (e){
+								console.log(e);
+							}
+							return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [label + ' phải là số nguyên', element.name])
+						}
+					}
+					// Không break.
 				case 'Number':
 					if ('min' in element){
 						if (parseFloat(req.body[element.name]) < element.min){
@@ -2250,6 +2267,7 @@ var getAllHandler = function (options) {
 			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 			var ObjectModel = options.ObjectModel;
 			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+			var PROP_FIELDS = options.PROP_FIELDS;
 			var objectModelNames = options.objectModelNames;
 			var projection = {deleted_at: {$eq: null}};
 			var userRoles = await(new Promise((resolve, reject) => {
@@ -2299,10 +2317,28 @@ var getAllHandler = function (options) {
 			// }
 			// ===
 			console.log(projection);
-			ObjectModel.find(projection, function (err, objectInstances) {
+			ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 				if (err){
 					return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
 				}
+				// var d1 = new Date();
+				objectInstances = JSON.parse(JSON.stringify(objectInstances));
+				try {
+					objectInstances.map((o, i) => {
+						let id = o._id;
+						let created_at = o.created_at;
+						objectInstances[i] =  flatObjectModel(PROP_FIELDS, o);
+						objectInstances[i]._id = id;
+						objectInstances[i].created_at = created_at;
+					})
+				}
+				catch (e){
+					console.log(e);
+				}
+				// var d2 = new Date();
+				// console.log("==================");
+				// console.log("time: " + ((d2.getTime() - d1.getTime()) / 1000));
+				// console.log("==================");
 				return responseSuccess(res, ['status', objectModelNames], ['success', objectInstances]);
 			})
 		})();

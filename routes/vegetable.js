@@ -120,7 +120,8 @@ var getAllHandler = global.myCustomVars.getAllHandler;
 router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHandler({
 	ObjectModel: ObjectModel,
 	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
-	objectModelNames: objectModelNames
+	objectModelNames: objectModelNames,
+	PROP_FIELDS: PROP_FIELDS
 }))
 
 var getAutoCompletionHandler = global.myCustomVars.getAutoCompletionHandler;

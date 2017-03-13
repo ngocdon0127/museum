@@ -20,6 +20,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'tenVietNam',
 			'tenPhoThong',
 			'tenDiaPhuong',
+			'tenTiengAnh',
 			'gioi',
 			'nganh', 'lop', 
 			'phanLop', 

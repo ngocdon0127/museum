@@ -33,7 +33,7 @@ function initDefaultUnits(_scope) {
 				_scope.data[donVi.unitField] = donVi.defaultValue;
 			})
 		}
-	})(_scope), 1000);
+	})(_scope), 200);
 }
 
 function saveData(id, data) {
@@ -178,12 +178,12 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		localStorage.setItem("dataVeg", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+		$scope.data = JSON.parse(localStorage.getItem("dataVeg"))
 	}
 }]);
 
@@ -245,12 +245,12 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		localStorage.setItem("dataGeo", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+		$scope.data = JSON.parse(localStorage.getItem("dataGeo"))
 	}
 }]);
 
@@ -312,12 +312,12 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		localStorage.setItem("dataLand", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+		$scope.data = JSON.parse(localStorage.getItem("dataLand"))
 	}
 }]);
 
@@ -379,12 +379,12 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+		localStorage.setItem("dataPal", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
+		$scope.data = JSON.parse(localStorage.getItem("dataPal"))
 	}
 }]);
 
@@ -409,6 +409,27 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 	}, function(res){
 		console.log(res);
 	});
+	function bodauTiengViet(str) {
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        return str;
+    }
+	$scope.countryChange = function () {
+	    var x = $scope.data.quocGia;
+	    // console.log(x);
+		if (bodauTiengViet(x) == "viet nam") {
+			$scope.star = true;
+		} else {
+			$scope.star = false;
+		}
+	}
+
 	$scope.cityChange = function(){
 		if ('districts' in places){
 			var x = document.getElementById($scope.data.tinh);
@@ -437,7 +458,6 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 				console.log(res);
 			});
 		}
-		
 	}
 	$scope.star = true;
 	$scope.showstar = function () {

@@ -53,7 +53,7 @@ router.get('/', function(req, res, next) {
 	})
 })
 
-router.get('/all', aclMiddleware('/log/all', 'view'), function (req, res, next) {
+router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res, next) {
 	var projection = {};
 	if ('user' in req.query){
 		projection.userId = req.query.user;

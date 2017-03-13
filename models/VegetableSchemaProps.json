@@ -263,7 +263,7 @@
 		"label": "Số lượng tiêu bản",
 		"required": false,
 		"money": false,
-		"type": "Number"
+		"type": "Integer"
 	},
 	{
 		"name": "loaiMauVat",

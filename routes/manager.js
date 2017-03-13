@@ -407,6 +407,10 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 				return responseError(req, '', res, 403, ['error'], ['Bạn không có quyền phê duyệt mẫu dữ liệu này'])
 			}
 
+			if (objectInstance.flag.fApproved == (req.body.approved == '1')){
+				return responseError(req, '', res, 400, ['error'], ['what???']);
+			}
+
 			objectInstance.flag.fApproved = (req.body.approved == '1');
 			let r = await(new Promise((resolve, reject) => {
 				objectInstance.save((err) => {
@@ -423,10 +427,11 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 				let log = new Log();
 				log.userId = req.session.userId;
 				log.userFullName = req.user.fullname;
-				log.action = 'approve';
+				log.action = (req.body.approved == '1') ? 'approve' : 'disapprove';
 				log.time = new Date();
 				log.objType = MODELS[req.body.form].objType;
 				log.obj1 = JSON.parse(JSON.stringify(objectInstance));
+				log.save();
 				return responseSuccess(res, [], [])
 			}
 			else {

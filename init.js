@@ -435,6 +435,23 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						}
 					}
 					break;
+				case 'Integer':
+					// console.log('Integer nè');
+					// console.log(req.body[element.name]);
+					// console.log(parseInt(req.body[element.name]));
+					if (req.body[element.name]){
+						if (req.body[element.name] != parseInt(req.body[element.name])){
+							let label = element.name;
+							try {
+								label = element.label;
+							}
+							catch (e){
+								console.log(e);
+							}
+							return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [label + ' phải là số nguyên', element.name])
+						}
+					}
+					// Không break.
 				case 'Number':
 					if ('min' in element){
 						if (parseFloat(req.body[element.name]) < element.min){

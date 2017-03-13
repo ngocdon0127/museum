@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
-var path = require('path');
-var fs = require('fs');
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
+var express    = require('express');
+var router     = express.Router();
+var passport   = require('passport');
+var path       = require('path');
+var fs         = require('fs');
+var mongoose   = require('mongoose');
+var Log        = mongoose.model('Log');
+var User       = mongoose.model('User');
 var SharedData = mongoose.model('SharedData');
 
 var aclMiddleware = global.myCustomVars.aclMiddleware;
@@ -309,6 +310,128 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 					return responseError(req, '', res, 403, ['error'], ['Tài khoản này không thuộc quyền quản lý của bạn'])
 				}
 			}
+		}
+	})()
+})
+
+router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, next) {
+	var async = require('asyncawait/async');
+	var await = require('asyncawait/await');
+	var nullParam = checkUnNullParams(['form', 'id', 'approved'], req.body);
+
+	if (nullParam){
+		return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
+	}
+	if (['co-sinh', 'dia-chat', 'dong-vat', 'tho-nhuong', 'thuc-vat'].indexOf(req.body.form) < 0){
+		return responseError(req, '', res, 400, ['error'], ['Invalid parameter: form']);
+	}
+	if (['1', '0'].indexOf(req.body.approved) < 0){
+		return responseError(req, '', res, 400, ['error'], ['Invalid parameter: approved']);
+	}
+	var objectModelId = '';
+	try {
+		// console.log(req.body[objectModelIdParamName]);
+		objectModelId = mongoose.Types.ObjectId(req.body['id']);
+	}
+	catch (e){
+		console.log(e);
+		return responseError(req, '', res, 500, ['error'], ["id không đúng"]);
+	}
+	var MODELS = {
+		'co-sinh': {
+			model: mongoose.model('Paleontological'),
+			objType: 'paleontological'
+		},
+		'dia-chat': {
+			model: mongoose.model('Geological'),
+			objType: 'geological'
+		},
+		'dong-vat': {
+			model: mongoose.model('Animal'),
+			objType: 'animal'
+		},
+		'tho-nhuong': {
+			model: mongoose.model('Soil'),
+			objType: 'soil'
+		},
+		'thuc-vat': {
+			model: mongoose.model('Vegetable'),
+			objType: 'vegetable'
+		},
+	}
+	var ObjectModel = MODELS[req.body.form].model;
+	async(() => {
+		var objectInstance = await(new Promise((resolve, reject) => {
+			ObjectModel.findById(objectModelId, function (err, objectInstance) {
+				if (err){
+					console.log(err);
+					responseError(req, '', res, 500, ['error'], ["Error while reading database"])
+					resolve(null)
+				}
+				
+				if (objectInstance && (!objectInstance.deleted_at)) {
+					resolve(objectInstance);
+				}
+
+				else {
+					responseError(req, '', res, 400, ['error'], ['id không đúng'])
+					resolve(null)
+				}
+			})
+		}))
+		if (objectInstance){
+			var canApprove = false;
+
+			var userRoles = await(new Promise((resolve, reject) => {
+				acl.userRoles(req.session.userId, (err, roles) => {
+					console.log('promised userRoles called');
+					if (err){
+						resolve([])
+					}
+					else {
+						resolve(roles)
+					}
+				})
+			}))
+
+			if (userRoles.indexOf('admin') >= 0){
+				// Nếu là Admin, approve đẹp
+				canApprove = true;
+			}
+			if ((userRoles.indexOf('manager') >= 0) && req.user.maDeTai == objectInstance.maDeTai.maDeTai){
+				// Nếu là chủ nhiệm đề tài, cũng OK
+				canApprove = true;
+			}
+			if (!canApprove){
+				return responseError(req, '', res, 403, ['error'], ['Bạn không có quyền phê duyệt mẫu dữ liệu này'])
+			}
+
+			objectInstance.flag.fApproved = (req.body.approved == '1');
+			let r = await(new Promise((resolve, reject) => {
+				objectInstance.save((err) => {
+					if (err){
+						console.log(err);
+						resolve(false)
+					}
+					else {
+						resolve(true)
+					}
+				})
+			}))
+			if (r){
+				let log = new Log();
+				log.userId = req.session.userId;
+				log.userFullName = req.user.fullname;
+				log.action = 'approve';
+				log.time = new Date();
+				log.objType = MODELS[req.body.form].objType;
+				log.obj1 = JSON.parse(JSON.stringify(objectInstance));
+				return responseSuccess(res, [], [])
+			}
+			else {
+				return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại'])
+			}
+
 		}
 	})()
 })

@@ -164,7 +164,8 @@ module.exports = function (mongoose) {
 			maDeTai: String
 		},
 		flag: {
-			fDiaDiemThuMau: String
+			fDiaDiemThuMau: String,
+			fApproved: Boolean
 		}
 	};
 	var paleontologicalSchema = mongoose.Schema(schemaPrototype);

@@ -985,7 +985,14 @@
 		"money": false,
 		"type": "String"
 	},
-	
+	{
+		"name": "fApproved",
+		"schemaProp": "flag",
+		"label": "Đã kiểm chứng",
+		"required": false,
+		"money": false,
+		"type": "String"
+	},
 	{
 		"name": "soHieu",
 		"type": "Metadata",

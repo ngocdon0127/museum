@@ -713,6 +713,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			else {
 				objectInstance.updated_at = new Date();
 			}
+			objectInstance.flag.fApproved = false;
 			objectInstance.save(function (err, r) {
 				if (err){
 					console.log(err);
@@ -803,7 +804,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			// console.log(field.name);
 			if (field.name == 'fDiaDiemThuMau'){
 				// console.log('len: ' + PROP_FIELDS.length);
-				PROP_FIELDS.splice(i, 1);
+				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
 				// console.log('len: ' + PROP_FIELDS.length);
 				break;
 			}
@@ -822,6 +823,21 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		}
 
 		// End of DiaDiemThuMau
+		
+		// fApproved
+		
+		for(var i = 0; i < PROP_FIELDS.length; i++){
+			var field = PROP_FIELDS[i];
+			// console.log(field.name);
+			if (field.name == 'fApproved'){
+				console.log('len: ' + PROP_FIELDS.length);
+				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+				console.log('len: ' + PROP_FIELDS.length);
+				break;
+			}
+		}
+		
+		// End of fApproved
 
 
 		// delete objectInstance.flag;
@@ -1398,9 +1414,15 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		pObj.options.align = "left";
 		pObj.addText('Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
 
-		pObj = docx.createP();
-		pObj.options.align = "left";
-		// pObj.addText(JSON.stringify(statistics, null, 4), {color: '000000', font_face: 'Times New Roman', font_size: 12});
+		
+		try {
+			pObj = docx.createP();
+			pObj.options.align = "left";
+			pObj.addText('Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt'), {color: '000000', font_face: 'Times New Roman', font_size: 12});
+		}
+		catch (e){
+			console.log(e);
+		}
 
 		// var fs = require('fs');
 		var tmpFileName = (new Date()).getTime() + '.tmp.docx';
@@ -1550,7 +1572,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			// console.log(field.name);
 			if (field.name == 'fDiaDiemThuMau'){
 				console.log('len: ' + PROP_FIELDS.length);
-				PROP_FIELDS.splice(i, 1);
+				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
 				console.log('len: ' + PROP_FIELDS.length);
 				break;
 			}
@@ -1573,7 +1595,20 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		// End of DiaDiemThuMau
 
 
-
+		// fApproved
+		
+		for(var i = 0; i < PROP_FIELDS.length; i++){
+			var field = PROP_FIELDS[i];
+			// console.log(field.name);
+			if (field.name == 'fApproved'){
+				console.log('len: ' + PROP_FIELDS.length);
+				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+				console.log('len: ' + PROP_FIELDS.length);
+				break;
+			}
+		}
+		
+		// End of fApproved
 
 		// delete objectInstance.flag;
 		/**
@@ -2139,6 +2174,19 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			scheme: '-'
 		})
 
+		try {
+			sheet.align(1, sheetRowIndex, 'left');
+			addEntireRow(sheet,
+				'Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt') , {
+				name: 'Times New Roman',
+				sz: 12,
+				scheme: '-'
+			})
+		}
+		catch (e){
+			console.log(e);
+		}
+
 		// pObj = docx.createP();
 		// pObj.options.align = "left";
 		// pObj.addText(JSON.stringify(statistics, null, 4), {color: '000000', font_face: 'Times New Roman', font_size: 12});
@@ -2344,7 +2392,26 @@ var getSingleHandler = function (options) {
 					}
 					
 					else {
-						return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);
+						if (req.query.filename == 'raw'){
+							return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);
+						}
+						else {
+							let tmp = flatObjectModel(PROP_FIELDS, objectInstance);
+							try {
+								for(p in tmp){
+									if (tmp[p] instanceof Array){
+										let files = tmp[p];
+										files.map((f, i) => {
+											files[i] = f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+										})
+									}
+								}
+							}
+							catch (e){
+								console.log(e);
+							}
+							return responseSuccess(res, [objectModelName], [tmp]);
+						}
 					}
 					
 				}
@@ -2504,6 +2571,7 @@ var putHandler = function (options) {
 		var async = require('asyncawait/async')
 		var await = require('asyncawait/await')
 		delete req.body.maDeTai;
+		delete req.body.fApproved;
 
 		async(() => {
 			var objectModelIdParamName = options.objectModelIdParamName
@@ -2544,7 +2612,7 @@ var putHandler = function (options) {
 				})
 			}))
 			if (objectInstance){
-				var canEdit = true;
+				var canEdit = false;
 
 				var userRoles = await(new Promise((resolve, reject) => {
 					acl.userRoles(req.session.userId, (err, roles) => {
@@ -2588,6 +2656,7 @@ var putHandler = function (options) {
 				if (!canEdit){
 					return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Bạn không có quyền sửa đổi mẫu dữ liệu này'])
 				}
+
 				return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
 			}
 		})();
@@ -2609,6 +2678,9 @@ var postHandler = function (options) {
 			return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Tài khoản của bạn chưa được liên kết với bất kỳ bảo tàng nào. Liên hệ chủ nhiệm đề tài để được cập nhật tài khoản.']);
 
 		}
+
+		newInstance.flag.fApproved = false;
+		delete req.body.fApproved;
 
 		newInstance.maDeTai.maDeTai = req.user.maDeTai;
 		delete req.body.maDeTai;

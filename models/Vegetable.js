@@ -171,7 +171,8 @@ module.exports = function (mongoose) {
 			maDeTai: String
 		},
 		flag: {
-			fDiaDiemThuMau: String
+			fDiaDiemThuMau: String,
+			fApproved: Boolean
 		}
 	};
 	var vegetableSchema = mongoose.Schema(schemaPrototype);

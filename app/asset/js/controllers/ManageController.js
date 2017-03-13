@@ -29,6 +29,14 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 			AuthService.deleteP(id, urlDelete);
 		}
 	}
+	$scope.approvePost = function (id, approved) {
+		if (approved){
+			AuthService.approvePost(id, 0, $scope.link)
+		}
+		else {
+			AuthService.approvePost(id, 1, $scope.link)
+		}
+	}
 
 }]);
 
@@ -61,6 +69,14 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '
 		var r = confirm("Xóa bài đăng?");
 		if (r == true) {
 			AuthService.deleteP(id, urlDelete);
+		}
+	}
+	$scope.approvePost = function (id, approved) {
+		if (approved){
+			AuthService.approvePost(id, 0, $scope.link)
+		}
+		else {
+			AuthService.approvePost(id, 1, $scope.link)
 		}
 	}
 }]);
@@ -96,6 +112,14 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$rout
 			AuthService.deleteP(id, urlDelete);
 		}
 	}
+	$scope.approvePost = function (id, approved) {
+		if (approved){
+			AuthService.approvePost(id, 0, $scope.link)
+		}
+		else {
+			AuthService.approvePost(id, 1, $scope.link)
+		}
+	}
 }]);
 app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
 	var url = AuthService.hostName + '/content/dia-chat';
@@ -126,6 +150,14 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 		var r = confirm("Xóa bài đăng?");
 		if (r == true) {
 			AuthService.deleteP(id, urlDelete);
+		}
+	}
+	$scope.approvePost = function (id, approved) {
+		if (approved){
+			AuthService.approvePost(id, 0, $scope.link)
+		}
+		else {
+			AuthService.approvePost(id, 1, $scope.link)
 		}
 	}
 }]);

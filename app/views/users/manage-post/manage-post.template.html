@@ -29,12 +29,13 @@
 						</div>
 					</td>
 					<td>
-						<p><b>Tên mẫu: </b><a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenMau.tenVietNam}}</span></a></p>
-						<p><b>Người thu mẫu: </b>{{post.duLieuThuMau.nguoiThuMau}}</p>
+						<p><b>Tên mẫu: </b><a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenVietNam}}</span></a></p>
+						<p><b>Người thu mẫu: </b>{{post.nguoiThuMau}}</p>
 						<p style="display: none"><b>Id: </b>{{post._id}}</p>
 						<p><b>Ngày đăng: </b>{{post.created_at | date: "dd-MM-yyyy hh:mm:ss"}}</p>
 					</td>
 					<td style="right: 0px; position: absolute;">
+						<a class="btn btn-{{post.fApproved ? 'primary' : 'warning'}}" href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span>{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</a>
 						<a class="btn btn-success" href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-pencil"></span>Chỉnh sửa</a>
 						<a class="btn btn-danger" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa bài đăng</a>
 					</td>

@@ -91,7 +91,52 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 		// 	status: 'success',
 		// 	logs: logs
 		// })
-		return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path});
+		var actions = {
+			'create': {
+				label: 'Tạo mới'
+			},
+			'update': {
+				label: 'Cập nhật'
+			},
+			'delete': {
+				label: 'Xóa'
+			},
+			'approve': {
+				label: 'Phê duyệt'
+			},
+			'disapprove': {
+				label: 'Hủy phê duyệt'
+			},
+		}
+		var forms = {
+			'animal': {
+				basePath: '/content/dong-vat',
+				objectModelLabel: 'mẫu động vật',
+				objectModelName: 'animal',
+			},
+			'soil': {
+				basePath: '/content/tho-nhuong',
+				objectModelLabel: 'mẫu thổ nhưỡng',
+				objectModelName: 'soil',
+			},
+			'geological': {
+				basePath: '/content/dia-chat',
+				objectModelLabel: 'mẫu địa chất',
+				objectModelName: 'geological',
+			},
+			'paleontological': {
+				basePath: '/content/co-sinh',
+				objectModelLabel: 'mẫu cổ sinh',
+				objectModelName: 'paleontological'
+			},
+			'vegetable': {
+				basePath: '/content/thuc-vat',
+				objectModelLabel: 'mẫu thực vật',
+				objectModelName: 'vegetable',
+			}
+		}
+		// return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path, actions: actions, forms: forms});
+		return res.render('manager/logs', {user: req.user, logs: logs, path: '/log' + req.path, actions: actions, forms: forms});
 	})
 })
 

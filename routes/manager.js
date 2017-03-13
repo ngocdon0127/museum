@@ -325,7 +325,8 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 	if (['co-sinh', 'dia-chat', 'dong-vat', 'tho-nhuong', 'thuc-vat'].indexOf(req.body.form) < 0){
 		return responseError(req, '', res, 400, ['error'], ['Invalid parameter: form']);
 	}
-	if (['1', '0'].indexOf(req.body.approved) < 0){
+	console.log(req.body.approved);
+	if (['1', '0', 1, 0].indexOf(req.body.approved) < 0){
 		return responseError(req, '', res, 400, ['error'], ['Invalid parameter: approved']);
 	}
 	var objectModelId = '';

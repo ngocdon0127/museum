@@ -4,6 +4,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		hostName: 'http://localhost:8000',
 		//hostName: 'http://baotangvn.online',
 		deleteP: deleteP,
+		approvePost: approvePost,
 		addSample: addSample,
 		editForm: editForm,
 		exportFile: exportFile,
@@ -266,6 +267,32 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			$route.reload();
 		}, function (err) {
 			console.log(err);
+		});
+	}
+
+	function approvePost(id, val, link) {
+		$http({
+			method: 'POST',
+			url: '/manager/approve',
+			headers: {'Content-Type': 'application/json'},
+			data: {
+				id: id,
+				form: link,
+				approved: val + ''
+			}
+		}).then(function (res) {
+			console.log(res);
+			if (res.data.status == 'success'){
+				alert('success')
+			}
+			else {
+				alert('Có lỗi xảy ra.');
+			}
+			$route.reload();
+		}, function (err) {
+			console.log(err);
+			alert('Có lỗi xảy ra')
+			$route.reload();
 		});
 	}
 

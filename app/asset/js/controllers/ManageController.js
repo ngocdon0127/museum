@@ -29,6 +29,7 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 			AuthService.deleteP(id, urlDelete);
 		}
 	}
+
 }]);
 
 app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
@@ -158,6 +159,14 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 		var r = confirm("Xóa bài đăng?");
 		if (r == true) {
 			AuthService.deleteP(id, urlDelete);
+		}
+	}
+	$scope.approvePost = function (id, approved) {
+		if (approved){
+			AuthService.approvePost(id, 0, $scope.link)
+		}
+		else {
+			AuthService.approvePost(id, 1, $scope.link)
 		}
 	}
 }]);

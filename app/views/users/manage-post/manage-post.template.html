@@ -35,7 +35,7 @@
 						<p><b>Ngày đăng: </b>{{post.created_at | date: "dd-MM-yyyy hh:mm:ss"}}</p>
 					</td>
 					<td style="right: 0px; position: absolute;">
-						<a class="btn btn-{{post.fApproved ? 'primary' : 'warning'}}" href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span>{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</a>
+						<button class="btn btn-{{post.fApproved ? 'primary' : 'warning'}}" href="#" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span>{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</button>
 						<a class="btn btn-success" href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-pencil"></span>Chỉnh sửa</a>
 						<a class="btn btn-danger" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa bài đăng</a>
 					</td>

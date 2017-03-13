@@ -30,8 +30,11 @@ $(document).ready(function () {
 					if(this.files && this.files.length > 1){
 						fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
 					}
-					else
+					else if(this.files && this.files.length == 1){
 						fileName = e.target.value.split( '\\' ).pop();
+					} else{
+						fileName = "No file chosen...";
+					}
 
 					if( fileName )
 						label.querySelector( 'span' ).innerHTML = fileName;
@@ -42,14 +45,18 @@ $(document).ready(function () {
 				if(this.files && this.files.length > 1){
 					fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
 				}
-				else
+				else if(this.files && this.files.length == 1){
 					fileName = e.target.value.split( '\\' ).pop();
+				} else{
+					fileName = "No file chosen...";
+				}
 
 				if( fileName )
 					label.querySelector( 'span' ).innerHTML = fileName;
 				else
 					label.innerHTML = labelVal;
 			}
+			console.log(fileName);
 		});
 
 		// Firefox bug fix

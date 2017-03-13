@@ -33,7 +33,7 @@ function initDefaultUnits(_scope) {
 				_scope.data[donVi.unitField] = donVi.defaultValue;
 			})
 		}
-	})(_scope), 1000);
+	})(_scope), 200);
 }
 
 function saveData(id, data) {

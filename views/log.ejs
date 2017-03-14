@@ -118,6 +118,8 @@
 											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 										<% } else if (logs[i].action == 'delete') { %>
 											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>
+										<% } else if ((logs[i].action == 'approve') || (logs[i].action == 'disapprove')) { %>
+											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 										<% } %>
 									</div>
 								</div>

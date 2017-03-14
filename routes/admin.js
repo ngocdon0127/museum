@@ -46,7 +46,7 @@ LEVEL['pending-user'] = {
 // });
 
 // Only admin can access these routes
-router.use('/', isLoggedIn, aclMiddleware('/admin', 'view'));
+router.use('/', isLoggedIn, aclMiddleware('/admin', 'view', '/manager'));
 
 // redirect to /admin/users
 router.get('/', function (req, res, next) {
@@ -95,7 +95,7 @@ router.get('/users', function (req, res, next) {
 			var u = users[i];
 			var userRoles = await(new Promise((resolve, reject) => {
 				acl.userRoles(u._id, (err, roles) => {
-					console.log('promised userRoles called');
+					// console.log('promised userRoles called');
 					if (err){
 						resolve([])
 					}
@@ -107,25 +107,28 @@ router.get('/users', function (req, res, next) {
 			// console.log('userRoles done');
 			// console.log(userRoles);
 			if (userRoles.indexOf('admin') >= 0){
-				console.log('admin ' + u._id);
+				// console.log('admin ' + u._id);
 				u.level = LEVEL['admin'];
 			}
 			else if (userRoles.indexOf('manager') >= 0){
-				console.log('manage ' + u._id);
+				// console.log('manage ' + u._id);
 				u.level = LEVEL['manager'];
 			}
 			else {
-				console.log('user ' + u._id);
+				// console.log('user ' + u._id);
 				u.level = LEVEL['user']
 				if (!u.maDeTai){
-					console.log('pending user ' + u._id);
+					// console.log('pending user ' + u._id);
 					u.level = LEVEL['pending-user'];
 				}
 			}
 		}
-		result.users = users
+		result.users = users;
+		result.sidebar = {
+			active: 'users'
+		}
 
-		console.log(result);
+		// console.log(result);
 
 		res.render('admin/users', result)
 

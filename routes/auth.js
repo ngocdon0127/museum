@@ -18,15 +18,29 @@ router.get("/login", function (req, res) {
 		title: "Login", 
 		user: req.user, 
 		path: '/auth/login',
-		oldEmail: req.flash("oldEmail")
+		oldEmail: req.flash("oldEmail"),
+		redirectBack: req.flash('redirectBack')
 	});
 });
 
-router.post("/login", passport.authenticate('local-login', {
-	successRedirect: "/home",
-	failureRedirect: "login",
-	failureFlash: true
-}));
+// Dynamic redirect after logging in:
+// 
+// server.get('/auth/google', passport.authenticate('google'));
+// 
+// => Change to:
+// 
+// server.get('/auth/google', function(req, res, next){
+//     passport.authenticate('google')(req, res, next);
+// });
+
+router.post("/login", function (req, res, next) {
+	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/home';
+	passport.authenticate('local-login', {
+		successRedirect: redirectBack,
+		failureRedirect: "login",
+		failureFlash: true
+	})(req, res, next) // Hay vcl. 
+});
 
 router.get("/failure", function (req, res) {
 	res.end("failure");

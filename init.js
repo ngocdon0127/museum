@@ -2317,7 +2317,8 @@ var getAllHandler = function (options) {
 			// }
 			// ===
 			console.log(projection);
-			ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			// ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			ObjectModel.find(projection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
 				if (err){
 					return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
 				}

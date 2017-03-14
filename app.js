@@ -76,6 +76,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+
+
 // cross origin
 // app.use(function (req, res, next) {
 // 	res.header('Access-Control-Allow-Origin', "*");

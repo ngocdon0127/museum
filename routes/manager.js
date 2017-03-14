@@ -51,7 +51,7 @@ LEVEL['pending-user'] = {
 // });
 
 // Only admin can access these routes
-router.use('/', isLoggedIn, aclMiddleware('/manager', 'view'), express.static(path.join(__dirname, '../views/admin/')));
+router.use('/', isLoggedIn, aclMiddleware('/manager', 'view', '/config'), express.static(path.join(__dirname, '../views/admin/')));
 
 // redirect to /admin/users
 router.get('/', function (req, res, next) {

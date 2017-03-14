@@ -136,6 +136,10 @@ router.get('/users', function (req, res, next) {
 			)
 		})
 
+		result.sidebar = {
+			active: 'users'
+		}
+
 		console.log(result);
 
 		res.render('manager/users', result)

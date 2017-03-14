@@ -135,8 +135,18 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 				objectModelName: 'vegetable',
 			}
 		}
+		var result = {
+			user: req.user,
+			logs: logs,
+			path: '/log' + req.path,
+			actions: actions,
+			forms: forms,
+			sidebar: {
+				active: 'all-log'
+			}
+		}
 		// return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path, actions: actions, forms: forms});
-		return res.render('manager/logs', {user: req.user, logs: logs, path: '/log' + req.path, actions: actions, forms: forms});
+		return res.render('manager/logs', result);
 	})
 })
 

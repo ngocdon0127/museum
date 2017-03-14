@@ -48,105 +48,12 @@
 				<span class="icon-bar"></span>
 			</a>
 
-			<div class="navbar-custom-menu">
-				<ul class="nav navbar-nav">
-					
-					<!-- User Account: style can be found in dropdown.less -->
-					<li class="dropdown user user-menu">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img src="/admin/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-							<span class="hidden-xs"><%= user.fullname %></span>
-						</a>
-						<ul class="dropdown-menu">
-							<!-- User image -->
-							<li class="user-header">
-								<img src="/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-								<p>
-									<%= user.fullname %>
-									<small><%= 'Admin' %></small>
-									<!--<small>Member since Nov. 2012</small>-->
-								</p>
-
-							</li>
-							
-							<!-- Menu Footer-->
-							<li class="user-body bg-success">
-								<div class="pull-left">
-									<a href="/home" class="btn btn-success btn-flat">Home</a>
-								</div>
-								<div class="pull-right">
-									<a href="/auth/logout" class="btn btn-warning btn-flat">Sign out</a>
-								</div>
-							</li>
-						</ul>
-					</li>
-					<!-- Control Sidebar Toggle Button -->
-					<li>
-						<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-					</li>
-				</ul>
-			</div>
+			<% include ../alte-custom-menu %>
 		</nav>
 	</header>
 	<!-- Left side column. contains the logo and sidebar -->
 	<aside class="main-sidebar">
-		<!-- sidebar: style can be found in sidebar.less -->
-		<section class="sidebar">
-			<!-- Sidebar user panel -->
-			<div class="user-panel">
-				<div class="pull-left image">
-					<img src="/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-				</div>
-				<div class="pull-left info">
-					<p><%= user.fullname %></p>
-					<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-				</div>
-			</div>
-			<!-- search form -->
-			<form action="#" method="get" class="sidebar-form">
-				<div class="input-group">
-					<input type="text" name="q" class="form-control" placeholder="Search...">
-							<span class="input-group-btn">
-								<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-								</button>
-							</span>
-				</div>
-			</form>
-			<!-- /.search form -->
-			<!-- sidebar menu: : style can be found in sidebar.less -->
-			<ul class="sidebar-menu">
-				<li class="header">MAIN NAVIGATION</li>
-				<li class="treeview active">
-					<a href="#">
-						<i class="fa fa-table"></i> <span>Users Management</span>
-								<span class="pull-right-container">
-									<i class="fa fa-angle-left pull-right"></i>
-								</span>
-					</a>
-					<ul class="treeview-menu">
-						<li class="active"><a href="/admin/users"><i class="fa fa-circle-o"></i> User Position</a></li>
-						<li><a href="/config"><i class="fa fa-circle-o"></i> User Permissions</a></li>
-					</ul>
-				</li>
-				<li class="treeview">
-					<a href="#">
-						<i class="fa fa-edit"></i> <span>Logs</span>
-						<span class="pull-right-container">
-							<i class="fa fa-angle-left pull-right"></i>
-						</span>
-					</a>
-					<ul class="treeview-menu">
-						<li><a href="/log/all"><i class="fa fa-circle-o"></i>All Logs</a></li>
-					</ul>
-				</li>
-				<li class="header">LABELS</li>
-				<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-				<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-				<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-			</ul>
-		</section>
-		<!-- /.sidebar -->
+		<% include ../alte-left-sidebar %>
 	</aside>
 
 	<!-- Content Wrapper. Contains page content -->
@@ -154,13 +61,13 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				Admin Dashboard
+				Bảng điều khiển Admin
 				<small></small>
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li><a href="/home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
 				<li><a href="/admin">Admin</a></li>
-				<li class="active">Users Management</li>
+				<li class="active">Quản lý tài khoản</li>
 			</ol>
 		</section>
 
@@ -173,7 +80,7 @@
 
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">All Users</h3>
+							<h3 class="box-title">Tất cả nhân viên trong hệ thống</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
@@ -181,10 +88,10 @@
 								<thead>
 								<tr>
 									<th>Email</th>
-									<th>Full Name</th>
-									<th>Position</th>
-									<th>Last Login</th>
-									<th>Action</th>
+									<th>Tên đầy đủ</th>
+									<th>Cấp bậc</th>
+									<th>Lần cuối đăng nhập</th>
+									<th>Thao tác</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -269,10 +176,10 @@
 								<tfoot>
 								<tr>
 									<th>Email</th>
-									<th>Full Name</th>
-									<th>Position</th>
-									<th>Last Login</th>
-									<th>Action</th>
+									<th>Tên đầy đủ</th>
+									<th>Cấp bậc</th>
+									<th>Lần cuối đăng nhập</th>
+									<th>Thao tác</th>
 								</tr>
 								</tfoot>
 							</table>
@@ -526,7 +433,31 @@
 			"searching": true,
 			"ordering": true,
 			"info": true,
-			"autoWidth": false
+			"autoWidth": false,
+			"language": {
+				"paginate": {
+			        "first":      "Trang đầu",
+			        "last":       "Trang cuối",
+			        "next":       "Trang sau",
+			        "previous":   "Trang trước"
+			    },
+			    "info": "Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi",
+			    "search": "Tìm kiếm:",
+			    "lengthMenu":     "Xem _MENU_ dòng",
+			    "decimal":        "",
+			    "emptyTable":     "Không có dữ liệu",
+			    "infoEmpty":      "Đang xem từ 0 tới 0 trong tổng số 0 bản ghi",
+			    "infoFiltered":   "(lọc từ tổng số _MAX_ bản ghi)",
+			    "infoPostFix":    "",
+			    "thousands":      ",",
+			    "loadingRecords": "Đang tải...",
+			    "processing":     "Đang xử lý...",
+			    "zeroRecords":    "Không có bản ghi nào phù hợp",
+			    "aria": {
+			        "sortAscending":  ": activate to sort column ascending",
+			        "sortDescending": ": activate to sort column descending"
+			    }
+			}
 		}).order([0, 'asc']).draw();
 	});
 </script>

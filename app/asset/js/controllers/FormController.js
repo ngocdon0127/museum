@@ -422,7 +422,6 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
     }
 	$scope.countryChange = function () {
 	    var x = $scope.data.quocGia;
-	    // console.log(x);
 		if (bodauTiengViet(x) == "viet nam") {
 			$scope.star = true;
 		} else {

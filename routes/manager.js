@@ -206,7 +206,7 @@ router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, ne
 			}))
 			var maDeTais = await(new Promise((resolve, reject) => {
 				SharedData.findOne({}, (err, sharedData) => {
-					if (err){
+					if (err || !sharedData){
 						resolve([])
 					}
 					else {

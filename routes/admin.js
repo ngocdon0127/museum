@@ -438,7 +438,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 			}))
 			var maDeTais = await(new Promise((resolve, reject) => {
 				SharedData.findOne({}, (err, sharedData) => {
-					if (err){
+					if (err || !sharedData){
 						resolve([])
 					}
 					else {

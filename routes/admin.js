@@ -147,8 +147,8 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 	async(() => {
 		var result = await(new Promise((resolve, reject) => {
 			SharedData.findOne({}, (err, sharedData) => {
-				if (err){
-					resolve(-1)
+				if (err || !sharedData){
+					resolve([])
 				}
 				else {
 					resolve(sharedData)
@@ -156,7 +156,7 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 			})
 		}))
 
-		if (result != -1){
+		if (result){
 			var maDeTais = result.maDeTai;
 			console.log(maDeTais);
 			console.log(req.body.maDeTai);

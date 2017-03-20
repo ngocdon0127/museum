@@ -446,6 +446,101 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 	})()
 })
 
+router.get('/statistic', (req, res, next) => {
+	// Admin và Manager dùng chung route này.
+	var async = require('asyncawait/async');
+	var await = require('asyncawait/await');
+
+	async(() => {
+		var userRoles = await(new Promise((resolve, reject) => {
+			acl.userRoles(req.session.userId, (err, roles) => {
+				// console.log('promised userRoles called');
+				if (err){
+					resolve([])
+				}
+				else {
+					resolve(roles)
+				}
+			})
+		}))
+		let canViewAll = false;
+		if (userRoles.indexOf('admin') >= 0){
+			canViewAll = true;
+		}
+		let maDeTais = []
+		if (!canViewAll){
+			maDeTais = [req.user.maDeTai];
+		}
+		else {
+			maDeTais = await(new Promise((resolve, reject) => {
+				SharedData.findOne({}, (err, sharedData) => {
+					if (err || !sharedData){
+						resolve([])
+					}
+					else {
+						resolve(sharedData.maDeTai)
+					}
+				})
+			}))
+		}
+		let Models = [
+			{
+				model: mongoose.model('Paleontological'),
+				name: 'Cổ sinh'
+			},
+			{
+				model: mongoose.model('Geological'),
+				name: 'Địa chất'
+			},
+			{
+				model: mongoose.model('Animal'),
+				name: 'Động vật'
+			},
+			{
+				model: mongoose.model('Soil'),
+				name: 'Thổ nhưỡng'
+			},
+			{
+				model: mongoose.model('Vegetable'),
+				name: 'Thực vật'
+			}
+		]
+		let dataForCharts = {}
+
+		for(let maDeTai of maDeTais){
+			dataForCharts[maDeTai] = [];
+			var idxColor = 0;
+			for(model of Models){
+				var projection = {deleted_at: {$eq: null}, 'maDeTai.maDeTai': {$eq: maDeTai}};
+				let rows = await(new Promise((resolve, reject) => {
+					model.model.find(projection, (err, instances) => {
+						if (err || !instances){
+							resolve([]);
+						}
+						resolve(instances);
+					})
+				}))
+				dataForCharts[maDeTai].push({
+					value: rows.length,
+					label: model.name
+				})
+			}
+		}
+		// return res.json(dataForCharts)
+		var user = JSON.parse(JSON.stringify(req.user));
+		delete user.level;
+		delete user.password;
+		console.log(dataForCharts);
+		var resResult = {
+			dataForCharts: dataForCharts, 
+			user: user, 
+			sidebar: {active: 'statistic'}
+		}
+		return res.render('manager/chartjs', resResult)
+	})()
+	
+})
+
 function isLoggedIn (req, res, next) {
 	console.log('accessing ' + req.path);
 	if (!req.isAuthenticated()){

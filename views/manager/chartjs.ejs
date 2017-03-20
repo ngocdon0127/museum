@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 2 | ChartJS</title>
+	<title>Manager</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -59,13 +59,12 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				ChartJS
-				<small>Preview sample</small>
+				Thống kê mẫu vật theo đề tài
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li><a href="#">Charts</a></li>
-				<li class="active">ChartJS</li>
+				<li><a href="/home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+				<li><a href="/manager">Quản lý</a></li>
+				<li class="#">Thống kê mẫu vật</li>
 			</ol>
 		</section>
 
@@ -80,7 +79,7 @@
 							if (index % 2 == 0){
 								%>
 								<!-- DONUT CHART -->
-								<div class="box box-danger">
+								<div class="box box-success">
 									<div class="box-header with-border">
 										<h3 class="box-title"><%= p %></h3>
 
@@ -110,7 +109,7 @@
 							if (index % 2 == 1){
 								%>
 								<!-- DONUT CHART -->
-								<div class="box box-danger">
+								<div class="box box-success">
 									<div class="box-header with-border">
 										<h3 class="box-title"><%= p %></h3>
 
@@ -415,7 +414,7 @@
 					scales: {
 						yAxes: [{
 							ticks: {
-								beginAtZero:true
+								beginAtZero: true
 							}
 						}]
 					}

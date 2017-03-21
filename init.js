@@ -2810,3 +2810,35 @@ var addMaDeTai = (maDeTai) => {
 }
 
 global.myCustomVars.promises.addMaDeTai = addMaDeTai;
+
+var getUserRoles = (userId) => {
+	return new Promise((resolve, reject) => {
+		acl.userRoles(userId, (err, roles) => {
+			// console.log('promised userRoles called');
+			if (err){
+				resolve([])
+			}
+			else {
+				resolve(roles)
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.getUserRoles = getUserRoles;
+
+var getUser = (userId) => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('User').findById(userId, (err, user) => {
+			if (err || !user){
+				console.log(err);
+				resolve(null);
+			}
+			else{
+				resolve(user)
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.getUser = getUser;

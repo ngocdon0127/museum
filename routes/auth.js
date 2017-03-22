@@ -12,15 +12,53 @@ router.get('/', function(req, res, next) {
   res.redirect('/auth/login');
 });
 
+router.get('/notme', (req, res, next) => {
+	res.cookie('username', '');
+	return res.redirect('/')
+})
+
 router.get("/login", function (req, res) {
-	res.render("login", {
-		message: req.flash("loginMessage"), 
-		title: "Login", 
-		user: req.user, 
-		path: '/auth/login',
-		oldEmail: req.flash("oldEmail"),
-		redirectBack: req.flash('redirectBack')
-	});
+	// console.log('COOKIE');
+	// console.log(req.headers.cookie);
+	// console.log('=========');
+	// console.log(req.cookies);
+	// console.log('COOKIE');
+	let oldUser = req.cookies.username;
+	if (req.cookies.username){
+		User.findOne({username: oldUser}, (err, user) => {
+			if (err || !user){
+				res.cookie('username', '');
+				res.render("login", {
+					message: req.flash("loginMessage"), 
+					title: "Login", 
+					user: req.user, 
+					path: '/auth/login',
+					oldEmail: req.flash("oldEmail"),
+					redirectBack: req.flash('redirectBack')
+				});
+			}
+			else {
+				res.render("lockscreen", {
+					message: req.flash("loginMessage"), 
+					title: "Login", 
+					oldUser: user,
+					path: '/auth/login',
+					oldEmail: req.flash("oldEmail"),
+					redirectBack: req.flash('redirectBack')
+				});
+			}
+		})
+	}
+	else {
+		res.render("login", {
+			message: req.flash("loginMessage"), 
+			title: "Login", 
+			user: req.user, 
+			path: '/auth/login',
+			oldEmail: req.flash("oldEmail"),
+			redirectBack: req.flash('redirectBack')
+		});
+	}
 });
 
 // Dynamic redirect after logging in:
@@ -35,6 +73,7 @@ router.get("/login", function (req, res) {
 
 router.post("/login", function (req, res, next) {
 	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/home';
+	res.cookie('username', req.body.email, {maxAge: 90000, httpOnly: true});
 	passport.authenticate('local-login', {
 		successRedirect: redirectBack,
 		failureRedirect: "login",

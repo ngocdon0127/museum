@@ -24,16 +24,16 @@
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
 				<li class="header">THANH ĐIỀU HƯỚNG CHÍNH</li>
-				<li class="treeview <%= (sidebar.active == 'users') ? 'active' : '' %>">
+				<li class="treeview <%= ((sidebar.active == 'users') || sidebar.active == 'config') ? 'active' : '' %>">
 					<a href="#">
 						<i class="fa fa-table"></i> <span>Quản lý tài khoản</span>
 								<span class="pull-right-container">
 									<i class="fa fa-angle-left pull-right"></i>
 								</span>
 					</a>
-					<ul class="treeview-menu">
+					<ul class="treeview-menu <%= (sidebar.active == 'config') ? 'active' : '' %>">
 						<li class=" <%= (sidebar.active == 'users') ? 'active' : '' %>"><a href="/admin/users"><i class="fa fa-circle-o"></i>Cấp bậc tài khoản</a></li>
-						<li><a href="/config"><i class="fa fa-circle-o"></i>Quyền hạn tài khoản</a></li>
+						<li class=" <%= (sidebar.active == 'config') ? 'active' : '' %>"><a href="/config"><i class="fa fa-circle-o"></i>Phân quyền</a></li>
 					</ul>
 				</li>
 				<li class="treeview <%= (sidebar.active == 'all-log') ? 'active' : '' %>">

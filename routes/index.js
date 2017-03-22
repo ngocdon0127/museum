@@ -55,21 +55,34 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 			var result = {};
 			result.users = {};
 			for (var i = 0; i < users.length; i++) {
+				let u = users[i];
 				let canSeeThisUser = false;
 				if (myRoles.indexOf('admin') >= 0){
 					canSeeThisUser = true;
 				}
-				if (!users[i].maDeTai || (users[i].maDeTai == req.user.maDeTai)){
-					canSeeThisUser = true;
+				else { // I'm an manager
+					
+					let userRoles = await(global.myCustomVars.promises.getUserRoles(u.id));
+					if (userRoles.indexOf('admin') >= 0){
+						// I can't see any admin in this view
+						canSeeThisUser = false;
+					}
+					else {
+						// But i can see all the managers and the users which have the same MaDeTai with me
+						if (users[i].maDeTai && (users[i].maDeTai == req.user.maDeTai)){
+							canSeeThisUser = true;
+						}
+					}
 				}
+
 				if (!canSeeThisUser){
-					// continue;
+					continue;
 				}
 				var user = {};
-				user.id = users[i].id;
-				user.fullname = users[i].fullname;
-				user.username = users[i].username;
-				user.lastLogin = users[i].lastLogin;
+				user.id = u.id;
+				user.fullname = u.fullname;
+				user.username = u.username;
+				user.lastLogin = u.lastLogin;
 				// user.email = users[i].email;
 				result.users[user.id] = user;
 			}
@@ -87,6 +100,9 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 				if (canSee){
 					result.roles.push(r);
 				}
+				else {
+					// result.roles.push(r); // will be commented out
+				}
 			}
 			result.aclRules = {};
 			for (var i in aclRules) {
@@ -102,13 +118,16 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 			// 	user: req.user,
 			// 	path: req.path
 			// })
-			res.render('config', {
+			res.render('manager/userpermissions', {
 				users: result.users,
 				roles: result.roles,
 				cores: cores,
 				aclRules: result.aclRules,
 				user: req.user,
-				path: req.path
+				path: req.path,
+				sidebar: {
+					active: 'config'
+				}
 			});
 		})()
 	})

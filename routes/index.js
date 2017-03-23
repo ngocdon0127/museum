@@ -119,6 +119,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 			// 	path: req.path
 			// })
 			res.render('manager/userpermissions', {
+			// res.render('config', {
 				users: result.users,
 				roles: result.roles,
 				cores: cores,

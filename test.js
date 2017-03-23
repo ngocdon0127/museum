@@ -63,23 +63,54 @@ var await = require('asyncawait/await');
 // console.log(1);
 // console.log(f('x'));
 
-var suspendable = async (function defn(a, b) {
-    // assert(...) // may throw
-    var r = await(new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve(2)
-		}, 1000)
-	}));
-	console.log(r);
-    return r;
-});
+// var suspendable = async (function defn(a, b) {
+//     // assert(...) // may throw
+//     var r = await(new Promise((resolve, reject) => {
+// 		setTimeout(() => {
+// 			resolve(2)
+// 		}, 1000)
+// 	}));
+// 	console.log(r);
+//     return r;
+// });
 
-console.log('out');
-suspendable.then((val) => {
-	console.log('OK');
-	console.log(val);
-}, (err) => {
-	console.log('err');
-	console.log(err);
-})
+// console.log('out');
+// suspendable.then((val) => {
+// 	console.log('OK');
+// 	console.log(val);
+// }, (err) => {
+// 	console.log('err');
+// 	console.log(err);
+// })
 // console.log(suspendable());
+// 
+
+var mongoose = require('mongoose');
+var configDB = require('./config/config').database;
+var mongooseConnection = mongoose.connect(configDB.url);
+require('./models/Animal.js')(mongoose);
+require('./models/SharedData.js')(mongoose);
+
+var Animal = mongoose.model('Animal');
+
+var maDeTais = ['DT-002'];
+
+var projection = {deleted_at: {$eq: null}, 'maDeTai.maDeTai': {$in: maDeTais}};
+Animal.find(projection, (err, animals) => {
+	if (err){
+		console.log(err);
+	}
+	else {
+		console.log(animals.length);
+		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+			if (err || !sharedData){
+				console.log(err);
+			}
+			else {
+				console.log(sharedData.maDeTai)
+			}
+			mongoose.disconnect();
+		})
+		
+	}
+})

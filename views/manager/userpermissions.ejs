@@ -20,6 +20,10 @@
 			 folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
 
+	<style type="text/css">
+		@import "/stylesheets/global.css";
+	</style>
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -73,6 +77,132 @@
 
 		<!-- Main content -->
 		<section class="content">
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-xs-12">
+					
+					<!-- /.box -->
+
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title" name="quanLyQuyen" >Các quyền trong đề tài</h3>
+							<div class="box-tools pull-right">
+								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+								</button>
+								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+							</div>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="panel-group" id="accordion">
+								<div class="panel panel-primary panel-shadow">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Thêm loại quyền mới</a>
+										</h4>
+									</div>
+									<div id="collapse1" class="panel-collapse collapse in">
+										<div class="panel-body">
+											<form action="/config/roles" method="post" id="form-add-role">
+												<div class="row">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+														<input type="text" name="rolename" id="rolename" placeholder="Tên" class="form-control" />
+													</div>
+												</div>
+												<div class="row" style="margin-top: 10px">
+													<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 10px">
+														<label>Quản lý mẫu:</label>
+													</div>
+													<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 block" style="padding-left: 0px">
+														<select name="side" id="select-new-role" class="form-control">
+															<% for(var i in cores.resources) { %>
+																<option value="<%= i %>"><%= cores.resources[i].resourceName %></option>
+															<% } %>
+														</select>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px">
+														<label>Các quyền:</label>
+													</div>
+												</div>
+												
+												<div class="row">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px">
+														<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-left: 0px;">
+															<ul class="list-group">
+																	<li class="list-group-item">
+																		<input name="view" type="checkbox"> 
+																		<span> Xem </span>
+																	</li>
+																
+																	<li class="list-group-item">
+																		<input name="create" type="checkbox"> 
+																		<span> Thêm </span>
+																	</li>
+																
+															</ul>
+														</div>
+														<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-left: 0px; padding-right: 0px;">
+															<ul class="list-group">
+																	<li class="list-group-item">
+																		<input name="edit" type="checkbox"> 
+																		<span> Sửa </span>
+																	</li>
+																
+																	<li class="list-group-item">
+																		<input name="delete" type="checkbox"> 
+																		<span> Xóa </span>
+																	</li>
+																
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+														<a class="btn btn-primary btn-block" onclick="addRole()">Thêm</a>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-danger panel-shadow-danger">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Xóa loại quyền</a>
+										</h4>
+									</div>
+									<div id="collapse2" class="panel-collapse collapse">
+										<div class="panel-body">
+											<form id="form-delete-role" action="/config/roles/delete" method="post">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-left: 0px;">
+														<select id="select-delete-role" name="deleteRole" class="form-control">
+															<% for(var j = 0; j < roles.length; j++) {
+																if ((roles[j].role != 'admin') && (roles[j].role != 'manager')) { %>
+																	<option value="<%= roles[j].role %>"><%= roles[j].rolename %></option>
+																<% }
+															} %>
+														</select>
+												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-right: 0px;">
+													<a class="btn btn-danger btn-block" style="margin-top: 0px;" onclick="deleteRole()">Xóa</a>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
 			<div class="row">
 				<div class="col-xs-12">
 					
@@ -81,39 +211,91 @@
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Tất cả nhân viên trong đề tài</h3>
+							<div class="box-tools pull-right">
+								<button type="button" class="btn btn-box-tool" id="btnCollapseUsers" data-widget="collapse"><i class="fa fa-minus"></i>
+								</button>
+								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+							</div>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<table id="example1" class="table table-bordered table-hover">
+							<table id="example1" class="table table-bordered table-striped">
 								<thead>
 								<tr>
 									<th>Email</th>
 									<th>Tên đầy đủ</th>
-									<th>Cấp bậc</th>
 									<th>Lần cuối đăng nhập</th>
+									<th>Quyền</th>
 									<th>Thao tác</th>
 								</tr>
 								</thead>
 								<tbody>
-								<% for(var i = 0; i < users.length; i++) { 
-									var u = users[i]; %>
-									<tr>
-										<td><%= u.username %></td>
-										<td><%= u.fullname %></td>
-										<td><span class="<%= u.level.class %>" title="<%= u.maDeTai %>"><%= u.level.name %></span></td>
-										<% var date = new Date(u.lastLogin) %>
-										<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
-										<% if (u.level.name == 'Pending User') { %>
-											<td><button type="button" class="btn btn-block btn-success" onclick="assignTo('<%= u._id %>')">Assign to my team</button>
+								<%
+									function display(obj){
+										// console.log(staticPath)
+										// console.log(count)
+										if (obj instanceof Array){
+											var result =  obj.reduce(function (preStr, curElement){
+												// console.log(curElement.split('_+_')[1]);
+												preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+												return preStr;
+											}, '');
+											return result;
+										}
+										else if (obj instanceof Date){
+											return [obj.getHours(), obj.getMinutes(), obj.getSeconds()].join(':') + '<br>' + [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+										}
+										// Need to escape to prevent injected HTML + JS
+										return escape(obj);
+									}
+								%>
+								<% for(var i = 0; i < Object.keys(users).length; i++) { 
+									var u = users[Object.keys(users)[i]]; %>
+										<tr>
+											<td><%= u.username %></td>
+											<td><%= u.fullname %></td>
+											
+											<% var date = new Date(u.lastLogin) %>
+											<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %>
+												
 											</td>
-										<% } else if (u.level.name == 'Normal User') { %>
+											
 											<td>
-												<button type="button" class="btn btn-block btn-danger" onclick="fire('<%= u._id %>')">Fire</button>
+												<form action="/config" id="<%= u.id %>" method="post" >
+													<input type="hidden" value="<%= u.id %>" name="userid" />
+													<div class="col-lg-6">
+														<ul class="list-group">
+															<% for (var j = 0; j < roles.length; j++) { %>
+																<% if (j % 2 == 0) { %>
+																	<li class="list-group-item">
+																		<input <%= (['admin', 'manager'].indexOf(roles[j].role) >= 0) ? 'disabled' : ''%> name="<%= roles[j].role%>" type="checkbox" <%= (u.id in aclRules && aclRules[u.id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
+																		<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + u.id %>" class="jTip"><%= roles[j].rolename %></a> </span>
+																	</li>
+																<% } %>
+															<% } %>
+														</ul>
+													</div>
+													<div class="col-lg-6">
+														<ul class="list-group">
+															<% for (var j = 0; j < roles.length; j++) { %>
+																<% if (j % 2 == 1) { %>
+																	<li class="list-group-item">
+																		<input <%= (['admin', 'manager'].indexOf(roles[j].role) >= 0) ? 'disabled' : ''%> name="<%= roles[j].role%>" type="checkbox" <%= (u.id in aclRules && aclRules[u.id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
+																		<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + u.id %>" class="jTip"><%= roles[j].rolename %></a> </span>
+																	</li>
+																<% } %>
+															<% } %>
+														</ul>
+													</div>
+													
+												</form>
 											</td>
-										<% } else { %>
-											<td></td>
-										<% } %>
-									</tr>
+											<td>
+												<button type="button" class="btn btn-primary" onclick="update('<%= u.id %>')" >Update</button>
+											</td>
+										
+										</tr>
+									
 
 								<% } %>
 								
@@ -122,8 +304,8 @@
 								<tr>
 									<th>Email</th>
 									<th>Tên đầy đủ</th>
-									<th>Cấp bậc</th>
 									<th>Lần cuối đăng nhập</th>
+									<th>Quyền</th>
 									<th>Thao tác</th>
 								</tr>
 								</tfoot>
@@ -135,7 +317,7 @@
 				</div>
 				<!-- /.col -->
 			</div>
-			<!-- /.row -->
+			
 		</section>
 		<!-- /.content -->
 	</div>
@@ -369,6 +551,8 @@
 <script src="/admin/dist/js/demo.js"></script>
 <!-- page script -->
 
+<script src="/javascripts/jtip.js"></script>
+
 <script>
 	$(function () {
 		// $("#example2").DataTable();
@@ -404,66 +588,124 @@
 			    }
 			}
 		}).order([0, 'asc']).draw();
-
 	});
 </script>
 
 <script>
-	
-	
-
-	function ob(x) {
-		return document.getElementById(x)
+	function ob (x) {
+		return document.getElementById(x);
 	}
 
-	function assignTo(userId) {
-		
+	function update (id) {
+		console.log(id);
+		var fd = new FormData(document.getElementById(id));
+		console.log(fd);
+		console.log(ob(id));
 		$.ajax({
-			url: '/manager/assign/',
-			method: 'POST',
-			data: {
-				userId: userId
-			},
+			url: '/config',
+			method: 'post',
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			data: fd,
 			success: function (data) {
-				// console.log('success');
-				// console.log(data);
-				if (data.status == 'success'){
-					alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.')
+				console.log(data);
+				if (data.status.localeCompare('success') == 0){
+					alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.');
 				}
 				setTimeout(function () {
 					window.location.reload(true);
 				}, 1000);
 			},
 			error: function (err) {
-				// console.log('error');
-				// console.log(err);
-				alert(err.responseJSON.error)
+				console.log(err);
+				try {
+					alert(err.responseJSON.error);
+				}
+				finally {
+					setTimeout(function () {
+						window.location.reload(true);
+					}, 1000);
+				}
 			}
 		})
 	}
 
-	function fire(userId) {
-		
+	function addRole () {
+		var rolename = ob('rolename').value.trim();
+		if (rolename.length < 1){
+			return alert('Nhập tên');
+		}
+		var fd = new FormData(document.getElementById('form-add-role'));
+		console.log(fd);
+		console.log(ob('form-add-role'));
 		$.ajax({
-			url: '/manager/fire/',
-			method: 'POST',
-			data: {
-				userId: userId
-			},
+			url: '/config/roles',
+			method: 'post',
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			data: fd,
 			success: function (data) {
-				// console.log('success');
-				// console.log(data);
-				if (data.status == 'success'){
-					alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.')
+				console.log(data);
+				if (data.status.localeCompare('success') == 0){
+					alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.');
 				}
 				setTimeout(function () {
 					window.location.reload(true);
 				}, 1000);
 			},
 			error: function (err) {
-				// console.log('error');
-				// console.log(err);
-				alert(err.responseJSON.error)
+				console.log(err);
+				try {
+					alert(err.responseJSON.error);
+				}
+				finally {
+					setTimeout(function () {
+						window.location.reload(true);
+					}, 1000);
+				}
+			}
+		})
+	}
+
+	function deleteRole () {
+
+		var select = ob('select-delete-role');
+		var selectedOption = select.children[select.selectedIndex];
+		// console.log(option);
+
+		if (!confirm('Xóa cấp "' + selectedOption.innerHTML + '", mọi tài khoản được phân vào cấp này sẽ mất quyền thao tác với mẫu dữ liệu do cấp này quản lý.\n\nThao tác này là không thể phục hồi.\n\nXác nhận xóa?')){
+			return;
+		}
+		
+		var fd = new FormData(document.getElementById('form-delete-role'));
+		$.ajax({
+			url: '/config/roles/delete',
+			method: 'post',
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			data: fd,
+			success: function (data) {
+				console.log(data);
+				if (data.status.localeCompare('success') == 0){
+					alert('Cập nhật thành công. Trang sẽ tự reload sau 1s.');
+				}
+				setTimeout(function () {
+					window.location.reload(true);
+				}, 1000);
+			},
+			error: function (err) {
+				console.log(err);
+				try {
+					alert(err.responseJSON.error);
+				}
+				finally {
+					setTimeout(function () {
+						window.location.reload(true);
+					}, 1000);
+				}
 			}
 		})
 	}

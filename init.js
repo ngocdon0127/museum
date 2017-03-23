@@ -84,6 +84,9 @@ for(let tw of tmpWards){
 
 // ============== Shared Functions ================
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
 /**
  * Check required parameters
  */
@@ -763,8 +766,6 @@ global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
 function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, extension) {
 
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 	async (function (){
 		console.log("calling docx");
 		
@@ -2748,3 +2749,96 @@ var restart = function (res) {
 }
 
 global.myCustomVars.restart = restart;
+
+// ============= Generate Promise for async/await =======================
+
+global.myCustomVars.promises = {}
+
+var getMaDeTai = () => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+			if (!err && sharedData){
+				resolve(sharedData.maDeTai);
+			}
+			else {
+				resolve([])
+			}
+		})
+	});
+}
+
+global.myCustomVars.promises.getMaDeTai = getMaDeTai;
+
+var addMaDeTai = (maDeTai) => {
+	return new Promise((resolve, reject) => {
+		async(() => {
+			let maDeTais = await(getMaDeTai());
+			if (maDeTais.indexOf(maDeTai) >= 0){
+				resolve({
+					status: 'error',
+					error: 'Mã đề tài đã tồn tại'
+				})
+			}
+			else {
+				mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+					if (err || !sharedData){
+						console.log(err);
+						return resolve({
+							status: 'error',
+							error: 'Có lỗi xảy ra. Vui lòng thử lại'
+						})
+					}
+					sharedData.maDeTai.push(maDeTai);
+					sharedData.save((err) => {
+						if (err){
+							console.log(err);
+							resolve({
+								status: 'error',
+								error: 'Có lỗi trong khi thêm Đề tài mới. Vui lòng thử lại'
+							})
+						}
+						else {
+							resolve({
+								status: 'success'
+							})
+						}
+					})
+				})
+			}
+		})()
+	})
+}
+
+global.myCustomVars.promises.addMaDeTai = addMaDeTai;
+
+var getUserRoles = (userId) => {
+	return new Promise((resolve, reject) => {
+		acl.userRoles(userId, (err, roles) => {
+			// console.log('promised userRoles called');
+			if (err){
+				resolve([])
+			}
+			else {
+				resolve(roles)
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.getUserRoles = getUserRoles;
+
+var getUser = (userId) => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('User').findById(userId, (err, user) => {
+			if (err || !user){
+				console.log(err);
+				resolve(null);
+			}
+			else{
+				resolve(user)
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.getUser = getUser;

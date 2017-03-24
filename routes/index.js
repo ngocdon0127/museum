@@ -16,6 +16,9 @@ router.use(function (req, res, next) {
 	next();
 })
 
+var async = require('asyncawait/async')
+var await = require('asyncawait/await')
+
 router.get('/home', isLoggedIn, function (req, res) {
 	res.render('home', {user: req.user, path: req.path});
 })
@@ -40,53 +43,94 @@ router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, r
 
 router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next) {
 	User.find({}, function (err, users) {
-		if (err){
-			return console.log(err);
-		}
-		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
-		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
-		var result = {};
-		result.users = {};
-		for (var i = 0; i < users.length; i++) {
-			var user = {};
-			user.id = users[i].id;
-			user.fullname = users[i].fullname;
-			user.username = users[i].username;
-			user.lastLogin = users[i].lastLogin;
-			// user.email = users[i].email;
-			result.users[user.id] = user;
-		}
-		
-		result.roles = [];
-		for (var i in roles) {
-			var r = {};
-			r.role = roles[i].role;
-			r.rolename = roles[i].rolename;
-			result.roles.push(r);
-		}
-		result.aclRules = {};
-		for (var i in aclRules) {
-			result.aclRules[aclRules[i].userId] = [];
-			for (var j = 0; j < aclRules[i].roles.length; j++) {
-				result.aclRules[aclRules[i].userId].push(aclRules[i].roles[j]);
+		async(() => {
+			if (err){
+				return console.log(err);
 			}
-		}
-		// return res.json({
-		// 	users: result.users,
-		// 	roles: result.roles,
-		// 	aclRules: result.aclRules,
-		// 	user: req.user,
-		// 	path: req.path
-		// })
-		res.render('config', {
-			users: result.users,
-			roles: result.roles,
-			cores: cores,
-			aclRules: result.aclRules,
-			user: req.user,
-			path: req.path
-		});
+
+			var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+			var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+			var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
+			var myRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+			var result = {};
+			result.users = {};
+			for (var i = 0; i < users.length; i++) {
+				let u = users[i];
+				let canSeeThisUser = false;
+				if (myRoles.indexOf('admin') >= 0){
+					canSeeThisUser = true;
+				}
+				else { // I'm an manager
+					
+					let userRoles = await(global.myCustomVars.promises.getUserRoles(u.id));
+					if (userRoles.indexOf('admin') >= 0){
+						// I can't see any admin in this view
+						canSeeThisUser = false;
+					}
+					else {
+						// But i can see all the managers and the users which have the same MaDeTai with me
+						if (users[i].maDeTai && (users[i].maDeTai == req.user.maDeTai)){
+							canSeeThisUser = true;
+						}
+					}
+				}
+
+				if (!canSeeThisUser){
+					continue;
+				}
+				var user = {};
+				user.id = u.id;
+				user.fullname = u.fullname;
+				user.username = u.username;
+				user.lastLogin = u.lastLogin;
+				// user.email = users[i].email;
+				result.users[user.id] = user;
+			}
+			
+			var showAllRoles = false;
+			if (myRoles.indexOf('admin') >= 0){
+				showAllRoles = true;
+			}
+			result.roles = [];
+			for (var i in roles) {
+				var r = {};
+				r.role = roles[i].role;
+				r.rolename = roles[i].rolename;
+				let canSee = (req.user.maDeTai == roles[i].maDeTai) || showAllRoles;
+				if (canSee){
+					result.roles.push(r);
+				}
+				else {
+					// result.roles.push(r); // will be commented out
+				}
+			}
+			result.aclRules = {};
+			for (var i in aclRules) {
+				result.aclRules[aclRules[i].userId] = [];
+				for (var j = 0; j < aclRules[i].roles.length; j++) {
+					result.aclRules[aclRules[i].userId].push(aclRules[i].roles[j]);
+				}
+			}
+			// return res.json({
+			// 	users: result.users,
+			// 	roles: result.roles,
+			// 	aclRules: result.aclRules,
+			// 	user: req.user,
+			// 	path: req.path
+			// })
+			res.render('manager/userpermissions', {
+			// res.render('config', {
+				users: result.users,
+				roles: result.roles,
+				cores: cores,
+				aclRules: result.aclRules,
+				user: req.user,
+				path: req.path,
+				sidebar: {
+					active: 'config'
+				}
+			});
+		})()
 	})
 })
 
@@ -101,57 +145,150 @@ router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (re
 
 router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next){
 	// Cập nhật role cho user
-	console.log('---');
-	console.log(req.body);
-	// console.log(JSON.parse(req.body));
-	console.log('---');
-	User.findById(req.body.userid, function (err, user) {
-		if (err){
-			console.log(err);
-			return res.status(403).json({
-				status: 'error',
-				error: 'You don\'t have permission to access this page'
-			})
-		}
-		if (user){
-			var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-			var newRoles = [];
-			for (var i in roles){
-				var r = roles[i].role;
-				if ((['admin', 'manager'].indexOf(r) < 0) && (r in req.body) && (req.body[r] == 'on')){
-					// Không thể cấp phát quyền admin, manager tại route này ('/config')
-					// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
-					newRoles.push(r);
+	async(() => {
+		console.log('---');
+		console.log(req.body);
+		// console.log(JSON.parse(req.body));
+		console.log('---');
+		var userRoles = await(global.myCustomVars.promises.getUserRoles(req.body.userid));
+		var myRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+		User.findById(req.body.userid, function (err, user) {
+			async(() => {
+				if (err){
+					console.log(err);
+					return res.status(403).json({
+						status: 'error',
+						error: 'You don\'t have permission to access this page'
+					})
 				}
-			}
-			var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
-			if (!(user.id in aclRules)){
-				aclRules[user.id] = {};
-				aclRules[user.id].userId = user.id;
-				aclRules[user.id].roles = []
-			}
+				if (user){
+					if (!user.maDeTai){
+						return res.status(400).json({
+							status: 'error',
+							error: 'Không thể cấp phát quyền cho Pending User. Cần phải phân user này vào 1 đề tài nào đó trước.'
+						})
+					}
+					var canContinue = false;
+					var self = (req.body.userid == req.session.userId) ? 1 : 0;
+					var mr = (myRoles.indexOf('admin') >= 0) ? 0 : 
+						((myRoles.indexOf('manager') >= 0) ? 1 : 2);
+					var ur = (userRoles.indexOf('admin') >= 0) ? 0 : 
+						((userRoles.indexOf('manager') >= 0) ? 1 : 2);
+					var emdt = (user.maDeTai == req.user.maDeTai) ? 1 : 0;
+					var mark = [
+						[ // mark[0] <=> cấp quyền cho tài khoản khác
+							[ // mark[][0] <=> mình là admin
+								[ // mark[][][0] <=> nó cũng là admin
+									{val: false, msg: 'Không thể chỉnh sửa quyền của admin khác'},
+									{val: false, msg: 'Không thể chỉnh sửa quyền của admin khác'},
+								],
+								[ // mark[][][1] <=> Nó là manager
+									{val: true, msg: ''},
+									{val: true, msg: ''},
+									{val: true, msg: ''}
+								],
+								[ // mark[][][2] <=> Nó là dân thường
+									{val: true, msg: ''},
+									{val: true, msg: ''},
+									{val: true, msg: ''}
+								]
+							], 
+							[ // mark[][1] <=> mình là manager
+								[ // mark[][][0] <=> nó là admin
+									{val: false, msg: 'Không thể chỉnh sửa quyền của 1 admin'},
+									{val: false, msg: 'Không thể chỉnh sửa quyền của 1 admin'},
+								],
+								[ // mark[][][1] <=> Nó là manager
+									{val: false, msg: 'Không thể chỉnh sửa quyền của 1 manager khác'},
+									{val: false, msg: 'Không thể chỉnh sửa quyền của 1 manager khác'}
+								],
+								[ // mark[][][2] <=> Nó là dân thường
+									{val: false, msg: 'User này không do bạn quản lý'},
+									{val: true, msg: ''}
+								]
+							], 
+							[ // mark[][2] <=> mình là dân thường. BTW, dân thường không thể vào route này.
+								[ // mark[][][2] <=> Nó là dân thường
+									{val: false, msg: ''},
+									{val: false, msg: ''}
+								]
+							]
+						],
+						[ // mark[1] <=> cấp quyền cho chính mình
+							[
+								[{val: true, msg: ''}, {val: true, msg: ''}], 
+								[{val: true, msg: ''}, {val: true, msg: ''}], 
+								[{val: true, msg: ''}, {val: true, msg: ''}]
+							], [
+								[{val: true, msg: ''}, {val: true, msg: ''}], 
+								[{val: true, msg: ''}, {val: true, msg: ''}], 
+								[{val: true, msg: ''}, {val: true, msg: ''}]
+							], [
+								[{val: true, msg: ''}, {val: true, msg: ''}], 
+								[{val: true, msg: ''}, {val: true, msg: ''}], 
+								[{val: true, msg: ''}, {val: true, msg: ''}]
+							]
+						]
+					]
+					if (!mark[self][mr][ur][emdt].val){
+						return res.status(403).json({
+							status: 'error',
+							error: mark[self][mr][ur][emdt].msg
+						})
+					}
+					var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+					var newRoles = [];
+					
+					for (var i in roles){
+						var r = roles[i].role;
+						if ((['admin', 'manager'].indexOf(r) < 0) && (r in req.body) && (req.body[r] == 'on')){
+							// Không thể cấp phát quyền admin, manager tại route này ('/config')
+							// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
+							var canAssignRole = false;
+							
+							if (myRoles.indexOf('admin') >= 0){
+								canAssignRole = true;
+							}
+							if ((user.maDeTai == req.user.maDeTai) && (roles[i].maDeTai == user.maDeTai)){
+								// Tránh manager của đề tài này cấp phát quyền trong đề tài mình cho user trong đề tài khác
+								canAssignRole = true;
 
-			aclRules[user.id].roles = aclRules[user.id].roles.filter((r, index) => {
-				return ['admin', 'manager'].indexOf(r) >= 0; // Chỉ giữ lại 2 roles: admin, manager nếu đã có từ trước.
-			})
-			
-			for(let nr of newRoles){
-				// Phải giữ lại roles cũ, trong trường hợp tài khoản đã là Admin hoặc Manager.
-				if (aclRules[user.id].roles.indexOf(nr) < 0){
-					aclRules[user.id].roles.push(nr)
+							}
+							if (canAssignRole){
+								newRoles.push(r);
+							}
+						}
+					}
+					var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+					if (!(user.id in aclRules)){
+						aclRules[user.id] = {};
+						aclRules[user.id].userId = user.id;
+						aclRules[user.id].roles = []
+					}
+
+					aclRules[user.id].roles = aclRules[user.id].roles.filter((r, index) => {
+						return ['admin', 'manager'].indexOf(r) >= 0; // Chỉ giữ lại 2 roles: admin, manager nếu đã có từ trước.
+					})
+					
+					for(let nr of newRoles){
+						// Phải giữ lại roles cũ, trong trường hợp tài khoản đã là Admin hoặc Manager.
+						if (aclRules[user.id].roles.indexOf(nr) < 0){
+							aclRules[user.id].roles.push(nr)
+						}
+					}
+					fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
+					console.log("OK. restarting server");
+					return restart(res);
 				}
-			}
-			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
-			console.log("OK. restarting server");
-			return restart(res);
-		}
-		else {
-			return res.status(400).json({
-				status: 'error',
-				error: 'Invalid userid'
-			})
-		}
-	})
+				else {
+					return res.status(400).json({
+						status: 'error',
+						error: 'Invalid userid'
+					})
+				}
+			})()
+		})
+	})()
 })
 
 router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next) {
@@ -160,7 +297,13 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	var rolename = req.body.rolename.trim();
 	rolename = rolename.replace(/\r+\n+/g, ' ');
 	rolename = rolename.replace(/ {2,}/g, ' ');
-	var role = req.body.side + '_' + rolename;
+	if (!req.user.maDeTai){
+		return res.status(403).json({
+			status: 'error',
+			error: 'Tài khoản của bạn chưa được phân vào đề tài nào. Liên hệ Admin để được hỗ trợ.'
+		})
+	}
+	var role = req.user.maDeTai + '_' + req.body.side + '_' + rolename;
 	role = role.toLowerCase(); 
 	role = role.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a"); 
 	role = role.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e"); 
@@ -187,6 +330,7 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 		})
 	}
 	var r = {}
+	r.maDeTai = req.user.maDeTai;
 	r.role = role;
 	r.rolename = rolename;
 	r.allows = [
@@ -221,39 +365,57 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 })
 
 router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'delete'), function (req, res, next) {
-	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
-	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString());
-	var role = req.body.deleteRole;
-	console.log(role);
-	if ((role == 'admin') || (role == 'manager')){
-		return res.status(403).json({
-			status: 'error',
-			error: 'Không thể xóa cấp ' + role
-		})
-	}
-	if (role in roles){
-		delete roles[role];
-		fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
-		for (var userId in aclRules){
-			
-			while (true){
-				var index = aclRules[userId].roles.indexOf(role);
-				if (index < 0){
-					break;
-				}
-				aclRules[userId].roles.splice(index, 1);
-			}
+	async(() => {
+		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString());
+		var role = req.body.deleteRole;
+		console.log(role);
+		if ((role == 'admin') || (role == 'manager')){
+			return res.status(403).json({
+				status: 'error',
+				error: 'Không thể xóa cấp ' + role
+			})
 		}
-		fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
-		return restart(res);
-	}
-	else {
-		return res.status(400).json({
-			status: 'error',
-			error: 'Role không hợp lệ'
-		})
-	}
+		if (role in roles){
+			let mdtRole = roles[role].maDeTai;
+			let canDeleteRole = false;
+			let userRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+			if (userRoles.indexOf('admin') >= 0){
+				canDeleteRole = true;
+			}
+			if (mdtRole == req.user.maDeTai){
+				canDeleteRole = true;
+			}
+			if (!canDeleteRole){
+				return res.status(403).json({
+					status: 'error',
+					error: 'Không thể xóa. Loại quyền này không thuộc quyền quản lý của bạn'
+				})
+			}
+			delete roles[role];
+			fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
+			for (var userId in aclRules){
+				
+				while (true){
+					var index = aclRules[userId].roles.indexOf(role);
+					if (index < 0){
+						break;
+					}
+					aclRules[userId].roles.splice(index, 1);
+				}
+			}
+			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
+			return restart(res);
+		}
+		else {
+			return res.status(400).json({
+				status: 'error',
+				error: 'Role không hợp lệ'
+			})
+		}
+	})()
+	
 })
 
 // router.get('/test', function (req, res, next) {

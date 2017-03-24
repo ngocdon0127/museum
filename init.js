@@ -84,6 +84,9 @@ for(let tw of tmpWards){
 
 // ============== Shared Functions ================
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
 /**
  * Check required parameters
  */
@@ -763,8 +766,6 @@ global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
 function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, extension) {
 
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 	async (function (){
 		console.log("calling docx");
 		
@@ -1259,7 +1260,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		PROP_FIELDS.map((element, index) => {
 			if (('autoCompletion' in element) && (element.autoCompletion)){
 				try {
-					flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
 				}
 				catch (e){
 					console.log(e);
@@ -1279,7 +1281,8 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 			for(let f of fields){
 				try {
-					flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
 				}
 				catch (e){
 					console.log(e);
@@ -1477,17 +1480,19 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				console.log('pdf');
 				outputFileName += '.pdf';
 				var exec = require('child_process').exec;
-				var cmd = 'libreoffice5.3 --invisible --convert-to pdf ' + tmpFileName;
+				var cmd = 'cd ' + __dirname + ' && libreoffice5.3 --invisible --convert-to pdf ' + tmpFileName;
+				console.log('starting: ' + cmd);
+				console.log(objectInstance.id);
 				exec(cmd, function (err, stdout, stderr) {
 					if (err){
 						console.log(err);
 						return res.end('err');
 					}
-					// console.log('---')
-					// console.log(stdout);
-					// console.log('---')
-					// console.log(stderr);
-					// console.log('---')
+					console.log('--out-')
+					console.log(stdout);
+					console.log('--err-')
+					console.log(stderr);
+					console.log('--end-')
 					pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
 					// console.log(pdfFileName);
 					// console.log(outputFileName);
@@ -1913,7 +1918,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		var excelbuilder = require('msexcel-builder');
 		var tmpFileName = (new Date()).getTime() + '.tmp.xlsx';
-		var workbook = excelbuilder.createWorkbook('.', tmpFileName);
+		var workbook = excelbuilder.createWorkbook(path.join(__dirname), tmpFileName);
 		var _NUM_ROW = 200;
 		var _NUM_COL = 4;
 		var sheet = workbook.createSheet('PCSDL', _NUM_COL, _NUM_ROW);
@@ -2016,7 +2021,8 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 		PROP_FIELDS.map((element, index) => {
 			if (('autoCompletion' in element) && (element.autoCompletion)){
 				try {
-					flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
 				}
 				catch (e){
 					console.log(e);
@@ -2036,7 +2042,8 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 			for(let f of fields){
 				try {
-					flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+					flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
 				}
 				catch (e){
 					console.log(e);
@@ -2317,7 +2324,8 @@ var getAllHandler = function (options) {
 			// }
 			// ===
 			console.log(projection);
-			ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			// ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			ObjectModel.find(projection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
 				if (err){
 					return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
 				}
@@ -2741,3 +2749,96 @@ var restart = function (res) {
 }
 
 global.myCustomVars.restart = restart;
+
+// ============= Generate Promise for async/await =======================
+
+global.myCustomVars.promises = {}
+
+var getMaDeTai = () => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+			if (!err && sharedData){
+				resolve(sharedData.maDeTai);
+			}
+			else {
+				resolve([])
+			}
+		})
+	});
+}
+
+global.myCustomVars.promises.getMaDeTai = getMaDeTai;
+
+var addMaDeTai = (maDeTai) => {
+	return new Promise((resolve, reject) => {
+		async(() => {
+			let maDeTais = await(getMaDeTai());
+			if (maDeTais.indexOf(maDeTai) >= 0){
+				resolve({
+					status: 'error',
+					error: 'Mã đề tài đã tồn tại'
+				})
+			}
+			else {
+				mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+					if (err || !sharedData){
+						console.log(err);
+						return resolve({
+							status: 'error',
+							error: 'Có lỗi xảy ra. Vui lòng thử lại'
+						})
+					}
+					sharedData.maDeTai.push(maDeTai);
+					sharedData.save((err) => {
+						if (err){
+							console.log(err);
+							resolve({
+								status: 'error',
+								error: 'Có lỗi trong khi thêm Đề tài mới. Vui lòng thử lại'
+							})
+						}
+						else {
+							resolve({
+								status: 'success'
+							})
+						}
+					})
+				})
+			}
+		})()
+	})
+}
+
+global.myCustomVars.promises.addMaDeTai = addMaDeTai;
+
+var getUserRoles = (userId) => {
+	return new Promise((resolve, reject) => {
+		acl.userRoles(userId, (err, roles) => {
+			// console.log('promised userRoles called');
+			if (err){
+				resolve([])
+			}
+			else {
+				resolve(roles)
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.getUserRoles = getUserRoles;
+
+var getUser = (userId) => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('User').findById(userId, (err, user) => {
+			if (err || !user){
+				console.log(err);
+				resolve(null);
+			}
+			else{
+				resolve(user)
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.getUser = getUser;

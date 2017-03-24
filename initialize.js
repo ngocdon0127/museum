@@ -5,6 +5,7 @@ var cleanUser = false;
 var cleanConfigFiles = false;
 var cleanAutoCompletion = true;
 var cleanData = true;
+var fixMaDeTai = true;
 
 var mongoose = require('mongoose');
 var configDB = require('./config/config').database;
@@ -873,6 +874,84 @@ async(() => {
 			console.log('Clean Data error')
 		}
 		
+	}
+
+	if (fixMaDeTai){
+		console.log('start fixing maDeTai...');
+		let Models = [
+			{
+				init: require('./models/Paleontological.js')(mongoose),
+				model: mongoose.model('Paleontological'),
+				name: 'Cổ sinh'
+			},
+			{
+				init: require('./models/Geological.js')(mongoose),
+				model: mongoose.model('Geological'),
+				name: 'Địa chất'
+			},
+			{
+				init: require('./models/Animal.js')(mongoose),
+				model: mongoose.model('Animal'),
+				name: 'Động vật'
+			},
+			{
+				init: require('./models/Soil.js')(mongoose),
+				model: mongoose.model('Soil'),
+				name: 'Thổ nhưỡng'
+			},
+			{
+				init: require('./models/Vegetable.js')(mongoose),
+				model: mongoose.model('Vegetable'),
+				name: 'Thực vật'
+			}
+		]
+		let maDeTais = await(new Promise((resolve, reject) => {
+			mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+				if (err || !sharedData){
+					resolve([])
+				}
+				else {
+					resolve(sharedData.maDeTai)
+				}
+			})
+		}))
+
+		for(let model of Models){
+			var projection = {'maDeTai.maDeTai': {$nin: maDeTais}};
+			let rows = await(new Promise((resolve, reject) => {
+				model.model.find(projection, (err, instances) => {
+					if (err || !instances){
+						console.log(err);
+						// console.log(instances)
+						resolve([]);
+					}
+					else {
+						// console.log(instances)
+						resolve(instances);
+					}
+					
+				})
+			}))
+			for(let r of rows){
+				let result = await(new Promise((resolve, reject) => {
+					let mdt = maDeTais[Math.floor(Math.random() * maDeTais.length)];
+					r.maDeTai = {};
+					r.maDeTai.maDeTai = mdt;
+					r.save((err) => {
+						if (err){
+							console.log(err);
+							resolve('err')
+						}
+						else {
+							resolve('ok');
+						}
+					})
+				}))
+				console.log(result)
+			}
+		}
+		console.log('Done');
+
 	}
 
 	console.log('\nSuccess!\n')

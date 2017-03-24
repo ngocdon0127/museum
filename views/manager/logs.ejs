@@ -32,7 +32,7 @@
 
 	<header class="main-header">
 		<!-- Logo -->
-		<a href="/admin/index2.html" class="logo">
+		<a href="/admin" class="logo">
 			<!-- mini logo for sidebar mini 50x50 pixels -->
 			<span class="logo-mini"><b>M</b></span>
 			<!-- logo for regular state and mobile devices -->
@@ -61,13 +61,13 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				Manager Dashboard
+				Lịch sử hoạt động
 				
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li><a href="/manager">Manager</a></li>
-				<li class="active">Users Management</li>
+				<li><a href="/home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+				<li><a href="/manager">Quản trị</a></li>
+				<li class="active">Quản lý tài khoản</li>
 			</ol>
 		</section>
 
@@ -80,11 +80,11 @@
 
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Users in this team</h3>
+							<h3 class="box-title">Toàn bộ lịch sử</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<table id="example1" class="table table-bordered table-striped">
+							<table id="example1" class="table table-bordered table-hover">
 								<thead>
 								<tr>
 									<th>Thời gian</th>
@@ -102,11 +102,11 @@
 									<tr>
 										<% var date = new Date(logs[i].time) %>
 										<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
-										<td><a href="<%= path + '?user=' + log.userId %>"><h4><%= log.userFullName %></h4></a></td>
-										<td><a href="<%= path + '?action=' + action %>"><h4><%= actions[action].label %></h4></a> </td>
-										<td><a href="<%= path + '?type=' + forms[log.objType].objectModelName %>"><span><%= forms[log.objType].objectModelLabel %></span></a>
+										<td><a title="Lọc nhật ký của người dùng này" href="<%= path + '?user=' + log.userId %>"><h4><%= log.userFullName %></h4></a></td>
+										<td><a title="Lọc nhật ký theo hành động này" href="<%= path + '?action=' + action %>"><h4><%= actions[action].label %></h4></a> </td>
+										<td><a title="Lọc nhật ký theo loại dữ liệu này" href="<%= path + '?type=' + forms[log.objType].objectModelName %>"><span><%= forms[log.objType].objectModelLabel %></span></a>
 										</td>
-										<td><a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a></td>
+										<td><a title="Lọc nhật ký về mẫu dữ liệu này" href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a></td>
 										<td>
 											<% var basePath = forms[log.objType].basePath; %>
 											<% if (action == 'create') { %>

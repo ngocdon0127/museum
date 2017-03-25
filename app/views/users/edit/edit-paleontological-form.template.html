@@ -386,21 +386,21 @@
 				<tr>
 					<td><label>34. Kết quả phân tích định tuổi: </label></td>
 					<td>
-						<input type="file" id="phanTichTuoiDiaChat" multiple ng-model="data.phanTichTuoiDiaChat" name="phanTichTuoiDiaChat" accept=".doc, .docx, .pdf" class="inputfile customfile" max-file-size="10" required>
+						<input type="file" id="phanTichTuoiDiaChat" multiple ng-model="data.phanTichTuoiDiaChat" name="phanTichTuoiDiaChat" accept=".doc, .docx, .pdf" class="inputfile customfile"  required>
 						<label for="phanTichTuoiDiaChat" title="{{tooltips['phanTichTuoiDiaChat']}}"><span>{{getName(data.phanTichTuoiDiaChat)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td><label>35. Đặc điểm vi cấu trúc: </label></td>
 					<td>
-						<input type="file" id="dacDiemViCauTruc" multiple ng-model="data.dacDiemViCauTruc" name="dacDiemViCauTruc" accept=".doc, .docx, .pdf" class="inputfile customfile" max-file-size="10" required>
+						<input type="file" id="dacDiemViCauTruc" multiple ng-model="data.dacDiemViCauTruc" name="dacDiemViCauTruc" accept=".doc, .docx, .pdf" class="inputfile customfile"  required>
 						<label for="dacDiemViCauTruc" title="{{tooltips['dacDiemViCauTruc']}}"><span>{{getName(data.dacDiemViCauTruc)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
 				<tr>
 					<td><label>36. Đặc điểm lát mỏng: </label></td>
 					<td>
-						<input type="file" id="dacDiemLatMong" multiple ng-model="data.dacDiemLatMong" name="dacDiemLatMong" accept=".doc, .docx, .pdf" class="inputfile customfile" max-file-size="10" required>
+						<input type="file" id="dacDiemLatMong" multiple ng-model="data.dacDiemLatMong" name="dacDiemLatMong" accept=".doc, .docx, .pdf" class="inputfile customfile" required>
 						<label for="dacDiemLatMong" title="{{tooltips['dacDiemLatMong']}}"><span>{{getName(data.dacDiemLatMong)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
@@ -447,7 +447,7 @@
 				<tr>
 					<td><label>43. Đính kèm phim, video:</label></td>
 					<td>
-						<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile">
+						<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" max-file-size="100" >
 						<label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{getName(data.videoFile)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>

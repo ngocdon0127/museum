@@ -10,6 +10,11 @@ var SharedData = mongoose.model('SharedData');
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 var acl = global.myCustomVars.acl;
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
+var PROMISES = global.myCustomVars.promises;
+
 var restart = global.myCustomVars.restart;
 var checkUnNullParams = global.myCustomVars.checkUnNullParams;
 var responseError = global.myCustomVars.responseError;
@@ -61,22 +66,7 @@ router.get('/users', function (req, res, next) {
 		delete user.level;
 		delete user.password;
 
-		var users = await(new Promise((resolve, reject) => {
-			User.find({}, function (err, users) {
-				if (err){
-					console.log(err);
-					res.status(500).json({status: 'error', error: 'Error while reading database'})
-					resolve([])
-				}
-				users_ = JSON.parse(JSON.stringify(users))
-				for(let i = 0; i < users_.length; i++){
-					let u = users_[i];
-					delete u.password;
-				}
-				// console.log(users_)
-				resolve(users_);
-			})
-		}))
+		var users = await(global.myCustomVars.promises.getUsers()).usersNormal;
 		var result = {
 			user: user
 		}
@@ -92,43 +82,13 @@ router.get('/users', function (req, res, next) {
 		}))
 
 		for(let i = 0; i < users.length; i++){
-			var u = users[i];
-			var userRoles = await(new Promise((resolve, reject) => {
-				acl.userRoles(u._id, (err, roles) => {
-					// console.log('promised userRoles called');
-					if (err){
-						resolve([])
-					}
-					else {
-						resolve(roles)
-					}
-				})
-			}))
-			// console.log('userRoles done');
-			// console.log(userRoles);
-			if (userRoles.indexOf('admin') >= 0){
-				// console.log('admin ' + u._id);
-				u.level = LEVEL['admin'];
-			}
-			else if (userRoles.indexOf('manager') >= 0){
-				// console.log('manage ' + u._id);
-				u.level = LEVEL['manager'];
-			}
-			else {
-				// console.log('user ' + u._id);
-				u.level = LEVEL['user']
-				if (!u.maDeTai){
-					// console.log('pending user ' + u._id);
-					u.level = LEVEL['pending-user'];
-				}
-			}
+			let u = users[i];
+			u.level = LEVEL[u.level];
 		}
 		result.users = users;
 		result.sidebar = {
 			active: 'users'
 		}
-
-		// console.log(result);
 
 		res.render('admin/users', result)
 
@@ -301,8 +261,6 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 })
 
 router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 	async(() => {
 		if (req.body.userId == req.session.userId){
 			console.log('dcmm');
@@ -568,6 +526,56 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 				})
 			}
 		}
+	})()
+})
+
+router.get('/statistic', (req, res, next) => {
+	async(() => {
+		let users = await(PROMISES.getUsers()).usersNormal;
+		let countLevel = {
+			'admin': 0,
+			'manager': 0,
+			'user': 0,
+			'pending-user': 0
+		}
+		let countMaDeTai = {}
+		// console.log(users);
+		for(let user of users){
+			if (user.maDeTai){
+				console.log('checking ' + user.username);
+				if (user.maDeTai in countMaDeTai){
+					if (user.level in countMaDeTai[user.maDeTai]){
+						countMaDeTai[user.maDeTai][user.level]++;
+					}
+					else {
+						countMaDeTai[user.maDeTai][user.level] = 1;
+					}
+				}
+				else {
+					let obj = JSON.parse(JSON.stringify(countLevel));
+					delete obj['pending-user'];
+					obj[user.level] = 1;
+					countMaDeTai[user.maDeTai] = obj;
+
+				}
+			}
+		}
+		for(let user of users){
+			delete user.password;
+			countLevel[user.level]++;
+		}
+		// return res.json({
+		// 	countMaDeTai: countMaDeTai,
+		// 	countLevel: countLevel
+		// })
+		return res.render('admin/users-statistic', {
+			countLevel: countLevel,
+			countMaDeTai: countMaDeTai,
+			user: req.user,
+			sidebar: {
+				active: 'statistic-user'
+			}
+		})
 	})()
 })
 

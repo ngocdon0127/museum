@@ -64,7 +64,7 @@
 						<li class=" <%= (sidebar.active == 'all-log') ? 'active' : '' %>"><a href="/log/all"><i class="fa fa-circle-o"></i>Tất cả nhật ký</a></li>
 					</ul>
 				</li>
-				<li class="treeview <%= (sidebar.active == 'statistic') ? 'active' : '' %>">
+				<li class="treeview <%= (sidebar.active == 'statistic' || sidebar.active == 'statistic-user') ? 'active' : '' %>">
 					<a href="#">
 						<i class="fa fa-edit"></i> <span>Thống kê</span>
 						<span class="pull-right-container">
@@ -73,6 +73,7 @@
 					</a>
 					<ul class="treeview-menu">
 						<li class=" <%= (sidebar.active == 'statistic') ? 'active' : '' %>"><a href="/manager/statistic"><i class="fa fa-circle-o"></i>Thống kê mẫu vật theo đề tài</a></li>
+						<li class=" <%= (sidebar.active == 'statistic-user') ? 'active' : '' %>"><a href="/admin/statistic"><i class="fa fa-circle-o"></i>Thống kê users</a></li>
 					</ul>
 				</li>
 			</ul>

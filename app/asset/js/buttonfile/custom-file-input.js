@@ -8,7 +8,7 @@ $(document).ready(function () {
 		// console.log(input);
 		var label = input.nextElementSibling;
 		var	labelVal = label.innerHTML;
-		label.querySelector( 'span' ).innerHTML = "No file chosen";
+		// label.querySelector( 'span' ).innerHTML = "No file chosen";
 		//catch event file change
 		input.addEventListener('change', function(e)
 		{
@@ -28,7 +28,7 @@ $(document).ready(function () {
 				}
 				else{
 					if(this.files && this.files.length > 1){
-						fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+						fileName = (this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
 					}
 					else if(this.files && this.files.length == 1){
 						fileName = e.target.value.split( '\\' ).pop();

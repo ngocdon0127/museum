@@ -1,7 +1,6 @@
 app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
 	var url = AuthService.hostName + '/content/dong-vat';
 	$http.get(url).then(function (res) {
-		console.log('get');
 		$scope.data = res.data.animals;
 		$scope.status = res.data.status;
 		$scope.link = 'dong-vat';

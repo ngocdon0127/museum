@@ -2754,6 +2754,21 @@ global.myCustomVars.restart = restart;
 
 global.myCustomVars.promises = {}
 
+var getSharedData = () => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+			if (!err && sharedData){
+				resolve(sharedData);
+			}
+			else {
+				resolve(null)
+			}
+		})
+	});
+}
+
+global.myCustomVars.promises.getSharedData = getSharedData;
+
 var getMaDeTai = () => {
 	return new Promise((resolve, reject) => {
 		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
@@ -2772,6 +2787,13 @@ global.myCustomVars.promises.getMaDeTai = getMaDeTai;
 var addMaDeTai = (maDeTai) => {
 	return new Promise((resolve, reject) => {
 		async(() => {
+			maDeTai = maDeTai.trim();
+			if (!maDeTai){
+				resolve({
+					status: 'error',
+					error: 'Mã đề tài không hợp lệ'
+				})
+			}
 			let maDeTais = await(getMaDeTai());
 			if (maDeTais.indexOf(maDeTai) >= 0){
 				resolve({
@@ -2900,3 +2922,28 @@ var getUsers = () => {
 }
 
 global.myCustomVars.promises.getUsers = getUsers;
+
+var userHasRole = (userId, role) => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('User').findById(userId, (err, user) => {
+			if (err || !user){
+				resolve(false)
+			}
+			else {
+				acl.userRoles(userId, (err, roles) => {
+					if (err){
+						return resolve(false);
+					}
+					else if (roles.indexOf(role) >= 0){
+						resolve(true);
+					}
+					else {
+						resolve(false)
+					}
+				})
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.userHasRole = userHasRole;

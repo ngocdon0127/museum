@@ -191,6 +191,15 @@ function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 		var file = curFiles[i];
 		try {
 			var curPath = path.join(position, file.filename);
+			// while (file.originalname.indexOf('.') != file.originalname.lastIndexOf('.')){
+			// 	file.originalname = file.originalname.replace('.', '');
+			// }
+			
+			// Xóa bỏ 2 hoặc nhiều dấu chấm liền nhau. Đề phòng lỗi khi nó cố tình download file ngoài thư mục public
+			while (file.originalname.indexOf('..') >= 0){
+				file.originalname = file.originalname.replace('..', '.');
+			}
+			
 			var newFileName = mongoId + STR_SEPERATOR + schemaFieldName + STR_SEPERATOR + file.originalname;
 			// var newFileName = mongoId + STR_SEPERATOR + file.originalname;
 			var newPath = path.join(position, newFileName);
@@ -356,6 +365,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			},
 			{
 				fieldName: 'xa'
+			},
+			{
+				fieldName: 'gioiTinh'
 			}
 		]
 
@@ -2438,7 +2450,13 @@ var getSingleHandler = function (options) {
 									if (tmp[p] instanceof Array){
 										let files = tmp[p];
 										files.map((f, i) => {
-											files[i] = f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+											let url = '/uploads/' + objectModelName + '/' + f;
+											let obj = {
+												fileName: f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length),
+												urlDirect: url,
+												urlDownload: '/content/download' + url
+											}
+											files[i] = obj;
 										})
 									}
 								}

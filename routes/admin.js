@@ -93,11 +93,13 @@ router.get('/users', function (req, res, next) {
 		res.render('admin/users', result)
 
 	})()
-	
 })
 
 router.get('/test', function (req, res, next) {
-	res.end('access granted')
+	async(() => {
+		let x = await(PROMISES.userHasRole(req.user.id, 'manager1'));
+		res.end(JSON.stringify(x))
+	})()
 })
 
 // require extra permission: admin-edit
@@ -343,8 +345,7 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 })
 
 router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next) {
-	// Coi vai trò của user đang request là manager.
-	// Admin sẽ có route assign riêng
+	// Admin
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 
@@ -353,6 +354,8 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 	if (nullParam){
 		return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
 	}
+
+	req.body.maDeTai = req.body.maDeTai.trim();
 
 	async(() => {
 		var user = await(new Promise((resolve, reject) => {
@@ -380,7 +383,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 			})
 		}))
 		if (!user){
-			// do not care. Handle inside the above await
+			// do not care. Handle inside the above await block
 		}
 		else {
 			var userRoles = await(new Promise((resolve, reject) => {
@@ -409,7 +412,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 				if (req.body.userId == req.session.userId){
 					// Chính mình
 					if (maDeTais.indexOf(req.body.maDeTai) < 0){
-						return responseError(req, '', res, 400, ['error'], ['Mã đề tài không hợp lệ']);
+						return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 					}
 					else {
 						user.maDeTai = req.body.maDeTai;
@@ -434,7 +437,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 			}
 			else {
 				if (maDeTais.indexOf(req.body.maDeTai) < 0){
-					return responseError(req, '', res, 400, ['error'], ['Mã đề tài không hợp lệ']);
+					return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 				}
 				else {
 					user.maDeTai = req.body.maDeTai;
@@ -525,6 +528,25 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 					}
 				})
 			}
+		}
+	})()
+})
+
+router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
+	async(() => {
+		var nullParam = checkUnNullParams(['newMaDeTai'], req.body);
+
+		if (nullParam){
+			return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
+		}
+
+		req.body.newMaDeTai = req.body.newMaDeTai.trim();
+		let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai));
+		if (result.status == 'error'){
+			return responseError(req, '', res, 400, ['error'], [result.error]);
+		}
+		else if (result.status == 'success'){
+			return responseSuccess(res, [], [])
 		}
 	})()
 })

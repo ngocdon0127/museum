@@ -46,16 +46,6 @@ var STR_SEPERATOR = '_+_';
 global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
-// var PERM_MANAGER = 500;
-// global.myCustomVars.PERM_MANAGER = PERM_MANAGER;
-// var PERM_ADMIN = 1000;
-// global.myCustomVars.PERM_ADMIN = PERM_ADMIN;
-// var PERM_USER = 0;
-// global.myCustomVars.PERM_USER = PERM_USER;
-// var PERM_ACCESS_SAME_MUSEUM = global.myCustomVars.PERM_ADMIN;
-// global.myCustomVars.PERM_ACCESS_SAME_MUSEUM = PERM_ACCESS_SAME_MUSEUM;
-// var PERM_ACCESS_ALL = global.myCustomVars.PERM_ADMIN;
-// global.myCustomVars.PERM_ACCESS_ALL = PERM_ACCESS_ALL;
 
 
 
@@ -187,8 +177,8 @@ function responseSuccess (res, props, values) {
 
 global.myCustomVars.responseSuccess = responseSuccess;
 
-
-function rename (curFiles, schemaField, position, mongoId) {
+// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
+function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 	// console.log(schemaField);
 	try {
 		schemaField.splice(0, schemaField.length); // delete all old elements
@@ -201,10 +191,20 @@ function rename (curFiles, schemaField, position, mongoId) {
 		var file = curFiles[i];
 		try {
 			var curPath = path.join(position, file.filename);
-			var newFileName = mongoId + STR_SEPERATOR + file.originalname;
+			// while (file.originalname.indexOf('.') != file.originalname.lastIndexOf('.')){
+			// 	file.originalname = file.originalname.replace('.', '');
+			// }
+			
+			// Xóa bỏ 2 hoặc nhiều dấu chấm liền nhau. Đề phòng lỗi khi nó cố tình download file ngoài thư mục public
+			while (file.originalname.indexOf('..') >= 0){
+				file.originalname = file.originalname.replace('..', '.');
+			}
+			
+			var newFileName = mongoId + STR_SEPERATOR + schemaFieldName + STR_SEPERATOR + file.originalname;
+			// var newFileName = mongoId + STR_SEPERATOR + file.originalname;
 			var newPath = path.join(position, newFileName);
 			fs.renameSync(curPath, newPath);
-			schemaField.push(mongoId + STR_SEPERATOR + file.originalname);
+			schemaField.push(newFileName);
 		}
 		catch (e){
 			console.log(e);
@@ -365,6 +365,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			},
 			{
 				fieldName: 'xa'
+			},
+			{
+				fieldName: 'gioiTinh'
 			}
 		]
 
@@ -723,7 +726,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 					}
 					objectChild(objectInstance, element.schemaProp)[element.name] = [];
-					rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
+					rename(req.files[element.name], element.name, objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
+					// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
 				}
 			})
 
@@ -2446,7 +2450,13 @@ var getSingleHandler = function (options) {
 									if (tmp[p] instanceof Array){
 										let files = tmp[p];
 										files.map((f, i) => {
-											files[i] = f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+											let url = '/uploads/' + objectModelName + '/' + f;
+											let obj = {
+												fileName: f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length),
+												urlDirect: url,
+												urlDownload: '/content/download' + url
+											}
+											files[i] = obj;
 										})
 									}
 								}
@@ -2754,6 +2764,21 @@ global.myCustomVars.restart = restart;
 
 global.myCustomVars.promises = {}
 
+var getSharedData = () => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+			if (!err && sharedData){
+				resolve(sharedData);
+			}
+			else {
+				resolve(null)
+			}
+		})
+	});
+}
+
+global.myCustomVars.promises.getSharedData = getSharedData;
+
 var getMaDeTai = () => {
 	return new Promise((resolve, reject) => {
 		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
@@ -2772,6 +2797,13 @@ global.myCustomVars.promises.getMaDeTai = getMaDeTai;
 var addMaDeTai = (maDeTai) => {
 	return new Promise((resolve, reject) => {
 		async(() => {
+			maDeTai = maDeTai.trim();
+			if (!maDeTai){
+				resolve({
+					status: 'error',
+					error: 'Mã đề tài không hợp lệ'
+				})
+			}
 			let maDeTais = await(getMaDeTai());
 			if (maDeTais.indexOf(maDeTai) >= 0){
 				resolve({
@@ -2900,3 +2932,28 @@ var getUsers = () => {
 }
 
 global.myCustomVars.promises.getUsers = getUsers;
+
+var userHasRole = (userId, role) => {
+	return new Promise((resolve, reject) => {
+		mongoose.model('User').findById(userId, (err, user) => {
+			if (err || !user){
+				resolve(false)
+			}
+			else {
+				acl.userRoles(userId, (err, roles) => {
+					if (err){
+						return resolve(false);
+					}
+					else if (roles.indexOf(role) >= 0){
+						resolve(true);
+					}
+					else {
+						resolve(false)
+					}
+				})
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.userHasRole = userHasRole;

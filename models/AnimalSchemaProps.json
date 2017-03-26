@@ -154,7 +154,7 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "giong",
+		"name": "chiGiong",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Giống",
 		"required": false,
@@ -164,7 +164,7 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "phanGiong",
+		"name": "phanChiPhanGiong",
 		"schemaProp": "tenMau.tenKhoaHoc",
 		"label": "Phân giống",
 		"required": false,
@@ -556,7 +556,7 @@
 		"type": "String"
 	},
 	{
-		"name": "thoiGianPhanTich",
+		"name": "thoiGianGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Thời gian phân tích/giám định/định loại mẫu",
 		"required": false,
@@ -564,7 +564,7 @@
 		"type": "Date"
 	},
 	{
-		"name": "nguoiPhanTich",
+		"name": "nguoiGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Người phân tích/giám định/định loại mẫu",
 		"required": false,
@@ -573,7 +573,7 @@
 		"regex": "^.{0,}$"
 	},
 	{
-		"name": "coQuanToChucPhanTich",
+		"name": "coQuanToChucGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
 		"required": false,
@@ -719,7 +719,7 @@
 		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
-		"name": "dinhKemXuLy",
+		"name": "dinhKemXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Đính kèm Xử lý chế tác",
 		"required": false,
@@ -728,7 +728,7 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
-		"name": "thuocTinhXuLy",
+		"name": "thuocTinhXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Thuộc tính Xử lý chế tác",
 		"required": false,
@@ -1015,7 +1015,7 @@
 		"regex": "^.+\\.(pdf|docx?)$"
 	},
 	{
-		"name": "nguoiNhapPhieuMauVat",
+		"name": "nguoiLapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người lập phiếu mẫu vật",
 		"required": false,

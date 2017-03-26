@@ -88,11 +88,11 @@
 			</tr>
 			<tr>
 				<td>Giống<span class="has-required"> (*)</span>: </td>
-				<td><input type="text" title="{{tooltips['giong']}}" name="giong" ng-model="data.giong" id="giong" class="input-form" required></td>
+				<td><input type="text" title="{{tooltips['chiGiong']}}" name="chiGiong" ng-model="data.chiGiong" id="chiGiong" class="input-form" required></td>
 			</tr>
 			<tr>
 				<td>Phân giống: </td>
-				<td><input type="text" title="{{tooltips['phanGiong']}}" name="phanGiong" ng-model="data.phanGiong" id="phanGiong" class="input-form" required></td>
+				<td><input type="text" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong" ng-model="data.phanChiPhanGiong" id="phanChiPhanGiong" class="input-form" required></td>
 			</tr>
 			<tr>
 				<td>Loài: </td>
@@ -380,15 +380,15 @@
 			<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
 				<td><label>33. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-				<td><input type="text" ng-model="data.thoiGianPhanTich" title="{{tooltips['thoiGianPhanTich']}}" name="thoiGianPhanTich" class="input-form datepicker"></td>
+				<td><input type="text" ng-model="data.thoiGianGiamDinh" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" class="input-form datepicker"></td>
 			</tr>
 			<tr>
 				<td><label>34. Người phân tích/giám định/định loại mẫu <span class="has-required"> (*)</span>:</label></td>
-				<td><input type="text" ng-model="data.nguoiPhanTich" title="{{tooltips['nguoiPhanTich']}}" name="nguoiPhanTich" class="input-form" required></td>
+				<td><input type="text" ng-model="data.nguoiGiamDinh" title="{{tooltips['nguoiGiamDinh']}}" name="nguoiGiamDinh" class="input-form" required></td>
 			</tr>
 			<tr>
 				<td><label>35. Cơ quan/tổ chức phân tích/giám định/phân loại mẫu <span class="has-required"> (*)</span>:</label></td>
-				<td><input type="text" ng-model="data.coQuanToChucPhanTich" title="{{tooltips['coQuanToChucPhanTich']}}" name="coQuanToChucPhanTich" id="coQuanToChucPhanTich" class="input-form" required></td>
+				<td><input type="text" ng-model="data.coQuanToChucGiamDinh" title="{{tooltips['coQuanToChucGiamDinh']}}" name="coQuanToChucGiamDinh" id="coQuanToChucGiamDinh" class="input-form" required></td>
 			</tr>
 			<tr><td><label>36. Tài liệu phân tích/giám định/phân loại đi kèm <span class="has-required"> (*)</span>:</label></td></tr>
 			<tr>
@@ -483,13 +483,13 @@
 			<tr>
 				<td>Đính kèm Xử lý chế tác:</td>
 				<td>
-					<input type="file" multiple ng-model="data.dinhKemXuLy" id="dinhKemXuLy" accept=".docx, .doc, .pdf" name="dinhKemXuLy" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="dinhKemXuLy" title="{{tooltips['dinhKemXuLy']}}"><span>No file chosen</span><strong>Choose file</strong></label>
+					<input type="file" multiple ng-model="data.dinhKemXuLyCheTac" id="dinhKemXuLyCheTac" accept=".docx, .doc, .pdf" name="dinhKemXuLyCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected">
+					<label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>No file chosen</span><strong>Choose file</strong></label>
 				</td>
 			</tr>
 			<tr>
 				<td>Thuộc tính Xử lý chế tác:</td>
-				<td><input type="text" ng-model="data.thuocTinhXuLy" title="{{tooltips['thuocTinhXuLy']}}" name="thuocTinhXuLy" class="input-form"></td>
+				<td><input type="text" ng-model="data.thuocTinhXuLyCheTac" title="{{tooltips['thuocTinhXuLyCheTac']}}" name="thuocTinhXuLyCheTac" class="input-form"></td>
 			</tr>
 			<tr>
 				<td>Phương thức xử lý chế tác:</td>
@@ -676,7 +676,7 @@
 			</tr>
 			<tr>
 				<td><label>64. Người lập phiếu mẫu vật<span class="has-required"> (*)</span>:</label></td>
-				<td><input type="text" ng-model="data.nguoiNhapPhieuMauVat" title="{{tooltips['nguoiNhapPhieuMauVat']}}" name="nguoiNhapPhieuMauVat" class="input-form" required></td>
+				<td><input type="text" ng-model="data.nguoiLapPhieuMauVat" title="{{tooltips['nguoiLapPhieuMauVat']}}" name="nguoiLapPhieuMauVat" class="input-form" required></td>
 			</tr>
 			<tr>
 				<td><label>65. Người nhập vào phần mềm:</label></td>

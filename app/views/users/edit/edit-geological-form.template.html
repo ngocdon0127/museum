@@ -335,7 +335,7 @@
 				<tr>
 					<td><input type="text" title="{{tooltips['phanTichQuangHocStr']}}" name="phanTichQuangHocStr" ng-model="data.phanTichQuangHocStr" class="input-form"></td>
 					<td>
-						<input type="file" id="phanTichQuangHocFile" multiple accept=".doc, .docx, .pdf" name="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="inputfile customfile">
+						<input type="file" id="phanTichQuangHocFile" multiple accept=".doc, .docx, .pdf" name="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="inputfile customfile" max-file-size="10" required>
 						<label for="phanTichQuangHocFile" title="{{tooltips['phanTichQuangHocFile']}}"><span>{{getName(data.phanTichQuangHocFile)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
@@ -402,7 +402,7 @@
 				<tr>
 					<td><label>42. Đính kèm phim, video:</label></td>
 					<td>
-						<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile">
+						<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" max-file-size="100">
 						<label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{getName(data.videoFile)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>
@@ -488,7 +488,7 @@
 				<tr>
 					<td><label>50. Công thức hóa học:</label></td>
 					<td>
-						<input type="file" id="congThucHoaHoc" multiple ng-model="data.congThucHoaHoc" name="congThucHoaHoc" class="inputfile customfile" accept=".doc, .docx, .pdf" max-file-size="10">
+						<input type="file" id="congThucHoaHoc" multiple ng-model="data.congThucHoaHoc" name="congThucHoaHoc" class="inputfile customfile" accept=".doc, .docx, .pdf" >
 						<label for="congThucHoaHoc" title="{{tooltips['congThucHoaHoc']}}"><span>{{getName(data.congThucHoaHoc)}}</span><strong>Choose file</strong></label>
 					</td>
 				</tr>

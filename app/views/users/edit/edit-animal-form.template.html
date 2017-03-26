@@ -469,7 +469,7 @@
 			<tr>
 				<td><label>45. Đính kèm phim, video:</label></td>
 				<td>
-					<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile">
+					<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" max-file-size="100">
 					<label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{getName(data.videoFile)}}</span><strong>Choose file</strong></label>
 				</td>
 			</tr>

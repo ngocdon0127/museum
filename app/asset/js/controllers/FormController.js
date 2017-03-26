@@ -33,20 +33,10 @@ function initDefaultUnits(_scope) {
 				_scope.data[donVi.unitField] = donVi.defaultValue;
 			})
 		}
-	})(_scope), 200);
+	})(_scope), 1000);
 }
 
-function saveData(id, data) {
-		return function () {
-			localStorage.setItem(id, JSON.stringify(data))
-			console.log(data);
-		}
-	}
-
-app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
-
-	// setInterval(saveData("dataAni", $scope.data), 2000);
-	// setTimeout(getData("dataAni"), 1000);
+app.controller('AnimalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
 	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -77,11 +67,10 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 		console.log(err);
 	});
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
-
 	$scope.addPost = function(FormContent){
-			
+		console.log($scope.data)
 		// if ($scope.FormContent.$valid) {
-			AuthService.startSpinner();
+			cfpLoadingBar.start();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 		// } else{
@@ -107,15 +96,17 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	}
 
 	$scope.saveCookies = function () {
+		console.log("saving data")
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
+		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
-app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('VegetableFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService,cfpLoadingBar) {
 
 	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -132,6 +123,11 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 	// DatePicker
 	AuthService.initDatePicker(null, null);
 
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function(res) {
 		$scope.auto = res.data;
@@ -146,23 +142,18 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
-			AuthService.startSpinner();
-
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
-		
 		// } else{
 		// 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
 		// }
 	}
 
 	$scope.latChange = function () {
-		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-		console.log($scope.data.viDo)
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
 	}
 	$scope.lonChange = function () {
-		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-		console.log($scope.data.kinhDo)
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
 	}
 
 	$scope.dms = function () {
@@ -178,16 +169,16 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataVeg", JSON.stringify($scope.data))
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataVeg"))
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
-app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 	
 	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -204,6 +195,11 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	// DatePicker
 	AuthService.initDatePicker(null, null);
 
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/dia-chat/auto').then(function(res) {
 		$scope.auto = res.data;
@@ -217,7 +213,6 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
-			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 		// } else{
@@ -226,10 +221,10 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	}
 
 	$scope.latChange = function () {
-		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
 	}
 	$scope.lonChange = function () {
-		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
 	}
 
 	$scope.dms = function () {
@@ -245,16 +240,16 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataGeo", JSON.stringify($scope.data))
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataGeo"))
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
-app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('LandFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
 	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -271,6 +266,11 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	// DatePicker
 	AuthService.initDatePicker(null, null);
 
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/tho-nhuong/auto').then(function(res) {
 		$scope.auto = res.data;
@@ -284,7 +284,6 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
-			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 		// } else{
@@ -293,10 +292,10 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	}
 
 	$scope.latChange = function () {
-		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
 	}
 	$scope.lonChange = function () {
-		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
 	}
 
 	$scope.dms = function () {
@@ -312,16 +311,16 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataLand", JSON.stringify($scope.data))
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataLand"))
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
-app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoadingOverlayService', function ($scope, $http, AuthService, bsLoadingOverlayService) {
+app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','cfpLoadingBar', function ($scope, $http, AuthService, cfpLoadingBar) {
 
 	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -338,6 +337,11 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 	// DatePicker
 	AuthService.initDatePicker(null, null);
 
+	// function autoCom(str) {
+	// 	jQuery("#"+str).autocomplete({
+	// 		source : $scope.auto[str]
+	// 	})
+	// };
 	var arrAuto = AuthService.arrAuto;
 	$http.get(AuthService.hostName + '/content/co-sinh/auto').then(function(res) {
 		$scope.auto = res.data;
@@ -351,7 +355,6 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
-			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
 			AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 		// } else{
@@ -360,10 +363,10 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 	}
 
 	$scope.latChange = function () {
-		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+		$scope.data.viDo = $scope.vido_do + " độ " + $scope.vido_phut + " phút " + $scope.vido_giay + " giây";
 	}
 	$scope.lonChange = function () {
-		$scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+		$scope.data.kinhDo = $scope.kinhdo_do + " độ " + $scope.kinhdo_phut + " phút " + $scope.kinhdo_giay + " giây";
 	}
 
 	$scope.dms = function () {
@@ -379,16 +382,16 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 
 	$scope.saveCookies = function () {
 		console.log("saving data")
-		localStorage.setItem("dataPal", JSON.stringify($scope.data))
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
 		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataPal"))
+		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
 }]);
 
-app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$timeout', function ($scope, $http, $filter, AuthService, $timeout) {
+app.controller('PlaceController', ['$scope','$http','$filter', function ($scope, $http, $filter) {
 	var places = {};
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
@@ -409,44 +412,10 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 	}, function(res){
 		console.log(res);
 	});
-	function bodauTiengViet(str) {
-        str = str.toLowerCase();
-        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-        str = str.replace(/đ/g, "d");
-        return str;
-    }
-	$scope.countryChange = function () {
-	    var x = $scope.data.quocGia;
-		if (bodauTiengViet(x) == "viet nam") {
-			$scope.star = true;
-		} else {
-			$scope.star = false;
-		}
-	}
-
 	$scope.cityChange = function(){
 		if ('districts' in places){
-			var x = document.getElementById($scope.data.tinh);
-			if (x == null) {
-				$scope.data.huyen = ""
-				$scope.data.xa = ""
-			} else {
-				// Get id to render data for district
-				$scope.id_tinh = x.value
-				$scope.districts = places.districts;
-				$timeout(function () {
-					$('#render_districts').flexdatalist({
-						minLength: 0
-					});
-				}, 200)
-				// })
-				// console.log($scope.districts);
-			}
+			// console.log('districts cache hit');
+			$scope.districts = places.districts;
 		}
 		else {
 			// console.log('districts cache miss')
@@ -457,6 +426,7 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 				console.log(res);
 			});
 		}
+		
 	}
 	$scope.star = true;
 	$scope.showstar = function () {
@@ -469,18 +439,8 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 
 	$scope.districtChange = function() {
 		if ('wards' in places){
-			var x = document.getElementById($scope.data.huyen);
-			if (x == null) {
-				$scope.data.xa = ""
-			} else{
-				$scope.id_huyen = x.value
-				$scope.wards = places.wards;
-				$timeout(function () {
-					$('#render_wards').flexdatalist({
-						minLength: 0
-					});
-				}, 200)
-			}
+			// console.log('wards cache hit')
+			$scope.wards = places.wards;
 		}
 		else {
 			// console.log('wards cache miss')
@@ -509,16 +469,3 @@ app.controller('CookiesManageController', ['$scope', '$cookies', function($scope
 		$cookies.remove('data')
 	}
 }])
-
-app.controller('HttpIntegrationController', function($scope, $http, $sce, bsLoadingOverlayService) {
-	$scope.result = $sce.trustAsHtml('Fetch result here');
-	$scope.fetchRandomText = function() {
-		$http.get('http://hipsterjesus.com/api/')
-			.success(function(data) {
-				$scope.result = $sce.trustAsHtml(data.text);
-			})
-			.error(function() {
-				$scope.result = $sce.trustAsHtml('Can not get the article');
-			});
-	};
-});

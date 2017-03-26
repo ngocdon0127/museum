@@ -23,7 +23,7 @@
 					"coQuanXuLy" : [ 
 						"HUST"
 					],
-					"coQuanToChucPhanTich" : [ 
+					"coQuanToChucGiamDinh" : [ 
 						
 						"BTTNVN", 
 						"Phòng Địa chất- BTTNVN"
@@ -149,7 +149,7 @@
 						"HUST", 
 						"KHMT01", 
 					],
-					"coQuanToChucPhanTich" : [ 
+					"coQuanToChucGiamDinh" : [ 
 						"ICT HUST", 
 						"Vườn thú Hà Nội", 
 						"KHMT01", 
@@ -305,7 +305,7 @@
 						"HUST", 
 						"KHMT01", 
 					],
-					"coQuanToChucPhanTich" : [ 
+					"coQuanToChucGiamDinh" : [ 
 						"ICT HUST", 
 						"Vườn thú Hà Nội", 
 						"KHMT01", 
@@ -515,7 +515,7 @@
 					"coQuanXuLy" : [ 
 						"Bảo Tàng Thiên Nhiên VN"
 					],
-					"coQuanToChucPhanTich" : [ 
+					"coQuanToChucGiamDinh" : [ 
 						"Viện sinh thái học miền nam", 
 						"Bảo tàng Thiên nhiên Việt Nam", 
 					],

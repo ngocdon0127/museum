@@ -534,7 +534,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "thoiGianGiamDinhMau",
+		"name": "thoiGianGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Thời gian giám định mẫu",
 		"required": false,
@@ -544,7 +544,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "nguoiGiamDinhMau",
+		"name": "nguoiGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Người giám định mẫu",
 		"required": false,
@@ -660,7 +660,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "thuocTinhXuLy",
+		"name": "thuocTinhXuLyCheTac",
 		"schemaProp": "media.xuLyCheTac",
 		"label": "Thuộc tính Xử lý chế tác",
 		"required": false,
@@ -932,7 +932,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "nguoiNhapPhieuMauVat",
+		"name": "nguoiLapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người lập phiếu mẫu vật",
 		"required": false,

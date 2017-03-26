@@ -199,7 +199,7 @@ function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 			while (file.originalname.indexOf('..') >= 0){
 				file.originalname = file.originalname.replace('..', '.');
 			}
-			
+
 			var newFileName = mongoId + STR_SEPERATOR + schemaFieldName + STR_SEPERATOR + file.originalname;
 			// var newFileName = mongoId + STR_SEPERATOR + file.originalname;
 			var newPath = path.join(position, newFileName);
@@ -2447,7 +2447,7 @@ var getSingleHandler = function (options) {
 							let tmp = flatObjectModel(PROP_FIELDS, objectInstance);
 							try {
 								for(p in tmp){
-									if (tmp[p] instanceof Array){
+									if (tmp[p] instanceof Array){ // Chỉ có những trường file đính kèm thì mới là Array
 										let files = tmp[p];
 										files.map((f, i) => {
 											let url = '/uploads/' + objectModelName + '/' + f;

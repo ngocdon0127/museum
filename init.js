@@ -178,7 +178,7 @@ function responseSuccess (res, props, values) {
 global.myCustomVars.responseSuccess = responseSuccess;
 
 // rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
-function rename (curFiles, schemaField, position, mongoId) {
+function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 	// console.log(schemaField);
 	try {
 		schemaField.splice(0, schemaField.length); // delete all old elements
@@ -191,10 +191,11 @@ function rename (curFiles, schemaField, position, mongoId) {
 		var file = curFiles[i];
 		try {
 			var curPath = path.join(position, file.filename);
-			var newFileName = mongoId + STR_SEPERATOR + file.originalname;
+			var newFileName = mongoId + STR_SEPERATOR + schemaFieldName + STR_SEPERATOR + file.originalname;
+			// var newFileName = mongoId + STR_SEPERATOR + file.originalname;
 			var newPath = path.join(position, newFileName);
 			fs.renameSync(curPath, newPath);
-			schemaField.push(mongoId + STR_SEPERATOR + file.originalname);
+			schemaField.push(newFileName);
 		}
 		catch (e){
 			console.log(e);
@@ -713,7 +714,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 					}
 					objectChild(objectInstance, element.schemaProp)[element.name] = [];
-					rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
+					rename(req.files[element.name], element.name, objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
+					// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
 				}
 			})
 

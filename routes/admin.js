@@ -534,20 +534,28 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 
 router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 	async(() => {
-		var nullParam = checkUnNullParams(['newMaDeTai'], req.body);
+		var nullParam = checkUnNullParams(['newMaDeTai', 'adminPassword'], req.body);
 
 		if (nullParam){
 			return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
 		}
-
+		// console.log(req.body);
 		req.body.newMaDeTai = req.body.newMaDeTai.trim();
-		let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai));
-		if (result.status == 'error'){
-			return responseError(req, '', res, 400, ['error'], [result.error]);
+
+		if (req.user.validPassword(req.body.adminPassword)){
+			let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai));
+			if (result.status == 'error'){
+				return responseError(req, '', res, 400, ['error'], [result.error]);
+			}
+			else if (result.status == 'success'){
+				return responseSuccess(res, [], [])
+			}
 		}
-		else if (result.status == 'success'){
-			return responseSuccess(res, [], [])
+		else {
+			return responseError(req, '', res, 403, ['error'], ['Mật khẩu không đúng'])
 		}
+
+		
 	})()
 })
 

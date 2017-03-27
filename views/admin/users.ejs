@@ -412,11 +412,16 @@
 					<h4 class="modal-title">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<h4><i class="icon fa fa-ban"></i> Cảnh báo!</h4>
-					<p>Mã đề tài <strong><span id="spanNewMDT">xxx</span></strong> không tồn tại</p>
-					<input type="hidden" id="inputNewMDT" disabled="disabled">
-					<p>Bạn cần thêm mã đề tài này vào cơ sở dữ liệu trước</p>
-					<p>Lưu ý: Sau khi được thêm, mã đề tài này sẽ không thể bị xóa bỏ</p>
+					<form autocomplete="off" onsubmit="false">
+						<h4><i class="icon fa fa-ban"></i> Cảnh báo!</h4>
+						<p>Mã đề tài <strong><span id="spanNewMDT">xxx</span></strong> không tồn tại</p>
+						<input type="hidden" id="inputNewMDT" disabled="disabled">
+						<p>Bạn cần nhập mật khẩu của mình để thêm mã đề tài này vào cơ sở dữ liệu</p>
+						<div id="passwordField">
+							<input type="password" placeholder="Mật khẩu" id="adminPassword" name="adminPassword" class="form-control" autocomplete="off" value="">
+						</div>
+						<p>Lưu ý: Sau khi được thêm, mã đề tài này sẽ không thể bị xóa bỏ</p>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" id="btnAddMDT" onclick="processAddMDT()">Thêm mã đề tài này</button>
@@ -459,6 +464,8 @@
 <!-- page script -->
 
 <script type="text/javascript" src="/javascripts/flexdatalist/jquery.flexdatalist.min.js"></script>
+<!-- CryptoJS -->
+<script type="text/javascript" src="/javascripts/crypto-js.js"></script>
 
 <script>
 	$(function () {
@@ -609,6 +616,7 @@
 				if (resJSON.newMDT){
 					$('#spanNewMDT').text(resJSON.newMDT);
 					$('#inputNewMDT').val(resJSON.newMDT);
+					// $('#passwordField').html(``)
 					$('#modalAddMDT').modal('show');
 				}
 				else {
@@ -620,11 +628,18 @@
 	}
 
 	function processAddMDT() {
+		var plainPass = $('#adminPassword').val();
+		var i = 0;
+		while (i < 1000){
+			plainPass = CryptoJS.MD5(plainPass).toString();
+			i++;
+		}
 		$.ajax({
 			url: '/admin/addMDT',
 			method: 'POST',
 			data: {
-				newMaDeTai: $('#inputNewMDT').val()
+				newMaDeTai: $('#inputNewMDT').val(),
+				adminPassword: plainPass
 			},
 			success: function (data) {
 				console.log('success');
@@ -636,7 +651,7 @@
 				console.log('err');
 				console.log(err);
 				alert(err.responseJSON.error);
-				window.location.reload(true);
+				// window.location.reload(true);
 			}
 		})
 	}

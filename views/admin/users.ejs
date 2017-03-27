@@ -645,7 +645,9 @@
 				console.log('success');
 				console.log(data);
 				alert('Cập nhật thành công. Trang sẽ tự reload.')
-				window.location.reload(true);
+				setTimeout(function () {
+					window.location.reload(true);
+				}, 1000);
 			},
 			error: function (err) {
 				console.log('err');

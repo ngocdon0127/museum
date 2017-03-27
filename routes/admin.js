@@ -548,7 +548,25 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 				return responseError(req, '', res, 400, ['error'], [result.error]);
 			}
 			else if (result.status == 'success'){
-				return responseSuccess(res, [], [])
+				let roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')));
+				let newRole = req.body.newMaDeTai + '_content';
+				newRole = newRole.replace(/\r+\n+/g, ' ');
+				newRole = newRole.replace(/ {2,}/g, ' ');
+				newRole = newRole.toLowerCase(); 
+				newRole = newRole.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a"); 
+				newRole = newRole.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e"); 
+				newRole = newRole.replace(/ì|í|ị|ỉ|ĩ/g, "i"); 
+				newRole = newRole.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o"); 
+				newRole = newRole.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); 
+				newRole = newRole.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); 
+				newRole = newRole.replace(/đ/g, "d"); 
+				newRole = newRole.replace(/ /g, "-");
+				roles[newRole] = JSON.parse(JSON.stringify(roles['content']));
+				roles[newRole].maDeTai = req.body.newMaDeTai;
+				roles[newRole].role = newRole;
+				roles[newRole].rolename = 'Nhân viên ' + req.body.newMaDeTai;
+				fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
+				return restart(res);
 			}
 		}
 		else {

@@ -1,5 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
-var PERM_ACCESS_PAGE = 1000;
+// var PERM_ACCESS_PAGE = 1000;
 
 module.exports = function (passport, User) {
 	passport.serializeUser(function (user, done) {
@@ -8,6 +8,8 @@ module.exports = function (passport, User) {
 
 	passport.deserializeUser(function (id, done) {
 		User.findById(id, function (err, user) {
+			// var u = JSON.parse(JSON.stringify(user));
+			// delete u.password;
 			done(err, user);
 		})
 	});
@@ -59,6 +61,11 @@ module.exports = function (passport, User) {
 				console.log("exist");
 				return done(null, false, req.flash("signupMessage", "Email already exist."));
 			}
+			var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			if (!emailRegex.test(username)){
+				console.log('invalid email');
+				return done(null, false, req.flash('signupMessage', 'Invalid Email.'))
+			}
 			var newUser = new User();
 
 			// username + password can be passed as arguments.
@@ -67,7 +74,8 @@ module.exports = function (passport, User) {
 			
 			// But fullname must be access through request 's body.
 			newUser.fullname = req.body.fullname;
-			// newUser.permission = 0;
+			// newUser.level = global.myCustomVars.PERM_USER;
+			newUser.created_at = new Date();
 			newUser.save(function (err, user) {
 				if (err){
 					throw err;

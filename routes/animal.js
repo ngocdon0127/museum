@@ -88,218 +88,84 @@ var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bund
 
 module.exports = function (router) {
 
+var postHandler = global.myCustomVars.postHandler; // OK
 router.post(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'create'),
 	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
 		return preArray;
-	}, [])), 
-	function (req, res, next) {
-		var newAnimal = new ObjectModel();
+	}, [])),
+	postHandler({
+		ObjectModel: ObjectModel,
+		saveOrUpdate: saveOrUpdate,
+		UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
+	})
+)
 
-		return saveOrUpdate(req, res, newAnimal, ACTION_CREATE);
-})
-
+var putHandler = global.myCustomVars.putHandler; // Check owner, Admin bypass. OK OK OK
 router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'), 
 	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
 		return preArray;
 	}, [])),
-	function (req, res, next) {
-		console.log(req.body);
-		var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
-		if (missingParam){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
-		}
-		// console.log(req.body.animalId);
-		var objectModelId = '';
-		try {
-			objectModelId = mongoose.Types.ObjectId(req.body[objectModelIdParamName]);
-		}
-		catch (e){
-			console.log(e);
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
-		}
-		ObjectModel.findById(objectModelId, function (err, objectInstance) {
-			if (err){
-				console.log(err);
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading database"])
-			}
-			
-			if (objectInstance && (!objectInstance.deleted_at)) {
-				return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
-			}
-
-			else {
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
-			}
-		})
-})
-
-router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), function (req, res) {
-	ObjectModel.find({deleted_at: {$eq: null}}, function (err, objectInstances) {
-		if (err){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
-		}
-		return responseSuccess(res, ['status', objectModelNames], ['success', objectInstances]);
+	putHandler({
+		objectModelIdParamName: objectModelIdParamName,
+		UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+		ObjectModel: ObjectModel,
+		saveOrUpdate: saveOrUpdate
 	})
-})
+)
 
-router.get(objectBaseURL + '/auto', aclMiddleware(aclMiddlewareBaseURL, 'create'), function (req, res) {
-	// console.log(Object.keys(AutoCompletion.schema.paths));
 
-	AutoCompletion.findOne({}, function (err, autoCompletion) {
-		if (err){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading AutoCompletion data"]);
-		}
-		else{
-			var props = [];
-			var values = [];
-			for (var prop in AutoCompletion.schema.paths){
-				// console.log((prop + " : " + prop.localeCompare('_id')));
-				if ((prop.localeCompare('_id') != 0) && (prop.localeCompare('__v') != 0)){
-					props.push(prop);
-					if (autoCompletion && (prop in autoCompletion)){
-						values.push(autoCompletion[prop]);
-					}
-					else {
-						values.push([]);
-					}
-				}
-			}
-			return responseSuccess(res, props, values);
-		}
-	})
-})
+var getAllHandler = global.myCustomVars.getAllHandler; // Check owner, Admin bypass. OK OK OK
+router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHandler({
+	ObjectModel: ObjectModel,
+	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	objectModelNames: objectModelNames,
+	PROP_FIELDS: PROP_FIELDS
+}))
 
-router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), function (req, res) {
-	// console.log(ObjectId(req.params.animalId));
-	// console.log(req.params.animalId);
-	ObjectModel.findById(req.params.objectModelIdParamName, function (err, objectInstance) {
-		if (err){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
-		}
-		if (objectInstance){
-			if (objectInstance.deleted_at){
-				Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.objectModelIdParamName)}}, function (err, logs) {
-					if (err || (logs.length < 1)){
-						console.log(err);
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
-					}
-					// console.log(logs);
-					return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
-				})
-			}
-			else {
-				// return responseSuccess(res, ['objectInstance'], [objectInstance]);
-				if (req.query.display == 'html'){
-					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
-				}
-				else if (['docx', 'pdf', 'xlsx'].indexOf(req.query.display) >= 0){
+var getAutoCompletionHandler = global.myCustomVars.getAutoCompletionHandler;
+router.get(objectBaseURL + '/auto', aclMiddleware(aclMiddlewareBaseURL, 'create'), getAutoCompletionHandler({
+	AutoCompletion: AutoCompletion,
+	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
+}))
 
-					console.log('combined');
-					
-					var paragraph = {
-						text: [
-						'PHIẾU CƠ SỞ DỮ LIỆU MẪU ĐỘNG VẬT', 
-						// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
-						],
-						style: [
-							{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
-							// {color: "000000", font_face: "Times New Roman", font_size: 12}
-						]
+var getSingleHandler = global.myCustomVars.getSingleHandler;
+router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), getSingleHandler({
+	ObjectModel: ObjectModel,
+	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	objectModelIdParamName: objectModelIdParamName,
+	objectBaseURL: objectBaseURL,
+	objectModelName: objectModelName,
+	PROP_FIELDS: PROP_FIELDS,
+	LABEL: LABEL,
+	objectModelLabel: objectModelLabel,
+	paragraph: {
+		text: [
+		'PHIẾU CƠ SỞ DỮ LIỆU MẪU ĐỘNG VẬT', 
+		// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
+		],
+		style: [
+			{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
+			// {color: "000000", font_face: "Times New Roman", font_size: 12}
+		]
 
-					}
-					
-					var exportFuncs = {
-						docx: exportFile,
-						pdf: exportFile,
-						xlsx: exportXLSX
-					}
-
-					exportFuncs[req.query.display](objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
-					// return res.end("OK");
-				}
-				
-				else {
-					return responseSuccess(res, [objectModelName], [flatObjectModel(PROP_FIELDS, objectInstance)]);
-				}
-				
-			}
-		}
-		else{
-			responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ['Không tìm thấy']);
-		}
-	})
-})
-
-router.get(objectBaseURL + '/log/:logId/:position', function (req, res) {
-	Log.findById(req.params.logId, function (err, log) {
-		if (err){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
-		}
-		if (log){
-			if ((log.action == 'update') && (req.params.position == 'diff')){
-				// return responseSuccess(res, ['obj1', 'obj2'], [flatObjectModel(PROP_FIELDS, log.obj1), flatObjectModel(PROP_FIELDS, log.obj2)]);
-				return res.render('display', {title: 'Các cập nhật', objectPath: objectBaseURL, count: 2, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
-			}
-
-			switch (parseInt(req.params.position)){
-				case 1:
-					if ('obj1' in log){
-						// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj1)])
-						return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: {}, staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
-					}
-					else{
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
-					}
-				case 2:
-					if (('obj2' in log) && (log.obj2)){
-						return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
-						// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj2)])
-					}
-					else{
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
-					}
-				default:
-					return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
-			}
-		}
-		else {
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid logId'])
-		}
-	})
-})
-
-router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), function (req, res) {
-	var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
-	if (missingParam){
-		return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + missingParam]);
 	}
+}))
 
-	ObjectModel.findById(req.body[objectModelIdParamName], function (err, objectInstance) {
-		// console.log('function');
-		if (err){
-			console.log(err);
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
-		}
-		if (objectInstance){
-			var date = new Date();
-			objectInstance.deleted_at = date;
-			objectInstance.save();
-			var newLog = new Log();
-			newLog.action = 'delete';
-			newLog.userId = req.user.id;
-			newLog.userFullName = req.user.fullname;
-			newLog.objType = objectModelName;
-			newLog.obj1 = objectInstance;
-			newLog.time = date;
-			newLog.save();
-			return responseSuccess(res, ['status'], ['success']);
-		}
-		else{
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid ' + objectModelIdParamName]);
-		}
-	})
-	// return res.end('ok');
-})
+var getLogHandler = global.myCustomVars.getLogHandler;
+router.get(objectBaseURL + '/log/:logId/:position', getLogHandler({
+	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	objectBaseURL,
+	PROP_FIELDS
+}))
+
+var deleteHandler = global.myCustomVars.deleteHandler; // Check owner, Admin bypass. OK OK OK
+router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteHandler({
+	objectModelIdParamName: objectModelIdParamName,
+	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	objectModelName: objectModelName,
+	objectModelIdParamName: objectModelIdParamName,
+	ObjectModel: ObjectModel
+}))
 }

@@ -1,12 +1,5 @@
-<div class="container map-detail" style="margin-top: 50px;" ng-if="data">
-	<script src="/javascripts/FileSaver.js"></script>
-	<center><h2>Các mẫu vật đã đăng</h2></center>
-	<div style="margin-bottom: 10px;">
-		<button type="button" class="btn btn-success" ng-click="selectAll()">Select all</button>
-		<button type="button" class="btn btn-primary" ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</button>
-		<button type="button" class="btn btn-primary" ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</button>
-		<button type="button" class="btn btn-primary" ng-click="export('xlsx')"><span class="glyphicon glyphicon-download"></span> Xuất xlsx</button>
-	</div>
+<script src="/javascripts/FileSaver.js"></script>
+<div class="container-fluid">
 	<div id="download-progress-bar-container" style="margin-bottom: 10px; margin-top: 20px; margin-left: 0px; display: none">
 		<div class="container" style="padding-left: 0px;">
 			
@@ -17,33 +10,136 @@
 			</div>
 		</div>
 	</div>
-	<div class="list-group" ng-repeat="(key, post) in data">
-		<li class="list-group-item">		
-			<table>
-				<tr>
-					<td>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" class="check-box" ng-model="post.selected" data-id='/content/{{link}}/{{post._id}}?display='>
-							</label>
-						</div>
-					</td>
-					<td>
-						<p><b>Tên mẫu: </b><a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenMau.tenVietNam}}</span></a></p>
-						<p><b>Người thu mẫu: </b>{{post.duLieuThuMau.nguoiThuMau}}</p>
-						<p style="display: none"><b>Id: </b>{{post._id}}</p>
-						<p><b>Ngày đăng: </b>{{post.created_at | date: "dd-MM-yyyy hh:mm:ss"}}</p>
-					</td>
-					<td style="right: 0px; position: absolute;">
-						<a class="btn btn-success" href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-pencil"></span>Chỉnh sửa</a>
-						<a class="btn btn-danger" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa bài đăng</a>
-					</td>
-				</tr>
-			</table>
-		</li>
-	</div>
-</div>
+	<center><h2>Các mẫu vật đã đăng</h2></center>
+	<table id="managerpost" class="table table-hover">
+		<div class="dropdown" style="margin-left: 15px;">
+			<button class="btn btn-info" style="margin-bottom: 10px; width: 300px;">Trích xuất file <b class="caret"></b></button>
+			<div class="dropdown-content">
+			    <a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
+			    <a ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</a>
+			    <a ng-click="export('xlsx')"><span class="glyphicon glyphicon-download"></span> Xuất xlsx</a>	    
+			</div>
+		</div>
+		<thead>
+			<tr>
+				<th>
+				<span class="label label-success" style="cursor: pointer;" ng-click="selectAll()">Select all</span>
+				</th>
+				<th>Tên mẫu</th>
+				<th>Thông tin cơ bản</th>
+				<th>Ngày đăng</th>
+				<th>Hành động</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="(key, post) in data">
+				<td>
+					<input type="checkbox" class="check-box" ng-model="post.selected" data-id='/content/{{link}}/{{post._id}}?display='>
+					<a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenVietNam}}</span></a>
+				</td>
+				<td>
+					
+				</td>
+				<td>
+					<span>Người thu mẫu: </span>{{post.nguoiThuMau}} </br>
 
-<div class="container map-detail" style="margin-top: 50px;" ng-if="!data">
-	<h2>Đang tải dữ liệu...</h2>
+					<label class="label label-{{post.fApproved ? 'primary' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
+				</td>
+				<td>
+					{{post.created_at | date: "dd-MM-yyyy hh:mm:ss"}}</br>
+				</td>
+				<td>
+					<div class="dropdown">
+						<button class="dropbtn" style="width: 180px;">Action <b class="caret"></b></button>
+						<div class="dropdown-content">
+							<a href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
+							<a href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
+							<a ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
+<style type="text/css">
+	.dropbtn {
+	    background-color: #337ab7;
+	    color: white;
+	    border: none;
+	    cursor: pointer;
+	    padding: 8px;
+	    border-radius: 4px;
+	}
+
+	.dropdown {
+	    display: inline-block;
+	}
+
+	.dropdown-content {
+	    display: none;
+	    position: absolute;
+	    background-color: #f9f9f9;
+	    min-width: 200px;
+	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	    z-index: 999;
+	    border-radius: 4px;
+	}
+
+	.dropdown-content a {
+	    color: black;
+	    padding: 12px 16px;
+	    text-decoration: none;
+	    display: block;
+	    cursor: pointer;
+	}
+
+	.dropdown-content a:hover {background-color: #337ab7}
+
+	.dropdown:hover .dropdown-content {
+	    display: block;
+	}
+
+	.dropdown:hover .dropbtn {
+	    background-color: #204d74;
+	    color: white;
+	}
+</style>
+<script src="/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script>
+setTimeout(function(){
+		$('#managerpost').DataTable({
+			"paging": true,
+			"lengthChange": true,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": true,
+			"language": {
+						    "decimal":        "",
+						    "emptyTable":     "Không có dữ liệu",
+						    "info":           "<strong>Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi</strong>",
+						    "infoEmpty":      "<strong>Đang xem từ 0 tới 0 trong tổng số 0</strong>",
+						    "infoFiltered":   "(filtered from _MAX_ total entries)",
+						    "infoPostFix":    "",
+						    "thousands":      ",",
+						    "lengthMenu":     "Xem _MENU_ mẫu vật",
+						    "loadingRecords": "Đang tải...",
+						    "processing":     "Đang xử lý...",
+						    "search":         "<b>Tìm kiếm:</b>",
+						    "zeroRecords":    "<b>Không tìm thấy nội dung</b>",
+						    "paginate": {
+						        "first":      "Đầu trang",
+						        "last":       "Cuối trang",
+						        "next":       "Sau",
+						        "previous":   "Trước"
+						    },
+						    "aria": {
+						        "sortAscending":  ": activate to sort column ascending",
+						        "sortDescending": ": activate to sort column descending"
+						    }
+						}
+		}).order([3, 'desc']).draw();
+	}, 2000);
+</script>

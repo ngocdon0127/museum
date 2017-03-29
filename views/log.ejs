@@ -70,6 +70,8 @@
 								<li class="list-group-item list-group-item-warning" />
 							<% } else if (action == 'delete') { %>
 								<li class="list-group-item list-group-item-danger" />
+							<% } else if ((action == 'approve') || (action == 'disapprove')) { %>
+								<li class="list-group-item list-group-item-info" />
 							<% } %>
 								<div class="row">
 									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -83,18 +85,28 @@
 										<% if (action == 'create') { %>
 											<a href="<%= path + '?action=create' %>"><h4>Tạo mới</h4></a> 
 											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
-											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a>)
 										<% } else if (action == 'update') { %>
 											<a href="<%= path + '?action=update' %>"><h4>Cập nhật</h4></a>
 											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
 		
-											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a>)
 										<% } else if (action == 'delete') { %>
 											<a href="<%= path + '?action=delete' %>"><h4>Xóa</h4></a>
 											
 											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
 		
-											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id %></span></a>)
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a>)
+										<% } else if (action == 'approve') { %>
+											<a href="<%= path + '?action=approve' %>"><h4>Phê duyệt</h4></a>
+											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
+		
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a>)
+										<% } else if (action == 'disapprove') { %>
+											<a href="<%= path + '?action=disapprove' %>"><h4>Hủy phê duyệt</h4></a>
+											(<a href="<%= path + '?type=' + objectModelName %>"><span><%= objectModelLabel %></span></a> -
+		
+											<a href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a>)
 										<% } %>
 									</div>
 									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -106,6 +118,8 @@
 											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 										<% } else if (logs[i].action == 'delete') { %>
 											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>
+										<% } else if ((logs[i].action == 'approve') || (logs[i].action == 'disapprove')) { %>
+											<a href="<%= basePath %>/<%= logs[i].obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 										<% } %>
 									</div>
 								</div>

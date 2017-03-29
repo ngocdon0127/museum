@@ -4,6 +4,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		hostName: 'http://localhost:8000',
 		//hostName: 'http://baotangvn.online',
 		deleteP: deleteP,
+		approvePost: approvePost,
 		addSample: addSample,
 		editForm: editForm,
 		exportFile: exportFile,
@@ -16,6 +17,10 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		arrAuto: [	
 			'tenDongNghia',
 			'tenTheoBaoTang',
+			'tenVietNam',
+			'tenPhoThong',
+			'tenDiaPhuong',
+			'tenTiengAnh',
 			'gioi',
 			'nganh', 'lop', 
 			'phanLop', 
@@ -25,14 +30,11 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'ho',
 			'phanHo',
 			'toc', 
-			'giong', 
-			'phanGiong',
+			'chiGiong', 
+			'phanChiPhanGiong',
 			'loai', 
 			'duoiLoai', 
-			'coQuanThuMau', 
-			'quocGia', 'tinh', 
-			'huyen', 'xa', 'thon', 
-			'coQuanToChucPhanTich', 
+			'coQuanThuMau', 'thon', 
 			'coQuanToChucGiamDinh',
 			'coQuanXuLy',
 			'boPhanLayMauDNA', 
@@ -40,9 +42,6 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'coQuanNhapVatMau',
 			'giaTriSuDung',
 			'tong',
-			'chi',
-			'phanChi',
-			'chiGiong',
 			'loai',
 			'noiLuuTruMau',
 			'viTriLayMauDNA',
@@ -90,7 +89,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						// console.log(xhr);
+						console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
@@ -268,6 +267,32 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		});
 	}
 
+	function approvePost(id, val, link) {
+		$http({
+			method: 'POST',
+			url: '/manager/approve',
+			headers: {'Content-Type': 'application/json'},
+			data: {
+				id: id,
+				form: link,
+				approved: val ? '0' : '1'
+			}
+		}).then(function (res) {
+			// console.log(res);
+			if (res.data.status == 'success'){
+				alert('success')
+			}
+			else {
+				alert('Bạn không thể phê duyệt mẫu dữ liệu này.');
+			}
+			$route.reload();
+		}, function (err) {
+			// console.log(err);
+			alert('Bạn không thể phê duyệt mẫu dữ liệu này');
+			$route.reload();
+		});
+	}
+
 	function autoCom(str, _scope) {
 		// jQuery("#"+str).autocomplete({
 		// 	source : $scope.auto[str]
@@ -322,7 +347,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				selectionRequired: true,
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-		}, 1000)
+		}, 500)
 	}
 
 	function fetchFlexdatalist(_scope) {
@@ -434,6 +459,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	function stopSpinner() {
 		SPINNER.stop();
 	}
+
+	
 
 }]);
 

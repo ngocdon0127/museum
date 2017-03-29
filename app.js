@@ -36,6 +36,7 @@ require('./models/Vegetable.js')(mongoose);
 require('./models/VegetableAutoCompletion.js')(mongoose);
 
 require('./models/Log.js')(mongoose);
+require('./models/SharedData.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 
 
@@ -48,6 +49,8 @@ require('./init');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var angular = require('./routes/angular');
+var admin = require('./routes/admin')
+var manager = require('./routes/manager')
 var content = require('./routes/content');
 var log = require('./routes/log.js');
 var test = require('./routes/test.js');
@@ -73,6 +76,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+
+
 // cross origin
 // app.use(function (req, res, next) {
 // 	res.header('Access-Control-Allow-Origin', "*");
@@ -81,13 +86,13 @@ app.use(flash());
 // 	next();
 // });
 
-// app.use(function (req, res, next) {
-	// console.log(req.session);
-	// if ('user' in req){
-		// console.log(req.user);
-	// }
-	// next();
-// })
+app.use(function (req, res, next) {
+	console.log(req.session);
+	if ('user' in req){
+		console.log(req.user);
+	}
+	next();
+})
 
 var routes = require('./routes/index');
 app.use('/', routes);
@@ -95,6 +100,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/app', angular);
+app.use('/admin', admin);
+app.use('/manager', manager);
 app.use('/content', content);
 app.use('/log', log);
 app.use('/test', test);

@@ -1,6 +1,6 @@
 {
   "soHieuBTTNVN": "Mỗi bảo tàng đều có quy ước về số hiệu mẫu được lưu trữ trong bảo tàng. Đây là số hiệu mẫu vật giúp các nhà quản lý mẫu vật trong bảo tàng có thể quản lý, theo dõi các bộ sưu tập mẫu vật trong bảo tàng. Do vậy, trong CSDL về mẫu vật không thể thiếu số hiệu mẫu vật của Bảo tàng, đây được hiểu là mã code để quản lý.",
-  "soHieuBaoTangCS": "",
+  "soHieuBaoTangCS": "Là số hiệu của mẫu vật tại Bảo tàng cơ s",
   "soHieuThucDia": "Người thu thập mẫu đất thường có cách đánh số hiệu mẫu riêng ngoài thực địa. Ví dụ, số hiệu mẫu của người thu thập có thể đánh số mẫu theo địa danh, hoặc theo đề tài, dự án… Số hiệu này nên đưa vào CSDL vì khi cần thiết phải kiểm chứng lại thông tin về mẫu vật, số hiệu sẽ dễ dàng giúp người thu thập tìm lại các tài liệu liên quan đến việc thu thập mẫu vật đó.",
   "kyHieuMauVatKhac": "Ghi số hiệu mẫu vật khác (nếu có)",
   "thongTinKhac1": "",
@@ -54,8 +54,8 @@
   "ngayPhanTichMauDat": "Cùng với trường dữ liệu về Thời gian thu mẫu, trường dữ liệu ngày phân tích mẫu đất cho biết khoảng thời gian tiến hành phân tích mẫu so với thời điểm thu thập mẫu đất. Việc bảo quản đất trong thời gian trước khi phân tích có thể ảnh hưởng đến kết quả phân tích và giám định mẫu đất.",
   "hoSoPhanTichMauDat": "Thông tin về hồ sơ phân tích mẫu đất là rất cần thiết. Nó cho biết các phương pháp phân tích mẫu đất đã sử dụng, giúp ích cho người nghiên cứu và sử dụng mẫu đất sau này.",
   "ketQuaPhanTich": "Cho biết các thông tin về tính chất hoá, lý, vi sinh vật đất, giúp công tác kiểm tra, kiểm chứng kết quả giám định cũng như định hướng giá trị sử dụng của loại đất.",
-  "thoiGianGiamDinhMau": "Thời gian giám định mẫu vật đảm bảo độ chính xác của kết quả giám định mẫu vật vì nhiều mẫu vật nếu thời gian trước giám định quá dài có thể ảnh hưởng đến kết quả giám định mẫu vật.",
-  "nguoiGiamDinhMau": "Trường người giám định mẫu vật đảm bảo chất lượng kết quả giám định mẫu vật, độ tin cậy và trách nhiệm của người giám định mẫu vật.",
+  "thoiGianGiamDinh": "Thời gian giám định mẫu vật đảm bảo độ chính xác của kết quả giám định mẫu vật vì nhiều mẫu vật nếu thời gian trước giám định quá dài có thể ảnh hưởng đến kết quả giám định mẫu vật.",
+  "nguoiGiamDinh": "Trường người giám định mẫu vật đảm bảo chất lượng kết quả giám định mẫu vật, độ tin cậy và trách nhiệm của người giám định mẫu vật.",
   "coQuanToChucGiamDinh": "Trường cơ quan/tổ chức giám định mẫu vật thể hiện độ tin cậy, chất lượng và trách nhiệm giám định mẫu vật của cơ quan hoặc tổ chức giám định mẫu vật.",
   "taiLieuPhanTichStr": "",
   "thongTinKhac5": "",
@@ -91,8 +91,9 @@
   "hop": "Cho biết thông tin về vị trí mẫu được bảo quản, lưu trữ",
   "giayPhepNhapMau": "Lưu trữ thông tin về số giấy phép nhập mẫu vật vào Bảo tàng",
   "hoSoNhapMauVatDiKem": "",
-  "nguoiNhapPhieuMauVat": "Cho biết thông tin về cá nhân lập phiếu hồ sơ của mẫu vật lưu trữ",
+  "nguoiLapPhieuMauVat": "Cho biết thông tin về cá nhân lập phiếu hồ sơ của mẫu vật lưu trữ",
   "nguoiNhapVaoPhanMem": "Thông tin về người nhập vào phần mềm giúp nhà quản lý mẫu vật kiểm tra, chỉnh sửa, cập nhật thông tin về mẫu vật khi cần thiết",
   "thongTinKhac8": "",
-  "thongTinKhac9": "Các ghi chú khác khi cần thiết"
+  "thongTinKhac9": "Các ghi chú khác khi cần thiết",
+  "thuocTinhXuLyCheTac": ""
 }

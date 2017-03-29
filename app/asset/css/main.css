@@ -35,9 +35,6 @@ body {
     margin: 5px;
     width: 300px;
     border: 1px solid #ccc;
-    /*position: relative;*/
-    /*display: inline-block;*/
-    /*border-bottom: 1px dotted black;*/
 }
 
 .h3-title{
@@ -54,7 +51,6 @@ body {
 /*------------------NAVBAR---------------------*/
 .navbar-default{
 	background-color: #19C662;
-    /*font-size: 17px;*/
 }
 .navbar-default .navbar-nav>li>a {
 	color: #fff;
@@ -68,13 +64,11 @@ body {
 }
 
 .navbar-nav > li > a {
-    /*line-height: 22px !important;*/
 }
 
 .dropbtn {
     cursor: pointer;
     color: white;
-    /*padding-top: 13px;*/
     padding: 15px;
 }
 
@@ -124,34 +118,11 @@ a.nav:hover{
     background-color: #d3fdaf;
     color: #000;
 }
-/*------------------END-NAVBAR---------------------*/
 
-/*------------------START-CUSTOM-FILE---------------------*/
-.custom-input{
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
+#loading-bar .bar {
+  position: relative;
 }
-.custom-input + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
-}
-.custom-input:focus + label,
-.custom-input + label:hover {
-    background-color: red;
-}
-.custom-input + label {
-    cursor: pointer; /* "hand" cursor */
-}
-/*------------------END-CUSTOM-FILE---------------------*/
+/*------------------END-NAVBAR---------------------*/
 
 /*------------------FORM_DATA---------------------*/
 .has-error{

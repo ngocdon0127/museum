@@ -1,36 +1,25 @@
 var app = angular.module('museumApp', [
 	'ngRoute',
 	'ngMessages',
-	'ui.bootstrap',
+    // 'angularSpinners',
+    'bsLoadingOverlay',
+    'bsLoadingOverlayHttpInterceptor',
+    'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',
 	'ngAnimate'
 	])
-.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.includeSpinner = false;
-  }]);
+.factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
+    return bsLoadingOverlayHttpInterceptorFactoryFactory();
+})
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push('allHttpInterceptor');
+}).run(function(bsLoadingOverlayService) {
+    bsLoadingOverlayService.setGlobalConfig({
+        templateUrl: 'views/users/loading-overlay-template.html'
+    });
+});
 
-// app.directive('validFile', function ($parse) {
-//     return {
-//         require: 'ngModel',
-//         restrict: 'A',
-//         link: function (scope, el, attrs, ngModel) {
-//             var model = $parse(attrs.model);
-//             var modelSetter = model.assign;
-//             var maxSize = 10000;
-
-//             ngModel.$render = function () {
-//                 ngModel.$setViewValue(el.val());
-//             };
-
-//             el.bind('change', function () {
-//                 scope.$apply(function () {
-//                     ngModel.$render();
-//                 });
-//             });
-//         }
-//     };
-// });
 app.directive('validFile', function ($parse) {
     return {
         require: 'ngModel',
@@ -48,7 +37,7 @@ app.directive('validFile', function ($parse) {
                         modelSetter(scope, el[0].files[0])
                     }
                     var fileSize = el[0].files[0].size/1024/1024;
-                    console.log(fileSize)
+                    // console.log(fileSize)
                     if (fileSize > maxSize) {
                         alert("Kich thuoc file vuot qua dung luong cho phep");
                         return false;
@@ -69,14 +58,14 @@ app.directive('validImage', function ($parse) {
             var maxSize = 5;
             el.bind('change', function () {
                 scope.$apply(function () {
-                    console.log(el[0].files)
+                    // console.log(el[0].files)
                     if (el[0].files.length > 1) {
                         modelSetter(scope, el[0].files)
                     } else{
                         modelSetter(scope, el[0].files[0])
                     }
                     var fileSize = el[0].files[0].size/1024/1024;
-                    console.log(fileSize)
+                    // console.log(fileSize)
                     if (fileSize > maxSize) {
                         alert("Kich thuoc file vuot qua dung luong cho phep");
                         return false;
@@ -86,4 +75,3 @@ app.directive('validImage', function ($parse) {
         }
     };
 });
-

@@ -14,6 +14,9 @@
  
 ### 2. Config database
 
+##### Start MongoDB
+	$ mongod --dbpath="path\to\mongodb\storage\directory"
+
 ##### Copy file initDB.js to the folder you installed MongoDB (usually C:\Program Files\MongoDB\Server\xxx\bin) and run this command from there:
 	$ mongo initDB.js
 
@@ -21,6 +24,8 @@
 ##### Or change line 6 of file config/config.js from url: ``'mongodb://mongodbuser:mongodbpassword@127.0.0.1:27017/museum'`` to the url in mLab server (will email you)
 
 ### 3. Initialize
+
+#### Config data.json and run
 
 	$ node initialize.js
 

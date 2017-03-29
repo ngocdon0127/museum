@@ -4,6 +4,13 @@
 		<title><%= title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<% include header %>
+		<link rel="stylesheet" href="/stylesheets/checkbox.min.css">
+		<style>
+			#redirectBack{
+				margin-left: 0px;
+				margin-top: 0px;
+			}
+		</style>
 	</head>
 	</head>
 	<body>
@@ -15,13 +22,18 @@
 					<form method="post" onsubmit="handleSubmit()">
 						<input type="text" name="email" id="email" value="<%= oldEmail %>" placeholder="Email">
 						<input type="password" name="password" id="password" placeholder="Password">
+						<input type="hidden" name="redirectBack" id="redirectBack">
 						<% if (message) { %>
 							<span class="text-danger"><%= message %></span>
 						<% } %>
+						<div class="ui toggle checkbox">
+							<input type="checkbox" id="redirectBack" onchange="handleChange(this)">
+							<label style="font-size: 15px; padding-top: 0px; padding-bottom: 0px">Truy cập trang quản trị</label>
+						</div>
 						<input type="submit" name="login" id="btnSubmit" class="login loginmodal-submit" value="Đăng nhập">
 					</form>
 					<div class="login-help">
-						<!--<a href="/auth/signup">Đăng ký</a>-->
+						<a href="/auth/signup">Đăng ký</a>
 					</div>
 				</div>
 				
@@ -49,6 +61,12 @@
 				ob('password').value = plainPass;
 				// $('#btnSubmit').click();
 			}
+			var checkbox = false;
+			function handleChange(element) {
+				checkbox = !checkbox;
+				ob('redirectBack').value = checkbox ? '/admin' : ''
+			}
 		</script>
+		<script src="/javascripts/checkbox.min.js"></script>
 	</body>
 </html>

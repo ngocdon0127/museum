@@ -5,10 +5,10 @@ var path = require('path');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  return res.redirect('me');
 });
 
-router.get('/roles', isLoggedIn, function (req, res, next) {
+router.get('/me', isLoggedIn, function (req, res, next) {
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
 	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
@@ -23,9 +23,16 @@ router.get('/roles', isLoggedIn, function (req, res, next) {
 				}
 			}
 		}
+		let user = JSON.parse(JSON.stringify(req.user));
+		delete user.password;
+		delete user.level;
+		delete user.__v;
+		delete user._id;
+		delete user.maDeTai;
 		return res.json({
 			status: 'success',
-			data: sides
+			data: sides,
+			user: user
 		})
 	}
 	else {

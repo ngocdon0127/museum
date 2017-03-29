@@ -28,6 +28,11 @@
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<style>
+		.input-mdt{
+			cursor: help;
+		}
+	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -83,6 +88,11 @@
 					<div class="box box-primary">
 						<div class="box-header">
 							<h3 class="box-title">Tất cả nhân viên trong hệ thống</h3>
+							<div class="box-tools pull-right">
+								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+								</button>
+								<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+							</div>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
@@ -92,6 +102,7 @@
 									<th>Email</th>
 									<th>Tên đầy đủ</th>
 									<th>Cấp bậc</th>
+									<th>Đề tài</th>
 									<th>Lần cuối đăng nhập</th>
 									<th>Thao tác</th>
 								</tr>
@@ -103,6 +114,7 @@
 										<td><%= u.username %></td>
 										<td><%= u.fullname %></td>
 										<td><span class="<%= u.level.class %>" title="<%= u.maDeTai %>"><%= u.level.name %></span></td>
+										<td><%= u.maDeTai %></td>
 										<% var date = new Date(u.lastLogin) %>
 										<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
 										<% if (u.level.name == 'Admin') { %>
@@ -111,7 +123,7 @@
 													<div class="input-group input-group-md">
 														
 														
-														<input type="text" placeholder="Mã đề tài" title="Đề tài" name="maDeTai" class="form-control flexdatalist flexdatalist-force" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
+														<input type="text" title="Chọn trong danh sách hoặc điền Mã đề tài mới" placeholder="Mã đề tài" name="maDeTai" class="form-control flexdatalist input-mdt" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
 														<datalist id="list-maDeTai">
 															<% for(var j = 0; j < maDeTais.length; j++) { %>
 															<option value="<%= maDeTais[j] %>"><%= maDeTais[j] %></option>
@@ -131,7 +143,7 @@
 										<% } else if (u.level.name == 'Manager') { %>
 											<td>
 												<div class="input-group input-group-md">
-													<input type="text" placeholder="<%= u.maDeTai %>" title="Đề tài"  class="form-control" disabled value="<%= u.maDeTai %>">
+													<input type="text" placeholder="<%= u.maDeTai %>"  class="form-control" disabled value="<%= u.maDeTai %>">
 													<div class="input-group-btn">
 														<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Action
 															<span class="fa fa-caret-down"></span></button>
@@ -147,7 +159,7 @@
 												<div class="input-group input-group-md">
 													
 													
-													<input type="text" placeholder="Mã đề tài" title="Đề tài" name="maDeTai" class="form-control flexdatalist flexdatalist-force" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
+													<input type="text" placeholder="Mã đề tài" title="Chọn trong danh sách hoặc điền Mã đề tài mới" name="maDeTai" class="form-control flexdatalist input-mdt" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
 													<datalist id="list-maDeTai">
 														<% for(var j = 0; j < maDeTais.length; j++) { %>
 														<option value="<%= maDeTais[j] %>"><%= maDeTais[j] %></option>
@@ -180,6 +192,7 @@
 									<th>Email</th>
 									<th>Tên đầy đủ</th>
 									<th>Cấp bậc</th>
+									<th>Đề tài</th>
 									<th>Lần cuối đăng nhập</th>
 									<th>Thao tác</th>
 								</tr>
@@ -197,13 +210,7 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
-	<footer class="main-footer">
-		<div class="pull-right hidden-xs">
-			<b>Version</b> 2.3.8
-		</div>
-		<strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-		reserved.
-	</footer>
+
 
 	<!-- Control Sidebar -->
 	<aside class="control-sidebar control-sidebar-dark">
@@ -394,6 +401,36 @@
 			<!-- /.tab-pane -->
 		</div>
 	</aside>
+	<div class="modal fade modal-warning" id="modalAddMDT">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<form autocomplete="off" onsubmit="false">
+						<h4><i class="icon fa fa-ban"></i> Cảnh báo!</h4>
+						<p>Mã đề tài <strong><span id="spanNewMDT">xxx</span></strong> không tồn tại</p>
+						<input type="hidden" id="inputNewMDT" disabled="disabled">
+						<p>Bạn cần nhập mật khẩu của mình để thêm mã đề tài này vào cơ sở dữ liệu</p>
+						<div id="passwordField">
+							<input type="password" placeholder="Mật khẩu" id="adminPassword" name="adminPassword" class="form-control" autocomplete="off" value="">
+						</div>
+						<p>Lưu ý: Sau khi được thêm, mã đề tài này sẽ không thể bị xóa bỏ</p>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btnAddMDT" onclick="processAddMDT()">Thêm mã đề tài này</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 	<!-- /.control-sidebar -->
 	<!-- Add the sidebar's background. This div must be placed
 			 immediately after the control sidebar -->
@@ -427,9 +464,12 @@
 <!-- page script -->
 
 <script type="text/javascript" src="/javascripts/flexdatalist/jquery.flexdatalist.min.js"></script>
+<!-- CryptoJS -->
+<script type="text/javascript" src="/javascripts/crypto-js.js"></script>
 
 <script>
 	$(function () {
+
 		// $("#example2").DataTable();
 		$('#example1').DataTable({
 			"paging": true,
@@ -440,27 +480,27 @@
 			"autoWidth": false,
 			"language": {
 				"paginate": {
-			        "first":      "Trang đầu",
-			        "last":       "Trang cuối",
-			        "next":       "Trang sau",
-			        "previous":   "Trang trước"
-			    },
-			    "info": "Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi",
-			    "search": "Tìm kiếm:",
-			    "lengthMenu":     "Xem _MENU_ dòng",
-			    "decimal":        "",
-			    "emptyTable":     "Không có dữ liệu",
-			    "infoEmpty":      "Đang xem từ 0 tới 0 trong tổng số 0 bản ghi",
-			    "infoFiltered":   "(lọc từ tổng số _MAX_ bản ghi)",
-			    "infoPostFix":    "",
-			    "thousands":      ",",
-			    "loadingRecords": "Đang tải...",
-			    "processing":     "Đang xử lý...",
-			    "zeroRecords":    "Không có bản ghi nào phù hợp",
-			    "aria": {
-			        "sortAscending":  ": activate to sort column ascending",
-			        "sortDescending": ": activate to sort column descending"
-			    }
+							"first":      "Trang đầu",
+							"last":       "Trang cuối",
+							"next":       "Trang sau",
+							"previous":   "Trang trước"
+					},
+					"info": "Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi",
+					"search": "Tìm kiếm:",
+					"lengthMenu":     "Xem _MENU_ dòng",
+					"decimal":        "",
+					"emptyTable":     "Không có dữ liệu",
+					"infoEmpty":      "Đang xem từ 0 tới 0 trong tổng số 0 bản ghi",
+					"infoFiltered":   "(lọc từ tổng số _MAX_ bản ghi)",
+					"infoPostFix":    "",
+					"thousands":      ",",
+					"loadingRecords": "Đang tải...",
+					"processing":     "Đang xử lý...",
+					"zeroRecords":    "Không có bản ghi nào phù hợp",
+					"aria": {
+							"sortAscending":  ": activate to sort column ascending",
+							"sortDescending": ": activate to sort column descending"
+					}
 			}
 		}).order([0, 'asc']).draw();
 
@@ -571,7 +611,49 @@
 			error: function (err) {
 				// console.log('error');
 				// console.log(err);
-				alert(err.responseJSON.error)
+				var resJSON = err.responseJSON;
+				console.log(resJSON);
+				if (resJSON.newMDT){
+					$('#spanNewMDT').text(resJSON.newMDT);
+					$('#inputNewMDT').val(resJSON.newMDT);
+					// $('#passwordField').html(``)
+					$('#modalAddMDT').modal('show');
+				}
+				else {
+					alert(err.responseJSON.error)
+				}
+				
+			}
+		})
+	}
+
+	function processAddMDT() {
+		var plainPass = $('#adminPassword').val();
+		var i = 0;
+		while (i < 1000){
+			plainPass = CryptoJS.MD5(plainPass).toString();
+			i++;
+		}
+		$.ajax({
+			url: '/admin/addMDT',
+			method: 'POST',
+			data: {
+				newMaDeTai: $('#inputNewMDT').val(),
+				adminPassword: plainPass
+			},
+			success: function (data) {
+				console.log('success');
+				console.log(data);
+				alert('Cập nhật thành công. Trang sẽ tự reload.')
+				setTimeout(function () {
+					window.location.reload(true);
+				}, 1000);
+			},
+			error: function (err) {
+				console.log('err');
+				console.log(err);
+				alert(err.responseJSON.error);
+				// window.location.reload(true);
 			}
 		})
 	}

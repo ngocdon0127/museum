@@ -5,3 +5,5 @@ config/roles.json
 public/uploads
 app/service.js
 *.log
+*.sublime-workspace
+*.sublime-project

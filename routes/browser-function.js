@@ -72,7 +72,7 @@ function autoFill () {
 		thongTinKhac4: "Thông tin khác",
 		thoiGianPhanTich: "2016-11-03T00:00:00.000Z",
 		nguoiPhanTich: "Đinh Viết Sang",
-		coQuanToChucPhanTich: "ICT HUST",
+		coQuanToChucGiamDinh: "ICT HUST",
 		nguoiXuLy: "Đinh Viết Sang",
 		coQuanXuLy: "HUST",
 		boPhanLayMauDNA: "Xương",

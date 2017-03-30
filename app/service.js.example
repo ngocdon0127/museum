@@ -30,12 +30,11 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'ho',
 			'phanHo',
 			'toc', 
-			'giong', 
-			'phanGiong',
+			'chiGiong', 
+			'phanChiPhanGiong',
 			'loai', 
 			'duoiLoai', 
 			'coQuanThuMau', 'thon', 
-			'coQuanToChucPhanTich', 
 			'coQuanToChucGiamDinh',
 			'coQuanXuLy',
 			'boPhanLayMauDNA', 
@@ -43,9 +42,6 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'coQuanNhapVatMau',
 			'giaTriSuDung',
 			'tong',
-			'chi',
-			'phanChi',
-			'chiGiong',
 			'loai',
 			'noiLuuTruMau',
 			'viTriLayMauDNA',
@@ -93,7 +89,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						// console.log(xhr);
+						console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
@@ -463,6 +459,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	function stopSpinner() {
 		SPINNER.stop();
 	}
+
+	
 
 }]);
 

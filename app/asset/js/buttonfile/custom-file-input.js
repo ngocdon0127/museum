@@ -8,6 +8,7 @@ $(document).ready(function () {
 		// console.log(input);
 		var label = input.nextElementSibling;
 		var	labelVal = label.innerHTML;
+		// label.querySelector( 'span' ).innerHTML = "No file chosen";
 		//catch event file change
 		input.addEventListener('change', function(e)
 		{
@@ -27,7 +28,7 @@ $(document).ready(function () {
 				}
 				else{
 					if(this.files && this.files.length > 1){
-						fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+						fileName = (this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
 					}
 					else if(this.files && this.files.length == 1){
 						fileName = e.target.value.split( '\\' ).pop();
@@ -36,11 +37,11 @@ $(document).ready(function () {
 					}
 
 					if( fileName )
-						label.querySelector( 'span' ).innerHTML = fileName;
+						label.querySelector('span').innerHTML = fileName;
 					else
 						label.innerHTML = labelVal;
 				}
-			} else{
+			} else {
 				if(this.files && this.files.length > 1){
 					fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
 				}
@@ -55,7 +56,6 @@ $(document).ready(function () {
 				else
 					label.innerHTML = labelVal;
 			}
-			// console.log(fileName);
 		});
 
 		// Firefox bug fix

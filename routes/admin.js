@@ -10,6 +10,11 @@ var SharedData = mongoose.model('SharedData');
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 var acl = global.myCustomVars.acl;
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
+var PROMISES = global.myCustomVars.promises;
+
 var restart = global.myCustomVars.restart;
 var checkUnNullParams = global.myCustomVars.checkUnNullParams;
 var responseError = global.myCustomVars.responseError;
@@ -61,22 +66,7 @@ router.get('/users', function (req, res, next) {
 		delete user.level;
 		delete user.password;
 
-		var users = await(new Promise((resolve, reject) => {
-			User.find({}, function (err, users) {
-				if (err){
-					console.log(err);
-					res.status(500).json({status: 'error', error: 'Error while reading database'})
-					resolve([])
-				}
-				users_ = JSON.parse(JSON.stringify(users))
-				for(let i = 0; i < users_.length; i++){
-					let u = users_[i];
-					delete u.password;
-				}
-				// console.log(users_)
-				resolve(users_);
-			})
-		}))
+		var users = await(global.myCustomVars.promises.getUsers()).usersNormal;
 		var result = {
 			user: user
 		}
@@ -92,52 +82,24 @@ router.get('/users', function (req, res, next) {
 		}))
 
 		for(let i = 0; i < users.length; i++){
-			var u = users[i];
-			var userRoles = await(new Promise((resolve, reject) => {
-				acl.userRoles(u._id, (err, roles) => {
-					// console.log('promised userRoles called');
-					if (err){
-						resolve([])
-					}
-					else {
-						resolve(roles)
-					}
-				})
-			}))
-			// console.log('userRoles done');
-			// console.log(userRoles);
-			if (userRoles.indexOf('admin') >= 0){
-				// console.log('admin ' + u._id);
-				u.level = LEVEL['admin'];
-			}
-			else if (userRoles.indexOf('manager') >= 0){
-				// console.log('manage ' + u._id);
-				u.level = LEVEL['manager'];
-			}
-			else {
-				// console.log('user ' + u._id);
-				u.level = LEVEL['user']
-				if (!u.maDeTai){
-					// console.log('pending user ' + u._id);
-					u.level = LEVEL['pending-user'];
-				}
-			}
+			let u = users[i];
+			u.level = LEVEL[u.level];
 		}
 		result.users = users;
 		result.sidebar = {
 			active: 'users'
 		}
 
-		// console.log(result);
-
 		res.render('admin/users', result)
 
 	})()
-	
 })
 
 router.get('/test', function (req, res, next) {
-	res.end('access granted')
+	async(() => {
+		let x = await(PROMISES.userHasRole(req.user.id, 'manager1'));
+		res.end(JSON.stringify(x))
+	})()
 })
 
 // require extra permission: admin-edit
@@ -301,8 +263,6 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 })
 
 router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, res, next) {
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 	async(() => {
 		if (req.body.userId == req.session.userId){
 			console.log('dcmm');
@@ -385,8 +345,7 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 })
 
 router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next) {
-	// Coi vai trò của user đang request là manager.
-	// Admin sẽ có route assign riêng
+	// Admin
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 
@@ -395,6 +354,8 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 	if (nullParam){
 		return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
 	}
+
+	req.body.maDeTai = req.body.maDeTai.trim();
 
 	async(() => {
 		var user = await(new Promise((resolve, reject) => {
@@ -422,7 +383,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 			})
 		}))
 		if (!user){
-			// do not care. Handle inside the above await
+			// do not care. Handle inside the above await block
 		}
 		else {
 			var userRoles = await(new Promise((resolve, reject) => {
@@ -451,7 +412,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 				if (req.body.userId == req.session.userId){
 					// Chính mình
 					if (maDeTais.indexOf(req.body.maDeTai) < 0){
-						return responseError(req, '', res, 400, ['error'], ['Mã đề tài không hợp lệ']);
+						return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 					}
 					else {
 						user.maDeTai = req.body.maDeTai;
@@ -476,7 +437,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 			}
 			else {
 				if (maDeTais.indexOf(req.body.maDeTai) < 0){
-					return responseError(req, '', res, 400, ['error'], ['Mã đề tài không hợp lệ']);
+					return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 				}
 				else {
 					user.maDeTai = req.body.maDeTai;
@@ -568,6 +529,101 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 				})
 			}
 		}
+	})()
+})
+
+router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
+	async(() => {
+		var nullParam = checkUnNullParams(['newMaDeTai', 'adminPassword'], req.body);
+
+		if (nullParam){
+			return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
+		}
+		// console.log(req.body);
+		req.body.newMaDeTai = req.body.newMaDeTai.trim();
+
+		if (req.user.validPassword(req.body.adminPassword)){
+			let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai));
+			if (result.status == 'error'){
+				return responseError(req, '', res, 400, ['error'], [result.error]);
+			}
+			else if (result.status == 'success'){
+				let roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')));
+				let newRole = req.body.newMaDeTai + '_content';
+				newRole = newRole.replace(/\r+\n+/g, ' ');
+				newRole = newRole.replace(/ {2,}/g, ' ');
+				newRole = newRole.toLowerCase(); 
+				newRole = newRole.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a"); 
+				newRole = newRole.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e"); 
+				newRole = newRole.replace(/ì|í|ị|ỉ|ĩ/g, "i"); 
+				newRole = newRole.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o"); 
+				newRole = newRole.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); 
+				newRole = newRole.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); 
+				newRole = newRole.replace(/đ/g, "d"); 
+				newRole = newRole.replace(/ /g, "-");
+				roles[newRole] = JSON.parse(JSON.stringify(roles['content']));
+				roles[newRole].maDeTai = req.body.newMaDeTai;
+				roles[newRole].role = newRole;
+				roles[newRole].rolename = 'Nhân viên ' + req.body.newMaDeTai;
+				fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
+				return restart(res);
+			}
+		}
+		else {
+			return responseError(req, '', res, 403, ['error'], ['Mật khẩu không đúng'])
+		}
+
+		
+	})()
+})
+
+router.get('/statistic', (req, res, next) => {
+	async(() => {
+		let users = await(PROMISES.getUsers()).usersNormal;
+		let countLevel = {
+			'admin': 0,
+			'manager': 0,
+			'user': 0,
+			'pending-user': 0
+		}
+		let countMaDeTai = {}
+		// console.log(users);
+		for(let user of users){
+			if (user.maDeTai){
+				console.log('checking ' + user.username);
+				if (user.maDeTai in countMaDeTai){
+					if (user.level in countMaDeTai[user.maDeTai]){
+						countMaDeTai[user.maDeTai][user.level]++;
+					}
+					else {
+						countMaDeTai[user.maDeTai][user.level] = 1;
+					}
+				}
+				else {
+					let obj = JSON.parse(JSON.stringify(countLevel));
+					delete obj['pending-user'];
+					obj[user.level] = 1;
+					countMaDeTai[user.maDeTai] = obj;
+
+				}
+			}
+		}
+		for(let user of users){
+			delete user.password;
+			countLevel[user.level]++;
+		}
+		// return res.json({
+		// 	countMaDeTai: countMaDeTai,
+		// 	countLevel: countLevel
+		// })
+		return res.render('admin/users-statistic', {
+			countLevel: countLevel,
+			countMaDeTai: countMaDeTai,
+			user: req.user,
+			sidebar: {
+				active: 'statistic-user'
+			}
+		})
 	})()
 })
 

@@ -1,0 +1,1016 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"w",
+				"width"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"z",
+				"z-index"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"bs3-ta",
+				"bs3-table:striped\tbs3-table-striped"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"ng-c",
+				"ng-change\tAngularJS"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"_",
+				"_self"
+			],
+			[
+				"$w",
+				"angular: $watch"
+			],
+			[
+				"g",
+				"gi\tgetElementById"
+			],
+			[
+				"c",
+				"cl\tconsole.log"
+			],
+			[
+				"ng",
+				"ng-click\tAngularJS"
+			],
+			[
+				"val",
+				"value\tAngularJS"
+			],
+			[
+				"ng-",
+				"ng-change\tAngularJS"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"border",
+				"border-width"
+			],
+			[
+				"st",
+				"style\tAttr"
+			],
+			[
+				"in",
+				"input\tTag"
+			],
+			[
+				"$cookies",
+				"$cookies\tAngularJS(DI)"
+			],
+			[
+				"bs3-in",
+				"bs3-input:text\tbs3-input-text"
+			],
+			[
+				"Tim",
+				"TIME"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"re",
+				"rear"
+			],
+			[
+				"natur",
+				"naturalSort"
+			],
+			[
+				"data",
+				"datalist\tTag"
+			],
+			[
+				"$sc",
+				"$scope\tAngularJS"
+			],
+			[
+				"ng-cl",
+				"ng-click\tAngularJS"
+			],
+			[
+				"ng-ch",
+				"ng-checked\tAngularJS"
+			],
+			[
+				"m",
+				"margin"
+			],
+			[
+				"op",
+				"option\tTag"
+			],
+			[
+				"dat",
+				"datalist\tTag"
+			],
+			[
+				"bs3-g",
+				"bs3-group:vertical\tbs3-button-group-vertical"
+			],
+			[
+				"las",
+				"last_scene"
+			],
+			[
+				"sc",
+				"scene_map"
+			],
+			[
+				"fo",
+				"from"
+			],
+			[
+				"Scene",
+				"Scence"
+			],
+			[
+				"gre",
+				"greeting"
+			],
+			[
+				"ge",
+				"greeting"
+			],
+			[
+				"rea",
+				"real"
+			],
+			[
+				"fft",
+				"fft_size"
+			],
+			[
+				"a_",
+				"a_even"
+			],
+			[
+				"s",
+				"size"
+			],
+			[
+				"cou",
+				"cout"
+			],
+			[
+				"but",
+				"bs3-button\tbs3-button"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "w",
+		"selected_items":
+		[
+			[
+				"w",
+				"Word Wrap: Toggle"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 480.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/E/WorkSpace/Vccorp/cpc_review"
+	],
+	"file_history":
+	[
+		"/D/Phan mem/Du lieu/SQLyog.Ultimate.v11.1.1.0.rar",
+		"/E/WorkSpace/Bao tang thien nhien/museum/views/admin/users.ejs",
+		"/E/WorkSpace/SunNet/Game Source/truliavn-fe/index.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/routes/index.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/buttonfile/custom-file-input.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/css/datatables.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/controllers/FormController.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/add-land-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/add-geological-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/add-animal-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/edit/edit-animal-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/service.js.example",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/edit/edit-land-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/app.module.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/edit/edit-vegetable-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/edit/edit-paleontological-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/edit/edit-geological-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/add-vegetable-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/add-paleontological-form.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/loading-overlay-template.html",
+		"/E/WorkSpace/JavaCode/OpenCBLS/Binpacking2D.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/initialize.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/config/roles.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/controllers/EditFormController.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/testover.template.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/init.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/css/main.css",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/css/customfileinput/component.css",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/index.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/node_modules/lodash/lang/isNative.js",
+		"/E/WorkSpace/Boostraps/CustomFileInputs/js/jquery.custom-file-input.js",
+		"/E/WorkSpace/Boostraps/jquery-filestyle-1.5.1/src/jquery-filestyle.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/jquery-filestyle/jquery-filestyle.js",
+		"/E/WorkSpace/Boostraps/jquery-filestyle-1.5.1/test/index.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/service.js",
+		"/E/WorkSpace/Boostraps/jquery-filestyle-1.5.1/src/test.html",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/filter/placeFilter.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/style.js",
+		"/E/WorkSpace/Python/scrapy/crawler/test-Resources.html",
+		"/E/WorkSpace/Python/scrapy/crawler/crawler/items.py",
+		"/E/WorkSpace/Python/scrapy/crawler/test-Books.html",
+		"/E/WorkSpace/Python/scrapy/get-pip.py",
+		"/E/Hust/Tim kiem cuc bo dua tren rang buoc/OpenCBLS/source-code/OpenCBLS/data/SIETimeTabling/timetabling-data-30-30-new.xml",
+		"/E/Hust/Tim kiem cuc bo dua tren rang buoc/OpenCBLS/source-code/OpenCBLS/src/localsearch/applications/timetabling/TimeTabling.java",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/app.config.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/spin.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/angular-loading-spinner.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/asset/js/angular-spinner.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tipsveg.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tipslan.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tipsani.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tipsgeo.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tipspal.json",
+		"/D/Photo/DHBK/2013/getfile.py",
+		"/E/WorkSpace/Vccorp/VPN/admicro-adoptim.ovpn",
+		"/D/Photo/DHBK/2013/linktext",
+		"/D/Photo/DHBK/2014/linktext",
+		"/D/Photo/DHBK/GetImage.js",
+		"/D/Photo/DHBK/linktext",
+		"/D/Photo/DHBK/Anh/linktext",
+		"/D/Photo/DHBK/getfile.py",
+		"/D/Photo/DHBK/crawl.py",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/cities.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/districts.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/config/config.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/test.js",
+		"/C/Program Files/MongoDB/Server/3.2/bin/initDB.js",
+		"/C/Users/kevin/Desktop/start-mongo.bat",
+		"/E/WorkSpace/Bao tang thien nhien/museum/config/acl.json",
+		"/C/Users/kevin/Desktop/exceptions/src/tests/ExceptionTests.java",
+		"/C/Users/kevin/Desktop/exceptions/src/tests/StringPacking2Tests.java",
+		"/C/Users/kevin/Desktop/Capture1.PNG",
+		"/C/Users/kevin/Desktop/Capture2.PNG",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tooltipspal.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tooltipslan.json",
+		"/E/Hust/Tim kiem cuc bo dua tren rang buoc/OpenCBLS/source-code/OpenCBLS/data/BACP/bacp.in01",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tooltipsveg.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tooltipsani.json",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/database/tooltipsgeo.json",
+		"/E/Hust/Toan roi rac/FormController.js",
+		"/E/WorkSpace/Bao tang thien nhien/museum/app/views/users/cookies.template.html",
+		"/E/Hust/Lap trinh C/Chay C/nguoidulich.cpp",
+		"/E/Hust/Tim kiem cuc bo dua tren rang buoc/Sudoku.java",
+		"/E/Hust/Lap trinh C/Chay C/graphs/BFS.IN",
+		"/D/Phim/despicable me/Despicable.Me.2.2013.m720p.BluRay.x264-BiRD_i-max.vn.srt",
+		"/E/WorkSpace/Vccorp/Example/kmean/input.txt",
+		"/E/WorkSpace/Bao tang thien nhien/Notes/node_edit.html",
+		"/E/WorkSpace/Python/Exercises/gothonweb/bin/app.py",
+		"/E/WorkSpace/Python/Exercises/ex43.py",
+		"/E/WorkSpace/Python/Exercises/gothonweb/templates/index.html",
+		"/E/WorkSpace/Python/Exercises/gothonweb/templates/layout.html",
+		"/E/WorkSpace/Python/Exercises/gothonweb/templates/hello_form.html",
+		"/E/WorkSpace/Python/Exercises/ex41.py",
+		"/E/WorkSpace/Python/node.docx",
+		"/E/WorkSpace/Python/Exercises/ex24.py",
+		"/E/WorkSpace/Python/Exercises/ex25.py",
+		"/E/Hust/Co so du lieu nang cao/On thi/bai2.sql",
+		"/E/Hust/Co so du lieu nang cao/On thi/oo.java",
+		"/E/WorkSpace/Python/Exercises/test.py",
+		"/E/WorkSpace/Python/Exercises/get-pip.py",
+		"/C/Users/kevin/Desktop/noelTree.cpp",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/farasa/test08/farasa.INP",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/farasa/test09/farasa.INP",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/farasa/test10/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/farasa/test10/farasa.INP",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/farasa4.cpp",
+		"/D/Photo/Hola tu suong/01_12_2016/2016-12-01 Mẫu nhà/IMG_7803.CR2",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/farasa5.cpp",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/farasa3.cpp",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/farasa/test07/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/farasa/test06/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/farasa/test05/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/farasa2.cpp",
+		"/E/Hust/project II/data/nhap1.in",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test09/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test09/farasa.INP",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test08/farasa.INP",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/FARASA.cpp",
+		"/E/Hust/project II/data/nhap.in",
+		"/E/Hust/project II/data/input.in",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test01/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test02/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test07/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test06/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test05/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test04/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test03/farasa.OUT",
+		"/E/Hust/Phan Tich Va Thiet Ke Thuat Toan/BTL/test/test06/farasa.INP"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"E:\\WorkSpace\\Bao tang thien nhien\\museum",
+			"E:\\Hust\\Tim kiem cuc bo dua tren rang buoc\\OpenCBLS",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\farasa\\test09\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\farasa\\test10\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test09\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test08\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test07\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test06\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test05\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test02\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test03\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test02\\farasa.INP",
+			"E:\\Hust\\Phan Tich Va Thiet Ke Thuat Toan\\BTL\\test\\test01\\farasa.INP"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"<div class=\"dropdown\">\n\t\t\t<span style=\"color: #3498db\">Trích xuất file <b class=\"caret\"></b></span>\n\t\t\t<div class=\"dropdown-content\">\n\t\t\t    <a ng-click=\"export('pdf')\"><span class=\"glyphicon glyphicon-download\"></span> Xuất pdf</a>\n\t\t\t    <a ng-click=\"export('docx')\"><span class=\"glyphicon glyphicon-download\"></span> Xuất docx</a>\n\t\t\t    <a ng-click=\"export('xlsx')\"><span class=\"glyphicon glyphicon-download\"></span> Xuất xlsx</a>\t    \n\t\t\t</div>\n\t\t</div>",
+			"lg",
+			"example1",
+			"37",
+			"example1",
+			"<li>",
+			"li",
+			"td",
+			"action",
+			"exportFile",
+			"quocgia",
+			"quocga",
+			"Animal",
+			"initDefaultUnits",
+			"\\{\\{(data\\.[a-zA-Z0-9]+)\\}\\}",
+			"{{data",
+			"$routeParams",
+			"valid-image",
+			"valid-file",
+			"10",
+			"valid-file",
+			"valid-image",
+			"valid-file",
+			"valid-image",
+			"valid-file",
+			"bs-loading-overlay-delay",
+			"dinhKemTrinhTuDNA",
+			"dinhKemXuLy",
+			"31",
+			"dinhKemXuLy",
+			"dacDiemViCauTruc",
+			"phanTichTuoiDiaChat",
+			"taiLieuPhanTichFile",
+			"bando",
+			"app",
+			"hoSoNhapMauVavatDiKem",
+			"valid-file ",
+			"valid-file",
+			"dinhKemXuLy",
+			"hoSoPhanTichMauDat",
+			"ketQuaPhanTichDinhTuoi",
+			"banDo",
+			"anhMauSauCheTac",
+			"dinhKemXuLy",
+			"ketQuaPhanTichDongVi",
+			"ketQuaThanhPhanVatChat",
+			"phanTichQuangHocFile",
+			"moTaHinhThaiFile",
+			"type=\"file\"",
+			"hinhAnhDinhKem",
+			"46",
+			"phanBoTrenTheGioiFile",
+			"hinhAnhNgoaiThucDia",
+			"moTaHinhThaiFile",
+			"taiLieuPhanTichStr",
+			"banDo",
+			"(<label for=\")([^\"]+)(\" title=\"{{tooltips\\[')([^']+)('\\]}}.*data\\.)([^}]*)(}}.*\\n\\s*<input type=\"file\".*name *=\")([^\"]+)(\"[^>]*>)",
+			"<label for=\"([^\"]+)\" title=\"{{tooltips\\['([^']+)'\\]}}.*data\\.([^}]*)}}.*\\n\\s*<input type=\"file\".*name *=\"([^\"]+)\"[^>]*>",
+			"<label for=\"([^\"]+)\" title=\"{{tooltips\\['([^']+)'\\]}}.*data\\.([^}]*)}}.*\\n\\s*<input type=\"file\".*name *=\"[^\"]+\"[^>]*>",
+			"<label for=\"[^\"]+\" title=\"{{tooltips\\['[^']+'\\]}}.*\\n\\s*<input type=\"file\".*name *=\"[^\"]+\"[^>]*>",
+			"label for",
+			"<label for=\"[^\"]+\" title=\"{{tooltips\\['[^']+'\\]}}.*\\n\\s*<input type=\"file\".*name *=\"[^\"]+\"[^>]*>",
+			"label for",
+			"<label for=\"[^\"]+\" title=\"{{tooltips\\['[^']+'\\]}}.*\\n\\s*<input type=\"file\".*name *=\"[^\"]+\"[^>]*>",
+			"<label for=\"[^\"]+\" title=\"{{tooltips\\['[^']+'\\]}}.*\\n\\s*<input type=\"file\".*name *=\"[^\"]+\">",
+			"label for",
+			"<label for=\"[^\"]+\" title=\"{{tooltips\\['[^']+'\\]}}.*\\n\\s*<input type=\"file\".*name *=\"[^\"]+\">",
+			"label for",
+			"label for=",
+			"<label for=\"[^\"]+\" title=\"{{tooltips\\['[^']+'\\]}}.*\\n\\s*<input type=\"file\".*name *=\"[^\"]+\">",
+			"(<input type=\"file\".*)title=\"[^\"]*\"([^>]*>)",
+			"<input type=\"file\".*title=\"[^\"]*\"[^>]*>",
+			"banDo",
+			"hinhAnhDinhKem",
+			"type=\"file\"",
+			"banDo",
+			"<input type=\"file\"",
+			"type=\"file\"",
+			"banDo",
+			"label",
+			"type=\"file\"",
+			"\" ",
+			"inputfile-6",
+			"banDo",
+			"band",
+			"cdnjs.cloudflare",
+			"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.0.8/semantic.js",
+			"pushNameFiles",
+			"band",
+			"jfilestyle",
+			"nextId",
+			"23",
+			"thuocTinh",
+			"23",
+			"24",
+			"Thuoctinh",
+			"soluong",
+			"hinhThucNhapMau",
+			"STR_AUTOCOMPLETION_SEPERATOR",
+			"district.name",
+			"tinh",
+			"district.name",
+			"hinhThucNhapMau",
+			"tinh",
+			"Hientang",
+			"flexdatalist",
+			"quocGia",
+			"quocgia",
+			"hinhThucNhapMau",
+			"<select",
+			"<select>",
+			"select>",
+			"select",
+			"giới",
+			"48",
+			"bs-loading-overlay bs-loading-overlay-delay=\"2000\"",
+			"43",
+			"<td><label>",
+			"37",
+			"thuộc tính",
+			"số lượng",
+			"69",
+			"thuộc tính",
+			"Số lượng",
+			"Đính kèm ",
+			">\n",
+			"đính kèm tin",
+			"dna"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"{{getName($1)}}",
+			"$1$8$3$8$5$8$7$8$9",
+			"$1$2",
+			" ",
+			"  ",
+			" "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "cpc_review.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"use",
+				"views\\admin\\users.ejs"
+			],
+			[
+				"inde",
+				"app\\index.html"
+			],
+			[
+				"admin",
+				"routes\\admin.js"
+			],
+			[
+				"user",
+				"views\\admin\\users.ejs"
+			],
+			[
+				"mana",
+				"app\\views\\users\\manage-post\\manage-post.template.html"
+			],
+			[
+				"add-l",
+				"app\\views\\users\\add-land-form.template.html"
+			],
+			[
+				"add-p",
+				"app\\views\\users\\add-paleontological-form.template.html"
+			],
+			[
+				"ser",
+				"app\\service.js"
+			],
+			[
+				"ind",
+				"app\\index.html"
+			],
+			[
+				"s",
+				"app\\service.js"
+			],
+			[
+				"index",
+				"app\\index.html"
+			],
+			[
+				"main",
+				"app\\asset\\css\\main.css"
+			],
+			[
+				"managec",
+				"app\\asset\\js\\controllers\\ManageController.js"
+			],
+			[
+				"manga",
+				"app\\views\\users\\manage-post\\manage-post.template.html"
+			],
+			[
+				"manage",
+				"app\\views\\users\\manage-post\\manage.template.html"
+			],
+			[
+				"form",
+				"app\\asset\\js\\controllers\\FormController.js"
+			],
+			[
+				"cus",
+				"app\\asset\\js\\buttonfile\\custom-file-input.js"
+			],
+			[
+				"editform",
+				"app\\asset\\js\\controllers\\EditFormController.js"
+			],
+			[
+				"edit-la",
+				"app\\views\\users\\edit\\edit-land-form.template.html"
+			],
+			[
+				"editfo",
+				"app\\asset\\js\\controllers\\EditFormController.js"
+			],
+			[
+				"app.mod",
+				"app\\app.module.js"
+			],
+			[
+				"edit-",
+				"app\\views\\users\\edit\\edit-vegetable-form.template.html"
+			],
+			[
+				"edit",
+				"app\\asset\\js\\controllers\\EditFormController.js"
+			],
+			[
+				"app.mo",
+				"app\\app.module.js"
+			],
+			[
+				"app",
+				"app\\app.module.js"
+			],
+			[
+				"add-ge",
+				"app\\views\\users\\add-geological-form.template.html"
+			],
+			[
+				"",
+				"init.js"
+			],
+			[
+				"edit-a",
+				"app\\views\\users\\edit\\edit-animal-form.template.html"
+			],
+			[
+				"add-a",
+				"app\\views\\users\\add-animal-form.template.html"
+			],
+			[
+				"edit-an",
+				"app\\views\\users\\edit\\edit-animal-form.template.html"
+			],
+			[
+				"component.c",
+				"app\\asset\\css\\customfileinput\\component.css"
+			],
+			[
+				"in",
+				"node_modules\\lodash\\lang\\isNative.js"
+			],
+			[
+				"add-an",
+				"app\\views\\users\\add-animal-form.template.html"
+			],
+			[
+				"jquer",
+				"app\\asset\\js\\jquery-filestyle\\jquery-filestyle.js"
+			],
+			[
+				"edit-ve",
+				"app\\views\\users\\edit\\edit-vegetable-form.template.html"
+			],
+			[
+				"add-ve",
+				"app\\views\\users\\add-vegetable-form.template.html"
+			],
+			[
+				"edit-l",
+				"app\\views\\users\\edit\\edit-land-form.template.html"
+			],
+			[
+				"add-land",
+				"app\\views\\users\\add-land-form.template.html"
+			],
+			[
+				"place",
+				"app\\asset\\js\\filter\\placeFilter.js"
+			],
+			[
+				"add",
+				"app\\views\\users\\add-animal-form.template.html"
+			],
+			[
+				"edit-pa",
+				"app\\views\\users\\edit\\edit-paleontological-form.template.html"
+			],
+			[
+				"add-pa",
+				"app\\views\\users\\add-paleontological-form.template.html"
+			],
+			[
+				"edit-pal",
+				"app\\views\\users\\edit\\edit-paleontological-form.template.html"
+			],
+			[
+				"add-c",
+				"app\\views\\users\\add-geological-form.template.html"
+			],
+			[
+				"app.",
+				"app\\app.config.js"
+			],
+			[
+				"edit-am",
+				"app\\views\\users\\edit\\edit-animal-form.template.html"
+			],
+			[
+				"app.m",
+				"app\\app.module.js"
+			],
+			[
+				"formco",
+				"app\\asset\\js\\controllers\\FormController.js"
+			],
+			[
+				"edit-and",
+				"app\\views\\users\\edit\\edit-land-form.template.html"
+			],
+			[
+				"add-",
+				"app\\views\\users\\add-animal-form.template.html"
+			],
+			[
+				"tipsv",
+				"app\\database\\tipsveg.json"
+			],
+			[
+				"add-la",
+				"app\\views\\users\\add-land-form.template.html"
+			],
+			[
+				"tipsla",
+				"app\\database\\tipslan.json"
+			],
+			[
+				"tipsg",
+				"app\\database\\tipsgeo.json"
+			],
+			[
+				"tips",
+				"app\\database\\tipslan.json"
+			],
+			[
+				"tipsa",
+				"app\\database\\tipspal.json"
+			],
+			[
+				"tipsan",
+				"app\\database\\tipsani.json"
+			],
+			[
+				"tipsve",
+				"app\\database\\tipsveg.json"
+			],
+			[
+				"se",
+				"app\\service.js"
+			],
+			[
+				"add-pal",
+				"app\\views\\users\\add-paleontological-form.template.html"
+			],
+			[
+				"formcon",
+				"app\\asset\\js\\controllers\\FormController.js"
+			],
+			[
+				"add-ani",
+				"app\\views\\users\\add-animal-form.template.html"
+			],
+			[
+				"add-v",
+				"app\\views\\users\\add-vegetable-form.template.html"
+			],
+			[
+				"filterp",
+				"app\\asset\\js\\filter\\placeFilter.js"
+			],
+			[
+				"edit-ge",
+				"app\\views\\users\\edit\\edit-geological-form.template.html"
+			],
+			[
+				"add-get",
+				"app\\views\\users\\add-geological-form.template.html"
+			],
+			[
+				"add-lan",
+				"app\\views\\users\\add-land-form.template.html"
+			],
+			[
+				"add-geo",
+				"app\\views\\users\\add-geological-form.template.html"
+			],
+			[
+				"toolt",
+				"app\\database\\tooltipslan.json"
+			],
+			[
+				"too",
+				"app\\database\\tooltipspal.json"
+			],
+			[
+				"add-pale",
+				"app\\views\\users\\add-paleontological-form.template.html"
+			],
+			[
+				"to",
+				"app\\database\\tooltipsveg.json"
+			],
+			[
+				"tool",
+				"app\\database\\tooltipslan.json"
+			],
+			[
+				"edit-land",
+				"app\\views\\users\\edit\\edit-land-form.template.html"
+			],
+			[
+				"add-g",
+				"app\\views\\users\\add-geological-form.template.html"
+			],
+			[
+				"edit-geo",
+				"app\\views\\users\\edit\\edit-geological-form.template.html"
+			],
+			[
+				"app.confi",
+				"app\\app.config.js"
+			],
+			[
+				"app.model",
+				"app\\app.module.js"
+			],
+			[
+				"editfor",
+				"app\\asset\\js\\controllers\\EditFormController.js"
+			],
+			[
+				"placeter",
+				"app\\asset\\js\\filter\\placeFilter.js"
+			],
+			[
+				"edit-g",
+				"app\\views\\users\\edit\\edit-geological-form.template.html"
+			],
+			[
+				"edit-p",
+				"app\\views\\users\\edit\\edit-paleontological-form.template.html"
+			],
+			[
+				"add-veg",
+				"app\\views\\users\\add-vegetable-form.template.html"
+			],
+			[
+				"edit-lan",
+				"app\\views\\users\\edit\\edit-land-form.template.html"
+			],
+			[
+				"confi",
+				"config\\config.js"
+			],
+			[
+				"conf",
+				"config\\config.js"
+			],
+			[
+				"formc",
+				"app\\asset\\js\\controllers\\FormController.js"
+			],
+			[
+				"editfom",
+				"app\\asset\\js\\controllers\\EditFormController.js"
+			],
+			[
+				"add-ano",
+				"app\\views\\users\\add-animal-form.template.html"
+			],
+			[
+				"edit-veg",
+				"app\\views\\users\\edit\\edit-vegetable-form.template.html"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 189.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

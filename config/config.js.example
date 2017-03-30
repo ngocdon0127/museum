@@ -7,5 +7,16 @@ module.exports = {
 	},
 	environment: {
 		env: 'development'
+	},
+	mailconfig : {
+		service: 'gmail',
+	    auth: {
+	        user: 'chienminhnguyen196@gmail.com',
+	        pass: 'nqmpkpxvpjydtgxv'
+	    }
+	},
+	recaptcha : {
+		sitekey : '6LctfhoUAAAAAC2hVTKPoaVgfDXJP3OsQy3SF1en',
+		secretkey: '6LctfhoUAAAAAOqw3KYeqYV8yCvOBwSIHxOBemo2'
 	}
 }

@@ -1,8 +1,8 @@
 var fs = require('fs-extra')
 var path = require('path')
 
-var cleanUser = false;
-var cleanConfigFiles = false;
+var cleanUser = true;
+var cleanConfigFiles = true;
 var cleanAutoCompletion = true;
 var cleanData = true;
 var fixMaDeTai = true;

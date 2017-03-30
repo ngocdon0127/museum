@@ -26,12 +26,14 @@
     "morgan": "~1.6.1",
     "msexcel-builder": "0.0.2",
     "multer": "^1.2.0",
+    "nodemailer": "*",
     "officegen": "^0.4.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "serve-favicon": "~2.3.0",
     "randomstring": "*",
-    "nodemailer": "*"
+    "request": "~2.81.0",
+    "request-promise": "^4.2.0",
+    "serve-favicon": "~2.3.0"
   }
 }

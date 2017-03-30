@@ -2,23 +2,16 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var User = require('mongoose').model('User');
+var mailconfig = require('../config/config').mailconfig;
+var recaptcha = require('../config/config').recaptcha;
 var randomstring = require("randomstring");
+var rp = require('request-promise');
 
 /* config gui mail */
 const nodemailer = require('nodemailer');
 
 // create reusable transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'chienminhnguyen196@gmail.com',
-        pass: 'nqmpkpxvpjydtgxv'
-    }
-});
-
-
-
-
+let transporter = nodemailer.createTransport(mailconfig);
 
 // var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
 // var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
@@ -101,45 +94,70 @@ router.post("/login", function (req, res, next) {
 /* Phan reset account*/
 router.get('/forgot-password', function(req, res){
 	res.render('forgotPassword', {
-		title : 'Forgot your password?'
+		title : 'Forgot your password?',
+		sitekey : recaptcha.sitekey
 	});
 });
 
 router.post('/forgot-password', function(req, res){
-	var email = req.body.email;
-	User.findOne({'username' : email}, function(err, user){
-		if(err || !user)
-			res.send(JSON.stringify({err : 1, message : "Không tồn tại email này trong hệ thống!"}));
-		else {
-			var key = randomstring.generate();
-			user.resetKey = key;
-			user.save();
-			
-			let url = req.protocol + '://' + req.get('host') + "/auth/reset/" + user.username + "/" + key;
-			let message = "<p>Bạn vừa thay đổi mật khẩu cho tài khoản " + user.fullname + "</p><br>";
-			message += "<a href='" + url + "''>" + url + "</a>";
-
-			// setup email data with unicode symbols
-			let mailOptions = {
-			    from: '"Bảo tàng online" <foo@blurdybloop.com>', // sender address
-			    to: 'nguyenminhchien1996bg@gmail.com', // list of receivers
-			    subject: 'Thay đổi mật khẩu cho tài khoản baotangonline', // Subject line
-			    html: message // html body
-			};
-
-			// send mail with defined transport object
-			transporter.sendMail(mailOptions, (error, info) => {
-			    if (error) {
-			        return console.log(error);
-			    }
-			    console.log('Message %s sent: %s', info.messageId, info.response);
-			});
-
-
-			res.send(JSON.stringify({err : false, message : "Thành công! Xem hòm thư và làm theo hướng dẫn để khôi phục mật khẩu"}));
+	rp({
+	  	url: 'https://www.google.com/recaptcha/api/siteverify',
+	  	method: 'POST',
+	  	form: { secret: recaptcha.secretkey, response : req.body['g-recaptcha-response'] },
+	  	json : true
+	})
+	.then((body) => {
+		if(body.success)
+			return User.findOne({'username': req.body.email}).exec();
+		else
+			throw "Bạn là robot!";
+	})
+	.then((user) => {
+		if(!user){
+			throw "Không có tài khoản trong hệ thống!";
 		}
+		if(user.forgot_password.count > 5)
+			throw "Hết số lần quên mật khẩu trong ngày!";
+		if(Date.now() < new Date(user.forgot_password.lastTime.getTime() + 15 * user.forgot_password.count * 60000) )
+			throw "Chưa đủ thời gian cho lần tiếp theo";
+		user.forgot_password.count ++;
+		user.forgot_password.lastTime = Date.now();
+		user.forgot_password.key = randomstring.generate();
+		return user.save();
+	})
+	.then((user) => {
+		let key = user.forgot_password.key;
+		let url = req.protocol + '://' + req.get('host') + "/auth/reset/" + user.username + "/" + key;
+		let message = "<p>Bạn vừa thay đổi mật khẩu cho tài khoản " + user.fullname + "</p><br>";
+		message += "<a href='" + url + "''>" + url + "</a>";
+
+		// setup email data with unicode symbols
+		let mailOptions = {
+		    from: '"Bảo tàng online"', // sender address
+		    to: 'nguyenminhchien1996bg@gmail.com', // list of receivers
+		    subject: 'Thay đổi mật khẩu cho tài khoản baotangonline', // Subject line
+		    html: message // html body
+		};
+
+		// send mail with defined transport object
+		transporter.sendMail(mailOptions, (error, info) => {
+		    if (error) {
+		        return console.log(error);
+		    }
+		    console.log('Message %s sent: %s', info.messageId, info.response);
+		});
+		res.render('message', {
+			title: 'Thông báo',
+			message: 'Thành công! Xem hòm thư và làm theo hướng dẫn để khôi phục mật khẩu'
+		});
+	})
+	.catch((err) => {
+		res.render('message', {
+			title: 'Thông báo',
+			message: 'Có lỗi xảy ra: ' + err
+		});
 	});
-	// res.send(req.body.email);
+
 });
 
 router.get('/reset/:email/:key', function(req, res){

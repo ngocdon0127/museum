@@ -9,7 +9,11 @@ module.exports = function (mongoose) {
 		fullname: String,
 		lastLogin: Date,
 		created_at: Date,
-		resetKey: String
+		forgot_password: {
+			key : String,
+			count : {type : Number, default: 0},
+			lastTime: {type: Date, default: 0}
+		}
 	});
 	
 	userSchema.methods.hashPassword = function (plainPassword) {

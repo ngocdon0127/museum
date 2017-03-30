@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var officegen = require('officegen');
+var User = require('mongoose').model('User');
 var docx = officegen({
 	type: 'docx',
 	subjects: 'Mẫu phiếu dữ liệu',
@@ -359,5 +360,15 @@ router.get('/json', function (req, res, next) {
 // 		})
 // 	})
 // })
+router.get('/email/:email', function(req, res){
+	User.findOne({'username': req.params.email}).exec()
+	.then(function(user){
+
+		res.send(Date.now() > new Date(user.forgot_password.lastTime.getTime() + 15 * 60000).getTime());
+	})
+	.catch(function(err){
+		res.send('err: ' + err);
+	});
+});
 
 module.exports = router;

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include header %>
+    <style>
+      .message {
+        color: red;
+      }
+    </style>
+    <link rel="stylesheet" href="/stylesheets/checkbox.min.css">
+    <style>
+    #redirectBack{
+    margin-left: 0px;
+    margin-top: 0px;
+    }
+    </style>
+  </head>
+</head>
+<body>
+  <div class="container">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <h4 class="">
+      <%= title %>
+      </h4>
+      <div class="message">
+        <p><%= message %></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

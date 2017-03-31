@@ -2783,7 +2783,11 @@ var getMaDeTai = () => {
 	return new Promise((resolve, reject) => {
 		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
 			if (!err && sharedData){
-				resolve(sharedData.maDeTai);
+				let result = [];
+				for(let dt of sharedData.deTai){
+					result.push(dt.maDeTai);
+				}
+				resolve(result);
 			}
 			else {
 				resolve([])

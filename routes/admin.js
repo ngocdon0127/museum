@@ -22,9 +22,6 @@ var responseError = global.myCustomVars.responseError;
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
 
-// var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
-// var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
-// var PERM_USER = global.myCustomVars.PERM_USER;
 var LEVEL = {};
 LEVEL['admin'] = {
 	name: 'Admin',
@@ -70,16 +67,7 @@ router.get('/users', function (req, res, next) {
 		var result = {
 			user: user
 		}
-		result.maDeTais = await(new Promise((resolve, reject) => {
-			SharedData.findOne({}, (err, sharedData) => {
-				if (!err && sharedData){
-					resolve(sharedData.maDeTai);
-				}
-				else {
-					resolve([])
-				}
-			})
-		}))
+		result.maDeTais = await(PROMISES.getMaDeTai())
 
 		for(let i = 0; i < users.length; i++){
 			let u = users[i];
@@ -107,21 +95,12 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 	async(() => {
-		var result = await(new Promise((resolve, reject) => {
-			SharedData.findOne({}, (err, sharedData) => {
-				if (err || !sharedData){
-					resolve([])
-				}
-				else {
-					resolve(sharedData)
-				}
-			})
-		}))
+		var result = await(PROMISES.getSharedData)
 
 		if (result){
-			var maDeTais = result.maDeTai;
-			console.log(maDeTais);
-			console.log(req.body.maDeTai);
+			var maDeTais = await(PROMISES.getMaDeTai());
+			// console.log(maDeTais);
+			// console.log(req.body.maDeTai);
 			// console.log('cdcmm');
 			if (!req.body.maDeTai){
 				console.log('missing maDeTai');
@@ -198,8 +177,10 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 							})
 						}
 						else {
-							if (result.maDeTai.indexOf(req.body.maDeTai) < 0){
-								result.maDeTai.push(req.body.maDeTai);
+							if (maDeTais.indexOf(req.body.maDeTai) < 0){
+								result.maDeTai.push({
+									maDeTai: req.body.maDeTai
+								});
 								result.save((err) => {
 									if (err){
 										console.log(err);
@@ -397,16 +378,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 					}
 				})
 			}))
-			var maDeTais = await(new Promise((resolve, reject) => {
-				SharedData.findOne({}, (err, sharedData) => {
-					if (err || !sharedData){
-						resolve([])
-					}
-					else {
-						resolve(sharedData.maDeTai)
-					}
-				})
-			}))
+			var maDeTais = await(PROMISES.getMaDeTai())
 
 			if (userRoles.indexOf('admin') >= 0){
 				if (req.body.userId == req.session.userId){

@@ -101,10 +101,10 @@ router.get('/forgot-password', function(req, res){
 
 router.post('/forgot-password', function(req, res){
 	rp({
-	  	url: 'https://www.google.com/recaptcha/api/siteverify',
-	  	method: 'POST',
-	  	form: { secret: recaptcha.secretkey, response : req.body['g-recaptcha-response'] },
-	  	json : true
+		url: 'https://www.google.com/recaptcha/api/siteverify',
+		method: 'POST',
+		form: { secret: recaptcha.secretkey, response : req.body['g-recaptcha-response'] },
+		json : true
 	})
 	.then((body) => {
 		if(body.success)
@@ -117,9 +117,11 @@ router.post('/forgot-password', function(req, res){
 			throw "Không có tài khoản trong hệ thống!";
 		}
 		if(user.forgot_password.count > 5)
-			throw "Hết số lần quên mật khẩu trong ngày!";
-		if(Date.now() < new Date(user.forgot_password.lastTime.getTime() + 15 * user.forgot_password.count * 60000) )
-			throw "Chưa đủ thời gian cho lần tiếp theo";
+			throw "Bạn đã yêu cầu cấp lại mật khẩu quá số lần tối đa trong ngày!";
+		let nextTimeRequest = new Date(user.forgot_password.lastTime.getTime() + 15 * user.forgot_password.count * 60000);
+		let now = new Date();
+		if(now <  nextTimeRequest)
+			throw "Bạn cần đợi " + ((nextTimeRequest.getTime() - now.getTime()) / 60000).toFixed(0) + ' phút nữa mới có thể tiếp tục yêu cầu tạo lại mật khẩu.';
 		user.forgot_password.count ++;
 		user.forgot_password.lastTime = Date.now();
 		user.forgot_password.key = randomstring.generate();
@@ -128,27 +130,38 @@ router.post('/forgot-password', function(req, res){
 	.then((user) => {
 		let key = user.forgot_password.key;
 		let url = req.protocol + '://' + req.get('host') + "/auth/reset/" + user.username + "/" + key;
-		let message = "<p>Bạn vừa thay đổi mật khẩu cho tài khoản " + user.fullname + "</p><br>";
+		let message = "<p>Bạn vừa yêu cầu thay đổi mật khẩu cho tài khoản " + user.fullname + '</p><br>';
+		message += "<p>Nhấn vào liên kết bên dưới và làm theo hướng dẫn</p>";
 		message += "<a href='" + url + "''>" + url + "</a>";
 
 		// setup email data with unicode symbols
 		let mailOptions = {
-		    from: '"Bảo tàng online"', // sender address
-		    to: 'nguyenminhchien1996bg@gmail.com', // list of receivers
-		    subject: 'Thay đổi mật khẩu cho tài khoản baotangonline', // Subject line
-		    html: message // html body
+			from: '"Bảo tàng online"', // sender address
+			to: user.username, // list of receivers
+			subject: 'Khôi phục mật khẩu cho tài khoản baotangonline', // Subject line
+			html: message // html body
 		};
 
 		// send mail with defined transport object
 		transporter.sendMail(mailOptions, (error, info) => {
-		    if (error) {
-		        return console.log(error);
-		    }
-		    console.log('Message %s sent: %s', info.messageId, info.response);
-		});
-		res.render('message', {
-			title: 'Thông báo',
-			message: 'Thành công! Xem hòm thư và làm theo hướng dẫn để khôi phục mật khẩu'
+			if (error){
+				console.log(error);
+				res.render('message', {
+					title: 'Thông báo',
+					message: 'Có lỗi xảy ra trong quá trình gửi email. Vui lòng thử lại'
+				})
+				user.forgot_password.count--;
+				user.forgot_password.key = randomstring.generate();
+				user.forgot_password.lastTime = undefined;
+				user.save();
+			}
+			else {
+				console.log('Message %s sent: %s', info.messageId, info.response);
+				res.render('message', {
+					title: 'Thông báo',
+					message: 'Thành công! Xem hòm thư và làm theo hướng dẫn để khôi phục mật khẩu'
+				});
+			}
 		});
 	})
 	.catch((err) => {
@@ -161,7 +174,9 @@ router.post('/forgot-password', function(req, res){
 });
 
 router.get('/reset/:email/:key', function(req, res){
-	User.findOne({'username' : req.params.email, 'resetKey' : req.params.key}, function(err, user){
+	User.findOne({'username' : req.params.email, 'forgot_password.key' : req.params.key}, function(err, user){
+		err && console.log(err);
+		!user && console.log('invalid username');
 		if(err || !user)
 			res.send("Có lỗi xảy ra");
 		else {
@@ -178,11 +193,11 @@ router.post('/reset', function(req, res){
 	let username = req.body.username;
 	let key = req.body.key;
 	let password = req.body.password;
-	User.findOne({'username' : username, 'resetKey' : key}, function(err, user){
+	User.findOne({'username' : username, 'forgot_password.key' : key}, function(err, user){
 		if(err || !user)
 			res.send(JSON.stringify({err : 1, message : "Có lỗi xảy ra"}));
 		else {
-			user.resetKey = undefined;
+			user.forgot_password.key = undefined;
 			user.password = user.hashPassword(password);
 			user.save(function(err, updateUser){
 				res.send(JSON.stringify({err : false, message : "Thay đổi mật khẩu thành công"}));

@@ -513,9 +513,16 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 		}
 		// console.log(req.body);
 		req.body.newMaDeTai = req.body.newMaDeTai.trim();
+		if (req.body.tenDeTai){
+			req.body.tenDeTai = req.body.tenDeTai.trim();
+		}
+		
+		if (req.body.donViChuTri){
+			req.body.donViChuTri = req.body.donViChuTri.trim();
+		}
 
 		if (req.user.validPassword(req.body.adminPassword)){
-			let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai));
+			let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai, req.body.tenDeTai, req.body.donViChuTri));
 			if (result.status == 'error'){
 				return responseError(req, '', res, 400, ['error'], [result.error]);
 			}

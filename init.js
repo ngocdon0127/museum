@@ -2798,7 +2798,7 @@ var getMaDeTai = () => {
 
 global.myCustomVars.promises.getMaDeTai = getMaDeTai;
 
-var addMaDeTai = (maDeTai) => {
+var addMaDeTai = (maDeTai, tenDeTai, donViChuTri) => {
 	return new Promise((resolve, reject) => {
 		async(() => {
 			maDeTai = maDeTai.trim();
@@ -2824,7 +2824,11 @@ var addMaDeTai = (maDeTai) => {
 							error: 'Có lỗi xảy ra. Vui lòng thử lại'
 						})
 					}
-					sharedData.maDeTai.push(maDeTai);
+					sharedData.deTai.push({
+						maDeTai: maDeTai,
+						tenDeTai: tenDeTai,
+						donViChuTri: donViChuTri
+					});
 					sharedData.save((err) => {
 						if (err){
 							console.log(err);

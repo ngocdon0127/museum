@@ -181,7 +181,7 @@ router.get('/reset/:email/:key', function(req, res){
 			res.send("Có lỗi xảy ra");
 		else {
 			res.render("resetPassword", {
-				title : "Thay đổi mật khẩu",
+				title : "Đặt lại mật khẩu",
 				username : req.params.email,
 				key : req.params.key
 			});

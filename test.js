@@ -88,29 +88,47 @@ var await = require('asyncawait/await');
 var mongoose = require('mongoose');
 var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);
-require('./models/Animal.js')(mongoose);
-require('./models/SharedData.js')(mongoose);
+// require('./models/Animal.js')(mongoose);
+// require('./models/SharedData.js')(mongoose);
 
-var Animal = mongoose.model('Animal');
+// var Animal = mongoose.model('Animal');
 
-var maDeTais = ['DT-002'];
+// var maDeTais = ['DT-002'];
 
-var projection = {deleted_at: {$eq: null}, 'maDeTai.maDeTai': {$in: maDeTais}};
-Animal.find(projection, (err, animals) => {
-	if (err){
-		console.log(err);
-	}
-	else {
-		console.log(animals.length);
-		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
-			if (err || !sharedData){
-				console.log(err);
-			}
-			else {
-				console.log(sharedData.maDeTai)
-			}
-			mongoose.disconnect();
-		})
+// var projection = {deleted_at: {$eq: null}, 'maDeTai.maDeTai': {$in: maDeTais}};
+// Animal.find(projection, (err, animals) => {
+// 	if (err){
+// 		console.log(err);
+// 	}
+// 	else {
+// 		console.log(animals.length);
+// 		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+// 			if (err || !sharedData){
+// 				console.log(err);
+// 			}
+// 			else {
+// 				console.log(sharedData.maDeTai)
+// 			}
+// 			mongoose.disconnect();
+// 		})
 		
+// 	}
+// })
+
+
+mongoose.model('Test', mongoose.Schema({
+	data: {
+		type: String,
+		set: v => parseInt(v)
 	}
+}))
+
+let Test = mongoose.model('Test');
+
+let t = new Test();
+t.data = 'abc';
+console.log(t.data);
+t.save((err) => {
+	err && console.log(err);
+	mongoose.disconnect();
 })

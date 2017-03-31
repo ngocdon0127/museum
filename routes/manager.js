@@ -11,6 +11,11 @@ var SharedData = mongoose.model('SharedData');
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 var acl = global.myCustomVars.acl;
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
+var PROMISES = global.myCustomVars.promises;
+
 var restart = global.myCustomVars.restart;
 var checkUnNullParams = global.myCustomVars.checkUnNullParams;
 var responseError = global.myCustomVars.responseError;
@@ -18,9 +23,6 @@ var responseError = global.myCustomVars.responseError;
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
 
-// var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
-// var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
-// var PERM_USER = global.myCustomVars.PERM_USER;
 var LEVEL = {};
 LEVEL['admin'] = {
 	id: 'admin',
@@ -85,16 +87,7 @@ router.get('/users', function (req, res, next) {
 		var result = {
 			user: user
 		}
-		result.maDeTais = await(new Promise((resolve, reject) => {
-			SharedData.findOne({}, (err, sharedData) => {
-				if (!err && sharedData){
-					resolve(sharedData.maDeTai);
-				}
-				else {
-					resolve([])
-				}
-			})
-		}))
+		result.maDeTais = await(PROMISES.getMaDeTai());
 
 		for(let i = 0; i < users.length; i++){
 			var u = users[i];
@@ -204,16 +197,7 @@ router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, ne
 					}
 				})
 			}))
-			var maDeTais = await(new Promise((resolve, reject) => {
-				SharedData.findOne({}, (err, sharedData) => {
-					if (err || !sharedData){
-						resolve([])
-					}
-					else {
-						resolve(sharedData.maDeTai)
-					}
-				})
-			}))
+			var maDeTais = await(PROMISES.getMaDeTai())
 
 			if (userRoles.indexOf('admin') >= 0){
 				return responseError(req, '', res, 403, ['error'], ['Bạn không thể thay đổi thông tin của 1 Admin bằng thao tác này']);
@@ -472,16 +456,7 @@ router.get('/statistic', (req, res, next) => {
 			maDeTais = [req.user.maDeTai];
 		}
 		else {
-			maDeTais = await(new Promise((resolve, reject) => {
-				SharedData.findOne({}, (err, sharedData) => {
-					if (err || !sharedData){
-						resolve([])
-					}
-					else {
-						resolve(sharedData.maDeTai)
-					}
-				})
-			}))
+			maDeTais = await(PROMISES.getMaDeTai())
 		}
 		let Models = [
 			{

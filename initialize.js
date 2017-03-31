@@ -317,6 +317,25 @@ async(() => {
 				console.log(result)
 			}
 		}
+		console.log('Fix form: OK');
+		let users = await(new Promise((resolve, reject) => {
+			mongoose.model('User').find({'maDeTai': {$nin: maDeTais}}, (err, users) => {
+				if (err){
+					console.log(err);
+					resolve([])
+				}
+				resolve(users);
+			})
+		}))
+		for(let u of users){
+			u.maDeTai = '';
+			await(new Promise((resolve, reject) => {
+				u.save((err) => {
+					err && console.log(err);
+					resolve([])
+				})
+			}))
+		}
 		console.log('Done');
 
 	}

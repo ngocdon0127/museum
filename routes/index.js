@@ -138,9 +138,22 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 
 router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (req, res, next) {
 	var role = req.query.role;
-	console.log(role);
+	// console.log(role);
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 	async(() => {
+		let canView = false;
+		let userRoles = await(PROMISES.getUserRoles(req.session.userId));
+		if (userRoles.indexOf('admin') >= 0){
+			// console.log('admin can view role ' + role);
+			canView = true;
+		}
+		if ((userRoles.indexOf('manager') >= 0) && (roles[role].maDeTai == req.user.maDeTai)){
+			// console.log('manager can view role ' + role);
+			canView = true;
+		}
+		if (!canView){
+			return res.status(403).end('Nothing to see here.')
+		}
 		let sharedData = await(PROMISES.getSharedData());
 		let map = {}
 		for(let dt of sharedData.deTai){

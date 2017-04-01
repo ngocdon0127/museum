@@ -417,16 +417,19 @@
 						<p>Mã đề tài <strong><span id="spanNewMDT">xxx</span></strong> không tồn tại</p>
 						<input type="hidden" id="inputNewMDT" disabled="disabled">
 						<p>Bạn cần nhập mật khẩu của mình để thêm mã đề tài này vào cơ sở dữ liệu</p>
-						<div id="passwordField">
+						<div id="passwordField" style="margin-top: 5px">
 							<input type="password" placeholder="Mật khẩu" id="adminPassword" name="adminPassword" class="form-control" autocomplete="off" value="">
 						</div>
-						<div id="tenDeTaiField">
-							<input type="text" placeholder="Tên đề tài" name="tenDeTai" class="form-control" autocomplete="off" value="">
+						<p></p>
+						<p>Nhập thông tin cho đề tài mới</p>
+						<div id="tenDeTaiField" style="margin-top: 5px">
+							<input type="text" placeholder="Tên đề tài mới" name="tenDeTai" class="form-control" autocomplete="off" value="">
 						</div>
-						<div id="donViChuTriField">
+						<div id="donViChuTriField" style="margin-top: 5px">
 							<input type="text" placeholder="Đơn vị chủ trì" name="donViChuTri" class="form-control" autocomplete="off" value="">
 						</div>
-						<p>Lưu ý: Sau khi được thêm, mã đề tài này sẽ không thể bị xóa bỏ</p>
+						<p></p>
+						<p><strong>Lưu ý: Sau khi được thêm, mã đề tài này sẽ không thể bị xóa bỏ</strong></p>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -644,8 +647,10 @@
 			url: '/admin/addMDT',
 			method: 'POST',
 			data: {
-				newMaDeTai: $('#inputNewMDT').val(),
-				adminPassword: plainPass
+				newMaDeTai: $('#inputNewMDT').val().trim(),
+				adminPassword: plainPass,
+				tenDeTai: $('#tenDeTai').val().trim()
+				donViChuTri: $('#donViChuTri').val().trim()
 			},
 			success: function (data) {
 				console.log('success');

@@ -95,7 +95,7 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 	async(() => {
-		var result = await(PROMISES.getSharedData)
+		var result = await(PROMISES.getSharedData())
 
 		if (result){
 			var maDeTais = await(PROMISES.getMaDeTai());

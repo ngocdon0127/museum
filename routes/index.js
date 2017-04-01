@@ -11,6 +11,8 @@ var uploads = multer({dest: 'public/uploads/animal'});
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 var acl = global.myCustomVars.acl;
 
+var PROMISES = global.myCustomVars.promises;
+
 router.use(function (req, res, next) {
 	console.log(req.url);
 	next();
@@ -51,7 +53,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 			var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
 			var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 			var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
-			var myRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+			var myRoles = await(PROMISES.getUserRoles(req.session.userId));
 			var result = {};
 			result.users = {};
 			for (var i = 0; i < users.length; i++) {
@@ -62,7 +64,7 @@ router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next
 				}
 				else { // I'm an manager
 					
-					let userRoles = await(global.myCustomVars.promises.getUserRoles(u.id));
+					let userRoles = await(PROMISES.getUserRoles(u.id));
 					if (userRoles.indexOf('admin') >= 0){
 						// I can't see any admin in this view
 						canSeeThisUser = false;
@@ -138,9 +140,28 @@ router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (re
 	var role = req.query.role;
 	console.log(role);
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-	return res.render('roleTooltip', {
-		role: roles[role]
-	});
+	async(() => {
+		let sharedData = await(PROMISES.getSharedData());
+		let map = {}
+		for(let dt of sharedData.deTai){
+			map[dt.maDeTai] = dt.tenDeTai;
+		}
+		// return res.json(map)
+		for (let role in roles){
+			try {
+				roles[role].tenDeTai = map[roles[role].maDeTai]
+				// roles[role].tenDeTai = 'dmm'
+			}
+			catch (e){
+				console.log(e);
+			}
+		}
+		// return res.json(roles[role])
+		return res.render('roleTooltip', {
+			role: roles[role]
+		});
+	})()
+	
 })
 
 router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next){
@@ -150,8 +171,8 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 		console.log(req.body);
 		// console.log(JSON.parse(req.body));
 		console.log('---');
-		var userRoles = await(global.myCustomVars.promises.getUserRoles(req.body.userid));
-		var myRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+		var userRoles = await(PROMISES.getUserRoles(req.body.userid));
+		var myRoles = await(PROMISES.getUserRoles(req.session.userId));
 		User.findById(req.body.userid, function (err, user) {
 			async(() => {
 				if (err){
@@ -312,7 +333,7 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	role = role.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); 
 	role = role.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); 
 	role = role.replace(/đ/g, "d"); 
-	role = role.replace(/ /g, "-");
+	role = role.replace(/[^a-z0-9-._]/g, "-");
 	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')))
@@ -380,7 +401,7 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 		if (role in roles){
 			let mdtRole = roles[role].maDeTai;
 			let canDeleteRole = false;
-			let userRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+			let userRoles = await(PROMISES.getUserRoles(req.session.userId));
 			if (userRoles.indexOf('admin') >= 0){
 				canDeleteRole = true;
 			}

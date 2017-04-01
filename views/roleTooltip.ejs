@@ -1,4 +1,9 @@
-<p><%= role.rolename %></p>
+<p><b>Loại quyền: </b><%= role.rolename %></p>
+<br>
+<p><% if (role.maDeTai) { %> <b>Thuộc mã đề tài:</b> <% } %> <%= role.maDeTai %></p>
+<br>
+<p><% if (role.tenDeTai) { %> <b>Tên đề tài:</b> <% } %> <%= role.tenDeTai %></p>
+<br>
 <% var allows = role.allows; %>
 <% var dic = {
 	view: 'Xem',

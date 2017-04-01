@@ -414,19 +414,19 @@
 				<div class="modal-body">
 					<form autocomplete="off" onsubmit="false">
 						<h4><i class="icon fa fa-ban"></i> Cảnh báo!</h4>
-						<p>Mã đề tài <strong><span id="spanNewMDT">xxx</span></strong> không tồn tại</p>
+						<p>Mã đề tài <strong><span id="spanNewMDT">xxx</span></strong> không tồn tại. Cần phải thêm đề tài này vào cơ sở dữ liệu trước.</p>
 						<input type="hidden" id="inputNewMDT" disabled="disabled">
-						<p>Bạn cần nhập mật khẩu của mình để thêm mã đề tài này vào cơ sở dữ liệu</p>
+						<p>Bạn cần nhập mật khẩu của mình để thực hiện hành động này</p>
 						<div id="passwordField" style="margin-top: 5px">
 							<input type="password" placeholder="Mật khẩu" id="adminPassword" name="adminPassword" class="form-control" autocomplete="off" value="">
 						</div>
 						<p></p>
 						<p>Nhập thông tin cho đề tài mới</p>
 						<div id="tenDeTaiField" style="margin-top: 5px">
-							<input type="text" placeholder="Tên đề tài mới" name="tenDeTai" class="form-control" autocomplete="off" value="">
+							<input type="text" placeholder="Tên đề tài mới" name="tenDeTai" id="tenDeTai" class="form-control" autocomplete="off" value="">
 						</div>
 						<div id="donViChuTriField" style="margin-top: 5px">
-							<input type="text" placeholder="Đơn vị chủ trì" name="donViChuTri" class="form-control" autocomplete="off" value="">
+							<input type="text" placeholder="Đơn vị chủ trì" name="donViChuTri" id="donViChuTri" class="form-control" autocomplete="off" value="">
 						</div>
 						<p></p>
 						<p><strong>Lưu ý: Sau khi được thêm, mã đề tài này sẽ không thể bị xóa bỏ</strong></p>
@@ -588,7 +588,18 @@
 			error: function (err) {
 				// console.log('error');
 				// console.log(err);
-				alert(err.responseJSON.error)
+				// alert(err.responseJSON.error)
+				var resJSON = err.responseJSON;
+				console.log(resJSON);
+				if (resJSON.newMDT){
+					$('#spanNewMDT').text(resJSON.newMDT);
+					$('#inputNewMDT').val(resJSON.newMDT);
+					// $('#passwordField').html(``)
+					$('#modalAddMDT').modal('show');
+				}
+				else {
+					alert(err.responseJSON.error)
+				}
 			}
 		})
 	}

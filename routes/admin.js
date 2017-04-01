@@ -178,37 +178,43 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 						}
 						else {
 							if (maDeTais.indexOf(req.body.maDeTai) < 0){
-								result.maDeTai.push({
-									maDeTai: req.body.maDeTai
-								});
-								result.save((err) => {
-									if (err){
-										console.log(err);
-										return res.status(500).json({
-											status: 'error',
-											error: 'Error while saving new MaDeTai'
-										})
-									}
-									else {
-										var data = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
-										if (req.body.userId in data){
-											let r = data[req.body.userId];
-											if (r.roles.indexOf('manager') < 0){
-												r.roles.push('manager');
-												fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
-											}
+								// === Automatic add new deTai ===
 
-										}
-										else {
-											data[req.body.userId] = {
-												userId: req.body.userId,
-												roles: ["manager"]
-											}
-											fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
-										}
-										return restart(res);
-									}
-								})
+								// result.deTai.push({
+								// 	maDeTai: req.body.maDeTai
+								// });
+								// result.save((err) => {
+								// 	if (err){
+								// 		console.log(err);
+								// 		return res.status(500).json({
+								// 			status: 'error',
+								// 			error: 'Error while saving new MaDeTai'
+								// 		})
+								// 	}
+								// 	else {
+								// 		var data = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
+								// 		if (req.body.userId in data){
+								// 			let r = data[req.body.userId];
+								// 			if (r.roles.indexOf('manager') < 0){
+								// 				r.roles.push('manager');
+								// 				fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
+								// 			}
+
+								// 		}
+								// 		else {
+								// 			data[req.body.userId] = {
+								// 				userId: req.body.userId,
+								// 				roles: ["manager"]
+								// 			}
+								// 			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
+								// 		}
+								// 		return restart(res);
+								// 	}
+								// })
+								// ================================
+
+								// Do not add new deTai
+								return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 							}
 							else {
 								var data = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));

@@ -356,6 +356,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/dist/js/demo.js"></script>
 <!-- page script -->
+<script src='/javascripts/footer.js'></script>
 <script>
 	$(function () {
 		/* ChartJS
@@ -389,9 +390,9 @@
 		var labels = <%- JSON.stringify(labels) %>
 
 		for(var i = 0; i < data.length; i++){
-			console.log("pieChart" + i);
-			console.log(data[i]);
-			console.log(labels[i]);
+			// console.log("pieChart" + i);
+			// console.log(data[i]);
+			// console.log(labels[i]);
 			var ctx = document.getElementById("pieChart" + i);
 			var d = {
 				datasets: [{

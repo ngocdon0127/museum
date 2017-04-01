@@ -3,6 +3,11 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
+var PROMISES = global.myCustomVars.promises;
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   return res.redirect('me');
@@ -25,20 +30,39 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 		}
 		let user = JSON.parse(JSON.stringify(req.user));
 		delete user.password;
+		delete user.__v;
+		delete user._id;
+		delete user.forgot_password;
+		async(() => {
+			let userRoles = await(PROMISES.getUserRoles(req.session.userId));
+			if (userRoles.indexOf('admin') >= 0){
+				user.level = 'Admin'
+			}
+			else if (userRoles.indexOf('manager') >= 0){
+				user.level = 'Chủ nhiệm đề tài'
+			}
+			else {
+				user.level = ''
+			}
+			return res.json({
+				status: 'success',
+				user: user,
+				data: sides
+			})
+		})()
+		
+	}
+	else {
+		let user = JSON.parse(JSON.stringify(req.user));
+		delete user.password;
 		delete user.level;
 		delete user.__v;
 		delete user._id;
-		delete user.maDeTai;
+		delete user.forgot_password;
 		return res.json({
 			status: 'success',
-			data: sides,
-			user: user
-		})
-	}
-	else {
-		return res.json({
-			status: 'error',
-			error: 'Invalid user id'
+			user: user,
+			data: []
 		})
 	}
 })

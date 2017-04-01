@@ -336,6 +336,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/dist/js/demo.js"></script>
 <!-- page script -->
+<script src='/javascripts/footer.js'></script>
 <script>
 	$(function () {
 		/* ChartJS
@@ -424,8 +425,8 @@
 			for(let l in levels){
 				datasets.push(levels[l]);
 			}
-			console.log(levels);
-			console.log(datasets);
+			// console.log(levels);
+			// console.log(datasets);
 		%>
 
 		data = <%- JSON.stringify(data) %>

@@ -820,7 +820,25 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			}
 		}
 
-		delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don'y know why, check later
+		try {
+			// Quốc gia khác, không phải Việt Nam
+			let qg = objectInstances.duLieuThuMau.diaDiemThuMau.quocGia;
+			if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+				for(var i = 0; i < PROP_FIELDS.length; i++){
+					var field = PROP_FIELDS[i];
+					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
+						field.required = false;
+						field.money = false;
+						// console.log(field.name);
+					}
+				}
+			}
+		}
+		catch (e){
+			console.log(e);
+		}
+
+		delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don't know why, check later
 		for(var i = 0; i < PROP_FIELDS.length; i++){
 			var field = PROP_FIELDS[i];
 			// console.log(field.name);
@@ -1590,6 +1608,24 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					// console.log(field.name);
 				}
 			}
+		}
+
+		try {
+			// Quốc gia khác, không phải Việt Nam
+			let qg = objectInstances.duLieuThuMau.diaDiemThuMau.quocGia;
+			if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+				for(var i = 0; i < PROP_FIELDS.length; i++){
+					var field = PROP_FIELDS[i];
+					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
+						field.required = false;
+						field.money = false;
+						// console.log(field.name);
+					}
+				}
+			}
+		}
+		catch (e){
+			console.log(e);
 		}
 
 		delete objectInstance.flag.fDiaDiemThuMau;

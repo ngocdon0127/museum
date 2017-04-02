@@ -224,7 +224,6 @@
 								<tr>
 									<th>Email</th>
 									<th>Tên đầy đủ</th>
-									<th>Lần cuối đăng nhập</th>
 									<th>Quyền</th>
 									<th>Thao tác</th>
 								</tr>
@@ -255,10 +254,7 @@
 											<td><%= u.username %></td>
 											<td><%= u.fullname %></td>
 											
-											<% var date = new Date(u.lastLogin) %>
-											<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %>
-												
-											</td>
+											
 											
 											<td>
 												<form action="/config" id="<%= u.id %>" method="post" >
@@ -287,7 +283,6 @@
 															<% } %>
 														</ul>
 													</div>
-													
 												</form>
 											</td>
 											<td>
@@ -304,7 +299,7 @@
 								<tr>
 									<th>Email</th>
 									<th>Tên đầy đủ</th>
-									<th>Lần cuối đăng nhập</th>
+									
 									<th>Quyền</th>
 									<th>Thao tác</th>
 								</tr>

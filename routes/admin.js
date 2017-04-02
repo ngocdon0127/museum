@@ -436,8 +436,6 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 })
 
 router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) {
-	// Coi vai trò của user đang request là manager.
-	// Admin sẽ có route fire riêng
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 
@@ -472,7 +470,7 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 			})
 		}))
 		if (!user){
-			// do not care. Handle inside the above await
+			// do not care. Handle inside the above await-block
 		}
 		else {
 			var userRoles = await(new Promise((resolve, reject) => {

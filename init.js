@@ -372,9 +372,12 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		]
 
 		for(let field of specialFields.placeFields){
+			// console.log('checking ' + field.fieldName);
 			if (field.fieldName in req.body){
 				let value_ = req.body[field.fieldName]
+				// console.log(value_);
 				if ((value_.indexOf('undefined') >= 0) || (value_.indexOf('string') >= 0) || (value_.indexOf('?') >= 0)){
+					// console.log('delete now: ' + field.fieldName);
 					req.body[field.fieldName] = ''
 				}
 			}

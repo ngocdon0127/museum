@@ -14,7 +14,7 @@ var PROMISES = global.myCustomVars.promises;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  return res.redirect('me');
+  res.redirect('/users/me');
 });
 
 router.get('/me', isLoggedIn, function (req, res, next) {

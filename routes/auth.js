@@ -48,13 +48,14 @@ router.get("/login", function (req, res) {
 				});
 			}
 			else {
+				console.log(req.cookies.avatar);
 				res.render("lockscreen", {
 					message: req.flash("loginMessage"), 
 					title: "Login", 
 					oldUser: user,
 					path: '/auth/login',
 					oldEmail: req.flash("oldEmail"),
-					avatar: req.cookies.avatar ? req.cookies.avatar : '/admin/dist/img/user1-128x128.jpg',
+					avatar: (req.cookies.avatar) ? req.cookies.avatar : '/admin/dist/img/user1-128x128.jpg',
 					redirectBack: req.flash('redirectBack')
 				});
 			}

@@ -22,7 +22,15 @@ var async = require('asyncawait/async')
 var await = require('asyncawait/await')
 
 router.get('/home', isLoggedIn, function (req, res) {
-	res.render('home', {user: req.user, path: req.path});
+	User.findById(req.session.userId, (err, user) => {
+		if (!err && user){
+			if (('avatar' in user) && ('original' in user.avatar)){
+				res.cookie('avatar', '/' + user.avatar.original, {maxAge: 90000, httpOnly: true});
+			}
+			res.render('home', {user: req.user, path: req.path});
+		}
+	})
+	
 })
 
 router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {

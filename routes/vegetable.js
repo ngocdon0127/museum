@@ -1,8 +1,8 @@
 var multer               = require('multer');
 var fs                   = require('fs');
 var path                 = require('path');
-var UPLOAD_DEST_ANIMAL   = 'public/uploads/vegetable';
-var upload               = multer({dest: UPLOAD_DEST_ANIMAL});
+var UPLOAD_DESTINATION   = 'public/uploads/vegetable';
+var upload               = multer({dest: UPLOAD_DESTINATION});
 var mongoose             = require('mongoose');
 var ObjectModel          = mongoose.model('Vegetable');
 var AutoCompletion       = mongoose.model('VegetableAutoCompletion');
@@ -74,7 +74,7 @@ var bundle = {
 	objectModelIdParamName : objectModelIdParamName,
 	objectBaseURL          : objectBaseURL,
 	PROP_FIELDS            : PROP_FIELDS,
-	UPLOAD_DEST_ANIMAL     : UPLOAD_DEST_ANIMAL
+	UPLOAD_DESTINATION     : UPLOAD_DESTINATION
 }
 
 var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);
@@ -97,7 +97,7 @@ router.post(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'create'),
 	postHandler({
 		ObjectModel: ObjectModel,
 		saveOrUpdate: saveOrUpdate,
-		UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION
 	})
 )
 
@@ -109,7 +109,7 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 	}, [])),
 	putHandler({
 		objectModelIdParamName: objectModelIdParamName,
-		UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 		ObjectModel: ObjectModel,
 		saveOrUpdate: saveOrUpdate
 	})
@@ -119,7 +119,7 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 var getAllHandler = global.myCustomVars.getAllHandler;
 router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHandler({
 	ObjectModel: ObjectModel,
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelNames: objectModelNames,
 	PROP_FIELDS: PROP_FIELDS
 }))
@@ -127,13 +127,13 @@ router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHan
 var getAutoCompletionHandler = global.myCustomVars.getAutoCompletionHandler;
 router.get(objectBaseURL + '/auto', aclMiddleware(aclMiddlewareBaseURL, 'create'), getAutoCompletionHandler({
 	AutoCompletion: AutoCompletion,
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION
 }))
 
 var getSingleHandler = global.myCustomVars.getSingleHandler;
 router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), getSingleHandler({
 	ObjectModel: ObjectModel,
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelIdParamName: objectModelIdParamName,
 	objectBaseURL: objectBaseURL,
 	objectModelName: objectModelName,
@@ -155,7 +155,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 
 var getLogHandler = global.myCustomVars.getLogHandler;
 router.get(objectBaseURL + '/log/:logId/:position', getLogHandler({
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectBaseURL,
 	PROP_FIELDS
 }))
@@ -163,7 +163,7 @@ router.get(objectBaseURL + '/log/:logId/:position', getLogHandler({
 var deleteHandler = global.myCustomVars.deleteHandler;
 router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteHandler({
 	objectModelIdParamName: objectModelIdParamName,
-	UPLOAD_DEST_ANIMAL: UPLOAD_DEST_ANIMAL,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelName: objectModelName,
 	objectModelIdParamName: objectModelIdParamName,
 	ObjectModel: ObjectModel

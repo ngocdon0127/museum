@@ -54,6 +54,7 @@ router.get("/login", function (req, res) {
 					oldUser: user,
 					path: '/auth/login',
 					oldEmail: req.flash("oldEmail"),
+					avatar: req.cookies.avatar ? req.cookies.avatar : '/admin/dist/img/user1-128x128.jpg',
 					redirectBack: req.flash('redirectBack')
 				});
 			}

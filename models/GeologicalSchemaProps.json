@@ -405,7 +405,7 @@
 		"type": "String"
 	},
 	{
-		"name": "thoiGianPhanTich",
+		"name": "thoiGianGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Thời gian phân tích/giám định/định loại mẫu",
 		"required": false,
@@ -414,7 +414,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "nguoiPhanTich",
+		"name": "nguoiGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Người phân tích/giám định/định loại mẫu",
 		"required": false,
@@ -424,7 +424,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "coQuanToChucPhanTich",
+		"name": "coQuanToChucGiamDinh",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
 		"required": false,
@@ -500,7 +500,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "ketQuaPhanTichDongVi",
+		"name": "ketQuaPhanTichDinhTuoi",
 		"schemaProp": "duLieuPhanTichMau",
 		"label": "Kết quả phân tích đồng vị và định tuổi",
 		"required": false,
@@ -943,7 +943,7 @@
 		"autoCompletion": false
 	},
 	{
-		"name": "nguoiNhapPhieuMauVat",
+		"name": "nguoiLapPhieuMauVat",
 		"schemaProp": "luuTruBaoQuan",
 		"label": "Người lập phiếu mẫu vật",
 		"required": false,

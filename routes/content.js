@@ -27,7 +27,11 @@ require('./paleontological.js')(router);
 // handle data for paleontological form
 require('./vegetable.js')(router);
 
-// handle download request
+// handle download request.
+// 
+// =================== NEED TO BE CHECKED VERY CAREFULLY. =====================
+// =================== TO PREVENT DOWNLOADING SOURCE CODE. =====================
+// 
 router.get('/download/*', function (req, res, next) {
 	var path = require('path');
 	console.log(req.path);
@@ -40,7 +44,10 @@ router.get('/download/*', function (req, res, next) {
 		var fileLocation = p.substring('/download/'.length);
 		console.log(path.join(__dirname, '../public', fileLocation));
 		try{
-			res.download(path.join(__dirname, '../public', fileLocation), fileLocation.split(STR_SEPERATOR)[1]);
+			// fileLocation: /uploads/animal/58d79d38e2058328e82fd863_+_anhMauVat_+_Anh_1.png
+			// filename: Anh_1.png
+			let parts = fileLocation.split(STR_SEPERATOR);
+			res.download(path.join(__dirname, '../public', fileLocation), parts[parts.length - 1]);
 		}
 		catch (e){
 			console.log(e);
@@ -48,7 +55,7 @@ router.get('/download/*', function (req, res, next) {
 		}
 	}
 	else {
-		return res.end('Invalid file path');
+		return res.end('Invalid file path ' + p);
 	}
 	
 	// res.end('ok');

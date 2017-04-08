@@ -12,7 +12,7 @@ module.exports = function (mongoose) {
 		xa: [String],
 		thon: [String],
 		coQuanXuLy: [String],
-		coQuanToChucPhanTich: [String],
+		coQuanToChucGiamDinh: [String],
 		coQuanNhapVatMau: [String],
 		giaTriSuDung: [String],
 		// hinhThucNhapMau: [String],

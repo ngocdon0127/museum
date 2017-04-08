@@ -85,8 +85,8 @@ module.exports = function (mongoose) {
 			ngayPhanTichMauDat: Date,
 			hoSoPhanTichMauDat: [String],
 			ketQuaPhanTich: [String],
-			thoiGianGiamDinhMau: Date,
-			nguoiGiamDinhMau: String,
+			thoiGianGiamDinh: Date,
+			nguoiGiamDinh: String,
 			coQuanToChucGiamDinh: String,
 			taiLieuPhanTichMixed: {
 				taiLieuPhanTichStr: String,
@@ -102,7 +102,7 @@ module.exports = function (mongoose) {
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
 				dinhKemXuLyCheTac: [String],
-				thuocTinhXuLy: [String],
+				thuocTinhXuLyCheTac: String,
 				phuongThucXuLy: String,
 				thoiGianXuLy: Date,
 				nguoiXuLy: String,
@@ -141,7 +141,7 @@ module.exports = function (mongoose) {
 			},
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
-			nguoiNhapPhieuMauVat: String,
+			nguoiLapPhieuMauVat: String,
 			nguoiNhapVaoPhanMem: String,
 			thongTinKhac8: String
 		},

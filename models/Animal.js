@@ -35,8 +35,8 @@ module.exports = function (mongoose) {
 				ho: String,
 				phanHo: String,
 				toc: String,
-				giong: String,
-				phanGiong: String,
+				chiGiong: String,
+				phanChiPhanGiong: String,
 				loai: String,
 				duoiLoai: String
 			},
@@ -92,9 +92,9 @@ module.exports = function (mongoose) {
 			thongTinKhac4: String
 		},
 		duLieuPhanTichMau: {
-			thoiGianPhanTich: Date,
-			nguoiPhanTich: String,
-			coQuanToChucPhanTich: String,
+			thoiGianGiamDinh: Date,
+			nguoiGiamDinh: String,
+			coQuanToChucGiamDinh: String,
 			taiLieuPhanTichMixed: {
 				taiLieuPhanTichStr: String,
 				taiLieuPhanTichFile: [String]
@@ -115,8 +115,8 @@ module.exports = function (mongoose) {
 			videoFile: [String],
 			xuLyCheTac: {
 				hinhAnhDinhKem: [String],
-				dinhKemXuLy: [String],
-				thuocTinhXuLy: String,
+				dinhKemXuLyCheTac: [String],
+				thuocTinhXuLyCheTac: String,
 				phuongThucXuLy: String,
 				thoiGianXuLy: Date,
 				nguoiXuLy: String,
@@ -161,7 +161,7 @@ module.exports = function (mongoose) {
 			},
 			giayPhepNhapMau: [String],
 			hoSoNhapMauVatDiKem: [String],
-			nguoiNhapPhieuMauVat: String,
+			nguoiLapPhieuMauVat: String,
 			nguoiNhapVaoPhanMem: String,
 			thongTinKhac8: String
 		},

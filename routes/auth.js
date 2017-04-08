@@ -161,7 +161,7 @@ router.post('/forgot-password', function(req, res){
 });
 
 router.get('/reset/:email/:key', function(req, res){
-	User.findOne({'username' : req.params.email, 'resetKey' : req.params.key}, function(err, user){
+	User.findOne({'username' : req.params.email, 'forgot_password.key' : req.params.key}, function(err, user){
 		if(err || !user)
 			res.send("Có lỗi xảy ra");
 		else {
@@ -178,7 +178,7 @@ router.post('/reset', function(req, res){
 	let username = req.body.username;
 	let key = req.body.key;
 	let password = req.body.password;
-	User.findOne({'username' : username, 'resetKey' : key}, function(err, user){
+	User.findOne({'username' : username, 'forgot_password.key' : key}, function(err, user){
 		if(err || !user)
 			res.send(JSON.stringify({err : 1, message : "Có lỗi xảy ra"}));
 		else {

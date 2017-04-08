@@ -220,3 +220,10 @@ a.nav:hover{
 }
 
 /* --------------RESPONSIVE LAYOUT----------- */
+
+/* -------------Phan button phia duoi cung */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}

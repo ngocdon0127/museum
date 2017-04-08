@@ -697,11 +697,17 @@
 				</tr>
 			</table>
 		</div>
-		<center>
-			<button style="margin-top: 30px;" id="add-post" type="submit" class="btn btn-success btn-lg">Thêm mẫu</button>
-			<button style="margin-top: 30px;" ng-click="saveCookies()" type="button" class="btn btn-success btn-lg">Lưu bản nháp</button>
-			<button style="margin-top: 30px;" ng-click="getCookies()" type="button" class="btn btn-success btn-lg">Lấy lại bản nháp</button>
-		</center>
+
+		<div class="bottom-nav">
+			<button id="add-post" type="submit" class="btn btn-success">Thêm mẫu</button>
+			<button ng-click="saveCookies()" type="button" class="btn btn-success">Lưu bản nháp</button>
+			<button ng-click="getCookies()" type="button" class="btn btn-success">Lấy lại bản nháp</button>
+			<button id="back-to-top" type="button" class="btn btn-default">Top</button>
+		</div>
+		
 	</form>
 </div>
+
+
+
 <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>

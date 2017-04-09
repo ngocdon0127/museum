@@ -24,10 +24,16 @@
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
 				<li class="header">THANH ĐIỀU HƯỚNG CHÍNH</li>
+					<li class="<%= (sidebar.active == 'profile') ? 'active' : '' %>">
+						<a href="/users/me">
+							<i class="fa fa-user"></i> 
+							<span>Trang cá nhân</span>
+						</a>
+					</li>
 				<% if (['admin', 'manager'].indexOf(user.level) >= 0) { %>
 					<li class="treeview <%= ((sidebar.active == 'users') || sidebar.active == 'config') ? 'active' : '' %>">
 						<a href="#">
-							<i class="fa fa-table"></i> <span>Quản lý tài khoản</span>
+							<i class="fa fa-users"></i> <span>Quản lý tài khoản</span>
 									<span class="pull-right-container">
 										<i class="fa fa-angle-left pull-right"></i>
 									</span>
@@ -69,7 +75,7 @@
 				<% if (['admin', 'manager'].indexOf(user.level) >= 0) { %>
 					<li class="treeview <%= (sidebar.active == 'statistic' || sidebar.active == 'statistic-user') ? 'active' : '' %>">
 						<a href="#">
-							<i class="fa fa-edit"></i> <span>Thống kê</span>
+							<i class="fa fa-pie-chart"></i> <span>Thống kê</span>
 							<span class="pull-right-container">
 								<i class="fa fa-angle-left pull-right"></i>
 							</span>

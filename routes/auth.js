@@ -48,7 +48,7 @@ router.get("/login", function (req, res) {
 				});
 			}
 			else {
-				console.log(req.cookies.avatar);
+				// console.log(req.cookies.avatar);
 				res.render("lockscreen", {
 					message: req.flash("loginMessage"), 
 					title: "Login", 
@@ -84,7 +84,7 @@ router.get("/login", function (req, res) {
 // });
 
 router.post("/login", function (req, res, next) {
-	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/home';
+	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/users/me';
 	res.cookie('username', req.body.email, {maxAge: 90000, httpOnly: true});
 	passport.authenticate('local-login', {
 		successRedirect: redirectBack,

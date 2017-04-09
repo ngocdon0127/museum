@@ -78,7 +78,7 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 			return res.render('profile', {
 				user: user,
 				sidebar: {
-					active: ''
+					active: 'profile'
 				},
 				msg: msg
 			});

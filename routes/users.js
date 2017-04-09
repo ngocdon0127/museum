@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/me', isLoggedIn, function (req, res, next) {
 	if (!req.query.hasOwnProperty('datatype') || (req.query.datatype != 'json')){
-		// console.log('render');
+		// render
 		return async(() => {
 			let user = await(PROMISES.getUser(req.session.userId));
 			user = JSON.parse(JSON.stringify(user.userNormal));
@@ -86,57 +86,69 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 		})()
 		
 	}
-	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
-	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
-	if (aclRules.hasOwnProperty(req.user.id)){
-		var data = aclRules[req.user.id];
-		sides = [];
-		for(var i = 0; i < data.roles.length; i++){
-			var allows = roles[data.roles[i]].allows;
-			for(var j = 0; j < allows.length; j++){
-				if (allows[j].hasOwnProperty('actions') && allows[j].hasOwnProperty('resourceId') && (sides.indexOf(allows[j].resourceId) < 0)){
-					sides.push(allows[j].resourceId)
-				}
-			}
-		}
-		let user = JSON.parse(JSON.stringify(req.user));
+
+	// Trả về JSON
+	async(() => {
+		let user = await(PROMISES.getUser(req.session.userId)).userNormal;
 		delete user.password;
 		delete user.__v;
 		delete user._id;
 		delete user.forgot_password;
-		async(() => {
-			let userRoles = await(PROMISES.getUserRoles(req.session.userId));
-			if (userRoles.indexOf('admin') >= 0){
-				user.level = 'Admin'
-			}
-			else if (userRoles.indexOf('manager') >= 0){
-				user.level = 'Chủ nhiệm đề tài'
-			}
-			else {
-				user.level = ''
+		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
+		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+		let sides = {};
+		let template = {
+			view: false,
+			create: false,
+			edit: false,
+			delete: false,
+			approve: false
+		}
+		for(let resourceId in cores.resources){
+			sides[resourceId] = JSON.parse(JSON.stringify(template));
+		}
+		if (aclRules.hasOwnProperty(req.user.id)){
+
+			// Nếu đã cấp quyền
+			
+			var data = aclRules[req.user.id];
+			for(var i = 0; i < data.roles.length; i++){
+				var allows = roles[data.roles[i]].allows;
+				for(var j = 0; j < allows.length; j++){
+					if (allows[j].hasOwnProperty('actions') && allows[j].hasOwnProperty('resourceId')){
+						let resourceId = allows[j].resourceId;
+						if (resourceId && (resourceId in cores.resources)){
+							if (resourceId in sides){
+								for(let a of allows[j].actions){
+									sides[resourceId][a] = true;
+								}
+							}
+							
+							if (['admin', 'manager'].indexOf(user.level) >= 0){
+								sides[resourceId].approve = true;
+							}
+						}
+					}
+				}
 			}
 			return res.json({
 				status: 'success',
 				user: user,
-				data: sides
+				restrict: sides
 			})
-		})()
-		
-	}
-	else {
-		let user = JSON.parse(JSON.stringify(req.user));
-		delete user.password;
-		delete user.level;
-		delete user.__v;
-		delete user._id;
-		delete user.forgot_password;
-		return res.json({
-			status: 'success',
-			user: user,
-			data: []
-		})
-	}
+		}
+		else {
+			
+			// Nếu chưa được cấp quyền gì
+
+			return res.json({
+				status: 'success',
+				user: user,
+				restrict: sides
+			})
+		}
+	})()
 })
 
 router.post('/me', isLoggedIn, upload.single('inputAvatar'), (req, res, next) => {

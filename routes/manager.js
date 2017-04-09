@@ -46,66 +46,20 @@ router.get('/users', function (req, res, next) {
 	async(() => {
 		var user = JSON.parse(JSON.stringify(req.user));
 		delete user.password;
-
-		var users = await(new Promise((resolve, reject) => {
-			User.find({}, function (err, users) {
-				if (err){
-					console.log(err);
-					res.status(500).json({status: 'error', error: 'Error while reading database'})
-					resolve([])
-				}
-				users_ = JSON.parse(JSON.stringify(users))
-				for(let i = 0; i < users_.length; i++){
-					let u = users_[i];
-					delete u.password;
-				}
-				// console.log(users_)
-				resolve(users_);
-			})
-		}))
 		var result = {
 			user: user
 		}
 		result.maDeTais = await(PROMISES.getMaDeTai());
-		users = JSON.parse(JSON.stringify(users));
-		for(let i = 0; i < users.length; i++){
-			var u = users[i];
-			u.id = u._id;
-			var userRoles = await(new Promise((resolve, reject) => {
-				acl.userRoles(u._id, (err, roles) => {
-					console.log('promised userRoles called');
-					if (err){
-						resolve([])
-					}
-					else {
-						resolve(roles)
-					}
-				})
-			}))
-			// console.log('userRoles done');
-			// console.log(userRoles);
-			if (userRoles.indexOf('admin') >= 0){
-				u.level = 'admin'
-			}
-			else if (userRoles.indexOf('manager') >= 0){
-				u.level = 'manager'
-			}
-			else {
-				u.level = 'user'
-				if (!u.maDeTai){
-					u.level = 'pending-user'
-				}
-			}
+		var users = await(PROMISES.getUsers()).usersNormal;
+		result.users = users.filter((u, index) => {
+			delete u.password;
+			delete u.forgot_password;
 			if (u.id == req.session.userId){
 				user.level = u.level;
 			}
-		}
-		result.users = users.filter((u, index) => {
-			return (u._id == req.session.userId) || // Chính mình
-			(	
-				(['admin'].indexOf(u.level) < 0) && // Không thuộc cấp Admin
-				((u.maDeTai == req.user.maDeTai) || (!u.maDeTai)) // Và chưa được gán và Đề tài nào, hoặc cùng đề tài với Manager
-			)
+			return (u.id == req.session.userId) || // Chính mình
+				u.level == 'pending-user' || // Nhân viên chưa thuộc đề tài nào
+				((['manager', 'user'].indexOf(u.level) >= 0) && (u.maDeTai == req.user.maDeTai)) // Manager, nhân viên đề tài mình quản lý
 		})
 
 		result.sidebar = {

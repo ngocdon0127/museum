@@ -49,13 +49,17 @@ router.get("/login", function (req, res) {
 			}
 			else {
 				// console.log(req.cookies.avatar);
+				let avatar = '/admin/dist/img/user1-128x128.jpg';
+				if (('avatar' in user) && ('original' in user.avatar) && (user.avatar.original)){
+					avatar = '/' + user.avatar.original;
+				}
 				res.render("lockscreen", {
 					message: req.flash("loginMessage"), 
 					title: "Login", 
 					oldUser: user,
 					path: '/auth/login',
 					oldEmail: req.flash("oldEmail"),
-					avatar: (req.cookies.avatar) ? req.cookies.avatar : '/admin/dist/img/user1-128x128.jpg',
+					avatar: avatar,
 					redirectBack: req.flash('redirectBack')
 				});
 			}
@@ -85,7 +89,6 @@ router.get("/login", function (req, res) {
 
 router.post("/login", function (req, res, next) {
 	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/users/me';
-	res.cookie('username', req.body.email, {maxAge: 90000, httpOnly: true});
 	passport.authenticate('local-login', {
 		successRedirect: redirectBack,
 		failureRedirect: "login",

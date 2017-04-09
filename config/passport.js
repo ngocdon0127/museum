@@ -2,11 +2,17 @@ var LocalStrategy = require('passport-local').Strategy;
 // var PERM_ACCESS_PAGE = 1000;
 
 module.exports = function (passport, User) {
+	// console.log('========================');
+	// console.log('passport: ' + 'serializeUser called');
+	// console.log('========================');
 	passport.serializeUser(function (user, done) {
 		done(null, user.id);
 	});
 
 	passport.deserializeUser(function (id, done) {
+		// console.log('========================');
+		// console.log('passport: ' + 'deserializeUser called');
+		// console.log('========================');
 		User.findById(id, function (err, user) {
 			// var u = JSON.parse(JSON.stringify(user));
 			// delete u.password;

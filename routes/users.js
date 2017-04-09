@@ -97,29 +97,55 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
 		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+		let sides = {};
+		let template = {
+			view: false,
+			create: false,
+			edit: false,
+			delete: false,
+			approve: false
+		}
+		for(let resourceId in cores.resources){
+			sides[resourceId] = JSON.parse(JSON.stringify(template));
+		}
 		if (aclRules.hasOwnProperty(req.user.id)){
+
+			// Nếu đã cấp quyền
+			
 			var data = aclRules[req.user.id];
-			sides = [];
 			for(var i = 0; i < data.roles.length; i++){
 				var allows = roles[data.roles[i]].allows;
 				for(var j = 0; j < allows.length; j++){
-					if (allows[j].hasOwnProperty('actions') && allows[j].hasOwnProperty('resourceId') && (sides.indexOf(allows[j].resourceId) < 0)){
-						sides.push(allows[j].resourceId)
+					if (allows[j].hasOwnProperty('actions') && allows[j].hasOwnProperty('resourceId')){
+						let resourceId = allows[j].resourceId;
+						if (resourceId && (resourceId in cores.resources)){
+							if (resourceId in sides){
+								for(let a of allows[j].actions){
+									sides[resourceId][a] = true;
+								}
+							}
+							
+							if (['admin', 'manager'].indexOf(user.level) >= 0){
+								sides[resourceId].approve = true;
+							}
+						}
 					}
 				}
 			}
 			return res.json({
 				status: 'success',
 				user: user,
-				data: sides
+				restrict: sides
 			})
 		}
 		else {
 			
+			// Nếu chưa được cấp quyền gì
+
 			return res.json({
 				status: 'success',
 				user: user,
-				data: []
+				restrict: sides
 			})
 		}
 	})()

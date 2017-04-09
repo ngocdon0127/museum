@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Manager</title>
+	<title>Nhật ký</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -34,9 +34,9 @@
 		<!-- Logo -->
 		<a href="/admin" class="logo">
 			<!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini"><b>M</b></span>
+			<span class="logo-mini"><b><%= (['admin', 'manager'].indexOf(user.level) >= 0 ) ? 'M' : 'U' %></b></span>
 			<!-- logo for regular state and mobile devices -->
-			<span class="logo-lg"><b>Manager</b></span>
+			<span class="logo-lg"><b><%= (['admin', 'manager'].indexOf(user.level) >= 0 ) ? 'Manager' : 'User' %></b></span>
 		</a>
 		<!-- Header Navbar: style can be found in header.less -->
 		<nav class="navbar navbar-static-top">
@@ -66,8 +66,7 @@
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="/home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-				<li><a href="/manager">Quản trị</a></li>
-				<li class="active">Quản lý tài khoản</li>
+				<li class="active">Nhật ký</li>
 			</ol>
 		</section>
 
@@ -150,11 +149,7 @@
 	</div>
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
-		<div class="pull-right hidden-xs">
-			<b>Version</b> 2.3.8
-		</div>
-		<strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-		reserved.
+		
 	</footer>
 
 	<!-- Control Sidebar -->

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | User Profile</title>
+  <title>Trang cá nhân</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -31,10 +31,18 @@
   <header class="main-header">
     <!-- Logo -->
     <a href="/admin/index2.html" class="logo">
+      <%
+        let objh = {
+          'admin': {full: 'Admin', short: 'A'},
+          'manager': {full: 'Manager', short: 'M'},
+          'user': {full: 'User', short: 'U'},
+          'pending-user': {full: 'User', short: 'U'},
+        }
+      %>
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b><%= objh[user.level].short %></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b><%= objh[user.level].full %></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -79,8 +87,15 @@
               <img class="profile-user-img img-responsive img-circle" style="width: 150px; height: 150px;" src="<%= (('avatar' in user) && ('original' in user.avatar) && (user.avatar.original)) ? ('/' + user.avatar.original) : '/admin/dist/img/user4-128x128.jpg' %>" alt="User profile picture">
 
               <h3 class="profile-username text-center"><%= user.fullname %></h3>
-
-              <p class="text-muted text-center"><%= user.level %></p>
+              <%
+                let obj = {
+                  'admin': 'Admin',
+                  'manager': 'Quản lý',
+                  'user': 'Nhân viên',
+                  'pending-user': 'Nhân viên'
+                }
+              %>
+              <p class="text-muted text-center"><%= obj[user.level] %></p>
               <br>
               <strong><i class="fa fa-book margin-r-5"></i> Đề tài</strong>
 
@@ -180,11 +195,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.8
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    
   </footer>
 
   <!-- Control Sidebar -->

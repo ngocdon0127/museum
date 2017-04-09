@@ -25,13 +25,6 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 			user = JSON.parse(JSON.stringify(user.userNormal));
 			delete user.password;
 			delete user.forgot_password;
-			let obj = {
-				'admin': 'Admin',
-				'manager': 'Quản lý',
-				'user': 'Nhân viên',
-				'pending-user': 'Nhân viên'
-			}
-			user.level = obj[user.level]
 			user.statistic = {}
 			let models = [
 				{

@@ -6,6 +6,11 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Log = mongoose.model('Log');
 
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
+var PROMISES = global.myCustomVars.promises;
+
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 
 
@@ -49,7 +54,66 @@ router.get('/', function(req, res, next) {
 		// 	logs: logs,
 		// 	path: '/log' + req.path,
 		// })
-		return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path});
+		// return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path});
+		var actions = {
+			'create': {
+				label: 'Tạo mới'
+			},
+			'update': {
+				label: 'Cập nhật'
+			},
+			'delete': {
+				label: 'Xóa'
+			},
+			'approve': {
+				label: 'Phê duyệt'
+			},
+			'disapprove': {
+				label: 'Hủy phê duyệt'
+			},
+		}
+		var forms = {
+			'animal': {
+				basePath: '/content/dong-vat',
+				objectModelLabel: 'mẫu động vật',
+				objectModelName: 'animal',
+			},
+			'soil': {
+				basePath: '/content/tho-nhuong',
+				objectModelLabel: 'mẫu thổ nhưỡng',
+				objectModelName: 'soil',
+			},
+			'geological': {
+				basePath: '/content/dia-chat',
+				objectModelLabel: 'mẫu địa chất',
+				objectModelName: 'geological',
+			},
+			'paleontological': {
+				basePath: '/content/co-sinh',
+				objectModelLabel: 'mẫu cổ sinh',
+				objectModelName: 'paleontological'
+			},
+			'vegetable': {
+				basePath: '/content/thuc-vat',
+				objectModelLabel: 'mẫu thực vật',
+				objectModelName: 'vegetable',
+			}
+		}
+		async(() => {
+			let user = await(PROMISES.getUser(req.session.userId)).userNormal;
+			var result = {
+				user: user,
+				logs: logs,
+				path: '/log' + req.path,
+				actions: actions,
+				forms: forms,
+				sidebar: {
+					active: 'all-log'
+				}
+			}
+			// return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path, actions: actions, forms: forms});
+			return res.render('manager/logs', result);
+		})()
 	})
 })
 
@@ -135,18 +199,21 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 				objectModelName: 'vegetable',
 			}
 		}
-		var result = {
-			user: req.user,
-			logs: logs,
-			path: '/log' + req.path,
-			actions: actions,
-			forms: forms,
-			sidebar: {
-				active: 'all-log'
+		async(() => {
+			let user = await(PROMISES.getUser(req.session.userId)).userNormal;
+			var result = {
+				user: user,
+				logs: logs,
+				path: '/log' + req.path,
+				actions: actions,
+				forms: forms,
+				sidebar: {
+					active: 'all-log'
+				}
 			}
-		}
-		// return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path, actions: actions, forms: forms});
-		return res.render('manager/logs', result);
+			// return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path, actions: actions, forms: forms});
+			return res.render('manager/logs', result);
+		})()
 	})
 })
 

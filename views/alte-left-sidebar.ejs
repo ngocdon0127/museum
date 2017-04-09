@@ -24,34 +24,36 @@
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
 				<li class="header">THANH ĐIỀU HƯỚNG CHÍNH</li>
-				<li class="treeview <%= ((sidebar.active == 'users') || sidebar.active == 'config') ? 'active' : '' %>">
-					<a href="#">
-						<i class="fa fa-table"></i> <span>Quản lý tài khoản</span>
-								<span class="pull-right-container">
-									<i class="fa fa-angle-left pull-right"></i>
-								</span>
-					</a>
-					<ul class="treeview-menu <%= (sidebar.active == 'config') ? 'active' : '' %>">
-						<li class=" <%= (sidebar.active == 'users') ? 'active' : '' %>"><a href="/admin/users"><i class="fa fa-circle-o"></i>Cấp bậc tài khoản</a></li>
-						<li class=" <%= (sidebar.active == 'config') ? 'active' : '' %>"><a href="/config"><i class="fa fa-circle-o"></i>Phân quyền</a></li>
-					</ul>
-					<!--
-					<ul class="treeview-menu <%= (sidebar.active == 'config') ? 'active' : '' %>">
-						<li class=" <%= (sidebar.active == 'users') ? 'active' : '' %>"><a href="/admin/users"><i class="fa fa-circle-o"></i>Cấp bậc tài khoản</a></li>
-						</a></li>
-						<li class=" <%= (sidebar.active == 'config') ? 'active' : '' %>">
-							<a href="/config"><i class="fa fa-circle-o"></i> Phân quyền
-								<span class="pull-right-container">
-									<i class="fa fa-angle-left pull-right"></i>
-								</span>
-							</a>
-							<ul class="treeview-menu <%= (sidebar.active == 'config') ? 'active' : '' %>">
-								<li onclick="document.getElementById('btnCollapseUsers').click()"><a href="#"><i class="fa fa-circle-o"></i> Phân quyền user</a></li>
-								<li onclick="document.getElementById('btnCollapseUsers').click()"><a href="#"><i class="fa fa-circle-o"></i> Quản lý quyền</a></li>
-							</ul>
-						</li>
-					</ul> -->
-				</li>
+				<% if (['admin', 'manager'].indexOf(user.level) >= 0) { %>
+					<li class="treeview <%= ((sidebar.active == 'users') || sidebar.active == 'config') ? 'active' : '' %>">
+						<a href="#">
+							<i class="fa fa-table"></i> <span>Quản lý tài khoản</span>
+									<span class="pull-right-container">
+										<i class="fa fa-angle-left pull-right"></i>
+									</span>
+						</a>
+						<ul class="treeview-menu <%= (sidebar.active == 'config') ? 'active' : '' %>">
+							<li class=" <%= (sidebar.active == 'users') ? 'active' : '' %>"><a href="/admin/users"><i class="fa fa-circle-o"></i>Cấp bậc tài khoản</a></li>
+							<li class=" <%= (sidebar.active == 'config') ? 'active' : '' %>"><a href="/config"><i class="fa fa-circle-o"></i>Phân quyền</a></li>
+						</ul>
+						<!--
+						<ul class="treeview-menu <%= (sidebar.active == 'config') ? 'active' : '' %>">
+							<li class=" <%= (sidebar.active == 'users') ? 'active' : '' %>"><a href="/admin/users"><i class="fa fa-circle-o"></i>Cấp bậc tài khoản</a></li>
+							</a></li>
+							<li class=" <%= (sidebar.active == 'config') ? 'active' : '' %>">
+								<a href="/config"><i class="fa fa-circle-o"></i> Phân quyền
+									<span class="pull-right-container">
+										<i class="fa fa-angle-left pull-right"></i>
+									</span>
+								</a>
+								<ul class="treeview-menu <%= (sidebar.active == 'config') ? 'active' : '' %>">
+									<li onclick="document.getElementById('btnCollapseUsers').click()"><a href="#"><i class="fa fa-circle-o"></i> Phân quyền user</a></li>
+									<li onclick="document.getElementById('btnCollapseUsers').click()"><a href="#"><i class="fa fa-circle-o"></i> Quản lý quyền</a></li>
+								</ul>
+							</li>
+						</ul> -->
+					</li>
+				<% } %>
 
 				<li class="treeview <%= (sidebar.active == 'all-log') ? 'active' : '' %>">
 					<a href="#">
@@ -64,18 +66,20 @@
 						<li class=" <%= (sidebar.active == 'all-log') ? 'active' : '' %>"><a href="/log/all"><i class="fa fa-circle-o"></i>Tất cả nhật ký</a></li>
 					</ul>
 				</li>
-				<li class="treeview <%= (sidebar.active == 'statistic' || sidebar.active == 'statistic-user') ? 'active' : '' %>">
-					<a href="#">
-						<i class="fa fa-edit"></i> <span>Thống kê</span>
-						<span class="pull-right-container">
-							<i class="fa fa-angle-left pull-right"></i>
-						</span>
-					</a>
-					<ul class="treeview-menu">
-						<li class=" <%= (sidebar.active == 'statistic') ? 'active' : '' %>"><a href="/manager/statistic"><i class="fa fa-circle-o"></i>Thống kê mẫu vật theo đề tài</a></li>
-						<li class=" <%= (sidebar.active == 'statistic-user') ? 'active' : '' %>"><a href="/admin/statistic"><i class="fa fa-circle-o"></i>Thống kê users</a></li>
-					</ul>
-				</li>
+				<% if (['admin', 'manager'].indexOf(user.level) >= 0) { %>
+					<li class="treeview <%= (sidebar.active == 'statistic' || sidebar.active == 'statistic-user') ? 'active' : '' %>">
+						<a href="#">
+							<i class="fa fa-edit"></i> <span>Thống kê</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-left pull-right"></i>
+							</span>
+						</a>
+						<ul class="treeview-menu">
+							<li class=" <%= (sidebar.active == 'statistic') ? 'active' : '' %>"><a href="/manager/statistic"><i class="fa fa-circle-o"></i>Thống kê mẫu vật theo đề tài</a></li>
+							<li class=" <%= (sidebar.active == 'statistic-user') ? 'active' : '' %>"><a href="/admin/statistic"><i class="fa fa-circle-o"></i>Thống kê users</a></li>
+						</ul>
+					</li>
+				<% } %>
 			</ul>
 		</section>
 		<!-- /.sidebar -->

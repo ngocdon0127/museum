@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Admin</title>
+	<title>Quản lý tài khoản</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -108,8 +108,29 @@
 								</tr>
 								</thead>
 								<tbody>
+								<%
+									var LEVEL = {};
+									LEVEL['admin'] = {
+										name: 'Admin',
+										class: 'label label-danger'
+									}
+									LEVEL['manager'] = {
+										name: 'Manager',
+										class: 'label label-success'
+									}
+									LEVEL['user'] = {
+										name: 'Normal User',
+										class: 'label label-primary'
+									}
+									LEVEL['pending-user'] = {
+										name: 'Pending User',
+										class: 'label label-warning'
+									}
+								%>
 								<% for(var i = 0; i < users.length; i++) { 
-									var u = users[i]; %>
+									var u = users[i]; 
+									u.level = LEVEL[u.level]
+									%>
 									<tr>
 										<td><%= u.username %></td>
 										<td><%= u.fullname %></td>

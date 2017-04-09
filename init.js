@@ -2982,6 +2982,7 @@ var getUsers = () => {
 					let users_ = JSON.parse(JSON.stringify(users));
 					for(let i = 0; i < users_.length; i++){
 						var u = users_[i];
+						u.id = u._id;
 						var userRoles = await(new Promise((resolve_, reject_) => {
 							acl.userRoles(u._id, (err, roles) => {
 								// console.log('promised userRoles called');

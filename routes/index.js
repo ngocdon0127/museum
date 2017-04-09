@@ -55,96 +55,99 @@ router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, r
 })
 
 router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next) {
-	User.find({}, function (err, users) {
-		async(() => {
-			if (err){
-				return console.log(err);
+	async(() => {
+		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
+		var myRoles = await(PROMISES.getUserRoles(req.session.userId));
+		var result = {};
+		let users = await(PROMISES.getUsers()).usersNormal;
+		let me = JSON.parse(JSON.stringify(req.user));
+		delete me.level;
+		delete me.password;
+		result.users = {};
+		for (var i = 0; i < users.length; i++) {
+			let u = users[i];
+			if (u.id == req.session.userId){
+				me.level = u.level;
 			}
-
-			var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
-			var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-			var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
-			var myRoles = await(PROMISES.getUserRoles(req.session.userId));
-			var result = {};
-			result.users = {};
-			for (var i = 0; i < users.length; i++) {
-				let u = users[i];
-				let canSeeThisUser = false;
-				if (myRoles.indexOf('admin') >= 0){
-					canSeeThisUser = true;
-				}
-				else { // I'm an manager
-					
-					let userRoles = await(PROMISES.getUserRoles(u.id));
-					if (userRoles.indexOf('admin') >= 0){
-						// I can't see any admin in this view
-						canSeeThisUser = false;
-					}
-					else {
-						// But i can see all the managers and the users which have the same MaDeTai with me
-						if (users[i].maDeTai && (users[i].maDeTai == req.user.maDeTai)){
-							canSeeThisUser = true;
-						}
-					}
-				}
-
-				if (!canSeeThisUser){
-					continue;
-				}
-				var user = {};
-				user.id = u.id;
-				user.fullname = u.fullname;
-				user.username = u.username;
-				user.lastLogin = u.lastLogin;
-				// user.email = users[i].email;
-				result.users[user.id] = user;
-			}
-			
-			var showAllRoles = false;
+			let canSeeThisUser = false;
 			if (myRoles.indexOf('admin') >= 0){
-				showAllRoles = true;
+				canSeeThisUser = true;
 			}
-			result.roles = [];
-			for (var i in roles) {
-				var r = {};
-				r.role = roles[i].role;
-				r.rolename = roles[i].rolename;
-				let canSee = (req.user.maDeTai == roles[i].maDeTai) || showAllRoles;
-				if (canSee){
-					result.roles.push(r);
+			else { // I'm an manager
+				
+				let userRoles = await(PROMISES.getUserRoles(u.id));
+				if (userRoles.indexOf('admin') >= 0){
+					// I can't see any admin in this view
+					canSeeThisUser = false;
 				}
 				else {
-					// result.roles.push(r); // will be commented out
+					// But i can see all the managers and the users which have the same MaDeTai with me
+					if (users[i].maDeTai && (users[i].maDeTai == req.user.maDeTai)){
+						canSeeThisUser = true;
+					}
 				}
 			}
-			result.aclRules = {};
-			for (var i in aclRules) {
-				result.aclRules[aclRules[i].userId] = [];
-				for (var j = 0; j < aclRules[i].roles.length; j++) {
-					result.aclRules[aclRules[i].userId].push(aclRules[i].roles[j]);
-				}
+
+			if (!canSeeThisUser){
+				continue;
 			}
-			// return res.json({
-			// 	users: result.users,
-			// 	roles: result.roles,
-			// 	aclRules: result.aclRules,
-			// 	user: req.user,
-			// 	path: req.path
-			// })
-			res.render('manager/userpermissions', {
-			// res.render('config', {
-				users: result.users,
-				roles: result.roles,
-				cores: cores,
-				aclRules: result.aclRules,
-				user: req.user,
-				path: req.path,
-				sidebar: {
-					active: 'config'
-				}
-			});
-		})()
-	})
+			var user = {};
+			user.id = u.id;
+			user.fullname = u.fullname;
+			user.username = u.username;
+			user.lastLogin = u.lastLogin;
+			// user.email = users[i].email;
+			result.users[user.id] = user;
+		}
+		console.log('me');
+		console.log(me);
+		
+		var showAllRoles = false;
+		if (myRoles.indexOf('admin') >= 0){
+			showAllRoles = true;
+		}
+		result.roles = [];
+		for (var i in roles) {
+			var r = {};
+			r.role = roles[i].role;
+			r.rolename = roles[i].rolename;
+			let canSee = (req.user.maDeTai == roles[i].maDeTai) || showAllRoles;
+			if (canSee){
+				result.roles.push(r);
+			}
+			else {
+				// result.roles.push(r); // will be commented out
+			}
+		}
+		result.aclRules = {};
+		for (var i in aclRules) {
+			result.aclRules[aclRules[i].userId] = [];
+			for (var j = 0; j < aclRules[i].roles.length; j++) {
+				result.aclRules[aclRules[i].userId].push(aclRules[i].roles[j]);
+			}
+		}
+		// return res.json({
+		// 	users: result.users,
+		// 	roles: result.roles,
+		// 	aclRules: result.aclRules,
+		// 	user: req.user,
+		// 	path: req.path
+		// })
+		res.render('manager/userpermissions', {
+		// res.render('config', {
+			users: result.users,
+			roles: result.roles,
+			cores: cores,
+			aclRules: result.aclRules,
+			user: me,
+			path: req.path,
+			sidebar: {
+				active: 'config'
+			}
+		});
+	})()
 })
 
 router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (req, res, next) {

@@ -23,27 +23,7 @@ var responseError = global.myCustomVars.responseError;
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
 
-var LEVEL = {};
-LEVEL['admin'] = {
-	id: 'admin',
-	name: 'Admin',
-	class: 'label label-danger'
-}
-LEVEL['manager'] = {
-	id: 'manager',
-	name: 'Manager',
-	class: 'label label-success'
-}
-LEVEL['user'] = {
-	id: 'user',
-	name: 'Normal User',
-	class: 'label label-primary'
-}
-LEVEL['pending-user'] = {
-	id: 'pending-user',
-	name: 'Pending User',
-	class: 'label label-warning'
-}
+
 
 // console.log(LEVEL)
 
@@ -65,7 +45,6 @@ router.get('/users', function (req, res, next) {
 	var await = require('asyncawait/await')
 	async(() => {
 		var user = JSON.parse(JSON.stringify(req.user));
-		delete user.level;
 		delete user.password;
 
 		var users = await(new Promise((resolve, reject) => {
@@ -88,9 +67,10 @@ router.get('/users', function (req, res, next) {
 			user: user
 		}
 		result.maDeTais = await(PROMISES.getMaDeTai());
-
+		users = JSON.parse(JSON.stringify(users));
 		for(let i = 0; i < users.length; i++){
 			var u = users[i];
+			u.id = u._id;
 			var userRoles = await(new Promise((resolve, reject) => {
 				acl.userRoles(u._id, (err, roles) => {
 					console.log('promised userRoles called');
@@ -105,26 +85,25 @@ router.get('/users', function (req, res, next) {
 			// console.log('userRoles done');
 			// console.log(userRoles);
 			if (userRoles.indexOf('admin') >= 0){
-				console.log('admin ' + u._id);
-				u.level = LEVEL['admin'];
+				u.level = 'admin'
 			}
 			else if (userRoles.indexOf('manager') >= 0){
-				console.log('manage ' + u._id);
-				u.level = LEVEL['manager'];
+				u.level = 'manager'
 			}
 			else {
-				console.log('user ' + u._id);
-				u.level = LEVEL['user']
+				u.level = 'user'
 				if (!u.maDeTai){
-					console.log('pending user ' + u._id);
-					u.level = LEVEL['pending-user'];
+					u.level = 'pending-user'
 				}
+			}
+			if (u.id == req.session.userId){
+				user.level = u.level;
 			}
 		}
 		result.users = users.filter((u, index) => {
 			return (u._id == req.session.userId) || // Chính mình
 			(	
-				(['admin'].indexOf(u.level.id) < 0) && // Không thuộc cấp Admin
+				(['admin'].indexOf(u.level) < 0) && // Không thuộc cấp Admin
 				((u.maDeTai == req.user.maDeTai) || (!u.maDeTai)) // Và chưa được gán và Đề tài nào, hoặc cùng đề tài với Manager
 			)
 		})
@@ -132,8 +111,6 @@ router.get('/users', function (req, res, next) {
 		result.sidebar = {
 			active: 'users'
 		}
-
-		console.log(result);
 
 		res.render('manager/users', result)
 
@@ -502,8 +479,8 @@ router.get('/statistic', (req, res, next) => {
 			}
 		}
 		// return res.json(dataForCharts)
-		var user = JSON.parse(JSON.stringify(req.user));
-		delete user.level;
+		var user = await(PROMISES.getUser(req.session.userId)).userNormal;
+		// var user = JSON.parse(JSON.stringify(req.user));
 		delete user.password;
 		console.log(dataForCharts);
 		var resResult = {

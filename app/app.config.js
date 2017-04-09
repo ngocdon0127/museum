@@ -74,3 +74,16 @@ app.config(['$locationProvider', '$routeProvider',function($locationProvider, $r
 	})
 	.otherwise({ redirectTo: '/co-sinh' })
 }]);
+
+app.run(function($rootScope, $location, $route, $http, AuthService){
+	$rootScope.$on('$routeChangeStart', function(event, next, current){
+		var url = AuthService.hostName + "/users/me?datatype=json"
+		$http.get(url).then(function success(res) {
+			$rootScope.restricted = res.data;
+			$rootScope.username = res.data.user.fullname;
+		}, function error(err) {
+			console.log(err)
+		});
+		// console.log(username);
+	});
+});

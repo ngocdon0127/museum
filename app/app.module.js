@@ -1,7 +1,6 @@
 var app = angular.module('museumApp', [
 	'ngRoute',
 	'ngMessages',
-    // 'angularSpinners',
     'bsLoadingOverlay',
     'bsLoadingOverlayHttpInterceptor',
     'ui.bootstrap',

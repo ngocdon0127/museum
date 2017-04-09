@@ -37,26 +37,30 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="#!/co-sinh">Cổ sinh</a></li>
-					<li><a href="#!/dia-chat">Địa chất</a></li>
-					<li><a href="#!/dong-vat">Động vật</a></li>
-					<li><a href="#!/tho-nhuong">Thổ nhưỡng</a></li>
-					<li><a href="#!/thuc-vat">Thực vật</a></li>
-
+				<ul class="nav navbar-nav" ng-if="restricted.data">
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown">Thêm mẫu vật <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#!/co-sinh">Cổ sinh</a></li>
+							<li><a href="#!/dia-chat">Địa chất</a></li>
+							<li><a href="#!/dong-vat">Động vật</a></li>
+							<li><a href="#!/tho-nhuong">Thổ nhưỡng</a></li>
+							<li><a href="#!/thuc-vat">Thực vật</a></li>
+						</ul>
+					</li>
 				</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="" class="dropdown-toggle" data-toggle="dropdown">Thêm <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="/log/all">Lịch sử</a></li>
-						<li><a href="#!/bai-dang">Quản lý mẫu vật</a></li>
-						<li><a href="/admin">Quản lý tài khoản</a></li>
-						<li><a href="/users">Trang cá nhân</a></li>
-						<li><a href="/auth/logout">Đăng xuất</a></li>
-					</ul>
-				</li>
-			</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown">{{restricted.user.fullname}} <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/log/all">Lịch sử</a></li>
+							<li><a href="#!/bai-dang">Quản lý mẫu vật</a></li>
+							<li><a href="/admin">Quản lý tài khoản</a></li>
+							<li><a href="/users">Trang cá nhân</a></li>
+							<li><a href="/auth/logout">Đăng xuất</a></li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -79,10 +83,12 @@
 	<script type="text/javascript" src="asset/js/angular-loading-overlay/dist/angular-loading-overlay.js"></script>
 	<script type="text/javascript" src="asset/js/angular-loading-overlay-http-interceptor/dist/angular-loading-overlay-http-interceptor.js"></script>
 	<script type="text/javascript" src="/javascripts/flexdatalist/jquery.flexdatalist.min.js"></script>
+
 	<!-- handler -->
 	<script type="text/javascript" src="app.module.js"></script>
-	<script type="text/javascript" src="app.config.js"></script>
 	<script type="text/javascript" src="service.js"></script>
+	<script type="text/javascript" src="app.config.js"></script>
+	
 	<script type="text/javascript" src="asset/js/controllers/FormController.js"></script>
 	<script type="text/javascript" src="asset/js/controllers/EditFormController.js"></script>
 	<script type="text/javascript" src="asset/js/controllers/ManageController.js"></script>

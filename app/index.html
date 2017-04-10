@@ -37,15 +37,15 @@
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav" ng-if="restricted.data">
+				<ul class="nav navbar-nav" ng-if="restricted.restrict">
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown">Thêm mẫu vật <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#!/co-sinh">Cổ sinh</a></li>
-							<li><a href="#!/dia-chat">Địa chất</a></li>
-							<li><a href="#!/dong-vat">Động vật</a></li>
-							<li><a href="#!/tho-nhuong">Thổ nhưỡng</a></li>
-							<li><a href="#!/thuc-vat">Thực vật</a></li>
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh">Cổ sinh</a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat">Địa chất</a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="them-dong-vat">Động vật</a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="them-tho-nhuong">Thổ nhưỡng</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat">Thực vật</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -54,7 +54,7 @@
 						<a href="" class="dropdown-toggle" data-toggle="dropdown">{{restricted.user.fullname}} <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/log/all">Lịch sử</a></li>
-							<li><a href="#!/bai-dang">Quản lý mẫu vật</a></li>
+							<li><a ui-sref="quan-ly">Quản lý mẫu vật</a></li>
 							<li><a href="/admin">Quản lý tài khoản</a></li>
 							<li><a href="/users">Trang cá nhân</a></li>
 							<li><a href="/auth/logout">Đăng xuất</a></li>
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 	</nav>
-	<div ng-view> </div>
+	<div ui-view> </div>
 <!-- 	<footer style="bottom: 0px; position: absolute; width: 100%;">
 		<div class="input-form">&copy; Copyright. All right is reserved</div>
 	</footer> -->
@@ -73,7 +73,7 @@
 
 	<script type="text/javascript" src="asset/js/jquery/bootstrap.js"></script>
 	<script type="text/javascript" src="asset/js/angular/angular.js"></script>
-	<script type="text/javascript" src="asset/js/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="asset/js/spinner/spin.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 	<script type="text/javascript" src="asset/js/angular-ui-bootstrap/dist/ui-bootstrap-tpls-1.3.3.min.js"></script>

@@ -1,9 +1,9 @@
-app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/dong-vat';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.animals;
 		$scope.status = res.data.status;
-		$scope.link = 'dong-vat';
+		$scope.link = 'dongvat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -35,12 +35,12 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 
 }]);
 
-app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/thuc-vat';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.vegetables;
 		$scope.status = res.data.status;
-		$scope.link = 'thuc-vat';
+		$scope.link = 'thucvat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -71,12 +71,12 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '
 	}
 }]);
 
-app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('LandManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/tho-nhuong';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.soils;
 		$scope.status = res.data.status;
-		$scope.link = 'tho-nhuong';
+		$scope.link = 'thonhuong';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -106,12 +106,12 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$rout
 		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
-app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/dia-chat';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.geologicals;
 		$scope.status = res.data.status;
-		$scope.link = 'dia-chat';
+		$scope.link = 'diachat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -142,12 +142,12 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 	}
 }]);
 
-app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/co-sinh';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.paleontologicals;
 		$scope.status = res.data.status;
-		$scope.link ='co-sinh';
+		$scope.link ='cosinh';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;

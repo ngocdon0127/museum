@@ -1,8 +1,8 @@
 var app = angular.module('museumApp', [
-	'ngRoute',
 	'ngMessages',
     'bsLoadingOverlay',
     'bsLoadingOverlayHttpInterceptor',
+    'ui.router',
     'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',

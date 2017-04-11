@@ -2917,6 +2917,7 @@ var getUser = (userId) => {
 				let userMongoose = user;
 				let userNormal = JSON.parse(JSON.stringify(user));
 				let u = userNormal;
+				u.id = u._id;
 				acl.userRoles(u._id, (err, userRoles) => {
 					// console.log('promised userRoles called');
 					if (err){

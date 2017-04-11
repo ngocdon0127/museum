@@ -53,7 +53,7 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 				user.statistic.push({
 					title: model.title,
 					number: await(new Promise((resolve, reject) => {
-						mongoose.model(model.modelName).find({'created_by.userId': user.id, deleted_at: {$eq: null}}, (err, rows) => {
+						mongoose.model(model.modelName).find({'created_by.userId': {$eq: user.id}, deleted_at: {$eq: null}}, (err, rows) => {
 							if (err){
 								console.log(err);
 								resolve(0)

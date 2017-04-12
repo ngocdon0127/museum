@@ -436,7 +436,7 @@ router.get('/statistic', (req, res, next) => {
 		var user = await(PROMISES.getUser(req.session.userId)).userNormal;
 		// var user = JSON.parse(JSON.stringify(req.user));
 		delete user.password;
-		console.log(dataForCharts);
+		// console.log(dataForCharts);
 		var resResult = {
 			dataForCharts: dataForCharts, 
 			user: user, 

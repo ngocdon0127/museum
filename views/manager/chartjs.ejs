@@ -53,6 +53,29 @@
 		<!-- Main content -->
 		<section class="content">
 			<div class="row">
+				<% if (user.level == 'admin') { %>
+					<!-- Chỉ admin mới xem được biểu đồ này -->
+					<div class="col-md-8 col-md-offset-2">
+						<!-- DONUT CHART -->
+						<div class="box box-success">
+							<div class="box-header with-border">
+								<h3 class="box-title">Tổng quan</h3>
+
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+								</div>
+							</div>
+							<div class="box-body">
+								<canvas id="barChartFormsMDT" style="height:250px"></canvas>
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+					</div>
+				<% } %>
+				<!-- /.col (RIGHT) -->
 				<div class="col-md-6">
 					
 					<% 
@@ -351,8 +374,14 @@
 		
 		<%
 			var data = [];
-			var labels = []
+			var labels = [];
+			var dataForBarCharts = [];
+			var labelsForBarCharts = [];
 			for(p in dataForCharts){
+				labelsForBarCharts.push(p);
+				dataForBarCharts.push(dataForCharts[p].reduce((preValue, currentValue) => {
+					return preValue + parseInt(currentValue.value);
+				}, 0));
 				var d = dataForCharts[p];
 				var data_ = [];
 				var label_ = [];
@@ -364,8 +393,42 @@
 				labels.push(label_);
 			}
 		%>
+		<% if (user.level == 'admin') { %>
+			var dataForBarCharts = []
+			var labelsForBarCharts = []
+			dataForBarCharts = <%- JSON.stringify(dataForBarCharts) %>
+			labelsForBarCharts = <%- JSON.stringify(labelsForBarCharts) %>
+			var ctx = document.getElementById('barChartFormsMDT');
+			var myChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					"datasets": [
+						{
+							"data": dataForBarCharts,
+							"backgroundColor": "#36A2EB",
+							"label": "Tổng số mẫu vật"
+						}
+					],
+					"labels": labelsForBarCharts
+				},
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					}
+				},
+				animation:{
+					animateScale: true
+				}
+			})
+		<% } %>
 		var data = <%- JSON.stringify(data) %>
 		var labels = <%- JSON.stringify(labels) %>
+		// console.log(labelsForBarCharts);
+		// console.log(dataForBarCharts);
 
 		for(var i = 0; i < data.length; i++){
 			// console.log("pieChart" + i);

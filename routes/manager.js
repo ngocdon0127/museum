@@ -221,7 +221,11 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 							return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
 						}
 						else {
-							return responseSuccess(res, [], []);
+							// return responseSuccess(res, [], []);
+							let data_ = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
+							delete data_[user.id];
+							fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data_, null, 4));
+							return restart(res);
 						}
 					})
 				}

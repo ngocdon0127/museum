@@ -38,7 +38,8 @@ router.get('/home', isLoggedIn, function (req, res) {
 				return res.end(`
 					<body vlink='blue'>
 						<center style='margin-top: 50px'>
-							<h2>Vui lòng liện hệ chủ nhiệm đề tài để được kích hoạt tài khoản<h2>
+							<h2>Tài khoản của bạn chưa được cấp phát (hoặc đã bị thu hồi) quyền nhập liệu.<h2>
+							<h2>Vui lòng liên hệ Chủ nhiệm đề tài để được hỗ trợ.</h2>
 							<h3><a style='text-decoration: none' href="/users/me">Trang cá nhân</a><br><a style='text-decoration: none' href="/auth/logout">Đăng xuất</a></h3>
 						</center>
 					</body>

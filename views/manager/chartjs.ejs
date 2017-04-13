@@ -55,7 +55,7 @@
 			<div class="row">
 				<% if (user.level == 'admin') { %>
 					<!-- Chỉ admin mới xem được biểu đồ này -->
-					<div class="col-md-8 col-md-offset-2">
+					<div class="col-md-6">
 						<!-- DONUT CHART -->
 						<div class="box box-success">
 							<div class="box-header with-border">
@@ -69,6 +69,27 @@
 							</div>
 							<div class="box-body">
 								<canvas id="barChartFormsMDT" style="height:250px"></canvas>
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+					</div>
+
+					<!-- Chỉ admin mới xem được biểu đồ này -->
+					<div class="col-md-6">
+						<!-- DONUT CHART -->
+						<div class="box box-success">
+							<div class="box-header with-border">
+								<h3 class="box-title">Tổng quan</h3>
+
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+								</div>
+							</div>
+							<div class="box-body">
+								<canvas id="pieChartAll" style="height:250px"></canvas>
 							</div>
 							<!-- /.box-body -->
 						</div>
@@ -376,12 +397,13 @@
 			var data = [];
 			var labels = [];
 			var dataForBarCharts = [];
-			var labelsForBarCharts = [];
+			var labelsForBarCharts = []
 			for(p in dataForCharts){
 				labelsForBarCharts.push(p);
 				dataForBarCharts.push(dataForCharts[p].reduce((preValue, currentValue) => {
 					return preValue + parseInt(currentValue.value);
 				}, 0));
+
 				var d = dataForCharts[p];
 				var data_ = [];
 				var label_ = [];
@@ -393,6 +415,8 @@
 				labels.push(label_);
 			}
 		%>
+		var data = <%- JSON.stringify(data) %>
+		var labels = <%- JSON.stringify(labels) %>
 		<% if (user.level == 'admin') { %>
 			var dataForBarCharts = []
 			var labelsForBarCharts = []
@@ -424,11 +448,53 @@
 					animateScale: true
 				}
 			})
+
+			var dataForPieChart = []
+			var labelForPieChart = labels[0]
+			var dataForPieChart = []
+			if (data.length > 0){
+				dataForPieChart = JSON.parse(JSON.stringify(data[0]));
+				for(var i = 1; i < data.length; i++){
+					for(var j = 0; j < data[i].length; i++){
+						dataForPieChart[j] += data[i][j];
+					}
+				}
+			}
+
+			ctx = document.getElementById("pieChartAll");
+			var d = {
+				datasets: [{
+					data: dataForPieChart,
+					backgroundColor: [
+						"#FF6384",
+						"#4BC0C0",
+						"#FFCE56",
+						"#E7E9ED",
+						"#36A2EB"
+					],
+					label: 'My dataset' // for legend
+				}],
+				labels: labelForPieChart
+			};
+			var myChart = new Chart(ctx, {
+				type: 'pie',
+				data: d,
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					}
+				},
+				animation:{
+					animateScale:true
+				}
+			});
+
+
 		<% } %>
-		var data = <%- JSON.stringify(data) %>
-		var labels = <%- JSON.stringify(labels) %>
-		// console.log(labelsForBarCharts);
-		// console.log(dataForBarCharts);
 
 		for(var i = 0; i < data.length; i++){
 			// console.log("pieChart" + i);

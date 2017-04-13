@@ -282,7 +282,7 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 							// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
 							var canAssignRole = false;
 							
-							if (myRoles.indexOf('admin') >= 0){
+							if ((myRoles.indexOf('admin') >= 0) && (roles[i].maDeTai == user.maDeTai)){
 								canAssignRole = true;
 							}
 							if ((user.maDeTai == req.user.maDeTai) && (roles[i].maDeTai == user.maDeTai)){

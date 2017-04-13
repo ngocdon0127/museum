@@ -18,12 +18,12 @@ let transporter = nodemailer.createTransport(mailconfig);
 // var PERM_USER = global.myCustomVars.PERM_USER;
 
 router.use((req, res, next) => {
-	if (req.path == '/logout'){
-		return next();
-	}
-	if (req.isAuthenticated()){
-		return res.redirect('/home')
-	}
+	// if (req.path == '/logout'){
+	// 	return next();
+	// }
+	// if (req.isAuthenticated()){
+	// 	return res.redirect('/home')
+	// }
 	next();
 })
 

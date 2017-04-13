@@ -86,8 +86,8 @@ module.exports = function (passport, User) {
 				if (err){
 					throw err;
 				}
-				// return done(null, false, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
-				return done(null, user, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
+				return done(null, false, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
+				// return done(null, user, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
 			})
 		})
 	}));

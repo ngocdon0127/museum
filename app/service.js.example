@@ -1,5 +1,4 @@
-app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $route, cfpLoadingBar){
-	
+app.factory('AuthService', ['$q', '$http','$state', 'cfpLoadingBar', function($q, $http, $state, cfpLoadingBar){
 	return ({
 		hostName: 'http://localhost:8000',
 		//hostName: 'http://baotangvn.online',
@@ -14,6 +13,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		initDatePicker: initDatePicker,
 		startSpinner: startSpinner,
 		stopSpinner: stopSpinner,
+		todoRef: todoRef,
+		getRestrict: getRestrict,
 		arrAuto: [	
 			'tenDongNghia',
 			'tenTheoBaoTang',
@@ -30,11 +31,12 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'ho',
 			'phanHo',
 			'toc', 
-			'chiGiong', 
-			'phanChiPhanGiong',
+			'giong', 
+			'phanGiong',
 			'loai', 
 			'duoiLoai', 
 			'coQuanThuMau', 'thon', 
+			'coQuanToChucPhanTich', 
 			'coQuanToChucGiamDinh',
 			'coQuanXuLy',
 			'boPhanLayMauDNA', 
@@ -42,6 +44,9 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'coQuanNhapVatMau',
 			'giaTriSuDung',
 			'tong',
+			'chi',
+			'phanChi',
+			'chiGiong',
 			'loai',
 			'noiLuuTruMau',
 			'viTriLayMauDNA',
@@ -49,15 +54,38 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		]
 	});
 
+	function todoRef() {
+		return true;
+	}
+
+	function getRestrict(sample) {
+		var self = this;
+		var defer = $q.defer();
+		$http.get(this.hostName + "/users/me?datatype=json")
+		.success(function(data, status){
+			if (status == 200 && data.status == 'success') {
+				defer.resolve(data);
+			} else{
+				defer.reject();
+			}
+		})
+		//handle error
+		.error(function(err){
+			console.log(err);
+			defer.reject("Lỗi trong quá trình tải dữ liệu...");
+		});
+		return defer.promise;
+	}
+
 	function exportFile(id){
 		var arr = document.getElementsByClassName("check-box");
+
 		var urls = [];
 		var totalFile = 0;
 		var step = 0;
 		var progressBar = document.getElementById('download-progress-bar');
 		var progressBarContainer = document.getElementById('download-progress-bar-container');
 		angular.forEach(arr, function (value) {
-			
 			if (value.checked) {
 				urls.push(value.getAttribute("data-id") + id);
 				totalFile++;
@@ -71,6 +99,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			progressBar.innerHTML = '0 / ' + totalFile;
 			progressBar.setAttribute('aria-valuenow', 0);
 			$(progressBarContainer).fadeIn();
+		} else{
+			alert("Xin hay chon file!");
 		}
 
 		download(0);
@@ -78,18 +108,13 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		function download(index) {
 			// console.log('processing ' + index);
 			if (index >= totalFile){
-				// progressBar.setAttribute('aria-valuemax', totalFile);
-				// progressBar.style.width = '0%';
-				// progressBar.innerHTML = '0 / ' + totalFile;
-				// progressBar.setAttribute('aria-valuenow', 0);
-				// $(progressBarContainer).fadeIn();
 				$(progressBarContainer).fadeOut(1000);
 			}
 			else {
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						console.log(xhr);
+						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
@@ -182,7 +207,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				stopSpinner();
 				setTimeout(function () { // Stop spinner before alerting
 					alert(data.status);
-					window.location = urlRe;
+					$state.go(urlRe);
 				}, 100)
 			},
 			error: function (err) {
@@ -225,7 +250,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				stopSpinner();
 				setTimeout(function () { // Stop spinner before alerting
 					alert(data.status);
-					window.location = urlRe;
+					$state.go(urlRe)
 				}, 100)
 			},
 			error: function (err) {
@@ -261,7 +286,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			headers: {'Content-Type': 'application/json'},
 			data: {id: id}
 		}).then(function (res) {
-			$route.reload();
+			$state.reload();
 		}, function (err) {
 			console.log(err);
 		});
@@ -285,11 +310,11 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			else {
 				alert('Bạn không thể phê duyệt mẫu dữ liệu này.');
 			}
-			$route.reload();
+			$state.reload();
 		}, function (err) {
 			// console.log(err);
 			alert('Bạn không thể phê duyệt mẫu dữ liệu này');
-			$route.reload();
+			$state.reload();
 		});
 	}
 
@@ -347,7 +372,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				selectionRequired: true,
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-		}, 500)
+		}, 1000)
 	}
 
 	function fetchFlexdatalist(_scope) {
@@ -459,8 +484,6 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 	function stopSpinner() {
 		SPINNER.stop();
 	}
-
-	
 
 }]);
 

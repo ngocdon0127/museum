@@ -18,8 +18,12 @@ router.use(isLoggedIn);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var projection = {userId: req.user.id};
-
+	// 1 user chỉ được xem lịch sử của các mẫu vật do chính user đó tạo ra.
+	// Bao gồm cả các thao tác do Admin, Manager tác động lên mẫu vật đó.
+	let projection = {'obj1.created_by.userId': {$in: [mongoose.Types.ObjectId(req.session.userId), req.session.userId]}};
+	if ('user' in req.query){
+		projection.userId = req.query.user;
+	}
 	if ('action' in req.query){
 		projection.action = req.query.action;
 	}
@@ -41,7 +45,7 @@ router.get('/', function(req, res, next) {
 		projection.objType = req.query.type;
 	}
 
-	Log.find(projection, {}, {sort: {time: -1}}, function (err, logs) {
+	Log.find({$or: [projection]}, {}, {sort: {time: -1}}, function (err, logs) {
 		if (err){
 			console.log(err);
 			return res.status(500).json({

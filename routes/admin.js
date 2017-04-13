@@ -218,7 +218,23 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 									}
 									fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
 								}
-								return restart(res);
+								acl.addUserRoles(req.body.userId, 'manager', (err) => {
+									if (err){
+										console.log(err);
+										// TODO
+										// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
+										// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
+										// nên cần đánh dấu, restart toàn bộ worker
+										process.send({actionType: 'restart', target: 'all'});
+										return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
+									}
+									// TODO
+									// Chỗ này cần gửi message về Master.
+									// Yêu cầu restart tất cả các worker khác
+									process.send({actionType: 'restart', target: 'other'});
+									return responseSuccess(res, [], []);
+								})
+								// return restart(res);
 							}
 						}
 					})
@@ -310,7 +326,23 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 				}
 				fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
 			}
-			return restart(res);
+			acl.removeUserRoles(req.body.userId, 'manager', (err) => {
+				if (err){
+					console.log(err);
+					// TODO
+					// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
+					// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
+					// nên cần đánh dấu, restart toàn bộ worker
+					process.send({actionType: 'restart', target: 'all'});
+					return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
+				}
+				// TODO
+				// Chỗ này cần gửi message về Master.
+				// Yêu cầu restart tất cả các worker khác
+				process.send({actionType: 'restart', target: 'other'});
+				return responseSuccess(res, [], []);
+			})
+			// return restart(res);
 		}
 	}
 	})();
@@ -488,7 +520,16 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 						let data_ = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
 						delete data_[user.id];
 						fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data_, null, 4));
-						return restart(res)
+						acl.removeUserRoles(user.id, userRoles, (err) => {
+							if (err){
+								console.log(err);
+								process.send({actionType: 'restart', target: 'all'})
+								return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại'])
+							}
+							process.send({actionType: 'restart', target: 'other'})
+							return responseSuccess(res, [], []);
+						})
+						// return restart(res)
 					}
 				})
 			}
@@ -537,7 +578,9 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 				roles[newRole].role = newRole;
 				roles[newRole].rolename = 'Nhân viên ' + req.body.newMaDeTai;
 				fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
-				return restart(res);
+				process.send({actionType: 'restart', target: 'all'});
+				// return restart(res);
+				return responseSuccess(res, [], []);
 			}
 		}
 		else {

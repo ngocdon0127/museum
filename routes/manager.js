@@ -225,7 +225,16 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 							let data_ = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
 							delete data_[user.id];
 							fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data_, null, 4));
-							return restart(res);
+							acl.removeUserRoles(user.id, userRoles, (err) => {
+								if (err){
+									console.log(err);
+									process.send({actionType: 'restart', target: 'all'});
+									return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại'])
+								}
+								process.send({actionType: 'restart', target: 'other'});
+								return responseSuccess(res, [], []);
+							})
+							// return restart(res);
 						}
 					})
 				}

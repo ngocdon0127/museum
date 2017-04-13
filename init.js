@@ -2906,6 +2906,10 @@ var getUserRoles = (userId) => {
 
 global.myCustomVars.promises.getUserRoles = getUserRoles;
 
+var removeUserRoles = (userId, roles) => {
+	// return new Promise()
+}
+
 var getUser = (userId) => {
 	return new Promise((resolve, reject) => {
 		mongoose.model('User').findById(userId, (err, user) => {

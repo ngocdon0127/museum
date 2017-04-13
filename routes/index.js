@@ -337,7 +337,11 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 					}
 					fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
 					console.log("OK. restarting server");
-					return restart(res);
+					process.send({actionType: 'restart', target: 'all'});
+					// return restart(res);
+					return res.status(200).json({
+						status: 'success'
+					})
 				}
 				else {
 					return res.status(400).json({
@@ -420,7 +424,12 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	// console.log(r);
 	fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
 
-	return restart(res);
+	process.send({actionType: 'restart', target: 'all'});
+	return res.status(200).json({
+		status: 'success'
+	})
+
+	// return restart(res);
 })
 
 router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'delete'), function (req, res, next) {
@@ -465,7 +474,11 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 				}
 			}
 			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
-			return restart(res);
+			process.send({actionType: 'restart', target: 'all'});
+			return res.status(200).json({
+				status: 'success'
+			})
+			// return restart(res);
 		}
 		else {
 			return res.status(400).json({

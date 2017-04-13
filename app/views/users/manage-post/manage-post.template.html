@@ -54,27 +54,37 @@
 						<div class="dropdown-content" ng-if="link == 'dongvat'">
 							<a ng-if="restricted.restrict.dongvat.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
 							<a ng-if="restricted.restrict.dongvat.edit" ui-sref = "chinh-sua-dong-vat({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
-							<a ng-if="restricted.restrict.dongvat.delete" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							<div ng-controller="ModalCtrl">
+								<a ng-if="restricted.restrict.dongvat.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							</div>
 						</div>
 						<div class="dropdown-content" ng-if="link == 'thucvat'">
 							<a ng-if="restricted.restrict.thucvat.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
 							<a ng-if="restricted.restrict.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
-							<a ng-if="restricted.restrict.thucvat.delete" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							<div ng-controller="ModalCtrl">
+								<a ng-if="restricted.restrict.thucvat.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							</div>
 						</div>
 						<div class="dropdown-content" ng-if="link == 'cosinh'">
 							<a ng-if="restricted.restrict.cosinh.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
 							<a ng-if="restricted.restrict.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
-							<a ng-if="restricted.restrict.cosinh.delete" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							<div ng-controller="ModalCtrl">
+								<a ng-if="restricted.restrict.cosinh.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							</div>
 						</div>
 						<div class="dropdown-content" ng-if="link == 'thonhuong'">
 							<a ng-if="restricted.restrict.thonhuong.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
 							<a ng-if="restricted.restrict.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
-							<a ng-if="restricted.restrict.thonhuong.delete" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							<div ng-controller="ModalCtrl">
+								<a ng-if="restricted.restrict.thonhuong.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							</div>
 						</div>
 						<div class="dropdown-content" ng-if="link == 'diachat'">
 							<a ng-if="restricted.restrict.diachat.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
 							<a ng-if="restricted.restrict.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
-							<a ng-if="restricted.restrict.diachat.delete" ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							<div ng-controller="ModalCtrl">
+								<a ng-if="restricted.restrict.diachat.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+							</div>
 						</div>
 					</div>
 				</td>

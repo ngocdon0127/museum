@@ -22,15 +22,14 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', func
 		AuthService.exportFile(id);
 	};
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/dong-vat";
-		var r = confirm("Xoá bài đăng");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
+	// $scope.deletePost = function(id){
+	// 	var r = confirm("Xoá bài đăng");
+	// 	if (r == true) {
+	// 		AuthService.deleteP(id, url);
+	// 	}
+	// }
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, "dong-vat")
 	}
 
 }]);
@@ -59,15 +58,8 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', f
 		AuthService.exportFile(id);
 	};
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/thuc-vat";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, "thuc-vat")
 	}
 }]);
 
@@ -95,15 +87,8 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', functi
 		AuthService.exportFile(id);
 	};
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/tho-nhuong";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, "tho-nhuong")
 	}
 }]);
 app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
@@ -130,15 +115,8 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 		AuthService.exportFile(id);
 	};
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/dia-chat";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, "dia-chat")
 	}
 }]);
 
@@ -166,14 +144,55 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 		AuthService.exportFile(id);
 	};
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/co-sinh";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, "co-sinh")
 	}
 }]);
+
+app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
+	$scope.showModal = function(id, link) {
+		$scope.opts = {
+			backdrop: true,
+			backdropClick: true,
+			dialogFade: false,
+			keyboard: true,
+			templateUrl : 'views/modals/delete.blade.html',
+			controller : ModalInstanceCtrl
+	    };
+	    var url = "";
+	    switch(link){
+	    	case "dongvat":
+	    		url = AuthService.hostName + '/content/dong-vat';
+	    		break;
+	    	case "thucvat":
+	    		url = AuthService.hostName + '/content/thuc-vat';
+	    		break;
+	    	case "cosinh":
+	    		url = AuthService.hostName + '/content/co-sinh';
+	    		break;
+	    	case "diachat":
+	    		url = AuthService.hostName + '/content/dia-chat';
+	    		break;
+	    	case "thonhuong":
+	    		url = AuthService.hostName + '/content/tho-nhuong';
+	    		break;
+	    }
+
+	    var modalInstance = $uibModal.open($scope.opts);
+	    modalInstance.result.then(function(){
+	        //on ok button press
+	       	AuthService.deleteP(id, url);
+	    },function(){
+	        //on cancel button press
+	    });
+    }         
+});
+
+var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal) {
+	$scope.ok = function () {
+		$uibModalInstance.close();
+	};
+	$scope.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+}

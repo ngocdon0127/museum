@@ -19,7 +19,7 @@ function aclMiddleware (resource, action, url) {
 			if (err){
 				console.log(err);
 			}
-			console.log('result: ', result);
+			// console.log('result: ', result);
 			if (result){
 				next();
 			}

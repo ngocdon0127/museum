@@ -23,7 +23,29 @@ var await = require('asyncawait/await')
 
 router.get('/home', isLoggedIn, function (req, res) {
 	// res.render('home', {user: req.user, path: req.path});
-	res.redirect('/app/#!/');
+	acl.isAllowed(req.session.userId, '/app', 'view', function (err, result) {
+			if (err){
+				console.log(err);
+				res.set('Content-Type', 'text/html; charset=utf8');
+				return res.end('Có lỗi xảy ra.')
+			}
+			// console.log('result: ', result);
+			if (result){
+				return res.redirect('/app')
+			}
+			else {
+				res.set('Content-Type', 'text/html; charset=utf8');
+				return res.end(`
+					<body vlink='blue'>
+						<center style='margin-top: 50px'>
+							<h2>Vui lòng liện hệ chủ nhiệm đề tài để được kích hoạt tài khoản<h2>
+							<h3><a style='text-decoration: none' href="/users/me">Trang cá nhân</a><br><a style='text-decoration: none' href="/auth/logout">Đăng xuất</a></h3>
+						</center>
+					</body>
+				`);
+			}
+		});
+	// res.redirect('/app/#!/');
 })
 
 router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {

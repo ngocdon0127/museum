@@ -22,7 +22,8 @@ var async = require('asyncawait/async')
 var await = require('asyncawait/await')
 
 router.get('/home', isLoggedIn, function (req, res) {
-	res.render('home', {user: req.user, path: req.path});
+	// res.render('home', {user: req.user, path: req.path});
+	res.redirect('/app/#!/');
 })
 
 router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {
@@ -281,7 +282,7 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 							// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
 							var canAssignRole = false;
 							
-							if (myRoles.indexOf('admin') >= 0){
+							if ((myRoles.indexOf('admin') >= 0) && (roles[i].maDeTai == user.maDeTai)){
 								canAssignRole = true;
 							}
 							if ((user.maDeTai == req.user.maDeTai) && (roles[i].maDeTai == user.maDeTai)){

@@ -59,7 +59,7 @@
 						<!-- DONUT CHART -->
 						<div class="box box-success">
 							<div class="box-header with-border">
-								<h3 class="box-title">Tổng quan</h3>
+								<h3 class="box-title">Tổng quan - Theo đềi tài</h3>
 
 								<div class="box-tools pull-right">
 									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -80,7 +80,7 @@
 						<!-- DONUT CHART -->
 						<div class="box box-success">
 							<div class="box-header with-border">
-								<h3 class="box-title">Tổng quan</h3>
+								<h3 class="box-title">Tổng quan - Theo loại mẫu vật</h3>
 
 								<div class="box-tools pull-right">
 									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -455,7 +455,7 @@
 			if (data.length > 0){
 				dataForPieChart = JSON.parse(JSON.stringify(data[0]));
 				for(var i = 1; i < data.length; i++){
-					for(var j = 0; j < data[i].length; i++){
+					for(var j = 0; j < data[i].length; j++){
 						dataForPieChart[j] += data[i][j];
 					}
 				}

@@ -29,4 +29,4 @@ function change_skin(cls) {
 	return false;
 }
 
-change_skin('skin-green');
+// change_skin('skin-green');

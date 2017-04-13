@@ -22,7 +22,8 @@ var async = require('asyncawait/async')
 var await = require('asyncawait/await')
 
 router.get('/home', isLoggedIn, function (req, res) {
-	res.render('home', {user: req.user, path: req.path});
+	// res.render('home', {user: req.user, path: req.path});
+	res.redirect('/app/#!/');
 })
 
 router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {

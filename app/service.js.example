@@ -98,7 +98,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		} else{
 			$uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: function ($scope, ) {
+				controller: function ($scope) {
 					$scope.message = "Xin hãy chọn file.";
 					$scope.ok = function () {
 						// $uibModalInstance.close();

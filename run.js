@@ -1,4 +1,9 @@
 var cluster = require('cluster');
+var noCPUs = require('os').cpus().length;
+
+if (noCPUs == 1){
+	return require('./bin/www');
+}
 
 if (cluster.isMaster){
 	cluster.on('fork', (worker) => {
@@ -29,7 +34,7 @@ if (cluster.isMaster){
 							if (pid != worker.process.pid){
 								// console.log('killing ' + pid);
 								// cluster.workers[pid].kill();
-								w.send({actionType: 'killYourSelf'});
+								w.send({actionType: 'killYourSelf', timeout: 1000});
 							}
 							else {
 								// console.log('do not kill ' + pid);
@@ -43,7 +48,7 @@ if (cluster.isMaster){
 						for(let id in cluster.workers){
 							let w = cluster.workers[id]
 							let pid = w.process.pid;
-							w.send({actionType: 'killYourSelf'});
+							w.send({actionType: 'killYourSelf', timeout: 0});
 						}
 					}
 					break;
@@ -54,7 +59,6 @@ if (cluster.isMaster){
 
 	console.log('master ' + process.pid + ' is forking childs...');
 
-	let noCPUs = require('os').cpus().length;
 	for(let i = 0; i < noCPUs; i++){
 		cluster.fork();
 	}
@@ -74,7 +78,11 @@ else if (cluster.isWorker){
 		console.log('worker ' + cluster.worker.process.pid + ' received msg: ');
 		console.log(msg);
 		if (msg.actionType == 'killYourSelf'){
-			process.exit(0)
+			console.log('preparing to exit');
+			setTimeout(() => {
+				console.log('halt');
+				process.exit(0)
+			}, msg.timeout)
 		}
 		
 	})

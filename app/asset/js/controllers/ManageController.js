@@ -3,7 +3,7 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', func
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.animals;
 		$scope.status = res.data.status;
-		$scope.link = 'dongvat';
+		$scope.link = 'dong-vat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -18,10 +18,6 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', func
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
-
 	// $scope.deletePost = function(id){
 	// 	var r = confirm("Xoá bài đăng");
 	// 	if (r == true) {
@@ -29,7 +25,7 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', func
 	// 	}
 	// }
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, "dong-vat")
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 
 }]);
@@ -39,7 +35,7 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', f
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.vegetables;
 		$scope.status = res.data.status;
-		$scope.link = 'thucvat';
+		$scope.link = 'thuc-vat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -54,12 +50,12 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', f
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, "thuc-vat")
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
 
@@ -68,7 +64,7 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', functi
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.soils;
 		$scope.status = res.data.status;
-		$scope.link = 'thonhuong';
+		$scope.link = 'tho-nhuong';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -83,12 +79,12 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', functi
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, "tho-nhuong")
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
 app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
@@ -96,7 +92,7 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.geologicals;
 		$scope.status = res.data.status;
-		$scope.link = 'diachat';
+		$scope.link = 'dia-chat';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -111,12 +107,12 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, "dia-chat")
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
 
@@ -125,7 +121,7 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.paleontologicals;
 		$scope.status = res.data.status;
-		$scope.link ='cosinh';
+		$scope.link ='co-sinh';
 	}, function (err) {
 		console.log(err);
 		$scope.status = res.data.status;
@@ -140,12 +136,12 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, "co-sinh")
+		AuthService.approvePost(id, approved, $scope.link)
 	}
 }]);
 
@@ -159,24 +155,7 @@ app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
 			templateUrl : 'views/modals/delete.blade.html',
 			controller : ModalInstanceCtrl
 	    };
-	    var url = "";
-	    switch(link){
-	    	case "dongvat":
-	    		url = AuthService.hostName + '/content/dong-vat';
-	    		break;
-	    	case "thucvat":
-	    		url = AuthService.hostName + '/content/thuc-vat';
-	    		break;
-	    	case "cosinh":
-	    		url = AuthService.hostName + '/content/co-sinh';
-	    		break;
-	    	case "diachat":
-	    		url = AuthService.hostName + '/content/dia-chat';
-	    		break;
-	    	case "thonhuong":
-	    		url = AuthService.hostName + '/content/tho-nhuong';
-	    		break;
-	    }
+	    var url = AuthService.hostName + "/content/" + link;
 
 	    var modalInstance = $uibModal.open($scope.opts);
 	    modalInstance.result.then(function(){
@@ -185,7 +164,11 @@ app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
 	    },function(){
 	        //on cancel button press
 	    });
-    }         
+    };
+
+    $scope.export = function (id) {
+		AuthService.exportFile(id);
+	};
 });
 
 var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal) {

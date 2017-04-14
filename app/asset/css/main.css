@@ -52,12 +52,24 @@ body {
 .navbar-default{
 	background-color: #19C662;
 }
-.navbar-default .navbar-nav>li>a {
+
+.navbar-brand{
+    /*background-color: mediumturquoise;*/
+}
+.navbar-default .navbar-brand:hover{
+    background-color: #d3fdaf;
+    color: #000;
+}
+.navbar-default .navbar-nav > li > a {
 	color: #fff;
 }
 .navbar-default .navbar-nav>li>a:hover{
 	background-color: #d3fdaf;
 }
+
+.navbar-default .navbar-nav > .open > a:focus{
+    background-color: #d3fdaf;
+ }
 
 .navbar-default .navbar-brand {
     color: #f5f5f5;
@@ -87,6 +99,11 @@ body {
     z-index: 1000;
 }
 
+.dropdown-menu{
+    background-color: azure;
+    border: 0px;
+}
+
 .dropdown-content a {
 	border-radius: 0px 4px 4px 0px;
     color: black;
@@ -109,7 +126,7 @@ a.nav:hover{
 }
 
 .dropdown:hover .dropdown-content {
-     transition: width 1s;
+    transition: width 1s;
     -webkit-transition: width 1s; /* Safari 3.1 to 6.0 */
     display: block;
 }
@@ -139,6 +156,7 @@ a.nav:hover{
 .row {
     margin-left: 5px;
 }
+
 *:focus {
     outline: none;
 }
@@ -165,53 +183,15 @@ a.nav:hover{
 /*--------------end-New--------------*/
 /*------------------END-FORM_DATA---------------------*/
 
-/*------------------DETAILS---------------------*/
-/*.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
 
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-*/
-/*------------------END-DETAILS---------------------*/
 @media screen and (max-width : 992px){
 
 }
 
 @media only screen and (max-width: 768px){
-
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a{
+      color: #000;  
+    }
 }
 
 /*  480px hoặc nhỏ hơn */

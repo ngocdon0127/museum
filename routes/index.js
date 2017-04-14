@@ -11,6 +11,8 @@ var uploads = multer({dest: 'public/uploads/animal'});
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 var acl = global.myCustomVars.acl;
 
+var PROMISES = global.myCustomVars.promises;
+
 router.use(function (req, res, next) {
 	console.log(req.url);
 	next();
@@ -20,7 +22,31 @@ var async = require('asyncawait/async')
 var await = require('asyncawait/await')
 
 router.get('/home', isLoggedIn, function (req, res) {
-	res.render('home', {user: req.user, path: req.path});
+	// res.render('home', {user: req.user, path: req.path});
+	acl.isAllowed(req.session.userId, '/app', 'view', function (err, result) {
+			if (err){
+				console.log(err);
+				res.set('Content-Type', 'text/html; charset=utf8');
+				return res.end('Có lỗi xảy ra.')
+			}
+			// console.log('result: ', result);
+			if (result){
+				return res.redirect('/app')
+			}
+			else {
+				res.set('Content-Type', 'text/html; charset=utf8');
+				return res.end(`
+					<body vlink='blue'>
+						<center style='margin-top: 50px'>
+							<h2>Tài khoản của bạn chưa được cấp phát (hoặc đã bị thu hồi) quyền nhập liệu.<h2>
+							<h2>Vui lòng liên hệ Chủ nhiệm đề tài để được hỗ trợ.</h2>
+							<h3><a style='text-decoration: none' href="/users/me">Trang cá nhân</a><br><a style='text-decoration: none' href="/auth/logout">Đăng xuất</a></h3>
+						</center>
+					</body>
+				`);
+			}
+		});
+	// res.redirect('/app/#!/');
 })
 
 router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {
@@ -42,105 +68,138 @@ router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, r
 })
 
 router.get('/config', aclMiddleware('/config', 'view'), function (req, res, next) {
-	User.find({}, function (err, users) {
-		async(() => {
-			if (err){
-				return console.log(err);
+	async(() => {
+		var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
+		var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
+		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
+		var myRoles = await(PROMISES.getUserRoles(req.session.userId));
+		var result = {};
+		let users = await(PROMISES.getUsers()).usersNormal;
+		let me = JSON.parse(JSON.stringify(req.user));
+		delete me.level;
+		delete me.password;
+		result.users = {};
+		for (var i = 0; i < users.length; i++) {
+			let u = users[i];
+			if (u.id == req.session.userId){
+				me.level = u.level;
 			}
-
-			var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
-			var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-			var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString())
-			var myRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
-			var result = {};
-			result.users = {};
-			for (var i = 0; i < users.length; i++) {
-				let u = users[i];
-				let canSeeThisUser = false;
-				if (myRoles.indexOf('admin') >= 0){
-					canSeeThisUser = true;
-				}
-				else { // I'm an manager
-					
-					let userRoles = await(global.myCustomVars.promises.getUserRoles(u.id));
-					if (userRoles.indexOf('admin') >= 0){
-						// I can't see any admin in this view
-						canSeeThisUser = false;
-					}
-					else {
-						// But i can see all the managers and the users which have the same MaDeTai with me
-						if (users[i].maDeTai && (users[i].maDeTai == req.user.maDeTai)){
-							canSeeThisUser = true;
-						}
-					}
-				}
-
-				if (!canSeeThisUser){
-					continue;
-				}
-				var user = {};
-				user.id = u.id;
-				user.fullname = u.fullname;
-				user.username = u.username;
-				user.lastLogin = u.lastLogin;
-				// user.email = users[i].email;
-				result.users[user.id] = user;
-			}
-			
-			var showAllRoles = false;
+			let canSeeThisUser = false;
 			if (myRoles.indexOf('admin') >= 0){
-				showAllRoles = true;
+				canSeeThisUser = true;
 			}
-			result.roles = [];
-			for (var i in roles) {
-				var r = {};
-				r.role = roles[i].role;
-				r.rolename = roles[i].rolename;
-				let canSee = (req.user.maDeTai == roles[i].maDeTai) || showAllRoles;
-				if (canSee){
-					result.roles.push(r);
+			else { // I'm an manager
+				
+				let userRoles = await(PROMISES.getUserRoles(u.id));
+				if (userRoles.indexOf('admin') >= 0){
+					// I can't see any admin in this view
+					canSeeThisUser = false;
 				}
 				else {
-					// result.roles.push(r); // will be commented out
+					// But i can see all the managers and the users which have the same MaDeTai with me
+					if (users[i].maDeTai && (users[i].maDeTai == req.user.maDeTai)){
+						canSeeThisUser = true;
+					}
 				}
 			}
-			result.aclRules = {};
-			for (var i in aclRules) {
-				result.aclRules[aclRules[i].userId] = [];
-				for (var j = 0; j < aclRules[i].roles.length; j++) {
-					result.aclRules[aclRules[i].userId].push(aclRules[i].roles[j]);
-				}
+
+			if (!canSeeThisUser){
+				continue;
 			}
-			// return res.json({
-			// 	users: result.users,
-			// 	roles: result.roles,
-			// 	aclRules: result.aclRules,
-			// 	user: req.user,
-			// 	path: req.path
-			// })
-			res.render('manager/userpermissions', {
-			// res.render('config', {
-				users: result.users,
-				roles: result.roles,
-				cores: cores,
-				aclRules: result.aclRules,
-				user: req.user,
-				path: req.path,
-				sidebar: {
-					active: 'config'
-				}
-			});
-		})()
-	})
+			var user = {};
+			user.id = u.id;
+			user.fullname = u.fullname;
+			user.username = u.username;
+			user.lastLogin = u.lastLogin;
+			// user.email = users[i].email;
+			result.users[user.id] = user;
+		}
+		
+		var showAllRoles = false;
+		if (myRoles.indexOf('admin') >= 0){
+			showAllRoles = true;
+		}
+		result.roles = [];
+		for (var i in roles) {
+			var r = {};
+			r.role = roles[i].role;
+			r.rolename = roles[i].rolename;
+			let canSee = (req.user.maDeTai == roles[i].maDeTai) || showAllRoles;
+			if (canSee){
+				result.roles.push(r);
+			}
+			else {
+				// result.roles.push(r); // will be commented out
+			}
+		}
+		result.aclRules = {};
+		for (var i in aclRules) {
+			result.aclRules[aclRules[i].userId] = [];
+			for (var j = 0; j < aclRules[i].roles.length; j++) {
+				result.aclRules[aclRules[i].userId].push(aclRules[i].roles[j]);
+			}
+		}
+		// return res.json({
+		// 	users: result.users,
+		// 	roles: result.roles,
+		// 	aclRules: result.aclRules,
+		// 	user: req.user,
+		// 	path: req.path
+		// })
+		res.render('manager/userpermissions', {
+		// res.render('config', {
+			users: result.users,
+			roles: result.roles,
+			cores: cores,
+			aclRules: result.aclRules,
+			user: me,
+			path: req.path,
+			sidebar: {
+				active: 'config'
+			}
+		});
+	})()
 })
 
 router.get('/config/roleTooltip', aclMiddleware('/config', 'view'), function (req, res, next) {
 	var role = req.query.role;
-	console.log(role);
+	// console.log(role);
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
-	return res.render('roleTooltip', {
-		role: roles[role]
-	});
+	async(() => {
+		let canView = false;
+		let userRoles = await(PROMISES.getUserRoles(req.session.userId));
+		if (userRoles.indexOf('admin') >= 0){
+			// console.log('admin can view role ' + role);
+			canView = true;
+		}
+		if ((userRoles.indexOf('manager') >= 0) && (roles[role].maDeTai == req.user.maDeTai)){
+			// console.log('manager can view role ' + role);
+			canView = true;
+		}
+		if (!canView){
+			return res.status(403).end('Nothing to see here.')
+		}
+		let sharedData = await(PROMISES.getSharedData());
+		let map = {}
+		for(let dt of sharedData.deTai){
+			map[dt.maDeTai] = dt.tenDeTai;
+		}
+		// return res.json(map)
+		for (let role in roles){
+			try {
+				roles[role].tenDeTai = map[roles[role].maDeTai]
+				// roles[role].tenDeTai = 'dmm'
+			}
+			catch (e){
+				console.log(e);
+			}
+		}
+		// return res.json(roles[role])
+		return res.render('roleTooltip', {
+			role: roles[role]
+		});
+	})()
+	
 })
 
 router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create'), function (req, res, next){
@@ -150,8 +209,8 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 		console.log(req.body);
 		// console.log(JSON.parse(req.body));
 		console.log('---');
-		var userRoles = await(global.myCustomVars.promises.getUserRoles(req.body.userid));
-		var myRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+		var userRoles = await(PROMISES.getUserRoles(req.body.userid));
+		var myRoles = await(PROMISES.getUserRoles(req.session.userId));
 		User.findById(req.body.userid, function (err, user) {
 			async(() => {
 				if (err){
@@ -246,7 +305,7 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 							// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
 							var canAssignRole = false;
 							
-							if (myRoles.indexOf('admin') >= 0){
+							if ((myRoles.indexOf('admin') >= 0) && (roles[i].maDeTai == user.maDeTai)){
 								canAssignRole = true;
 							}
 							if ((user.maDeTai == req.user.maDeTai) && (roles[i].maDeTai == user.maDeTai)){
@@ -312,7 +371,7 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	role = role.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); 
 	role = role.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); 
 	role = role.replace(/đ/g, "d"); 
-	role = role.replace(/ /g, "-");
+	role = role.replace(/[^a-z0-9-._]/g, "-");
 	var aclRules = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')).toString());
 	var roles = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/roles.json')).toString());
 	var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')))
@@ -380,7 +439,7 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 		if (role in roles){
 			let mdtRole = roles[role].maDeTai;
 			let canDeleteRole = false;
-			let userRoles = await(global.myCustomVars.promises.getUserRoles(req.session.userId));
+			let userRoles = await(PROMISES.getUserRoles(req.session.userId));
 			if (userRoles.indexOf('admin') >= 0){
 				canDeleteRole = true;
 			}

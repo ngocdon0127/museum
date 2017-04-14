@@ -85,11 +85,15 @@ app.use(flash());
 // 	// res.header('Access-Control-Allow-Credentials', true);
 // 	next();
 // });
+// 
 
-app.use(function (req, res, next) {
+let timeCookie = 3 * 86400 * 1000; // 3 days
+
+app.use(function (req, res, next) { // Để đây thì khi client request static files, hàm này sẽ không cần chạy.
 	console.log(req.session);
 	if ('user' in req){
 		console.log(req.user);
+		res.cookie('username', req.user.username, {maxAge: timeCookie, httpOnly: true});
 	}
 	next();
 })

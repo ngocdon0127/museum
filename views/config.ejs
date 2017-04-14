@@ -59,13 +59,13 @@
 													<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-left: 0px;">
 														<ul class="list-group">
 																<li class="list-group-item">
-																	<input name="view" type="checkbox"> 
-																	<span> Xem </span>
+																	<input name="view" id="cbview" type="checkbox"> 
+																	<label for="view">hehe</label>
 																</li>
 															
 																<li class="list-group-item">
-																	<input name="create" type="checkbox"> 
-																	<span> Thêm </span>
+																	<input name="create" id="cbcreate" type="checkbox"> 
+																	<label for="create">hehe</label>
 																</li>
 															
 														</ul>
@@ -73,13 +73,13 @@
 													<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-left: 0px; padding-right: 0px;">
 														<ul class="list-group">
 																<li class="list-group-item">
-																	<input name="edit" type="checkbox"> 
-																	<span> Sửa </span>
+																	<input name="edit" id="cbedit" type="checkbox"> 
+																	<label for="edit">hehe</label>
 																</li>
 															
 																<li class="list-group-item">
-																	<input name="delete" type="checkbox"> 
-																	<span> Xóa </span>
+																	<input name="delete" id="cbdelete" type="checkbox"> 
+																	<label for="delete">hehe</label>
 																</li>
 															
 														</ul>
@@ -165,7 +165,7 @@
 															<% for (var j = 0; j < roles.length; j++) { %>
 																<li class="list-group-item">
 																	<input <%= (['admin', 'manager'].indexOf(roles[j].role) >= 0) ? 'disabled' : ''%> name="<%= roles[j].role%>" type="checkbox" <%= (users[i].id in aclRules && aclRules[users[i].id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
-																	<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + i %>" class="jTip"><%= roles[j].rolename %></a> </span>
+																	<span> <a href="/config/roleTooltip?width=500&amp;role=<%= escape(roles[j].role) %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + i %>" class="jTip"><%= roles[j].rolename %></a> </span>
 																</li>
 															<% } %>
 														</ul>

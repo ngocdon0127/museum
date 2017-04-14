@@ -2,7 +2,6 @@
 <div class="container-fluid">
 	<div id="download-progress-bar-container" style="margin-bottom: 10px; margin-top: 20px; margin-left: 0px; display: none">
 		<div class="container" style="padding-left: 0px;">
-			
 			<div class="progress">
 				<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%" id="download-progress-bar">
 					70%
@@ -11,21 +10,20 @@
 		</div>
 	</div>
 	<center><h2>Các mẫu vật đã đăng</h2></center>
-	<table id="managerpost" class="table table-hover">
-		<div class="dropdown" style="margin-left: 15px;">
-			<button class="btn btn-info" style="margin-bottom: 10px; width: 300px;">Trích xuất file <b class="caret"></b></button>
-			<div class="dropdown-content">
+	<div class="dropdown" style="margin-left: 15px;">
+			<button class="btn btn-primary" style="margin-bottom: 10px; width: 300px;">Trích xuất file <b class="caret"></b></button>
+			<div class="dropdown-content" ng-controller="ModalCtrl">
 			    <a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
 			    <a ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</a>
 			    <a ng-click="export('xlsx')"><span class="glyphicon glyphicon-download"></span> Xuất xlsx</a>	    
 			</div>
 		</div>
+	<button class="btn btn-success" style="cursor: pointer; margin-bottom: 10px; width: 300px; margin-left: 15px;" ng-click="selectAll()"><span class="glyphicons glyphicons-ok"></span> Select all</button>
+	<table id="managerpost" class="table table-hover">
 		<thead>
 			<tr>
-				<th>
-				<span class="label label-success" style="cursor: pointer;" ng-click="selectAll()">Select all</span>
-				</th>
-				<th>Tên mẫu</th>
+				<th>Tên mẫu vật</th>
+				<th>Tên người lập phiếu</th>
 				<th>Thông tin cơ bản</th>
 				<th>Ngày đăng</th>
 				<th>Hành động</th>
@@ -38,12 +36,12 @@
 					<a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenVietNam}}</span></a>
 				</td>
 				<td>
-					
+					{{post.nguoiLapPhieuMauVat}}
 				</td>
 				<td>
 					<span>Người thu mẫu: </span>{{post.nguoiThuMau}} </br>
 
-					<label class="label label-{{post.fApproved ? 'primary' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
+					<label class="label label-{{post.fApproved ? 'success' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
 				</td>
 				<td>
 					{{post.created_at | date: "dd-MM-yyyy hh:mm:ss"}}</br>
@@ -51,10 +49,30 @@
 				<td>
 					<div class="dropdown">
 						<button class="dropbtn" style="width: 180px;">Action <b class="caret"></b></button>
-						<div class="dropdown-content">
-							<a href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
-							<a href="#!/{{link}}/chinh-sua/{{post._id}}" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
-							<a ng-click="deletePost(post._id)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+						<div class="dropdown-content" ng-if="link == 'dong-vat'" ng-controller="ModalCtrl">
+							<a ng-if="restricted.restrict.dongvat.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
+							<a ng-if="restricted.restrict.dongvat.edit" ui-sref = "chinh-sua-dong-vat({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
+							<a ng-if="restricted.restrict.dongvat.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+						</div>
+						<div class="dropdown-content" ng-if="link == 'thuc-vat'" ng-controller="ModalCtrl">
+							<a ng-if="restricted.restrict.thucvat.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
+							<a ng-if="restricted.restrict.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
+							<a ng-if="restricted.restrict.thucvat.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+						</div>
+						<div class="dropdown-content" ng-if="link == 'co-sinh'" ng-controller="ModalCtrl">
+							<a ng-if="restricted.restrict.cosinh.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
+							<a ng-if="restricted.restrict.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
+							<a ng-if="restricted.restrict.cosinh.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+						</div>
+						<div class="dropdown-content" ng-if="link == 'tho-nhuong'" ng-controller="ModalCtrl">
+							<a ng-if="restricted.restrict.thonhuong.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
+							<a ng-if="restricted.restrict.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
+							<a ng-if="restricted.restrict.thonhuong.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
+						</div>
+						<div class="dropdown-content" ng-if="link == 'dia-chat'" ng-controller="ModalCtrl">
+							<a ng-if="restricted.restrict.diachat.approve" href="" ng-click="approvePost(post._id, post.fApproved)" role="button"><span class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></span> {{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}</a>
+							<a ng-if="restricted.restrict.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" role="button"><span class="glyphicon glyphicon-pencil"></span> Chỉnh sửa</a>
+							<a ng-if="restricted.restrict.diachat.delete" ng-click="showModal(post._id, link)" href="" role="button"><span class="glyphicon glyphicon-trash"></span> Xóa mẫu vật</a>
 						</div>
 					</div>
 				</td>
@@ -84,6 +102,8 @@
 	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	    z-index: 999;
 	    border-radius: 4px;
+	   	transform: translateY(0em);
+	   	transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
 	}
 
 	.dropdown-content a {

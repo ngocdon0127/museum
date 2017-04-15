@@ -228,10 +228,21 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 							acl.removeUserRoles(user.id, userRoles, (err) => {
 								if (err){
 									console.log(err);
-									process.send({actionType: 'restart', target: 'all'});
+									try {
+										process.send({actionType: 'restart', target: 'all'});
+									}
+									catch (e){
+										console.log(e);
+										return restart(res)
+									}
 									return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại'])
 								}
-								process.send({actionType: 'restart', target: 'other'});
+								try {
+									process.send({actionType: 'restart', target: 'other'});
+								}
+								catch (e){
+									console.log(e);
+								}
 								return responseSuccess(res, [], []);
 							})
 							// return restart(res);

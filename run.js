@@ -1,7 +1,8 @@
 var cluster = require('cluster');
 var noCPUs = require('os').cpus().length;
+var noThreads = require('./config/config.js').noThreads;
 
-if (noCPUs == 1){
+if ((noCPUs == 1) || (parseInt(noThreads) == 1)){
 	return require('./bin/www');
 }
 
@@ -58,8 +59,16 @@ if (cluster.isMaster){
 	})
 
 	console.log('master ' + process.pid + ' is forking childs...');
-
-	for(let i = 0; i < noCPUs; i++){
+	if (noThreads == 'optimal'){
+		noThreads = noCPUs;
+	}
+	else {
+		noThreads = parseInt(noThreads)
+	}
+	if (noThreads < 0){
+		noThreads = noCPUs
+	}
+	for(let i = 0; i < noThreads; i++){
 		cluster.fork();
 	}
 	// setTimeout(() => {

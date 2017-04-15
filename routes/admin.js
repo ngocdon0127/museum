@@ -225,13 +225,24 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 										// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
 										// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
 										// nên cần đánh dấu, restart toàn bộ worker
-										process.send({actionType: 'restart', target: 'all'});
+										try {
+											process.send({actionType: 'restart', target: 'all'});
+										}
+										catch (e){
+											console.log(e);
+										}
 										return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
 									}
 									// TODO
 									// Chỗ này cần gửi message về Master.
 									// Yêu cầu restart tất cả các worker khác
-									process.send({actionType: 'restart', target: 'other'});
+									
+									try {
+										process.send({actionType: 'restart', target: 'other'});
+									}
+									catch (e){
+										console.log(e);
+									}
 									return responseSuccess(res, [], []);
 								})
 								// return restart(res);
@@ -333,13 +344,23 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 					// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
 					// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
 					// nên cần đánh dấu, restart toàn bộ worker
-					process.send({actionType: 'restart', target: 'all'});
+					try {
+						process.send({actionType: 'restart', target: 'all'});
+					}
+					catch (e){
+						console.log(e);
+					}
 					return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
 				}
 				// TODO
 				// Chỗ này cần gửi message về Master.
 				// Yêu cầu restart tất cả các worker khác
-				process.send({actionType: 'restart', target: 'other'});
+				try {
+					process.send({actionType: 'restart', target: 'other'});
+				}
+				catch (e){
+					console.log(e);
+				}
 				return responseSuccess(res, [], []);
 			})
 			// return restart(res);
@@ -523,10 +544,20 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 						acl.removeUserRoles(user.id, userRoles, (err) => {
 							if (err){
 								console.log(err);
-								process.send({actionType: 'restart', target: 'all'})
+								try {
+									process.send({actionType: 'restart', target: 'all'})
+								}
+								catch (e){
+									console.log(e);
+								}
 								return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại'])
 							}
-							process.send({actionType: 'restart', target: 'other'})
+							try {
+								process.send({actionType: 'restart', target: 'other'})
+							}
+							catch (e){
+								console.log(e);
+							}
 							return responseSuccess(res, [], []);
 						})
 						// return restart(res)
@@ -578,7 +609,13 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 				roles[newRole].role = newRole;
 				roles[newRole].rolename = 'Nhân viên ' + req.body.newMaDeTai;
 				fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
-				process.send({actionType: 'restart', target: 'all'});
+				try {
+					process.send({actionType: 'restart', target: 'all'});
+				}
+				catch (e){
+					console.log(e);
+					return restart(res);
+				}
 				// return restart(res);
 				return responseSuccess(res, [], []);
 			}

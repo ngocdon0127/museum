@@ -1,6 +1,7 @@
 var cluster = require('cluster');
 var noCPUs = require('os').cpus().length;
-var noThreads = require('./config/config.js').noThreads;
+var config = require('./config/config.js');
+var noThreads = config.noThreads;
 
 if ((noCPUs == 1) || (parseInt(noThreads) == 1)){
 	return require('./bin/www');
@@ -20,36 +21,45 @@ if (cluster.isMaster){
 	})
 
 	cluster.on('message', (worker, msg) => {
-		console.log('received message from worker ' + worker.id + ' pid ' + worker.process.pid);
-		console.log(msg);
+		if (config.environment == 'development'){
+			console.log('received message from worker ' + worker.id + ' pid ' + worker.process.pid);
+			console.log(msg);
+		}
+		
 		if (msg.actionType){
 			switch (msg.actionType) {
 				case 'restart':
+					console.log('Master received restart-request from worker ' + worker.id + ' pid ' + worker.process.pid);
+					console.log(msg);
 					if (msg.target == 'other'){
 						// console.log('----------------');
 						// console.log('start killing other workers');
 						// console.log('----------------');
+						let stt = 1;
 						for(let id in cluster.workers){
 							let w = cluster.workers[id]
 							let pid = w.process.pid;
 							if (pid != worker.process.pid){
 								// console.log('killing ' + pid);
 								// cluster.workers[pid].kill();
-								w.send({actionType: 'killYourSelf', timeout: 1000});
+								w.send({actionType: 'killYourSelf', timeout: stt * 1000});
 							}
 							else {
 								// console.log('do not kill ' + pid);
 							}
+							stt++;
 						}
 					}
 					else if (msg.target == 'all'){
 						// console.log('----------------');
 						// console.log('start killing all workers');
 						// console.log('----------------');
+						let stt = 0;
 						for(let id in cluster.workers){
 							let w = cluster.workers[id]
 							let pid = w.process.pid;
-							w.send({actionType: 'killYourSelf', timeout: 0});
+							w.send({actionType: 'killYourSelf', timeout: stt * 1000});
+							stt++;
 						}
 					}
 					break;
@@ -84,8 +94,10 @@ else if (cluster.isWorker){
 	// process.exit(0, 1);
 	// console.log('worker ' + cluster.worker.id + ' forked with pid ' + cluster.worker.process.pid + ', process pid ' + process.pid);
 	process.on('message', (msg) => {
-		console.log('worker ' + cluster.worker.process.pid + ' received msg: ');
-		console.log(msg);
+		if (config.environment == 'development'){
+			console.log('worker ' + cluster.worker.process.pid + ' received msg: ');
+			console.log(msg);
+		}
 		if (msg.actionType == 'killYourSelf'){
 			console.log('preparing to exit');
 			setTimeout(() => {

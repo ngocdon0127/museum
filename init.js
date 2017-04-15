@@ -2906,6 +2906,27 @@ var getUserRoles = (userId) => {
 
 global.myCustomVars.promises.getUserRoles = getUserRoles;
 
+var removeUserRoles = (userId, roles) => {
+	return new Promise((resolve, reject) => {
+		acl.removeUserRoles(userId, roles, (err) => {
+			if (err){
+				console.log(err);
+				resolve({
+					status: 'error',
+					error: err
+				})
+			}
+			else {
+				resolve({
+					status: 'success'
+				})
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.removeUserRoles = removeUserRoles;
+
 var getUser = (userId) => {
 	return new Promise((resolve, reject) => {
 		mongoose.model('User').findById(userId, (err, user) => {

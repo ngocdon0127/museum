@@ -18,5 +18,6 @@ module.exports = {
 	recaptcha : {
 		sitekey : '',
 		secretkey: ''
-	}
+	},
+	noThreads: 'optimal'
 }

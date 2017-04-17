@@ -98,7 +98,7 @@ router.get("/login", function (req, res) {
 // });
 
 router.post("/login", function (req, res, next) {
-	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/users/me';
+	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/home';
 	passport.authenticate('local-login', {
 		successRedirect: redirectBack,
 		failureRedirect: "login",

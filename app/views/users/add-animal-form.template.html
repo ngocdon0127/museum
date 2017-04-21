@@ -261,7 +261,8 @@
 							<td>Vị trí: </td>
 							<td>
 								<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
-								<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên đảo
+								<input type="radio" name="fDiaDiemThuMau" value="dao" id="datLien" ng-click="showstar()" ng-model="trenDao"> Trên đảo
+								<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên biển
 							</td>
 						</tr>
 						<tr>
@@ -302,7 +303,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>Thôn/Xóm: </td>
+							<td>Thôn/bản: </td>
 							<td><input type="text" ng-model="data.thon" title="{{tooltips['thon']}}" name="thon" id="thon" class="input-form"></td>
 						</tr>
 					</table>

@@ -812,7 +812,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		// DiaDiemThuMau
 
-		if (objectInstance.flag.fDiaDiemThuMau != 'dat-lien'){
+		if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
 			for(var i = 0; i < PROP_FIELDS.length; i++){
 				var field = PROP_FIELDS[i];
 				if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -1602,7 +1602,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		// DiaDiemThuMau
 
-		if (objectInstance.flag.fDiaDiemThuMau != 'dat-lien'){
+		if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
 			for(var i = 0; i < PROP_FIELDS.length; i++){
 				var field = PROP_FIELDS[i];
 				if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){

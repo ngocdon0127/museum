@@ -2318,6 +2318,7 @@ var getAllHandler = function (options) {
 			var ObjectModel = options.ObjectModel;
 			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 			var PROP_FIELDS = options.PROP_FIELDS;
+			var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 			var objectModelNames = options.objectModelNames;
 			var projection = {deleted_at: {$eq: null}};
 			var userRoles = await(new Promise((resolve, reject) => {
@@ -2366,10 +2367,38 @@ var getAllHandler = function (options) {
 			// 	}
 			// }
 			// ===
-			console.log(projection);
 			// ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			
+			// Filter
+			for (let p in req.query) {
+				let v = req.query[p].trim();
+				if (p in PROP_FIELDS_OBJ){
+					console.log('filter: ' + p);
+					// console.log(PROP_FIELDS[PROP_FIELDS_OBJ[p]]);
+					try {
+						let prop = PROP_FIELDS[PROP_FIELDS_OBJ[p]];
+						if (prop.type == 'String'){
+							projection[prop.schemaProp + '.' + p] = new RegExp(v, 'i'); // bỏ qua chữ hoa chữ thường
+						}
+						else if (prop.type == 'Integer'){
+							projection[prop.schemaProp + '.' + p] = parseInt(v);
+						}
+						else if (prop.type == 'Number'){
+							projection[prop.schemaProp + '.' + p] = parseFloat(v);
+						}
+					}
+					catch (e){
+						console.log(e);
+					}
+				}
+				else {
+					console.log('unexpected: ' + p);
+				}
+			}
+			console.log(projection);
 			ObjectModel.find(projection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
 				if (err){
+					console.log(err);
 					return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
 				}
 				// var d1 = new Date();
@@ -2390,7 +2419,7 @@ var getAllHandler = function (options) {
 				// console.log("==================");
 				// console.log("time: " + ((d2.getTime() - d1.getTime()) / 1000));
 				// console.log("==================");
-				return responseSuccess(res, ['status', objectModelNames], ['success', objectInstances]);
+				return responseSuccess(res, ['status', objectModelNames, 'total'], ['success', objectInstances, objectInstances.length]);
 			})
 		})();
 	}

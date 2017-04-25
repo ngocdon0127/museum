@@ -13,19 +13,6 @@ const nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport(mailconfig);
 
-// var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
-// var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
-// var PERM_USER = global.myCustomVars.PERM_USER;
-
-router.use((req, res, next) => {
-	// if (req.path == '/logout'){
-	// 	return next();
-	// }
-	// if (req.isAuthenticated()){
-	// 	return res.redirect('/home')
-	// }
-	next();
-})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -38,11 +25,9 @@ router.get('/notme', (req, res, next) => {
 })
 
 router.get("/login", function (req, res) {
-	// console.log('COOKIE');
-	// console.log(req.headers.cookie);
-	// console.log('=========');
-	// console.log(req.cookies);
-	// console.log('COOKIE');
+	if (req.isAuthenticated()){
+		return res.redirect('/home')
+	}
 	let oldUser = req.cookies.username;
 	if (req.cookies.username){
 		User.findOne({username: oldUser}, (err, user) => {
@@ -98,6 +83,9 @@ router.get("/login", function (req, res) {
 // });
 
 router.post("/login", function (req, res, next) {
+	if (req.isAuthenticated()){
+		return res.redirect('/home')
+	}
 	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/home';
 	passport.authenticate('local-login', {
 		successRedirect: redirectBack,

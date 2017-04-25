@@ -822,6 +822,19 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 				}
 			}
 		}
+		else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				if (['huyen', 'xa'].indexOf(field.name) >= 0){
+					field.required = false;
+					field.money = false;
+					// console.log(field.name);
+				}
+			}
+		}
+		else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
+		}
 
 		try {
 			// Quốc gia khác, không phải Việt Nam
@@ -1611,6 +1624,20 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					// console.log(field.name);
 				}
 			}
+		}
+		else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				if (['huyen', 'xa'].indexOf(field.name) >= 0){
+					field.required = false;
+					field.money = false;
+					// console.log(field.name);
+				}
+			}
+		}
+		else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
+			
 		}
 
 		try {

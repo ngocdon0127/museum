@@ -81,7 +81,7 @@
 		"schemaProp": "tenMau",
 		"label": "Tên Việt Nam (phổ thông)",
 		"required": false,
-		"money": true,
+		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": true
@@ -786,7 +786,7 @@
 		"schemaProp": "phanBoVaSuDung",
 		"label": "Giá trị sử dụng",
 		"required": false,
-		"money": true,
+		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": true

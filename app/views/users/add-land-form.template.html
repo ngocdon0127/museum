@@ -52,7 +52,7 @@
 					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
 				</tr>
 				<tr>
-					<td><label>09. Tên Việt Nam (phổ thông) <span class="has-required">(*)</span>:</label></td>
+					<td><label>09. Tên Việt Nam (phổ thông):</label></td>
 					<td><input type="text"  title="{{tooltips['tenVietNam']}}" name="tenVietNam" ng-model="data.tenVietNam" class="input-form" required></td>
 				</tr>
 				<tr>
@@ -425,7 +425,7 @@
 				<tr><td><label>51. Xử lý chế tác mẫu vật: </label></td></tr>
 				<tr>
 					<td>Hình ảnh đính kèm Xử lý chế tác:</td>
-					<<td>
+					<td>
 						<input type="file" multiple id="hinhAnhDinhKem" ng-model="data.hinhAnhDinhKem" name="hinhAnhDinhKem" accept="image/*" max-file-size="5" class="inputfile customfile" data-multiple-caption="{count} file is selected">
 						<label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>No file chosen</span><strong>Choose file</strong></label>
 					</td>
@@ -498,7 +498,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label>56. Giá trị sử dụng (tài nguyên)(nếu có):</label></td>
+					<td><label>56. Giá trị sử dụng:</label></td>
 					<td>
 						<input type="" title="{{tooltips['giaTriSuDung']}}" name="giaTriSuDung" multiple='multiple' class="input-form flexdatalist"  data-min-length='0'  ng-model="data.giaTriSuDung" list="giaTriSuDung">
 						<datalist id="giaTriSuDung">

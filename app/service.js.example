@@ -98,7 +98,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		} else{
 			$uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: function ($scope, ) {
+				controller: function ($scope) {
 					$scope.message = "Xin hãy chọn file.";
 					$scope.ok = function () {
 						// $uibModalInstance.close();
@@ -257,20 +257,25 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
 				stopSpinner();
-				console.log(err);
+				// console.log(err);
 				setTimeout(function () { // Stop spinner before alerting
 					// alert(JSON.parse(err.responseText).error);
-					$uibModal.open({
+					var modalInstance = $uibModal.open({
 						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: function ($scope) {
-							$scope.message = "Đã xảy ra lỗi";
-							$scope.ok = function () {
-								 $scope.showModal = false;
+						controller: "ModalInstanceCtrl",
+						controllerAs: '$ctrl',
+						resolve: {
+							err: function () {
+								return JSON.parse(err.responseText).error;
+							},
+							id: function () {
+								return JSON.parse(err.responseText).field;
 							}
 						}
 					});
 				}, 100)
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
+				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0]
+				console.log(element);
 				try {
 					element.style.background = '#EE543A';
 					setTimeout((function (e) {

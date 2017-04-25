@@ -443,3 +443,13 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams
 		$scope.showCoor = false
 	}
 }]);
+
+app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, err, id, $anchorScroll) {
+	$scope.message = err;
+	$scope.ok = function () {
+		$uibModalInstance.dismiss();
+		$location.hash(id);
+		$anchorScroll.yOffset = 100;
+    	$anchorScroll();
+	}
+})

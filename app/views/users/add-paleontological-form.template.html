@@ -252,9 +252,9 @@
 							<tr>
 								<td>Vị trí: </td>
 								<td>
-									<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="showstar()" id="datLien"> Trên đất liền 
-									<input type="radio" name="fDiaDiemThuMau" value="dao" id="datLien" ng-click="showstar()" ng-model="trenDao"> Trên đảo
-									<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="hidestar()" ng-model="trenBien"> Trên biển
+									<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="starDatLien()" id="datLien"> Trên đất liền 
+									<input type="radio" name="fDiaDiemThuMau" value="dao" id="datLien" ng-click="starDao()" ng-model="trenDao"> Trên đảo
+									<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="starBien()" ng-model="trenBien"> Trên biển
 								</td>
 							</tr>
 							<tr>
@@ -267,7 +267,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Tỉnh/Thành phố<span ng-show="star" class="has-required"> (*)</span>: </td>
+								<td>Tỉnh/Thành phố<span ng-show="star_tinh" class="has-required"> (*)</span>: </td>
 								<td>
 									<input type="text" list="tinh" class="input-form flexdatalist" ng-model="data.tinh" ng-change="cityChange()" data-min-length='0' title="{{tooltips['tinh']}}" name="tinh"> 
 									<datalist id="tinh">

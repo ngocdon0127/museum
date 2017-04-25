@@ -464,12 +464,19 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 		}
 	}
 	$scope.star = true;
-	$scope.showstar = function () {
+	$scope.star_tinh = true;
+
+	$scope.starDatLien = function () {
 		$scope.star = true;
 	}
-
-	$scope.hidestar = function () {
+	$scope.starDao = function () {
+		$scope.star_tinh = true;
 		$scope.star = false;
+	}
+
+	$scope.starBien = function () {
+		$scope.star = false;
+		$scope.star_tinh = false;
 	}
 
 	$scope.districtChange = function() {

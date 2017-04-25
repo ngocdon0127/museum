@@ -190,8 +190,6 @@ router.post('/forgot-password', function(req, res){
 
 router.get('/reset/:email/:key', function(req, res){
 	User.findOne({'username' : req.params.email, 'forgot_password.key' : req.params.key}, function(err, user){
-		err && console.log(err);
-		!user && console.log('invalid username');
 		if(err || !user)
 			res.send("Có lỗi xảy ra");
 		else {

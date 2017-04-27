@@ -1,8 +1,7 @@
-app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $route, cfpLoadingBar){
-	
+app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
 	return ({
-		hostName: 'http://localhost:8000',
-		//hostName: 'http://baotangvn.online',
+		//hostName: 'http://localhost:8000',
+		hostName: 'http://baotangvn.online',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,
@@ -14,6 +13,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		initDatePicker: initDatePicker,
 		startSpinner: startSpinner,
 		stopSpinner: stopSpinner,
+		todoRef: todoRef,
+		getRestrict: getRestrict,
 		arrAuto: [	
 			'tenDongNghia',
 			'tenTheoBaoTang',
@@ -29,12 +30,10 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'lienHo',
 			'ho',
 			'phanHo',
-			'toc', 
-			'chiGiong', 
-			'phanChiPhanGiong',
+			'toc',
 			'loai', 
 			'duoiLoai', 
-			'coQuanThuMau', 'thon', 
+			'coQuanThuMau', 'thon',
 			'coQuanToChucGiamDinh',
 			'coQuanXuLy',
 			'boPhanLayMauDNA', 
@@ -42,6 +41,8 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			'coQuanNhapVatMau',
 			'giaTriSuDung',
 			'tong',
+			'chiGiong',
+			'phanChiPhanGiong',
 			'loai',
 			'noiLuuTruMau',
 			'viTriLayMauDNA',
@@ -49,15 +50,38 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		]
 	});
 
+	function todoRef() {
+		return true;
+	}
+
+	function getRestrict(sample) {
+		var self = this;
+		var defer = $q.defer();
+		$http.get(this.hostName + "/users/me?datatype=json")
+		.success(function(data, status){
+			if (status == 200 && data.status == 'success') {
+				defer.resolve(data);
+			} else{
+				defer.reject();
+			}
+		})
+		//handle error
+		.error(function(err){
+			console.log(err);
+			defer.reject("Lỗi trong quá trình tải dữ liệu...");
+		});
+		return defer.promise;
+	}
+
 	function exportFile(id){
 		var arr = document.getElementsByClassName("check-box");
+
 		var urls = [];
 		var totalFile = 0;
 		var step = 0;
 		var progressBar = document.getElementById('download-progress-bar');
 		var progressBarContainer = document.getElementById('download-progress-bar-container');
 		angular.forEach(arr, function (value) {
-			
 			if (value.checked) {
 				urls.push(value.getAttribute("data-id") + id);
 				totalFile++;
@@ -71,25 +95,29 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			progressBar.innerHTML = '0 / ' + totalFile;
 			progressBar.setAttribute('aria-valuenow', 0);
 			$(progressBarContainer).fadeIn();
+		} else{
+			$uibModal.open({
+				templateUrl: 'views/modals/dialogs.blade.html',
+				controller: function ($scope) {
+					$scope.message = "Xin hãy chọn file.";
+					$scope.ok = function () {
+						// $uibModalInstance.close();
+					}
+				}
+			});
 		}
-
 		download(0);
 
 		function download(index) {
 			// console.log('processing ' + index);
 			if (index >= totalFile){
-				// progressBar.setAttribute('aria-valuemax', totalFile);
-				// progressBar.style.width = '0%';
-				// progressBar.innerHTML = '0 / ' + totalFile;
-				// progressBar.setAttribute('aria-valuenow', 0);
-				// $(progressBarContainer).fadeIn();
 				$(progressBarContainer).fadeOut(1000);
 			}
 			else {
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						console.log(xhr);
+						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
@@ -140,34 +168,6 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				xhr.send();
 			}
 		}
-
-		// function createCB(index) {
-		// 	return function () {
-		// 		window.location.href = urls[index];
-		// 		progressBar.style.width = (index + 1) / totalFile * 100 + '%';
-		// 		progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
-		// 		progressBar.setAttribute('aria-valuenow', index);
-		// 		if (index >= totalFile - 1){
-		// 			$(progressBarContainer).fadeOut(2000);
-
-		// 		}
-		// 	}
-		// }
-		// var timeOut = 2000;
-		// if (id == 'pdf'){
-		// 	timeOut = 4000;
-		// }
-		// if (totalFile){
-		// 	// step = 100 / totalFile;
-		// 	progressBar.setAttribute('aria-valuemax', totalFile);
-		// 	progressBar.style.width = '0%';
-		// 	progressBar.innerHTML = '0 / ' + totalFile;
-		// 	progressBar.setAttribute('aria-valuenow', 0);
-		// 	$(progressBarContainer).fadeIn();
-		// }
-		// for(var i = 0; i < urls.length; i++){
-		// 	setTimeout(createCB(i), timeOut * i)
-		// }
 	}
 
 	function addSample(fd, url, urlRe){
@@ -180,9 +180,17 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			success: function (data) {
 				cfpLoadingBar.complete();
 				stopSpinner();
-				setTimeout(function () { // Stop spinner before alerting
-					alert(data.status);
-					window.location = urlRe;
+				setTimeout(function () {
+					$uibModal.open({
+						templateUrl: 'views/modals/dialogs.blade.html',
+						controller: function ($scope) {
+							$scope.message = "Thêm mẫu vật thành công";
+							$scope.ok = function () {
+								 // $scope.showModal = false;
+							}
+						}
+					});
+					$state.go(urlRe);
 				}, 100)
 			},
 			error: function (err) {
@@ -190,7 +198,16 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				stopSpinner();
 				cfpLoadingBar.set(0);
 				setTimeout(function () { // Stop spinner before alerting
-					alert(JSON.parse(err.responseText).error);
+					var _tmp = JSON.parse(err.responseText).error;
+					$uibModal.open({
+						templateUrl: 'views/modals/dialogs.blade.html',
+						controller: function ($scope) {
+							$scope.message = "Lỗi, xin hãy nhập lại";
+							$scope.ok = function () {
+								$uibModalInstance.close();
+							}
+						}
+					});
 				}, 100)
 				console.log(err);
 
@@ -224,8 +241,16 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				cfpLoadingBar.complete();
 				stopSpinner();
 				setTimeout(function () { // Stop spinner before alerting
-					alert(data.status);
-					window.location = urlRe;
+					$uibModal.open({
+						templateUrl: 'views/modals/dialogs.blade.html',
+						controller: function ($scope) {
+							$scope.message = "Chỉnh sửa mẫu vật thành công";
+							$scope.ok = function () {
+								 $scope.showModal = false;
+							}
+						}
+					});
+					$state.go(urlRe)
 				}, 100)
 			},
 			error: function (err) {
@@ -234,7 +259,16 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				stopSpinner();
 				console.log(err);
 				setTimeout(function () { // Stop spinner before alerting
-					alert(JSON.parse(err.responseText).error);
+					// alert(JSON.parse(err.responseText).error);
+					$uibModal.open({
+						templateUrl: 'views/modals/dialogs.blade.html',
+						controller: function ($scope) {
+							$scope.message = "Đã xảy ra lỗi";
+							$scope.ok = function () {
+								 $scope.showModal = false;
+							}
+						}
+					});
 				}, 100)
 				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
 				try {
@@ -261,7 +295,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 			headers: {'Content-Type': 'application/json'},
 			data: {id: id}
 		}).then(function (res) {
-			$route.reload();
+			$state.reload();
 		}, function (err) {
 			console.log(err);
 		});
@@ -280,16 +314,31 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		}).then(function (res) {
 			// console.log(res);
 			if (res.data.status == 'success'){
-				alert('success')
+				$uibModal.open({
+					templateUrl: 'views/modals/dialogs.blade.html',
+					controller: function ($scope) {
+						$scope.message = "Thành công";
+					}
+				});
 			}
 			else {
-				alert('Bạn không thể phê duyệt mẫu dữ liệu này.');
+				$uibModal.open({
+					templateUrl: 'views/modals/dialogs.blade.html',
+					controller: function ($scope) {
+						$scope.message = "Bạn không được phê duyệt mẫu vật này.";
+					}
+				});
 			}
-			$route.reload();
+			$state.reload();
 		}, function (err) {
 			// console.log(err);
-			alert('Bạn không thể phê duyệt mẫu dữ liệu này');
-			$route.reload();
+			$uibModal.open({
+				templateUrl: 'views/modals/dialogs.blade.html',
+				controller: function ($scope) {
+					$scope.message = "Bạn không được phê duyệt mẫu vật này.";
+				}
+			});
+			$state.reload();
 		});
 	}
 
@@ -347,7 +396,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 				selectionRequired: true,
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-		}, 500)
+		}, 1000)
 	}
 
 	function fetchFlexdatalist(_scope) {
@@ -460,9 +509,7 @@ app.factory('AuthService', ['$http','$route', 'cfpLoadingBar', function($http, $
 		SPINNER.stop();
 	}
 
-	
-
-}]);
+});
 
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
 var SPINNER = null;

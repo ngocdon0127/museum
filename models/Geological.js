@@ -113,6 +113,7 @@ module.exports = function (mongoose) {
 			loaiMau : String,
 			hinhDangMauTonTai : String,
 			mauSac : String,
+			phanLoaiSuDungMau: String,
 			thanhPhanKhoangVat : String,
 			tinhChatVatLy : String,
 			congThucHoaHoc : [String],

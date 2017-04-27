@@ -9,6 +9,9 @@ module.exports = function (mongoose) {
 		fullname: String,
 		lastLogin: Date,
 		created_at: Date,
+		avatar: {
+			original: String
+		},
 		forgot_password: {
 			key : String,
 			count : {type : Number, default: 0},

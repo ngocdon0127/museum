@@ -1,4 +1,4 @@
-app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/dong-vat';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.animals;
@@ -18,24 +18,19 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', '$ro
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
-
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/dong-vat";
-		var r = confirm("Xoá bài đăng");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
+	// $scope.deletePost = function(id){
+	// 	var r = confirm("Xoá bài đăng");
+	// 	if (r == true) {
+	// 		AuthService.deleteP(id, url);
+	// 	}
+	// }
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'dong-vat')
 	}
 
 }]);
 
-app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/thuc-vat';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.vegetables;
@@ -55,23 +50,16 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', '
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/thuc-vat";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'thuc-vat')
 	}
 }]);
 
-app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('LandManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/tho-nhuong';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.soils;
@@ -91,22 +79,15 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', '$rout
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/tho-nhuong";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'tho-nhuong')
 	}
 }]);
-app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/dia-chat';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.geologicals;
@@ -126,23 +107,16 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/dia-chat";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'dia-chat')
 	}
 }]);
 
-app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthService', '$route', function ($scope, $http, AuthService, $route) {
+app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
 	var url = AuthService.hostName + '/content/co-sinh';
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.paleontologicals;
@@ -162,18 +136,46 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 		}
 	}
 
-	$scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+	// $scope.export = function (id) {
+	// 	AuthService.exportFile(id);
+	// };
 
-	$scope.deletePost = function(id){
-		var urlDelete = AuthService.hostName + "/content/co-sinh";
-		var r = confirm("Xóa bài đăng?");
-		if (r == true) {
-			AuthService.deleteP(id, urlDelete);
-		}
-	}
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'co-sinh')
 	}
 }]);
+
+app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
+	$scope.showModal = function(id, link) {
+		$scope.opts = {
+			backdrop: true,
+			backdropClick: true,
+			dialogFade: false,
+			keyboard: true,
+			templateUrl : 'views/modals/delete.blade.html',
+			controller : ModalInstanceCtrl
+	    };
+	    var url = AuthService.hostName + "/content/" + link;
+
+	    var modalInstance = $uibModal.open($scope.opts);
+	    modalInstance.result.then(function(){
+	        //on ok button press
+	       	AuthService.deleteP(id, url);
+	    },function(){
+	        //on cancel button press
+	    });
+    };
+
+    $scope.export = function (id) {
+		AuthService.exportFile(id);
+	};
+});
+
+var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal) {
+	$scope.ok = function () {
+		$uibModalInstance.close();
+	};
+	$scope.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+}

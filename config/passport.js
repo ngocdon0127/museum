@@ -2,11 +2,17 @@ var LocalStrategy = require('passport-local').Strategy;
 // var PERM_ACCESS_PAGE = 1000;
 
 module.exports = function (passport, User) {
+	// console.log('========================');
+	// console.log('passport: ' + 'serializeUser called');
+	// console.log('========================');
 	passport.serializeUser(function (user, done) {
 		done(null, user.id);
 	});
 
 	passport.deserializeUser(function (id, done) {
+		// console.log('========================');
+		// console.log('passport: ' + 'deserializeUser called');
+		// console.log('========================');
 		User.findById(id, function (err, user) {
 			// var u = JSON.parse(JSON.stringify(user));
 			// delete u.password;
@@ -26,10 +32,10 @@ module.exports = function (passport, User) {
 				return done(err);
 			}
 			if (!user){
-				return done(null, false, req.flash("loginMessage", "Invalid Email"), req.flash("oldEmail", username));
+				return done(null, false, req.flash("loginMessage", "Sai thông tin đăng nhập"), req.flash("oldEmail", username));
 			}
 			if (!user.validPassword(password)){
-				return done(null, false, req.flash("loginMessage", "Invalid password"), req.flash("oldEmail", username));
+				return done(null, false, req.flash("loginMessage", "Sai thông tin đăng nhập"), req.flash("oldEmail", username));
 			}
 			// if (user.permission < PERM_ACCESS_PAGE){
 			// 	return done(null, false, req.flash('loginMessage', "Login successfully. But you do not have permission to access page. Contact Admin to update your account."));
@@ -80,8 +86,8 @@ module.exports = function (passport, User) {
 				if (err){
 					throw err;
 				}
-				// return done(null, false, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
-				return done(null, user, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
+				return done(null, false, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
+				// return done(null, user, req.flash('signupMessage', "Sign up successfully. But you cannot access page until Admin upgrades your account. "));
 			})
 		})
 	}));

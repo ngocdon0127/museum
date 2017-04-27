@@ -217,7 +217,7 @@ async(() => {
 				}
 				else {
 					var data = new Data();
-					data.maDeTai = DATA.maDeTai;
+					data.deTai = DATA.deTai;
 					data.save((err) => {
 						if (err){
 							resolve('err')
@@ -270,11 +270,15 @@ async(() => {
 		]
 		let maDeTais = await(new Promise((resolve, reject) => {
 			mongoose.model('SharedData').findOne({}, (err, sharedData) => {
-				if (err || !sharedData){
-					resolve([])
+				if (!err && sharedData){
+					let result = [];
+					for(let dt of sharedData.deTai){
+						result.push(dt.maDeTai);
+					}
+					resolve(result);
 				}
 				else {
-					resolve(sharedData.maDeTai)
+					resolve([])
 				}
 			})
 		}))
@@ -312,6 +316,25 @@ async(() => {
 				}))
 				console.log(result)
 			}
+		}
+		console.log('Fix form: OK');
+		let users = await(new Promise((resolve, reject) => {
+			mongoose.model('User').find({'maDeTai': {$nin: maDeTais}}, (err, users) => {
+				if (err){
+					console.log(err);
+					resolve([])
+				}
+				resolve(users);
+			})
+		}))
+		for(let u of users){
+			u.maDeTai = '';
+			await(new Promise((resolve, reject) => {
+				u.save((err) => {
+					err && console.log(err);
+					resolve([])
+				})
+			}))
 		}
 		console.log('Done');
 

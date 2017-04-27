@@ -76,7 +76,8 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	}, function (err) {
 		console.log(err);
 	});
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
+	//name of route, config in app.config.js file
+	var urlRe = 'quan-ly-dong-vat';
 
 	$scope.addPost = function(FormContent){
 			
@@ -142,7 +143,8 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 		console.log(err);
 	}); 
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
+	//name of route, config in app.config.js file
+	var urlRe = 'quan-ly-thuc-vat';
 
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
@@ -214,7 +216,8 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 		console.log(err);
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
+	//name of route, config in app.config.js file
+	var urlRe = 'quan-ly-dia-chat';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
@@ -281,7 +284,8 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 		console.log(err);
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
+	//name of route, config in app.config.js file
+	var urlRe = 'quan-ly-tho-nhuong';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
@@ -348,7 +352,8 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 		console.log(err);
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
+	//name of route, config in app.config.js file
+	var urlRe = 'quan-ly-co-sinh';
 	$scope.addPost = function(FormContent){
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();

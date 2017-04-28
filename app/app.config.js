@@ -178,6 +178,11 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider) {
 	.state('testover', {
 		url: '/bai-dang/test-over',
 		templateUrl: 'views/testover.template.html'
+	})
+	.state('guest-view-dia-chat', {
+		url: '/guest/dia-chat',
+		templateUrl: 'views/guest/dia-chat.template.html',
+		controller: 'GuestGeologicalController'
 	});
 	$urlRouterProvider.otherwise('/');
 });

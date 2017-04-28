@@ -19,7 +19,7 @@ function aclMiddleware (resource, action, url) {
 			if (err){
 				console.log(err);
 			}
-			console.log('result: ', result);
+			// console.log('result: ', result);
 			if (result){
 				next();
 			}
@@ -177,7 +177,7 @@ function responseSuccess (res, props, values) {
 
 global.myCustomVars.responseSuccess = responseSuccess;
 
-// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
+// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DESTINATION, result.id);
 function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 	// console.log(schemaField);
 	try {
@@ -264,8 +264,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 	var objectModelIdParamName = variablesBundle.objectModelIdParamName;
 	var objectBaseURL = variablesBundle.objectBaseURL;
 	var _PROP_FIELDS = variablesBundle.PROP_FIELDS;
-	var _UPLOAD_DEST_ANIMAL = variablesBundle.UPLOAD_DEST_ANIMAL;
-	// console.log(variablesBundle.UPLOAD_DEST_ANIMAL);
+	var _UPLOAD_DESTINATION = variablesBundle.UPLOAD_DESTINATION;
+	// console.log(variablesBundle.UPLOAD_DESTINATION);
 	// console.log(1);
 
 	return function saveOrUpdate (req, res, objectInstance, action) {
@@ -372,9 +372,12 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		]
 
 		for(let field of specialFields.placeFields){
+			// console.log('checking ' + field.fieldName);
 			if (field.fieldName in req.body){
 				let value_ = req.body[field.fieldName]
+				// console.log(value_);
 				if ((value_.indexOf('undefined') >= 0) || (value_.indexOf('string') >= 0) || (value_.indexOf('?') >= 0)){
+					// console.log('delete now: ' + field.fieldName);
 					req.body[field.fieldName] = ''
 				}
 			}
@@ -397,7 +400,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				// Check required files if action is create
 				if (element.required && (element.type.localeCompare('File') == 0) && (!(element.name in req.files) || !(req.files[element.name]))){
 					console.log('missing file');
-					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
 				}
 			}
 
@@ -406,7 +409,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				// Check required data props if action is create
 				if (element.required && (element.type.localeCompare('File') != 0) && (!(element.name in req.body) || !(req.body[element.name]))) {
 					console.log('response error');
-					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ["Thiếu tham số", element.name]);
 				}
 			}
 
@@ -424,19 +427,19 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						}
 						if ('min' in element){
 							if (value.length < element.min){
-								return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.min + ' ký tự', element.name]);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.min + ' ký tự', element.name]);
 							}
 						}
 
 						if ('max' in element){
 							if (value.length > element.max){
-								return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.max + ' ký tự', element.name]);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.max + ' ký tự', element.name]);
 							}
 						}
 						if ('regex' in element){
 							var regex = new RegExp(element.regex);
 							if (regex.test(value) === false){
-								return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Sai định dạng', element.name]);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Sai định dạng', element.name]);
 							}
 						}
 					}
@@ -454,20 +457,20 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							catch (e){
 								console.log(e);
 							}
-							return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [label + ' phải là số nguyên', element.name])
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [label + ' phải là số nguyên', element.name])
 						}
 					}
 					// Không break.
 				case 'Number':
 					if ('min' in element){
 						if (parseFloat(req.body[element.name]) < element.min){
-							return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được nhỏ hơn ' + element.min, element.name]);
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được nhỏ hơn ' + element.min, element.name]);
 						}
 					}
 
 					if ('max' in element){
 						if (parseFloat(req.body[element.name]) > element.max){
-							return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], [element.name + ' không được lớn hơn ' + element.max, element.name]);
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được lớn hơn ' + element.max, element.name]);
 						}
 					}
 					// console.log('number in ' + element.name);
@@ -488,7 +491,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						try {
 							let dateValue_ = req.body[element.name].split('/');
 							if (dateValue_.length < 3){
-								return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
 							}
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
@@ -517,7 +520,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								// console.log(file.originalname)
 								var fn_ = file.originalname.split('.');
 								if (fn_.length < 2){
-									return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['File thiếu định dạng', element.name]);
+									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['File thiếu định dạng', element.name]);
 								}
 
 								fn_[fn_.length - 1] = fn_[fn_.length - 1].toLowerCase();
@@ -529,7 +532,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								if (!regex.test(file.originalname)){
 									// console.log(regex);
 									// console.log(file.originalname);
-									return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Tên file trong trường không hợp lệ', element.name]);
+									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Tên file trong trường không hợp lệ', element.name]);
 								}
 							}
 						}
@@ -544,7 +547,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								// console.log(file)
 								var fileSize = parseInt(file.size); // bytes
 								if (fileSize > maxFileSize){
-									return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Kích thước file tối đa là ' + (maxFileSize / 1024 / 1024).toFixed(2) + ' MB', element.name])
+									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Kích thước file tối đa là ' + (maxFileSize / 1024 / 1024).toFixed(2) + ' MB', element.name])
 								}
 								// console.log(file.originalname + ' passed')
 							}
@@ -570,7 +573,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 									if ('regex' in e){
 										var regex = new RegExp(e.regex);
 										if (regex.test(v) === false){
-											return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Sai định dạng', e.name]);
+											return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Sai định dạng', e.name]);
 										}
 									}
 									valid = true;
@@ -586,7 +589,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								}
 							}
 							if (!valid){
-								return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Thiếu tham số', element.name]);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Thiếu tham số', element.name]);
 							}
 						}
 					}
@@ -675,13 +678,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					if (dotPos >= 0){
 						errField = errField.substring(dotPos + 1);
 					}
-					return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error', 'field'], ['Dữ liệu nhập vào không hợp lệ', errField]);
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Dữ liệu nhập vào không hợp lệ', errField]);
 				}
 				catch (e){
 					console.log(err);
 					console.log('Server error');
 				}
-				return responseError(req, _UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Error while saving to database']);
+				return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error'], ['Error while saving to database']);
 			}
 
 			// rename images
@@ -703,7 +706,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					// var lastProp = nodes.splice(nodes.length - 1, 1)[0];
 					// var tree = nodes.join('.');
 					// objectChild(animal, tree)[lastProp] = [];
-					// rename(req.files[element.name], objectChild(animal, element.schemaProp), UPLOAD_DEST_ANIMAL, result.id);
+					// rename(req.files[element.name], objectChild(animal, element.schemaProp), UPLOAD_DESTINATION, result.id);
 
 					if (action == ACTION_EDIT){
 						
@@ -713,9 +716,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						var files = objectChild(objectInstance, element.schemaProp)[element.name];
 						// console.log(files);
 						for (var j = 0; j < files.length; j++) {
-							// fs.unlinkSync(path.join(_UPLOAD_DEST_ANIMAL, files[j]));
+							// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
 							try {
-								fs.unlinkSync(path.join(_UPLOAD_DEST_ANIMAL, files[j]));
+								fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
 								console.log('deleted ' + files[j])
 							}
 							catch (e){
@@ -726,8 +729,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 					}
 					objectChild(objectInstance, element.schemaProp)[element.name] = [];
-					rename(req.files[element.name], element.name, objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
-					// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DEST_ANIMAL, result.id);
+					rename(req.files[element.name], element.name, objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DESTINATION, result.id);
+					// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DESTINATION, result.id);
 				}
 			})
 
@@ -809,7 +812,7 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		// DiaDiemThuMau
 
-		if (objectInstance.flag.fDiaDiemThuMau != 'dat-lien'){
+		if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
 			for(var i = 0; i < PROP_FIELDS.length; i++){
 				var field = PROP_FIELDS[i];
 				if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -820,7 +823,25 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 			}
 		}
 
-		delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don'y know why, check later
+		try {
+			// Quốc gia khác, không phải Việt Nam
+			let qg = objectInstances.duLieuThuMau.diaDiemThuMau.quocGia;
+			if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+				for(var i = 0; i < PROP_FIELDS.length; i++){
+					var field = PROP_FIELDS[i];
+					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
+						field.required = false;
+						field.money = false;
+						// console.log(field.name);
+					}
+				}
+			}
+		}
+		catch (e){
+			console.log(e);
+		}
+
+		delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don't know why, check later
 		for(var i = 0; i < PROP_FIELDS.length; i++){
 			var field = PROP_FIELDS[i];
 			// console.log(field.name);
@@ -1581,7 +1602,7 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 
 		// DiaDiemThuMau
 
-		if (objectInstance.flag.fDiaDiemThuMau != 'dat-lien'){
+		if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
 			for(var i = 0; i < PROP_FIELDS.length; i++){
 				var field = PROP_FIELDS[i];
 				if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -1590,6 +1611,24 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					// console.log(field.name);
 				}
 			}
+		}
+
+		try {
+			// Quốc gia khác, không phải Việt Nam
+			let qg = objectInstances.duLieuThuMau.diaDiemThuMau.quocGia;
+			if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+				for(var i = 0; i < PROP_FIELDS.length; i++){
+					var field = PROP_FIELDS[i];
+					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
+						field.required = false;
+						field.money = false;
+						// console.log(field.name);
+					}
+				}
+			}
+		}
+		catch (e){
+			console.log(e);
 		}
 
 		delete objectInstance.flag.fDiaDiemThuMau;
@@ -2277,7 +2316,7 @@ var getAllHandler = function (options) {
 		async(() => {
 			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 			var ObjectModel = options.ObjectModel;
-			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 			var PROP_FIELDS = options.PROP_FIELDS;
 			var objectModelNames = options.objectModelNames;
 			var projection = {deleted_at: {$eq: null}};
@@ -2331,7 +2370,7 @@ var getAllHandler = function (options) {
 			// ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 			ObjectModel.find(projection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
 				if (err){
-					return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+					return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
 				}
 				// var d1 = new Date();
 				objectInstances = JSON.parse(JSON.stringify(objectInstances));
@@ -2363,10 +2402,10 @@ var getAutoCompletionHandler = function (options) {
 	return function (req, res) {
 		// console.log(Object.keys(AutoCompletion.schema.paths));
 		var AutoCompletion = options.AutoCompletion;
-		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 		AutoCompletion.findOne({}, function (err, autoCompletion) {
 			if (err){
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading AutoCompletion data"]);
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ["Error while reading AutoCompletion data"]);
 			}
 			else{
 				var props = [];
@@ -2398,30 +2437,30 @@ var getSingleHandler = function (options) {
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;
-		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 		var objectModelIdParamName = options.objectModelIdParamName;
 		var objectBaseURL = options.objectBaseURL;
 		var LABEL = options.LABEL;
 		var objectModelLabel = options.objectModelLabel;
 		ObjectModel.findById(req.params.objectModelIdParamName, function (err, objectInstance) {
 			if (err){
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
 			}
 			if (objectInstance){
 				if (objectInstance.deleted_at){
 					Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.objectModelIdParamName)}}, function (err, logs) {
 						if (err || (logs.length < 1)){
 							console.log(err);
-							return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
+							return responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
 						}
 						// console.log(logs);
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
+						return responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
 					})
 				}
 				else {
 					// return responseSuccess(res, ['objectInstance'], [objectInstance]);
 					if (req.query.display == 'html'){
-						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length)});
+						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length)});
 					}
 					else if (['docx', 'pdf', 'xlsx'].indexOf(req.query.display) >= 0){
 
@@ -2471,7 +2510,7 @@ var getSingleHandler = function (options) {
 				}
 			}
 			else{
-				responseError(req, UPLOAD_DEST_ANIMAL, res, 404, ['error'], ['Không tìm thấy']);
+				responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ['Không tìm thấy']);
 			}
 		})
 	}
@@ -2482,42 +2521,42 @@ global.myCustomVars.getSingleHandler = getSingleHandler;
 // hanle route: objectBaseURL + '/log/:logId/:position'
 var getLogHandler = function (options) {
 	return function (req, res) {
-		var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 		var objectBaseURL = options.objectBaseURL;
 		var PROP_FIELDS = options.PROP_FIELDS;
 		Log.findById(req.params.logId, function (err, log) {
 			if (err){
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
 			}
 			if (log){
 				if ((log.action == 'update') && (req.params.position == 'diff')){
 					// return responseSuccess(res, ['obj1', 'obj2'], [flatObjectModel(PROP_FIELDS, log.obj1), flatObjectModel(PROP_FIELDS, log.obj2)]);
-					return res.render('display', {title: 'Các cập nhật', objectPath: objectBaseURL, count: 2, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+					return res.render('display', {title: 'Các cập nhật', objectPath: objectBaseURL, count: 2, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
 				}
 
 				switch (parseInt(req.params.position)){
 					case 1:
 						if ('obj1' in log){
 							// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj1)])
-							return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: {}, staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+							return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj1), obj2: {}, staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
 						}
 						else{
-							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
+							return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Invalid object'])
 						}
 					case 2:
 						if (('obj2' in log) && (log.obj2)){
-							return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DEST_ANIMAL.substring(UPLOAD_DEST_ANIMAL.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+							return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
 							// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj2)])
 						}
 						else{
-							return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
+							return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Invalid object'])
 						}
 					default:
-						return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid object'])
+						return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Invalid object'])
 				}
 			}
 			else {
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid logId'])
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Invalid logId'])
 			}
 		})
 	}
@@ -2531,13 +2570,13 @@ var deleteHandler = function (options) {
 		var await = require('asyncawait/await')
 		async(() => {
 			var objectModelIdParamName = options.objectModelIdParamName;
-			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 			var objectModelName = options.objectModelName;
 			var objectModelIdParamName = options.objectModelIdParamName
 			var ObjectModel = options.ObjectModel;
 			var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
 			if (missingParam){
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + missingParam]);
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + missingParam]);
 			}
 
 			var objectInstance = await(new Promise((resolve, reject) => {
@@ -2545,7 +2584,7 @@ var deleteHandler = function (options) {
 					// console.log('function');
 					if (err){
 						console.log(err);
-						responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ['Error while reading database']);
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
 						resolve(null)
 					}
 					resolve(objectInstance);
@@ -2593,7 +2632,7 @@ var deleteHandler = function (options) {
 				// }
 				
 				if (!canDelete){
-					return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Bạn không có quyền xóa mẫu dữ liệu này'])
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'], ['Bạn không có quyền xóa mẫu dữ liệu này'])
 				}
 
 				var date = new Date();
@@ -2610,7 +2649,7 @@ var deleteHandler = function (options) {
 				return responseSuccess(res, ['status'], ['success']);
 			}
 			else{
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Invalid ' + objectModelIdParamName]);
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Invalid ' + objectModelIdParamName]);
 			}
 		})()
 		// return res.end('ok');
@@ -2629,13 +2668,13 @@ var putHandler = function (options) {
 
 		async(() => {
 			var objectModelIdParamName = options.objectModelIdParamName
-			var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL
+			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION
 			var ObjectModel = options.ObjectModel
 			var saveOrUpdate = options.saveOrUpdate;
 			// console.log(objectModelIdParamName);
 			var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
 			if (missingParam){
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
 			}
 			// console.log(req.body.animalId);
 			var objectModelId = '';
@@ -2645,13 +2684,13 @@ var putHandler = function (options) {
 			}
 			catch (e){
 				console.log(e);
-				return responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
 			}
 			var objectInstance = await(new Promise((resolve, reject) => {
 				ObjectModel.findById(objectModelId, function (err, objectInstance) {
 					if (err){
 						console.log(err);
-						responseError(req, UPLOAD_DEST_ANIMAL, res, 500, ['error'], ["Error while reading database"])
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ["Error while reading database"])
 						resolve(null)
 					}
 					
@@ -2660,7 +2699,7 @@ var putHandler = function (options) {
 					}
 
 					else {
-						responseError(req, UPLOAD_DEST_ANIMAL, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
+						responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
 						resolve(null)
 					}
 				})
@@ -2708,7 +2747,7 @@ var putHandler = function (options) {
 				// ===
 
 				if (!canEdit){
-					return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Bạn không có quyền sửa đổi mẫu dữ liệu này'])
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'], ['Bạn không có quyền sửa đổi mẫu dữ liệu này'])
 				}
 
 				return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
@@ -2724,12 +2763,12 @@ global.myCustomVars.putHandler = putHandler;
 var postHandler = function (options) {
 	var ObjectModel = options.ObjectModel;
 	var saveOrUpdate = options.saveOrUpdate;
-	var UPLOAD_DEST_ANIMAL = options.UPLOAD_DEST_ANIMAL;
+	var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 	return function (req, res, next) {
 		var newInstance = new ObjectModel();
 
 		if (!req.user.maDeTai){
-			return responseError(req, UPLOAD_DEST_ANIMAL, res, 403, ['error'], ['Tài khoản của bạn chưa được liên kết với bất kỳ bảo tàng nào. Liên hệ chủ nhiệm đề tài để được cập nhật tài khoản.']);
+			return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'], ['Tài khoản của bạn chưa được liên kết với bất kỳ bảo tàng nào. Liên hệ chủ nhiệm đề tài để được cập nhật tài khoản.']);
 
 		}
 
@@ -2783,7 +2822,11 @@ var getMaDeTai = () => {
 	return new Promise((resolve, reject) => {
 		mongoose.model('SharedData').findOne({}, (err, sharedData) => {
 			if (!err && sharedData){
-				resolve(sharedData.maDeTai);
+				let result = [];
+				for(let dt of sharedData.deTai){
+					result.push(dt.maDeTai);
+				}
+				resolve(result);
 			}
 			else {
 				resolve([])
@@ -2794,7 +2837,7 @@ var getMaDeTai = () => {
 
 global.myCustomVars.promises.getMaDeTai = getMaDeTai;
 
-var addMaDeTai = (maDeTai) => {
+var addMaDeTai = (maDeTai, tenDeTai, donViChuTri) => {
 	return new Promise((resolve, reject) => {
 		async(() => {
 			maDeTai = maDeTai.trim();
@@ -2820,7 +2863,11 @@ var addMaDeTai = (maDeTai) => {
 							error: 'Có lỗi xảy ra. Vui lòng thử lại'
 						})
 					}
-					sharedData.maDeTai.push(maDeTai);
+					sharedData.deTai.push({
+						maDeTai: maDeTai,
+						tenDeTai: tenDeTai,
+						donViChuTri: donViChuTri
+					});
 					sharedData.save((err) => {
 						if (err){
 							console.log(err);
@@ -2859,6 +2906,27 @@ var getUserRoles = (userId) => {
 
 global.myCustomVars.promises.getUserRoles = getUserRoles;
 
+var removeUserRoles = (userId, roles) => {
+	return new Promise((resolve, reject) => {
+		acl.removeUserRoles(userId, roles, (err) => {
+			if (err){
+				console.log(err);
+				resolve({
+					status: 'error',
+					error: err
+				})
+			}
+			else {
+				resolve({
+					status: 'success'
+				})
+			}
+		})
+	})
+}
+
+global.myCustomVars.promises.removeUserRoles = removeUserRoles;
+
 var getUser = (userId) => {
 	return new Promise((resolve, reject) => {
 		mongoose.model('User').findById(userId, (err, user) => {
@@ -2867,7 +2935,56 @@ var getUser = (userId) => {
 				resolve(null);
 			}
 			else{
-				resolve(user)
+				let userMongoose = user;
+				let userNormal = JSON.parse(JSON.stringify(user));
+				let u = userNormal;
+				u.id = u._id;
+				acl.userRoles(u._id, (err, userRoles) => {
+					// console.log('promised userRoles called');
+					if (err){
+						console.log(err);
+						resolve({
+							userNormal: userNormal,
+							userMongoose: userMongoose
+						})
+					}
+					else {
+						if (userRoles.indexOf('admin') >= 0){
+							// console.log('admin ' + u._id);
+							u.level = 'admin';
+						}
+						else if (userRoles.indexOf('manager') >= 0){
+							// console.log('manage ' + u._id);
+							u.level = 'manager';
+						}
+						else {
+							// console.log('user ' + u._id);
+							u.level = 'user'
+							if (!u.maDeTai){
+								// console.log('pending user ' + u._id);
+								u.level = 'pending-user';
+							}
+							else {
+							}
+						}
+						mongoose.model('SharedData').findOne({}, (err, sharedData) => {
+							if (!err && sharedData){
+								for(let dt of sharedData.deTai){
+									if (u.maDeTai == dt.maDeTai){
+										u.deTai = dt.tenDeTai;
+										break;
+									}
+								}
+							}
+							resolve({
+								userNormal: userNormal,
+								userMongoose: userMongoose
+							})
+						})
+					}
+				})
+				
+
 			}
 		})
 	})
@@ -2887,6 +3004,7 @@ var getUsers = () => {
 					let users_ = JSON.parse(JSON.stringify(users));
 					for(let i = 0; i < users_.length; i++){
 						var u = users_[i];
+						u.id = u._id;
 						var userRoles = await(new Promise((resolve_, reject_) => {
 							acl.userRoles(u._id, (err, roles) => {
 								// console.log('promised userRoles called');

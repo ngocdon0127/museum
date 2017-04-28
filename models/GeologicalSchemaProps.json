@@ -703,6 +703,16 @@
 		"autoCompletion": false
 	},
 	{
+		"name": "phanLoaiSuDungMau",
+		"schemaProp": "dacDiemMauVat",
+		"label": "Phân loại sử dụng mẫu",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$",
+		"autoCompletion": false
+	},
+	{
 		"name": "thanhPhanKhoangVat",
 		"schemaProp": "dacDiemMauVat",
 		"label": "Thành phần khoáng vật",

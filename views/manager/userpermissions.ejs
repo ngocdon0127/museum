@@ -30,6 +30,17 @@
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<style>
+		.table-responsive{
+			overflow-x: scroll;
+			overflow-y: hidden;
+			width: 100%;
+		}
+		.div-table{
+			width: 100%;
+			min-width: 800px;
+		}
+	</style>
 </head>
 <body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
@@ -201,92 +212,96 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<table id="example1" class="table table-bordered table-striped">
-								<thead>
-								<tr>
-									<th>Email</th>
-									<th>Tên đầy đủ</th>
-									<th>Quyền</th>
-									<th>Thao tác</th>
-								</tr>
-								</thead>
-								<tbody>
-								<%
-									function display(obj){
-										// console.log(staticPath)
-										// console.log(count)
-										if (obj instanceof Array){
-											var result =  obj.reduce(function (preStr, curElement){
-												// console.log(curElement.split('_+_')[1]);
-												preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
-												return preStr;
-											}, '');
-											return result;
-										}
-										else if (obj instanceof Date){
-											return [obj.getHours(), obj.getMinutes(), obj.getSeconds()].join(':') + '<br>' + [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
-										}
-										// Need to escape to prevent injected HTML + JS
-										return escape(obj);
-									}
-								%>
-								<% for(var i = 0; i < Object.keys(users).length; i++) { 
-									var u = users[Object.keys(users)[i]]; %>
+							<div class="table-responsive">
+								<div class="div-table">
+									<table id="example1" class="table table-bordered table-striped">
+										<thead>
 										<tr>
-											<td><%= u.username %></td>
-											<td><%= u.fullname %></td>
-											
-											
-											
-											<td>
-												<form action="/config" id="<%= u.id %>" method="post" >
-													<input type="hidden" value="<%= u.id %>" name="userid" />
-													<div class="col-lg-6">
-														<ul class="list-group">
-															<% for (var j = 0; j < roles.length; j++) { %>
-																<% if (j % 2 == 0) { %>
-																	<li class="list-group-item">
-																		<input <%= (['admin', 'manager'].indexOf(roles[j].role) >= 0) ? 'disabled' : ''%> name="<%= roles[j].role%>" type="checkbox" <%= (u.id in aclRules && aclRules[u.id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
-																		<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + u.id %>" class="jTip"><%= roles[j].rolename %></a> </span>
-																	</li>
-																<% } %>
-															<% } %>
-														</ul>
-													</div>
-													<div class="col-lg-6">
-														<ul class="list-group">
-															<% for (var j = 0; j < roles.length; j++) { %>
-																<% if (j % 2 == 1) { %>
-																	<li class="list-group-item">
-																		<input <%= (['admin', 'manager'].indexOf(roles[j].role) >= 0) ? 'disabled' : ''%> name="<%= roles[j].role%>" type="checkbox" <%= (u.id in aclRules && aclRules[u.id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
-																		<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + u.id %>" class="jTip"><%= roles[j].rolename %></a> </span>
-																	</li>
-																<% } %>
-															<% } %>
-														</ul>
-													</div>
-												</form>
-											</td>
-											<td>
-												<button type="button" class="btn btn-primary" onclick="update('<%= u.id %>')" >Update</button>
-											</td>
-										
+											<th>Email</th>
+											<th>Tên đầy đủ</th>
+											<th>Quyền</th>
+											<th>Thao tác</th>
 										</tr>
-									
+										</thead>
+										<tbody>
+										<%
+											function display(obj){
+												// console.log(staticPath)
+												// console.log(count)
+												if (obj instanceof Array){
+													var result =  obj.reduce(function (preStr, curElement){
+														// console.log(curElement.split('_+_')[1]);
+														preStr += '<a href="' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+														return preStr;
+													}, '');
+													return result;
+												}
+												else if (obj instanceof Date){
+													return [obj.getHours(), obj.getMinutes(), obj.getSeconds()].join(':') + '<br>' + [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+												}
+												// Need to escape to prevent injected HTML + JS
+												return escape(obj);
+											}
+										%>
+										<% for(var i = 0; i < Object.keys(users).length; i++) { 
+											var u = users[Object.keys(users)[i]]; %>
+												<tr>
+													<td><%= u.username %></td>
+													<td><%= u.fullname %></td>
+													
+													
+													
+													<td>
+														<form action="/config" id="<%= u.id %>" method="post" >
+															<input type="hidden" value="<%= u.id %>" name="userid" />
+															<div class="col-lg-6">
+																<ul class="list-group">
+																	<% for (var j = 0; j < roles.length; j++) { %>
+																		<% if (j % 2 == 0) { %>
+																			<li class="list-group-item">
+																				<input <%= (['admin', 'manager'].indexOf(roles[j].role) >= 0) ? 'disabled' : ''%> name="<%= roles[j].role%>" type="checkbox" <%= (u.id in aclRules && aclRules[u.id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
+																				<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + u.id %>" class="jTip"><%= roles[j].rolename %></a> </span>
+																			</li>
+																		<% } %>
+																	<% } %>
+																</ul>
+															</div>
+															<div class="col-lg-6">
+																<ul class="list-group">
+																	<% for (var j = 0; j < roles.length; j++) { %>
+																		<% if (j % 2 == 1) { %>
+																			<li class="list-group-item">
+																				<input <%= (['admin', 'manager'].indexOf(roles[j].role) >= 0) ? 'disabled' : ''%> name="<%= roles[j].role%>" type="checkbox" <%= (u.id in aclRules && aclRules[u.id].indexOf(roles[j].role) > -1) ? 'checked' : '' %> > </input>
+																				<span> <a href="/config/roleTooltip?width=500&amp;role=<%= roles[j].role %>&amp;link=#" name="Các quyền" id="jTip-<%= roles[j].role + '-' + u.id %>" class="jTip"><%= roles[j].rolename %></a> </span>
+																			</li>
+																		<% } %>
+																	<% } %>
+																</ul>
+															</div>
+														</form>
+													</td>
+													<td>
+														<button type="button" class="btn btn-primary" onclick="update('<%= u.id %>')" >Update</button>
+													</td>
+												
+												</tr>
+											
 
-								<% } %>
-								
-								</tbody>
-								<tfoot>
-								<tr>
-									<th>Email</th>
-									<th>Tên đầy đủ</th>
-									
-									<th>Quyền</th>
-									<th>Thao tác</th>
-								</tr>
-								</tfoot>
-							</table>
+										<% } %>
+										
+										</tbody>
+										<tfoot>
+										<tr>
+											<th>Email</th>
+											<th>Tên đầy đủ</th>
+											
+											<th>Quyền</th>
+											<th>Thao tác</th>
+										</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
 						</div>
 						<!-- /.box-body -->
 					</div>

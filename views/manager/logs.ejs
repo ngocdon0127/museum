@@ -26,6 +26,17 @@
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<style>
+		.table-responsive{
+			overflow-x: scroll;
+			overflow-y: hidden;
+			width: 100%;
+		}
+		.div-table{
+			width: 100%;
+			min-width: 500px;
+		}
+	</style>
 </head>
 <body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
@@ -65,59 +76,63 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<table id="example1" class="table table-bordered table-hover">
-								<thead>
-								<tr>
-									<th>Thời gian</th>
-									<th>Nhân viên</th>
-									<th>Hành động</th>
-									<th>Loại dữ liệu</th>
-									<th>Mẫu dữ liệu</th>
-									<th>Liên kết</th>
-								</tr>
-								</thead>
-								<tbody>
-								<% for(var i = 0; i < logs.length; i++) { 
-									var log = logs[i]; 
-									var action = logs[i].action; %>
-									<tr>
-										<% var date = new Date(logs[i].time) %>
-										<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
-										<td><a title="Lọc nhật ký của người dùng này" href="<%= path + '?user=' + log.userId %>"><h4><%= log.userFullName %></h4></a></td>
-										<td><a title="Lọc nhật ký theo hành động này" href="<%= path + '?action=' + action %>"><h4><%= actions[action].label %></h4></a> </td>
-										<td><a title="Lọc nhật ký theo loại dữ liệu này" href="<%= path + '?type=' + forms[log.objType].objectModelName %>"><span><%= forms[log.objType].objectModelLabel %></span></a>
-										</td>
-										<td><a title="Lọc nhật ký về mẫu dữ liệu này" href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a></td>
-										<td>
-											<% var basePath = forms[log.objType].basePath; %>
-											<% if (action == 'create') { %>
-												<a href="<%= basePath %>/log/<%= log._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
-												<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
-											<% } else if (action == 'update') { %>
-												<a href="<%= basePath %>/log/<%= log._id + '/diff' %>"><h4>Xem những cập nhật</h4></a>
-												<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
-											<% } else if (action == 'delete') { %>
-												<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>
-											<% } else if ((action == 'approve') || (log.action == 'disapprove')) { %>
-												<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
-											<% } %>
-										</td>
-									</tr>
+							<div class="table-responsive">
+								<div class="div-table">
+									<table id="example1" class="table table-bordered table-hover">
+										<thead>
+										<tr>
+											<th>Thời gian</th>
+											<th>Nhân viên</th>
+											<th>Hành động</th>
+											<th>Loại dữ liệu</th>
+											<th>Mẫu dữ liệu</th>
+											<th>Liên kết</th>
+										</tr>
+										</thead>
+										<tbody>
+										<% for(var i = 0; i < logs.length; i++) { 
+											var log = logs[i]; 
+											var action = logs[i].action; %>
+											<tr>
+												<% var date = new Date(logs[i].time) %>
+												<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
+												<td><a title="Lọc nhật ký của người dùng này" href="<%= path + '?user=' + log.userId %>"><h4><%= log.userFullName %></h4></a></td>
+												<td><a title="Lọc nhật ký theo hành động này" href="<%= path + '?action=' + action %>"><h4><%= actions[action].label %></h4></a> </td>
+												<td><a title="Lọc nhật ký theo loại dữ liệu này" href="<%= path + '?type=' + forms[log.objType].objectModelName %>"><span><%= forms[log.objType].objectModelLabel %></span></a>
+												</td>
+												<td><a title="Lọc nhật ký về mẫu dữ liệu này" href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a></td>
+												<td>
+													<% var basePath = forms[log.objType].basePath; %>
+													<% if (action == 'create') { %>
+														<a href="<%= basePath %>/log/<%= log._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
+														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
+													<% } else if (action == 'update') { %>
+														<a href="<%= basePath %>/log/<%= log._id + '/diff' %>"><h4>Xem những cập nhật</h4></a>
+														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
+													<% } else if (action == 'delete') { %>
+														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>
+													<% } else if ((action == 'approve') || (log.action == 'disapprove')) { %>
+														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
+													<% } %>
+												</td>
+											</tr>
 
-								<% } %>
-								
-								</tbody>
-								<tfoot>
-								<tr>
-									<th>Thời gian</th>
-									<th>Nhân viên</th>
-									<th>Hành động</th>
-									<th>Loại dữ liệu</th>
-									<th>Mẫu dữ liệu</th>
-									<th>Liên kết</th>
-								</tr>
-								</tfoot>
-							</table>
+										<% } %>
+										
+										</tbody>
+										<tfoot>
+										<tr>
+											<th>Thời gian</th>
+											<th>Nhân viên</th>
+											<th>Hành động</th>
+											<th>Loại dữ liệu</th>
+											<th>Mẫu dữ liệu</th>
+											<th>Liên kết</th>
+										</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
 						</div>
 						<!-- /.box-body -->
 					</div>

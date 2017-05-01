@@ -7,6 +7,9 @@ require('./config/acl.js')(acl);
 var path = require('path');
 var fs = require('fs');
 
+// place all global Promises inside this object
+global.myCustomVars.promises = {}
+
 global.myCustomVars.acl = acl;
 
 function aclMiddleware (resource, action, url) {
@@ -771,75 +774,54 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
-function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, extension) {
+var exportFilePromise = (objectInstance, options, extension) => {
+	let PROP_FIELDS = options.PROP_FIELDS;
 
-	async (function (){
-		console.log("calling docx");
-		
-		// Tiền xử lý không đồng bộ.
-		// Bắt buộc phải dùng Promise, async/await
-		var re = await (new Promise(function (resolve, reject) {
-			// console.log('dmm');
-			setTimeout(function () {
-				// console.log('hehe');
-				resolve('ok')
-			}, 1);
-		}))
-		
-		// End of Tiền xử lý không đồng bộ
+	let ObjectModel = options.ObjectModel;
+	let LABEL = options.LABEL;
+	let paragraph = options.paragraph;
+	let objectModelName = options.objectModelName;
+	return new Promise((RESOLVE, REJECT) => {
+		async (function (){
+			console.log("calling docx");
+			
+			// Tiền xử lý không đồng bộ.
+			// Bắt buộc phải dùng Promise, async/await
+			var re = await (new Promise(function (resolve, reject) {
+				// console.log('dmm');
+				setTimeout(function () {
+					// console.log('hehe');
+					resolve('ok')
+				}, 1);
+			}))
+			
+			// End of Tiền xử lý không đồng bộ
 
-		var statistics = {
-			totalMoneyProp: 0,
-			totalNonMoneyProp: 0,
-			moneyPropFilled: 0,
-			nonMoneyPropFilled: 0,
-			totalMoneyPropStr: '',
-			totalNonMoneyPropStr: '',
-			moneyPropFilledStr: '',
-			nonMoneyPropFilledStr: ''
-		};
+			var statistics = {
+				totalMoneyProp: 0,
+				totalNonMoneyProp: 0,
+				moneyPropFilled: 0,
+				nonMoneyPropFilled: 0,
+				totalMoneyPropStr: '',
+				totalNonMoneyPropStr: '',
+				moneyPropFilledStr: '',
+				nonMoneyPropFilledStr: ''
+			};
 
-		PROP_FIELDS = JSON.parse(JSON.stringify(PROP_FIELDS));
+			PROP_FIELDS = JSON.parse(JSON.stringify(PROP_FIELDS));
 
-		/** Tiền xử lý Schema
-		 * 1 vài thuộc tính phụ thuộc vào giá trị của 1 (hay nhiều) thuộc tính khác
-		 * Ví dụ, Mẫu trên đất liền thì Quốc gia, Tỉnh, Huyện, Xã là các thuộc tính có *
-		 * Nhưng Mẫu trên biển thì chỉ Quốc gia có *
-		 * => Cần xử lý cập nhật lại các required fields trong PROP_FIELDS.
-		 */
+			/** Tiền xử lý Schema
+			 * 1 vài thuộc tính phụ thuộc vào giá trị của 1 (hay nhiều) thuộc tính khác
+			 * Ví dụ, Mẫu trên đất liền thì Quốc gia, Tỉnh, Huyện, Xã là các thuộc tính có *
+			 * Nhưng Mẫu trên biển thì chỉ Quốc gia có *
+			 * => Cần xử lý cập nhật lại các required fields trong PROP_FIELDS.
+			 */
 
-		// TODO: Có thể phải thực hiện bước này ngay khi load Model. Tính sau :v
+			// TODO: Có thể phải thực hiện bước này ngay khi load Model. Tính sau :v
 
-		// DiaDiemThuMau
+			// DiaDiemThuMau
 
-		if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
-			for(var i = 0; i < PROP_FIELDS.length; i++){
-				var field = PROP_FIELDS[i];
-				if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
-					field.required = false;
-					field.money = false;
-					// console.log(field.name);
-				}
-			}
-		}
-		else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
-			for(var i = 0; i < PROP_FIELDS.length; i++){
-				var field = PROP_FIELDS[i];
-				if (['huyen', 'xa'].indexOf(field.name) >= 0){
-					field.required = false;
-					field.money = false;
-					// console.log(field.name);
-				}
-			}
-		}
-		else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
-			// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
-		}
-
-		try {
-			// Quốc gia khác, không phải Việt Nam
-			let qg = objectInstances.duLieuThuMau.diaDiemThuMau.quocGia;
-			if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -849,246 +831,205 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					}
 				}
 			}
-		}
-		catch (e){
-			console.log(e);
-		}
-
-		delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don't know why, check later
-		for(var i = 0; i < PROP_FIELDS.length; i++){
-			var field = PROP_FIELDS[i];
-			// console.log(field.name);
-			if (field.name == 'fDiaDiemThuMau'){
-				// console.log('len: ' + PROP_FIELDS.length);
-				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
-				// console.log('len: ' + PROP_FIELDS.length);
-				break;
-			}
-		}
-
-		// resolve place id to string
-		try {
-			objectInstance.duLieuThuMau.diaDiemThuMau.tinh = CITIES[objectInstance.duLieuThuMau.diaDiemThuMau.tinh].name;
-			objectInstance.duLieuThuMau.diaDiemThuMau.huyen = DISTRICTS[objectInstance.duLieuThuMau.diaDiemThuMau.huyen].name;
-			objectInstance.duLieuThuMau.diaDiemThuMau.xa = WARDS[objectInstance.duLieuThuMau.diaDiemThuMau.xa].name;
-		}
-
-		catch (e){
-			console.log(e);
-			// do not care
-		}
-
-		// End of DiaDiemThuMau
-		
-		// fApproved
-		
-		for(var i = 0; i < PROP_FIELDS.length; i++){
-			var field = PROP_FIELDS[i];
-			// console.log(field.name);
-			if (field.name == 'fApproved'){
-				console.log('len: ' + PROP_FIELDS.length);
-				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
-				console.log('len: ' + PROP_FIELDS.length);
-				break;
-			}
-		}
-		
-		// End of fApproved
-
-
-		// delete objectInstance.flag;
-
-		/**
-		 * End of Tiền xử lý Schema
-		 */
-
-		function display(obj){
-			// console.log(staticPath)
-			// console.log(count)
-			if (obj instanceof Array){
-				var result =  obj.reduce(function (preStr, curElement, curIndex){
-					// console.log(curElement.split('_+_')[1]);
-					preStr += curElement.split('_+_')[1];
-					if (curIndex < obj.length - 1){
-						preStr += '\n\n';
+			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+				for(var i = 0; i < PROP_FIELDS.length; i++){
+					var field = PROP_FIELDS[i];
+					if (['huyen', 'xa'].indexOf(field.name) >= 0){
+						field.required = false;
+						field.money = false;
+						// console.log(field.name);
 					}
-					return preStr;
-				}, '');
-				return result;
+				}
 			}
-			else if (obj instanceof Date){
-				return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
 			}
-			// Need to escape to prevent injected HTML + JS
-			return obj;
-		}
 
-
-		var curProp = '';
-		var addPropRow = true;
-
-		function inOrder (tree) {
-			if (!tree){
-				return;
+			try {
+				// Quốc gia khác, không phải Việt Nam
+				let qg = objectInstance.duLieuThuMau.diaDiemThuMau.quocGia;
+				if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+					for(var i = 0; i < PROP_FIELDS.length; i++){
+						var field = PROP_FIELDS[i];
+						if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
+							field.required = false;
+							field.money = false;
+							// console.log(field.name);
+						}
+					}
+				}
 			}
-			if (tree instanceof Function){
-				return;
+			catch (e){
+				console.log(e);
 			}
-			if (typeof(tree) == 'string'){
-				return;
+
+			delete objectInstance.flag.fDiaDiemThuMau; // TODO: Don't know why, check later
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'fDiaDiemThuMau'){
+					// console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					// console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
 			}
-			for(var i = 0; i < Object.keys(tree).length; i++){
-				var prop = Object.keys(tree)[i];
-				// console.log(stt + ' : ' + prop + ' : ' + curDeep);
-				// Add data to docx object
-				var p;
-				switch (curDeep){
-					case 0:
-						addPropRow = true;
-						// Label
-						try{
-							p = LABEL[prop];
-						}
-						catch (e){
-							console.log(e);
-							// Do not care;
-							// break;
-						}
-						var row = [
-							{
-								val: p,
-								opts: rowSpanOpts
-							},
-							{
-								val: '',
-								opts: rowSpanOpts
-							},
-							{
-								val: '',
-								opts: rowSpanOpts
-							},
-							{
-								val: '',
-								opts: rowSpanOpts
-							}
-						];
-						table.push(row);
-						break;
-					case 1:
-						stt++;
-						curProp = prop;
-						addPropRow = true;
-						// console.log('printing ' + prop);
-						// var value = flatOI[prop];
-						// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
-						// 	value = JSON.stringify(flatOI[prop]);
-						// }
-						// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
-						// 	value = '';
-						// }
-						var value = display(flatOI[prop]);
-						try{
 
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
-								p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
-							}
+			// resolve place id to string
+			try {
+				objectInstance.duLieuThuMau.diaDiemThuMau.tinh = CITIES[objectInstance.duLieuThuMau.diaDiemThuMau.tinh].name;
+				objectInstance.duLieuThuMau.diaDiemThuMau.huyen = DISTRICTS[objectInstance.duLieuThuMau.diaDiemThuMau.huyen].name;
+				objectInstance.duLieuThuMau.diaDiemThuMau.xa = WARDS[objectInstance.duLieuThuMau.diaDiemThuMau.xa].name;
+			}
 
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.totalMoneyProp++;
-								statistics.totalMoneyPropStr += ' ' + prop;
-							}
-							else {
-								statistics.totalNonMoneyProp++;
-								statistics.totalNonMoneyPropStr += ' ' + prop;
-							}
-						}
-						catch (e){
-							// console.log(e);
-							// Do not care;
-							// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
-						}
+			catch (e){
+				console.log(e);
+				// do not care
+			}
 
-						
-						var row = [
-							{
-								val: stt,
-								opts: labelOpts
-							},
-							{
-								val: p,
-								opts: detailOpts
-							},
-							{
-								val: value,
-								opts: detailOpts
-							},
-							{
-								val: '',
-								opts: detailOpts
-							}
-						]
-						if (value){
-							table.push(row);
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.moneyPropFilled++;
-								statistics.moneyPropFilledStr += ' ' + prop;
-							}
-							else {
-								statistics.nonMoneyPropFilled++;
-								statistics.nonMoneyPropFilledStr += ' ' + prop;
-							}
-						}
-						break;
-					case 2:
-						// var value = flatOI[prop];
-						// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
-						// 	value = JSON.stringify(flatOI[prop]);
-						// }
-						// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
-						// 	value = '';
-						// }
-						var value = display(flatOI[prop]);
-						try{
+			// End of DiaDiemThuMau
+			
+			// fApproved
+			
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'fApproved'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
+			}
+			
+			// End of fApproved
 
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
-								p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
-							}
 
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.totalMoneyProp++;
-								statistics.totalMoneyPropStr += ' ' + prop;
-							}
-							else {
-								statistics.totalNonMoneyProp++;
-								statistics.totalNonMoneyPropStr += ' ' + prop;
-							}
+			// delete objectInstance.flag;
+
+			/**
+			 * End of Tiền xử lý Schema
+			 */
+
+			function display(obj){
+				// console.log(staticPath)
+				// console.log(count)
+				if (obj instanceof Array){
+					var result =  obj.reduce(function (preStr, curElement, curIndex){
+						// console.log(curElement.split('_+_')[1]);
+						// preStr += curElement.split('_+_')[1];
+						preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+						if (curIndex < obj.length - 1){
+							preStr += ', \n\n';
 						}
-						catch (e){
-							console.log(e);
-							// Do not care;
-							// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
-						}
-						var row = null;
-						if (addPropRow){
+						return preStr;
+					}, '');
+					return result;
+				}
+				else if (obj instanceof Date){
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+				}
+				// Need to escape to prevent injected HTML + JS
+				return obj;
+			}
+
+
+			var curProp = '';
+			var addPropRow = true;
+
+			function inOrder (tree) {
+				if (!tree){
+					return;
+				}
+				if (tree instanceof Function){
+					return;
+				}
+				if (typeof(tree) == 'string'){
+					return;
+				}
+				for(var i = 0; i < Object.keys(tree).length; i++){
+					var prop = Object.keys(tree)[i];
+					// console.log(stt + ' : ' + prop + ' : ' + curDeep);
+					// Add data to docx object
+					var p;
+					switch (curDeep){
+						case 0:
+							addPropRow = true;
+							// Label
 							try{
-								curProp = LABEL[curProp];
+								p = LABEL[prop];
 							}
 							catch (e){
 								console.log(e);
 								// Do not care;
 								// break;
 							}
-							row = [
+							var row = [
+								{
+									val: p,
+									opts: rowSpanOpts
+								},
+								{
+									val: '',
+									opts: rowSpanOpts
+								},
+								{
+									val: '',
+									opts: rowSpanOpts
+								},
+								{
+									val: '',
+									opts: rowSpanOpts
+								}
+							];
+							table.push(row);
+							break;
+						case 1:
+							stt++;
+							curProp = prop;
+							addPropRow = true;
+							// console.log('printing ' + prop);
+							// var value = flatOI[prop];
+							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
+							// 	value = JSON.stringify(flatOI[prop]);
+							// }
+							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
+							// 	value = '';
+							// }
+							var value = display(flatOI[prop]);
+							try{
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+									p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+								}
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.totalMoneyProp++;
+									statistics.totalMoneyPropStr += ' ' + prop;
+								}
+								else {
+									statistics.totalNonMoneyProp++;
+									statistics.totalNonMoneyPropStr += ' ' + prop;
+								}
+							}
+							catch (e){
+								// console.log(e);
+								// Do not care;
+								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
+							}
+
+							
+							var row = [
 								{
 									val: stt,
 									opts: labelOpts
 								},
 								{
-									val: curProp,
+									val: p,
 									opts: detailOpts
 								},
 								{
-									val: '',
+									val: value,
 									opts: detailOpts
 								},
 								{
@@ -1096,554 +1037,655 @@ function exportFile (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 									opts: detailOpts
 								}
 							]
-							table.push(row);
-							addPropRow = false;
-						}
-						
-						row = [
-							{
-								val: '',
-								opts: labelOpts
-							},
-							{
-								val: p,
-								opts: detailItalicOpts
-							},
-							{
-								val: value,
-								opts: detailOpts
-							},
-							{
-								val: '',
-								opts: detailOpts
+							if (value){
+								table.push(row);
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.moneyPropFilled++;
+									statistics.moneyPropFilledStr += ' ' + prop;
+								}
+								else {
+									statistics.nonMoneyPropFilled++;
+									statistics.nonMoneyPropFilledStr += ' ' + prop;
+								}
 							}
-						]
-						if (value){
-							table.push(row);
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.moneyPropFilled++;
-								statistics.moneyPropFilledStr += ' ' + prop;
+							break;
+						case 2:
+							// var value = flatOI[prop];
+							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
+							// 	value = JSON.stringify(flatOI[prop]);
+							// }
+							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
+							// 	value = '';
+							// }
+							var value = display(flatOI[prop]);
+							try{
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+									p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+								}
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.totalMoneyProp++;
+									statistics.totalMoneyPropStr += ' ' + prop;
+								}
+								else {
+									statistics.totalNonMoneyProp++;
+									statistics.totalNonMoneyPropStr += ' ' + prop;
+								}
 							}
-							else {
-								statistics.nonMoneyPropFilled++;
-								statistics.nonMoneyPropFilledStr += ' ' + prop;
+							catch (e){
+								console.log(e);
+								// Do not care;
+								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
-						}
-						break;
+							var row = null;
+							if (addPropRow){
+								try{
+									curProp = LABEL[curProp];
+								}
+								catch (e){
+									console.log(e);
+									// Do not care;
+									// break;
+								}
+								row = [
+									{
+										val: stt,
+										opts: labelOpts
+									},
+									{
+										val: curProp,
+										opts: detailOpts
+									},
+									{
+										val: '',
+										opts: detailOpts
+									},
+									{
+										val: '',
+										opts: detailOpts
+									}
+								]
+								table.push(row);
+								addPropRow = false;
+							}
+							
+							row = [
+								{
+									val: '',
+									opts: labelOpts
+								},
+								{
+									val: p,
+									opts: detailItalicOpts
+								},
+								{
+									val: value,
+									opts: detailOpts
+								},
+								{
+									val: '',
+									opts: detailOpts
+								}
+							]
+							if (value){
+								table.push(row);
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.moneyPropFilled++;
+									statistics.moneyPropFilledStr += ' ' + prop;
+								}
+								else {
+									statistics.nonMoneyPropFilled++;
+									statistics.nonMoneyPropFilledStr += ' ' + prop;
+								}
+							}
+							break;
+					}
+
+					// console.log('inc curDeep');
+					
+					// stt++;
+					curDeep++;
+					inOrder(tree[prop]);
+					curDeep--;
 				}
-
-				// console.log('inc curDeep');
-				
-				// stt++;
-				curDeep++;
-				inOrder(tree[prop]);
-				curDeep--;
 			}
-		}
 
-		var fs = require('fs');
-		var officegen = require('officegen');
-		var docx = officegen({
-			type: 'docx',
-			subjects: 'Mẫu phiếu dữ liệu',
-			orientation: 'landscape'
-			// orientation: 'portrait'
-		});
+			var fs = require('fs');
+			var officegen = require('officegen');
+			var docx = officegen({
+				type: 'docx',
+				subjects: 'Mẫu phiếu dữ liệu',
+				orientation: 'landscape'
+				// orientation: 'portrait'
+			});
 
-		docx.on('finalize', function (written) {
-			console.log("Docx: written " + written + " bytes.");
-		});
+			docx.on('finalize', function (written) {
+				console.log("Docx: written " + written + " bytes.");
+			});
 
-		docx.on('error', function (error) {
-			console.log("Docx: Error");
-			console.log(error);
-			console.log("===");
-		})
+			docx.on('error', function (error) {
+				console.log("Docx: Error");
+				console.log(error);
+				console.log("===");
+			})
 
-		
+			
 
-		for(var i = 0; i < paragraph.text.length; i++){
+			for(var i = 0; i < paragraph.text.length; i++){
+				var pObj = docx.createP();
+				pObj.options.align = "center";
+				pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
+			}
+
+			var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
+
 			var pObj = docx.createP();
 			pObj.options.align = "center";
-			pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
-		}
+			pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
 
-		var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
+			var rowSpanOpts = {
+				// cellColWidth: 2261,
+				b:true,
+				sz: '24',
+				align: 'center',
+				shd: {
+					fill: "CCCCCC",
+					// themeFill: "text1",
+					// "themeFillTint": "30"
+				},
+				// gridSpan: 3,
+				fontFamily: "Times New Roman"
+			};
 
-		var pObj = docx.createP();
-		pObj.options.align = "center";
-		pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			var labelOpts = {
+				cellColWidth: 500,
+				b:true,
+				sz: '24',
+				align: 'center',
+				shd: {
+					fill: "FFFFFF",
+					// themeFill: "text1",
+					// "themeFillTint": "30"
+				},
+				fontFamily: "Times New Roman"
+			};
 
-		var rowSpanOpts = {
-			// cellColWidth: 2261,
-			b:true,
-			sz: '24',
-			align: 'center',
-			shd: {
-				fill: "CCCCCC",
-				// themeFill: "text1",
-				// "themeFillTint": "30"
-			},
-			// gridSpan: 3,
-			fontFamily: "Times New Roman"
-		};
+			var detailOpts = {
+				// cellColWidth: 2261,
+				// b:true,
+				sz: '24',
+				shd: {
+					fill: "FFFFFF",
+					// themeFill: "text1",
+					// "themeFillTint": "30"
+				},
+				fontFamily: "Times New Roman"
+			};
 
-		var labelOpts = {
-			cellColWidth: 500,
-			b:true,
-			sz: '24',
-			align: 'center',
-			shd: {
-				fill: "FFFFFF",
-				// themeFill: "text1",
-				// "themeFillTint": "30"
-			},
-			fontFamily: "Times New Roman"
-		};
+			var detailItalicOpts = {
+				// cellColWidth: 2261,
+				sz: '22',
+				bold: true,
+				shd: {
+					fill: "FFFFFF",
+					// themeFill: "text1",
+					// "themeFillTint": "30"
+				},
+				fontFamily: "Times New Roman"
+			};
 
-		var detailOpts = {
-			// cellColWidth: 2261,
-			// b:true,
-			sz: '24',
-			shd: {
-				fill: "FFFFFF",
-				// themeFill: "text1",
-				// "themeFillTint": "30"
-			},
-			fontFamily: "Times New Roman"
-		};
-
-		var detailItalicOpts = {
-			// cellColWidth: 2261,
-			sz: '22',
-			bold: true,
-			shd: {
-				fill: "FFFFFF",
-				// themeFill: "text1",
-				// "themeFillTint": "30"
-			},
-			fontFamily: "Times New Roman"
-		};
-
-		var table = [
-		[
-			{
-				val: "STT",
-				opts: labelOpts
-			},
-			{
-				val: "Trường dữ liệu",
-				opts: labelOpts
-			},
-			{
-				val: "Nội dung",
-				opts: labelOpts
-			},
-			{
-				val: "Ghi chú",
-				opts: labelOpts
-			}
-		]];
-
-		// Delete Unit fields
-		PROP_FIELDS.map(function (field) {
-			if (field.type == 'Unit' && flatOI[field.name.substring('donVi_'.length)] && flatOI[field.name]){
-				flatOI[field.name.substring('donVi_'.length)] += ' ' + flatOI[field.name];
-				flatOI[field.name.substring('donVi_'.length)].trim();
-				return;
-			}
-		})
-
-		{
-			var index = 0;
-			while (true){
-				if (PROP_FIELDS[index] && (PROP_FIELDS[index].type == 'Unit')){
-					PROP_FIELDS.splice(index, 1);
-				}
-				else {
-					index++;
-				}
-				if (index >= PROP_FIELDS.length){
-					break;
-				}
-			} // Delete Unit fields
-
-			PROP_FIELDS.map(function (element, index) {
-				if (element.type == 'Mixed'){
-					var sp_ = element.subProps;
-					var index = 0;
-					while (true){
-						if (sp_[index].indexOf('donVi_') >= 0){
-							sp_.splice(index, 1);
-						}
-						else {
-							index++;
-						}
-						if (index >= sp_.length){
-							break;
-						}
-					}
-				}
-			}) // Delete subprops
-		}
-
-		var PROP_FIELDS_OBJ = {};
-
-		PROP_FIELDS.map(function (element, index) {
-			PROP_FIELDS_OBJ[element.name] = index;
-		});
-
-		// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
-
-		PROP_FIELDS.map((element, index) => {
-			if (('autoCompletion' in element) && (element.autoCompletion)){
-				try {
-					// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-					flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
-				}
-				catch (e){
-					console.log(e);
-				}
-			}
-		})
-
-		{
-			// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
-			// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
-			// Bọc trong ngoặc cho đỡ trùng tên biến :v
-			let fields = [
+			var table = [
+			[
 				{
-					fieldName: 'loaiMauVat'
+					val: "STT",
+					opts: labelOpts
+				},
+				{
+					val: "Trường dữ liệu",
+					opts: labelOpts
+				},
+				{
+					val: "Nội dung",
+					opts: labelOpts
+				},
+				{
+					val: "Ghi chú",
+					opts: labelOpts
 				}
-			]
+			]];
 
-			for(let f of fields){
-				try {
-					// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-					flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+			// Delete Unit fields
+			PROP_FIELDS.map(function (field) {
+				if (field.type == 'Unit' && flatOI[field.name.substring('donVi_'.length)] && flatOI[field.name]){
+					flatOI[field.name.substring('donVi_'.length)] += ' ' + flatOI[field.name];
+					flatOI[field.name.substring('donVi_'.length)].trim();
+					return;
 				}
-				catch (e){
-					console.log(e);
-				}
+			})
 
-			}
-		}
-
-		// End of STR_AUTOCOMPLETION_SEPERATOR
-		
-		// Reconstruct tree
-		var oi = {};
-		PROP_FIELDS.map(function (field) {
-
-			if ((field.type == 'Mixed') || (field.name == 'maDeTai')){
-				if (field.money){
-					statistics.totalMoneyProp++;
-					statistics.totalMoneyPropStr += ' ' + field.name;
-				}
-				else {
-					statistics.totalNonMoneyProp++;
-					statistics.totalNonMoneyPropStr += ' ' + field.name;
-				}
-				
-				if (field.name == 'maDeTai'){
-					if (flatOI.maDeTai){
-						if (field.money){
-							statistics.moneyPropFilled++;
-							statistics.moneyPropFilledStr += ' maDeTai';
-						}
-						else {
-							statistics.nonMoneyPropFilled++;
-							statistics.nonMoneyPropFilledStr += ' maDeTai';
-						}
+			{
+				var index = 0;
+				while (true){
+					if (PROP_FIELDS[index] && (PROP_FIELDS[index].type == 'Unit')){
+						PROP_FIELDS.splice(index, 1);
 					}
-				}
-				else {
-					var sp_ = field.subProps;
-					var flag = false;
-					// console.log('checking mixed: ' + field.name)
-					for(var i = 0; i < sp_.length; i++){
+					else {
+						index++;
+					}
+					if (index >= PROP_FIELDS.length){
+						break;
+					}
+				} // Delete Unit fields
 
-						// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '"')
-						if (flatOI[sp_[i]]){
-							// Nếu flatOI[sp_[i]] là Object Array, tuy không có dữ liệu nhưng vẫn có method
-							// Khi đó 
-							// flag = true;
-							// break;
-							var val = JSON.parse(JSON.stringify(flatOI[sp_[i]]));
-							// var val = flatOI[sp_[i]];
-							if ((val instanceof Array) || (val instanceof Object)){
-								// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '" true ' + typeof(flatOI[sp_[i]]))
-								if ((val instanceof Array) && (val.length > 0)){
-									// console.log('Array length: ' + val.length)
-									flag = true;
-									break;
-								}
-								if ((val instanceof Object) && (Object.keys(val).length > 0)){
-									// console.log('Object keys length: ' + Object.keys(val))
-									flag = true;
-									break;
-								}
+				PROP_FIELDS.map(function (element, index) {
+					if (element.type == 'Mixed'){
+						var sp_ = element.subProps;
+						var index = 0;
+						while (true){
+							if (sp_[index].indexOf('donVi_') >= 0){
+								sp_.splice(index, 1);
 							}
 							else {
-								flag = true;
+								index++;
+							}
+							if (index >= sp_.length){
 								break;
 							}
 						}
 					}
-					if (flag){
-						if (field.money){
-							statistics.moneyPropFilled++;
-							statistics.moneyPropFilledStr += ' ' + field.name;
-							console.log('adding money prop filled: ' + field.name);
-						}
-						else {
-							statistics.nonMoneyPropFilled++;
-							statistics.nonMoneyPropFilledStr += ' ' + field.name;
-							console.log('adding non money prop filled: ' + field.name);
-						}
+				}) // Delete subprops
+			}
+
+			var PROP_FIELDS_OBJ = {};
+
+			PROP_FIELDS.map(function (element, index) {
+				PROP_FIELDS_OBJ[element.name] = index;
+			});
+
+			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
+
+			PROP_FIELDS.map((element, index) => {
+				if (('autoCompletion' in element) && (element.autoCompletion)){
+					try {
+						// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+						flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+					}
+					catch (e){
+						console.log(e);
+					}
+				}
+			})
+
+			{
+				// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
+				// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+				// Bọc trong ngoặc cho đỡ trùng tên biến :v
+				let fields = [
+					{
+						fieldName: 'loaiMauVat'
+					}
+				]
+
+				for(let f of fields){
+					try {
+						// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+						flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+					}
+					catch (e){
+						console.log(e);
+					}
+
+				}
+			}
+
+			// End of STR_AUTOCOMPLETION_SEPERATOR
+			
+			// Reconstruct tree
+			var oi = {};
+			PROP_FIELDS.map(function (field) {
+
+				if ((field.type == 'Mixed') || (field.name == 'maDeTai')){
+					if (field.money){
+						statistics.totalMoneyProp++;
+						statistics.totalMoneyPropStr += ' ' + field.name;
+					}
+					else {
+						statistics.totalNonMoneyProp++;
+						statistics.totalNonMoneyPropStr += ' ' + field.name;
 					}
 					
-				}
-			}
-
-			if (field.type == 'Mixed'){
-				// Do not add Mixed property to tree
-				// Mixed property has it's own name.
-				// Ex: phanBoVietNam => phanBoVietNameMixed
-
-				// But we need to add it to statistics. Add above.
-				return;
-			}
-			if (field.name != 'maDeTai'){
-				objectChild(oi, field.schemaProp)[field.name] = {};
-			}
-			
-			// console.log(oi);
-		});
-
-		var curDeep = 0;
-		var stt = 0;
-		
-		
-
-		inOrder(oi);
-
-		var tableStyle = {
-			tableColWidth: 3200,
-			// tableSize: 200,
-			// tableColor: "ada",
-			tableAlign: "left",
-			tableFontFamily: "Times New Roman",
-			borders: true
-		}
-
-		docx.createTable (table, tableStyle);
-
-		// Những trường con của các trường Mixed luôn có money = false
-		// => Chúng luôn được thêm vào:
-		// statistics.totalNonMoneyProp, statistics.totalNonMoneyPropStr, statistics.nonMoneyPropFilled, statistics.nonMoneyPropFilledStr
-		// Cần loại bỏ:
-
-		PROP_FIELDS.map(function (field) {
-			if (field.type == 'Mixed'){
-				var sp_ = field.subProps;
-				statistics.totalNonMoneyProp -= sp_.length;
-
-				for(var i = 0; i < sp_.length; i++){
-					if (statistics.nonMoneyPropFilledStr.indexOf(sp_[i]) >= 0){
-						statistics.nonMoneyPropFilled--;
+					if (field.name == 'maDeTai'){
+						if (flatOI.maDeTai){
+							if (field.money){
+								statistics.moneyPropFilled++;
+								statistics.moneyPropFilledStr += ' maDeTai';
+							}
+							else {
+								statistics.nonMoneyPropFilled++;
+								statistics.nonMoneyPropFilledStr += ' maDeTai';
+							}
+						}
 					}
-					statistics.totalNonMoneyPropStr = statistics.totalNonMoneyPropStr.replace(sp_[i], '');
-					statistics.nonMoneyPropFilledStr = statistics.nonMoneyPropFilledStr.replace(sp_[i], '');
+					else {
+						var sp_ = field.subProps;
+						var flag = false;
+						// console.log('checking mixed: ' + field.name)
+						for(var i = 0; i < sp_.length; i++){
+
+							// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '"')
+							if (flatOI[sp_[i]]){
+								// Nếu flatOI[sp_[i]] là Object Array, tuy không có dữ liệu nhưng vẫn có method
+								// Khi đó 
+								// flag = true;
+								// break;
+								var val = JSON.parse(JSON.stringify(flatOI[sp_[i]]));
+								// var val = flatOI[sp_[i]];
+								if ((val instanceof Array) || (val instanceof Object)){
+									// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '" true ' + typeof(flatOI[sp_[i]]))
+									if ((val instanceof Array) && (val.length > 0)){
+										// console.log('Array length: ' + val.length)
+										flag = true;
+										break;
+									}
+									if ((val instanceof Object) && (Object.keys(val).length > 0)){
+										// console.log('Object keys length: ' + Object.keys(val))
+										flag = true;
+										break;
+									}
+								}
+								else {
+									flag = true;
+									break;
+								}
+							}
+						}
+						if (flag){
+							if (field.money){
+								statistics.moneyPropFilled++;
+								statistics.moneyPropFilledStr += ' ' + field.name;
+								console.log('adding money prop filled: ' + field.name);
+							}
+							else {
+								statistics.nonMoneyPropFilled++;
+								statistics.nonMoneyPropFilledStr += ' ' + field.name;
+								console.log('adding non money prop filled: ' + field.name);
+							}
+						}
+						
+					}
 				}
+
+				if (field.type == 'Mixed'){
+					// Do not add Mixed property to tree
+					// Mixed property has it's own name.
+					// Ex: phanBoVietNam => phanBoVietNameMixed
+
+					// But we need to add it to statistics. Add above.
+					return;
+				}
+				if (field.name != 'maDeTai'){
+					objectChild(oi, field.schemaProp)[field.name] = {};
+				}
+				
+				// console.log(oi);
+			});
+
+			var curDeep = 0;
+			var stt = 0;
+			
+			
+
+			inOrder(oi);
+
+			var tableStyle = {
+				tableColWidth: 3200,
+				// tableSize: 200,
+				// tableColor: "ada",
+				tableAlign: "left",
+				tableFontFamily: "Times New Roman",
+				borders: true
 			}
-		})
 
-		pObj = docx.createP();
-		pObj.options.align = "left";
-		pObj.addText('', {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			docx.createTable (table, tableStyle);
 
-		// statistics
-		pObj = docx.createP();
-		pObj.options.align = "left";
-		pObj.addText('Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			// Những trường con của các trường Mixed luôn có money = false
+			// => Chúng luôn được thêm vào:
+			// statistics.totalNonMoneyProp, statistics.totalNonMoneyPropStr, statistics.nonMoneyPropFilled, statistics.nonMoneyPropFilledStr
+			// Cần loại bỏ:
 
-		pObj = docx.createP();
-		pObj.options.align = "left";
-		pObj.addText('Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			PROP_FIELDS.map(function (field) {
+				if (field.type == 'Mixed'){
+					var sp_ = field.subProps;
+					statistics.totalNonMoneyProp -= sp_.length;
 
-		
-		try {
+					for(var i = 0; i < sp_.length; i++){
+						if (statistics.nonMoneyPropFilledStr.indexOf(sp_[i]) >= 0){
+							statistics.nonMoneyPropFilled--;
+						}
+						statistics.totalNonMoneyPropStr = statistics.totalNonMoneyPropStr.replace(sp_[i], '');
+						statistics.nonMoneyPropFilledStr = statistics.nonMoneyPropFilledStr.replace(sp_[i], '');
+					}
+				}
+			})
+
 			pObj = docx.createP();
 			pObj.options.align = "left";
-			pObj.addText('Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt'), {color: '000000', font_face: 'Times New Roman', font_size: 12});
-		}
-		catch (e){
-			console.log(e);
-		}
+			pObj.addText('', {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
 
-		// var fs = require('fs');
-		var tmpFileName = (new Date()).getTime() + '.tmp.docx';
-		var outputStream = fs.createWriteStream(path.join(__dirname, tmpFileName));
-		outputStream.on('close', function () {
-			console.log('output done.');
-			// console.log(LABEL);
-			var outputFileName = 'PCSDL';
+			// statistics
+			pObj = docx.createP();
+			pObj.options.align = "left";
+			pObj.addText('Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+
+			pObj = docx.createP();
+			pObj.options.align = "left";
+			pObj.addText('Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+
+			
 			try {
-				if (LABEL.objectModelLabel){
-					outputFileName += '_' + LABEL.objectModelLabel;
-				}
-				if (flatOI.tenVietNam){
-					outputFileName += '_' + flatOI.tenVietNam;
-				}
-				if (flatOI.soHieuBaoTangCS){
-					outputFileName += '_' + flatOI.soHieuBaoTangCS;
-				}
+				pObj = docx.createP();
+				pObj.options.align = "left";
+				pObj.addText('Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt'), {color: '000000', font_face: 'Times New Roman', font_size: 12});
 			}
 			catch (e){
 				console.log(e);
 			}
-			if (extension == 'docx'){
-				outputFileName += '.docx';
-				res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+
+			// var fs = require('fs');
+			var tmpFileName = (new Date()).getTime() + '.tmp.docx';
+			var outputStream = fs.createWriteStream(path.join(__dirname, tmpFileName));
+			outputStream.on('close', function () {
+				console.log('output done.');
+				// console.log(LABEL);
+				var outputFileName = 'PCSDL';
+				try {
+					if (LABEL.objectModelLabel){
+						outputFileName += '_' + LABEL.objectModelLabel;
+					}
+					if (flatOI.tenVietNam){
+						outputFileName += '_' + flatOI.tenVietNam;
+					}
+					if (flatOI.soHieuBaoTangCS){
+						outputFileName += '_' + flatOI.soHieuBaoTangCS;
+					}
+				}
+				catch (e){
+					console.log(e);
+				}
+				if (extension == 'docx'){
+					outputFileName += '.docx';
+					// res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+					// 	try {
+					// 		fs.unlinkSync(path.join(__dirname, tmpFileName));
+					// 	}
+					// 	catch (e){
+					// 		console.log(e);
+					// 	}
+					// });
+					RESOLVE({
+						status: 'success',
+						absoluteFilePath: {
+							docx: path.join(__dirname, tmpFileName)
+						},
+						outputFileName: {
+							docx: outputFileName
+						}
+					})
+				}
+				else if (extension == 'pdf'){
+					console.log('pdf');
+					outputDocxFileName = outputFileName += '.docx';
+					outputFileName += '.pdf';
+					var exec = require('child_process').exec;
+					var cmd = 'cd ' + __dirname + ' && libreoffice5.3 --invisible --convert-to pdf ' + tmpFileName;
+					console.log('starting: ' + cmd);
+					console.log(objectInstance.id);
+					exec(cmd, function (err, stdout, stderr) {
+						if (err){
+							console.log(err);
+							try {
+								fs.unlinkSync(path.join(__dirname, tmpFileName));
+							}
+							catch (e){
+								console.log(e);
+							}
+							RESOLVE({
+								status: 'error',
+								error: 'error while converting to pdf'
+							})
+						}
+						console.log('--out-')
+						console.log(stdout);
+						console.log('--err-')
+						console.log(stderr);
+						console.log('--end-')
+						pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
+						// console.log(pdfFileName);
+						// console.log(outputFileName);
+						// res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
+							// try {
+								// fs.unlinkSync(path.join(__dirname, pdfFileName));
+								// fs.unlinkSync(path.join(__dirname, tmpFileName)); 
+							// }
+							// catch (e){
+							// 	console.log(e);
+							// }
+						// });
+						RESOLVE({
+							status: 'success',
+							absoluteFilePath: {
+								docx: path.join(__dirname, tmpFileName),
+								pdf: path.join(__dirname, pdfFileName),
+							},
+							outputFileName: {
+								docx: outputDocxFileName,
+								pdf: outputFileName
+							}
+						})
+					})
+					// return res.end("ok")
+
+				}
+				// res.end("OK");
+			});
+			docx.generate(outputStream);
+
+
+			// Assume objectInstance is a tree (JSON),
+			// with depth <= 3
+		})();
+	})
+}
+
+function exportFile (objectInstance, options, res, extension) {
+	console.log(options);
+	async (() => {
+		let result = await (exportFilePromise(objectInstance, options, extension));
+		console.log(result);
+		if (result.status == 'success'){
+			if (['docx', 'pdf'].indexOf(extension) >= 0){
+				res.download(result.absoluteFilePath[extension], result.outputFileName[extension], function (err) {
 					try {
-						fs.unlinkSync(path.join(__dirname, tmpFileName));
+						fs.unlinkSync(result.absoluteFilePath[extension]);
+						fs.unlinkSync(result.absoluteFilePath.docx); // nếu extension là pdf thì cần xóa cả file này
 					}
 					catch (e){
 						console.log(e);
 					}
 				});
 			}
-			else if (extension == 'pdf'){
-				console.log('pdf');
-				outputFileName += '.pdf';
-				var exec = require('child_process').exec;
-				var cmd = 'cd ' + __dirname + ' && libreoffice5.3 --invisible --convert-to pdf ' + tmpFileName;
-				console.log('starting: ' + cmd);
-				console.log(objectInstance.id);
-				exec(cmd, function (err, stdout, stderr) {
-					if (err){
-						console.log(err);
-						return res.end('err');
-					}
-					console.log('--out-')
-					console.log(stdout);
-					console.log('--err-')
-					console.log(stderr);
-					console.log('--end-')
-					pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
-					// console.log(pdfFileName);
-					// console.log(outputFileName);
-					res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
-						try {
-							fs.unlinkSync(path.join(__dirname, pdfFileName));
-							fs.unlinkSync(path.join(__dirname, tmpFileName));
-						}
-						catch (e){
-							console.log(e);
-						}
-					});
-				})
-				// return res.end("ok")
-
+			else {
+				return res.end('invalid extension');
 			}
-			// res.end("OK");
-		});
-		docx.generate(outputStream);
-
-
-		// Assume objectInstance is a tree (JSON),
-		// with depth <= 3
-	})();
-
+		}
+		else {
+			return res.end('err')
+		}
+	})()
 }
 
 global.myCustomVars.exportFile = exportFile;
 
-function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, extension) {
+var exportXLSXPromise = (objectInstance, options, extension) => {
+	let PROP_FIELDS = options.PROP_FIELDS;
+	let ObjectModel = options.ObjectModel;
+	let LABEL = options.LABEL;
+	let paragraph = options.paragraph;
+	let objectModelName = options.objectModelName;
+	return new Promise((RESOLVE, REJECT) => {
+		async (function (){
+			console.log("calling xlsx");
 
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
-	async (function (){
-		console.log("calling xlsx");
-
-		// Tiền xử lý không đồng bộ.
-		// Bắt buộc phải dùng Promise, async/await
-		var re = await (new Promise(function (resolve, reject) {
-			// console.log('dmm');
-			setTimeout(function () {
-				// console.log('hehe');
-				resolve('ok')
-			}, 1);
-		}))
-		
-		// End of Tiền xử lý không đồng bộ
-
-		function setCell(sheet, col, row, value, format) {
-			sheet.set(col, row, value);
-			sheet.font(col, row, format);
-			// sheet.border(col, row, {top: 'thin', right: 'thin', bottom: 'thin', left: 'thin'})
-		}
-
-		function addEntireRow(sheet, value, format) {
-			sheet.merge({row: sheetRowIndex, col: 1}, {row: sheetRowIndex, col: _NUM_COL});
-			setCell(sheet, 1, sheetRowIndex, value, format);
-			sheetRowIndex++;
-		}
-
-		var statistics = {
-			totalMoneyProp: 0,
-			totalNonMoneyProp: 0,
-			moneyPropFilled: 0,
-			nonMoneyPropFilled: 0,
-			totalMoneyPropStr: '',
-			totalNonMoneyPropStr: '',
-			moneyPropFilledStr: '',
-			nonMoneyPropFilledStr: ''
-		};
-
-		PROP_FIELDS = JSON.parse(JSON.stringify(PROP_FIELDS));
-
-		/** Tiền xử lý Schema
-		 * 1 vài thuộc tính phụ thuộc vào giá trị của 1 (hay nhiều) thuộc tính khác
-		 * Ví dụ, Mẫu trên đất liền thì Quốc gia, Tỉnh, Huyện, Xã là các thuộc tính có *
-		 * Nhưng Mẫu trên biển thì chỉ Quốc gia có *
-		 * => Cần xử lý cập nhật lại các required fields trong PROP_FIELDS.
-		 */
-
-		// TODO: Có thể phải thực hiện bước này ngay khi load Model. Tính sau :v
-
-		// DiaDiemThuMau
-
-		if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
-			for(var i = 0; i < PROP_FIELDS.length; i++){
-				var field = PROP_FIELDS[i];
-				if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
-					field.required = false;
-					field.money = false;
-					// console.log(field.name);
-				}
-			}
-		}
-		else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
-			for(var i = 0; i < PROP_FIELDS.length; i++){
-				var field = PROP_FIELDS[i];
-				if (['huyen', 'xa'].indexOf(field.name) >= 0){
-					field.required = false;
-					field.money = false;
-					// console.log(field.name);
-				}
-			}
-		}
-		else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
-			// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
+			// Tiền xử lý không đồng bộ.
+			// Bắt buộc phải dùng Promise, async/await
+			var re = await (new Promise(function (resolve, reject) {
+				// console.log('dmm');
+				setTimeout(function () {
+					// console.log('hehe');
+					resolve('ok')
+				}, 1);
+			}))
 			
-		}
+			// End of Tiền xử lý không đồng bộ
 
-		try {
-			// Quốc gia khác, không phải Việt Nam
-			let qg = objectInstances.duLieuThuMau.diaDiemThuMau.quocGia;
-			if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+			function setCell(sheet, col, row, value, format) {
+				sheet.set(col, row, value);
+				sheet.font(col, row, format);
+				// sheet.border(col, row, {top: 'thin', right: 'thin', bottom: 'thin', left: 'thin'})
+			}
+
+			function addEntireRow(sheet, value, format) {
+				sheet.merge({row: sheetRowIndex, col: 1}, {row: sheetRowIndex, col: _NUM_COL});
+				setCell(sheet, 1, sheetRowIndex, value, format);
+				sheetRowIndex++;
+			}
+
+			var statistics = {
+				totalMoneyProp: 0,
+				totalNonMoneyProp: 0,
+				moneyPropFilled: 0,
+				nonMoneyPropFilled: 0,
+				totalMoneyPropStr: '',
+				totalNonMoneyPropStr: '',
+				moneyPropFilledStr: '',
+				nonMoneyPropFilledStr: ''
+			};
+
+			PROP_FIELDS = JSON.parse(JSON.stringify(PROP_FIELDS));
+
+			/** Tiền xử lý Schema
+			 * 1 vài thuộc tính phụ thuộc vào giá trị của 1 (hay nhiều) thuộc tính khác
+			 * Ví dụ, Mẫu trên đất liền thì Quốc gia, Tỉnh, Huyện, Xã là các thuộc tính có *
+			 * Nhưng Mẫu trên biển thì chỉ Quốc gia có *
+			 * => Cần xử lý cập nhật lại các required fields trong PROP_FIELDS.
+			 */
+
+			// TODO: Có thể phải thực hiện bước này ngay khi load Model. Tính sau :v
+
+			// DiaDiemThuMau
+
+			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -1653,693 +1695,814 @@ function exportXLSX (objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, parag
 					}
 				}
 			}
-		}
-		catch (e){
-			console.log(e);
-		}
-
-		delete objectInstance.flag.fDiaDiemThuMau;
-		for(var i = 0; i < PROP_FIELDS.length; i++){
-			var field = PROP_FIELDS[i];
-			// console.log(field.name);
-			if (field.name == 'fDiaDiemThuMau'){
-				console.log('len: ' + PROP_FIELDS.length);
-				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
-				console.log('len: ' + PROP_FIELDS.length);
-				break;
-			}
-		}
-
-		// resolve place id to string
-		try {
-			objectInstance.duLieuThuMau.diaDiemThuMau.tinh = CITIES[objectInstance.duLieuThuMau.diaDiemThuMau.tinh].name;
-			objectInstance.duLieuThuMau.diaDiemThuMau.huyen = DISTRICTS[objectInstance.duLieuThuMau.diaDiemThuMau.huyen].name;
-			objectInstance.duLieuThuMau.diaDiemThuMau.xa = WARDS[objectInstance.duLieuThuMau.diaDiemThuMau.xa].name;
-		}
-
-		catch (e){
-			console.log(e);
-			// do not care
-		}
-
-		
-
-		// End of DiaDiemThuMau
-
-
-		// fApproved
-		
-		for(var i = 0; i < PROP_FIELDS.length; i++){
-			var field = PROP_FIELDS[i];
-			// console.log(field.name);
-			if (field.name == 'fApproved'){
-				console.log('len: ' + PROP_FIELDS.length);
-				PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
-				console.log('len: ' + PROP_FIELDS.length);
-				break;
-			}
-		}
-		
-		// End of fApproved
-
-		// delete objectInstance.flag;
-		/**
-		 * End of Tiền xử lý Schema
-		 */
-
-		function display(obj){
-			// console.log(staticPath)
-			// console.log(count)
-			if (obj instanceof Array){
-				var result =  obj.reduce(function (preStr, curElement, curIndex){
-					// console.log(curElement.split('_+_')[1]);
-					preStr += curElement.split('_+_')[1];
-					if (curIndex < obj.length - 1){
-						preStr += '\n\n';
+			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+				for(var i = 0; i < PROP_FIELDS.length; i++){
+					var field = PROP_FIELDS[i];
+					if (['huyen', 'xa'].indexOf(field.name) >= 0){
+						field.required = false;
+						field.money = false;
+						// console.log(field.name);
 					}
-					return preStr;
-				}, '');
-				return result;
+				}
 			}
-			else if (obj instanceof Date){
-				return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
+				
 			}
-			// Need to escape to prevent injected HTML + JS
-			return obj;
-		}
 
-
-		var curProp = '';
-		var addPropRow = true;
-
-		function inOrder (tree) {
-			if (!tree){
-				return;
+			try {
+				// Quốc gia khác, không phải Việt Nam
+				let qg = objectInstance.duLieuThuMau.diaDiemThuMau.quocGia;
+				if ((qg) && (qg.trim()) && (qg.trim() != 'Việt Nam')){
+					for(var i = 0; i < PROP_FIELDS.length; i++){
+						var field = PROP_FIELDS[i];
+						if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
+							field.required = false;
+							field.money = false;
+							// console.log(field.name);
+						}
+					}
+				}
 			}
-			if (tree instanceof Function){
-				return;
+			catch (e){
+				console.log(e);
 			}
-			if (typeof(tree) == 'string'){
-				return;
+
+			delete objectInstance.flag.fDiaDiemThuMau;
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'fDiaDiemThuMau'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
 			}
-			for(var i = 0; i < Object.keys(tree).length; i++){
-				var prop = Object.keys(tree)[i];
-				// console.log(stt + ' : ' + prop + ' : ' + curDeep);
-				// Add data to docx object
-				var p;
-				switch (curDeep){
-					case 0:
-						addPropRow = true;
-						// Label
-						try{
-							p = LABEL[prop];
+
+			// resolve place id to string
+			try {
+				objectInstance.duLieuThuMau.diaDiemThuMau.tinh = CITIES[objectInstance.duLieuThuMau.diaDiemThuMau.tinh].name;
+				objectInstance.duLieuThuMau.diaDiemThuMau.huyen = DISTRICTS[objectInstance.duLieuThuMau.diaDiemThuMau.huyen].name;
+				objectInstance.duLieuThuMau.diaDiemThuMau.xa = WARDS[objectInstance.duLieuThuMau.diaDiemThuMau.xa].name;
+			}
+
+			catch (e){
+				console.log(e);
+				// do not care
+			}
+
+			
+
+			// End of DiaDiemThuMau
+
+
+			// fApproved
+			
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'fApproved'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
+			}
+			
+			// End of fApproved
+
+			// delete objectInstance.flag;
+			/**
+			 * End of Tiền xử lý Schema
+			 */
+
+			function display(obj){
+				// console.log(staticPath)
+				// console.log(count)
+				if (obj instanceof Array){
+					var result =  obj.reduce(function (preStr, curElement, curIndex){
+						// console.log(curElement.split('_+_')[1]);
+						// preStr += curElement.split('_+_')[1];
+						preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+						if (curIndex < obj.length - 1){
+							preStr += ', \n\n';
 						}
-						catch (e){
-							console.log(e);
-							// Do not care;
-							// break;
-						}
-						// var row = [
-						// 	{
-						// 		val: p,
-						// 		opts: rowSpanOpts
-						// 	},
-						// 	{
-						// 		val: '',
-						// 		opts: rowSpanOpts
-						// 	},
-						// 	{
-						// 		val: '',
-						// 		opts: rowSpanOpts
-						// 	},
-						// 	{
-						// 		val: '',
-						// 		opts: rowSpanOpts
-						// 	}
-						// ];
-						// table.push(row);
+						return preStr;
+					}, '');
+					return result;
+				}
+				else if (obj instanceof Date){
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+				}
+				// Need to escape to prevent injected HTML + JS
+				return obj;
+			}
 
 
-						setCell(sheet, 1, sheetRowIndex, p, labelOpts);
-						sheet.merge({row: sheetRowIndex, col: 1}, {row: sheetRowIndex, col: _NUM_COL});
-						sheet.align(1, sheetRowIndex, 'left');
-						// sheet.fill(1, sheetRowIndex, {type: 'lightGrid', fgColor: 'FFFFFF00', bgColor: 'FFFFFF00'})
-						// sheet.fill(1, sheetRowIndex, {fgColor:8,bgColor:64});
-						sheetRowIndex++;
-						break;
-					case 1:
-						stt++;
-						curProp = prop;
-						addPropRow = true;
-						
-						var value = display(flatOI[prop]);
-						try{
+			var curProp = '';
+			var addPropRow = true;
 
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
-								p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
-							}
-
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.totalMoneyProp++;
-								statistics.totalMoneyPropStr += ' ' + prop;
-							}
-							else {
-								statistics.totalNonMoneyProp++;
-								statistics.totalNonMoneyPropStr += ' ' + prop;
-							}
-						}
-						catch (e){
-							// console.log(e);
-							// Do not care;
-							// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
-						}
-
-						
-						// var row = [
-						// 	{
-						// 		val: stt,
-						// 		opts: labelOpts
-						// 	},
-						// 	{
-						// 		val: p,
-						// 		opts: detailOpts
-						// 	},
-						// 	{
-						// 		val: value,
-						// 		opts: detailOpts
-						// 	},
-						// 	{
-						// 		val: '',
-						// 		opts: detailOpts
-						// 	}
-						// ]
-						if (value){
-							// table.push(row);
-
-
-							setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
-							setCell(sheet, 2, sheetRowIndex, p, detailOpts);
-							setCell(sheet, 3, sheetRowIndex, value, detailOpts);
-							sheetRowIndex++;
-
-
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.moneyPropFilled++;
-								statistics.moneyPropFilledStr += ' ' + prop;
-							}
-							else {
-								statistics.nonMoneyPropFilled++;
-								statistics.nonMoneyPropFilledStr += ' ' + prop;
-							}
-						}
-						break;
-					case 2:
-						
-						var value = display(flatOI[prop]);
-						try{
-
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
-								p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
-							}
-
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.totalMoneyProp++;
-								statistics.totalMoneyPropStr += ' ' + prop;
-							}
-							else {
-								statistics.totalNonMoneyProp++;
-								statistics.totalNonMoneyPropStr += ' ' + prop;
-							}
-						}
-						catch (e){
-							console.log(e);
-							// Do not care;
-							// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
-						}
-						var row = null;
-						if (addPropRow){
+			function inOrder (tree) {
+				if (!tree){
+					return;
+				}
+				if (tree instanceof Function){
+					return;
+				}
+				if (typeof(tree) == 'string'){
+					return;
+				}
+				for(var i = 0; i < Object.keys(tree).length; i++){
+					var prop = Object.keys(tree)[i];
+					// console.log(stt + ' : ' + prop + ' : ' + curDeep);
+					// Add data to docx object
+					var p;
+					switch (curDeep){
+						case 0:
+							addPropRow = true;
+							// Label
 							try{
-								curProp = LABEL[curProp];
+								p = LABEL[prop];
 							}
 							catch (e){
 								console.log(e);
 								// Do not care;
 								// break;
 							}
-							// row = [
-							// 	{
-							// 		val: stt,
-							// 		opts: labelOpts
-							// 	},
-							// 	{
-							// 		val: curProp,
-							// 		opts: detailOpts
-							// 	},
-							// 	{
-							// 		val: '',
-							// 		opts: detailOpts
-							// 	},
-							// 	{
-							// 		val: '',
-							// 		opts: detailOpts
-							// 	}
-							// ]
-							// table.push(row);
+							
 
 
-							setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
-							setCell(sheet, 2, sheetRowIndex, curProp, detailOpts);
+							setCell(sheet, 1, sheetRowIndex, p, labelOpts);
+							sheet.merge({row: sheetRowIndex, col: 1}, {row: sheetRowIndex, col: _NUM_COL});
+							sheet.align(1, sheetRowIndex, 'left');
+							// sheet.fill(1, sheetRowIndex, {type: 'lightGrid', fgColor: 'FFFFFF00', bgColor: 'FFFFFF00'})
+							// sheet.fill(1, sheetRowIndex, {fgColor:8,bgColor:64});
 							sheetRowIndex++;
+							break;
+						case 1:
+							stt++;
+							curProp = prop;
+							addPropRow = true;
+							
+							var value = display(flatOI[prop]);
+							try{
 
-							addPropRow = false;
-						}
-						
-						
-						// console.log(p + ' : ' + value)
-						if (value){
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+									p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+								}
 
-							setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
-							setCell(sheet, 3, sheetRowIndex, value, detailOpts);
-							sheetRowIndex++;
-
-							if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-								statistics.moneyPropFilled++;
-								statistics.moneyPropFilledStr += ' ' + prop;
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.totalMoneyProp++;
+									statistics.totalMoneyPropStr += ' ' + prop;
+								}
+								else {
+									statistics.totalNonMoneyProp++;
+									statistics.totalNonMoneyPropStr += ' ' + prop;
+								}
 							}
-							else {
-								statistics.nonMoneyPropFilled++;
-								statistics.nonMoneyPropFilledStr += ' ' + prop;
+							catch (e){
+								// console.log(e);
+								// Do not care;
+								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
-						}
-						break;
+
+							
+							
+							if (value){
+								setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
+								setCell(sheet, 2, sheetRowIndex, p, detailOpts);
+								setCell(sheet, 3, sheetRowIndex, value, detailOpts);
+								sheetRowIndex++;
+
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.moneyPropFilled++;
+									statistics.moneyPropFilledStr += ' ' + prop;
+								}
+								else {
+									statistics.nonMoneyPropFilled++;
+									statistics.nonMoneyPropFilledStr += ' ' + prop;
+								}
+							}
+							break;
+						case 2:
+							
+							var value = display(flatOI[prop]);
+							try{
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+									p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+								}
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.totalMoneyProp++;
+									statistics.totalMoneyPropStr += ' ' + prop;
+								}
+								else {
+									statistics.totalNonMoneyProp++;
+									statistics.totalNonMoneyPropStr += ' ' + prop;
+								}
+							}
+							catch (e){
+								console.log(e);
+								// Do not care;
+								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
+							}
+							var row = null;
+							if (addPropRow){
+								try{
+									curProp = LABEL[curProp];
+								}
+								catch (e){
+									console.log(e);
+									// Do not care;
+									// break;
+								}
+								setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
+								setCell(sheet, 2, sheetRowIndex, curProp, detailOpts);
+								sheetRowIndex++;
+
+								addPropRow = false;
+							}
+							
+							
+							// console.log(p + ' : ' + value)
+							if (value){
+
+								setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
+								setCell(sheet, 3, sheetRowIndex, value, detailOpts);
+								sheetRowIndex++;
+
+								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+									statistics.moneyPropFilled++;
+									statistics.moneyPropFilledStr += ' ' + prop;
+								}
+								else {
+									statistics.nonMoneyPropFilled++;
+									statistics.nonMoneyPropFilledStr += ' ' + prop;
+								}
+							}
+							break;
+					}
+
+					// console.log('inc curDeep');
+					
+					// stt++;
+					curDeep++;
+					inOrder(tree[prop]);
+					curDeep--;
 				}
+			}
 
-				// console.log('inc curDeep');
+			// Templates
+			var rowSpanOpts = {
+				// cellColWidth: 2261,
+				b:true,
+				sz: '24',
+				align: 'center',
+				shd: {
+					fill: "CCCCCC",
+					// themeFill: "text1",
+					// "themeFillTint": "30"
+				},
+				// gridSpan: 3,
+				fontFamily: "Times New Roman"
+			};
+
+			var labelOpts = {
+				bold: true,
+				align: 'center',
+				name: "Times New Roman",
+				scheme: '-', // Phải có cái này thì mới chuyển thành font Times New Roman.
+				sz: 12
+			};
+
+			var detailOpts = {
+				// cellColWidth: 2261,
+				// b:true,
+				sz: '12',
+				name: "Times New Roman",
+				scheme: '-',
+				family: '3',
+			};
+
+			var detailItalicOpts = {
+				// cellColWidth: 2261,
+				// b:true,
+				sz: '12',
+				name: "Times New Roman",
+				scheme: '-',
+				family: '3',
+				iter: true
+			};
+			// End
+
+			var excelbuilder = require('msexcel-builder');
+			var tmpFileName = (new Date()).getTime() + '.tmp.xlsx';
+			var workbook = excelbuilder.createWorkbook(path.join(__dirname), tmpFileName);
+			var _NUM_ROW = 200;
+			var _NUM_COL = 4;
+			var sheet = workbook.createSheet('PCSDL', _NUM_COL, _NUM_ROW);
+			sheet.width(1, 10);
+			sheet.width(2, 20);
+			sheet.width(3, 30);
+			sheet.width(4, 20);
+			// wrap + border all
+			for(var i = 1; i <= _NUM_COL; i++){
+				for(var j = 1; j <= _NUM_ROW; j++){
+					sheet.wrap(i, j, true);
+				}
+			}
+			// end of wrap all
+			for(var i = 0; i < _NUM_ROW; i++){
+				sheet.align(1, i, 'center');
+				sheet.valign(1, i, 'center');
+			}
+
+			var sheetRowIndex = 1;
+			var sheetColIndex = 0;
+
+			for(var i = 0; i < paragraph.text.length; i++){
 				
-				// stt++;
-				curDeep++;
-				inOrder(tree[prop]);
-				curDeep--;
+				sheet.merge({row: sheetRowIndex, col: 1}, {row: sheetRowIndex, col: 4});
+				setCell(sheet, 1, sheetRowIndex, paragraph.text[i], {name: 'Times New Roman', sz: '12', family: '3', scheme: '-', bold: true, iter: 'false'});
+				sheet.height(sheetRowIndex, 50);
+				sheetRowIndex++;
+
 			}
-		}
 
-		// Templates
-		var rowSpanOpts = {
-			// cellColWidth: 2261,
-			b:true,
-			sz: '24',
-			align: 'center',
-			shd: {
-				fill: "CCCCCC",
-				// themeFill: "text1",
-				// "themeFillTint": "30"
-			},
-			// gridSpan: 3,
-			fontFamily: "Times New Roman"
-		};
+			var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 
-		var labelOpts = {
-			bold: true,
-			align: 'center',
-			name: "Times New Roman",
-			scheme: '-', // Phải có cái này thì mới chuyển thành font Times New Roman.
-			sz: 12
-		};
-
-		var detailOpts = {
-			// cellColWidth: 2261,
-			// b:true,
-			sz: '12',
-			name: "Times New Roman",
-			scheme: '-',
-			family: '3',
-		};
-
-		var detailItalicOpts = {
-			// cellColWidth: 2261,
-			// b:true,
-			sz: '12',
-			name: "Times New Roman",
-			scheme: '-',
-			family: '3',
-			iter: true
-		};
-		// End
-
-		var excelbuilder = require('msexcel-builder');
-		var tmpFileName = (new Date()).getTime() + '.tmp.xlsx';
-		var workbook = excelbuilder.createWorkbook(path.join(__dirname), tmpFileName);
-		var _NUM_ROW = 200;
-		var _NUM_COL = 4;
-		var sheet = workbook.createSheet('PCSDL', _NUM_COL, _NUM_ROW);
-		sheet.width(1, 10);
-		sheet.width(2, 20);
-		sheet.width(3, 30);
-		sheet.width(4, 20);
-		// wrap + border all
-		for(var i = 1; i <= _NUM_COL; i++){
-			for(var j = 1; j <= _NUM_ROW; j++){
-				sheet.wrap(i, j, true);
-			}
-		}
-		// end of wrap all
-		for(var i = 0; i < _NUM_ROW; i++){
-			sheet.align(1, i, 'center');
-			sheet.valign(1, i, 'center');
-		}
-
-		var sheetRowIndex = 1;
-		var sheetColIndex = 0;
-
-		for(var i = 0; i < paragraph.text.length; i++){
 			
+
 			sheet.merge({row: sheetRowIndex, col: 1}, {row: sheetRowIndex, col: 4});
-			setCell(sheet, 1, sheetRowIndex, paragraph.text[i], {name: 'Times New Roman', sz: '12', family: '3', scheme: '-', bold: true, iter: 'false'});
+			console.log('merged: ' + sheetRowIndex + ', 1 and ' + sheetRowIndex + ', 4.')
+			setCell(sheet, 1, sheetRowIndex, 'Mã đề tài: ' + display(flatOI.maDeTai), detailOpts);
+			sheet.font({col: 1, row: sheetRowIndex}, {bold: true, name: 'Times New Roman', sz: 12});
 			sheet.height(sheetRowIndex, 50);
 			sheetRowIndex++;
 
-		}
-
-		var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
-
-		
-
-		sheet.merge({row: sheetRowIndex, col: 1}, {row: sheetRowIndex, col: 4});
-		console.log('merged: ' + sheetRowIndex + ', 1 and ' + sheetRowIndex + ', 4.')
-		setCell(sheet, 1, sheetRowIndex, 'Mã đề tài: ' + display(flatOI.maDeTai), detailOpts);
-		sheet.font({col: 1, row: sheetRowIndex}, {bold: true, name: 'Times New Roman', sz: 12});
-		sheet.height(sheetRowIndex, 50);
-		sheetRowIndex++;
-
-		setCell(sheet, 1, sheetRowIndex, 'STT', labelOpts);
-		setCell(sheet, 2, sheetRowIndex, 'Trường dữ liệu', labelOpts);
-		setCell(sheet, 3, sheetRowIndex, 'Nội dung', labelOpts);
-		setCell(sheet, 4, sheetRowIndex, 'Ghi chú', labelOpts);
-		sheetRowIndex++;
+			setCell(sheet, 1, sheetRowIndex, 'STT', labelOpts);
+			setCell(sheet, 2, sheetRowIndex, 'Trường dữ liệu', labelOpts);
+			setCell(sheet, 3, sheetRowIndex, 'Nội dung', labelOpts);
+			setCell(sheet, 4, sheetRowIndex, 'Ghi chú', labelOpts);
+			sheetRowIndex++;
 
 
-		// Delete Unit fields
-		PROP_FIELDS.map(function (field) {
-			if (field.type == 'Unit' && flatOI[field.name.substring('donVi_'.length)] && flatOI[field.name]){
-				flatOI[field.name.substring('donVi_'.length)] += ' ' + flatOI[field.name];
-				flatOI[field.name.substring('donVi_'.length)].trim();
-				return;
-			}
-		})
-
-		{
-			var index = 0;
-			while (true){
-				if (PROP_FIELDS[index] && (PROP_FIELDS[index].type == 'Unit')){
-					PROP_FIELDS.splice(index, 1);
+			// Delete Unit fields
+			PROP_FIELDS.map(function (field) {
+				if (field.type == 'Unit' && flatOI[field.name.substring('donVi_'.length)] && flatOI[field.name]){
+					flatOI[field.name.substring('donVi_'.length)] += ' ' + flatOI[field.name];
+					flatOI[field.name.substring('donVi_'.length)].trim();
+					return;
 				}
-				else {
-					index++;
-				}
-				if (index >= PROP_FIELDS.length){
-					break;
-				}
-			} // Delete Unit fields
+			})
 
-			PROP_FIELDS.map(function (element, index) {
-				if (element.type == 'Mixed'){
-					var sp_ = element.subProps;
-					var index = 0;
-					while (true){
-						if (sp_[index].indexOf('donVi_') >= 0){
-							sp_.splice(index, 1);
-						}
-						else {
-							index++;
-						}
-						if (index >= sp_.length){
-							break;
-						}
+			{
+				var index = 0;
+				while (true){
+					if (PROP_FIELDS[index] && (PROP_FIELDS[index].type == 'Unit')){
+						PROP_FIELDS.splice(index, 1);
 					}
-				}
-			}) // Delete subprops
-		}
-
-		var PROP_FIELDS_OBJ = {};
-
-		PROP_FIELDS.map(function (element, index) {
-			PROP_FIELDS_OBJ[element.name] = index;
-		});
-
-		// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
-
-		PROP_FIELDS.map((element, index) => {
-			if (('autoCompletion' in element) && (element.autoCompletion)){
-				try {
-					// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-					flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
-				}
-				catch (e){
-					console.log(e);
-				}
-			}
-		})
-
-		{
-			// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
-			// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
-			// Bọc trong ngoặc cho đỡ trùng tên biến :v
-			let fields = [
-				{
-					fieldName: 'loaiMauVat'
-				}
-			]
-
-			for(let f of fields){
-				try {
-					// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-					flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
-				}
-				catch (e){
-					console.log(e);
-				}
-			}
-		}
-
-		// End of STR_AUTOCOMPLETION_SEPERATOR
-		
-		// Reconstruct tree
-		var oi = {};
-		PROP_FIELDS.map(function (field) {
-
-			if ((field.type == 'Mixed') || (field.name == 'maDeTai')){
-				if (field.money){
-					statistics.totalMoneyProp++;
-					statistics.totalMoneyPropStr += ' ' + field.name;
-				}
-				else {
-					statistics.totalNonMoneyProp++;
-					statistics.totalNonMoneyPropStr += ' ' + field.name;
-				}
-				
-				if (field.name == 'maDeTai'){
-					if (flatOI.maDeTai){
-						if (field.money){
-							statistics.moneyPropFilled++;
-							statistics.moneyPropFilledStr += ' maDeTai';
-						}
-						else {
-							statistics.nonMoneyPropFilled++;
-							statistics.nonMoneyPropFilledStr += ' maDeTai';
-						}
+					else {
+						index++;
 					}
-				}
-				else {
-					var sp_ = field.subProps;
-					var flag = false;
-					// console.log('checking mixed: ' + field.name)
-					for(var i = 0; i < sp_.length; i++){
+					if (index >= PROP_FIELDS.length){
+						break;
+					}
+				} // Delete Unit fields
 
-						// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '"')
-						if (flatOI[sp_[i]]){
-							// Nếu flatOI[sp_[i]] là Object Array, tuy không có dữ liệu nhưng vẫn có method
-							// Khi đó 
-							// flag = true;
-							// break;
-							var val = JSON.parse(JSON.stringify(flatOI[sp_[i]]));
-							// var val = flatOI[sp_[i]];
-							if ((val instanceof Array) || (val instanceof Object)){
-								// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '" true ' + typeof(flatOI[sp_[i]]))
-								if ((val instanceof Array) && (val.length > 0)){
-									// console.log('Array length: ' + val.length)
-									flag = true;
-									break;
-								}
-								if ((val instanceof Object) && (Object.keys(val).length > 0)){
-									// console.log('Object keys length: ' + Object.keys(val))
-									flag = true;
-									break;
-								}
+				PROP_FIELDS.map(function (element, index) {
+					if (element.type == 'Mixed'){
+						var sp_ = element.subProps;
+						var index = 0;
+						while (true){
+							if (sp_[index].indexOf('donVi_') >= 0){
+								sp_.splice(index, 1);
 							}
 							else {
-								flag = true;
+								index++;
+							}
+							if (index >= sp_.length){
 								break;
 							}
 						}
 					}
-					if (flag){
-						if (field.money){
-							statistics.moneyPropFilled++;
-							statistics.moneyPropFilledStr += ' ' + field.name;
-							console.log('adding money prop filled: ' + field.name);
-						}
-						else {
-							statistics.nonMoneyPropFilled++;
-							statistics.nonMoneyPropFilledStr += ' ' + field.name;
-							console.log('adding non money prop filled: ' + field.name);
-						}
-					}
-					
-				}
+				}) // Delete subprops
 			}
 
-			if (field.type == 'Mixed'){
-				// Do not add Mixed property to tree
-				// Mixed property has it's own name.
-				// Ex: phanBoVietNam => phanBoVietNameMixed
+			var PROP_FIELDS_OBJ = {};
 
-				// But we need to add it to statistics. Add above.
-				return;
-			}
-			if (field.name != 'maDeTai'){
-				objectChild(oi, field.schemaProp)[field.name] = {};
-			}
-			
-			// console.log(oi);
-		});
+			PROP_FIELDS.map(function (element, index) {
+				PROP_FIELDS_OBJ[element.name] = index;
+			});
 
-		var curDeep = 0;
-		var stt = 0;
-		
-		
+			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
 
-		inOrder(oi);
-
-		// Những trường con của các trường Mixed luôn có money = false
-		// => Chúng luôn được thêm vào:
-		// statistics.totalNonMoneyProp, statistics.totalNonMoneyPropStr, statistics.nonMoneyPropFilled, statistics.nonMoneyPropFilledStr
-		// Cần loại bỏ:
-
-		PROP_FIELDS.map(function (field) {
-			if (field.type == 'Mixed'){
-				var sp_ = field.subProps;
-				statistics.totalNonMoneyProp -= sp_.length;
-
-				for(var i = 0; i < sp_.length; i++){
-					if (statistics.nonMoneyPropFilledStr.indexOf(sp_[i]) >= 0){
-						statistics.nonMoneyPropFilled--;
-					}
-					statistics.totalNonMoneyPropStr = statistics.totalNonMoneyPropStr.replace(sp_[i], '');
-					statistics.nonMoneyPropFilledStr = statistics.nonMoneyPropFilledStr.replace(sp_[i], '');
-				}
-			}
-		})
-
-		// Make sure that all above cells has border
-
-		for(var i = 3; i < sheetRowIndex; i++){
-			for(var j = 0; j <= _NUM_COL; j++){
-				sheet.border(j, i, {top: 'thin', right: 'thin', bottom: 'thin', left: 'thin'});
-			}
-		}
-
-
-		addEntireRow(sheet, '', {})
-
-		sheet.align(1, sheetRowIndex, 'left');
-		addEntireRow(sheet,
-			'Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {
-			name: 'Times New Roman',
-			sz: 12,
-			scheme: '-'
-		})
-
-
-		sheet.align(1, sheetRowIndex, 'left');
-		addEntireRow(sheet,
-			'Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {
-			name: 'Times New Roman',
-			sz: 12,
-			scheme: '-'
-		})
-
-		try {
-			sheet.align(1, sheetRowIndex, 'left');
-			addEntireRow(sheet,
-				'Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt') , {
-				name: 'Times New Roman',
-				sz: 12,
-				scheme: '-'
-			})
-		}
-		catch (e){
-			console.log(e);
-		}
-
-		// pObj = docx.createP();
-		// pObj.options.align = "left";
-		// pObj.addText(JSON.stringify(statistics, null, 4), {color: '000000', font_face: 'Times New Roman', font_size: 12});
-
-		// var fs = require('fs');
-		
-		// var outputStream = fs.createWriteStream(path.join(__dirname, tmpFileName));
-
-
-		workbook.save(function (err) {
-			if (err){
-				console.log(err);
-				return res.end('err');
-			}
-			console.log('output done.');
-			// console.log(LABEL);
-			var outputFileName = 'PCSDL';
-			try {
-				if (LABEL.objectModelLabel){
-					outputFileName += '_' + LABEL.objectModelLabel;
-				}
-				if (flatOI.tenVietNam){
-					outputFileName += '_' + flatOI.tenVietNam;
-				}
-				if (flatOI.soHieuBaoTangCS){
-					outputFileName += '_' + flatOI.soHieuBaoTangCS;
-				}
-			}
-			catch (e){
-				console.log(e);
-			}
-			if (extension == 'xlsx'){
-				outputFileName += '.xlsx';
-				res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+			PROP_FIELDS.map((element, index) => {
+				if (('autoCompletion' in element) && (element.autoCompletion)){
 					try {
-						fs.unlinkSync(path.join(__dirname, tmpFileName));
+						// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+						flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
 					}
 					catch (e){
 						console.log(e);
 					}
-				});
+				}
+			})
+
+			{
+				// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
+				// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+				// Bọc trong ngoặc cho đỡ trùng tên biến :v
+				let fields = [
+					{
+						fieldName: 'loaiMauVat'
+					}
+				]
+
+				for(let f of fields){
+					try {
+						// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
+						flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+					}
+					catch (e){
+						console.log(e);
+					}
+				}
 			}
+
+			// End of STR_AUTOCOMPLETION_SEPERATOR
 			
-			// res.end("OK");
-		});
-		// xlsx.generate(outputStream);
+			// Reconstruct tree
+			var oi = {};
+			PROP_FIELDS.map(function (field) {
+
+				if ((field.type == 'Mixed') || (field.name == 'maDeTai')){
+					if (field.money){
+						statistics.totalMoneyProp++;
+						statistics.totalMoneyPropStr += ' ' + field.name;
+					}
+					else {
+						statistics.totalNonMoneyProp++;
+						statistics.totalNonMoneyPropStr += ' ' + field.name;
+					}
+					
+					if (field.name == 'maDeTai'){
+						if (flatOI.maDeTai){
+							if (field.money){
+								statistics.moneyPropFilled++;
+								statistics.moneyPropFilledStr += ' maDeTai';
+							}
+							else {
+								statistics.nonMoneyPropFilled++;
+								statistics.nonMoneyPropFilledStr += ' maDeTai';
+							}
+						}
+					}
+					else {
+						var sp_ = field.subProps;
+						var flag = false;
+						// console.log('checking mixed: ' + field.name)
+						for(var i = 0; i < sp_.length; i++){
+
+							// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '"')
+							if (flatOI[sp_[i]]){
+								// Nếu flatOI[sp_[i]] là Object Array, tuy không có dữ liệu nhưng vẫn có method
+								// Khi đó 
+								// flag = true;
+								// break;
+								var val = JSON.parse(JSON.stringify(flatOI[sp_[i]]));
+								// var val = flatOI[sp_[i]];
+								if ((val instanceof Array) || (val instanceof Object)){
+									// console.log(sp_[i] + ' : "' + flatOI[sp_[i]] + '" true ' + typeof(flatOI[sp_[i]]))
+									if ((val instanceof Array) && (val.length > 0)){
+										// console.log('Array length: ' + val.length)
+										flag = true;
+										break;
+									}
+									if ((val instanceof Object) && (Object.keys(val).length > 0)){
+										// console.log('Object keys length: ' + Object.keys(val))
+										flag = true;
+										break;
+									}
+								}
+								else {
+									flag = true;
+									break;
+								}
+							}
+						}
+						if (flag){
+							if (field.money){
+								statistics.moneyPropFilled++;
+								statistics.moneyPropFilledStr += ' ' + field.name;
+								console.log('adding money prop filled: ' + field.name);
+							}
+							else {
+								statistics.nonMoneyPropFilled++;
+								statistics.nonMoneyPropFilledStr += ' ' + field.name;
+								console.log('adding non money prop filled: ' + field.name);
+							}
+						}
+						
+					}
+				}
+
+				if (field.type == 'Mixed'){
+					// Do not add Mixed property to tree
+					// Mixed property has it's own name.
+					// Ex: phanBoVietNam => phanBoVietNameMixed
+
+					// But we need to add it to statistics. Add above.
+					return;
+				}
+				if (field.name != 'maDeTai'){
+					objectChild(oi, field.schemaProp)[field.name] = {};
+				}
+				
+				// console.log(oi);
+			});
+
+			var curDeep = 0;
+			var stt = 0;
+			
+			
+
+			inOrder(oi);
+
+			// Những trường con của các trường Mixed luôn có money = false
+			// => Chúng luôn được thêm vào:
+			// statistics.totalNonMoneyProp, statistics.totalNonMoneyPropStr, statistics.nonMoneyPropFilled, statistics.nonMoneyPropFilledStr
+			// Cần loại bỏ:
+
+			PROP_FIELDS.map(function (field) {
+				if (field.type == 'Mixed'){
+					var sp_ = field.subProps;
+					statistics.totalNonMoneyProp -= sp_.length;
+
+					for(var i = 0; i < sp_.length; i++){
+						if (statistics.nonMoneyPropFilledStr.indexOf(sp_[i]) >= 0){
+							statistics.nonMoneyPropFilled--;
+						}
+						statistics.totalNonMoneyPropStr = statistics.totalNonMoneyPropStr.replace(sp_[i], '');
+						statistics.nonMoneyPropFilledStr = statistics.nonMoneyPropFilledStr.replace(sp_[i], '');
+					}
+				}
+			})
+
+			// Make sure that all above cells has border
+
+			for(var i = 3; i < sheetRowIndex; i++){
+				for(var j = 0; j <= _NUM_COL; j++){
+					sheet.border(j, i, {top: 'thin', right: 'thin', bottom: 'thin', left: 'thin'});
+				}
+			}
 
 
-		// Assume objectInstance is a tree (JSON),
-		// with depth <= 3
+			addEntireRow(sheet, '', {})
+
+			sheet.align(1, sheetRowIndex, 'left');
+			addEntireRow(sheet,
+				'Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {
+				name: 'Times New Roman',
+				sz: 12,
+				scheme: '-'
+			})
+
+
+			sheet.align(1, sheetRowIndex, 'left');
+			addEntireRow(sheet,
+				'Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {
+				name: 'Times New Roman',
+				sz: 12,
+				scheme: '-'
+			})
+
+			try {
+				sheet.align(1, sheetRowIndex, 'left');
+				addEntireRow(sheet,
+					'Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt') , {
+					name: 'Times New Roman',
+					sz: 12,
+					scheme: '-'
+				})
+			}
+			catch (e){
+				console.log(e);
+			}
+			workbook.save(function (err) {
+				if (err){
+					console.log(err);
+					// return res.end('err');
+					RESOLVE({
+						status: 'error',
+						error: 'error while saving workbook'
+					})
+				}
+				console.log('output done.');
+				// console.log(LABEL);
+				var outputFileName = 'PCSDL';
+				try {
+					if (LABEL.objectModelLabel){
+						outputFileName += '_' + LABEL.objectModelLabel;
+					}
+					if (flatOI.tenVietNam){
+						outputFileName += '_' + flatOI.tenVietNam;
+					}
+					if (flatOI.soHieuBaoTangCS){
+						outputFileName += '_' + flatOI.soHieuBaoTangCS;
+					}
+				}
+				catch (e){
+					console.log(e);
+				}
+				if (extension == 'xlsx'){
+					outputFileName += '.xlsx';
+					// res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+					// 	try {
+					// 		fs.unlinkSync(path.join(__dirname, tmpFileName));
+					// 	}
+					// 	catch (e){
+					// 		console.log(e);
+					// 	}
+					// });
+					RESOLVE({
+						status: 'success',
+						absoluteFilePath: path.join(__dirname, tmpFileName),
+						outputFileName: outputFileName
+					})
+				}
+			});
+			// Assume objectInstance is a tree (JSON),
+			// with depth <= 3
+		})();
+	})
+}
+
+function exportXLSX (objectInstance, options, res, extension) {
+	async(() => {
+		let result = await (exportXLSXPromise(objectInstance, options, extension));
+		if (result.status == 'success'){
+			res.download(result.absoluteFilePath, result.outputFileName, function (err) {
+				try {
+					fs.unlinkSync(result.absoluteFilePath);
+				}
+				catch (e){
+					console.log(e);
+				}
+			});
+		}
+		else {
+			return res.end('error')
+		}
 	})();
 }
 
 global.myCustomVars.exportXLSX = exportXLSX;
 
+var exportZipPromise = (objectInstance, options, extension) => {
+	let PROP_FIELDS = options.PROP_FIELDS;
+	let ObjectModel = options.ObjectModel;
+	let LABEL = options.LABEL;
+	let paragraph = options.paragraph;
+	let objectModelName = options.objectModelName;
+
+	return new Promise((RESOLVE, REJECT) => {
+		async(() => {
+			let exec = require('child_process').exec;
+			let tmpFolderName = 'tmp' + (new Date()).getTime();
+			let result = await (new Promise((resolve, reject) => {
+				let cmd = 'mkdir ' + path.join(__dirname, tmpFolderName);
+				console.log(cmd);
+				exec(cmd, (err, stdout, stderr) => {
+					if (err){
+						console.log(err);
+						resolve({
+							status: 'error'
+						})
+					}
+					else {
+						resolve({
+							status: 'success'
+						})
+					}
+				})
+			}))
+			// console.log(result);
+			if (result.status != 'success'){
+				return RESOLVE({
+					status: 'error',
+					error: result.error
+				})
+			}
+			// return res.end('ok')
+			result = await (exportFilePromise(objectInstance, options, 'docx'));
+			// console.log(result);
+			if (result.status != 'success'){
+				return RESOLVE({
+					status: 'error',
+					error: result.error
+				})
+			}
+			result = await (new Promise((resolve, reject) => {
+				let cmd = 'mv ' + result.absoluteFilePath.docx + ' "' + path.join(__dirname, tmpFolderName, result.outputFileName.docx) + '"';
+				console.log(cmd);
+				exec(cmd, (err, stdout, stderr) => {
+					if (err){
+						console.log(err);
+						resolve({
+							status: 'error'
+						})
+					}
+					else {
+						resolve({
+							status: 'success'
+						})
+					}
+				})
+			}))
+			result = await (exportXLSXPromise(objectInstance, options, 'xlsx'));
+			// console.log(result);
+			if (result.status != 'success'){
+				return RESOLVE({
+					status: 'error',
+					error: result.error
+				})
+			}
+			result = await (new Promise((resolve, reject) => {
+				let cmd = 'mv ' + result.absoluteFilePath + ' "' + path.join(__dirname, tmpFolderName, result.outputFileName) + '"';
+				console.log(cmd);
+				exec(cmd, (err, stdout, stderr) => {
+					if (err){
+						console.log(err);
+						resolve({
+							status: 'error'
+						})
+					}
+					else {
+						resolve({
+							status: 'success'
+						})
+					}
+				})
+			}))
+			// console.log(result);
+			if (result.status != 'success'){
+				return RESOLVE({
+					status: 'error',
+					error: result.error
+				})
+			}
+			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
+			let fsE = require('fs-extra');
+			// console.log('here process flatOI ' + Object.keys(flatOI).length);
+			for(let i in flatOI){
+				let arrFiles = flatOI[i];
+				if (arrFiles instanceof Array){
+					// console.log('processing files ' + arrFiles);
+					arrFiles.map((file) => {
+						try {
+							fsE.copySync(
+								path.join(__dirname, options.UPLOAD_DESTINATION, file), 
+								path.join(
+									__dirname, 
+									tmpFolderName, 
+									file.substring(file.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)
+								)
+							);
+						}
+						catch (e){
+							console.log(e);
+						}
+					})
+				}
+			}
+			return RESOLVE({
+				status: 'success',
+				absoluteFolderPath: path.join(__dirname, tmpFolderName),
+				flatOI: flatOI
+			})
+		})();
+	})
+}
+
+function exportZip (objectInstance, options, res, extension) {
+	async(() => {
+		let result = await (exportZipPromise(objectInstance, options, extension));
+		if (result.status == 'success'){
+			return res.json(result)
+		}
+		else {
+			return res.end('error')
+		}
+	})();
+	
+}
+
 var getAllHandler = function (options) {
 	return function (req, res) {
-		var async = require('asyncawait/async')
-		var await = require('asyncawait/await')
 		async(() => {
 			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 			var ObjectModel = options.ObjectModel;
@@ -2359,9 +2522,6 @@ var getAllHandler = function (options) {
 					}
 				})
 			}))
-
-			// console.log(userRoles);
-
 			// Default. User chỉ có thể xem những phiếu do chính mình tạo
 			projection['created_by.userId'] = req.user._id;
 
@@ -2376,24 +2536,6 @@ var getAllHandler = function (options) {
 				delete projection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
 				delete projection['maDeTai.maDeTai'];
 			}
-
-			// ===
-			// if (!req.user.level || (parseInt(req.user.level) < global.myCustomVars.PERM_ACCESS_SAME_MUSEUM)){
-			// 	// Nếu level user nhỏ hơn PERM_ACCESS_SAME_MUSEUM => chỉ có thể xem dữ liệu của mình
-			// 	projection['created_by.userId'] = req.user._id;
-			// }
-			// if (req.user.level){
-			// 	let level = parseInt(req.user.level);
-			// 	if ((level >= PERM_ACCESS_SAME_MUSEUM) && (level < PERM_ACCESS_ALL)){
-			// 		// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
-			// 		delete projection['created_by.userId'];
-			// 		projection['maDeTai.maDeTai'] = req.user.maDeTai;
-			// 	}
-			// 	else if (level >= PERM_ACCESS_ALL){
-			// 		delete projection['maDeTai.maDeTai'];
-			// 	}
-			// }
-			// ===
 			// ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 			
 			// Filter
@@ -2518,7 +2660,7 @@ var getSingleHandler = function (options) {
 					if (req.query.display == 'html'){
 						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length)});
 					}
-					else if (['docx', 'pdf', 'xlsx'].indexOf(req.query.display) >= 0){
+					else if (['docx', 'pdf', 'xlsx', 'zip'].indexOf(req.query.display) >= 0){
 
 						console.log('combined');
 						
@@ -2527,10 +2669,10 @@ var getSingleHandler = function (options) {
 						var exportFuncs = {
 							docx: exportFile,
 							pdf: exportFile,
-							xlsx: exportXLSX
+							xlsx: exportXLSX,
+							zip: exportZip
 						}
-
-						exportFuncs[req.query.display](objectInstance, PROP_FIELDS, ObjectModel, LABEL, res, paragraph, req.query.display);
+						exportFuncs[req.query.display](objectInstance, options, res, req.query.display);
 						// return res.end("OK");
 					}
 					
@@ -2622,8 +2764,6 @@ global.myCustomVars.getLogHandler = getLogHandler;
 
 var deleteHandler = function (options) {
 	return function (req, res) {
-		var async = require('asyncawait/async')
-		var await = require('asyncawait/await')
 		async(() => {
 			var objectModelIdParamName = options.objectModelIdParamName;
 			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
@@ -2717,8 +2857,6 @@ global.myCustomVars.deleteHandler = deleteHandler;
 var putHandler = function (options) {
 	return function (req, res, next) {
 		// console.log(req.body);
-		var async = require('asyncawait/async')
-		var await = require('asyncawait/await')
 		delete req.body.maDeTai;
 		delete req.body.fApproved;
 
@@ -2856,8 +2994,6 @@ var restart = function (res) {
 global.myCustomVars.restart = restart;
 
 // ============= Generate Promise for async/await =======================
-
-global.myCustomVars.promises = {}
 
 var getSharedData = () => {
 	return new Promise((resolve, reject) => {

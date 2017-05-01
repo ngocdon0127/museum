@@ -542,7 +542,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					}
 					if (element.hasOwnProperty('maxSize')){
 						// Check maxium file size
-						console.log(req.files)
+						// console.log(req.files)
 						if (req.files && (element.name in req.files)){
 							var files = req.files[element.name];
 							var maxFileSize = parseInt(element.maxSize);
@@ -1535,10 +1535,10 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 				else if (extension == 'pdf'){
 					console.log('pdf');
-					outputDocxFileName = outputFileName += '.docx';
+					outputDocxFileName = outputFileName + '.docx';
 					outputFileName += '.pdf';
 					var exec = require('child_process').exec;
-					var cmd = 'cd ' + __dirname + ' && libreoffice5.3 --invisible --convert-to pdf ' + tmpFileName;
+					var cmd = 'cd ' + __dirname + ' && libreoffice --invisible --convert-to pdf ' + tmpFileName;
 					console.log('starting: ' + cmd);
 					console.log(objectInstance.id);
 					exec(cmd, function (err, stdout, stderr) {
@@ -2372,33 +2372,15 @@ var exportZipPromise = (objectInstance, options, extension) => {
 	return new Promise((RESOLVE, REJECT) => {
 		async(() => {
 			let exec = require('child_process').exec;
-			let tmpFolderName = 'tmp' + (new Date()).getTime();
-			let result = await (new Promise((resolve, reject) => {
-				let cmd = 'mkdir ' + path.join(__dirname, tmpFolderName);
-				console.log(cmd);
-				exec(cmd, (err, stdout, stderr) => {
-					if (err){
-						console.log(err);
-						resolve({
-							status: 'error'
-						})
-					}
-					else {
-						resolve({
-							status: 'success'
-						})
-					}
-				})
-			}))
+			let d = new Date();
+			let tmpFolderName = 'tmp' + d.getTime();
+			let absoluteFolderPath = path.join(__dirname, 'tmp', tmpFolderName);
+			fs.mkdirSync(absoluteFolderPath);
 			// console.log(result);
-			if (result.status != 'success'){
-				return RESOLVE({
-					status: 'error',
-					error: result.error
-				})
-			}
+			
+			
 			// return res.end('ok')
-			result = await (exportFilePromise(objectInstance, options, 'docx'));
+			let result = await (exportFilePromise(objectInstance, options, 'pdf'));
 			// console.log(result);
 			if (result.status != 'success'){
 				return RESOLVE({
@@ -2406,23 +2388,11 @@ var exportZipPromise = (objectInstance, options, extension) => {
 					error: result.error
 				})
 			}
-			result = await (new Promise((resolve, reject) => {
-				let cmd = 'mv ' + result.absoluteFilePath.docx + ' "' + path.join(__dirname, tmpFolderName, result.outputFileName.docx) + '"';
-				console.log(cmd);
-				exec(cmd, (err, stdout, stderr) => {
-					if (err){
-						console.log(err);
-						resolve({
-							status: 'error'
-						})
-					}
-					else {
-						resolve({
-							status: 'success'
-						})
-					}
-				})
-			}))
+			let r = result;
+			console.log(r);
+			fs.renameSync(r.absoluteFilePath.docx, path.join(__dirname, 'tmp', tmpFolderName, r.outputFileName.docx));
+			fs.renameSync(r.absoluteFilePath.pdf, path.join(__dirname, 'tmp', tmpFolderName, r.outputFileName.pdf));
+			
 			result = await (exportXLSXPromise(objectInstance, options, 'xlsx'));
 			// console.log(result);
 			if (result.status != 'success'){
@@ -2431,30 +2401,8 @@ var exportZipPromise = (objectInstance, options, extension) => {
 					error: result.error
 				})
 			}
-			result = await (new Promise((resolve, reject) => {
-				let cmd = 'mv ' + result.absoluteFilePath + ' "' + path.join(__dirname, tmpFolderName, result.outputFileName) + '"';
-				console.log(cmd);
-				exec(cmd, (err, stdout, stderr) => {
-					if (err){
-						console.log(err);
-						resolve({
-							status: 'error'
-						})
-					}
-					else {
-						resolve({
-							status: 'success'
-						})
-					}
-				})
-			}))
-			// console.log(result);
-			if (result.status != 'success'){
-				return RESOLVE({
-					status: 'error',
-					error: result.error
-				})
-			}
+			let fileName = result.outputFileName;
+			fs.renameSync(result.absoluteFilePath, path.join(__dirname, 'tmp', tmpFolderName, result.outputFileName));
 			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 			let fsE = require('fs-extra');
 			// console.log('here process flatOI ' + Object.keys(flatOI).length);
@@ -2468,6 +2416,7 @@ var exportZipPromise = (objectInstance, options, extension) => {
 								path.join(__dirname, options.UPLOAD_DESTINATION, file), 
 								path.join(
 									__dirname, 
+									'tmp',
 									tmpFolderName, 
 									file.substring(file.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)
 								)
@@ -2481,7 +2430,9 @@ var exportZipPromise = (objectInstance, options, extension) => {
 			}
 			return RESOLVE({
 				status: 'success',
-				absoluteFolderPath: path.join(__dirname, tmpFolderName),
+				absoluteFolderPath: path.join(__dirname, 'tmp', tmpFolderName),
+				tmpFolderName: tmpFolderName,
+				fileName: fileName.substring(0, fileName.lastIndexOf('.')) ,
 				flatOI: flatOI
 			})
 		})();
@@ -2492,7 +2443,48 @@ function exportZip (objectInstance, options, res, extension) {
 	async(() => {
 		let result = await (exportZipPromise(objectInstance, options, extension));
 		if (result.status == 'success'){
-			return res.json(result)
+			let absoluteFolderPath = result.absoluteFolderPath;
+			let d = new Date();
+			let wrapperName = 'export-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '_' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+			console.log(absoluteFolderPath);
+			fs.mkdirSync(path.join(__dirname, 'tmp', wrapperName));
+			let exec = require('child_process').exec;
+			let fileName = result.fileName;
+			fs.renameSync(absoluteFolderPath, path.join(__dirname, 'tmp', wrapperName, fileName));
+			cmd = 'cd "' + path.join(__dirname, 'tmp') + '" && zip -r "' + wrapperName + '.zip" "' + wrapperName + '"';
+			console.log(cmd);
+			result = await (new Promise((resolve, reject) => {
+				exec(cmd, function (err, stdout, stderr) {
+					if (err){
+						console.log(err);
+						resolve({
+							status: 'error',
+							error: 'error while zipping folder'
+						})
+					}
+					else {
+						resolve({
+							status: 'success'
+						})
+					}
+				})
+			}))
+			if (result.status != 'success'){
+				return res.end('error')
+			}
+			return res.download(path.join(__dirname, 'tmp', wrapperName + '.zip'), (err) => {
+				if (err){
+					console.log(err);
+					return res.end(err);
+				}
+				try {
+					// fs.unlinkSync(path.join(__dirname, 'tmp', fileName))
+					fs.unlinkSync(path.join(__dirname, 'tmp', wrapperName + '.zip'));
+				}
+				catch (e){
+					console.log(e);
+				}
+			})
 		}
 		else {
 			return res.end('error')

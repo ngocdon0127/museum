@@ -1303,7 +1303,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				PROP_FIELDS_OBJ[element.name] = index;
 			});
 
-			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
+			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _-_)
 
 			PROP_FIELDS.map((element, index) => {
 				if (('autoCompletion' in element) && (element.autoCompletion)){
@@ -2098,7 +2098,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 				PROP_FIELDS_OBJ[element.name] = index;
 			});
 
-			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _+_)
+			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _-_)
 
 			PROP_FIELDS.map((element, index) => {
 				if (('autoCompletion' in element) && (element.autoCompletion)){
@@ -2449,7 +2449,10 @@ function exportZip (objectInstance, options, res, extension) {
 		if (result.status == 'success'){
 			let absoluteFolderPath = result.absoluteFolderPath;
 			let d = new Date();
-			let wrapperName = 'export-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '_' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+			let wrapperName = 'PCSDL_export-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '_' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+
+			// wrapperName có prefix 'PCSDL_' là để client download file cho tiện. Xem app/service.js
+
 			console.log(absoluteFolderPath);
 			fs.mkdirSync(path.join(__dirname, 'tmp', wrapperName));
 			let exec = require('child_process').exec;

@@ -1538,7 +1538,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					outputDocxFileName = outputFileName + '.docx';
 					outputFileName += '.pdf';
 					var exec = require('child_process').exec;
-					var cmd = 'cd ' + __dirname + ' && libreoffice --invisible --convert-to pdf ' + tmpFileName;
+					var cmd = 'cd ' + __dirname + ' && ' + require('./config/config.js').libreoffice + ' --invisible --convert-to pdf ' + tmpFileName;
 					console.log('starting: ' + cmd);
 					console.log(objectInstance.id);
 					exec(cmd, function (err, stdout, stderr) {

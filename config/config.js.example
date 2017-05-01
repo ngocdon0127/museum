@@ -19,5 +19,6 @@ module.exports = {
 		sitekey : '',
 		secretkey: ''
 	},
-	noThreads: 'optimal'
+	noThreads: 'optimal',
+	libreoffice: 'libreoffice'
 }

@@ -2330,8 +2330,12 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					// });
 					RESOLVE({
 						status: 'success',
-						absoluteFilePath: path.join(__dirname, tmpFileName),
-						outputFileName: outputFileName
+						absoluteFilePath: {
+							xlsx: path.join(__dirname, tmpFileName)
+						} ,
+						outputFileName: {
+							xlsx: outputFileName
+						}
 					})
 				}
 			});
@@ -2345,9 +2349,9 @@ function exportXLSX (objectInstance, options, res, extension) {
 	async(() => {
 		let result = await (exportXLSXPromise(objectInstance, options, extension));
 		if (result.status == 'success'){
-			res.download(result.absoluteFilePath, result.outputFileName, function (err) {
+			res.download(result.absoluteFilePath.xlsx, result.outputFileName.xlsx, function (err) {
 				try {
-					fs.unlinkSync(result.absoluteFilePath);
+					fs.unlinkSync(result.absoluteFilePath.xlsx);
 				}
 				catch (e){
 					console.log(e);
@@ -2401,8 +2405,8 @@ var exportZipPromise = (objectInstance, options, extension) => {
 					error: result.error
 				})
 			}
-			let fileName = result.outputFileName;
-			fs.renameSync(result.absoluteFilePath, path.join(__dirname, 'tmp', tmpFolderName, result.outputFileName));
+			let fileName = result.outputFileName.xlsx;
+			fs.renameSync(result.absoluteFilePath.xlsx, path.join(__dirname, 'tmp', tmpFolderName, result.outputFileName.xlsx));
 			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 			let fsE = require('fs-extra');
 			// console.log('here process flatOI ' + Object.keys(flatOI).length);

@@ -2485,8 +2485,9 @@ function exportZip (objectInstance, options, res, extension) {
 					return res.end(err);
 				}
 				try {
-					// fs.unlinkSync(path.join(__dirname, 'tmp', fileName))
-					fs.unlinkSync(path.join(__dirname, 'tmp', wrapperName + '.zip'));
+					let fsE = require('fs-extra');
+					fsE.removeSync(path.join(__dirname, 'tmp', wrapperName + '.zip'));
+					fsE.removeSync(path.join(__dirname, 'tmp', wrapperName));
 				}
 				catch (e){
 					console.log(e);

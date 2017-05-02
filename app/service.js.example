@@ -119,6 +119,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
 						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
+						// console.log(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -141,6 +142,10 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 						else {
 							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
 							fileName = decodeURIComponent(fileName);
+						}
+						if (['"', "'"].indexOf(fileName[fileName.length - 1]) >= 0){
+							// PCSDL_export-2017-5-2_23:20:52.zip"
+							fileName = fileName.substring(0, fileName.length - 1);
 						}
 						// console.log(fields);
 						var type = xhr.getResponseHeader('Content-Type');

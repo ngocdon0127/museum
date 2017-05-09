@@ -2381,8 +2381,6 @@ var exportZipPromise = (objectInstance, options, extension) => {
 			let absoluteFolderPath = path.join(__dirname, 'tmp', tmpFolderName);
 			fs.mkdirSync(absoluteFolderPath);
 			// console.log(result);
-			
-			
 			// return res.end('ok')
 			let result = await (exportFilePromise(objectInstance, options, 'pdf'));
 			// console.log(result);
@@ -2449,7 +2447,7 @@ function exportZip (objectInstance, options, res, extension) {
 		if (result.status == 'success'){
 			let absoluteFolderPath = result.absoluteFolderPath;
 			let d = new Date();
-			let wrapperName = 'PCSDL_export-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '_' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+			let wrapperName = 'PCSDL_export-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '_' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
 
 			// wrapperName có prefix 'PCSDL_' là để client download file cho tiện. Xem app/service.js
 

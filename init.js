@@ -3016,6 +3016,9 @@ var getMaDeTai = () => {
 				for(let dt of sharedData.deTai){
 					result.push(dt.maDeTai);
 				}
+				result.sort((a, b) => {
+					return a.localeCompare(b)
+				})
 				resolve(result);
 			}
 			else {

@@ -96,12 +96,17 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			progressBar.setAttribute('aria-valuenow', 0);
 			$(progressBarContainer).fadeIn();
 		} else{
-			$uibModal.open({
+
+			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: function ($scope) {
-					$scope.message = "Xin hãy chọn file.";
-					$scope.ok = function () {
-						// $uibModalInstance.close();
+				controller: "ModalInstanceCtrl",
+				controllerAs: '$ctrl',
+				resolve: {
+					err: function () {
+						return "Xin hãy chọn file";
+					},
+					id: function () {
+						return "";
 					}
 				}
 			});
@@ -145,7 +150,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 						// console.log(fields);
 						var type = xhr.getResponseHeader('Content-Type');
 						// console.log(type);
-						// var blob = new Blob([xhr.response], {type: 'application/x-binary; charset=utf-8'});
 						var blob = new Blob([xhr.response], {type: type});
 						saveAs(blob, fileName);
 						arr[index].checked = false;
@@ -181,12 +185,16 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				stopSpinner();
 				setTimeout(function () {
-					$uibModal.open({
+					var modalInstance = $uibModal.open({
 						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: function ($scope) {
-							$scope.message = "Thêm mẫu vật thành công";
-							$scope.ok = function () {
-								 // $scope.showModal = false;
+						controller: "ModalInstanceCtrl",
+						controllerAs: '$ctrl',
+						resolve: {
+							err: function () {
+								return "Thêm mẫu vật thành công";
+							},
+							id: function () {
+								return "";
 							}
 						}
 					});
@@ -197,35 +205,21 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				stopSpinner();
 				cfpLoadingBar.set(0);
-				setTimeout(function () { // Stop spinner before alerting
-					var _tmp = JSON.parse(err.responseText).error;
-					$uibModal.open({
+				setTimeout(function () {
+					var modalInstance = $uibModal.open({
 						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: function ($scope) {
-							$scope.message = "Lỗi, xin hãy nhập lại";
-							$scope.ok = function () {
-								$uibModalInstance.close();
+						controller: "ModalInstanceCtrl",
+						controllerAs: '$ctrl',
+						resolve: {
+							err: function () {
+								return JSON.parse(err.responseText).error;
+							},
+							id: function () {
+								return JSON.parse(err.responseText).field;
 							}
 						}
 					});
 				}, 100)
-				console.log(err);
-
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
-				}
-				catch (e){
-					// do not care
-				}
 			}
 		});
 	}
@@ -241,12 +235,16 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				stopSpinner();
 				setTimeout(function () { // Stop spinner before alerting
-					$uibModal.open({
+					var modalInstance = $uibModal.open({
 						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: function ($scope) {
-							$scope.message = "Chỉnh sửa mẫu vật thành công";
-							$scope.ok = function () {
-								 $scope.showModal = false;
+						controller: "ModalInstanceCtrl",
+						controllerAs: '$ctrl',
+						resolve: {
+							err: function () {
+								return "Chỉnh sửa mẫu vật thành công";
+							},
+							id: function () {
+								return "";
 							}
 						}
 					});
@@ -254,10 +252,15 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				}, 100)
 			},
 			error: function (err) {
+				console.log(err);
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
 				stopSpinner();
-				// console.log(err);
+				
+				var id = JSON.parse(err.responseJSON).field;
+				var x = document.getElementById(id);
+				var element = x.nextElementSibling
+				element.style.borderColor = "red";
 				setTimeout(function () { // Stop spinner before alerting
 					// alert(JSON.parse(err.responseText).error);
 					var modalInstance = $uibModal.open({
@@ -269,27 +272,13 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								return JSON.parse(err.responseText).error;
 							},
 							id: function () {
-								return JSON.parse(err.responseText).field;
+								return id;
 							}
 						}
 					});
+
+					
 				}, 100)
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0]
-				console.log(element);
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
-				}
-				catch (e){
-					// do not care
-				}
 			}
 		});
 	}
@@ -300,6 +289,20 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			headers: {'Content-Type': 'application/json'},
 			data: {id: id}
 		}).then(function (res) {
+			var modalInstance = $uibModal.open({
+				templateUrl: 'views/modals/dialogs.blade.html',
+				controller: "ModalInstanceCtrl",
+				controllerAs: '$ctrl',
+				resolve: {
+					err: function () {
+						return "Xóa thành công";
+					},
+					id: function () {
+						return "";
+					}
+				}
+			});
+
 			$state.reload();
 		}, function (err) {
 			console.log(err);
@@ -319,28 +322,49 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		}).then(function (res) {
 			// console.log(res);
 			if (res.data.status == 'success'){
-				$uibModal.open({
+				var modalInstance = $uibModal.open({
 					templateUrl: 'views/modals/dialogs.blade.html',
-					controller: function ($scope) {
-						$scope.message = "Thành công";
+					controller: "ModalInstanceCtrl",
+					controllerAs: '$ctrl',
+					resolve: {
+						err: function () {
+							return "Thành công";
+						},
+						id: function () {
+							return "";
+						}
 					}
 				});
 			}
 			else {
-				$uibModal.open({
+				var modalInstance = $uibModal.open({
 					templateUrl: 'views/modals/dialogs.blade.html',
-					controller: function ($scope) {
-						$scope.message = "Bạn không được phê duyệt mẫu vật này.";
+					controller: "ModalInstanceCtrl",
+					controllerAs: '$ctrl',
+					resolve: {
+						err: function () {
+							return "Bạn không được phê duyệt mẫu vật này.";
+						},
+						id: function () {
+							return "";
+						}
 					}
 				});
 			}
 			$state.reload();
 		}, function (err) {
 			// console.log(err);
-			$uibModal.open({
+			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: function ($scope) {
-					$scope.message = "Bạn không được phê duyệt mẫu vật này.";
+				controller: "ModalInstanceCtrl",
+				controllerAs: '$ctrl',
+				resolve: {
+					err: function () {
+						return "Bạn không được phê duyệt mẫu vật này.";
+					},
+					id: function () {
+						return "";
+					}
 				}
 			});
 			$state.reload();
@@ -518,17 +542,3 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
 var SPINNER = null;
-
-//Autocomplete
-// app.directive('autoComplete', function($timeout) {
-//     return function(scope, iElement, iAttrs) {
-//         iElement.autocomplete({
-//             source: scope[iAttrs.uiItems],
-//             select: function() {
-//                 $timeout(function() {
-//                   iElement.trigger('input');
-//                 }, 0);
-//             }
-//         });
-//     };
-// });

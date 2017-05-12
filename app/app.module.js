@@ -75,6 +75,7 @@ app.directive('validImage', function ($parse) {
     };
 });
 
+// Hiển thị thông báo
 app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, err, id, $anchorScroll) {
     $scope.message = err;
     $scope.ok = function () {
@@ -83,6 +84,9 @@ app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $sco
             $location.hash(id);
             $anchorScroll.yOffset = 100;
             $anchorScroll();
+            var x = document.getElementById(id);
+            var element = x.nextElementSibling
+            element.style.borderColor = "red";
         }
     }
 });

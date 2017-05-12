@@ -23,24 +23,37 @@ var options = {
     cert: fs.readFileSync(require('../config/config.js').ssl.certificate)
 };
 
-/**
- * Create HTTPS server.
- */
+
 
 // var server = http.createServer(app);
-var server = https.createServer(options, app);
+var server = null;
+var app80 = null;
+
+if (require('../config/config.js').app.mode === 'https'){
+  /**
+   * Create HTTPS server.
+   */
+  server = https.createServer(options, app);
+  
+  /**
+   * Create HTTP server. Redirect all requests to HTTPS server
+   */
+  var express = require('express');
+  app80 = express();
+  app80.use((req, res, next) => {
+    res.redirect('https://' + require('../config/config.js').app.domain + req.url);
+  })
+
+  http.createServer(app80).listen(require('../config/config.js').app.nonSecurePort);
+}
+else {
+  /**
+   * Create HTTP server.
+   */
+  server = http.createServer(app);
+}
 
 
-/**
- * Create HTTP server. Redirect all requests to HTTPS server
- */
-var express = require('express');
-var app80 = express();
-app80.use((req, res, next) => {
-  res.redirect(require('../config/config.js').app.domain);
-})
-
-http.createServer(app80).listen(require('../config/config.js').app.nonSecurePort);
 
 // var privateKey = fs.readFileSync(require('../config/config.js').ssl.privateKey).toString();
 // var certificate = fs.readFileSync(require('../config/config.js').ssl.certificate).toString();
@@ -51,7 +64,12 @@ http.createServer(app80).listen(require('../config/config.js').app.nonSecurePort
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+if (require('../config/config.js').app.mode === 'https'){
+  server.listen(port);
+}
+else {
+  server.listen(nonSecurePort);
+}
 server.on('error', onError);
 server.on('listening', onListening);
 

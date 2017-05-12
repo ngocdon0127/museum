@@ -20,5 +20,9 @@ module.exports = {
 		secretkey: ''
 	},
 	noThreads: 'optimal',
-	libreoffice: 'libreoffice'
+	libreoffice: 'libreoffice',
+	ssl: {
+		privateKey: '',
+		certificate: '',
+	}
 }

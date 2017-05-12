@@ -7,6 +7,9 @@
 var app = require('../app');
 var debug = require('debug')('museum:server');
 var http = require('http');
+var https = require('https');
+var crypto = require('crypto');
+var fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -15,11 +18,22 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || require('../config/config').app.port);
 app.set('port', port);
 
+var options = {
+    key: fs.readFileSync(require('../config/config.js').ssl.privateKey),
+    cert: fs.readFileSync(require('../config/config.js').ssl.certificate)
+};
+
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+// var server = http.createServer(app);
+var server = https.createServer(options, app);
+
+// var privateKey = fs.readFileSync(require('../config/config.js').ssl.privateKey).toString();
+// var certificate = fs.readFileSync(require('../config/config.js').ssl.certificate).toString();
+// server.setSecure(crypto.createCredentials({key: privateKey, cert: certificate}));
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +42,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 /**
  * Normalize a port into a number, string, or false.

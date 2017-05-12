@@ -1,6 +1,9 @@
 module.exports = {
 	app: {
-		port: '8000'
+		port: '8001',
+		nonSecurePort: '8000',
+		domain: 'baotangvn.online',
+		mode: 'https'
 	},
 	database: {
 		url: 'mongodb://mongodbuser:mongodbpassword@127.0.0.1:27017/museum'
@@ -20,5 +23,9 @@ module.exports = {
 		secretkey: ''
 	},
 	noThreads: 'optimal',
-	libreoffice: 'libreoffice'
+	libreoffice: 'libreoffice',
+	ssl: {
+		privateKey: '',
+		certificate: '',
+	}
 }

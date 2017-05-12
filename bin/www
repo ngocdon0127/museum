@@ -16,6 +16,7 @@ var fs = require('fs');
  */
 
 var port = normalizePort(process.env.PORT || require('../config/config').app.port);
+var nonSecurePort = normalizePort(require('../config/config').app.nonSecurePort);
 app.set('port', port);
 
 var options = {
@@ -44,7 +45,7 @@ if (require('../config/config.js').app.mode === 'https'){
     res.redirect('https://' + require('../config/config.js').app.domain + req.url);
   })
 
-  http.createServer(app80).listen(require('../config/config.js').app.nonSecurePort);
+  http.createServer(app80).listen(nonSecurePort);
 }
 else {
   /**

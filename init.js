@@ -2508,6 +2508,7 @@ var getAllHandler = function (options) {
 			var PROP_FIELDS = options.PROP_FIELDS;
 			var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 			var objectModelNames = options.objectModelNames;
+			var objectModelName = options.objectModelName;
 			var projection = {deleted_at: {$eq: null}};
 			var userRoles = await(new Promise((resolve, reject) => {
 				acl.userRoles(req.session.userId, (err, roles) => {
@@ -2577,6 +2578,26 @@ var getAllHandler = function (options) {
 						objectInstances[i] =  flatObjectModel(PROP_FIELDS, o);
 						objectInstances[i]._id = id;
 						objectInstances[i].created_at = created_at;
+						let tmp = objectInstances[i];
+						try {
+							for(p in tmp){
+								if (tmp[p] instanceof Array){ // Chỉ có những trường file đính kèm thì mới là Array
+									let files = tmp[p];
+									files.map((f, i) => {
+										let url = '/uploads/' + objectModelName + '/' + f;
+										let obj = {
+											fileName: f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length),
+											urlDirect: url,
+											urlDownload: '/content/download' + url
+										}
+										files[i] = obj;
+									})
+								}
+							}
+						}
+						catch (e){
+							console.log(e);
+						}
 					})
 				}
 				catch (e){

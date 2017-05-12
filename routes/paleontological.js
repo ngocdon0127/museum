@@ -122,7 +122,8 @@ router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHan
 	ObjectModel: ObjectModel,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelNames: objectModelNames,
-	PROP_FIELDS: PROP_FIELDS
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ
 }))
 
 var getAutoCompletionHandler = global.myCustomVars.getAutoCompletionHandler;
@@ -139,6 +140,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 	objectBaseURL: objectBaseURL,
 	objectModelName: objectModelName,
 	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	LABEL: LABEL,
 	objectModelLabel: objectModelLabel,
 	paragraph: {

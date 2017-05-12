@@ -75,3 +75,15 @@ app.directive('validImage', function ($parse) {
         }
     };
 });
+
+app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, err, id, $anchorScroll) {
+    $scope.message = err;
+    $scope.ok = function () {
+        $uibModalInstance.dismiss();
+        if (id !== "") {
+            $location.hash(id);
+            $anchorScroll.yOffset = 100;
+            $anchorScroll();
+        }
+    }
+});

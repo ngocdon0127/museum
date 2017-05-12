@@ -205,16 +205,18 @@ a.nav:hover{
 .bottom-nav {
     position: fixed;
     width: 100%;
-    bottom: 20px;
+    bottom: 10px;
     padding: 5px;
     /*right: 20px;*/
 }
 
 .toggle-nav {
    display: block;
+   text-align: right;
 }
 .toggle-nav ul li {
-    margin-top: 5px;
+    /*margin-top: 5px;*/
+    /*width: 100%;*/
 }
 
 

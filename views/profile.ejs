@@ -17,6 +17,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/stylesheets/cropper.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,8 +25,13 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style type="text/css">
+    img#imgPreview {
+      max-width: 100%; /* This rule is very important, please do not ignore this! */
+    }
+  </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -56,7 +62,7 @@
         <div class="col-md-3">
 
           <!-- Profile Image -->
-          <div class="box box-primary">
+          <div class="box box-success">
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" style="width: 150px; height: 150px;" src="<%= (('avatar' in user) && ('original' in user.avatar) && (user.avatar.original)) ? ('/' + user.avatar.original) : '/admin/dist/img/user4-128x128.jpg' %>" alt="User profile picture">
 
@@ -106,7 +112,7 @@
             <div class="tab-content">
               
               <div class="tab-pane active" id="settings">
-                <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" method="post" enctype='multipart/form-data' id="form-update-info">
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Tên</label>
 
@@ -125,7 +131,23 @@
                     <label for="inputEmail" class="col-sm-2 control-label">Ảnh đại diện</label>
 
                     <div class="col-sm-10">
-                      <input type="file" class="form-control" name="inputAvatar" id="inputAvatar">
+                      <input type="file" class="form-control" name="inputAvatar" id="inputAvatar" onchange="handleChangeAvatar(this)">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2 control-label">Crop ảnh đại diện</label>
+
+                    <div class="col-sm-4">
+                      <div id="divPreview"><img src="" id="imgPreview"></div>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="oldPassword" class="col-sm-2 control-label">Mật khẩu cũ</label>
+
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" name="oldPassword" id="oldPassword" placeholder="Nhập nếu muốn đổi mật khẩu">
                     </div>
                   </div>
                   <div class="form-group">
@@ -148,8 +170,8 @@
                   
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <a href="#" class="btn btn-danger" onclick="handleSubmit()">Cập nhật</a>
-                      <button id="btnSubmit" class="hidden"></button>
+                      <a href="#" class="btn btn-success" onclick="handleSubmit()">Cập nhật</a>
+                      
                     </div>
                   </div>
                 </form>
@@ -377,38 +399,175 @@
 <!-- AdminLTE App -->
 <script src="/admin/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="/admin/dist/js/demo.js"></script>
+
 
 <!-- CryptoJS -->
 <script type="text/javascript" src="/javascripts/crypto-js.js"></script>
 
 <script type="text/javascript">
-      function ob (x) {
-        return document.getElementById(x);
-      }
+  /**
+   * dataURLToBlob => get from https://github.com/ebidel/filer.js/blob/master/src/filer.js#L137
+   *
+   * @param {string} dataURL Raw data display in string
+   * @return {object} Blob
+   */
+  var dataURLToBlob = function(dataURL) {
+    var BASE64_MARKER = ';base64,';
+    if (dataURL.indexOf(BASE64_MARKER) == -1) {
+      var parts = dataURL.split(',');
+      var contentType = parts[0].split(':')[1];
+      var raw = decodeURIComponent(parts[1]);
+
+      return new Blob([raw], {type: contentType});
+    }
+
+    var parts = dataURL.split(BASE64_MARKER);
+    var contentType = parts[0].split(':')[1];
+    var raw = window.atob(parts[1]);
+    var rawLength = raw.length;
+
+    var uInt8Array = new Uint8Array(rawLength);
+
+    for (var i = 0; i < rawLength; ++i) {
+      uInt8Array[i] = raw.charCodeAt(i);
+    }
+
+    return new Blob([uInt8Array], {type: contentType});
+  }
+    var cropper = undefined;
+    function ob (x) {
+      return document.getElementById(x);
+    }
+    
+    function handleSubmit () {
+      var plainPass = ob('inputPassword').value;
+      var repeatPassword = ob('inputRepeat').value;
+      var oldPassword = ob('oldPassword').value;
+      // Do not need to clear. File will be replaced in server
+      // (function clearFileInput(ctrl) {
+      //   try {
+      //     ctrl.value = null;
+      //   } catch(ex) { console.log(ex); }
+      //   if (ctrl.value) {
+      //     ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
+      //   }
+      // })(ob('inputAvatar'))
       
-      function handleSubmit () {
-        var plainPass = ob('inputPassword').value;
-        var repeatPassword = ob('inputRepeat').value;
-        // event.target.preventDefault();
-        if (plainPass != repeatPassword){
-          return alert('Mật khẩu không khớp')
-        }
-        if (plainPass){
-          var i = 0;
-          while (i < 1000){
-            plainPass = CryptoJS.MD5(plainPass).toString();
-            repeatPassword = CryptoJS.MD5(repeatPassword).toString();
-            i++;
-          }
-          ob('inputPassword').value = plainPass;
-          ob('inputRepeat').value = repeatPassword;
-
-        }
-
-        $('#btnSubmit').click();
-        
+      if (plainPass != repeatPassword){
+        return alert('Mật khẩu không khớp')
       }
-    </script>
+      if (plainPass){
+        var i = 0;
+        while (i < 1000){
+          plainPass = CryptoJS.MD5(plainPass).toString();
+          repeatPassword = CryptoJS.MD5(repeatPassword).toString();
+          oldPassword = CryptoJS.MD5(oldPassword).toString();
+          i++;
+        }
+        ob('inputPassword').value = plainPass;
+        ob('inputRepeat').value = repeatPassword;
+        ob('oldPassword').value = oldPassword;
+
+      }
+      // ob('croppedAvatar').value = getCroppedImageDataURL();
+      // ob('imgCroppedPreview').value = getCroppedImageDataURL();
+      // console.log(ob('croppedAvatar').value);
+      var fd = new FormData(ob('form-update-info'));
+      try {
+        fd.append('croppedAvatar', dataURLToBlob(getCroppedImageDataURL()))
+      }
+      catch (e){
+        console.log(e);
+      }
+      fd.delete('inputAvatar')
+      $.ajax({
+        url: '/users/me',
+        method: 'POST',
+        contentType: false,
+        mimeType: 'multipart/form-data',
+        data: fd,
+        processData: false,
+        success: function (data) {
+          console.log(data);
+          try {
+            data = JSON.parse(data);
+            if (data.status == 'success'){
+              
+            }
+            else {
+              alert('Có lỗi xảy ra. Vui lòng thử lại.')
+            }
+            window.location.reload(true);
+          }
+          catch (e){
+            console.log(e);
+          }
+        },
+        error: function (err) {
+          console.log(err);
+          try {
+            err = JSON.parse(err.responseText);
+            alert(err.error)
+          }
+          catch (e){
+            console.log(e);
+            alert('Có lỗi xảy ra. Vui lòng thử lại')
+          }
+          finally {
+            ob('inputPassword').value = ''
+            ob('inputRepeat').value = ''
+            ob('oldPassword').value = ''
+          }
+        }
+      })
+      // $('#btnSubmit').click();
+      
+    }
+    function handleChangeAvatar(input) {
+      // console.log(input.files[0]);
+      // document.getElementById('imgPreview').src = input.files[0]
+      readURL(input)
+
+    }
+    function readURL(input) {
+      console.log('read');
+      $('#imgPreview').attr('src', '');
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $('#imgPreview').attr('src', e.target.result);
+          try {
+            cropper.destroy();
+          }
+          catch (err){
+            console.log(err);
+          }
+          startCropper();
+        }
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+  <script src="/javascripts/cropper.min.js"></script>
+  <script type="text/javascript">
+    function startCropper() {
+      var image = document.getElementById('imgPreview');
+      cropper = new Cropper(image, {
+        aspectRatio: 1 / 1
+      });
+    }
+    function getCroppedImageDataURL() {
+        // console.log('clicked');
+        var canvas = cropper.getCroppedCanvas();
+        // $('#result').html(canvas);
+        return canvas.toDataURL('image/jpeg');
+        // console.log(x);
+      }
+  </script>
 </body>
 </html>
+
+

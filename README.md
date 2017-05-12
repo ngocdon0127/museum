@@ -37,7 +37,7 @@
 ### From the root of source code:
 
 	$ npm install
-	$ pm2 start bin/www --name museum
+	$ pm2 start run.js --name museum
 
 ## Use
 

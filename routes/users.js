@@ -151,14 +151,37 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 	})()
 })
 
-router.post('/me', isLoggedIn, upload.single('inputAvatar'), (req, res, next) => {
+router.post('/me', isLoggedIn, upload.single('croppedAvatar'), (req, res, next) => {
+	console.log('===1===');
 	async(() => {
+		console.log('===2===');
+		console.log(req.body);
+		console.log(req.file);
+		console.log(req.files);
+
 		let user = await(PROMISES.getUser(req.session.userId));
 		if (user){
 			user = user.userMongoose;
 			user.fullname = req.body.inputFullName;
 			if (req.body.inputPassword && req.body.inputRepeat && (req.body.inputPassword == req.body.inputRepeat)){
-				user.password = user.hashPassword(req.body.inputPassword);
+				if (user.validPassword(req.body.oldPassword)){
+					user.password = user.hashPassword(req.body.inputPassword);
+				}
+				else {
+					if (req.file){
+						try {
+							fs.unlinkSync(path.join(__dirname, '../public/uploads/user/avatar/' + req.file.filename));
+						}
+						catch (e){
+							console.log(e);
+						}
+					}
+					return res.status(400).json({
+						status: 'error',
+						error: 'Mật khẩu cũ không đúng'
+					})
+				}
+				
 			}
 			if (req.file){
 				if (user.avatar && user.avatar.original){
@@ -179,11 +202,15 @@ router.post('/me', isLoggedIn, upload.single('inputAvatar'), (req, res, next) =>
 					req.flash('user-msg', 'Cập nhật thành công');
 				}
 				
-				return res.redirect('/users/me')
+				return res.json({
+					status: 'success'
+				})
 			})
 		}
 		else {
-			return res.redirect('/users/me')
+			return res.json({
+				status: 'success'
+			})
 		}
 	})()
 })

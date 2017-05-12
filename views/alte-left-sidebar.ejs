@@ -3,7 +3,7 @@
 			<!-- Sidebar user panel -->
 			<div class="user-panel">
 				<div class="pull-left image">
-					<a href="/users/me"><img src="<%= (('avatar' in user) && ('original' in user.avatar) && (user.avatar.original)) ? ('/' + user.avatar.original) : '/admin/dist/img/user4-128x128.jpg' %>" class="img-circle" style="width: 50px; height: 50px" alt="User Image"></a>
+					<img src="<%= (('avatar' in user) && ('original' in user.avatar) && (user.avatar.original)) ? ('/' + user.avatar.original) : '/admin/dist/img/user4-128x128.jpg' %>" class="img-circle" alt="User Image" onclick="window.location.href = '/users/me'">
 				</div>
 				<div class="pull-left info">
 					<p><%= user.fullname %></p>

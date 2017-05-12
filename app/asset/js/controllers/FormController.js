@@ -534,3 +534,4 @@ app.controller('HttpIntegrationController', function($scope, $http, $sce, bsLoad
 			});
 	};
 });
+

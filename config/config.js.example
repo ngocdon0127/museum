@@ -1,6 +1,8 @@
 module.exports = {
 	app: {
-		port: '8000'
+		port: '8000',
+		nonSecurePort: '8000',
+		domain: 'https://baotangvn.online'
 	},
 	database: {
 		url: 'mongodb://mongodbuser:mongodbpassword@127.0.0.1:27017/museum'

@@ -24,11 +24,23 @@ var options = {
 };
 
 /**
- * Create HTTP server.
+ * Create HTTPS server.
  */
 
 // var server = http.createServer(app);
 var server = https.createServer(options, app);
+
+
+/**
+ * Create HTTP server. Redirect all requests to HTTPS server
+ */
+var express = require('express');
+var app80 = express();
+app80.use((req, res, next) => {
+  res.redirect(require('../config/config.js').app.domain);
+})
+
+http.createServer(app80).listen(require('../config/config.js').app.nonSecurePort);
 
 // var privateKey = fs.readFileSync(require('../config/config.js').ssl.privateKey).toString();
 // var certificate = fs.readFileSync(require('../config/config.js').ssl.certificate).toString();

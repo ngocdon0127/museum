@@ -20,7 +20,10 @@ module.exports = function (mongoose) {
 			soHieuBaoTangCS: String,
 			soHieuThucDia: String,
 			kyHieuMauVatKhac: String,
-			thongTinKhac1: String
+			thongTinKhac1Mixed: {
+				thongTinKhac1Str: String,
+				thongTinKhac1File: [String]
+			}
 		},
 		tenMau: {
 			tenKhoaHoc: {
@@ -44,7 +47,10 @@ module.exports = function (mongoose) {
 			tenDiaPhuong: String,
 			tenTiengAnh: String,
 			tenTheoBaoTang: String,
-			thongTinKhac2: String
+			thongTinKhac2Mixed: {
+				thongTinKhac2Str: String,
+				thongTinKhac2File: [String]
+			}
 		},
 		soLuongChatLuong: {
 			soLuongTieuBan: Number,
@@ -62,7 +68,10 @@ module.exports = function (mongoose) {
 				donVi_trongLuong: String
 			},
 			tinhTrangMau: String,
-			thongTinKhac3: String
+			thongTinKhac3Mixed: {
+				thongTinKhac3Str: String,
+				thongTinKhac3File: [String]
+			}
 		},
 		duLieuThuMau: {
 			thoiGianThuMau: Date,
@@ -84,7 +93,10 @@ module.exports = function (mongoose) {
 			thongTinDuAn: String,
 			ghiChepThucDia: String,
 			banDo: [String],
-			thongTinKhac4: String
+			thongTinKhac4Mixed: {
+				thongTinKhac4Str: String,
+				thongTinKhac4File: [String]
+			}
 		},
 		duLieuPhanTichMau: {
 			thoiGianGiamDinh: Date,
@@ -99,7 +111,10 @@ module.exports = function (mongoose) {
 			dacDiemLatMong: [String],
 			moTaHinhThaiStr: String,
 			hinhVe: [String],
-			thongTinKhac5: String
+			thongTinKhac5Mixed: {
+				thongTinKhac5Str: String,
+				thongTinKhac5File: [String]
+			}
 		},
 		media: {
 			anhMauVat: [String],
@@ -122,7 +137,10 @@ module.exports = function (mongoose) {
 				dinhKemTrinhTuDNA: [String],
 				congBoQuocTe: String
 			},
-			thongTinKhac6: String
+			thongTinKhac6Mixed: {
+				thongTinKhac6Str: String,
+				thongTinKhac6File: [String]
+			}
 		},
 		phanBoVaSuDung: {
 			phanBoVietNamMixed: {
@@ -134,7 +152,10 @@ module.exports = function (mongoose) {
 				phanBoTrenTheGioiFile: [String]
 			},
 			giaTriSuDung: String,
-			thongTinKhac7: String
+			thongTinKhac7Mixed: {
+				thongTinKhac7Str: String,
+				thongTinKhac7File: [String]
+			}
 		},
 		luuTruBaoQuan: {
 			ngayNhapMau: Date,
@@ -155,10 +176,16 @@ module.exports = function (mongoose) {
 			hoSoNhapMauVatDiKem: [String],
 			nguoiLapPhieuMauVat: String,
 			nguoiNhapVaoPhanMem: String,
-			thongTinKhac8: String
+			thongTinKhac8Mixed: {
+				thongTinKhac8Str: String,
+				thongTinKhac8File: [String]
+			}
 		},
 		thongTinKhac: {
-			thongTinKhac9: String
+			thongTinKhac9Mixed: {
+				thongTinKhac9Str: String,
+				thongTinKhac9File: [String]
+			}
 		},
 		maDeTai: {
 			maDeTai: String

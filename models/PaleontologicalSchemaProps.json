@@ -41,7 +41,29 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac1Str",
+			"thongTinKhac1File"
+		]
+	},
+	{
+		"name": "thongTinKhac1Str",
+		"schemaProp": "soHieu.thongTinKhac1Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac1File",
+		"schemaProp": "soHieu.thongTinKhac1Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "tenDongNghia",
@@ -231,7 +253,29 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac2Str",
+			"thongTinKhac2File"
+		]
+	},
+	{
+		"name": "thongTinKhac2Str",
+		"schemaProp": "tenMau.thongTinKhac2Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac2File",
+		"schemaProp": "tenMau.thongTinKhac2Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "soLuongTieuBan",
@@ -257,7 +301,18 @@
 		"required": false,
 		"money": true,
 		"type": "Mixed",
-		"subProps": ["chieuCao", "donVi_chieuCao", "chieuRong", "donVi_chieuRong", "chieuDai", "donVi_chieuDai", "trongLuong", "donVi_trongLuong", "theTich", "donVi_theTich"]
+		"subProps": [
+			"chieuCao",
+			"donVi_chieuCao",
+			"chieuRong",
+			"donVi_chieuRong",
+			"chieuDai",
+			"donVi_chieuDai",
+			"trongLuong",
+			"donVi_trongLuong",
+			"theTich",
+			"donVi_theTich"
+		]
 	},
 	{
 		"name": "chieuCao",
@@ -364,7 +419,29 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac3Str",
+			"thongTinKhac3File"
+		]
+	},
+	{
+		"name": "thongTinKhac3Str",
+		"schemaProp": "soLuongChatLuong.thongTinKhac3Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac3File",
+		"schemaProp": "soLuongChatLuong.thongTinKhac3Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "thoiGianThuMau",
@@ -504,7 +581,29 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac4Str",
+			"thongTinKhac4File"
+		]
+	},
+	{
+		"name": "thongTinKhac4Str",
+		"schemaProp": "duLieuThuMau.thongTinKhac4Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac4File",
+		"schemaProp": "duLieuThuMau.thongTinKhac4Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "thoiGianGiamDinh",
@@ -540,7 +639,10 @@
 		"required": false,
 		"money": true,
 		"type": "Mixed",
-		"subProps": ["taiLieuPhanTichStr", "taiLieuPhanTichFile"]
+		"subProps": [
+			"taiLieuPhanTichStr",
+			"taiLieuPhanTichFile"
+		]
 	},
 	{
 		"name": "taiLieuPhanTichStr",
@@ -612,7 +714,29 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac5Str",
+			"thongTinKhac5File"
+		]
+	},
+	{
+		"name": "thongTinKhac5Str",
+		"schemaProp": "duLieuPhanTichMau.thongTinKhac5Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac5File",
+		"schemaProp": "duLieuPhanTichMau.thongTinKhac5Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "anhMauVat",
@@ -763,7 +887,29 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac6Str",
+			"thongTinKhac6File"
+		]
+	},
+	{
+		"name": "thongTinKhac6Str",
+		"schemaProp": "media.thongTinKhac6Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac6File",
+		"schemaProp": "media.thongTinKhac6Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "phanBoVietNam",
@@ -772,7 +918,10 @@
 		"required": false,
 		"money": true,
 		"type": "Mixed",
-		"subProps": ["phanBoVietNamStr", "phanBoVietNamFile"]
+		"subProps": [
+			"phanBoVietNamStr",
+			"phanBoVietNamFile"
+		]
 	},
 	{
 		"name": "phanBoVietNamStr",
@@ -798,7 +947,10 @@
 		"required": false,
 		"money": false,
 		"type": "Mixed",
-		"subProps": ["phanBoTrenTheGioiStr", "phanBoTrenTheGioiFile"]
+		"subProps": [
+			"phanBoTrenTheGioiStr",
+			"phanBoTrenTheGioiFile"
+		]
 	},
 	{
 		"name": "phanBoTrenTheGioiStr",
@@ -832,7 +984,29 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac7Str",
+			"thongTinKhac7File"
+		]
+	},
+	{
+		"name": "thongTinKhac7Str",
+		"schemaProp": "phanBoVaSuDung.thongTinKhac7Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac7File",
+		"schemaProp": "phanBoVaSuDung.thongTinKhac7Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "ngayNhapMau",
@@ -973,15 +1147,59 @@
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac8Str",
+			"thongTinKhac8File"
+		]
+	},
+	{
+		"name": "thongTinKhac8Str",
+		"schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac8File",
+		"schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "thongTinKhac9",
 		"schemaProp": "thongTinKhac",
-		"label": "Các thông tin khác",
+		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "Mixed",
+		"subProps": [
+			"thongTinKhac9Str",
+			"thongTinKhac9File"
+		]
+	},
+	{
+		"name": "thongTinKhac9Str",
+		"schemaProp": "thongTinKhac.thongTinKhac9Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "String",
+		"regex": "^.{0,}$"
+	},
+	{
+		"name": "thongTinKhac9File",
+		"schemaProp": "thongTinKhac.thongTinKhac9Mixed",
+		"label": "Thông tin khác",
+		"required": false,
+		"money": false,
+		"type": "File",
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "maDeTai",
@@ -1007,7 +1225,6 @@
 		"money": false,
 		"type": "String"
 	},
-	
 	{
 		"name": "soHieu",
 		"type": "Metadata",
@@ -1102,5 +1319,50 @@
 		"name": "kichThuocMauMixed",
 		"type": "Metadata",
 		"label": "Kích thước mẫu vật"
+	},
+	{
+		"name": "thongTinKhac1Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac2Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac3Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac4Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac5Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac6Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac7Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac8Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
+	},
+	{
+		"name": "thongTinKhac9Mixed",
+		"type": "Metadata",
+		"label": "Thông tin khác"
 	}
 ]

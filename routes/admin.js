@@ -22,27 +22,6 @@ var responseError = global.myCustomVars.responseError;
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
 
-// var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
-// var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
-// var PERM_USER = global.myCustomVars.PERM_USER;
-var LEVEL = {};
-LEVEL['admin'] = {
-	name: 'Admin',
-	class: 'label label-danger'
-}
-LEVEL['manager'] = {
-	name: 'Manager',
-	class: 'label label-success'
-}
-LEVEL['user'] = {
-	name: 'Normal User',
-	class: 'label label-primary'
-}
-LEVEL['pending-user'] = {
-	name: 'Pending User',
-	class: 'label label-warning'
-}
-
 // console.log(LEVEL)
 
 /* GET home page. */
@@ -70,20 +49,14 @@ router.get('/users', function (req, res, next) {
 		var result = {
 			user: user
 		}
-		result.maDeTais = await(new Promise((resolve, reject) => {
-			SharedData.findOne({}, (err, sharedData) => {
-				if (!err && sharedData){
-					resolve(sharedData.maDeTai);
-				}
-				else {
-					resolve([])
-				}
-			})
-		}))
+		result.maDeTais = await(PROMISES.getMaDeTai())
 
 		for(let i = 0; i < users.length; i++){
 			let u = users[i];
-			u.level = LEVEL[u.level];
+			if (u.id == req.session.userId){
+				console.log('my level: ' + u.level);
+				user.level = u.level;
+			}
 		}
 		result.users = users;
 		result.sidebar = {
@@ -107,21 +80,12 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 	async(() => {
-		var result = await(new Promise((resolve, reject) => {
-			SharedData.findOne({}, (err, sharedData) => {
-				if (err || !sharedData){
-					resolve([])
-				}
-				else {
-					resolve(sharedData)
-				}
-			})
-		}))
+		var result = await(PROMISES.getSharedData())
 
 		if (result){
-			var maDeTais = result.maDeTai;
-			console.log(maDeTais);
-			console.log(req.body.maDeTai);
+			var maDeTais = await(PROMISES.getMaDeTai());
+			// console.log(maDeTais);
+			// console.log(req.body.maDeTai);
 			// console.log('cdcmm');
 			if (!req.body.maDeTai){
 				console.log('missing maDeTai');
@@ -198,36 +162,44 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 							})
 						}
 						else {
-							if (result.maDeTai.indexOf(req.body.maDeTai) < 0){
-								result.maDeTai.push(req.body.maDeTai);
-								result.save((err) => {
-									if (err){
-										console.log(err);
-										return res.status(500).json({
-											status: 'error',
-											error: 'Error while saving new MaDeTai'
-										})
-									}
-									else {
-										var data = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
-										if (req.body.userId in data){
-											let r = data[req.body.userId];
-											if (r.roles.indexOf('manager') < 0){
-												r.roles.push('manager');
-												fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
-											}
+							if (maDeTais.indexOf(req.body.maDeTai) < 0){
+								// === Automatic add new deTai ===
 
-										}
-										else {
-											data[req.body.userId] = {
-												userId: req.body.userId,
-												roles: ["manager"]
-											}
-											fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
-										}
-										return restart(res);
-									}
-								})
+								// result.deTai.push({
+								// 	maDeTai: req.body.maDeTai
+								// });
+								// result.save((err) => {
+								// 	if (err){
+								// 		console.log(err);
+								// 		return res.status(500).json({
+								// 			status: 'error',
+								// 			error: 'Error while saving new MaDeTai'
+								// 		})
+								// 	}
+								// 	else {
+								// 		var data = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
+								// 		if (req.body.userId in data){
+								// 			let r = data[req.body.userId];
+								// 			if (r.roles.indexOf('manager') < 0){
+								// 				r.roles.push('manager');
+								// 				fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
+								// 			}
+
+								// 		}
+								// 		else {
+								// 			data[req.body.userId] = {
+								// 				userId: req.body.userId,
+								// 				roles: ["manager"]
+								// 			}
+								// 			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
+								// 		}
+								// 		return restart(res);
+								// 	}
+								// })
+								// ================================
+
+								// Do not add new deTai
+								return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 							}
 							else {
 								var data = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
@@ -246,7 +218,34 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 									}
 									fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
 								}
-								return restart(res);
+								acl.addUserRoles(req.body.userId, 'manager', (err) => {
+									if (err){
+										console.log(err);
+										// TODO
+										// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
+										// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
+										// nên cần đánh dấu, restart toàn bộ worker
+										try {
+											process.send({actionType: 'restart', target: 'all'});
+										}
+										catch (e){
+											console.log(e);
+										}
+										return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
+									}
+									// TODO
+									// Chỗ này cần gửi message về Master.
+									// Yêu cầu restart tất cả các worker khác
+									
+									try {
+										process.send({actionType: 'restart', target: 'other'});
+									}
+									catch (e){
+										console.log(e);
+									}
+									return responseSuccess(res, [], []);
+								})
+								// return restart(res);
 							}
 						}
 					})
@@ -338,7 +337,33 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 				}
 				fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
 			}
-			return restart(res);
+			acl.removeUserRoles(req.body.userId, 'manager', (err) => {
+				if (err){
+					console.log(err);
+					// TODO
+					// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
+					// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
+					// nên cần đánh dấu, restart toàn bộ worker
+					try {
+						process.send({actionType: 'restart', target: 'all'});
+					}
+					catch (e){
+						console.log(e);
+					}
+					return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
+				}
+				// TODO
+				// Chỗ này cần gửi message về Master.
+				// Yêu cầu restart tất cả các worker khác
+				try {
+					process.send({actionType: 'restart', target: 'other'});
+				}
+				catch (e){
+					console.log(e);
+				}
+				return responseSuccess(res, [], []);
+			})
+			// return restart(res);
 		}
 	}
 	})();
@@ -397,16 +422,7 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 					}
 				})
 			}))
-			var maDeTais = await(new Promise((resolve, reject) => {
-				SharedData.findOne({}, (err, sharedData) => {
-					if (err || !sharedData){
-						resolve([])
-					}
-					else {
-						resolve(sharedData.maDeTai)
-					}
-				})
-			}))
+			var maDeTais = await(PROMISES.getMaDeTai())
 
 			if (userRoles.indexOf('admin') >= 0){
 				if (req.body.userId == req.session.userId){
@@ -458,8 +474,6 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 })
 
 router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) {
-	// Coi vai trò của user đang request là manager.
-	// Admin sẽ có route fire riêng
 	var async = require('asyncawait/async');
 	var await = require('asyncawait/await');
 
@@ -494,7 +508,7 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 			})
 		}))
 		if (!user){
-			// do not care. Handle inside the above await
+			// do not care. Handle inside the above await-block
 		}
 		else {
 			var userRoles = await(new Promise((resolve, reject) => {
@@ -524,7 +538,29 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 						return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
 					}
 					else {
-						return responseSuccess(res, [], []);
+						let data_ = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
+						delete data_[user.id];
+						fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data_, null, 4));
+						acl.removeUserRoles(user.id, userRoles, (err) => {
+							if (err){
+								console.log(err);
+								try {
+									process.send({actionType: 'restart', target: 'all'})
+								}
+								catch (e){
+									console.log(e);
+								}
+								return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại'])
+							}
+							try {
+								process.send({actionType: 'restart', target: 'other'})
+							}
+							catch (e){
+								console.log(e);
+							}
+							return responseSuccess(res, [], []);
+						})
+						// return restart(res)
 					}
 				})
 			}
@@ -541,9 +577,16 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 		}
 		// console.log(req.body);
 		req.body.newMaDeTai = req.body.newMaDeTai.trim();
+		if (req.body.tenDeTai){
+			req.body.tenDeTai = req.body.tenDeTai.trim();
+		}
+		
+		if (req.body.donViChuTri){
+			req.body.donViChuTri = req.body.donViChuTri.trim();
+		}
 
 		if (req.user.validPassword(req.body.adminPassword)){
-			let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai));
+			let result = await(PROMISES.addMaDeTai(req.body.newMaDeTai, req.body.tenDeTai, req.body.donViChuTri));
 			if (result.status == 'error'){
 				return responseError(req, '', res, 400, ['error'], [result.error]);
 			}
@@ -559,14 +602,22 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 				newRole = newRole.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o"); 
 				newRole = newRole.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); 
 				newRole = newRole.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); 
-				newRole = newRole.replace(/đ/g, "d"); 
-				newRole = newRole.replace(/ /g, "-");
+				newRole = newRole.replace(/đ/g, "d");
+				role = role.replace(/[^a-z0-9-._]/g, "-");
 				roles[newRole] = JSON.parse(JSON.stringify(roles['content']));
 				roles[newRole].maDeTai = req.body.newMaDeTai;
 				roles[newRole].role = newRole;
 				roles[newRole].rolename = 'Nhân viên ' + req.body.newMaDeTai;
 				fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
-				return restart(res);
+				try {
+					process.send({actionType: 'restart', target: 'all'});
+				}
+				catch (e){
+					console.log(e);
+					return restart(res);
+				}
+				// return restart(res);
+				return responseSuccess(res, [], []);
 			}
 		}
 		else {
@@ -588,6 +639,7 @@ router.get('/statistic', (req, res, next) => {
 		}
 		let countMaDeTai = {}
 		// console.log(users);
+		let user = req.user;
 		for(let user of users){
 			if (user.maDeTai){
 				console.log('checking ' + user.username);
@@ -608,9 +660,12 @@ router.get('/statistic', (req, res, next) => {
 				}
 			}
 		}
-		for(let user of users){
-			delete user.password;
-			countLevel[user.level]++;
+		for(let u of users){
+			if (u.id == req.session.userId){
+				user.level = u.level;
+			}
+			delete u.password;
+			countLevel[u.level]++;
 		}
 		// return res.json({
 		// 	countMaDeTai: countMaDeTai,
@@ -619,7 +674,7 @@ router.get('/statistic', (req, res, next) => {
 		return res.render('admin/users-statistic', {
 			countLevel: countLevel,
 			countMaDeTai: countMaDeTai,
-			user: req.user,
+			user: user,
 			sidebar: {
 				active: 'statistic-user'
 			}

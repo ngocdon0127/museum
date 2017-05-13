@@ -1,5 +1,5 @@
-app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
-	var url = AuthService.hostName + '/content/dong-vat/' + $routeParams.id;
+app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$stateParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $stateParams, $timeout, cfpLoadingBar){
+	var url = AuthService.hostName + '/content/dong-vat/' + $stateParams.id;
 	$http.get('/app/database/tipsani.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
@@ -28,7 +28,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.animal;
 		$scope.status = res.data.status;
-		$scope.data.id = $routeParams.id;
+		$scope.data.id = $stateParams.id;
 
 		// DatePicker
 		AuthService.initDatePicker($scope.data);
@@ -61,7 +61,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 		$scope.status = err.data.status;
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dong-vat';
+	var urlRe = 'quan-ly-dong-vat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
 		AuthService.startSpinner();
@@ -85,8 +85,8 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$routePara
 	}
 }]);
 
-app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
-	var url = AuthService.hostName + '/content/co-sinh/' + $routeParams.id;
+app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$stateParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $stateParams, $timeout, cfpLoadingBar){
+	var url = AuthService.hostName + '/content/co-sinh/' + $stateParams.id;
 	
 	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -116,7 +116,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.paleontological;
 		$scope.status = res.data.status;
-		$scope.data.id = $routeParams.id;
+		$scope.data.id = $stateParams.id;
 
 		// DatePicker
 		AuthService.initDatePicker($scope.data);
@@ -149,7 +149,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		$scope.status = err.data.status;
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/co-sinh';
+	var urlRe = 'quan-ly-co-sinh';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
 		AuthService.startSpinner();
@@ -173,8 +173,8 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 	}
 }]);
 
-app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
-	var url = AuthService.hostName + '/content/thuc-vat/' + $routeParams.id;
+app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$stateParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $stateParams, $timeout, cfpLoadingBar){
+	var url = AuthService.hostName + '/content/thuc-vat/' + $stateParams.id;
 	
 	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -204,7 +204,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.vegetable;
 		$scope.status = res.data.status;
-		$scope.data.id = $routeParams.id;
+		$scope.data.id = $stateParams.id;
 
 		// DatePicker
 		AuthService.initDatePicker($scope.data);
@@ -237,7 +237,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 		$scope.status = err.data.status;
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/thuc-vat';
+	var urlRe = 'quan-ly-thuc-vat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
 		AuthService.startSpinner();
@@ -261,8 +261,8 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$routeP
 	}
 }]);
 
-app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
-	var url = AuthService.hostName + '/content/dia-chat/' + $routeParams.id;
+app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$stateParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $stateParams, $timeout, cfpLoadingBar){
+	var url = AuthService.hostName + '/content/dia-chat/' + $stateParams.id;
 	
 	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -293,7 +293,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 
 		$scope.data = res.data.geological;
 		$scope.status = res.data.status;
-		$scope.data.id = $routeParams.id;
+		$scope.data.id = $stateParams.id;
 
 		// DatePicker
 		AuthService.initDatePicker($scope.data);
@@ -330,7 +330,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 		$scope.status = err.data.status;
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/dia-chat';
+	var urlRe = 'quan-ly-dia-chat';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
 		AuthService.startSpinner();
@@ -354,8 +354,8 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$route
 	}
 }]);
 
-app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $routeParams, $timeout, cfpLoadingBar){
-	var url = AuthService.hostName + '/content/tho-nhuong/' + $routeParams.id;
+app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams','$timeout','cfpLoadingBar', function($http,$scope,AuthService, $stateParams, $timeout, cfpLoadingBar){
+	var url = AuthService.hostName + '/content/tho-nhuong/' + $stateParams.id;
 	
 	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -385,7 +385,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 	$http.get(url).then(function (res) {
 		$scope.data = res.data.soil;
 		$scope.status = res.data.status;
-		$scope.data.id = $routeParams.id;
+		$scope.data.id = $stateParams.id;
 		
 		// DatePicker
 		AuthService.initDatePicker($scope.data);
@@ -420,7 +420,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$routeParams
 		$scope.status = err.data.status;
 	});
 
-	var urlRe = AuthService.hostName + '/app/#!/bai-dang/tho-nhuong';
+	var urlRe = 'quan-ly-tho-nhuong';
 	$scope.updatePost = function(){
 		cfpLoadingBar.start();
 		AuthService.startSpinner();

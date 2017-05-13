@@ -11,12 +11,14 @@ module.exports = {
 	mailconfig : {
 		service: 'gmail',
 	    auth: {
-	        user: 'chienminhnguyen196@gmail.com',
-	        pass: 'nqmpkpxvpjydtgxv'
+	        user: '',
+	        pass: ''
 	    }
 	},
 	recaptcha : {
-		sitekey : '6LctfhoUAAAAAC2hVTKPoaVgfDXJP3OsQy3SF1en',
-		secretkey: '6LctfhoUAAAAAOqw3KYeqYV8yCvOBwSIHxOBemo2'
-	}
+		sitekey : '',
+		secretkey: ''
+	},
+	noThreads: 'optimal',
+	libreoffice: 'libreoffice'
 }

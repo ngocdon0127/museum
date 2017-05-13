@@ -1,6 +1,6 @@
 {
-	"cleanUser": false,
-	"cleanConfigFiles": false,
+	"cleanUser": true,
+	"cleanConfigFiles": true,
 	"cleanAutoCompletion": true,
 	"cleanData": true,
 	"fixMaDeTai": true,
@@ -16,7 +16,7 @@
 						"Mẫu Type"
 					],
 					"coQuanNhapVatMau" : [ 
-						"Bảo tàng Thiên nhiên Việt Nam", 
+						"Bảo tàng Thiên nhiên Việt Nam"
 					],
 					"trangThaiGiuMauDNA" : ["Khô"],
 					"boPhanLayMauDNA" : ["Thân"],
@@ -42,18 +42,17 @@
 					],
 					"huyen" : [  
 						"232", 
-						"662", 
+						"662"
 						
 					],
 					"tinh" : [ 
-						"? undefined:undefined ?", 
 						"25", 
 						"67", 
 						"12", 
 						"36", 
 						"37", 
 						"34", 
-						"31", 
+						"31"
 					],
 					"quocGia" : [ 
 						"VietNam", 
@@ -69,7 +68,7 @@
 					"loai" : [ 
 						"Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)"
 					],
-					"giong" : [
+					"chiGiong" : [
 						"Triceratops", 
 						"Gigantoproductus Prentice, 1950", 
 						"Panthera", 
@@ -88,7 +87,7 @@
 					"phanHo" : [ 
 						"Ceratopsinae", 
 						"Gigantoproductidae Muir-Wood & Cooper, 1960", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"bo" : [ 
 						"Productida Sarytcheva & Sokolskaya, 1959"
@@ -109,9 +108,8 @@
 						"GIGANTOPRODUCTUS  CF.  SUBMAXIMUS (BOLKHOVITINOVA, 1932)"
 					],
 					"vungGenPhanTich" : ["Gen gốc"],
-					"giaTriSuDung" : [ "Khoa học", "Y học", "Dinh dưỡng"
-					],
-					"chi" : [ 
+					"giaTriSuDung" : [ "Khoa học", "Y học", "Dinh dưỡng"],
+					"chiGiong" : [ 
 						"KHMT Cổ Sinh 01"
 					],
 					"chiGiong": [
@@ -122,7 +120,7 @@
 						"Hiến tặng"
 					],
 					"noiLuuTruMau" : [ 
-						"BTTNVN", 
+						"BTTNVN"
 					]
 				}
 			},
@@ -143,16 +141,16 @@
 						"ádfasdf"
 					],
 					"boPhanLayMauDNA" : [ 
-						"Xương", 
+						"Xương"
 					],
 					"coQuanXuLy" : [ 
 						"HUST", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"coQuanToChucGiamDinh" : [ 
 						"ICT HUST", 
 						"Vườn thú Hà Nội", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"thon" : [ 
 						"Vũ Xá", 
@@ -170,7 +168,7 @@
 						"02716", 
 						"30577", 
 						"12745", 
-						"31594", 
+						"31594"
 					],
 					"huyen" : [ 
 						"327", 
@@ -180,13 +178,13 @@
 						"339", 
 						"007", 
 						"356", 
-						"001", 
+						"001"
 					],
 					"tinh" : [ 
 						"31", 
 						"33", 
 						"17", 
-						"11", 
+						"11"
 					],
 					"quocGia" : [ 
 						"VietNam", 
@@ -207,7 +205,7 @@
 						"Panthera pardus", 
 						"KHMT01"
 					],
-					"giong" : [ 
+					"chiGiong" : [ 
 						"Triceratops", 
 						"Gigantoproductus Prentice, 1950", 
 						"Panthera", 
@@ -221,7 +219,7 @@
 					"phanHo" : [ 
 						"Ceratopsinae", 
 						"Gigantoproductidae Muir-Wood & Cooper, 1960", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"ho" : [ 
 						"Ceratopsidae", 
@@ -252,30 +250,30 @@
 						"Strophomenata Williams, Carlson, Bruton, Homer et Popov, 1996", 
 						"Mammalia", 
 						"Có vú", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"nganh" : [ 
 						"Chordata", 
-						"Tay cuộn (Brachiopoda) Duméril, 1806", 
+						"Tay cuộn (Brachiopoda) Duméril, 1806"
 					],
 					"gioi" : [ 
 						"Animalia", 
 						"Mặt ba sừng", 
 						"Động vật (Animalia) Linnaeus, 1758", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"tenDongNghia" : [ 
 						"Mặt ba sừng", 
-						"Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)", 
+						"Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)"
 					],
 					"tenTheoBaoTang" : [],
 					"giaTriSuDung" : [ 
 						"Khoa học", 
-						"Y học", 
+						"Y học"
 					],
 					"hinhThucNhapMau" : [ 
 						"Thu thập", 
-						"Hiến tặng", 
+						"Hiến tặng"
 					],
 					"noiLuuTruMau" : [ 
 						"B1"
@@ -299,16 +297,16 @@
 						"ádfasdf"
 					],
 					"boPhanLayMauDNA" : [ 
-						"Xương", 
+						"Xương"
 					],
 					"coQuanXuLy" : [ 
 						"HUST", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"coQuanToChucGiamDinh" : [ 
 						"ICT HUST", 
 						"Vườn thú Hà Nội", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"thon" : [ 
 						"Vũ Xá", 
@@ -326,7 +324,7 @@
 						"02716", 
 						"30577", 
 						"12745", 
-						"31594", 
+						"31594"
 					],
 					"huyen" : [ 
 						"327", 
@@ -336,13 +334,13 @@
 						"339", 
 						"007", 
 						"356", 
-						"001", 
+						"001"
 					],
 					"tinh" : [ 
 						"31", 
 						"33", 
 						"17", 
-						"11", 
+						"11"
 					],
 					"quocGia" : [ 
 						"VietNam", 
@@ -363,14 +361,14 @@
 						"Panthera pardus", 
 						"KHMT01"
 					],
-					"giong" : [ 
+					"chiGiong" : [ 
 						"Triceratops", 
 						"Gigantoproductus Prentice, 1950", 
 						"Panthera", 
 						"Hổ", 
 						"KHMT01"
 					],
-					"phanGiong": [
+					"phanChiPhanGiong": [
 						"Triceratops"
 					],
 					"toc" : [ 
@@ -380,7 +378,7 @@
 					"phanHo" : [ 
 						"Ceratopsinae", 
 						"Gigantoproductidae Muir-Wood & Cooper, 1960", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"ho" : [ 
 						"Ceratopsidae", 
@@ -412,30 +410,30 @@
 						"Strophomenata Williams, Carlson, Bruton, Homer et Popov, 1996", 
 						"Mammalia", 
 						"Có vú", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"nganh" : [ 
 						"Chordata", 
-						"Tay cuộn (Brachiopoda) Duméril, 1806", 
+						"Tay cuộn (Brachiopoda) Duméril, 1806"
 					],
 					"gioi" : [ 
 						"Animalia", 
 						"Mặt ba sừng", 
 						"Động vật (Animalia) Linnaeus, 1758", 
-						"KHMT01", 
+						"KHMT01"
 					],
 					"tenDongNghia" : [ 
 						"Mặt ba sừng", 
-						"Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)", 
+						"Gigantoproductus cf. submaximus (Bolkhovitinova, 1932)"
 					],
 					"tenTheoBaoTang" : ["Mặt ba sừng"],
 					"giaTriSuDung" : [ 
 						"Khoa học", 
-						"Y học", 
+						"Y học"
 					],
-					"hinhThucNhapMau" : [ 
+					"hinhThucNhapMau" : [
 						"Thu thập", 
-						"Hiến tặng", 
+						"Hiến tặng"
 					],
 					"noiLuuTruMau" : [ 
 						"B1"
@@ -457,38 +455,38 @@
 					],
 					"coQuanXuLy" : [ 
 						"SOICT", 
-						"Bảo Tàng Thiên Nhiên VN", 
+						"Bảo Tàng Thiên Nhiên VN"
 					],
 					"coQuanToChucGiamDinh" : [ 
 						"Soict", 
 						"Bảo Tàng Thiên Nhiên VN"
 					],
 					"thon" : [ 
-						"Đồ Sơn", 
+						"Đồ Sơn"
 					],
 					"xa" : [ 
 						"14266", 
 						"11455", 
 						"12043", 
-						"00028", 
+						"00028"
 					],
 					"huyen" : [ 
 						"366", 
 						"308", 
 						"326", 
-						"001", 
+						"001"
 					],
 					"tinh" : [ 
 						"36", 
 						"31", 
-						"33", 
+						"33"
 					],
 					"quocGia" : [ 
 						"VietNam", 
 						"Việt Nam"
 					],
 					"coQuanThuMau" : [ 
-						"Bảo Tàng Thiên Nhiên VN", 
+						"Bảo Tàng Thiên Nhiên VN"
 					],
 					"giaTriSuDung" : [ 
 						"Trưng bày"
@@ -503,7 +501,7 @@
 			{
 				"modelName": "Vegetable",
 				"fileName": "models/VegetableSchemaProps.json",
-				data: {
+				"data": {
 					"loaiMauVat": [
 						"Mẫu nghiên cứu",
 						"Mẫu trưng bày",
@@ -517,7 +515,7 @@
 					],
 					"coQuanToChucGiamDinh" : [ 
 						"Viện sinh thái học miền nam", 
-						"Bảo tàng Thiên nhiên Việt Nam", 
+						"Bảo tàng Thiên nhiên Việt Nam"
 					],
 					"thon" : [ 
 						"Thôn Nam", 
@@ -541,7 +539,7 @@
 						"396", 
 						"248", 
 						"088", 
-						"336", 
+						"336"
 					],
 					"tinh" : [ 
 						"35", 
@@ -558,24 +556,24 @@
 						"Viện sinh thái học Miền Nam"
 					],
 					"duoiLoai" : [ 
-						"Morinda tomentosa", 
+						"Morinda tomentosa"
 					],
 					"loai" : [ 
 						"crenulatum", 
 						"Tarenna latifolia Pit.", 
-						"Morinda cochinchinensis", 
+						"Morinda cochinchinensis"
 					],
-					"chi" : [ 
+					"chiGiong" : [ 
 						"Memecylon", 
 						"Pseuderanthemum", 
 						"Tarenna", 
-						"Morinda", 
+						"Morinda"
 					],
 					"tong" : [ 
 						"Melastomataceae"
 					],
 					"phanHo" : [ 
-						"Rubiaceae1", 
+						"Rubiaceae1"
 					],
 					"ho" : [ 
 						"Melastomataceae", 
@@ -584,10 +582,10 @@
 						"Melastomataceaeilhb"
 					],
 					"lienHo" : [ 
-						"Rubiaceae", 
+						"Rubiaceae"
 					],
 					"phanBo" : [ 
-						"Gentianales", 
+						"Gentianales"
 					],
 					"bo" : [ 
 						"Myrtales", 
@@ -604,13 +602,13 @@
 					"nganh" : [ 
 						"Magnoliophyta", 
 						"Angiospermae", 
-						"Angiospermae1", 
+						"Angiospermae1"
 					],
 					"gioi" : [ 
-						"Plantae", 
+						"Plantae"
 					],
 					"tenDongNghia" : [ 
-						"Morinda tomentosa",
+						"Morinda tomentosa"
 					],
 					"mauDNA" : [ 
 						"nước"
@@ -621,7 +619,7 @@
 					"giaTriSuDung" : [ 
 						"Dinh dưỡng", 
 						"Khoa học", 
-						"LÀM THUỐC", 
+						"LÀM THUỐC"
 					],
 					"hinhThucNhapMau" : [ 
 						"Thu thập", 
@@ -631,7 +629,7 @@
 						"BKHN"
 					]
 				}
-			},
+			}
 		]
 	},
 	"users": [
@@ -657,5 +655,26 @@
 			"roles": ["content", "manager"]
 		}
 	],
-	"maDeTai": ["DT-001", "DT-002"]
+	"deTai": [
+		{
+			"maDeTai": "BSTMV.20/16-21",
+			"tenDeTai": "XÂY DỰNG BỘ SƯU TẬP MẪU VỀ TÀI NGUYÊN SINH VẬT KHU VỰC NAM TRUNG BỘ - NAM BỘ VIỆT NAM",
+			"donViChuTri": "Viện Sinh học nhiệt đới"
+		},
+		{
+			"maDeTai": "BSTMV.26/16-21",
+			"tenDeTai": "Xây dựng bộ sưu tập mẫu đá, khoáng vật và khoáng sản phần biển và hải đảo, Miền Nam Việt Nam",
+			"donViChuTri": "Viện Địa chất và Địa vật lý biển"
+		},
+		{
+			"maDeTai": "BSTMV.15/2016-2021",
+			"tenDeTai": "Xây dựng bộ mẫu động vật (trên đất liền) Trung Trung Bộ - Tây Nguyên, Việt Nam",
+			"donViChuTri": "Viện Nghiên cứu Khoa học Tây Nguyên"
+		},
+		{
+			"maDeTai": "BSTMV.29/15-18",
+			"tenDeTai": "Xây dựng bộ sưu tập mẫu khoáng sản (kim loại, phi kim loại, năng lượng...) phần Đất liền, Việt Nam",
+			"donViChuTri": ""
+		}
+	]
 }

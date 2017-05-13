@@ -3,7 +3,9 @@ config/config.js
 config/acl.json
 config/roles.json
 public/uploads
+tmp/
 app/service.js
 *.log
 *.sublime-workspace
 *.sublime-project
+deploygit.bat

@@ -621,7 +621,7 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 				log.action = 'fire';
 				log.time = new Date();
 				log.objType = 'user';
-				let u1 = JSON.parse(JSON.stringify(req.user));
+				let u1 = JSON.parse(JSON.stringify(user));
 				delete u1.password;
 				delete u1.lastLogin;
 				delete u1.created_at;

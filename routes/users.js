@@ -77,6 +77,7 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 			}
 			return res.render('profile', {
 				user: user,
+				profileUser: user,
 				sidebar: {
 					active: 'profile'
 				},
@@ -152,12 +153,7 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 })
 
 router.post('/me', isLoggedIn, upload.single('croppedAvatar'), (req, res, next) => {
-	console.log('===1===');
 	async(() => {
-		console.log('===2===');
-		console.log(req.body);
-		console.log(req.file);
-		console.log(req.files);
 
 		let user = await(PROMISES.getUser(req.session.userId));
 		if (user){
@@ -212,6 +208,78 @@ router.post('/me', isLoggedIn, upload.single('croppedAvatar'), (req, res, next) 
 				status: 'success'
 			})
 		}
+	})()
+})
+
+router.get('/:userId', isLoggedIn, function (req, res, next) {
+	return async(() => {
+		let user = await(PROMISES.getUser(req.params.userId));
+		user = JSON.parse(JSON.stringify(user.userNormal));
+		delete user.password;
+		delete user.forgot_password;
+		let me = await(PROMISES.getUser(req.session.userId));
+		me = JSON.parse(JSON.stringify(me.userNormal));
+		delete me.password;
+		delete me.forgot_password;
+		user.statistic = {}
+		let models = [
+			{
+				modelName: 'Paleontological',
+				title: 'Cổ sinh'
+			},
+			{
+				modelName: 'Geological',
+				title: 'Địa chất'
+			},
+			{
+				modelName: 'Animal',
+				title: 'Động vật'
+			},
+			{
+				modelName: 'Soil',
+				title: 'Thổ nhưỡng'
+			},
+			{
+				modelName: 'Vegetable',
+				title: 'Thực vật'
+			}
+		]
+		user.statistic = []
+		for(let model of models){
+			user.statistic.push({
+				title: model.title,
+				number: await(new Promise((resolve, reject) => {
+					mongoose.model(model.modelName).find({'created_by.userId': {$eq: user.id}, deleted_at: {$eq: null}}, (err, rows) => {
+						if (err){
+							console.log(err);
+							resolve(0)
+						}
+						else {
+							// console.log(rows.length);
+							resolve(rows.length)
+						}
+						
+					})
+				}))
+			});
+		}
+		// console.log(user);
+		let msg = '';
+		try {
+			msg = req.flash('user-msg')
+		}
+		catch (e){
+			console.log(e);
+		}
+		return res.render('profile', {
+			user: me,
+			profileUser: user,
+			sidebar: {
+				active: 'profile'
+			},
+			msg: msg
+		});
+
 	})()
 })
 

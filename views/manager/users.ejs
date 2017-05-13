@@ -254,7 +254,10 @@
 	}
 
 	function assignTo(userId) {
-		
+		console.log({
+			userId: userId,
+			localIP: getLocalIP()
+		});
 		$.ajax({
 			url: '/manager/assign/',
 			method: 'POST',

@@ -10,7 +10,8 @@ module.exports = function (mongoose) {
 		time: Date,
 		objType: String,
 		obj1: Object,
-		obj2: Object
+		obj2: Object,
+		extra: Object
 	});
 
 	var Log = mongoose.model("Log", logSchema);

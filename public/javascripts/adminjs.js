@@ -32,6 +32,7 @@ function change_skin(cls) {
 // change_skin('skin-green');
 
 var localIP = [];
+var IP_ADDRESS = {};
 function getIPs(callback){
 try{
 	var ip_dups = {};

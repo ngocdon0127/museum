@@ -22,6 +22,8 @@ var responseError = global.myCustomVars.responseError;
 //  responseError (req, dir, res, errCode, props, values)
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
+//  
+var getPublicIP = global.myCustomVars.getPublicIP;
 
 
 
@@ -89,6 +91,7 @@ router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, ne
 	}
 
 	async(() => {
+		console.log(req.body);
 		var user = await(new Promise((resolve, reject) => {
 			User.findById(req.body.userId, (err, user) => {
 				if (err){
@@ -138,13 +141,44 @@ router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, ne
 			}
 			else {
 				// Giả sử rằng maDeTai của manager đã hợp lệ.
+				let log = new Log();
+				log.userId = req.session.userId;
+				log.userFullName = req.user.fullname;
+				log.action = 'assign';
+				log.time = new Date();
+				log.objType = 'user';
 				user.maDeTai = req.user.maDeTai;
+				let u1 = JSON.parse(JSON.stringify(user));
+				delete u1.password;
+				delete u1.lastLogin;
+				delete u1.created_at;
+				delete u1.avatar;
+				delete u1.forgot_password;
+				log.obj1 = u1;
 				user.save((err) => {
 					if (err){
 						console.log(err);
 						return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
 					}
 					else {
+						let u2 = JSON.parse(JSON.stringify(user));
+						delete u2.password;
+						delete u2.lastLogin;
+						delete u2.created_at;
+						delete u2.avatar;
+						delete u2.forgot_password;
+						log.obj2 = u2 // Mã đề tài mới sẽ lưu tại đây.
+						log.extra = {
+							agent: req.headers['user-agent'],
+							localIP: req.body.localIP,
+							publicIP: getPublicIP(req)
+						}
+						// console.log('saving log');
+						log.save((err) => {
+							if (err){
+								console.log(err);
+							}
+						});
 						return responseSuccess(res, [], []);
 					}
 				})
@@ -214,6 +248,20 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 			else {
 
 				if (user.maDeTai == req.user.maDeTai){
+					let log = new Log();
+					log.userId = req.session.userId;
+					log.userFullName = req.user.fullname;
+					log.action = 'fire';
+					log.time = new Date();
+					log.objType = 'user';
+					let u1 = JSON.parse(JSON.stringify(user));
+					delete u1.password;
+					delete u1.lastLogin;
+					delete u1.created_at;
+					delete u1.avatar;
+					delete u1.forgot_password;
+					log.obj1 = u1;
+					
 					user.maDeTai = '';
 					user.save((err) => {
 						if (err){
@@ -243,6 +291,24 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 								catch (e){
 									console.log(e);
 								}
+								let u2 = JSON.parse(JSON.stringify(user));
+								delete u2.password;
+								delete u2.lastLogin;
+								delete u2.created_at;
+								delete u2.avatar;
+								delete u2.forgot_password;
+								log.obj2 = u2 // Mã đề tài mới sẽ lưu tại đây.
+								log.extra = {
+									agent: req.headers['user-agent'],
+									localIP: req.body.localIP,
+									publicIP: getPublicIP(req)
+								}
+								// console.log('saving log');
+								log.save((err) => {
+									if (err){
+										console.log(err);
+									}
+								});
 								return responseSuccess(res, [], []);
 							})
 							// return restart(res);

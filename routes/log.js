@@ -75,6 +75,21 @@ router.get('/', function(req, res, next) {
 			'disapprove': {
 				label: 'Hủy phê duyệt'
 			},
+			'assign': {
+				label: 'Assign'
+			},
+			'fire': {
+				label: 'Fire'
+			},
+			'grant-manager': {
+				label: 'Grant Manager'
+			},
+			'revoke-manager': {
+				label: 'Revoke Manager'
+			},
+			'add-mdt': {
+				label: 'Thêm đề tài'
+			}
 		}
 		var forms = {
 			'animal': {
@@ -101,6 +116,16 @@ router.get('/', function(req, res, next) {
 				basePath: '/content/thuc-vat',
 				objectModelLabel: 'mẫu thực vật',
 				objectModelName: 'vegetable',
+			},
+			'user': {
+				basePath: '/content/thuc-vat',
+				objectModelLabel: 'tài khoản',
+				objectModelName: 'user',
+			},
+			'detai': {
+				basePath: '/content/thuc-vat',
+				objectModelLabel: 'đề tài',
+				objectModelName: 'detai',
 			}
 		}
 		async(() => {
@@ -191,6 +216,21 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 				'disapprove': {
 					label: 'Hủy phê duyệt'
 				},
+				'assign': {
+					label: 'Assign'
+				},
+				'fire': {
+					label: 'Fire'
+				},
+				'grant-manager': {
+					label: 'Grant Manager'
+				},
+				'revoke-manager': {
+					label: 'Revoke Manager'
+				},
+				'add-mdt': {
+					label: 'Thêm đề tài'
+				}
 			}
 			var forms = {
 				'animal': {
@@ -217,6 +257,16 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 					basePath: '/content/thuc-vat',
 					objectModelLabel: 'mẫu thực vật',
 					objectModelName: 'vegetable',
+				},
+				'user': {
+					basePath: '/content/thuc-vat',
+					objectModelLabel: 'tài khoản',
+					objectModelName: 'user',
+				},
+				'detai': {
+					basePath: '/content/thuc-vat',
+					objectModelLabel: 'đề tài',
+					objectModelName: 'detai',
 				}
 			}
 			var result = {

@@ -3012,6 +3012,37 @@ var restart = function (res) {
 
 global.myCustomVars.restart = restart;
 
+var getPublicIP = function (req) {
+	let publicIP = {
+	}
+	try {
+		publicIP['x-forwarded-for'] = req.headers['x-forwarded-for']
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['connection-remoteAddress'] = req.connection.remoteAddress
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['socket-remoteAddress'] = req.socket.remoteAddress
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['connection-socket-remoteAddress'] = req.connection.socket.remoteAddress;
+	}
+	catch (e){
+		console.log(e);
+	}
+	return publicIP;
+}
+global.myCustomVars.getPublicIP = getPublicIP;
+
 // ============= Generate Promise for async/await =======================
 
 var getSharedData = () => {

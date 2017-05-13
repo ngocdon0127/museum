@@ -200,3 +200,50 @@ a.nav:hover{
 }
 
 /* --------------RESPONSIVE LAYOUT----------- */
+
+/* -------------Phan button phia duoi cung */
+.bottom-nav {
+    position: fixed;
+    width: 100%;
+    bottom: 10px;
+    padding: 5px;
+    /*right: 20px;*/
+}
+
+.toggle-nav {
+   display: block;
+   text-align: right;
+}
+.toggle-nav ul li {
+    /*margin-top: 5px;*/
+    /*width: 100%;*/
+}
+
+
+
+/*.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+*/

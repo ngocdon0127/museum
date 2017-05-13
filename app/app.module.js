@@ -6,7 +6,8 @@ var app = angular.module('museumApp', [
     'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',
-	'ngAnimate'
+	'ngAnimate',
+    'bw.paging'
 	])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();
@@ -73,4 +74,20 @@ app.directive('validImage', function ($parse) {
             });
         }
     };
+});
+
+// Hiển thị thông báo
+app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, err, id, $anchorScroll) {
+    $scope.message = err;
+    $scope.ok = function () {
+        $uibModalInstance.dismiss();
+        if (id !== "") {
+            $location.hash(id);
+            $anchorScroll.yOffset = 100;
+            $anchorScroll();
+            var x = document.getElementById(id);
+            var element = x.nextElementSibling
+            element.style.borderColor = "red";
+        }
+    }
 });

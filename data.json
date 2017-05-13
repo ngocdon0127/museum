@@ -1,6 +1,6 @@
 {
-	"cleanUser": false,
-	"cleanConfigFiles": false,
+	"cleanUser": true,
+	"cleanConfigFiles": true,
 	"cleanAutoCompletion": true,
 	"cleanData": true,
 	"fixMaDeTai": true,

@@ -120,11 +120,11 @@
 												<% var date = new Date(u.lastLogin) %>
 												<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
 												<% if (u.level.name == 'Pending User') { %>
-													<td><button type="button" class="btn btn-block btn-success" onclick="assignTo('<%= u._id %>')">Assign to my team</button>
+													<td><button type="button" class="btn btn-block btn-success" onclick="assignToHandler('<%= u._id %>')">Assign to my team</button>
 													</td>
 												<% } else if (u.level.name == 'Normal User') { %>
 													<td>
-														<button type="button" class="btn btn-block btn-danger" onclick="fire('<%= u._id %>')">Fire</button>
+														<button type="button" class="btn btn-block btn-danger" onclick="fireHandler('<%= u._id %>')">Fire</button>
 													</td>
 												<% } else { %>
 													<td></td>
@@ -240,20 +240,30 @@
 </script>
 
 <script>
-	
-	
 
 	function ob(x) {
 		return document.getElementById(x)
 	}
 
+	function assignToHandler(userId) {
+		setTimeout((function (uid) {
+			return function (){
+				assignTo(userId)
+			}
+		})(userId), 500)
+	}
+
 	function assignTo(userId) {
-		
+		console.log({
+			userId: userId,
+			localIP: getLocalIP()
+		});
 		$.ajax({
 			url: '/manager/assign/',
 			method: 'POST',
 			data: {
-				userId: userId
+				userId: userId,
+				localIP: getLocalIP()
 			},
 			success: function (data) {
 				// console.log('success');
@@ -273,13 +283,22 @@
 		})
 	}
 
+	function fireHandler(userId) {
+		setTimeout((function (uid) {
+			return function (){
+				fire(userId)
+			}
+		})(userId), 500)
+	}
+
 	function fire(userId) {
 		
 		$.ajax({
 			url: '/manager/fire/',
 			method: 'POST',
 			data: {
-				userId: userId
+				userId: userId,
+				localIP: getLocalIP()
 			},
 			success: function (data) {
 				// console.log('success');

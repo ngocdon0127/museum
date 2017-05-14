@@ -2509,7 +2509,7 @@ var getAllHandler = function (options) {
 			var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 			var objectModelNames = options.objectModelNames;
 			var objectModelName = options.objectModelName;
-			var projection = {deleted_at: {$eq: null}};
+			var selection = {deleted_at: {$eq: null}};
 			var userRoles = await(new Promise((resolve, reject) => {
 				acl.userRoles(req.session.userId, (err, roles) => {
 					// console.log('promised userRoles called');
@@ -2522,20 +2522,20 @@ var getAllHandler = function (options) {
 				})
 			}))
 			// Default. User chỉ có thể xem những phiếu do chính mình tạo
-			projection['created_by.userId'] = req.user._id;
+			selection['created_by.userId'] = req.user._id;
 
 			if (userRoles.indexOf('manager') >= 0){
 				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
-				delete projection['created_by.userId'];
-				projection['maDeTai.maDeTai'] = req.user.maDeTai;
+				delete selection['created_by.userId'];
+				selection['maDeTai.maDeTai'] = req.user.maDeTai;
 			}
 
 			if (userRoles.indexOf('admin') >= 0){
 				// Admin, Xem tất
-				delete projection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
-				delete projection['maDeTai.maDeTai'];
+				delete selection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
+				delete selection['maDeTai.maDeTai'];
 			}
-			// ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			// ObjectModel.find(selection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 			
 			// Filter
 			for (let p in req.query) {
@@ -2546,13 +2546,13 @@ var getAllHandler = function (options) {
 					try {
 						let prop = PROP_FIELDS[PROP_FIELDS_OBJ[p]];
 						if (prop.type == 'String'){
-							projection[prop.schemaProp + '.' + p] = new RegExp(v, 'i'); // bỏ qua chữ hoa chữ thường
+							selection[prop.schemaProp + '.' + p] = new RegExp(v, 'i'); // bỏ qua chữ hoa chữ thường
 						}
 						else if (prop.type == 'Integer'){
-							projection[prop.schemaProp + '.' + p] = parseInt(v);
+							selection[prop.schemaProp + '.' + p] = parseInt(v);
 						}
 						else if (prop.type == 'Number'){
-							projection[prop.schemaProp + '.' + p] = parseFloat(v);
+							selection[prop.schemaProp + '.' + p] = parseFloat(v);
 						}
 					}
 					catch (e){
@@ -2563,8 +2563,8 @@ var getAllHandler = function (options) {
 					console.log('unexpected: ' + p);
 				}
 			}
-			console.log(projection);
-			ObjectModel.find(projection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
+			// console.log(selection);
+			ObjectModel.find(selection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
 				if (err){
 					console.log(err);
 					return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
@@ -2827,8 +2827,10 @@ var deleteHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canDelete = true;
 				}
-				if (objectInstance.created_by.userId == req.user.id){
-					canDelete = true; // Nếu mẫu do chính user tạo, có thể xóa
+				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+					canDelete = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
+					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
+					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
 				}
 
 				// ===
@@ -2940,8 +2942,10 @@ var putHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canEdit = true;
 				}
-				if (objectInstance.created_by.userId == req.user.id){
-					canEdit = true; // Nếu mẫu do chính user tạo, có thể cập nhật
+				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
+					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
+					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
 				}
 
 				// ===
@@ -3011,6 +3015,37 @@ var restart = function (res) {
 }
 
 global.myCustomVars.restart = restart;
+
+var getPublicIP = function (req) {
+	let publicIP = {
+	}
+	try {
+		publicIP['x-forwarded-for'] = req.headers['x-forwarded-for']
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['connection-remoteAddress'] = req.connection.remoteAddress
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['socket-remoteAddress'] = req.socket.remoteAddress
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['connection-socket-remoteAddress'] = req.connection.socket.remoteAddress;
+	}
+	catch (e){
+		console.log(e);
+	}
+	return publicIP;
+}
+global.myCustomVars.getPublicIP = getPublicIP;
 
 // ============= Generate Promise for async/await =======================
 

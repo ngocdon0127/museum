@@ -100,7 +100,13 @@
 												<td><a title="Lọc nhật ký theo hành động này" href="<%= path + '?action=' + action %>"><h4><%= actions[action].label %></h4></a> </td>
 												<td><a title="Lọc nhật ký theo loại dữ liệu này" href="<%= path + '?type=' + forms[log.objType].objectModelName %>"><span><%= forms[log.objType].objectModelLabel %></span></a>
 												</td>
-												<td><a title="Lọc nhật ký về mẫu dữ liệu này" href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a></td>
+												<td>
+													<% if (action != 'add-mdt') { %>
+													<a title="Lọc nhật ký về mẫu dữ liệu này" href="<%= path + '?object=' + logs[i].obj1._id %>"><span> <%= logs[i].obj1._id.toString().substring(logs[i].obj1._id.toString().length - 5) %></span></a>
+													<% } else { %>
+														<span><%= log.obj1.maDeTai %></span>
+													<% } %>
+												</td>
 												<td>
 													<% var basePath = forms[log.objType].basePath; %>
 													<% if (action == 'create') { %>
@@ -113,6 +119,12 @@
 														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Mẫu dữ liệu bị xóa</h4></a>
 													<% } else if ((action == 'approve') || (log.action == 'disapprove')) { %>
 														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
+													<% } else if (['assign', 'fire', 'grant-manager', 'revoke-manager'].indexOf(action) >= 0) { %>
+														<a href="/users/<%= log.obj1._id %>">
+															<h4>Chi tiết tài khoản</h4>
+														</a>
+														<br />
+														<span>(<%= log.obj1.fullname %>)</span>
 													<% } %>
 												</td>
 											</tr>

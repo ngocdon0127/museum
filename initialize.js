@@ -284,9 +284,9 @@ async(() => {
 		}))
 
 		for(let model of Models){
-			var projection = {'maDeTai.maDeTai': {$nin: maDeTais}};
+			var selection = {'maDeTai.maDeTai': {$nin: maDeTais}};
 			let rows = await(new Promise((resolve, reject) => {
-				model.model.find(projection, (err, instances) => {
+				model.model.find(selection, (err, instances) => {
 					if (err || !instances){
 						console.log(err);
 						// console.log(instances)

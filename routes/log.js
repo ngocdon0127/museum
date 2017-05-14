@@ -20,12 +20,12 @@ router.use(isLoggedIn);
 router.get('/', function(req, res, next) {
 	// 1 user chỉ được xem lịch sử của các mẫu vật do chính user đó tạo ra.
 	// Bao gồm cả các thao tác do Admin, Manager tác động lên mẫu vật đó.
-	let projection = {'obj1.created_by.userId': {$in: [mongoose.Types.ObjectId(req.session.userId), req.session.userId]}};
+	let selection = {'obj1.created_by.userId': {$in: [mongoose.Types.ObjectId(req.session.userId), req.session.userId]}};
 	if ('user' in req.query){
-		projection.userId = req.query.user;
+		selection.userId = req.query.user;
 	}
 	if ('action' in req.query){
-		projection.action = req.query.action;
+		selection.action = req.query.action;
 	}
 
 	if ('object' in req.query){
@@ -38,14 +38,14 @@ router.get('/', function(req, res, next) {
 		catch (e){
 			console.log(e);
 		}
-		projection['obj1._id'] = {$in: arr};
+		selection['obj1._id'] = {$in: arr};
 	}
 
 	if ('type' in req.query){
-		projection.objType = req.query.type;
+		selection.objType = req.query.type;
 	}
 
-	Log.find({$or: [projection]}, {}, {sort: {time: -1}}, function (err, logs) {
+	Log.find({$or: [selection]}, {}, {sort: {time: -1}}, function (err, logs) {
 		if (err){
 			console.log(err);
 			return res.status(500).json({
@@ -149,24 +149,28 @@ router.get('/', function(req, res, next) {
 router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res, next) {
 	async(() => {
 		// Chủ nhiệm đề tài 1 không thể xem log của chủ nhiệm đề tài 2
-		// var projection = {};
+		// var selection = {};
 		let user = await(PROMISES.getUser(req.session.userId)).userNormal;
-		console.log(user);
-		let projection = {};
+		// console.log(user);
+		let selection = {};
 		if (user.level == 'manager'){
-			// Chủ nhiệm đề tài chỉ được xem log liên quan đến mẫu vật trong đề tài của mình
-			console.log('chủ nhiệm')
-			projection['obj1.maDeTai.maDeTai'] = {$eq: user.maDeTai};
+			selection['$or'] = [
+				{'obj1.maDeTai.maDeTai': {$eq: user.maDeTai}},  // Chủ nhiệm đề tài được xem log liên quan đến mẫu vật trong đề tài của mình
+				{'obj2.maDeTai.maDeTai': {$eq: user.maDeTai}},
+				{'obj1.maDeTai': {$eq: user.maDeTai}},          // Chủ nhiệm đề tài được xem log liên quan đến tài khoản trong đề tài của mình
+				{'obj2.maDeTai': {$eq: user.maDeTai}},
+				{userId: req.session.userId}                    // Chủ nhiệm đề tài được xem log liên quan đến tài khoản trong đề tài của mình, do mình thực hiện, hình như hơi thừa dòng này
+			]
 		}
 		else {
 			// Admin được xem tất cả log
-			console.log('level: ' + user.level);
+			// console.log('level: ' + user.level);
 		}
 		if ('user' in req.query){
-			projection.userId = req.query.user;
+			selection.userId = req.query.user;
 		}
 		if ('action' in req.query){
-			projection.action = req.query.action;
+			selection.action = req.query.action;
 		}
 
 		if ('object' in req.query){
@@ -179,16 +183,17 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 			catch (e){
 				console.log(e);
 			}
-			projection['obj1._id'] = {$in: arr};
+			selection['obj1._id'] = {$in: arr};
 		}
 
 		if ('type' in req.query){
-			projection.objType = req.query.type;
+			selection.objType = req.query.type;
 		}
 
-		console.log(projection);
+		console.log(selection);
 
-		Log.find(projection, {}, {sort: {time: -1}}, function (err, logs) {
+		Log.find(selection, {}, {sort: {time: -1}}, function (err, logs) {
+		// Log.find({$or: [selection, selection1]}, {}, {sort: {time: -1}}, function (err, logs) {
 			if (err){
 				console.log(err);
 				return res.status(500).json({

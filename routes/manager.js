@@ -507,9 +507,9 @@ router.get('/statistic', (req, res, next) => {
 			dataForCharts[maDeTai] = [];
 			var idxColor = 0;
 			for(model of Models){
-				var projection = {deleted_at: {$eq: null}, 'maDeTai.maDeTai': {$eq: maDeTai}};
+				var selection = {deleted_at: {$eq: null}, 'maDeTai.maDeTai': {$eq: maDeTai}};
 				let rows = await(new Promise((resolve, reject) => {
-					model.model.find(projection, (err, instances) => {
+					model.model.find(selection, (err, instances) => {
 						if (err || !instances){
 							resolve([]);
 						}

@@ -1,6 +1,6 @@
 {
-	"cleanUser": false,
-	"cleanConfigFiles": false,
+	"cleanUser": true,
+	"cleanConfigFiles": true,
 	"cleanAutoCompletion": true,
 	"cleanData": true,
 	"fixMaDeTai": true,
@@ -641,8 +641,8 @@
 			"roles": ["content"]
 		},
 		{
-			"username": "admin@gmail.com",
-			"password": "123123",
+			"username": "kevinhoa95@gmail.com",
+			"password": "museumhust1536",
 			"maDeTai": "DT-001",
 			"fullname": "Hola",
 			"roles": ["content", "admin"]

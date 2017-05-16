@@ -21,9 +21,52 @@ router.use(function (req, res, next) {
 var async = require('asyncawait/async')
 var await = require('asyncawait/await')
 
+router.get('/agent', (req, res) => {
+	let agent = req.headers['user-agent'];
+	let uap = require('ua-parser');
+	let eua = require('express-useragent');
+	let ua = require('useragent');
+	let result = {}
+	result['ua-parser'] = uap.parse(agent);
+	result['useragent'] = ua.parse(agent)
+	try {
+		result['x-forwarded-for'] = req.headers['x-forwarded-for']; 
+	    result['connection.remoteAddress'] = req.connection.remoteAddress
+	    result['socket.remoteAddress'] = req.socket.remoteAddress
+	    result['connection.socket.remoteAddress;'] = req.connection.socket.remoteAddress;
+	}
+	catch (e){
+		console.log(e);
+	}
+	return res.json(result)
+})
+
 router.get('/home', isLoggedIn, function (req, res) {
 	// res.render('home', {user: req.user, path: req.path});
-	res.redirect('/app/#!/');
+	acl.isAllowed(req.session.userId, '/app', 'view', function (err, result) {
+			if (err){
+				console.log(err);
+				res.set('Content-Type', 'text/html; charset=utf8');
+				return res.end('Có lỗi xảy ra.')
+			}
+			// console.log('result: ', result);
+			if (result){
+				return res.redirect('/app')
+			}
+			else {
+				res.set('Content-Type', 'text/html; charset=utf8');
+				return res.end(`
+					<body vlink='blue'>
+						<center style='margin-top: 50px'>
+							<h2>Tài khoản của bạn chưa được cấp phát (hoặc đã bị thu hồi) quyền nhập liệu.<h2>
+							<h2>Vui lòng liên hệ Chủ nhiệm đề tài để được hỗ trợ.</h2>
+							<h3><a style='text-decoration: none' href="/users/me">Trang cá nhân</a><br><a style='text-decoration: none' href="/auth/logout">Đăng xuất</a></h3>
+						</center>
+					</body>
+				`);
+			}
+		});
+	// res.redirect('/app/#!/');
 })
 
 router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {
@@ -282,7 +325,7 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 							// Chỉ admin mới có thể cấp phát quyền admin, manager tại route '/admin/...'
 							var canAssignRole = false;
 							
-							if (myRoles.indexOf('admin') >= 0){
+							if ((myRoles.indexOf('admin') >= 0) && (roles[i].maDeTai == user.maDeTai)){
 								canAssignRole = true;
 							}
 							if ((user.maDeTai == req.user.maDeTai) && (roles[i].maDeTai == user.maDeTai)){
@@ -314,7 +357,11 @@ router.post('/config', uploads.single('photo'), aclMiddleware('/config', 'create
 					}
 					fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
 					console.log("OK. restarting server");
-					return restart(res);
+					process.send({actionType: 'restart', target: 'all'});
+					// return restart(res);
+					return res.status(200).json({
+						status: 'success'
+					})
 				}
 				else {
 					return res.status(400).json({
@@ -397,7 +444,12 @@ router.post('/config/roles', uploads.single('photo'), aclMiddleware('/config', '
 	// console.log(r);
 	fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
 
-	return restart(res);
+	process.send({actionType: 'restart', target: 'all'});
+	return res.status(200).json({
+		status: 'success'
+	})
+
+	// return restart(res);
 })
 
 router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/config', 'delete'), function (req, res, next) {
@@ -442,7 +494,11 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 				}
 			}
 			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(aclRules, null, 4));
-			return restart(res);
+			process.send({actionType: 'restart', target: 'all'});
+			return res.status(200).json({
+				status: 'success'
+			})
+			// return restart(res);
 		}
 		else {
 			return res.status(400).json({

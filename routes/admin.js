@@ -6,6 +6,7 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var SharedData = mongoose.model('SharedData');
+var Log = mongoose.model('Log');
 
 var aclMiddleware = global.myCustomVars.aclMiddleware;
 var acl = global.myCustomVars.acl;
@@ -21,6 +22,7 @@ var responseError = global.myCustomVars.responseError;
 //  responseError (req, dir, res, errCode, props, values)
 var responseSuccess = global.myCustomVars.responseSuccess;
 //  responseSuccess (res, props, values)
+var getPublicIP = global.myCustomVars.getPublicIP;
 
 // console.log(LEVEL)
 
@@ -152,8 +154,21 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 					})
 				}
 				else{
+					let log = new Log();
+					log.userId = req.session.userId;
+					log.userFullName = req.user.fullname;
+					log.action = 'grant-manager';
+					log.time = new Date();
+					log.objType = 'user';
+					let u1 = JSON.parse(JSON.stringify(user));
+					delete u1.password;
+					delete u1.lastLogin;
+					delete u1.created_at;
+					delete u1.avatar;
+					delete u1.forgot_password;
+					log.obj1 = u1;
+
 					user.maDeTai = req.body.maDeTai;
-					// user.level = PERM_MANAGER;
 					user.save((err) => {
 						if (err){
 							res.status(500).json({
@@ -163,42 +178,6 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 						}
 						else {
 							if (maDeTais.indexOf(req.body.maDeTai) < 0){
-								// === Automatic add new deTai ===
-
-								// result.deTai.push({
-								// 	maDeTai: req.body.maDeTai
-								// });
-								// result.save((err) => {
-								// 	if (err){
-								// 		console.log(err);
-								// 		return res.status(500).json({
-								// 			status: 'error',
-								// 			error: 'Error while saving new MaDeTai'
-								// 		})
-								// 	}
-								// 	else {
-								// 		var data = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
-								// 		if (req.body.userId in data){
-								// 			let r = data[req.body.userId];
-								// 			if (r.roles.indexOf('manager') < 0){
-								// 				r.roles.push('manager');
-								// 				fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
-								// 			}
-
-								// 		}
-								// 		else {
-								// 			data[req.body.userId] = {
-								// 				userId: req.body.userId,
-								// 				roles: ["manager"]
-								// 			}
-								// 			fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
-								// 		}
-								// 		return restart(res);
-								// 	}
-								// })
-								// ================================
-
-								// Do not add new deTai
 								return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 							}
 							else {
@@ -218,7 +197,52 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 									}
 									fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
 								}
-								return restart(res);
+								acl.addUserRoles(req.body.userId, 'manager', (err) => {
+									if (err){
+										console.log(err);
+										// TODO
+										// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
+										// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
+										// nên cần đánh dấu, restart toàn bộ worker
+										try {
+											process.send({actionType: 'restart', target: 'all'});
+										}
+										catch (e){
+											console.log(e);
+										}
+										return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
+									}
+									// TODO
+									// Chỗ này cần gửi message về Master.
+									// Yêu cầu restart tất cả các worker khác
+									
+									try {
+										process.send({actionType: 'restart', target: 'other'});
+									}
+									catch (e){
+										console.log(e);
+									}
+									let u2 = JSON.parse(JSON.stringify(user));
+									delete u2.password;
+									delete u2.lastLogin;
+									delete u2.created_at;
+									delete u2.avatar;
+									delete u2.forgot_password;
+									log.obj2 = u2 // Mã đề tài mới sẽ lưu tại đây.
+									log.extra = {
+										agent: req.headers['user-agent'],
+										localIP: req.body.localIP,
+										publicIP: getPublicIP(req)
+									}
+									// console.log('saving log');
+									log.save((err) => {
+										if (err){
+											console.log(err);
+										}
+									});
+									return responseSuccess(res, [], []);
+								})
+								// return restart(res);
 							}
 						}
 					})
@@ -310,7 +334,57 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 				}
 				fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data, null, 4));
 			}
-			return restart(res);
+			acl.removeUserRoles(req.body.userId, 'manager', (err) => {
+				if (err){
+					console.log(err);
+					// TODO
+					// Chỗ này cần sử dụng restart(res) để dừng worker hiện tại. 
+					// Vì có sự thay đổi về ACL nhưng cập nhật bị lỗi
+					// nên cần đánh dấu, restart toàn bộ worker
+					try {
+						process.send({actionType: 'restart', target: 'all'});
+					}
+					catch (e){
+						console.log(e);
+					}
+					return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại']);
+				}
+				// TODO
+				// Chỗ này cần gửi message về Master.
+				// Yêu cầu restart tất cả các worker khác
+				try {
+					process.send({actionType: 'restart', target: 'other'});
+				}
+				catch (e){
+					console.log(e);
+				}
+				let log = new Log();
+				log.userId = req.session.userId;
+				log.userFullName = req.user.fullname;
+				log.action = 'revoke-manager';
+				log.time = new Date();
+				log.objType = 'user';
+				let u1 = JSON.parse(JSON.stringify(user));
+				delete u1.password;
+				delete u1.lastLogin;
+				delete u1.created_at;
+				delete u1.avatar;
+				delete u1.forgot_password;
+				log.obj1 = u1;
+				log.extra = {
+					agent: req.headers['user-agent'],
+					localIP: req.body.localIP,
+					publicIP: getPublicIP(req)
+				}
+				// console.log('saving log');
+				log.save((err) => {
+					if (err){
+						console.log(err);
+					}
+				});
+				return responseSuccess(res, [], []);
+			})
+			// return restart(res);
 		}
 	}
 	})();
@@ -378,6 +452,20 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 						return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 					}
 					else {
+						let log = new Log();
+						log.userId = req.session.userId;
+						log.userFullName = req.user.fullname;
+						log.action = 'assign';
+						log.time = new Date();
+						log.objType = 'user';
+						let u1 = JSON.parse(JSON.stringify(user));
+						delete u1.password;
+						delete u1.lastLogin;
+						delete u1.created_at;
+						delete u1.avatar;
+						delete u1.forgot_password;
+						log.obj1 = u1;
+
 						user.maDeTai = req.body.maDeTai;
 						user.save((err) => {
 							if (err){
@@ -385,6 +473,24 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 								return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
 							}
 							else {
+								let u2 = JSON.parse(JSON.stringify(user));
+								delete u2.password;
+								delete u2.lastLogin;
+								delete u2.created_at;
+								delete u2.avatar;
+								delete u2.forgot_password;
+								log.obj2 = u2 // Mã đề tài mới sẽ lưu tại đây.
+								log.extra = {
+									agent: req.headers['user-agent'],
+									localIP: req.body.localIP,
+									publicIP: getPublicIP(req)
+								}
+								// console.log('saving log');
+								log.save((err) => {
+									if (err){
+										console.log(err);
+									}
+								});
 								return responseSuccess(res, [], []);
 							}
 						})
@@ -403,6 +509,20 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 					return responseError(req, '', res, 400, ['error', 'newMDT'], ['Mã đề tài không hợp lệ', req.body.maDeTai]);
 				}
 				else {
+					let log = new Log();
+					log.userId = req.session.userId;
+					log.userFullName = req.user.fullname;
+					log.action = 'assign';
+					log.time = new Date();
+					log.objType = 'user';
+					let u1 = JSON.parse(JSON.stringify(user));
+					delete u1.password;
+					delete u1.lastLogin;
+					delete u1.created_at;
+					delete u1.avatar;
+					delete u1.forgot_password;
+					log.obj1 = u1;
+
 					user.maDeTai = req.body.maDeTai;
 					user.save((err) => {
 						if (err){
@@ -410,6 +530,24 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 							return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
 						}
 						else {
+							let u2 = JSON.parse(JSON.stringify(user));
+							delete u2.password;
+							delete u2.lastLogin;
+							delete u2.created_at;
+							delete u2.avatar;
+							delete u2.forgot_password;
+							log.obj2 = u2 // Mã đề tài mới sẽ lưu tại đây.
+							log.extra = {
+								agent: req.headers['user-agent'],
+								localIP: req.body.localIP,
+								publicIP: getPublicIP(req)
+							}
+							// console.log('saving log');
+							log.save((err) => {
+								if (err){
+									console.log(err);
+								}
+							});
 							return responseSuccess(res, [], []);
 						}
 					})
@@ -477,6 +615,19 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 				return responseError(req, '', res, 403, ['error'], ['Không thể thu hồi tất cả quyền hạn của 1 manager bằng thao tác này. Thay vào đó hãy thu hồi quyền manager (Revoke Manager Role) và thử lại']);
 			}
 			else {
+				let log = new Log();
+				log.userId = req.session.userId;
+				log.userFullName = req.user.fullname;
+				log.action = 'fire';
+				log.time = new Date();
+				log.objType = 'user';
+				let u1 = JSON.parse(JSON.stringify(user));
+				delete u1.password;
+				delete u1.lastLogin;
+				delete u1.created_at;
+				delete u1.avatar;
+				delete u1.forgot_password;
+				log.obj1 = u1;
 
 				user.maDeTai = '';
 				user.save((err) => {
@@ -485,7 +636,47 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 						return responseError(req, '', res, 500, ['error'], ['Error while saving user info'])
 					}
 					else {
-						return responseSuccess(res, [], []);
+						let data_ = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl.json')));
+						delete data_[user.id];
+						fs.writeFileSync(path.join(__dirname, '../config/acl.json'), JSON.stringify(data_, null, 4));
+						acl.removeUserRoles(user.id, userRoles, (err) => {
+							if (err){
+								console.log(err);
+								try {
+									process.send({actionType: 'restart', target: 'all'})
+								}
+								catch (e){
+									console.log(e);
+								}
+								return responseError(req, '', res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại'])
+							}
+							try {
+								process.send({actionType: 'restart', target: 'other'})
+							}
+							catch (e){
+								console.log(e);
+							}
+							let u2 = JSON.parse(JSON.stringify(user));
+							delete u2.password;
+							delete u2.lastLogin;
+							delete u2.created_at;
+							delete u2.avatar;
+							delete u2.forgot_password;
+							log.obj2 = u2 // Mã đề tài mới sẽ lưu tại đây.
+							log.extra = {
+								agent: req.headers['user-agent'],
+								localIP: req.body.localIP,
+								publicIP: getPublicIP(req)
+							}
+							// console.log('saving log');
+							log.save((err) => {
+								if (err){
+									console.log(err);
+								}
+							});
+							return responseSuccess(res, [], []);
+						})
+						// return restart(res)
 					}
 				})
 			}
@@ -527,14 +718,46 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 				newRole = newRole.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o"); 
 				newRole = newRole.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u"); 
 				newRole = newRole.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y"); 
-				newRole = newRole.replace(/đ/g, "d"); 
-				newRole = newRole.replace(/ /g, "-");
+				newRole = newRole.replace(/đ/g, "d");
+				newRole = newRole.replace(/[^a-z0-9-._]/g, "-");
 				roles[newRole] = JSON.parse(JSON.stringify(roles['content']));
 				roles[newRole].maDeTai = req.body.newMaDeTai;
 				roles[newRole].role = newRole;
 				roles[newRole].rolename = 'Nhân viên ' + req.body.newMaDeTai;
 				fs.writeFileSync(path.join(__dirname, '../config/roles.json'), JSON.stringify(roles, null, 4));
-				return restart(res);
+				let log = new Log();
+				log.userId = req.session.userId;
+				log.userFullName = req.user.fullname;
+				log.action = 'add-mdt';
+				log.time = new Date();
+				log.objType = 'detai';
+				let u1 = {
+					maDeTai: req.body.newMaDeTai,
+					tenDeTai: req.body.tenDeTai,
+					donViChuTri: req.body.donViChuTri
+				}
+				log.obj1 = u1;
+				log.extra = {
+					agent: req.headers['user-agent'],
+					localIP: req.body.localIP,
+					publicIP: getPublicIP(req)
+				}
+				// console.log('saving log');
+				log.save((err) => {
+					if (err){
+						console.log(err);
+					}
+				});
+				try {
+					process.send({actionType: 'restart', target: 'all'});
+				}
+				catch (e){
+					console.log(e);
+					return restart(res);
+				}
+				// return restart(res);
+				
+				return responseSuccess(res, [], []);
 			}
 		}
 		else {

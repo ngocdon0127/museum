@@ -13,9 +13,6 @@ const nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport(mailconfig);
 
-// var PERM_ADMIN = global.myCustomVars.PERM_ADMIN;
-// var PERM_MANAGER = global.myCustomVars.PERM_MANAGER;
-// var PERM_USER = global.myCustomVars.PERM_USER;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,11 +25,9 @@ router.get('/notme', (req, res, next) => {
 })
 
 router.get("/login", function (req, res) {
-	// console.log('COOKIE');
-	// console.log(req.headers.cookie);
-	// console.log('=========');
-	// console.log(req.cookies);
-	// console.log('COOKIE');
+	if (req.isAuthenticated()){
+		return res.redirect('/home')
+	}
 	let oldUser = req.cookies.username;
 	if (req.cookies.username){
 		User.findOne({username: oldUser}, (err, user) => {
@@ -88,7 +83,10 @@ router.get("/login", function (req, res) {
 // });
 
 router.post("/login", function (req, res, next) {
-	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/users/me';
+	if (req.isAuthenticated()){
+		return res.redirect('/home')
+	}
+	var redirectBack = (req.body.redirectBack) ? req.body.redirectBack : '/home';
 	passport.authenticate('local-login', {
 		successRedirect: redirectBack,
 		failureRedirect: "login",
@@ -245,25 +243,6 @@ router.post("/signup", passport.authenticate('local-signup', {
 	failureRedirect: 'signup',
 	failureFlash: true
 }));
-
-router.get('/settings', isLoggedIn, function (req, res, next) {
-	res.render('settings', {title: 'Settings', user: req.user});
-})
-
-router.post('/settings', isLoggedIn, function (req, res, next) {
-	User.findById(req.user, function (err, user) {
-		if (err || !user){
-			console.log(err);
-			return res.redirecr('/book/mybooks');
-		}
-		user.fullname = req.body.fullname;
-		user.city = req.body.city;
-		user.state = req.body.state;
-		user.save(function (err) {
-			return res.redirect('/book/mybooks');
-		})
-	})
-})
 
 function isLoggedIn (req, res, next) {
 	if (req.isAuthenticated()){

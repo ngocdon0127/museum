@@ -765,11 +765,27 @@
 				</tr>
 			</table>
 		</div>
+		<div style="height: 50px;"></div>
+	<div class="bottom-nav">
 		<center>
-			<button style="margin-top: 30px;" type="submit" class="btn btn-success btn-lg">Thêm mẫu</button>
-			<button style="margin-top: 30px;" ng-click="saveCookies()" type="button" class="btn btn-success btn-lg">Lưu bản nháp</button>
-			<button style="margin-top: 30px;" ng-click="getCookies()" type="button" class="btn btn-success btn-lg">Lấy lại bản nháp</button>
+			<button id="add-post" type="submit" class="btn btn-success">
+				<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;  Lưu mẫu
+			</button>
+			<button ng-click="saveCookies()" type="button" class="btn btn-success">
+				<span class="glyphicon glyphicon-save"></span>&nbsp; Lưu bản nháp
+			</button>
+			<button ng-click="getCookies()" type="button" class="btn btn-success">
+				<span class="glyphicon glyphicon-open"></span>&nbsp; Lấy lại bản nháp
+			</button>
+
+			<div class="pull-right">
+				<button id="back-to-top" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-chevron-up"></span> Top
+				</button>
+			</div>
+		
 		</center>
+	</div>
 	</form>
 </div>
 <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>

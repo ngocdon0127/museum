@@ -1,1117 +1,1391 @@
 [
-	{
-		"name": "soHieuBTTNVN",
-		"schemaProp": "soHieu",
-		"label": "Số hiệu BTTNVN",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "soHieuBaoTangCS",
-		"schemaProp": "soHieu",
-		"label": "Số hiệu Bảo tàng cơ sở",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "soHieuThucDia",
-		"schemaProp": "soHieu",
-		"label": "Số hiệu thực địa",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "kyHieuMauVatKhac",
-		"schemaProp": "soHieu",
-		"label": "Các ký hiệu mẫu vật khác",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thongTinKhac1",
-		"schemaProp": "soHieu",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "tenTheoQuocTe",
-		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "nguoiDinhTen",
-		"schemaProp": "tenMau",
-		"label": "Người định tên",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "ngayDinhTen",
-		"schemaProp": "tenMau",
-		"label": "Ngày định tên",
-		"required": false,
-		"money": false,
-		"type": "Date"
-	},
-	{
-		"name": "tenVietNam",
-		"schemaProp": "tenMau",
-		"label": "Tên Việt Nam (phổ thông)",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "tenDiaPhuong",
-		"schemaProp": "tenMau",
-		"label": "Tên địa phương",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "tenTiengAnh",
-		"schemaProp": "tenMau",
-		"label": "Tên tiếng Anh",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "tenTheoBaoTang",
-		"schemaProp": "tenMau",
-		"label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "thongTinKhac2",
-		"schemaProp": "tenMau",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "soLuongTieuBan",
-		"schemaProp": "soLuongChatLuong",
-		"label": "Số lượng tiêu bản",
-		"required": false,
-		"money": false,
-		"type": "Integer",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "loaiMauVat",
-		"schemaProp": "soLuongChatLuong",
-		"label": "Loại mẫu vật",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "kichThuocMau",
-		"schemaProp": "soLuongChatLuong",
-		"label": "Kích thước mẫu vật(dài x rộng x cao)",
-		"required": false,
-		"money": true,
-		"type": "Mixed",
-		"subProps": ["chieuCao", "donVi_chieuCao", "chieuRong", "donVi_chieuRong", "chieuDai", "donVi_chieuDai", "trongLuong", "donVi_trongLuong", "theTich", "donVi_theTich"]
-	},
-	{
-		"name": "chieuCao",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Chiều cao",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "donVi_chieuCao",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Đơn vị chiều cao",
-		"required": false,
-		"money": false,
-		"type": "Unit",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "chieuRong",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Chiều rộng",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "donVi_chieuRong",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Đơn vị chiều rộng",
-		"required": false,
-		"money": false,
-		"type": "Unit",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "chieuDai",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Chiều dài",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "donVi_chieuDai",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Đơn vị chiều dài",
-		"required": false,
-		"money": false,
-		"type": "Unit",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "trongLuong",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Trọng lượng",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "donVi_trongLuong",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Đơn vị trọng lượng",
-		"required": false,
-		"money": false,
-		"type": "Unit",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "theTich",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Thể tích",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "donVi_theTich",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Đơn vị thể tích",
-		"required": false,
-		"money": false,
-		"type": "Unit",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "tinhTrangMau",
-		"schemaProp": "soLuongChatLuong",
-		"label": "Tình trạng mẫu vật",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thongTinKhac3",
-		"schemaProp": "soLuongChatLuong",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "thoiGianThuMau",
-		"schemaProp": "duLieuThuMau",
-		"label": "Thời gian thu mẫu",
-		"required": false,
-		"money": true,
-		"type": "Date",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiThuMau",
-		"schemaProp": "duLieuThuMau",
-		"label": "Người thu mẫu",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "coQuanThuMau",
-		"schemaProp": "duLieuThuMau",
-		"label": "Cơ quan thu mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "phuongPhapThuMau",
-		"schemaProp": "duLieuThuMau",
-		"label": "Phương pháp thu mẫu",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "quocGia",
-		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Quốc gia",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "tinh",
-		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Tỉnh",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "huyen",
-		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Huyện",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "xa",
-		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Xã",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "thon",
-		"schemaProp": "duLieuThuMau.diaDiemThuMau",
-		"label": "Thôn/bản",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "viDo",
-		"schemaProp": "duLieuThuMau.viTriToaDo",
-		"label": "Vĩ độ N",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"autoCompletion": false
-	},
-	{
-		"name": "kinhDo",
-		"schemaProp": "duLieuThuMau.viTriToaDo",
-		"label": "Kinh độ E",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"autoCompletion": false
-	},
-	{
-		"name": "thongTinDuAn",
-		"schemaProp": "duLieuThuMau",
-		"label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "ghiChepThucDia",
-		"schemaProp": "duLieuThuMau",
-		"label": "Ghi chép thực địa",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^(.|\r|\n){0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "banDo",
-		"schemaProp": "duLieuThuMau",
-		"label": "Bản đồ",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(zip|rar)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thongTinKhac4",
-		"schemaProp": "duLieuThuMau",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "thoiGianGiamDinh",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Thời gian phân tích/giám định/định loại mẫu",
-		"required": false,
-		"money": false,
-		"type": "Date",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiGiamDinh",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Người phân tích/giám định/định loại mẫu",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "coQuanToChucGiamDinh",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "taiLieuPhanTich",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Tài liệu phân tích/giám định/phân loại đi kèm",
-		"required": false,
-		"money": true,
-		"type": "Mixed",
-		"subProps": ["taiLieuPhanTichStr", "taiLieuPhanTichFile"]
-	},
-	{
-		"name": "taiLieuPhanTichStr",
-		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
-		"label": "Tài liệu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "taiLieuPhanTichFile",
-		"schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
-		"label": "Đính kèm",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
-	},
-	{
-		"name": "phanTichQuangHoc",
-		"schemaProp": "media",
-		"label": "Các phân tích quang học",
-		"required": false,
-		"money": false,
-		"type": "Mixed",
-		"subProps": ["phanTichQuangHocStr", "phanTichQuangHocFile"]
-	},
-	{
-		"name": "phanTichQuangHocStr",
-		"schemaProp": "duLieuPhanTichMau.phanTichQuangHocMixed",
-		"label": "Phân tích",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "phanTichQuangHocFile",
-		"schemaProp": "duLieuPhanTichMau.phanTichQuangHocMixed",
-		"label": "Đính kèm",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "ketQuaThanhPhanVatChat",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Các kết quả phân tích thành phần vật chất",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "ketQuaPhanTichDinhTuoi",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Kết quả phân tích đồng vị và định tuổi",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "phanTichKhac",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Các phân tích khác",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "dacDiemDiaChat",
-		"schemaProp": "duLieuPhanTichMau.duLieuDiaChat",
-		"label": "Đặc điểm địa chất",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "loaiHinhNguonGoc",
-		"schemaProp": "duLieuPhanTichMau.duLieuDiaChat",
-		"label": "Loại hình nguồn gốc",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thongTinKhac5",
-		"schemaProp": "duLieuPhanTichMau",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "anhMauVat",
-		"schemaProp": "media",
-		"label": "Ảnh mẫu vật",
-		"required": false,
-		"money": true,
-		"type": "File",
-		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "hinhAnhNgoaiThucDia",
-		"schemaProp": "media",
-		"label": "Hình ảnh mẫu vật ngoài thực địa",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "videoStr",
-		"schemaProp": "media",
-		"label": "Thông tin về phim, video",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "videoFile",
-		"schemaProp": "media",
-		"label": "Đính kèm phim, video",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"maxSize": 104857600,
-		"regex": "^.+\\.(mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
-	},
-	{
-		"name": "hinhAnhDinhKem",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Hình ảnh đính kèm Xử lý chế tác",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "dinhKemXuLyCheTac",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Đính kèm Xử lý chế tác",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
-	},
-	{
-		"name": "thuocTinhXuLyCheTac",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Thuộc tính Xử lý chế tác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "phuongThucXuLy",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Phương thức xử lý chế tác",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thoiGianXuLy",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Thời gian xử lý chế tác",
-		"required": false,
-		"money": false,
-		"type": "Date"
-	},
-	{
-		"name": "nguoiXuLy",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Người xử lý, chế tác mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "coQuanXuLy",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Cơ quan xử lý, chế tác mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "anhMauSauCheTac",
-		"schemaProp": "media.xuLyCheTac",
-		"label": "Ảnh mẫu sau chế tác",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thongTinKhac6",
-		"schemaProp": "media",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "loaiMau",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Loại mẫu",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "hinhDangMauTonTai",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Hình dáng mẫu, dạng tồn tại",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "mauSac",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Màu sắc",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thanhPhanKhoangVat",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Thành phần khoáng vật",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "tinhChatVatLy",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Tính chất vật lý",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "congThucHoaHoc",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Công thức hóa học",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thanhPhanHoaHoc",
-		"schemaProp": "dacDiemMauVat",
-		"label": "Thành phần hoá học",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "phanBoVietNam",
-		"schemaProp": "phanBoVaSuDung",
-		"label": "Phân bố Việt Nam",
-		"required": false,
-		"money": true,
-		"type": "Mixed",
-		"subProps": ["phanBoVietNamStr", "phanBoVietNamFile"]
-	},
-	{
-		"name": "phanBoVietNamStr",
-		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
-		"label": "Phân bố",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "phanBoVietNamFile",
-		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
-		"label": "Đính kèm",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
-	},
-	{
-		"name": "phanBoTrenTheGioi",
-		"schemaProp": "phanBoVaSuDung",
-		"label": "Phân bố trên thế giới",
-		"required": false,
-		"money": false,
-		"type": "Mixed",
-		"subProps": ["phanBoTrenTheGioiStr", "phanBoTrenTheGioiFile"]
-	},
-	{
-		"name": "phanBoTrenTheGioiStr",
-		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
-		"label": "Phân bố",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "phanBoTrenTheGioiFile",
-		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
-		"label": "Đính kèm",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
-	},
-	{
-		"name": "giaTriSuDung",
-		"schemaProp": "phanBoVaSuDung",
-		"label": "Giá trị sử dụng",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"autoCompletion": true
-	},
-	{
-		"name": "thongTinKhac7",
-		"schemaProp": "phanBoVaSuDung",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "ngayNhapMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Ngày nhập mẫu",
-		"required": false,
-		"money": false,
-		"type": "Date",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiGiao",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Người giao mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiNhan",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Người nhận mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "coQuanNhapVatMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Cơ quan nhập mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "hinhThucNhapMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Hình thức nhập mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "traoDoiMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Trao đổi mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "vayMuon",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Vay mượn mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "noiLuuTruMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Nơi lưu giữ mẫu",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": true
-	},
-	{
-		"name": "phong",
-		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
-		"label": "Phòng",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "tuGia",
-		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
-		"label": "Tủ, giá",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "ngan",
-		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
-		"label": "Ngăn tủ, ngăn giá",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "hop",
-		"schemaProp": "luuTruBaoQuan.khuLuuTruMau",
-		"label": "Hộp",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "giayPhepNhapMau",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Giấy phép nhập mẫu",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "hoSoNhapMauVatDiKem",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Hồ sơ nhập mẫu vật đi kèm",
-		"required": false,
-		"money": false,
-		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiLapPhieuMauVat",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Người lập phiếu mẫu vật",
-		"required": false,
-		"money": true,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "nguoiNhapVaoPhanMem",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Người nhập thông tin vào phần mềm",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "thongTinKhac8",
-		"schemaProp": "luuTruBaoQuan",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "thongTinKhac9",
-		"schemaProp": "thongTinKhac",
-		"label": "Thông tin khác",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$",
-		"autoCompletion": false
-	},
-	{
-		"name": "maDeTai",
-		"schemaProp": "maDeTai",
-		"label": "Mã đề tài",
-		"required": false,
-		"money": true,
-		"type": "String"
-	},
-	{
-		"name": "fDiaDiemThuMau",
-		"schemaProp": "flag",
-		"label": "Địa điểm thu mẫu",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "fApproved",
-		"schemaProp": "flag",
-		"label": "Đã kiểm chứng",
-		"required": false,
-		"money": false,
-		"type": "String"
-	},
-	{
-		"name": "soHieu",
+    {
+        "name": "soHieuBTTNVN",
+        "schemaProp": "soHieu",
+        "label": "Số hiệu BTTNVN",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "soHieuBaoTangCS",
+        "schemaProp": "soHieu",
+        "label": "Số hiệu Bảo tàng cơ sở",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "soHieuThucDia",
+        "schemaProp": "soHieu",
+        "label": "Số hiệu thực địa",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "kyHieuMauVatKhac",
+        "schemaProp": "soHieu",
+        "label": "Các ký hiệu mẫu vật khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thongTinKhac1",
+        "schemaProp": "soHieu",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac1Str",
+            "thongTinKhac1File"
+        ]
+    },
+    {
+        "name": "thongTinKhac1Str",
+        "schemaProp": "soHieu.thongTinKhac1Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac1File",
+        "schemaProp": "soHieu.thongTinKhac1Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "tenTheoQuocTe",
+        "schemaProp": "tenMau",
+        "label": "Tên mẫu vật theo hệ thống phân loại của Quốc tế",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "nguoiDinhTen",
+        "schemaProp": "tenMau",
+        "label": "Người định tên",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "ngayDinhTen",
+        "schemaProp": "tenMau",
+        "label": "Ngày định tên",
+        "required": false,
+        "money": false,
+        "type": "Date"
+    },
+    {
+        "name": "tenVietNam",
+        "schemaProp": "tenMau",
+        "label": "Tên Việt Nam (phổ thông)",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "tenDiaPhuong",
+        "schemaProp": "tenMau",
+        "label": "Tên địa phương",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "tenTiengAnh",
+        "schemaProp": "tenMau",
+        "label": "Tên tiếng Anh",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "tenTheoBaoTang",
+        "schemaProp": "tenMau",
+        "label": "Tên mẫu vật theo hệ thống phân loại của BTTNVN",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "thongTinKhac2",
+        "schemaProp": "tenMau",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac2Str",
+            "thongTinKhac2File"
+        ]
+    },
+    {
+        "name": "thongTinKhac2Str",
+        "schemaProp": "tenMau.thongTinKhac2Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac2File",
+        "schemaProp": "tenMau.thongTinKhac2Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "soLuongTieuBan",
+        "schemaProp": "soLuongChatLuong",
+        "label": "Số lượng tiêu bản",
+        "required": false,
+        "money": false,
+        "type": "Integer",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "loaiMauVat",
+        "schemaProp": "soLuongChatLuong",
+        "label": "Loại mẫu vật",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "kichThuocMau",
+        "schemaProp": "soLuongChatLuong",
+        "label": "Kích thước mẫu vật(dài x rộng x cao)",
+        "required": false,
+        "money": true,
+        "type": "Mixed",
+        "subProps": [
+            "chieuCao",
+            "donVi_chieuCao",
+            "chieuRong",
+            "donVi_chieuRong",
+            "chieuDai",
+            "donVi_chieuDai",
+            "trongLuong",
+            "donVi_trongLuong",
+            "theTich",
+            "donVi_theTich"
+        ]
+    },
+    {
+        "name": "chieuCao",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Chiều cao",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "donVi_chieuCao",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Đơn vị chiều cao",
+        "required": false,
+        "money": false,
+        "type": "Unit",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "chieuRong",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Chiều rộng",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "donVi_chieuRong",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Đơn vị chiều rộng",
+        "required": false,
+        "money": false,
+        "type": "Unit",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "chieuDai",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Chiều dài",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "donVi_chieuDai",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Đơn vị chiều dài",
+        "required": false,
+        "money": false,
+        "type": "Unit",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "trongLuong",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Trọng lượng",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "donVi_trongLuong",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Đơn vị trọng lượng",
+        "required": false,
+        "money": false,
+        "type": "Unit",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "theTich",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Thể tích",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "donVi_theTich",
+        "schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+        "label": "Đơn vị thể tích",
+        "required": false,
+        "money": false,
+        "type": "Unit",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "tinhTrangMau",
+        "schemaProp": "soLuongChatLuong",
+        "label": "Tình trạng mẫu vật",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thongTinKhac3",
+        "schemaProp": "soLuongChatLuong",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac3Str",
+            "thongTinKhac3File"
+        ]
+    },
+    {
+        "name": "thongTinKhac3Str",
+        "schemaProp": "soLuongChatLuong.thongTinKhac3Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac3File",
+        "schemaProp": "soLuongChatLuong.thongTinKhac3Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "thoiGianThuMau",
+        "schemaProp": "duLieuThuMau",
+        "label": "Thời gian thu mẫu",
+        "required": false,
+        "money": true,
+        "type": "Date",
+        "autoCompletion": false
+    },
+    {
+        "name": "nguoiThuMau",
+        "schemaProp": "duLieuThuMau",
+        "label": "Người thu mẫu",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "coQuanThuMau",
+        "schemaProp": "duLieuThuMau",
+        "label": "Cơ quan thu mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "phuongPhapThuMau",
+        "schemaProp": "duLieuThuMau",
+        "label": "Phương pháp thu mẫu",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "quocGia",
+        "schemaProp": "duLieuThuMau.diaDiemThuMau",
+        "label": "Quốc gia",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "tinh",
+        "schemaProp": "duLieuThuMau.diaDiemThuMau",
+        "label": "Tỉnh",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "huyen",
+        "schemaProp": "duLieuThuMau.diaDiemThuMau",
+        "label": "Huyện",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "xa",
+        "schemaProp": "duLieuThuMau.diaDiemThuMau",
+        "label": "Xã",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "thon",
+        "schemaProp": "duLieuThuMau.diaDiemThuMau",
+        "label": "Thôn/bản",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "viDo",
+        "schemaProp": "duLieuThuMau.viTriToaDo",
+        "label": "Vĩ độ N",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "autoCompletion": false
+    },
+    {
+        "name": "kinhDo",
+        "schemaProp": "duLieuThuMau.viTriToaDo",
+        "label": "Kinh độ E",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "autoCompletion": false
+    },
+    {
+        "name": "thongTinDuAn",
+        "schemaProp": "duLieuThuMau",
+        "label": "Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "ghiChepThucDia",
+        "schemaProp": "duLieuThuMau",
+        "label": "Ghi chép thực địa",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^(.|\r|\n){0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "banDo",
+        "schemaProp": "duLieuThuMau",
+        "label": "Bản đồ",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thongTinKhac4",
+        "schemaProp": "duLieuThuMau",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac4Str",
+            "thongTinKhac4File"
+        ]
+    },
+    {
+        "name": "thongTinKhac4Str",
+        "schemaProp": "duLieuThuMau.thongTinKhac4Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac4File",
+        "schemaProp": "duLieuThuMau.thongTinKhac4Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "thoiGianGiamDinh",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Thời gian phân tích/giám định/định loại mẫu",
+        "required": false,
+        "money": false,
+        "type": "Date",
+        "autoCompletion": false
+    },
+    {
+        "name": "nguoiGiamDinh",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Người phân tích/giám định/định loại mẫu",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "coQuanToChucGiamDinh",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Cơ quan/tổ chức phân tích/giám định/phân loại mẫu",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "taiLieuPhanTich",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Tài liệu phân tích/giám định/phân loại đi kèm",
+        "required": false,
+        "money": true,
+        "type": "Mixed",
+        "subProps": [
+            "taiLieuPhanTichStr",
+            "taiLieuPhanTichFile"
+        ]
+    },
+    {
+        "name": "taiLieuPhanTichStr",
+        "schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
+        "label": "Tài liệu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "taiLieuPhanTichFile",
+        "schemaProp": "duLieuPhanTichMau.taiLieuPhanTichMixed",
+        "label": "Đính kèm",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(pdf|docx?)$"
+    },
+    {
+        "name": "phanTichQuangHoc",
+        "schemaProp": "media",
+        "label": "Các phân tích quang học",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "phanTichQuangHocStr",
+            "phanTichQuangHocFile"
+        ]
+    },
+    {
+        "name": "phanTichQuangHocStr",
+        "schemaProp": "duLieuPhanTichMau.phanTichQuangHocMixed",
+        "label": "Phân tích",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "phanTichQuangHocFile",
+        "schemaProp": "duLieuPhanTichMau.phanTichQuangHocMixed",
+        "label": "Đính kèm",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "ketQuaThanhPhanVatChat",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Các kết quả phân tích thành phần vật chất",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "ketQuaPhanTichDinhTuoi",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Kết quả phân tích đồng vị và định tuổi",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "phanTichKhac",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Các phân tích khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "dacDiemDiaChat",
+        "schemaProp": "duLieuPhanTichMau.duLieuDiaChat",
+        "label": "Đặc điểm địa chất",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "loaiHinhNguonGoc",
+        "schemaProp": "duLieuPhanTichMau.duLieuDiaChat",
+        "label": "Loại hình nguồn gốc",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thongTinKhac5",
+        "schemaProp": "duLieuPhanTichMau",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac5Str",
+            "thongTinKhac5File"
+        ]
+    },
+    {
+        "name": "thongTinKhac5Str",
+        "schemaProp": "duLieuPhanTichMau.thongTinKhac5Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac5File",
+        "schemaProp": "duLieuPhanTichMau.thongTinKhac5Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "anhMauVat",
+        "schemaProp": "media",
+        "label": "Ảnh mẫu vật",
+        "required": false,
+        "money": true,
+        "type": "File",
+        "maxSize": 10485760,
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "hinhAnhNgoaiThucDia",
+        "schemaProp": "media",
+        "label": "Hình ảnh mẫu vật ngoài thực địa",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "maxSize": 10485760,
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "videoStr",
+        "schemaProp": "media",
+        "label": "Thông tin về phim, video",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "videoFile",
+        "schemaProp": "media",
+        "label": "Đính kèm phim, video",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "maxSize": 104857600,
+        "regex": "^.+\\.(mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "hinhAnhDinhKem",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Hình ảnh đính kèm Xử lý chế tác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "maxSize": 5242880,
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "dinhKemXuLyCheTac",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Đính kèm Xử lý chế tác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(pdf|docx?)$"
+    },
+    {
+        "name": "thuocTinhXuLyCheTac",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Thuộc tính Xử lý chế tác",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "phuongThucXuLy",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Phương thức xử lý chế tác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thoiGianXuLy",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Thời gian xử lý chế tác",
+        "required": false,
+        "money": false,
+        "type": "Date"
+    },
+    {
+        "name": "nguoiXuLy",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Người xử lý, chế tác mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "coQuanXuLy",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Cơ quan xử lý, chế tác mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "anhMauSauCheTac",
+        "schemaProp": "media.xuLyCheTac",
+        "label": "Ảnh mẫu sau chế tác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "maxSize": 5242880,
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thongTinKhac6",
+        "schemaProp": "media",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac6Str",
+            "thongTinKhac6File"
+        ]
+    },
+    {
+        "name": "thongTinKhac6Str",
+        "schemaProp": "media.thongTinKhac6Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac6File",
+        "schemaProp": "media.thongTinKhac6Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "loaiMau",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Loại mẫu",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "hinhDangMauTonTai",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Hình dáng mẫu, dạng tồn tại",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "mauSac",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Màu sắc",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "phanLoaiSuDungMau",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Phân loại sử dụng mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thanhPhanKhoangVat",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Thành phần khoáng vật",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "tinhChatVatLy",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Tính chất vật lý",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "congThucHoaHoc",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Công thức hóa học",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thanhPhanHoaHoc",
+        "schemaProp": "dacDiemMauVat",
+        "label": "Thành phần hoá học",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "phanBoVietNam",
+        "schemaProp": "phanBoVaSuDung",
+        "label": "Phân bố Việt Nam",
+        "required": false,
+        "money": true,
+        "type": "Mixed",
+        "subProps": [
+            "phanBoVietNamStr",
+            "phanBoVietNamFile"
+        ]
+    },
+    {
+        "name": "phanBoVietNamStr",
+        "schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
+        "label": "Phân bố",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "phanBoVietNamFile",
+        "schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
+        "label": "Đính kèm",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+    },
+    {
+        "name": "phanBoTrenTheGioi",
+        "schemaProp": "phanBoVaSuDung",
+        "label": "Phân bố trên thế giới",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "phanBoTrenTheGioiStr",
+            "phanBoTrenTheGioiFile"
+        ]
+    },
+    {
+        "name": "phanBoTrenTheGioiStr",
+        "schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
+        "label": "Phân bố",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "phanBoTrenTheGioiFile",
+        "schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
+        "label": "Đính kèm",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+    },
+    {
+        "name": "giaTriSuDung",
+        "schemaProp": "phanBoVaSuDung",
+        "label": "Giá trị sử dụng",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "autoCompletion": true
+    },
+    {
+        "name": "thongTinKhac7",
+        "schemaProp": "phanBoVaSuDung",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac7Str",
+            "thongTinKhac7File"
+        ]
+    },
+    {
+        "name": "thongTinKhac7Str",
+        "schemaProp": "phanBoVaSuDung.thongTinKhac7Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac7File",
+        "schemaProp": "phanBoVaSuDung.thongTinKhac7Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "ngayNhapMau",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Ngày nhập mẫu",
+        "required": false,
+        "money": false,
+        "type": "Date",
+        "autoCompletion": false
+    },
+    {
+        "name": "nguoiGiao",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Người giao mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "nguoiNhan",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Người nhận mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "coQuanNhapVatMau",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Cơ quan nhập mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "hinhThucNhapMau",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Hình thức nhập mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "traoDoiMau",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Trao đổi mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "vayMuon",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Vay mượn mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "noiLuuTruMau",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Nơi lưu giữ mẫu",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": true
+    },
+    {
+        "name": "phong",
+        "schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+        "label": "Phòng",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "tuGia",
+        "schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+        "label": "Tủ, giá",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "ngan",
+        "schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+        "label": "Ngăn tủ, ngăn giá",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "hop",
+        "schemaProp": "luuTruBaoQuan.khuLuuTruMau",
+        "label": "Hộp",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "giayPhepNhapMau",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Giấy phép nhập mẫu",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "hoSoNhapMauVatDiKem",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Hồ sơ nhập mẫu vật đi kèm",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(pdf|docx?)$",
+        "autoCompletion": false
+    },
+    {
+        "name": "nguoiLapPhieuMauVat",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Người lập phiếu mẫu vật",
+        "required": false,
+        "money": true,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "nguoiNhapVaoPhanMem",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Người nhập thông tin vào phần mềm",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$",
+        "autoCompletion": false
+    },
+    {
+        "name": "thongTinKhac8",
+        "schemaProp": "luuTruBaoQuan",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac8Str",
+            "thongTinKhac8File"
+        ]
+    },
+    {
+        "name": "thongTinKhac8Str",
+        "schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac8File",
+        "schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "thongTinKhac9",
+        "schemaProp": "thongTinKhac",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "thongTinKhac9Str",
+            "thongTinKhac9File"
+        ]
+    },
+    {
+        "name": "thongTinKhac9Str",
+        "schemaProp": "thongTinKhac.thongTinKhac9Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "String",
+        "regex": "^.{0,}$"
+    },
+    {
+        "name": "thongTinKhac9File",
+        "schemaProp": "thongTinKhac.thongTinKhac9Mixed",
+        "label": "Thông tin khác",
+        "required": false,
+        "money": false,
+        "type": "File",
+        "regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+    },
+    {
+        "name": "maDeTai",
+        "schemaProp": "maDeTai",
+        "label": "Mã đề tài",
+        "required": false,
+        "money": true,
+        "type": "String"
+    },
+    {
+        "name": "fDiaDiemThuMau",
+        "schemaProp": "flag",
+        "label": "Địa điểm thu mẫu",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "fApproved",
+        "schemaProp": "flag",
+        "label": "Đã kiểm chứng",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "soHieu",
+        "type": "Metadata",
+        "label": "Số hiệu mẫu vật"
+    },
+    {
+        "name": "tenMau",
+        "type": "Metadata",
+        "label": "Tên mẫu vật"
+    },
+    {
+        "name": "soLuongChatLuong",
+        "type": "Metadata",
+        "label": "Số lượng và chất lượng mẫu vật"
+    },
+    {
+        "name": "duLieuThuMau",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu Thu mẫu"
+    },
+    {
+        "name": "duLieuPhanTichMau",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu Phân tích mẫu/Giám định mẫu"
+    },
+    {
+        "name": "media",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu Hình ảnh/phim, tài liệu mẫu vật"
+    },
+    {
+        "name": "dacDiemMauVat",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu đặc điểm mẫu vật"
+    },
+    {
+        "name": "phanBoVaSuDung",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu Phân bố và giá trị sử dụng"
+    },
+    {
+        "name": "luuTruBaoQuan",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu Lưu trữ, bảo quản mẫu vật"
+    },
+    {
+        "name": "thongTinKhac",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu thông tin khác"
+    },
+    {
+        "name": "tenKhoaHoc",
+        "type": "Metadata",
+        "label": "Tên khoa học"
+    },
+    {
+        "name": "diaDiemThuMau",
+        "type": "Metadata",
+        "label": "Địa điểm thu mẫu"
+    },
+    {
+        "name": "viTriToaDo",
+        "type": "Metadata",
+        "label": "Vị trí toạ độ theo hệ toạ độ VN 2000"
+    },
+    {
+        "name": "xuLyCheTac",
+        "type": "Metadata",
+        "label": "Xử lý chế tác mẫu vật"
+    },
+    {
+        "name": "thongTinDNA",
+        "type": "Metadata",
+        "label": "Thông tin DNA"
+    },
+    {
+        "name": "taiLieuPhanTichMixed",
+        "type": "Metadata",
+        "label": "Tài liệu phân tích/giám định/phân loại đi kèm"
+    },
+    {
+        "name": "khuLuuTruMau",
+        "type": "Metadata",
+        "label": "Khu lưu trữ mẫu"
+    },
+    {
+        "name": "phanBoVietNamMixed",
+        "type": "Metadata",
+        "label": "Phân bố Việt Nam"
+    },
+    {
+        "name": "phanBoTrenTheGioiMixed",
+        "type": "Metadata",
+        "label": "Phân bố trên thế giới"
+    },
+    {
+        "name": "phanTichQuangHocMixed",
+        "type": "Metadata",
+        "label": "Các phân tích quang học"
+    },
+    {
+        "name": "duLieuDiaChat",
+        "type": "Metadata",
+        "label": "Nhóm dữ liệu địa chất"
+    },
+    {
+        "name": "kichThuocMauMixed",
+        "type": "Metadata",
+        "label": "Kích thước mẫu vật"
+    },
+    {
+		"name": "thongTinKhac1Mixed",
 		"type": "Metadata",
-		"label": "Số hiệu mẫu vật"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "tenMau",
+		"name": "thongTinKhac2Mixed",
 		"type": "Metadata",
-		"label": "Tên mẫu vật"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "soLuongChatLuong",
+		"name": "thongTinKhac3Mixed",
 		"type": "Metadata",
-		"label": "Số lượng và chất lượng mẫu vật"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "duLieuThuMau",
+		"name": "thongTinKhac4Mixed",
 		"type": "Metadata",
-		"label": "Nhóm dữ liệu Thu mẫu"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "duLieuPhanTichMau",
+		"name": "thongTinKhac5Mixed",
 		"type": "Metadata",
-		"label": "Nhóm dữ liệu Phân tích mẫu/Giám định mẫu"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "media",
+		"name": "thongTinKhac6Mixed",
 		"type": "Metadata",
-		"label": "Nhóm dữ liệu Hình ảnh/phim, tài liệu mẫu vật"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "dacDiemMauVat",
+		"name": "thongTinKhac7Mixed",
 		"type": "Metadata",
-		"label": "Nhóm dữ liệu đặc điểm mẫu vật"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "phanBoVaSuDung",
+		"name": "thongTinKhac8Mixed",
 		"type": "Metadata",
-		"label": "Nhóm dữ liệu Phân bố và giá trị sử dụng"
+		"label": "Thông tin khác"
 	},
 	{
-		"name": "luuTruBaoQuan",
+		"name": "thongTinKhac9Mixed",
 		"type": "Metadata",
-		"label": "Nhóm dữ liệu Lưu trữ, bảo quản mẫu vật"
-	},
-	{
-		"name": "thongTinKhac",
-		"type": "Metadata",
-		"label": "Nhóm dữ liệu thông tin khác"
-	},
-	{
-		"name": "tenKhoaHoc",
-		"type": "Metadata",
-		"label": "Tên khoa học"
-	},
-	{
-		"name": "diaDiemThuMau",
-		"type": "Metadata",
-		"label": "Địa điểm thu mẫu"
-	},
-	{
-		"name": "viTriToaDo",
-		"type": "Metadata",
-		"label": "Vị trí toạ độ theo hệ toạ độ VN 2000"
-	},
-	{
-		"name": "xuLyCheTac",
-		"type": "Metadata",
-		"label": "Xử lý chế tác mẫu vật"
-	},
-	{
-		"name": "thongTinDNA",
-		"type": "Metadata",
-		"label": "Thông tin DNA"
-	},
-	{
-		"name": "taiLieuPhanTichMixed",
-		"type": "Metadata",
-		"label": "Tài liệu phân tích/giám định/phân loại đi kèm"
-	},
-	{
-		"name": "khuLuuTruMau",
-		"type": "Metadata",
-		"label": "Khu lưu trữ mẫu"
-	},
-	{
-		"name": "phanBoVietNamMixed",
-		"type": "Metadata",
-		"label": "Phân bố Việt Nam"
-	},
-	{
-		"name": "phanBoTrenTheGioiMixed",
-		"type": "Metadata",
-		"label": "Phân bố trên thế giới"
-	},
-	{
-		"name": "phanTichQuangHocMixed",
-		"type": "Metadata",
-		"label": "Các phân tích quang học"
-	},
-	{
-		"name": "duLieuDiaChat",
-		"type": "Metadata",
-		"label": "Nhóm dữ liệu địa chất"
-	},
-	{
-		"name": "kichThuocMauMixed",
-		"type": "Metadata",
-		"label": "Kích thước mẫu vật"
+		"label": "Thông tin khác"
 	}
 ]

@@ -53,7 +53,7 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 				user.statistic.push({
 					title: model.title,
 					number: await(new Promise((resolve, reject) => {
-						mongoose.model(model.modelName).find({'created_by.userId': user.id, deleted_at: {$eq: null}}, (err, rows) => {
+						mongoose.model(model.modelName).find({'created_by.userId': {$eq: user.id}, deleted_at: {$eq: null}}, (err, rows) => {
 							if (err){
 								console.log(err);
 								resolve(0)
@@ -77,6 +77,7 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 			}
 			return res.render('profile', {
 				user: user,
+				profileUser: user,
 				sidebar: {
 					active: 'profile'
 				},
@@ -151,14 +152,32 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 	})()
 })
 
-router.post('/me', isLoggedIn, upload.single('inputAvatar'), (req, res, next) => {
+router.post('/me', isLoggedIn, upload.single('croppedAvatar'), (req, res, next) => {
 	async(() => {
+
 		let user = await(PROMISES.getUser(req.session.userId));
 		if (user){
 			user = user.userMongoose;
 			user.fullname = req.body.inputFullName;
 			if (req.body.inputPassword && req.body.inputRepeat && (req.body.inputPassword == req.body.inputRepeat)){
-				user.password = user.hashPassword(req.body.inputPassword);
+				if (user.validPassword(req.body.oldPassword)){
+					user.password = user.hashPassword(req.body.inputPassword);
+				}
+				else {
+					if (req.file){
+						try {
+							fs.unlinkSync(path.join(__dirname, '../public/uploads/user/avatar/' + req.file.filename));
+						}
+						catch (e){
+							console.log(e);
+						}
+					}
+					return res.status(400).json({
+						status: 'error',
+						error: 'Mật khẩu cũ không đúng'
+					})
+				}
+				
 			}
 			if (req.file){
 				if (user.avatar && user.avatar.original){
@@ -179,12 +198,88 @@ router.post('/me', isLoggedIn, upload.single('inputAvatar'), (req, res, next) =>
 					req.flash('user-msg', 'Cập nhật thành công');
 				}
 				
-				return res.redirect('/users/me')
+				return res.json({
+					status: 'success'
+				})
 			})
 		}
 		else {
-			return res.redirect('/users/me')
+			return res.json({
+				status: 'success'
+			})
 		}
+	})()
+})
+
+router.get('/:userId', isLoggedIn, function (req, res, next) {
+	return async(() => {
+		let user = await(PROMISES.getUser(req.params.userId));
+		user = JSON.parse(JSON.stringify(user.userNormal));
+		delete user.password;
+		delete user.forgot_password;
+		let me = await(PROMISES.getUser(req.session.userId));
+		me = JSON.parse(JSON.stringify(me.userNormal));
+		delete me.password;
+		delete me.forgot_password;
+		user.statistic = {}
+		let models = [
+			{
+				modelName: 'Paleontological',
+				title: 'Cổ sinh'
+			},
+			{
+				modelName: 'Geological',
+				title: 'Địa chất'
+			},
+			{
+				modelName: 'Animal',
+				title: 'Động vật'
+			},
+			{
+				modelName: 'Soil',
+				title: 'Thổ nhưỡng'
+			},
+			{
+				modelName: 'Vegetable',
+				title: 'Thực vật'
+			}
+		]
+		user.statistic = []
+		for(let model of models){
+			user.statistic.push({
+				title: model.title,
+				number: await(new Promise((resolve, reject) => {
+					mongoose.model(model.modelName).find({'created_by.userId': {$eq: user.id}, deleted_at: {$eq: null}}, (err, rows) => {
+						if (err){
+							console.log(err);
+							resolve(0)
+						}
+						else {
+							// console.log(rows.length);
+							resolve(rows.length)
+						}
+						
+					})
+				}))
+			});
+		}
+		// console.log(user);
+		let msg = '';
+		try {
+			msg = req.flash('user-msg')
+		}
+		catch (e){
+			console.log(e);
+		}
+		return res.render('profile', {
+			user: me,
+			profileUser: user,
+			sidebar: {
+				active: 'profile'
+			},
+			msg: msg
+		});
+
 	})()
 })
 

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon run.js"
   },
   "dependencies": {
     "acl": "^0.4.9",
@@ -13,14 +13,17 @@
     "asyncawait": "^1.0.6",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
+    "cluster": "^0.7.7",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^1.3.2",
     "cookie-parser": "~1.3.5",
+    "crypto": "0.0.3",
     "crypto-js": "^3.1.6",
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.14.0",
+    "express-useragent": "^1.0.7",
     "fs-extra": "^2.0.0",
     "mongodb": "^2.2.5",
     "mongoose": "^4.5.8",
@@ -35,6 +38,8 @@
     "randomstring": "*",
     "request": "~2.81.0",
     "request-promise": "^4.2.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "ua-parser": "^0.3.5",
+    "useragent": "^2.1.13"
   }
 }

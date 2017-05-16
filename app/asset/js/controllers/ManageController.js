@@ -25,7 +25,7 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', func
 	// 	}
 	// }
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'dong-vat')
 	}
 
 }]);
@@ -55,7 +55,7 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', f
 	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'thuc-vat')
 	}
 }]);
 
@@ -84,7 +84,7 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', functi
 	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'tho-nhuong')
 	}
 }]);
 app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
@@ -112,7 +112,7 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
 	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'dia-chat')
 	}
 }]);
 
@@ -141,7 +141,7 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 	// };
 
 	$scope.approvePost = function (id, approved) {
-		AuthService.approvePost(id, approved, $scope.link)
+		AuthService.approvePost(id, approved, 'co-sinh')
 	}
 }]);
 

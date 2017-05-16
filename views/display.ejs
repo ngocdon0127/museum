@@ -57,7 +57,7 @@
 									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + '<img class="img-responsive" width="160" src="' + sp + '/' + curElement + '">' + '</a><br/>\n';
 									break;
 								default:
-									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.split('_+_')[1] + '</a><br/>\n';
+									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.split(curElement.lastIndexOf('_+_') + '_+_'.length) + '</a><br/>\n';
 									break;
 							}
 							return preStr;

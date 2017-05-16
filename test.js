@@ -85,9 +85,9 @@ var await = require('asyncawait/await');
 // console.log(suspendable());
 // 
 
-var mongoose = require('mongoose');
-var configDB = require('./config/config').database;
-var mongooseConnection = mongoose.connect(configDB.url);
+// var mongoose = require('mongoose');
+// var configDB = require('./config/config').database;
+// var mongooseConnection = mongoose.connect(configDB.url);
 // require('./models/Animal.js')(mongoose);
 // require('./models/SharedData.js')(mongoose);
 
@@ -116,19 +116,181 @@ var mongooseConnection = mongoose.connect(configDB.url);
 // })
 
 
-mongoose.model('Test', mongoose.Schema({
-	data: {
-		type: String,
-		set: v => parseInt(v)
+// mongoose.model('Test', mongoose.Schema({
+// 	data: {
+// 		type: String,
+// 		set: v => parseInt(v)
+// 	}
+// }))
+
+// let Test = mongoose.model('Test');
+
+// let t = new Test();
+// t.data = 'abc';
+// console.log(t.data);
+// t.save((err) => {
+// 	err && console.log(err);
+// 	mongoose.disconnect();
+// })
+// 
+
+// var acl = require('acl');
+// acl = new acl(new acl.memoryBackend());
+// acl.allow('user', '/profile', 'view');
+// acl.allow('manager', '/manager', 'view');
+// acl.allow('admin', '/admin', 'view');
+// acl.allow('master', '/master', 'view');
+// acl.addUserRoles('don', 'user')
+// acl.addUserRoles('don', 'manager')
+// acl.addUserRoles('don', 'admin')
+// acl.addUserRoles('don', 'master')
+// acl.userRoles('don', (err, result) => {
+// 	if (err){
+// 		console.log(err);
+// 	}
+// 	else {
+// 		console.log(result);
+// 		// acl.removeUserRoles('don', result, (err) => {
+// 		// 	if (err){
+// 		// 		console.log(err);
+// 		// 	}
+// 		// 	else {
+// 		// 		acl.userRoles('don', (err, result) => {
+// 		// 			if (err){
+// 		// 				console.log(err);
+// 		// 			}
+// 		// 			else {
+// 		// 				console.log(result);
+// 		// 			}
+// 		// 		})
+// 		// 	}
+// 		// })
+// 		acl.addUserRoles('don', 'manager', (err) => {
+// 			if (err){
+// 				console.log(err);
+// 			}
+// 			else {
+// 				acl.userRoles('don', (err, result) => {
+// 					if (err){
+// 						console.log(err);
+// 					}
+// 					else {
+// 						console.log(result);
+// 					}
+// 				})
+// 			}
+// 		});
+
+// 	}
+// })
+// 
+
+var cluster = require('cluster')
+var workers = {}
+
+if (cluster.isMaster){
+	nCores = require('os').cpus().length;
+	cluster.on('fork', (worker) => {
+		console.log('Attemping to fork worker');
+	})
+	cluster.on('online', (worker) => {
+		console.log('worker forked', worker.process.pid);
+		workers[worker.process.pid] = worker;
+		console.log('Total workers: ' + Object.keys(workers).length);
+	})
+	cluster.on('exit', (worker, code, signal) => {
+		console.log('worker ' + worker.id + ' with pid ' + worker.process.pid + ' is exitted, code ' + code + ', signal ' + signal);
+		// for(let pid in workers){
+		// 	workers[pid].kill();
+		// }
+		// console.log(cluster);
+		cluster.fork();
+		delete workers[worker.process.pid]
+
+	})
+	console.log('master ' + process.pid + ' is forking childs...');
+	for(let i = 0; i < nCores; i++){
+		console.log('forking child', i, '/', Object.keys(cluster.workers).length);
+		cluster.fork();
 	}
-}))
+	// setTimeout(() => {
 
-let Test = mongoose.model('Test');
+	// })
+	setInterval(() => {
+		console.log(Object.keys(workers).length + ' / ' + Object.keys(cluster.workers).length);
+		if (Object.keys(workers).length >= nCores){
+			console.log('start sending msg to workers');
+			for(let pid in workers){
+				workers[pid].send({data: Math.floor(Math.random())});
+			}
+		}
+	}, 2000)
+	// console.log(cluster);
+}
+else if (cluster.isWorker) {
+	// console.log('++++++++++++');
+	// console.log(cluster);
+	// console.log('+++++++++++');
+	console.log('worker ' + cluster.worker.id + ' forked with pid ' + cluster.worker.process.pid + ', process pid ' + process.pid);
+	// console.log('worker ' + cluster.worker.id + ' exit now');
+	// process.exit(0);
+	
+	process.on('message', (msg) => {
+		console.log('worker ' + cluster.worker.process.pid + ' received msg: ');
+		console.log(msg);
+	})
+}
+// 
+// if (cluster.isMaster) {
+//   const worker1 = cluster.fork();
+//   const worker2 = cluster.fork();
+//   // worker.send('msg send from master to worker');
+//   cluster.on('message', (worker, msg) => {
+//   	console.log('received msg from', worker);
+//   	console.log('msg', msg);
+//   })
 
-let t = new Test();
-t.data = 'abc';
-console.log(t.data);
-t.save((err) => {
-	err && console.log(err);
-	mongoose.disconnect();
-})
+//   // process.on('hehe', (a1, a2, a3) => {
+//   // 	console.log('================= hehe emitted ================');
+//   // 	console.log(a1);
+//   // 	console.log('---------------');
+//   // 	console.log(a2);
+//   // 	console.log('---------------');
+//   // 	console.log(a3);
+//   // 	console.log('===============================================');
+//   // })
+
+//   // // process.send('msg from master to somewhere');
+//   // process.emit('hehe', {p1: 'v1', p2: 'v2'}, {pp1: 'vv1', pp2: 'vv2'})
+  
+
+// } else if (cluster.isWorker) {
+//   // process.on('message', (msg) => {
+//   // 	console.log(msg);
+//   //   process.send('msg from worker to master');
+//   // cluster.send('msg from worker to master')
+//   // });
+  
+//   process.on('hehe', (a1, a2, a3) => {
+//   	console.log('================= hehe emitted ================');
+//   	console.log(a1);
+//   	console.log('---------------');
+//   	console.log(a2);
+//   	console.log('---------------');
+//   	console.log(a3);
+//   	console.log('===============================================');
+//   })
+
+//   // process.send('msg from master to somewhere');
+//   process.emit('hehe', {p1: 'v1_' + process.pid, p2: 'v2'}, {pp1: 'vv1', pp2: 'vv2'})
+// }
+// 
+
+// if (cluster.isMaster){
+// 	let workers = {}
+
+
+// }
+// else if (cluster.isWorker){
+
+// }

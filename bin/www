@@ -19,11 +19,6 @@ var port = normalizePort(process.env.PORT || require('../config/config').app.por
 var nonSecurePort = normalizePort(require('../config/config').app.nonSecurePort);
 app.set('port', port);
 
-var options = {
-    key: fs.readFileSync(require('../config/config.js').ssl.privateKey),
-    cert: fs.readFileSync(require('../config/config.js').ssl.certificate)
-};
-
 
 
 // var server = http.createServer(app);
@@ -34,6 +29,10 @@ if (require('../config/config.js').app.mode === 'https'){
   /**
    * Create HTTPS server.
    */
+  var options = {
+    key: fs.readFileSync(require('../config/config.js').ssl.privateKey),
+    cert: fs.readFileSync(require('../config/config.js').ssl.certificate)
+  };
   server = https.createServer(options, app);
   
   /**

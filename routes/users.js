@@ -214,6 +214,12 @@ router.post('/me', isLoggedIn, upload.single('croppedAvatar'), (req, res, next) 
 router.get('/:userId', isLoggedIn, function (req, res, next) {
 	return async(() => {
 		let user = await(PROMISES.getUser(req.params.userId));
+		if (!user){
+			return res.json({
+				status: 'error',
+				error: 'User không tồn tại hoặc bạn không có quyền xem thông tin của user này'
+			})
+		}
 		user = JSON.parse(JSON.stringify(user.userNormal));
 		delete user.password;
 		delete user.forgot_password;
@@ -221,6 +227,19 @@ router.get('/:userId', isLoggedIn, function (req, res, next) {
 		me = JSON.parse(JSON.stringify(me.userNormal));
 		delete me.password;
 		delete me.forgot_password;
+		let canView = false;
+		if (me.level == 'admin'){
+			canView = true;
+		}
+		if (me.maDeTai == user.maDeTai){
+			canView = true;
+		}
+		if (!canView){
+			return res.json({
+				status: 'error',
+				error: 'User không tồn tại hoặc bạn không có quyền xem thông tin của user này'
+			})
+		}
 		user.statistic = {}
 		let models = [
 			{

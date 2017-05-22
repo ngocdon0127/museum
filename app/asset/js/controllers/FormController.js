@@ -39,7 +39,6 @@ function initDefaultUnits(_scope) {
 function saveData(id, data) {
 		return function () {
 			localStorage.setItem(id, JSON.stringify(data))
-			console.log(data);
 		}
 	}
 
@@ -80,7 +79,8 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	var urlRe = 'quan-ly-dong-vat';
 
 	$scope.addPost = function(FormContent){
-			
+		
+		//Bắt lỗi valid dưới client
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
@@ -108,8 +108,8 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	}
 
 	$scope.saveCookies = function () {
-		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
-		console.log($scope.data);
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data));
+		alert("Dữ liệu đã được lưu");
 	}
 	$scope.getCookies = function () {
 		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
@@ -179,12 +179,10 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 	}
 
 	$scope.saveCookies = function () {
-		console.log("saving data")
 		localStorage.setItem("dataVeg", JSON.stringify($scope.data))
-		console.log($scope.data);
+		alert("Dữ liệu đã được lưu");
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataVeg"))
 	}
 }]);
@@ -247,12 +245,10 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 	}
 
 	$scope.saveCookies = function () {
-		console.log("saving data")
 		localStorage.setItem("dataGeo", JSON.stringify($scope.data))
-		console.log($scope.data);
+		alert("Dữ liệu đã được lưu");
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataGeo"))
 	}
 }]);
@@ -315,13 +311,11 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 	}
 
 	$scope.saveCookies = function () {
-		console.log("saving data")
-		localStorage.setItem("dataLand", JSON.stringify($scope.data))
-		console.log($scope.data);
+		localStorage.setItem("dataLand", JSON.stringify($scope.data));
+		alert("Dữ liệu đã được lưu");;
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
-		$scope.data = JSON.parse(localStorage.getItem("dataLand"))
+		$scope.data = JSON.parse(localStorage.getItem("dataLand"));
 	}
 }]);
 
@@ -383,12 +377,10 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 	}
 
 	$scope.saveCookies = function () {
-		console.log("saving data")
-		localStorage.setItem("dataPal", JSON.stringify($scope.data))
-		console.log($scope.data);
+		localStorage.setItem("dataPal", JSON.stringify($scope.data));
+		alert("Dữ liệu đã được lưu");
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataPal"))
 	}
 }]);
@@ -495,7 +487,6 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 			}
 		}
 		else {
-			// console.log('wards cache miss')
 			$http.get('/app/database/wards.json').then(function(res){
 				$scope.wards = res.data;
 				places.wards = res.data
@@ -510,15 +501,12 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 app.controller('CookiesManageController', ['$scope', '$cookies', function($scope, $cookies){
 	
 	$scope.saveCookies = function () {
-		console.log("saving data")
 		localStorage.setItem('data', JSON.stringify($scope.data));
-		console.log("saved")
+		alert("Dữ liệu đã được lưu");
 	}
 
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem('data'));
-		$cookies.remove('data')
 	}
 }])
 

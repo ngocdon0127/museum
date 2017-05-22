@@ -32,32 +32,32 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/">Trang chủ</a>
+				<a class="navbar-brand" href="/"><b>Trang chủ</b></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li class="dropdown" ng-if="restricted.restrict">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown">Thêm mẫu vật <b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh">Cổ sinh</a></li>
-							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat">Địa chất</a></li>
-							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="them-dong-vat">Động vật</a></li>
-							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="them-tho-nhuong">Thổ nhưỡng</a></li>
-							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat">Thực vật</a></li>
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh"><b>Cổ sinh</b></a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat"><b>Địa chất</b></a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="them-dong-vat"><b>Động vật</b></a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="them-tho-nhuong"><b>Thổ nhưỡng</b></a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat"><b>Thực vật</b></a></li>
 						</ul>
 					</li>
-					<li><a ui-sref="quan-ly">Quản lý mẫu vật</a></li>
-					<li><a href="/log/all">Lịch sử nhập liệu</a></li>
+					<li><a ui-sref="quan-ly"><b>Quản lý mẫu vật</b></a></li>
+					<li><a href="/log/all"><b>Lịch sử nhập liệu</b></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown">{{restricted.user.fullname}} <b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{restricted.user.fullname}}</b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/admin">Quản lý tài khoản</a></li>
-							<li><a href="/users">Trang cá nhân</a></li>
-							<li><a href="/auth/logout">Đăng xuất</a></li>
+							<li><a href="/admin"><b>Quản lý tài khoản</b></a></li>
+							<li><a href="/users"><b>Trang cá nhân</b></a></li>
+							<li><a href="/auth/logout"><b>Đăng xuất</b></a></li>
 						</ul>
 					</li>
 				</ul>

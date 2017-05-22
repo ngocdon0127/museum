@@ -1,4 +1,4 @@
- 
+
 // var fs = require('fs');
 // var path = require('path');
 
@@ -298,145 +298,199 @@ var await = require('asyncawait/await');
 
 var officegen = require('officegen-complex-table');
 var fs = require('fs');
+var path = require('path');
 
 var docx = officegen ( 'docx' );
 
-var out = fs.createWriteStream ( 'out.pptx' );
+var out = fs.createWriteStream ( 'out.docx' );
  
 
 out.on ( 'close', function () {
-  console.log ( 'Finished to create the PPTX file!' );
+  console.log ( 'Finished to create the DOCX file!' );
 });
-
-var pObj = docx.createP ();
-pObj.options.align = 'center'; // Also 'right' or 'jestify'. 
-pObj.addText ( 'Simple' );
-pObj.addText ( ' with color', { color: '000088' } );
- 
-pObj.addText ( ' and back color.', { color: '00ffff', back: '000088' } );
- 
-pObj.addText ( 'Bold + underline', { bold: true, underline: true } );
- 
-pObj.addText ( 'Fonts face only.', { font_face: 'Arial' } );
- 
-pObj.addText ( ' Fonts face and size.', { font_face: 'Arial', font_size: 40 } );
-
-pObj.addLineBreak ();
-
-var table =[
-     [
-       {
-         "val": "No.",
-         "opts": {
-           "cellColWidth": 4261,
-           "b": true,
-           "sz": "48",
-           "shd": {
-             "fill": "7F7F7F",
-             "themeFill": "text1",
-             "themeFillTint": "80"
-           },
-           "fontFamily": "Avenir Book"
-         }
-       },
-       {
-         "val": "Title1",
-         "opts": {
-           "b": true,
-           "color": "A00000",
-           "align": "right",
-           "shd": {
-             "fill": "92CDDC",
-             "themeFill": "text1",
-             "themeFillTint": "80"
-           }
-         }
-       },
-       {
-         "val": "Title2",
-         "opts": {
-           "align": "center",
-           "vAlign": "center",
-           "cellColWidth": 42,
-           "b": true,
-           "sz": "48",
-           "shd": {
-             "fill": "92CDDC",
-             "themeFill": "text1",
-             "themeFillTint": "80"
-           }
-         }
-       }
-     ],
-     [
-       [
-         {
-           "type": "image",
-           "path": "thumb.jpg",
-           "opts": {
-             "cx": 72,
-             "cy": 72
-           }
-         }
-       ],
-       [
-         {
-           "type": "text",
-           "inline": true,
-           "values": [
-             {
-               "opts": {
-                 "b": true,
-                 "sz": 20
-               }
-             },
-             {
-               "val": " Balance Training",
-               "opts": {
-                 "sz": 20
-               }
-             },
-             {
-               "val": "",
-               "opts": {
-                 "sz": 20
-               }
-             }
-           ]
-         },
-         {
-           "type": "text",
-           "inline": true,
-           "values": [
-             {
-               "opts": {
-                 "b": true,
-                 "sz": 20
-               }
-             },
-             {
-               "val": " Beginning Knitting",
-               "opts": {
-                 "sz": 20
-               }
-             },
-             {
-               "val": ", Salon",
-               "opts": {
-                 "sz": 20
-               }
-             }
-           ]
-         }
-       ],
-       "All grown-ups were once children",
-       ""
-     ],
-    [2,"there is no harm in putting off a piece of work until another day.",""],
-    [3,"But when it is a matter of baobabs, that always means a catastrophe.",""],
-    [4,"watch out for the baobabs!","END"]
+var table = [
+	[
+		{
+			"val": "No.",
+			"opts": {
+				"cellColWidth": 4261,
+				"b": true,
+				"sz": "48",
+				"shd": {
+					"fill": "7F7F7F",
+					"themeFill": "text1",
+					"themeFillTint": "80"
+				},
+				"fontFamily": "Avenir Book"
+			}
+		},
+		{
+			"val": "Title1",
+			"opts": {
+				"b": true,
+				"color": "A00000",
+				"align": "right",
+				"shd": {
+					"fill": "92CDDC",
+					"themeFill": "text1",
+					"themeFillTint": "80"
+				}
+			}
+		},
+		{
+			"val": "Title2",
+			"opts": {
+				"align": "center",
+				"vAlign": "center",
+				"cellColWidth": 42,
+				"b": true,
+				"sz": "48",
+				"shd": {
+					"fill": "92CDDC",
+					"themeFill": "text1",
+					"themeFillTint": "80"
+				}
+			}
+		}
+	],
+	[
+		[{
+			"type": "image",
+			"path": path.resolve(__dirname, "thumb.jpg"),
+			"opts": {
+				"cx": 100,
+				"cy": 100
+			}
+		}],
+		[
+			{
+				"type": "text",
+				"inline": true,
+				"values": [
+					{
+						"opts": {
+							"b": true,
+							"sz": 20
+						}
+					},
+					{
+						"val": " Balance Training",
+						"opts": {
+							"sz": 20
+						}
+					},
+					{
+						"val": "abc",
+						"opts": {
+							"sz": 20
+						}
+					}
+				]
+			},
+			{
+				"type": "text",
+				"inline": true,
+				"values": [{
+						"opts": {
+							"b": true,
+							"sz": 20
+						}
+					},
+					{
+						"val": " Beginning Knitting",
+						"opts": {
+							"sz": 20
+						}
+					},
+					{
+						"val": ", Salon",
+						"opts": {
+							"sz": 20
+						}
+					}
+				]
+			}
+		],
+		"All grown-ups were once children"
+	],
+	[2, "there is no harm in putting off a piece of work until another day.", ""],
+	[3, "But when it is a matter of baobabs, that always means a catastrophe.", ""],
+	[4, "watch out for the baobabs!", "END"]
 ]
- 
+
+var tableStyle = {
+	tableColWidth: 4261,
+	tableSize: 24,
+	tableColor: "ada",
+	tableAlign: "left",
+	tableFontFamily: "Comic Sans MS"
+}
+
+var data = [[{
+		type: "text",
+		val: "Simple"
+	}, {
+		type: "text",
+		val: " with color",
+		opt: { color: '000088' }
+	}, {
+		type: "text",
+		val: "  and back color.",
+		opt: { color: '00ffff', back: '000088' }
+	}, {
+		type: "linebreak"
+	}, {
+		type: "text",
+		val: "Bold + underline",
+		opt: { bold: true, underline: true }
+	}], {
+		type: "horizontalline"
+	}, [{ backline: 'EDEDED' }, {
+		type: "text",
+		val: "  backline text1.",
+		opt: { bold: true }
+	}, {
+		type: "text",
+		val: "  backline text2.",
+		opt: { color: '000088' }
+	}], {
+		type: "text",
+		val: "Left this text.",
+		lopt: { align: 'left' }
+	}, {
+		type: "text",
+		val: "Center this text.",
+		lopt: { align: 'center' }
+	}, {
+		type: "text",
+		val: "Right this text.",
+		lopt: { align: 'right' }
+	}, {
+		type: "text",
+		val: "Fonts face only.",
+		opt: { font_face: 'Arial' }
+	}, {
+		type: "text",
+		val: "Fonts face and size.",
+		opt: { font_face: 'Arial', font_size: 40 }
+	}, {
+		type: "table",
+		val: table,
+		opt: tableStyle
+	}, [{ // arr[0] is common option.
+		align: 'right'
+	}, {
+		type: "image",
+		path: path.resolve(__dirname, 'thumb.jpg')
+	},{
+		type: "image",
+		path: path.resolve(__dirname, 'thumb.jpg')
+	}], {
+		type: "pagebreak"
+	}
+]
+
+docx.createByJson(data);
 var tableStyle = {
   tableColWidth: 4261,
   tableSize: 24,
@@ -445,7 +499,6 @@ var tableStyle = {
   tableFontFamily: "Comic Sans MS",
   borders: true
 }
- 
-docx.createTable (table, tableStyle);
 
-docx.generate ( out );
+// docx.createTable (table, tableStyle);
+docx.generate(out);

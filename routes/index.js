@@ -21,6 +21,13 @@ router.use(function (req, res, next) {
 var async = require('asyncawait/async')
 var await = require('asyncawait/await')
 
+router.post('/dmm', (req, res) => {
+	console.log('=====');
+	console.log(req.body);
+	console.log('=====');
+	return res.end('ok')
+})
+
 router.get('/agent', (req, res) => {
 	let agent = req.headers['user-agent'];
 	let uap = require('ua-parser');

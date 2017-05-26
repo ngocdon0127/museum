@@ -33,11 +33,11 @@
 
 .customfile + label span,
 .customfile + label strong {
-    padding: 0.625rem 1.25rem;
+    padding: 5px 5px;
 }
 
 .customfile + label span {
-    width: 200px;
+    max-width: 200px;
     min-height: 2em;
     display: inline-block;
     text-overflow: ellipsis;
@@ -50,10 +50,4 @@
     color: #f1e5e6;
     background-color: #d3394c;
     display: inline-block;
-}
-
-@media screen and (max-width: 50em) {
-	.customfile + label strong {
-		display: block;
-	}
 }

@@ -39,7 +39,6 @@ function initDefaultUnits(_scope) {
 function saveData(id, data) {
 		return function () {
 			localStorage.setItem(id, JSON.stringify(data))
-			console.log(data);
 		}
 	}
 
@@ -80,7 +79,8 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
 	var urlRe = 'quan-ly-dong-vat';
 
 	$scope.addPost = function(FormContent){
-			
+		
+		//Bắt lỗi valid dưới client
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
@@ -186,7 +186,7 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
 	}, 900000)
 
 	$scope.saveCookies = function () {
-		localStorage.setItem("", JSON.stringify($scope.data))
+		localStorage.setItem("dataVeg", JSON.stringify($scope.data))
 	}
 	$scope.getCookies = function () {
 		$scope.data = JSON.parse(localStorage.getItem("dataVeg"))
@@ -254,7 +254,7 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
 	}, 900000)
 
 	$scope.saveCookies = function () {
-		localStorage.setItem("", JSON.stringify($scope.data))
+		localStorage.setItem("dataGeo", JSON.stringify($scope.data))
 	}
 	$scope.getCookies = function () {
 		$scope.data = JSON.parse(localStorage.getItem("dataGeo"))
@@ -323,7 +323,7 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) 
 	}, 900000)
 
 	$scope.saveCookies = function () {
-		localStorage.setItem("", JSON.stringify($scope.data))
+		localStorage.setItem("dataLand", JSON.stringify($scope.data))
 	}
 	$scope.getCookies = function () {
 		$scope.data = JSON.parse(localStorage.getItem("dataLand"))
@@ -391,7 +391,7 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
 	}, 900000)
 
 	$scope.saveCookies = function () {
-		localStorage.setItem("", JSON.stringify($scope.data))
+		localStorage.setItem("dataPal", JSON.stringify($scope.data))
 	}
 	$scope.getCookies = function () {
 		$scope.data = JSON.parse(localStorage.getItem("dataPal"))
@@ -500,7 +500,6 @@ app.controller('PlaceController', function ($scope, $http, $filter, AuthService,
 			}
 		}
 		else {
-			// console.log('wards cache miss')
 			$http.get('/app/database/wards.json').then(function(res){
 				$scope.wards = res.data;
 				places.wards = res.data
@@ -516,12 +515,11 @@ app.controller('CookiesManageController', function($scope, $cookies){
 	
 	$scope.saveCookies = function () {
 		localStorage.setItem('data', JSON.stringify($scope.data));
-		console.log("saved")
+		alert("Dữ liệu đã được lưu");
 	}
 
 	$scope.getCookies = function () {
 		$scope.data = JSON.parse(localStorage.getItem('data'));
-		$cookies.remove('data')
 	}
 })
 

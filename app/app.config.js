@@ -175,10 +175,10 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider) {
 			restrict: true
 		}
 	})
-	.state('guest-view-dia-chat', {
-		url: '/guest/dia-chat',
-		templateUrl: 'views/guest/dia-chat.template.html',
-		controller: 'GuestGeologicalController'
+	.state('guest-test', {
+		url: '/guest/test',
+		templateUrl: 'views/guest/test.template.html',
+		controller: 'OfflineCtrl'
 	});
 	$urlRouterProvider.otherwise('/');
 });

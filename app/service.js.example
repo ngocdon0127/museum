@@ -120,9 +120,18 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			}
 			else {
 				var xhr = new XMLHttpRequest();
-				xhr.open('POST', urls[index], true);
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhr.setRequestHeader("Connection", "close");
+				if (fields_form != "") {
+					xhr.open('POST', urls[index], true);
+					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhr.setRequestHeader("Connection", "close");
+					xhr.responseType = 'arraybuffer';
+					xhr.send(fields_form);
+				} else{
+					xhr.open('GET', urls[index], true);
+					xhr.responseType = 'arraybuffer';
+					xhr.send();
+				}
+			
 
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
@@ -171,9 +180,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 						}, 100);
 					}
 				}
-
-				xhr.responseType = 'arraybuffer';
-				xhr.send(fields_form);
 			}
 		}
 	}

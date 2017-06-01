@@ -781,6 +781,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 	let LABEL = options.LABEL;
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
+	let printedProperties = options.req.body;
+	let printAll = ('body' in options.req) && (options.req.body.custom == 1)
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
 			console.log("calling docx");
@@ -983,6 +985,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								}
 							];
 							table.push(row);
+							
 							break;
 						case 1:
 							stt++;
@@ -1038,7 +1041,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								}
 							]
 							if (value){
-								table.push(row);
+								if (printAll || (prop in printedProperties)){
+									table.push(row);
+								}
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1129,7 +1134,10 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								}
 							]
 							if (value){
-								table.push(row);
+								if (printAll || (prop in printedProperties)){
+									table.push(row);
+								}
+								
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1599,10 +1607,10 @@ var exportFilePromise = (objectInstance, options, extension) => {
 }
 
 function exportFile (objectInstance, options, res, extension) {
-	console.log(options);
+	// console.log(options);
 	async (() => {
 		let result = await (exportFilePromise(objectInstance, options, extension));
-		console.log(result);
+		// console.log(result);
 		if (result.status == 'success'){
 			if (['docx', 'pdf'].indexOf(extension) >= 0){
 				res.download(result.absoluteFilePath[extension], result.outputFileName[extension], function (err) {
@@ -1633,6 +1641,9 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 	let LABEL = options.LABEL;
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
+	let printedProperties = options.req.body;
+	let printAll = ('body' in options.req) && (options.req.body.custom == 1)
+
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
 			console.log("calling xlsx");
@@ -1870,10 +1881,12 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							
 							
 							if (value){
-								setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
-								setCell(sheet, 2, sheetRowIndex, p, detailOpts);
-								setCell(sheet, 3, sheetRowIndex, value, detailOpts);
-								sheetRowIndex++;
+								if (printAll || (prop in printedProperties)){
+									setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
+									setCell(sheet, 2, sheetRowIndex, p, detailOpts);
+									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
+									sheetRowIndex++;
+								}
 
 
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
@@ -1930,9 +1943,11 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							// console.log(p + ' : ' + value)
 							if (value){
 
-								setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
-								setCell(sheet, 3, sheetRowIndex, value, detailOpts);
-								sheetRowIndex++;
+								if (printAll || (prop in printedProperties)){
+									setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
+									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
+									sheetRowIndex++;
+								}
 
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
@@ -2659,6 +2674,7 @@ var getSingleHandler = function (options) {
 		var objectBaseURL = options.objectBaseURL;
 		var LABEL = options.LABEL;
 		var objectModelLabel = options.objectModelLabel;
+		options.req = req;
 		ObjectModel.findById(req.params.objectModelIdParamName, function (err, objectInstance) {
 			if (err){
 				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);

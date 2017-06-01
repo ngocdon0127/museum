@@ -57,7 +57,7 @@
 									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + '<img class="img-responsive" width="160" src="' + sp + '/' + curElement + '">' + '</a><br/>\n';
 									break;
 								default:
-									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.split(curElement.lastIndexOf('_+_') + '_+_'.length) + '</a><br/>\n';
+									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.substring(curElement.lastIndexOf('_+_') + '_+_'.length) + '</a><br/>\n';
 									break;
 							}
 							return preStr;
@@ -68,7 +68,7 @@
 						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
 					}
 					// Need to escape to prevent injected HTML + JS
-					return escape(obj);
+					return escape(obj).replace(/_-_/g, ', ');
 				}
 
 				function propDiff (obj1, obj2, prop) {

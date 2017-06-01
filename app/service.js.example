@@ -1,31 +1,7 @@
 app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
 	return ({
-		//hostName: 'http://localhost:8000',
-		hostName: 'https://baotangvn.online',
-		deleteP: deleteP,
-		approvePost: approvePost,
-		addSample: addSample,
-		editForm: editForm,
-		exportFile: exportFile,
-		autoCom: autoCom,
-		renderFlexdatalist: renderFlexdatalist,
-		fetchFlexdatalist: fetchFlexdatalist,
-		initDatePicker: initDatePicker,
-		startSpinner: startSpinner,
-		stopSpinner: stopSpinner,
-		todoRef: todoRef,
-		getRestrict: getRestrict,
-		arrAuto: [
-			'tenDongNghia',
-			'tenTheoBaoTang',
-			'tenVietNam',
-			'tenPhoThong',
-			'tenDiaPhuong',
-			'tenTiengAnh',
-			'gioi',app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
-	return ({
-		hostName: 'http://localhost:8000',
-		// hostName: 'http://baotangvn.online',
+		// hostName: 'http://localhost:8000',
+		hostName: 'http://baotangvn.online',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,
@@ -91,522 +67,12 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		})
 		//handle error
 		.error(function(err){
-			console.log(err);
 			defer.reject("Lỗi trong quá trình tải dữ liệu...");
 		});
 		return defer.promise;
 	}
 
-	function exportFile(id){
-		var arr = document.getElementsByClassName("check-box");
-
-		var urls = [];
-		var totalFile = 0;
-		var step = 0;
-		var progressBar = document.getElementById('download-progress-bar');
-		var progressBarContainer = document.getElementById('download-progress-bar-container');
-		angular.forEach(arr, function (value) {
-			if (value.checked) {
-				urls.push(value.getAttribute("data-id") + id);
-				totalFile++;
-			}
-		});
-
-		if (totalFile){
-			// step = 100 / totalFile;
-			progressBar.setAttribute('aria-valuemax', totalFile);
-			progressBar.style.width = '0%';
-			progressBar.innerHTML = '0 / ' + totalFile;
-			progressBar.setAttribute('aria-valuenow', 0);
-			$(progressBarContainer).fadeIn();
-		} else{
-			var modalInstance = $uibModal.open({
-				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: "ModalInstanceCtrl",
-				controllerAs: '$ctrl',
-				resolve: {
-					err: function () {
-						return "Xin hãy chọn file";
-					},
-					id: function () {
-						return "";
-					}
-				}
-			});
-		}
-		download(0);
-
-		function download(index) {
-			if (index >= totalFile){
-				$(progressBarContainer).fadeOut(1000);
-			}
-			else {
-				try{
-					var xhr = new XMLHttpRequest();
-					xhr.onreadystatechange = function () {
-						if ((xhr.readyState == 4) && (xhr.status == 200)){
-							var disposition = xhr.getResponseHeader('Content-Disposition');
-							var fields = disposition.split([';']);
-							var fileNameIndex = -1;
-							fields.map(function (element, index) {
-								fields[index] = element.trim();
-								if (fields[index].indexOf('filename*') >= 0){
-									fileNameIndex = index;
-								}
-							})
-							var fileName = '';
-							if (fileNameIndex == -1){
-								for(var i = 0; i < fields.length; i++){
-									if (fields[i].indexOf('filename=') >= 0){
-										fileNameIndex = i;
-									}
-								}
-							}
-							if (fileNameIndex == -1){
-								fileName = 'PCSDL.' + id;
-							}
-							else {
-								fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
-								fileName = decodeURIComponent(fileName);
-							}
-							var type = xhr.getResponseHeader('Content-Type');
-							var blob = new Blob([xhr.response], {type: type});
-							saveAs(blob, fileName);
-							arr[index].checked = false;
-							progressBar.style.width = (index + 1) / totalFile * 100 + '%';
-							progressBar.innerHTML = (index + 1) + ' / ' + totalFile;
-							progressBar.setAttribute('aria-valuenow', index);
-							if (index >= totalFile - 1){
-								setTimeout(function () {
-									$(progressBarContainer).fadeOut(1000);
-								}, 500)
-
-							}
-							setTimeout(function () {
-								download(index + 1);
-							}, 100);
-						}
-					}
-					xhr.responseType = 'arraybuffer';
-					xhr.open('GET', urls[index], true);
-					xhr.send();
-				} catch(err){
-					// console.log("Không thể download");
-				}
-			}
-		}
-	}
-
-	function addSample(fd, url, urlRe){
-		$.ajax({
-			url: url,
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				cfpLoadingBar.complete();
-				stopSpinner();
-				setTimeout(function () {
-					var modalInstance = $uibModal.open({
-						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: "ModalInstanceCtrl",
-						controllerAs: '$ctrl',
-						resolve: {
-							err: function () {
-								return "Thêm mẫu vật thành công";
-							},
-							id: function () {
-								return "";
-							}
-						}
-					});
-					$state.go(urlRe);
-				}, 100)
-			},
-			error: function (err) {
-				cfpLoadingBar.complete();
-				stopSpinner();
-				cfpLoadingBar.set(0);
-
-				var id = JSON.parse(err.responseText).field;
-				var x = document.getElementById(id);
-				var element = x.nextElementSibling
-				element.style.borderColor = "red";
-				setTimeout(function () { // Stop spinner before alerting
-					// alert(JSON.parse(err.responseText).error);
-					var modalInstance = $uibModal.open({
-						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: "ModalInstanceCtrl",
-						controllerAs: '$ctrl',
-						resolve: {
-							err: function () {
-								return JSON.parse(err.responseText).error;
-							},
-							id: function () {
-								return id;
-							}
-						}
-					});
-				}, 100)
-			}
-		});
-	}
-
-	function editForm(fd, url, urlRe){
-		$.ajax({
-			url: url,
-			method: 'PUT',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				cfpLoadingBar.complete();
-				stopSpinner();
-				setTimeout(function () { // Stop spinner before alerting
-					var modalInstance = $uibModal.open({
-						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: "ModalInstanceCtrl",
-						controllerAs: '$ctrl',
-						resolve: {
-							err: function () {
-								return "Chỉnh sửa mẫu vật thành công";
-							},
-							id: function () {
-								return "";
-							}
-						}
-					});
-					$state.go(urlRe)
-				}, 100)
-			},
-			error: function (err) {
-				cfpLoadingBar.complete();
-				cfpLoadingBar.set(0);
-				stopSpinner();
-				
-				var id = JSON.parse(err.responseText).field;
-				var x = document.getElementById(id);
-				var element = x.nextElementSibling
-				element.style.borderColor = "red";
-				setTimeout(function () { // Stop spinner before alerting
-					// alert(JSON.parse(err.responseText).error);
-					var modalInstance = $uibModal.open({
-						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: "ModalInstanceCtrl",
-						controllerAs: '$ctrl',
-						resolve: {
-							err: function () {
-								return JSON.parse(err.responseText).error;
-							},
-							id: function () {
-								return id;
-							}
-						}
-					});
-
-					
-				}, 100)
-			}
-		});
-	}
-	function deleteP(id, urlDelete){
-		$http({
-			method: 'DELETE',
-			url: urlDelete,
-			headers: {'Content-Type': 'application/json'},
-			data: {id: id}
-		}).then(function (res) {
-			var modalInstance = $uibModal.open({
-				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: "ModalInstanceCtrl",
-				controllerAs: '$ctrl',
-				resolve: {
-					err: function () {
-						return "Xóa thành công";
-					},
-					id: function () {
-						return "";
-					}
-				}
-			});
-
-			$state.reload();
-		}, function (err) {
-			console.log(err);
-		});
-	}
-
-	function approvePost(id, val, link) {
-		$http({
-			method: 'POST',
-			url: '/manager/approve',
-			headers: {'Content-Type': 'application/json'},
-			data: {
-				id: id,
-				form: link,
-				approved: val ? '0' : '1'
-			}
-		}).then(function (res) {
-			// console.log(res);
-			if (res.data.status == 'success'){
-				var modalInstance = $uibModal.open({
-					templateUrl: 'views/modals/dialogs.blade.html',
-					controller: "ModalInstanceCtrl",
-					controllerAs: '$ctrl',
-					resolve: {
-						err: function () {
-							return "Thành công";
-						},
-						id: function () {
-							return "";
-						}
-					}
-				});
-			}
-			else {
-				var modalInstance = $uibModal.open({
-					templateUrl: 'views/modals/dialogs.blade.html',
-					controller: "ModalInstanceCtrl",
-					controllerAs: '$ctrl',
-					resolve: {
-						err: function () {
-							return "Bạn không được phê duyệt mẫu vật này.";
-						},
-						id: function () {
-							return "";
-						}
-					}
-				});
-			}
-			$state.reload();
-		}, function (err) {
-			// console.log(err);
-			var modalInstance = $uibModal.open({
-				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: "ModalInstanceCtrl",
-				controllerAs: '$ctrl',
-				resolve: {
-					err: function () {
-						return "Bạn không được phê duyệt mẫu vật này.";
-					},
-					id: function () {
-						return "";
-					}
-				}
-			});
-			$state.reload();
-		});
-	}
-
-	function autoCom(str, _scope) {
-		var dtl = document.createElement('datalist')
-		dtl.setAttribute('id', 'datalist-' + str);
-		try {
-			_scope.auto[str].forEach(function(val) {
-				if (!val){
-					return;
-				}
-				var opt = document.createElement('option');
-				opt.innerHTML = val;
-				try {
-					dtl.appendChild(opt);
-				}
-				catch (e){
-					// console.log(e)
-				}
-			})
-			try {
-				var input = document.getElementsByName(str)[0];
-				$(dtl).appendTo($(input).parent())
-				input.setAttribute('list', 'datalist-' + str);
-			}
-			catch (e){
-				// console.log(e);
-			}
-		}
-		catch (err){
-			// console.log(err);
-		}
-	};
-
-	function renderFlexdatalist(value) {
-		setTimeout(function () {
-			$('.flexdatalist').flexdatalist({
-				minLength: 0,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
-			});
-			
-			$('.flexdatalist-force').flexdatalist({
-				minLength: 0,
-				selectionRequired: true,
-				valueProperty: value,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
-			});
-		}, 100)
-	}
-
-	function fetchFlexdatalist(_scope) {
-		setTimeout(function () {
-			// Render
-			$('.flexdatalist').flexdatalist({
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
-			});
-
-			// Must call another time. Do not know why.
-			$('.flexdatalist').flexdatalist({
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
-			});
-
-			$('.flexdatalist-force').flexdatalist({
-				minLength: 0,
-				selectionRequired: true,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
-			});
-
-			// After rendering flexdatalist, giaTriSuDung will be focused.
-			// Call this to scroll to top.
-			$('html, body').animate({
-				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
-			}, 1);
-		}, 10);
-	}
-
-	function initDatePicker(_scope) {
-		setTimeout(function () {
-			if (_scope){
-				
-				// Edit Form
-				$('.datepicker').each(function (index, element) {
-					try {
-						if (element.nodeName.toUpperCase() == 'INPUT'){
-							var name = element.getAttribute('name');
-							// console.log(name);
-							if (_scope[name]){
-								var date = new Date(_scope[name]);
-								_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-							}
-						}
-					}
-					catch (e){
-						console.log(e)
-					}
-
-				})
-			}
-			
-
-			$( ".datepicker" ).datepicker({
-				dateFormat: 'dd/mm/yy',
-				changeMonth: 'true',
-				changeYear: true,
-				showAnim: 'slideDown',
-				yearRange: ((new Date()).getFullYear() - 200) + ':' + ((new Date()).getFullYear() + 10)
-			});
-		}, 1000)
-		
-	}
-
-	function startSpinner() {
-		if (SPINNER){
-			SPINNER.stop();
-		}
-		var opts = {
-			  lines: 13 // The number of lines to draw
-			, length: 28 // The length of each line
-			, width: 14 // The line thickness
-			, radius: 42 // The radius of the inner circle
-			, scale: 2.25 // Scales overall size of the spinner
-			, corners: 1 // Corner roundness (0..1)
-			, color: '#000' // #rgb or #rrggbb or array of colors
-			, opacity: 0.25 // Opacity of the lines
-			, rotate: 0 // The rotation offset
-			, direction: 1 // 1: clockwise, -1: counterclockwise
-			, speed: 1.8 // Rounds per second
-			, trail: 60 // Afterglow percentage
-			, fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-			, zIndex: 2e9 // The z-index (defaults to 2000000000)
-			, className: 'spinner' // The CSS class to assign to the spinner
-			, top: '95%' // Top position relative to parent
-			, left: '50%' // Left position relative to parent
-			, shadow: false // Whether to render a shadow
-			, hwaccel: false // Whether to use hardware acceleration
-			, position: 'absolute' // Element positioning
-		}
-		// var target = document.getElementById('form-content');
-		target = document.getElementById('form-content');
-		// console.log('starting spinner');
-		// console.log(target)
-		SPINNER = new Spinner(opts).spin(target);
-		// console.log('start spinning');
-		$('html, body').animate({
-			scrollTop: $(document.getElementsByClassName('spinner')[0]).offset().top
-		}, 500);
-
-		setTimeout(function () {
-			// stopSpinner();
-		}, 2000)
-	}
-
-	function stopSpinner() {
-		SPINNER.stop();
-	}
-
-});
-
-var STR_AUTOCOMPLETION_SEPERATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
-var SPINNER = null;
-			'nganh', 'lop', 
-			'phanLop', 
-			'bo', 
-			'phanBo', 
-			'lienHo',
-			'ho',
-			'phanHo',
-			'toc',
-			'loai', 
-			'duoiLoai', 
-			'coQuanThuMau', 'thon',
-			'coQuanToChucGiamDinh',
-			'coQuanXuLy',
-			'boPhanLayMauDNA', 
-			'trangThaiGiuMauDNA',
-			'coQuanNhapVatMau',
-			'giaTriSuDung',
-			'tong',
-			'chiGiong',
-			'phanChiPhanGiong',
-			'loai',
-			'noiLuuTruMau',
-			'viTriLayMauDNA',
-			'mauDNA'
-		]
-	});
-
-	function todoRef() {
-		return true;
-	}
-
-	function getRestrict(sample) {
-		var self = this;
-		var defer = $q.defer();
-		$http.get(this.hostName + "/users/me?datatype=json")
-		.success(function(data, status){
-			if (status == 200 && data.status == 'success') {
-				defer.resolve(data);
-			} else{
-				defer.reject();
-			}
-		})
-		//handle error
-		.error(function(err){
-			console.log(err);
-			defer.reject("Lỗi trong quá trình tải dữ liệu...");
-		});
-		return defer.promise;
-	}
-
-	function exportFile(id){
+	function exportFile(id, fields_form){
 		var arr = document.getElementsByClassName("check-box");
 
 		var urls = [];
@@ -644,20 +110,30 @@ var SPINNER = null;
 				}
 			});
 		}
-		download(0);
+		download(0, fields_form);
 
-		function download(index) {
-			// console.log('processing ' + index);
+		function download(index, fields_form) {
 			if (index >= totalFile){
 				$(progressBarContainer).fadeOut(1000);
 			}
 			else {
 				var xhr = new XMLHttpRequest();
+				if (fields_form != "") {
+					xhr.open('POST', urls[index], true);
+					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhr.responseType = 'arraybuffer';
+					xhr.send(fields_form);
+				} else{
+					xhr.open('GET', urls[index], true);
+					xhr.responseType = 'arraybuffer';
+					xhr.send();
+				}
+			
+
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
 						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
-						// console.log(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -681,11 +157,6 @@ var SPINNER = null;
 							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
 							fileName = decodeURIComponent(fileName);
 						}
-						if (['"', "'"].indexOf(fileName[fileName.length - 1]) >= 0){
-							// PCSDL_export-2017-5-2_23:20:52.zip"
-							fileName = fileName.substring(0, fileName.length - 1);
-						}
-						// console.log(fields);
 						var type = xhr.getResponseHeader('Content-Type');
 						// console.log(type);
 						var blob = new Blob([xhr.response], {type: type});
@@ -701,13 +172,10 @@ var SPINNER = null;
 
 						}
 						setTimeout(function () {
-							download(index + 1);
+							download(index + 1, fields_form);
 						}, 100);
 					}
 				}
-				xhr.responseType = 'arraybuffer';
-				xhr.open('GET', urls[index], true);
-				xhr.send();
 			}
 		}
 	}
@@ -790,12 +258,11 @@ var SPINNER = null;
 				}, 100)
 			},
 			error: function (err) {
-				console.log(err);
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
 				stopSpinner();
 				
-				var id = JSON.parse(err.responseJSON).field;
+				var id = JSON.parse(err.responseText).field;
 				var x = document.getElementById(id);
 				var element = x.nextElementSibling
 				element.style.borderColor = "red";
@@ -843,7 +310,7 @@ var SPINNER = null;
 
 			$state.reload();
 		}, function (err) {
-			console.log(err);
+			// console.log(err);
 		});
 	}
 
@@ -891,7 +358,6 @@ var SPINNER = null;
 			}
 			$state.reload();
 		}, function (err) {
-			// console.log(err);
 			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
 				controller: "ModalInstanceCtrl",
@@ -910,18 +376,10 @@ var SPINNER = null;
 	}
 
 	function autoCom(str, _scope) {
-		// jQuery("#"+str).autocomplete({
-		// 	source : $scope.auto[str]
-		// })
-		
-		
-		// console.log('autoCom ' + str);
 		var dtl = document.createElement('datalist')
 		dtl.setAttribute('id', 'datalist-' + str);
-		// console.log(_scope.auto[str])
 		try {
 			_scope.auto[str].forEach(function(val) {
-				// console.log(val);
 				if (!val){
 					return;
 				}
@@ -931,19 +389,16 @@ var SPINNER = null;
 					dtl.appendChild(opt);
 				}
 				catch (e){
-					console.log(e)
+					// console.log(e)
 				}
 			})
 			try {
 				var input = document.getElementsByName(str)[0];
-				// console.log('input');
-				// console.log(input)
 				$(dtl).appendTo($(input).parent())
 				input.setAttribute('list', 'datalist-' + str);
 			}
 			catch (e){
 				// console.log(e);
-				console.log(str);
 			}
 		}
 		catch (err){
@@ -951,7 +406,7 @@ var SPINNER = null;
 		}
 	};
 
-	function renderFlexdatalist() {
+	function renderFlexdatalist(value) {
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
 				minLength: 0,
@@ -961,26 +416,23 @@ var SPINNER = null;
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
+				valueProperty: value,
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-		}, 1000)
+		}, 100)
 	}
 
 	function fetchFlexdatalist(_scope) {
 		setTimeout(function () {
-			// console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 
-
-
 			// Must call another time. Do not know why.
 			$('.flexdatalist').flexdatalist({
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-			// console.log('done render');
 
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,

@@ -42,8 +42,6 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
         xhr.responseType = 'arraybuffer';
         xhr.open('POST',link, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        // xhr.setRequestHeader("Content-length", data.length);
-        // xhr.setRequestHeader("Connection", "close");
         xhr.send(data);
     }
 

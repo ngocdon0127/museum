@@ -1,7 +1,7 @@
 app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
 	return ({
-		//hostName: 'http://localhost:8000',
-		hostName: 'https://baotangvn.online',
+		hostName: 'http://localhost:8000',
+		// hostName: 'http://baotangvn.online',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,
@@ -15,7 +15,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		stopSpinner: stopSpinner,
 		todoRef: todoRef,
 		getRestrict: getRestrict,
-		arrAuto: [
+		arrAuto: [	
 			'tenDongNghia',
 			'tenTheoBaoTang',
 			'tenVietNam',
@@ -73,7 +73,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		return defer.promise;
 	}
 
-	function exportFile(id){
+	function exportFile(id, fields_form){
 		var arr = document.getElementsByClassName("check-box");
 
 		var urls = [];
@@ -111,20 +111,23 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				}
 			});
 		}
-		download(0);
+		download(0, fields_form);
 
-		function download(index) {
+		function download(index, fields_form) {
 			// console.log('processing ' + index);
 			if (index >= totalFile){
 				$(progressBarContainer).fadeOut(1000);
 			}
 			else {
 				var xhr = new XMLHttpRequest();
+				xhr.open('POST', urls[index], true);
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.setRequestHeader("Connection", "close");
+
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
 						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
-						// console.log(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -148,10 +151,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
 							fileName = decodeURIComponent(fileName);
 						}
-						if (['"', "'"].indexOf(fileName[fileName.length - 1]) >= 0){
-							// PCSDL_export-2017-5-2_23:20:52.zip"
-							fileName = fileName.substring(0, fileName.length - 1);
-						}
 						// console.log(fields);
 						var type = xhr.getResponseHeader('Content-Type');
 						// console.log(type);
@@ -168,13 +167,13 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 						}
 						setTimeout(function () {
-							download(index + 1);
+							download(index + 1, fields_form);
 						}, 100);
 					}
 				}
+
 				xhr.responseType = 'arraybuffer';
-				xhr.open('GET', urls[index], true);
-				xhr.send();
+				xhr.send(fields_form);
 			}
 		}
 	}

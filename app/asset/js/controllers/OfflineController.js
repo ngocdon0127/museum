@@ -13,21 +13,24 @@ app.controller('OfflineCtrl', function ($scope) {
     };
 
     $scope.download = function () {
-      var link = "/content/dong-vat/59153670d01e41313c837dc9?display=docx";
-      var xhr = new XMLHttpRequest();
-          xhr.onreadystatechange = function () {
-            if ((xhr.readyState == 4) && (xhr.status == 200)){
-              var disposition = xhr.getResponseHeader('Content-Disposition');
-              var file_names = disposition.split([';'])
-              var file_name = decodeURIComponent(file_names[2]);
-              var type = xhr.getResponseHeader('Content-Type');
-              console.log(type);
-              var blob = new Blob([xhr.response], {type: type});
-              saveAs(blob, file_name);
+        var link = "/content/dong-vat/59153670d01e41313c837dc9?display=docx";
+        var data = {
+
+        }
+        var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if ((xhr.readyState == 4) && (xhr.status == 200)){
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    var file_names = disposition.split([';'])
+                    var file_name = decodeURIComponent(file_names[2]);
+                    var type = xhr.getResponseHeader('Content-Type');
+                    console.log(type);
+                    var blob = new Blob([xhr.response], {type: type});
+                    saveAs(blob, file_name);
+                }
             }
-          }
-          xhr.responseType = 'arraybuffer';
-          xhr.open('GET',link, true);
-          xhr.send();
+        xhr.responseType = 'arraybuffer';
+        xhr.open('POST',link, true);
+        xhr.send(data);
     }
 });

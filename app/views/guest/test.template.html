@@ -4,6 +4,15 @@
   		<input type="file" multiple ng-model="testfile" class="inputfile customfile" data-multiple-caption="{count} file is selected" id="testfile" name ="testfile">
 		<label for="testfile" title="{{tooltips['testfile']}}"><span>No file chosen</span><strong>Open</strong></label>
 	</div>
+
+	<input type="text" title="{{tooltips['dataFlex']}}" name="dataFlex" class="input-form flexdatalist-force" data-min-length='0' multiple='multiple' ng-model="dataFlex" list="dataFlex">
+	<datalist id="dataFlex">
+	<option value="soHieuBTTNVN">Số hiệu bảo tàng thiên nhiên</option>
+	<option value="soHieuThucDia">Số hiệu thực địa</option>
+	<option value="kyHieuMauVatKhac">Kí hiệu mẫu vật khác</option>
+	<option value="tenTiengAnh">Tên tiếng anh</option>
+	</datalist>
+
 	<button type="button" data-id="/content/dong-vat/59153670d01e41313c837dc9?display=docx" ng-click="download()" class="btn btn-default">Dowload</button>
   <div ng-bind="counter"></div>
 </div>

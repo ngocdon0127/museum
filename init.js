@@ -782,7 +782,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
 	let printedProperties = options.req.body;
-	let printAll = ('body' in options.req) && (options.req.body.custom == 1)
+	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
 			console.log("calling docx");
@@ -2666,6 +2666,9 @@ var getSingleHandler = function (options) {
 	return function (req, res) {
 		// console.log(ObjectId(req.params.animalId));
 		// console.log(req.params.animalId);
+		console.log("---------------");
+		console.log(req.body);
+		console.log("---------------");
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;

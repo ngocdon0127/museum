@@ -782,7 +782,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
 	let printedProperties = options.req.body;
-	let printAll = ('body' in options.req) && (options.req.body.custom == 1)
+	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
 			console.log("calling docx");

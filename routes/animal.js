@@ -155,6 +155,29 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 	}
 }))
 
+router.post(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), getSingleHandler({
+	ObjectModel: ObjectModel,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+	objectModelIdParamName: objectModelIdParamName,
+	objectBaseURL: objectBaseURL,
+	objectModelName: objectModelName,
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+	LABEL: LABEL,
+	objectModelLabel: objectModelLabel,
+	paragraph: {
+		text: [
+		'PHIẾU CƠ SỞ DỮ LIỆU MẪU ĐỘNG VẬT', 
+		// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
+		],
+		style: [
+			{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
+			// {color: "000000", font_face: "Times New Roman", font_size: 12}
+		]
+
+	}
+}))
+
 var getLogHandler = global.myCustomVars.getLogHandler;
 router.get(objectBaseURL + '/log/:logId/:position', getLogHandler({
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,

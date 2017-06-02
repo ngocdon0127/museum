@@ -641,13 +641,6 @@
 			"roles": ["content"]
 		},
 		{
-			"username": "kevinhoa95@gmail.com",
-			"password": "museumhust1536",
-			"maDeTai": "DT-001",
-			"fullname": "Hola",
-			"roles": ["content", "admin"]
-		},
-		{
 			"username": "manager@gmail.com",
 			"password": "123123",
 			"maDeTai": "DT-001",

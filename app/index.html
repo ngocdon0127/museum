@@ -39,7 +39,7 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li class="dropdown" ng-if="restricted.restrict">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b><b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh"><b>Cổ sinh</b></a></li>
 							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat"><b>Địa chất</b></a></li>
@@ -48,7 +48,16 @@
 							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat"><b>Thực vật</b></a></li>
 						</ul>
 					</li>
-					<li><a ui-sref="quan-ly"><b>Quản lý mẫu vật</b></a></li>
+					<li class="dropdown" ng-if="restricted.restrict">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Quản lý mẫu vật</b> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="quan-ly-co-sinh"><b>Các mẫu cổ sinh</b></a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="quan-ly-dia-chat"><b>Các mẫu địa chất</b></a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="quan-ly-dong-vat"><b>Các mẫu động vật</b></a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong"><b>Các mẫu thổ nhưỡng</b></a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat"><b>Các mẫu thực vật</b></a></li>
+						</ul>
+					</li>
 					<li><a href="/log/all"><b>Lịch sử nhập liệu</b></a></li>
 				</ul>
 

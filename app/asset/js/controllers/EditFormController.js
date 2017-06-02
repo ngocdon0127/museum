@@ -39,7 +39,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				$scope.vido_do = parseInt(coor[1].trim());
 				$scope.vido_phut = parseInt(coor[2].trim());
@@ -133,7 +133,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				$scope.vido_do = parseInt(coor[1].trim());
 				$scope.vido_phut = parseInt(coor[2].trim());
@@ -227,7 +227,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$stateP
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				$scope.vido_do = parseInt(coor[1].trim());
 				$scope.vido_phut = parseInt(coor[2].trim());
@@ -322,7 +322,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$state
 		AuthService.initDatePicker($scope.data);
 		
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				try{
 					$scope.vido_do = parseInt(coor[1].trim());
@@ -421,7 +421,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams
 
 		$timeout(function(){
 			// if ($scope.data.viDo != null) {
-				if (isNaN($scope.data.viDo)) {
+				if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 					var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 					$scope.vido_do = parseInt(coor[1].trim());
 					$scope.vido_phut = parseInt(coor[2].trim());

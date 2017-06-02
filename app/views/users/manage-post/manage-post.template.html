@@ -34,10 +34,10 @@
 			<tr ng-repeat="(key, post) in data">
 				<td>
 					<input type="checkbox" class="check-box" ng-model="post.selected" data-id='/content/{{link}}/{{post._id}}?display='>
-					<a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenVietNam}}</span></a>
+					<a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</span></a>
 				</td>
 				<td>
-					{{post.nguoiLapPhieuMauVat}}
+					{{post.nguoiLapPhieuMauVat ? post.nguoiLapPhieuMauVat : 'Chưa có tên'}}
 				</td>
 				<td>
 					<span>Người thu mẫu: </span>{{post.nguoiThuMau}} </br>

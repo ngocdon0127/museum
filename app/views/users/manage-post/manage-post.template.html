@@ -12,7 +12,7 @@
 	<center><h2>Các mẫu vật đã đăng</h2></center>
 	<div class="dropdown" style="margin-left: 15px;">
 			<button class="btn btn-primary" style="margin-bottom: 10px; width: 300px;">Trích xuất file <b class="caret"></b></button>
-			<div class="dropdown-content" ng-controller="ModalCtrl" style="width: 300px;">
+			<div class="dropdown-content" ng-controller="ExportFileController" style="width: 300px;">
 			    <a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
 			    <a ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</a>
 			    <a ng-click="export('xlsx')"><span class="glyphicon glyphicon-download"></span> Xuất xlsx</a>
@@ -128,39 +128,42 @@
 </style>
 <script src="/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 <script>
-setTimeout(function(){
-		$('#managerpost').DataTable({
-			"paging": true,
-			"lengthChange": true,
-			"searching": true,
-			"ordering": true,
-			"info": true,
-			"autoWidth": true,
-			"language": {
-						    "decimal":        "",
-						    "emptyTable":     "Không có dữ liệu",
-						    "info":           "<strong>Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi</strong>",
-						    "infoEmpty":      "<strong>Đang xem từ 0 tới 0 trong tổng số 0</strong>",
-						    "infoFiltered":   "(filtered from _MAX_ total entries)",
-						    "infoPostFix":    "",
-						    "thousands":      ",",
-						    "lengthMenu":     "Xem _MENU_ mẫu vật",
-						    "loadingRecords": "Đang tải...",
-						    "processing":     "Đang xử lý...",
-						    "search":         "<b>Tìm kiếm:</b>",
-						    "zeroRecords":    "<b>Không tìm thấy nội dung</b>",
-						    "paginate": {
-						        "first":      "Đầu trang",
-						        "last":       "Cuối trang",
-						        "next":       "Sau",
-						        "previous":   "Trước"
-						    },
-						    "aria": {
-						        "sortAscending":  ": activate to sort column ascending",
-						        "sortDescending": ": activate to sort column descending"
-						    }
-						}
-		}).order([3, 'desc']).draw();
-	}, 2000);
+	$(document).ready(function () {
+		setTimeout(function(){
+			$('#managerpost').DataTable({
+				"paging": true,
+				"lengthChange": true,
+				"searching": true,
+				"ordering": true,
+				"info": true,
+				"autoWidth": true,
+				"language": {
+				    "decimal":        "",
+				    "emptyTable":     "Không có dữ liệu",
+				    "info":           "<strong>Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi</strong>",
+				    "infoEmpty":      "<strong>Đang xem từ 0 tới 0 trong tổng số 0</strong>",
+				    "infoFiltered":   "(filtered from _MAX_ total entries)",
+				    "infoPostFix":    "",
+				    "thousands":      ",",
+				    "lengthMenu":     "Xem _MENU_ mẫu vật",
+				    "loadingRecords": "Đang tải...",
+				    "processing":     "Đang xử lý...",
+				    "search":         "<b>Tìm kiếm:</b>",
+				    "zeroRecords":    "<b>Không tìm thấy nội dung</b>",
+				    "paginate": {
+				        "first":      "Đầu trang",
+				        "last":       "Cuối trang",
+				        "next":       "Sau",
+				        "previous":   "Trước"
+				    },
+				    "aria": {
+				        "sortAscending":  ": activate to sort column ascending",
+				        "sortDescending": ": activate to sort column descending"
+				    }
+				}
+			}).order([3, 'desc']).draw();
+		}, 2000);
+	});
 </script>

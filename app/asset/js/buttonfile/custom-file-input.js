@@ -12,6 +12,13 @@ $(document).ready(function () {
 		//catch event file change
 		input.addEventListener('change', function(e)
 		{
+			// var reader = new FileReader();
+			// reader.onload = function(){
+	  //       	var text = reader.result;
+	  //       	console.log(reader.result.substring(0, 200));
+	  //     	};
+			
+			// reader.readAsText(e.target.files[0])
 			var max_sizes = this.getAttribute('max-file-size');
 			//Kiem tra xem dung luong file co vuot qua dung luong cho phep
 			var fileName = '';

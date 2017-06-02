@@ -1,7 +1,7 @@
 app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
 	return ({
-		//hostName: 'http://localhost:8000',
-		hostName: 'https://baotangvn.online',
+		// hostName: 'http://localhost:8000',
+		hostName: 'http://baotangvn.online',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,
@@ -15,7 +15,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		stopSpinner: stopSpinner,
 		todoRef: todoRef,
 		getRestrict: getRestrict,
-		arrAuto: [
+		arrAuto: [	
 			'tenDongNghia',
 			'tenTheoBaoTang',
 			'tenVietNam',
@@ -67,13 +67,12 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		})
 		//handle error
 		.error(function(err){
-			console.log(err);
 			defer.reject("Lỗi trong quá trình tải dữ liệu...");
 		});
 		return defer.promise;
 	}
 
-	function exportFile(id){
+	function exportFile(id, fields_form){
 		var arr = document.getElementsByClassName("check-box");
 
 		var urls = [];
@@ -111,20 +110,30 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				}
 			});
 		}
-		download(0);
+		download(0, fields_form);
 
-		function download(index) {
-			// console.log('processing ' + index);
+		function download(index, fields_form) {
 			if (index >= totalFile){
 				$(progressBarContainer).fadeOut(1000);
 			}
 			else {
 				var xhr = new XMLHttpRequest();
+				if (fields_form != "") {
+					xhr.open('POST', urls[index], true);
+					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhr.responseType = 'arraybuffer';
+					xhr.send(fields_form);
+				} else{
+					xhr.open('GET', urls[index], true);
+					xhr.responseType = 'arraybuffer';
+					xhr.send();
+				}
+			
+
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
 						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
-						// console.log(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -148,11 +157,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
 							fileName = decodeURIComponent(fileName);
 						}
-						if (['"', "'"].indexOf(fileName[fileName.length - 1]) >= 0){
-							// PCSDL_export-2017-5-2_23:20:52.zip"
-							fileName = fileName.substring(0, fileName.length - 1);
-						}
-						// console.log(fields);
 						var type = xhr.getResponseHeader('Content-Type');
 						// console.log(type);
 						var blob = new Blob([xhr.response], {type: type});
@@ -168,13 +172,10 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 						}
 						setTimeout(function () {
-							download(index + 1);
+							download(index + 1, fields_form);
 						}, 100);
 					}
 				}
-				xhr.responseType = 'arraybuffer';
-				xhr.open('GET', urls[index], true);
-				xhr.send();
 			}
 		}
 	}
@@ -257,12 +258,11 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				}, 100)
 			},
 			error: function (err) {
-				console.log(err);
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
 				stopSpinner();
 				
-				var id = JSON.parse(err.responseJSON).field;
+				var id = JSON.parse(err.responseText).field;
 				var x = document.getElementById(id);
 				var element = x.nextElementSibling
 				element.style.borderColor = "red";
@@ -310,7 +310,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 			$state.reload();
 		}, function (err) {
-			console.log(err);
+			// console.log(err);
 		});
 	}
 
@@ -358,7 +358,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			}
 			$state.reload();
 		}, function (err) {
-			// console.log(err);
 			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
 				controller: "ModalInstanceCtrl",
@@ -377,18 +376,10 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	}
 
 	function autoCom(str, _scope) {
-		// jQuery("#"+str).autocomplete({
-		// 	source : $scope.auto[str]
-		// })
-		
-		
-		// console.log('autoCom ' + str);
 		var dtl = document.createElement('datalist')
 		dtl.setAttribute('id', 'datalist-' + str);
-		// console.log(_scope.auto[str])
 		try {
 			_scope.auto[str].forEach(function(val) {
-				// console.log(val);
 				if (!val){
 					return;
 				}
@@ -398,19 +389,16 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 					dtl.appendChild(opt);
 				}
 				catch (e){
-					console.log(e)
+					// console.log(e)
 				}
 			})
 			try {
 				var input = document.getElementsByName(str)[0];
-				// console.log('input');
-				// console.log(input)
 				$(dtl).appendTo($(input).parent())
 				input.setAttribute('list', 'datalist-' + str);
 			}
 			catch (e){
 				// console.log(e);
-				console.log(str);
 			}
 		}
 		catch (err){
@@ -418,7 +406,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		}
 	};
 
-	function renderFlexdatalist() {
+	function renderFlexdatalist(value) {
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
 				minLength: 0,
@@ -428,26 +416,23 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
+				valueProperty: value,
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-		}, 1000)
+		}, 100)
 	}
 
 	function fetchFlexdatalist(_scope) {
 		setTimeout(function () {
-			// console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 
-
-
 			// Must call another time. Do not know why.
 			$('.flexdatalist').flexdatalist({
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-			// console.log('done render');
 
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,

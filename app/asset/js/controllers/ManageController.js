@@ -166,9 +166,7 @@ app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
 	    });
     };
 
-    $scope.export = function (id) {
-		AuthService.exportFile(id);
-	};
+   
 });
 
 var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal) {
@@ -178,4 +176,38 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal) {
 	$scope.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
-}
+};
+
+app.controller('ExportFileController', function($scope, AuthService, $uibModal){
+	$scope.export = function (id) {
+		$scope.opts = {
+			backdrop: true,
+			backdropClick: true,
+			dialogFade: false,
+			keyboard: true,
+			templateUrl: 'views/modals/exportfile.blade.html',
+			controller: ModalInstanceCtrl
+		};
+
+		var modalInstance = $uibModal.open($scope.opts);
+		modalInstance.result.then(function () {
+			var x = document.getElementsByName("fields");
+			let _tmp = "";
+			// Get fields to export
+			if (x.length != 0) {
+				_tmp = x[0].value;
+				console.log(_tmp);
+			}
+			if (_tmp == "") {
+				AuthService.exportFile(id, _tmp);
+			} else{
+				let data = _tmp.replace( new RegExp("_-_", "g"), "=1&")
+				data = "custom=1&" + data + "=1"
+				AuthService.exportFile(id, data);
+			}
+		}, function () {
+			// on cancel button press
+		})
+		
+	};
+})

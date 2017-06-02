@@ -13,14 +13,19 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -101,14 +106,20 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -189,14 +200,20 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$stateP
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -277,14 +294,20 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$state
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -370,14 +393,20 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});

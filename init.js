@@ -232,6 +232,7 @@ function propsName (_PROP_FIELDS) {
 global.myCustomVars.propsName = propsName;
 
 function flatObjectModel (_PROP_FIELDS, objectInstance) {
+	objectInstance = JSON.parse(JSON.stringify(objectInstance));
 	var result = {};
 	_PROP_FIELDS.map(function (element) {
 		// if (element.type.localeCompare('File')){

@@ -1084,7 +1084,45 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
 							var row = null;
-							if (addPropRow){
+							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
+							// Có thể cứ in ()
+							// hoặc là xét xem các thuộc tính con có gía trị thì mới in
+							let subProps;
+							let flagHasRealChildren = false; // Óanh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+							if (curProp.indexOf('Mixed') >= 0){
+								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
+								subProps = element_.subProps;
+								// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
+								// Tiện vl. :-D
+							}
+							else {
+								// console.log('get', curProp);
+								subProps = [];
+								for(let k in flatOI){
+									try {
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
+											subProps.push(k);
+										}
+									}
+									catch (e){
+										// console.log(e);
+									}
+								}
+							}
+							if (subProps instanceof Array){
+								for(let j = 0; j < subProps.length; j++){
+									let sp = subProps[j];
+									if (display(flatOI[sp])){
+										flagHasRealChildren = true;
+										break;
+									}
+								}
+							}
+							else {
+								flagHasRealChildren = true;
+							}
+							if (addPropRow && flagHasRealChildren){
+								// Thêm 1 dòng cho các thể loại: Thông tin khác, Phân bố Việt Nam, các thuộc tính mixed
 								try{
 									curProp = LABEL[curProp];
 								}
@@ -1302,7 +1340,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							}
 						}
 					}
-				}) // Delete subprops
+				}) // Delete subProps
 			}
 
 			var PROP_FIELDS_OBJ = {};
@@ -1923,7 +1961,44 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
 							var row = null;
-							if (addPropRow){
+							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
+							// Có thể cứ in ()
+							// hoặc là xét xem các thuộc tính con có gía trị thì mới in
+							let subProps;
+							let flagHasRealChildren = false; // Óanh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+							if (curProp.indexOf('Mixed') >= 0){
+								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
+								subProps = element_.subProps;
+								// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
+								// Tiện vl. :-D
+							}
+							else {
+								// console.log('get', curProp);
+								subProps = [];
+								for(let k in flatOI){
+									try {
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
+											subProps.push(k);
+										}
+									}
+									catch (e){
+										// console.log(e);
+									}
+								}
+							}
+							if (subProps instanceof Array){
+								for(let j = 0; j < subProps.length; j++){
+									let sp = subProps[j];
+									if (display(flatOI[sp])){
+										flagHasRealChildren = true;
+										break;
+									}
+								}
+							}
+							else {
+								flagHasRealChildren = true;
+							}
+							if (addPropRow && flagHasRealChildren){
 								try{
 									curProp = LABEL[curProp];
 								}
@@ -2104,7 +2179,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 						}
 					}
-				}) // Delete subprops
+				}) // Delete subProps
 			}
 
 			var PROP_FIELDS_OBJ = {};

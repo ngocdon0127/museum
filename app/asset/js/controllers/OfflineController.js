@@ -12,7 +12,7 @@ function to_json(workbook) {
             });
         }
     });
-    console.log(result);
+    // console.log(result);
   return result;
 }
 
@@ -33,8 +33,9 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
     $scope.read = function (data) {
         urlRe = "quan-ly-dong-vat"
         var result = to_json(data)
-        AuthService.startSpinner();
-        AuthService.addSample(result, AuthService.hostName + '/content/dong-vat', urlRe);
+        console.log(data);
+        // AuthService.startSpinner();
+        // AuthService.addSample(result, AuthService.hostName + '/content/dong-vat', urlRe);
     }
 
     $scope.error = function (e) {

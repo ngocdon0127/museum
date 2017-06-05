@@ -12,6 +12,7 @@
 	<center><h2>Các mẫu vật đã đăng</h2></center>
 	<div class="dropdown" style="margin-left: 15px;">
 			<button class="btn btn-primary" style="margin-bottom: 10px; width: 300px;">Trích xuất file <b class="caret"></b></button>
+			<input type="hidden" name="link" ng-bind="link" id="input" class="form-control" value="">
 			<div class="dropdown-content" ng-controller="ExportFileController" style="width: 300px;">
 			    <a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
 			    <a ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</a>
@@ -164,6 +165,6 @@
 				    }
 				}
 			}).order([3, 'desc']).draw();
-		}, 2000);
+		}, 1000);
 	});
 </script>

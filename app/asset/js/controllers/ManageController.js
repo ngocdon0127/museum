@@ -169,16 +169,34 @@ app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
    
 });
 
-var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal) {
+var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, $http, fields) {
 	$scope.ok = function () {
 		$uibModalInstance.close();
 	};
 	$scope.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
+
+	// fields export
+	console.log(fields);
+	$scope.fields = fields;
+
 };
 
-app.controller('ExportFileController', function($scope, AuthService, $uibModal){
+app.controller('ExportFileController', function($scope, AuthService, $uibModal, $http){
+	setTimeout(function () {
+		// get link to render fields export
+		var x = document.getElementsByName('link');
+		link = x[0].innerText
+		var url = AuthService.hostName + "/content/" + link + '/fields';
+		$http.get(url).then(function (res) {
+			$scope.fields = res.data.fields
+		}, function (err) {
+			// log something
+		})
+	},1000)
+	
+
 	$scope.export = function (id) {
 		$scope.opts = {
 			backdrop: true,
@@ -186,7 +204,13 @@ app.controller('ExportFileController', function($scope, AuthService, $uibModal){
 			dialogFade: false,
 			keyboard: true,
 			templateUrl: 'views/modals/exportfile.blade.html',
-			controller: ModalInstanceCtrl
+			controller: ModalInstanceCtrl,
+			controllerAs: "$ctrl",
+			resolve: {
+				fields: function () {
+					return $scope.fields
+				}
+			}
 		};
 
 		var modalInstance = $uibModal.open($scope.opts);
@@ -196,7 +220,6 @@ app.controller('ExportFileController', function($scope, AuthService, $uibModal){
 			// Get fields to export
 			if (x.length != 0) {
 				_tmp = x[0].value;
-				console.log(_tmp);
 			}
 			if (_tmp == "") {
 				AuthService.exportFile(id, _tmp);

@@ -7,7 +7,8 @@ var app = angular.module('museumApp', [
 	'angular-loading-bar',
 	'cfp.loadingBar',
 	'ngAnimate',
-    'bw.paging'
+    'bw.paging',
+    'angular-js-xlsx'
 	])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();

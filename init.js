@@ -232,6 +232,7 @@ function propsName (_PROP_FIELDS) {
 global.myCustomVars.propsName = propsName;
 
 function flatObjectModel (_PROP_FIELDS, objectInstance) {
+	objectInstance = JSON.parse(JSON.stringify(objectInstance));
 	var result = {};
 	_PROP_FIELDS.map(function (element) {
 		// if (element.type.localeCompare('File')){
@@ -1084,7 +1085,45 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
 							var row = null;
-							if (addPropRow){
+							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
+							// Có thể cứ in ()
+							// hoặc là xét xem các thuộc tính con có gía trị thì mới in
+							let subProps;
+							let flagHasRealChildren = false; // Óanh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+							if (curProp.indexOf('Mixed') >= 0){
+								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
+								subProps = element_.subProps;
+								// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
+								// Tiện vl. :-D
+							}
+							else {
+								// console.log('get', curProp);
+								subProps = [];
+								for(let k in flatOI){
+									try {
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
+											subProps.push(k);
+										}
+									}
+									catch (e){
+										// console.log(e);
+									}
+								}
+							}
+							if (subProps instanceof Array){
+								for(let j = 0; j < subProps.length; j++){
+									let sp = subProps[j];
+									if (display(flatOI[sp])){
+										flagHasRealChildren = true;
+										break;
+									}
+								}
+							}
+							else {
+								flagHasRealChildren = true;
+							}
+							if (addPropRow && flagHasRealChildren){
+								// Thêm 1 dòng cho các thể loại: Thông tin khác, Phân bố Việt Nam, các thuộc tính mixed
 								try{
 									curProp = LABEL[curProp];
 								}
@@ -1302,7 +1341,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							}
 						}
 					}
-				}) // Delete subprops
+				}) // Delete subProps
 			}
 
 			var PROP_FIELDS_OBJ = {};
@@ -1642,7 +1681,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
 	let printedProperties = options.req.body;
-	let printAll = ('body' in options.req) && (options.req.body.custom == 1)
+	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
 
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
@@ -1923,7 +1962,44 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
 							var row = null;
-							if (addPropRow){
+							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
+							// Có thể cứ in ()
+							// hoặc là xét xem các thuộc tính con có gía trị thì mới in
+							let subProps;
+							let flagHasRealChildren = false; // Óanh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+							if (curProp.indexOf('Mixed') >= 0){
+								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
+								subProps = element_.subProps;
+								// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
+								// Tiện vl. :-D
+							}
+							else {
+								// console.log('get', curProp);
+								subProps = [];
+								for(let k in flatOI){
+									try {
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
+											subProps.push(k);
+										}
+									}
+									catch (e){
+										// console.log(e);
+									}
+								}
+							}
+							if (subProps instanceof Array){
+								for(let j = 0; j < subProps.length; j++){
+									let sp = subProps[j];
+									if (display(flatOI[sp])){
+										flagHasRealChildren = true;
+										break;
+									}
+								}
+							}
+							else {
+								flagHasRealChildren = true;
+							}
+							if (addPropRow && flagHasRealChildren){
 								try{
 									curProp = LABEL[curProp];
 								}
@@ -2104,7 +2180,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 						}
 					}
-				}) // Delete subprops
+				}) // Delete subProps
 			}
 
 			var PROP_FIELDS_OBJ = {};
@@ -3065,6 +3141,24 @@ var getPublicIP = function (req) {
 	return publicIP;
 }
 global.myCustomVars.getPublicIP = getPublicIP;
+
+var getFieldsHandler = (options) => {
+	var LABEL = options.LABEL;
+	var PROP_FIELDS = options.PROP_FIELDS;
+	return (req, res) => {
+		res.json({
+			status: 'success',
+			fields: PROP_FIELDS.reduce((obj, curElement) => {
+				let e = curElement;
+				if (('type' in e) && (['Mixed', 'Unit'].indexOf(e.type) < 0) && (['maDeTai', 'fDiaDiemThuMau', 'fApproved'].indexOf(e.name) < 0)){
+					obj[e.name] = LABEL[e.name];
+				}
+				return obj;
+			}, {})
+		})
+	}
+}
+global.myCustomVars.getFieldsHandler = getFieldsHandler;
 
 // ============= Generate Promise for async/await =======================
 

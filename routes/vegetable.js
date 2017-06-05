@@ -132,6 +132,13 @@ router.get(objectBaseURL + '/auto', aclMiddleware(aclMiddlewareBaseURL, 'create'
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION
 }))
 
+var getFieldsHandler = global.myCustomVars.getFieldsHandler;
+router.get(objectBaseURL + '/fields', aclMiddleware(aclMiddlewareBaseURL, 'view'), getFieldsHandler({
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+	LABEL: LABEL,
+}))
+
 var getSingleHandler = global.myCustomVars.getSingleHandler;
 router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), getSingleHandler({
 	ObjectModel: ObjectModel,

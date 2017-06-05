@@ -3142,6 +3142,25 @@ var getPublicIP = function (req) {
 }
 global.myCustomVars.getPublicIP = getPublicIP;
 
+var getFieldsHandler = (options) => {
+	var LABEL = options.LABEL);
+	var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
+	var PROP_FIELDS = options.PROP_FIELDS;
+	return (req, res) => {
+		res.json({
+			status: 'success',
+			fields: PROP_FIELDS.reduce((obj, curElement) => {
+				let e = curElement;
+				if (('type' in e) && (['Mixed', 'Unit'].indexOf(e.type) < 0) && (['maDeTai', 'fDiaDiemThuMau', 'fApproved'].indexOf(e.name) < 0)){
+					obj[e.name] = LABEL[e.name];
+				}
+				return obj;
+			}, {})
+		})
+	}
+}
+global.myCustomVars.getFieldsHandler = getFieldsHandler;
+
 // ============= Generate Promise for async/await =======================
 
 var getSharedData = () => {

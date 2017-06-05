@@ -3143,8 +3143,7 @@ var getPublicIP = function (req) {
 global.myCustomVars.getPublicIP = getPublicIP;
 
 var getFieldsHandler = (options) => {
-	var LABEL = options.LABEL);
-	var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
+	var LABEL = options.LABEL;
 	var PROP_FIELDS = options.PROP_FIELDS;
 	return (req, res) => {
 		res.json({

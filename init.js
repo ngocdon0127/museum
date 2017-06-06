@@ -235,9 +235,12 @@ function flatObjectModel (_PROP_FIELDS, objectInstance) {
 	objectInstance = JSON.parse(JSON.stringify(objectInstance));
 	var result = {};
 	_PROP_FIELDS.map(function (element) {
-		// if (element.type.localeCompare('File')){
+		if (element.type.localeCompare('Date') === 0){
+			result[element.name] = new Date(objectChild(objectInstance, element.schemaProp)[element.name]);
+		}
+		else {
 			result[element.name] = objectChild(objectInstance, element.schemaProp)[element.name];
-		// }
+		}
 	});
 	return result;
 }
@@ -2740,11 +2743,6 @@ global.myCustomVars.getAutoCompletionHandler = getAutoCompletionHandler;
 
 var getSingleHandler = function (options) {
 	return function (req, res) {
-		// console.log(ObjectId(req.params.animalId));
-		// console.log(req.params.animalId);
-		console.log("---------------");
-		console.log(req.body);
-		console.log("---------------");
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;

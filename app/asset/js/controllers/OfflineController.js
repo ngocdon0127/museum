@@ -1,3 +1,21 @@
+function to_json(workbook) {
+    // create a Form data to put data
+    var result = new FormData();
+    workbook.SheetNames.forEach(function(sheetName) {
+        var roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        console.log(roa);
+        if(roa.length > 0){
+        //     result[sheetName] = roa;
+        // }
+            roa.forEach(function (element) {
+                result.append(element.field, element.value);
+            });
+        }
+    });
+    // console.log(result);
+  return result;
+}
+
 app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
     $scope.openFile = function(event) {
       	var input = event.target;
@@ -11,6 +29,18 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
       	};
       	reader.readAsText(input.files[0]);
     };
+
+    $scope.read = function (data) {
+        urlRe = "quan-ly-dong-vat"
+        var result = to_json(data)
+        console.log(data);
+        // AuthService.startSpinner();
+        // AuthService.addSample(result, AuthService.hostName + '/content/dong-vat', urlRe);
+    }
+
+    $scope.error = function (e) {
+        console.log(e);
+    }
 
     $scope.download = function () {
         var link = "/content/co-sinh/58efc6ae1115041b38decf48?display=docx";

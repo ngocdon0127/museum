@@ -39,16 +39,25 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li class="dropdown" ng-if="restricted.restrict">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b><b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh"><b>Cổ sinh</b></a></li>
-							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat"><b>Địa chất</b></a></li>
-							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="them-dong-vat"><b>Động vật</b></a></li>
-							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="them-tho-nhuong"><b>Thổ nhưỡng</b></a></li>
-							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat"><b>Thực vật</b></a></li>
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh">Cổ sinh</a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat">Địa chất</a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="them-dong-vat">Động vật</a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="them-tho-nhuong">Thổ nhưỡng</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat">Thực vật</a></li>
 						</ul>
 					</li>
-					<li><a ui-sref="quan-ly"><b>Quản lý mẫu vật</b></a></li>
+					<li class="dropdown" ng-if="restricted.restrict">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Quản lý mẫu vật</b> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="quan-ly-co-sinh">Mẫu cổ sinh</a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="quan-ly-dia-chat">Mẫu địa chất</a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="quan-ly-dong-vat">Mẫu động vật</a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong">Mẫu thổ nhưỡng</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">Mẫu thực vật</a></li>
+						</ul>
+					</li>
 					<li><a href="/log/all"><b>Lịch sử nhập liệu</b></a></li>
 				</ul>
 
@@ -91,6 +100,8 @@
 	<script type="text/javascript" src="asset/js/angular-loading-bar/build/loading-bar.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-loading-overlay/dist/angular-loading-overlay.js"></script>
 	<script type="text/javascript" src="asset/js/angular-loading-overlay-http-interceptor/dist/angular-loading-overlay-http-interceptor.js"></script>
+	<script type="text/javascript" src="asset/js/angular-js-xlsx/angular-js-xlsx.js"></script>
+	<script type="text/javascript" src="asset/js/angular-js-xlsx/xlsx.core.min.js"></script>
 	<script type="text/javascript" src="/javascripts/flexdatalist/jquery.flexdatalist.min.js"></script>
 
 	<!-- handler -->

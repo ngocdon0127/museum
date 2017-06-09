@@ -188,7 +188,8 @@ router.post('/me', isLoggedIn, upload.single('croppedAvatar'), (req, res, next) 
 						console.log(e);
 					}
 				}
-				user.avatar.original = req.file.destination.substring('public/'.length) + '/' + req.file.filename;
+				fs.renameSync(req.file.path, req.file.path + '.jpg');
+				user.avatar.original = req.file.destination.substring('public/'.length) + '/' + req.file.filename + '.jpg';
 			}
 			user.save((err) => {
 				if (err){

@@ -38,6 +38,33 @@ body {
     border-radius: 4px;
     width: 300px;
 }
+/*------------------customize checkbox---------------------*/
+
+.check-box{
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #bdc3c7;
+    border-radius: 4px;
+    box-sizing: border-box;
+    position: relative;
+    box-sizing: content-box ;
+    width: 20px;
+    height: 20px;
+    border-width: 0;
+    transition: all .3s linear;
+}
+.check-box:checked{
+    background-color: #e74c3c;
+}
+.check-box:focus{
+    outline: 0 none;
+    box-shadow: none;
+}
+
+/*------------------customize checkbox---------------------*/
+
+
 
 /*------------------NAVBAR---------------------*/
 .navbar-default{
@@ -164,7 +191,7 @@ a.nav:hover{
     margin-top: 3px;
 }
 .contentselect {
-    border-top: #ccc 1px solid; 
+    border: #ccc 1px solid; 
     height:30px;
     border-radius: 4px; 
 }

@@ -1800,7 +1800,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var HtmlDocx = require('html-docx-js');
 			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
 			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
-			// fs.writeFileSync('out.html', docxHTMLSource);
+			fs.writeFileSync('out.html', docxHTMLSource);
 			var outputFileName = 'PCSDL';
 			try {
 				if (LABEL.objectModelLabel){
@@ -1840,12 +1840,42 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 				else if (extension == 'pdf'){
 					console.log('pdf');
+					const HTMLPDF = require('html-pdf');
 					outputDocxFileName = outputFileName + '.docx';
 					outputFileName += '.pdf';
-					var exec = require('child_process').exec;
-					var cmd = 'cd ' + __dirname + ' && ' + require('./config/config.js').libreoffice + ' --invisible --convert-to pdf ' + tmpFileName;
-					console.log('starting: ' + cmd);
+					pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
+					HTMLPDF.create(docxHTMLSource).toFile(pdfFileName, (err, result) => {
+						console.log('create pdf done');
+						if (err){
+							console.log(err);
+							try {
+								fs.unlinkSync(path.join(__dirname, tmpFileName));
+							}
+							catch (e){
+								console.log(e);
+							}
+							RESOLVE({
+								status: 'error',
+								error: 'error while converting to pdf'
+							})
+						}
+						RESOLVE({
+							status: 'success',
+							absoluteFilePath: {
+								docx: path.join(__dirname, tmpFileName),
+								pdf: path.join(__dirname, pdfFileName),
+							},
+							outputFileName: {
+								docx: outputDocxFileName,
+								pdf: outputFileName
+							}
+						})
+					})
+					// var exec = require('child_process').exec;
+					// var cmd = 'cd ' + __dirname + ' && ' + require('./config/config.js').libreoffice + ' --invisible --convert-to pdf ' + tmpFileName;
+					// console.log('starting: ' + cmd);
 					console.log(objectInstance.id);
+					/*
 					exec(cmd, function (err, stdout, stderr) {
 						if (err){
 							console.log(err);
@@ -1865,7 +1895,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 						console.log('--err-')
 						console.log(stderr);
 						console.log('--end-')
-						pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
+						
 						// console.log(pdfFileName);
 						// console.log(outputFileName);
 						// res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
@@ -1888,7 +1918,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								pdf: outputFileName
 							}
 						})
-					})
+					}) */
 					// return res.end("ok")
 
 				}

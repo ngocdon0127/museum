@@ -1844,7 +1844,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					outputDocxFileName = outputFileName + '.docx';
 					outputFileName += '.pdf';
 					pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
-					HTMLPDF.create(docxHTMLSource).toFile(pdfFileName, (err, result) => {
+					HTMLPDF.create(docxHTMLSource, {format: 'A4', orientation: 'landscape', border: "1cm"}).toFile(pdfFileName, (err, result) => {
 						console.log('create pdf done');
 						if (err){
 							console.log(err);

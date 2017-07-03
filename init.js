@@ -792,7 +792,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 	let IMG_MAX_HEIGHT = 300;
 	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
 
-	const images = require('images');
+	// const images = require('images');
+	const images = require('image-size');
 	// function to encode file data to base64 encoded string
 	function base64_encode(file) {
 		// read binary data
@@ -802,8 +803,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 	}
 	let img2HTML = (imgpath, maxWidth, maxHeight) => {
 		let image = images(imgpath);
-		let width = image.width();
-		let height = image.height();
+		let width = image.width;
+		let height = image.height;
 		let newWidth = -1;
 		let newHeight = -1;
 		if ((width <= maxWidth) && (height <= maxHeight)){

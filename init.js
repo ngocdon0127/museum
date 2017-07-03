@@ -814,13 +814,13 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			if (width / maxWidth < height / maxHeight){
 				// scale height
 				let rate = height / maxHeight;
-				console.log('rate:', rate)
+				// console.log('rate:', rate)
 				newHeight = height / rate;
 				newWidth = width / rate;
 			} else {
 				// scale width
 				let rate = width / maxWidth;
-				console.log('rate:', rate)
+				// console.log('rate:', rate)
 				newHeight = height / rate;
 				newWidth = width / rate;
 			}
@@ -1012,7 +1012,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 				for(var i = 0; i < Object.keys(tree).length; i++){
 					var prop = Object.keys(tree)[i];
-					console.log(stt + ' : ' + prop + ' : ' + curDeep);
+					// console.log(stt + ' : ' + prop + ' : ' + curDeep);
 					// Add data to docx object
 					var p;
 					switch (curDeep){

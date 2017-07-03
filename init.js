@@ -784,9 +784,12 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 	let ObjectModel = options.ObjectModel;
 	let LABEL = options.LABEL;
+	let UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
 	let printedProperties = options.req.body;
+	let IMG_MAX_WIDTH = 300;
+	let IMG_MAX_HEIGHT = 300;
 	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
 
 	const images = require('images');
@@ -973,16 +976,17 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				// console.log(staticPath)
 				// console.log(count)
 				if (obj instanceof Array){
-					var result =  obj.reduce(function (preStr, curElement, curIndex){
-						// console.log(curElement.split('_+_')[1]);
-						// preStr += curElement.split('_+_')[1];
-						preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
-						if (curIndex < obj.length - 1){
-							preStr += ', \n\n';
-						}
-						return preStr;
-					}, '');
-					return result;
+					// var result =  obj.reduce(function (preStr, curElement, curIndex){
+					// 	// console.log(curElement.split('_+_')[1]);
+					// 	// preStr += curElement.split('_+_')[1];
+					// 	preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+					// 	if (curIndex < obj.length - 1){
+					// 		preStr += ', \n\n';
+					// 	}
+					// 	return preStr;
+					// }, '');
+					// return result;
+					return obj;
 				}
 				else if (obj instanceof Date){
 					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
@@ -1104,14 +1108,34 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							if (value){
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
-									docxHTMLSource += `
-									<tr>
-										<td class="td"><p class="ct tnr lb">${stt}</p></td>
-										<td class="td"><p class="tnr">${p}</p></td>
-										<td class="td"><p class="tnr">${value}</p></td>
-										<td class="td"></td>
-									</tr>
-									`
+									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="tnrlb">${stt}</p></td>
+											<td class="td"><p class="tnr">${p}</p></td>
+											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"></td>
+										</tr>
+										`
+									} else {
+										let td = ``;
+										for(let iidx = 0; iidx < value.length; iidx++) {
+											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+											} else {
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+											}
+										}
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="tnrlb">${stt}</p></td>
+											<td class="td"><p class="tnr">${p}</p></td>
+											<td class="td">${td}</td>
+											<td class="td"></td>
+										</tr>
+										`
+									}
+									
 								}
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
@@ -1222,7 +1246,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								// table.push(row);
 								docxHTMLSource += `
 									<tr>
-										<td class="td"><p class="ct tnr lb">${stt}</p></td>
+										<td class="td"><p class="tnrlb">${stt}</p></td>
 										<td class="td"><p class="tnr">${curProp}</p></td>
 										<td class="td"><p class="tnr"></p></td>
 										<td class="td"></td>
@@ -1254,14 +1278,42 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							if (value){
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
-									docxHTMLSource += `
-									<tr>
-										<td class="td"><p class="ct tnr lb"></p></td>
-										<td class="td"><p class="tnri">${p}</p></td>
-										<td class="td"><p class="tnr">${value}</p></td>
-										<td class="td"></td>
-									</tr>
-									`
+									// docxHTMLSource += `
+									// <tr>
+									// 	<td class="td"><p class="ct tnr lb"></p></td>
+									// 	<td class="td"><p class="tnri">${p}</p></td>
+									// 	<td class="td"><p class="tnr">${value}</p></td>
+									// 	<td class="td"></td>
+									// </tr>
+									// `
+									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="ct tnr lb"></p></td>
+											<td class="td"><p class="tnri">${p}</p></td>
+											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"></td>
+										</tr>
+										`
+									} else {
+										let td = ``;
+										for(let iidx = 0; iidx < value.length; iidx++) {
+											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+											} else {
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+											}
+											// td +=  '<img src="" >\n';
+										}
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="ct tnr lb"></p></td>
+											<td class="td"><p class="tnri">${p}</p></td>
+											<td class="td">${td}</td>
+											<td class="td"></td>
+										</tr>
+										`
+									}
 								}
 								
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
@@ -1318,7 +1370,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			// pObj.options.align = "center";
 			// pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
 			docxHTMLSource += `<p class='ptitle'>Mã đề tài: ${display(flatOI.maDeTai)}</p>`
-			docxHTMLSource += '</div';
+			docxHTMLSource += '</div>';
 
 			var rowSpanOpts = {
 				// cellColWidth: 2261,
@@ -1620,7 +1672,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			// pObj = docx.createP();
 			// pObj.options.align = "left";
 			// pObj.addText('', {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
-			docxHTMLSource += '<p class="tnr b"></p>'
+			docxHTMLSource += '<p class="tnr b"></p><br />'
 
 			// statistics
 			// pObj = docx.createP();
@@ -1745,8 +1797,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			docx.generate(outputStream); */
 			docxHTMLSource += fs.readFileSync(path.join(__dirname, 'templates', 'footer.html'));
 			var HtmlDocx = require('html-docx-js');
+			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
 			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
-			fs.writeFileSync('out.html', docxHTMLSource);
+			// fs.writeFileSync('out.html', docxHTMLSource);
 			var outputFileName = 'PCSDL';
 			try {
 				if (LABEL.objectModelLabel){

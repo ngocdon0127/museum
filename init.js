@@ -987,7 +987,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					// 	return preStr;
 					// }, '');
 					// return result;
-					return obj;
+					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
 					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');

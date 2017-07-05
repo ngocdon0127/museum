@@ -1,3 +1,27 @@
+async function to_json(workbook) {
+    // create a Form data to put data
+    var result = {};
+    // var result = new FormData();
+    var roa;
+    var test;
+    var data;
+    await workbook.SheetNames.forEach(function(sheetName) {
+        roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        test = workbook.Sheets[sheetName];
+    });
+
+    await $.get("/app/database/fieldspal.json").then(function success(res) {
+                data = res
+            }, function error(err) {
+                console.log(err);
+            });
+
+    await data.forEach(function(element) {
+        result[test[element[1]]["h"]] = test[element[0]]["h"];
+    });
+    return result;
+}
+
 function initDefaultUnits(_scope) {
 	setTimeout((function (_scope) {
 		return function () {
@@ -338,6 +362,21 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
 		console.log(err);
 	});
 
+	$scope.data = {};
+	
+    $scope.read = function (data) {
+    	$scope.data["soHieuBTTNVN"] = "Hola Nguyen";
+        var result = to_json(data)
+        result.then(function success(res) {
+            $scope.data = res;
+            console.log(res);
+        })
+    }
+
+    $scope.error = function (e) {
+        console.log(e);
+    }
+
 	// default unit
 	initDefaultUnits($scope);
 
@@ -411,13 +450,13 @@ app.controller('PlaceController', function ($scope, $http, $filter, AuthService,
 				places.wards = res.data // pre load
 				// console.log('cached');
 			}, function(res){
-				console.log(res);
+				alert("Lỗi không xác định!")
 			});
 		}, function(res){
-			console.log(res);
+			alert("Lỗi không xác định!")
 		});
 	}, function(res){
-		console.log(res);
+		alert("Lỗi không xác định!")
 	});
 	function bodauTiengViet(str) {
         str = str.toLowerCase();

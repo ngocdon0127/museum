@@ -1,4 +1,6 @@
-app.config(function($locationProvider, $stateProvider, $urlRouterProvider) {
+app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, $compileProvider) {
+	$compileProvider.debugInfoEnabled(false);
+	$httpProvider.useApplyAsync(1000);
 	$locationProvider.html5Mode(false);
 	$locationProvider.hashPrefix('!');
 	$stateProvider

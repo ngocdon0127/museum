@@ -4,6 +4,12 @@
 		<center><h2>Thêm mẫu dữ liệu động vật</h2></center>
 		<div class=" map-detail" style="margin-top: 50px;">
 			<table>
+				<tr ng-if="deTai == 'DT-001'">
+					<td><h4>Nhập từ file Excel:</h4></td>
+					<td> 
+						<js-xls onread="read" onerror="error"></js-xls>
+					</td>
+				</tr>
 				<tr>
 					<td><label >Mã đề tài <span class="has-required"> (*)</span>: </label></td>
 					<td>

@@ -1,4 +1,4 @@
-async function to_json(workbook) {
+async function sheetToJson(workbook, urlFields) {
     // create a Form data to put data
     var result = {};
     // var result = new FormData();
@@ -8,17 +8,36 @@ async function to_json(workbook) {
     await workbook.SheetNames.forEach(function(sheetName) {
         roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
         test = workbook.Sheets[sheetName];
+        // console.log(test);
     });
 
-    await $.get("/app/database/fieldspal.json").then(function success(res) {
+    await $.get(urlFields).then(function success(res) {
                 data = res
             }, function error(err) {
                 console.log(err);
             });
 
     await data.forEach(function(element) {
-        result[test[element[1]]["h"]] = test[element[0]]["h"];
+    	try{
+    		var typeData = test
+    		var _tmp = test[element[0]];
+    		// console.log(_tmp);
+	    	var prop = test[element[1]]["h"];
+	    	if (typeof(_tmp) !== "undefined") {
+	    		if (_tmp["t"] == "n"){
+	        		result[prop] = _tmp["v"];
+	    		}
+	        	else {
+	        		result[prop] = _tmp["h"].trim();
+	        	}
+	        } else{
+	        	result[prop] = "";
+	        }
+    	} catch (e){
+    		// console.log(e);
+    	}
     });
+    // console.log(count, countTotal);
     return result;
 }
 
@@ -85,7 +104,23 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
 
 	// DatePicker
 	AuthService.initDatePicker(null, null);
-	
+
+	$scope.data = {};
+    $scope.read = function (respone) {
+    	var urlFields = "/app/database/fieldsani.json"
+        var result = sheetToJson(respone, urlFields)
+        result.then(function success(res_tmp) {
+            $scope.data = res_tmp;
+            // console.log(res_tmp);
+            initDefaultUnits($scope);
+            $scope.$apply();
+        })
+    }
+
+    $scope.error = function (e) {
+        console.log(e);
+    }
+
 	//auto complete
 
 	var arrAuto = AuthService.arrAuto;
@@ -362,14 +397,16 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
 		console.log(err);
 	});
 
+	// $scope.hola = "Kevinhoa95"
 	$scope.data = {};
-	
-    $scope.read = function (data) {
-    	$scope.data["soHieuBTTNVN"] = "Hola Nguyen";
-        var result = to_json(data)
-        result.then(function success(res) {
-            $scope.data = res;
-            console.log(res);
+    $scope.read = function (respone) {
+    	var urlFields = "/app/database/fieldspal.json"
+        var result = sheetToJson(respone, urlFields)
+        result.then(function success(res_tmp) {
+            $scope.data = res_tmp;
+            console.log(res_tmp);
+            initDefaultUnits($scope);
+            $scope.$apply();
         })
     }
 

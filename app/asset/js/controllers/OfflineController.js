@@ -1,27 +1,32 @@
-// Dong bo de doc du lieu tu file excel
-async function to_json(workbook) {
-    // create a Form data to put data
-    var result = {};
-    // var result = new FormData();
-    var roa;
-    var test;
-    var data;
-    await workbook.SheetNames.forEach(function(sheetName) {
-        roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-        test = workbook.Sheets[sheetName];
-    });
+// // Dong bo de doc du lieu tu file excel
+// async function to_json(workbook) {
+//     // create a Form data to put data
+//     var result = {};
+//     // var result = new FormData();
+//     var roa;
+//     var test;
+//     var data;
+//     await workbook.SheetNames.forEach(function(sheetName) {
+//         roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+//         test = workbook.Sheets[sheetName];
+//         console.log(test);
+//     });
 
-    await $.get("/app/database/fieldspal.json").then(function success(res) {
-                data = res
-            }, function error(err) {
-                console.log(err);
-            });
+//     await $.get("/app/database/fieldsani.json").then(function success(res) {
+//                 data = res
+//             }, function error(err) {
+//                 console.log(err);
+//             });
 
-    await data.forEach(function(element) {
-        result[test[element[1]]["h"]] = test[element[0]]["h"];
-    });
-    return result;
-}
+//     await data.forEach(function(element) {
+//         var _tmp = test[element[0]];
+//         // console.log(element);
+//         if (_tmp) {
+//             result[test[element[1]]["h"]] = _tmp["h"];
+//         }
+//     });
+//     return result;
+// }
 
 app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
     $scope.openFile = function(event) {

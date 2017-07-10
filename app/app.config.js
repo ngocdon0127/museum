@@ -193,6 +193,7 @@ app.run(function($rootScope, $location, $state, $stateParams, $http, AuthService
 		AuthService.getRestrict().then(function success(res) {
 			$rootScope.restricted = res;
 			$rootScope.username = res.user.fullname;
+			$rootScope.deTai = res.user.deTai;
 			
 			if (toState.access) {
 				var sample = toState.access.sample;

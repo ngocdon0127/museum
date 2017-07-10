@@ -4,10 +4,9 @@ angular.module('angular-js-xlsx', [])
   .directive('jsXls', function () {
     return {
       restrict: 'E',
-      template: '<input type="file" />',
+      template: '<input type="file"/>',
       replace: true,
       link: function (scope, element, attrs) {
-
         function handleSelect() {
           var files = this.files;
           for (var i = 0, f = files[i]; i != files.length; ++i) {
@@ -65,7 +64,6 @@ angular.module('angular-js-xlsx', [])
             reader.readAsBinaryString(f);
           }
         }
-
         element.on('change', handleSelect);
       }
     };

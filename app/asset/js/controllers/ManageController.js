@@ -146,24 +146,34 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 }]);
 
 app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
+	
 	$scope.showModal = function(id, link) {
+		console.log("da chay o day");
 		$scope.opts = {
 			backdrop: true,
 			backdropClick: true,
 			dialogFade: false,
 			keyboard: true,
 			templateUrl : 'views/modals/delete.blade.html',
-			controller : ModalInstanceCtrl
+			controller : ModalInstanceCtrl,
+			resolve: {
+				fields: function () {
+					return ""
+				}
+			}
 	    };
+	    console.log("2");
 	    var url = AuthService.hostName + "/content/" + link;
 
 	    var modalInstance = $uibModal.open($scope.opts);
+	    console.log("3");
 	    modalInstance.result.then(function(){
 	        //on ok button press
 	       	AuthService.deleteP(id, url);
 	    },function(){
 	        //on cancel button press
 	    });
+	    console.log("4");
     };
 
    
@@ -178,8 +188,10 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, $http, fi
 	};
 
 	// fields export
-	console.log(fields);
-	$scope.fields = fields;
+	// console.log(fields);
+	if (fields) {
+		$scope.fields = fields;
+	}
 
 };
 

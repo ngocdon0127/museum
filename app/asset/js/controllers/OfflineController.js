@@ -1,20 +1,32 @@
-function to_json(workbook) {
-    // create a Form data to put data
-    var result = new FormData();
-    workbook.SheetNames.forEach(function(sheetName) {
-        var roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-        console.log(roa);
-        if(roa.length > 0){
-        //     result[sheetName] = roa;
-        // }
-            roa.forEach(function (element) {
-                result.append(element.field, element.value);
-            });
-        }
-    });
-    // console.log(result);
-  return result;
-}
+// // Dong bo de doc du lieu tu file excel
+// async function to_json(workbook) {
+//     // create a Form data to put data
+//     var result = {};
+//     // var result = new FormData();
+//     var roa;
+//     var test;
+//     var data;
+//     await workbook.SheetNames.forEach(function(sheetName) {
+//         roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+//         test = workbook.Sheets[sheetName];
+//         console.log(test);
+//     });
+
+//     await $.get("/app/database/fieldsani.json").then(function success(res) {
+//                 data = res
+//             }, function error(err) {
+//                 console.log(err);
+//             });
+
+//     await data.forEach(function(element) {
+//         var _tmp = test[element[0]];
+//         // console.log(element);
+//         if (_tmp) {
+//             result[test[element[1]]["h"]] = _tmp["h"];
+//         }
+//     });
+//     return result;
+// }
 
 app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
     $scope.openFile = function(event) {
@@ -33,7 +45,10 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
     $scope.read = function (data) {
         urlRe = "quan-ly-dong-vat"
         var result = to_json(data)
-        console.log(data);
+        result.then(function success(res) {
+            console.log(res);
+        })
+        
         // AuthService.startSpinner();
         // AuthService.addSample(result, AuthService.hostName + '/content/dong-vat', urlRe);
     }

@@ -3026,6 +3026,7 @@ global.myCustomVars.getAutoCompletionHandler = getAutoCompletionHandler;
 
 var getSingleHandler = function (options) {
 	return function (req, res) {
+
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;

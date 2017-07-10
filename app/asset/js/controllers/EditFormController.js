@@ -61,7 +61,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 			}
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
-		}, 1000);
+		}, 500);
 	}, function (err){
 		$scope.status = err.data.status;
 	});

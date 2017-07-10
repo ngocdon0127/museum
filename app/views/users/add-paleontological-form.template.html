@@ -3,6 +3,10 @@
 		<center><h2>Thêm mẫu dữ liệu cổ sinh</h2></center>
 		<div class="container map-detail" style="margin-top: 50px;">
 			<table>
+			<!-- 	<tr>
+					<td>Read excel file</td>
+					<td><js-xls onread="read" onerror="error"></js-xls></td>
+				</tr> -->
 				<tr>
 					<td><label >Mã đề tài  <span class="has-required">(*)</span>: </label></td>
 					<td>
@@ -13,7 +17,7 @@
 		</div>
 		<div class="container map-detail" style="margin-top: 50px;">
 			<table>
-				<h3 class="h3-title">SỐ HIỆU</h3>
+				<h3 class="h3-title">SỐ HIỆU {{data.soHieuBTTNVN}}</h3>
 				<tr>
 					<td><label>01. Số hiệu BTTNVN:</label></td>
 					<td><input type="text" title="{{tooltips['soHieuBTTNVN']}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>

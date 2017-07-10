@@ -55,7 +55,7 @@
 							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="quan-ly-dia-chat">Mẫu địa chất</a></li>
 							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="quan-ly-dong-vat">Mẫu động vật</a></li>
 							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong">Mẫu thổ nhưỡng</a></li>
-							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">thực vật</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">Mẫu thực vật</a></li>
 						</ul>
 					</li>
 					<li><a href="/log/all"><b>Lịch sử nhập liệu</b></a></li>
@@ -63,11 +63,10 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{restricted.user.fullname}}</b><b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b ng-bind="restricted.user.fullname"></b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/admin"><b>Quản lý tài khoản</b></a></li>
 							<li><a href="/users"><b>Trang cá nhân</b></a></li>
-							<!-- <li><a ui-sref="nhap-offline"><b>Nhập offline</b></a></li> -->
 							<li><a href="/auth/logout"><b>Đăng xuất</b></a></li>
 						</ul>
 					</li>
@@ -123,3 +122,4 @@
 	<script type="text/javascript" src="asset/js/angular-paging/paging.min.js"></script>
 </body>
 </html>
+

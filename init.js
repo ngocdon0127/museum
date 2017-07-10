@@ -235,9 +235,12 @@ function flatObjectModel (_PROP_FIELDS, objectInstance) {
 	objectInstance = JSON.parse(JSON.stringify(objectInstance));
 	var result = {};
 	_PROP_FIELDS.map(function (element) {
-		// if (element.type.localeCompare('File')){
+		if (element.type.localeCompare('Date') === 0){
+			result[element.name] = new Date(objectChild(objectInstance, element.schemaProp)[element.name]);
+		}
+		else {
 			result[element.name] = objectChild(objectInstance, element.schemaProp)[element.name];
-		// }
+		}
 	});
 	return result;
 }
@@ -776,14 +779,70 @@ function createSaveOrUpdateFunction (variablesBundle) {
 global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
 var exportFilePromise = (objectInstance, options, extension) => {
+	let docxHTMLSource = fs.readFileSync(path.join(__dirname, 'templates', 'header.html')).toString('utf-8');
 	let PROP_FIELDS = options.PROP_FIELDS;
 
 	let ObjectModel = options.ObjectModel;
 	let LABEL = options.LABEL;
+	let UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
 	let printedProperties = options.req.body;
+	let IMG_MAX_WIDTH = 300;
+	let IMG_MAX_HEIGHT = 300;
 	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
+
+	// const images = require('images');
+	const images = require('image-size');
+	// function to encode file data to base64 encoded string
+	function base64_encode(file) {
+		// read binary data
+		var bitmap = fs.readFileSync(file);
+		// convert binary data to base64 encoded string
+		return new Buffer(bitmap).toString('base64');
+	}
+	let img2HTML = (imgpath, maxWidth, maxHeight) => {
+		let image = images(imgpath);
+		let width = image.width;
+		let height = image.height;
+		let newWidth = -1;
+		let newHeight = -1;
+		if ((width <= maxWidth) && (height <= maxHeight)){
+			newWidth = width;
+			newHeight = height;
+		} else {
+			if (width / maxWidth < height / maxHeight){
+				// scale height
+				let rate = height / maxHeight;
+				// console.log('rate:', rate)
+				newHeight = height / rate;
+				newWidth = width / rate;
+			} else {
+				// scale width
+				let rate = width / maxWidth;
+				// console.log('rate:', rate)
+				newHeight = height / rate;
+				newWidth = width / rate;
+			}
+		}
+		newWidth = Math.round(newWidth);
+		newHeight = Math.round(newHeight);
+		// console.log('new size:', newWidth, ' x ', newHeight);
+		let base64str = base64_encode(imgpath);
+		let extension = imgpath.substring(imgpath.lastIndexOf('.') + 1).toLowerCase();
+		let MIME = {
+			jpg: 'jpeg',
+			jpeg: 'jpeg',
+			gif: 'gif',
+			png: 'png'
+		}
+		if (MIME.hasOwnProperty(extension)) {
+			let mime = MIME[extension];
+			return `<img src="data:image/${mime};base64,${base64str}" width='${newWidth}' height='${newHeight}'/>`
+		} else {
+			return ''
+		}
+	}
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
 			console.log("calling docx");
@@ -918,16 +977,17 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				// console.log(staticPath)
 				// console.log(count)
 				if (obj instanceof Array){
-					var result =  obj.reduce(function (preStr, curElement, curIndex){
-						// console.log(curElement.split('_+_')[1]);
-						// preStr += curElement.split('_+_')[1];
-						preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
-						if (curIndex < obj.length - 1){
-							preStr += ', \n\n';
-						}
-						return preStr;
-					}, '');
-					return result;
+					// var result =  obj.reduce(function (preStr, curElement, curIndex){
+					// 	// console.log(curElement.split('_+_')[1]);
+					// 	// preStr += curElement.split('_+_')[1];
+					// 	preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+					// 	if (curIndex < obj.length - 1){
+					// 		preStr += ', \n\n';
+					// 	}
+					// 	return preStr;
+					// }, '');
+					// return result;
+					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
 					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
@@ -985,7 +1045,12 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: rowSpanOpts
 								}
 							];
-							table.push(row);
+							// table.push(row);
+							docxHTMLSource += `
+								<tr>
+									<td colspan="4" class="bg td"><p class="tnr lb"><b>${p}</b></p></td>
+								</tr>
+							`
 							
 							break;
 						case 1:
@@ -1043,7 +1108,35 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							]
 							if (value){
 								if (printAll || (prop in printedProperties)){
-									table.push(row);
+									// table.push(row);
+									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="tnrlb">${stt}</p></td>
+											<td class="td"><p class="tnr">${p}</p></td>
+											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"></td>
+										</tr>
+										`
+									} else {
+										let td = ``;
+										for(let iidx = 0; iidx < value.length; iidx++) {
+											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+											} else {
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+											}
+										}
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="tnrlb">${stt}</p></td>
+											<td class="td"><p class="tnr">${p}</p></td>
+											<td class="td">${td}</td>
+											<td class="td"></td>
+										</tr>
+										`
+									}
+									
 								}
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
@@ -1087,9 +1180,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							var row = null;
 							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
 							// Có thể cứ in ()
-							// hoặc là xét xem các thuộc tính con có gía trị thì mới in
+							// hoặc là xét xem các thuộc tính con có giá trị thì mới in
 							let subProps;
-							let flagHasRealChildren = false; // Óanh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+							let flagHasRealChildren = false; // Oánh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
 							if (curProp.indexOf('Mixed') >= 0){
 								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
 								subProps = element_.subProps;
@@ -1110,10 +1203,11 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									}
 								}
 							}
+							// console.log(subProps);
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (display(flatOI[sp]) && (sp in printedProperties)){
+									if (printAll || (display(flatOI[sp]) && (sp in printedProperties))) {
 										flagHasRealChildren = true;
 										break;
 									}
@@ -1150,8 +1244,18 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										opts: detailOpts
 									}
 								]
-								table.push(row);
+								// table.push(row);
+								docxHTMLSource += `
+									<tr>
+										<td class="td"><p class="tnrlb">${stt}</p></td>
+										<td class="td"><p class="tnr">${curProp}</p></td>
+										<td class="td"><p class="tnr"></p></td>
+										<td class="td"></td>
+									</tr>
+									`
 								addPropRow = false;
+							} else {
+								// console.log('khong in', curProp, 'prop row', addPropRow);
 							}
 							
 							row = [
@@ -1174,7 +1278,43 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							]
 							if (value){
 								if (printAll || (prop in printedProperties)){
-									table.push(row);
+									// table.push(row);
+									// docxHTMLSource += `
+									// <tr>
+									// 	<td class="td"><p class="ct tnr lb"></p></td>
+									// 	<td class="td"><p class="tnri">${p}</p></td>
+									// 	<td class="td"><p class="tnr">${value}</p></td>
+									// 	<td class="td"></td>
+									// </tr>
+									// `
+									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="ct tnr lb"></p></td>
+											<td class="td"><p class="tnri">${p}</p></td>
+											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"></td>
+										</tr>
+										`
+									} else {
+										let td = ``;
+										for(let iidx = 0; iidx < value.length; iidx++) {
+											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+											} else {
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+											}
+											// td +=  '<img src="" >\n';
+										}
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="ct tnr lb"></p></td>
+											<td class="td"><p class="tnri">${p}</p></td>
+											<td class="td">${td}</td>
+											<td class="td"></td>
+										</tr>
+										`
+									}
 								}
 								
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
@@ -1199,37 +1339,39 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			}
 
 			var fs = require('fs');
-			var officegen = require('officegen');
-			var docx = officegen({
-				type: 'docx',
-				subjects: 'Mẫu phiếu dữ liệu',
-				orientation: 'landscape'
-				// orientation: 'portrait'
-			});
+			// var officegen = require('officegen');
+			// var docx = officegen({
+			// 	type: 'docx',
+			// 	subjects: 'Mẫu phiếu dữ liệu',
+			// 	orientation: 'landscape'
+			// 	// orientation: 'portrait'
+			// });
 
-			docx.on('finalize', function (written) {
-				console.log("Docx: written " + written + " bytes.");
-			});
+			// docx.on('finalize', function (written) {
+			// 	console.log("Docx: written " + written + " bytes.");
+			// });
 
-			docx.on('error', function (error) {
-				console.log("Docx: Error");
-				console.log(error);
-				console.log("===");
-			})
+			// docx.on('error', function (error) {
+			// 	console.log("Docx: Error");
+			// 	console.log(error);
+			// 	console.log("===");
+			// })
 
-			
-
+			docxHTMLSource += '<div class="row" id="pcsdl-title">';
 			for(var i = 0; i < paragraph.text.length; i++){
-				var pObj = docx.createP();
-				pObj.options.align = "center";
-				pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
+				docxHTMLSource += `<p class="ptitle">${paragraph.text[i]}</p>`
+				// var pObj = docx.createP();
+				// pObj.options.align = "center";
+				// pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
 			}
 
 			var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 
-			var pObj = docx.createP();
-			pObj.options.align = "center";
-			pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			// var pObj = docx.createP();
+			// pObj.options.align = "center";
+			// pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `<p class='ptitle'>Mã đề tài: ${display(flatOI.maDeTai)}</p>`
+			docxHTMLSource += '</div>';
 
 			var rowSpanOpts = {
 				// cellColWidth: 2261,
@@ -1481,6 +1623,16 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var curDeep = 0;
 			var stt = 0;
 			
+			docxHTMLSource += `
+				<table id='maintable'>
+					<tbody>
+						<tr>
+							<th class="td"><p class="ct tnr lb">STT</p></th>
+							<th class="td"><p class="ct tnr lb">Trường dữ liệu</p></th>
+							<th class="td"><p class="ct tnr lb">Nội dung</p></th>
+							<th class="td"><p class="ct tnr lb">Ghi chú</p></th>
+						</tr>
+			`
 			
 
 			inOrder(oi);
@@ -1494,7 +1646,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				borders: true
 			}
 
-			docx.createTable (table, tableStyle);
+			// docx.createTable (table, tableStyle);
 
 			// Những trường con của các trường Mixed luôn có money = false
 			// => Chúng luôn được thêm vào:
@@ -1516,24 +1668,30 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 			})
 
-			pObj = docx.createP();
-			pObj.options.align = "left";
-			pObj.addText('', {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `</tbody></table>`
+
+			// pObj = docx.createP();
+			// pObj.options.align = "left";
+			// pObj.addText('', {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += '<p class="tnr b"></p><br />'
 
 			// statistics
-			pObj = docx.createP();
-			pObj.options.align = "left";
-			pObj.addText('Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			// pObj = docx.createP();
+			// pObj.options.align = "left";
+			// pObj.addText('Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `<p class="tnr b">Số trường bắt buộc đã nhập: ${statistics.moneyPropFilled}/${statistics.totalMoneyProp}.</p>`
 
-			pObj = docx.createP();
-			pObj.options.align = "left";
-			pObj.addText('Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			// pObj = docx.createP();
+			// pObj.options.align = "left";
+			// pObj.addText('Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `<p class="tnr b">Số trường không bắt buộc đã nhập: ${statistics.nonMoneyPropFilled}/${statistics.totalNonMoneyProp}.</p>`
 
 			
 			try {
-				pObj = docx.createP();
-				pObj.options.align = "left";
-				pObj.addText('Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt'), {color: '000000', font_face: 'Times New Roman', font_size: 12});
+				// pObj = docx.createP();
+				// pObj.options.align = "left";
+				// pObj.addText('Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt'), {color: '000000', font_face: 'Times New Roman', font_size: 12});
+				docxHTMLSource += `<p class='tnr'>Phê duyệt: ${(objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt')}</p>`
 			}
 			catch (e){
 				console.log(e);
@@ -1541,6 +1699,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 			// var fs = require('fs');
 			var tmpFileName = (new Date()).getTime() + '.tmp.docx';
+			/*
 			var outputStream = fs.createWriteStream(path.join(__dirname, tmpFileName));
 			outputStream.on('close', function () {
 				console.log('output done.');
@@ -1636,7 +1795,134 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 				// res.end("OK");
 			});
-			docx.generate(outputStream);
+			docx.generate(outputStream); */
+			docxHTMLSource += fs.readFileSync(path.join(__dirname, 'templates', 'footer.html'));
+			var HtmlDocx = require('html-docx-js');
+			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
+			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
+			fs.writeFileSync('out.html', docxHTMLSource);
+			var outputFileName = 'PCSDL';
+			try {
+				if (LABEL.objectModelLabel){
+					outputFileName += '_' + LABEL.objectModelLabel;
+				}
+				if (flatOI.tenVietNam){
+					outputFileName += '_' + flatOI.tenVietNam;
+				}
+				if (flatOI.soHieuBaoTangCS){
+					outputFileName += '_' + flatOI.soHieuBaoTangCS;
+				}
+			}
+			catch (e){
+				console.log(e);
+			}
+			fs.writeFile(tmpFileName, docx, function(err) {
+				if (err) throw err;
+				if (extension == 'docx'){
+					outputFileName += '.docx';
+					// res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+					// 	try {
+					// 		fs.unlinkSync(path.join(__dirname, tmpFileName));
+					// 	}
+					// 	catch (e){
+					// 		console.log(e);
+					// 	}
+					// });
+					RESOLVE({
+						status: 'success',
+						absoluteFilePath: {
+							docx: path.join(__dirname, tmpFileName)
+						},
+						outputFileName: {
+							docx: outputFileName
+						}
+					})
+				}
+				else if (extension == 'pdf'){
+					console.log('pdf');
+					const HTMLPDF = require('html-pdf');
+					outputDocxFileName = outputFileName + '.docx';
+					outputFileName += '.pdf';
+					pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
+					HTMLPDF.create(docxHTMLSource, {format: 'A4', orientation: 'landscape', border: "1cm"}).toFile(pdfFileName, (err, result) => {
+						console.log('create pdf done');
+						if (err){
+							console.log(err);
+							try {
+								fs.unlinkSync(path.join(__dirname, tmpFileName));
+							}
+							catch (e){
+								console.log(e);
+							}
+							RESOLVE({
+								status: 'error',
+								error: 'error while converting to pdf'
+							})
+						}
+						RESOLVE({
+							status: 'success',
+							absoluteFilePath: {
+								docx: path.join(__dirname, tmpFileName),
+								pdf: path.join(__dirname, pdfFileName),
+							},
+							outputFileName: {
+								docx: outputDocxFileName,
+								pdf: outputFileName
+							}
+						})
+					})
+					// var exec = require('child_process').exec;
+					// var cmd = 'cd ' + __dirname + ' && ' + require('./config/config.js').libreoffice + ' --invisible --convert-to pdf ' + tmpFileName;
+					// console.log('starting: ' + cmd);
+					console.log(objectInstance.id);
+					/*
+					exec(cmd, function (err, stdout, stderr) {
+						if (err){
+							console.log(err);
+							try {
+								fs.unlinkSync(path.join(__dirname, tmpFileName));
+							}
+							catch (e){
+								console.log(e);
+							}
+							RESOLVE({
+								status: 'error',
+								error: 'error while converting to pdf'
+							})
+						}
+						console.log('--out-')
+						console.log(stdout);
+						console.log('--err-')
+						console.log(stderr);
+						console.log('--end-')
+						
+						// console.log(pdfFileName);
+						// console.log(outputFileName);
+						// res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
+							// try {
+								// fs.unlinkSync(path.join(__dirname, pdfFileName));
+								// fs.unlinkSync(path.join(__dirname, tmpFileName)); 
+							// }
+							// catch (e){
+							// 	console.log(e);
+							// }
+						// });
+						RESOLVE({
+							status: 'success',
+							absoluteFilePath: {
+								docx: path.join(__dirname, tmpFileName),
+								pdf: path.join(__dirname, pdfFileName),
+							},
+							outputFileName: {
+								docx: outputDocxFileName,
+								pdf: outputFileName
+							}
+						})
+					}) */
+					// return res.end("ok")
+
+				}
+			});
 
 
 			// Assume objectInstance is a tree (JSON),
@@ -2740,8 +3026,7 @@ global.myCustomVars.getAutoCompletionHandler = getAutoCompletionHandler;
 
 var getSingleHandler = function (options) {
 	return function (req, res) {
-		// console.log(ObjectId(req.params.animalId));
-		// console.log(req.params.animalId);
+
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;

@@ -7,7 +7,7 @@
 					<tr>
 						<td><label >Mã đề tài <span class="has-required">(*)</span></label></td>
 						<td>
-							<input type="text" name="maDeTai" disabled="true" ng-model="data.maDeTai" class="input-form"  required>
+							<input type="text" name="maDeTai" disabled="true" ng-model="data.maDeTai" class="input-form" required>
 						</td>
 					</tr>
 			</table>
@@ -17,15 +17,15 @@
 				<h3 class="h3-title">SỐ HIỆU</h3>
 				<tr>
 					<td><label>01.Số hiệu BTTNVN:</label></td>
-					<td><input type="text"  title="{{tooltips['soHieuBTTNVN']}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
+					<td><input type="text" title="{{tooltips['soHieuBTTNVN']}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>02.Số hiệu bảo tàng cơ sở<span class="has-required">(*)</span>:</label></td>
-					<td><input type="text"  title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form" required></td>
 				</tr>
 				<tr>
 					<td><label>03.Số hiệu thực địa <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text"  title="{{tooltips['soHieuThucDia']}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['soHieuThucDia']}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form" required></td>
 				</tr>				<tr>
 					<td><label>04.Các kí hiệu mẫu vật khác:</label></td>
 					<td><input type="text" title="{{tooltips['kyHieuMauVatKhac']}}" name="kyHieuMauVatKhac" ng-model="data.kyHieuMauVatKhac" class="input-form"></td>
@@ -117,7 +117,7 @@
 				</tr>
 				<tr>
 					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayDinhTen']}}" id="ngayDinhTen" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam (phổ thông):</label></td>
@@ -161,7 +161,7 @@
 				<tr>
 					<td><label>15. Loại mẫu vật<span class="has-required"> (*)</span>:</label></td>
 					<td>
-						<input type="text" title="{{tooltips['loaiMauVat']}}" name="loaiMauVat" multiple='multiple' class="input-form flexdatalist flexdatalist-force"  data-min-length='0'  ng-model="data.loaiMauVat" list="loaiMauVat">
+						<input type="text" title="{{tooltips['loaiMauVat']}}" name="loaiMauVat" multiple='multiple' class="input-form flexdatalist flexdatalist-force" data-min-length='0' ng-model="data.loaiMauVat" list="loaiMauVat">
 						<datalist id="loaiMauVat">
 							<option value="Mẫu nghiên cứu">Mẫu nghiên cứu</option>
 							<option value="Mẫu trưng bày">Mẫu trưng bày</option>
@@ -175,68 +175,68 @@
 						<table style="margin-left: 7px;">
 							<tr>
 							<td><span>Chiều cao: </span></td>
-								<td>					    
-								    <span class="box">
-								      <input type="text" title="{{tooltips['chieuCao']}}" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
-								      <select class="contentselect" ng-model="data.donVi_chieuCao" name="donVi_chieuCao">
-								          <option value="mm">mm</option>
-								          <option value="cm">cm</option>
-								          <option value="m">m</option>
-								       </select>
-								    </span>
+								<td>					  
+								  <span class="box">
+								   <input type="text" title="{{tooltips['chieuCao']}}" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
+								   <select class="contentselect" ng-model="data.donVi_chieuCao" name="donVi_chieuCao">
+								     <option value="mm">mm</option>
+								     <option value="cm">cm</option>
+								     <option value="m">m</option>
+								    </select>
+								  </span>
 								</td>
 							</tr>
 							<tr>
 								<td><span>Chiều rộng: </span></td>
-								<td>					    
-								    <span class="box">
-								      <input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-								      <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
-								          <option value="mm">mm</option>
-								          <option value="cm">cm</option>
-								          <option value="m">m</option>
-								       </select>
-								    </span>
+								<td>					  
+								  <span class="box">
+								   <input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
+								   <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+								     <option value="mm">mm</option>
+								     <option value="cm">cm</option>
+								     <option value="m">m</option>
+								    </select>
+								  </span>
 								</td>
 							</tr>
 						
 							<tr>
 								<td><span>Chiều dài: </span></td>
-								<td>					    
-								    <span class="box">
-								      <input type="text" title="{{tooltips['chieuDai']}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
-								      <select class="contentselect" ng-model="data.donVi_chieuDai" name="donVi_chieuDai">
-								          <option value="mm">mm</option>
-								          <option value="cm">cm</option>
-								          <option value="m">m</option>
-								       </select>
-								    </span>
+								<td>					  
+								  <span class="box">
+								   <input type="text" title="{{tooltips['chieuDai']}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
+								   <select class="contentselect" ng-model="data.donVi_chieuDai" name="donVi_chieuDai">
+								     <option value="mm">mm</option>
+								     <option value="cm">cm</option>
+								     <option value="m">m</option>
+								    </select>
+								  </span>
 								</td>
 							</tr>
 							<tr>
 								<td><span>Trọng lượng: </span></td>
-								<td>					    
-								    <span class="box">
-								      <input type="text" title="{{tooltips['trongLuong']}}" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
-								      <select class="contentselect" ng-model="data.donVi_trongLuong" name="donVi_trongLuong">
+								<td>					  
+								  <span class="box">
+								   <input type="text" title="{{tooltips['trongLuong']}}" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
+								   <select class="contentselect" ng-model="data.donVi_trongLuong" name="donVi_trongLuong">
 											<option value="mg">mg</option>
-								         	<option value="g">g</option>
-								          	<option value="kg">kg</option>
-								       </select>
-								    </span>
+								     	<option value="g">g</option>
+								     	<option value="kg">kg</option>
+								    </select>
+								  </span>
 								</td>
 							</tr>
 						
 							<tr>		
 								<td><span>Thể tích</span></td>
-								<td>					    
-								    <span class="box">
-								      <input type="text" title="{{tooltips['theTich']}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
-								      <select class="contentselect" ng-model="data.donVi_theTich" name="donVi_theTich">
-								          <option value="ml">ml</option>
-								          <option value="l">l</option>
-								       </select>
-								    </span>
+								<td>					  
+								  <span class="box">
+								   <input type="text" title="{{tooltips['theTich']}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
+								   <select class="contentselect" ng-model="data.donVi_theTich" name="donVi_theTich">
+								     <option value="ml">ml</option>
+								     <option value="l">l</option>
+								    </select>
+								  </span>
 								</td>
 							</tr>						
 						</table>
@@ -267,7 +267,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianThuMau']}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianThuMau']}}" id="thoiGianThuMau" name="thoiGianThuMau" ng-model="data.thoiGianThuMau" required></td>
 				</tr>
 				<tr>
 					<td><label>20. Người thu mẫu <span class="has-required">(*)</span>:</label></td>
@@ -419,7 +419,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 				<tr>
 					<td><label>33. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" ng-model="data.thoiGianGiamDinh" ></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianGiamDinh']}}" id="thoiGianGiamDinh" name="thoiGianGiamDinh" ng-model="data.thoiGianGiamDinh" ></td>
 				</tr>
 				<tr>
 					<td><label>34. Người phân tích/giám định/định loại mẫu <span class="has-required">(*)</span>:</label></td>
@@ -525,7 +525,7 @@
 				</tr>
 				<tr>
 					<td>Thời gian xử lý chế tác:</td>
-					<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
+					<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" id="thoiGianXuLy" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
 				</tr>
 				<tr>
 					<td>Người xử lý, chế tác:</td>
@@ -606,7 +606,7 @@
 				<tr>
 					<td><label>50. Giá trị sử dụng (tài nguyên)(nếu có):</label></td>
 					<td>
-						<input type="" title="{{tooltips['giaTriSuDung']}}" name="giaTriSuDung" multiple='multiple' class="input-form flexdatalist"  data-min-length='0'  ng-model="data.giaTriSuDung" list="giaTriSuDung">
+						<input type="" title="{{tooltips['giaTriSuDung']}}" name="giaTriSuDung" multiple='multiple' class="input-form flexdatalist" data-min-length='0' ng-model="data.giaTriSuDung" list="giaTriSuDung">
 						<datalist id="giaTriSuDung">
 							<option>Khoa học</option>
 							<option>Y học</option>
@@ -636,7 +636,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 				<tr>
 					<td><label>52. Ngày nhập mẫu: </label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayNhapMau']}}" id="ngayNhapMau" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
 				</tr>
 				<tr>
 					<td><label>53. Người giao mẫu: </label></td>
@@ -653,7 +653,7 @@
 				<tr>
 					<td><label>56. Hình thức nhập mẫu:</label></td>
 					<td>
-						<input type="text" list="hinhThucNhapMau" class="input-form flexdatalist" data-min-length='0'  title="{{tooltips['hinhThucNhapMau']}}" ng-model="data.hinhThucNhapMau" name="hinhThucNhapMau">
+						<input type="text" list="hinhThucNhapMau" class="input-form flexdatalist" data-min-length='0' title="{{tooltips['hinhThucNhapMau']}}" ng-model="data.hinhThucNhapMau" name="hinhThucNhapMau">
 						<datalist id="hinhThucNhapMau">
 							<option value="Thu thập">Thu thập</option>
 							<option value="Hiến tặng">Hiến tặng</option>
@@ -766,6 +766,9 @@
 			<center>
 				<button type="submit" ng-click="updatePost()" class="btn btn-primary">
 					<span class="glyphicon glyphicon-pencil"></span> Cập nhật
+				</button>
+				<button type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-floppy-saved"></span> Save As
 				</button>
 				<div class="pull-right">
 					<button id="back-to-top" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span> Top</button>

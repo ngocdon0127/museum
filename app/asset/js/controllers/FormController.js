@@ -1,7 +1,6 @@
 async function sheetToJson(workbook, urlFields) {
     // create a Form data to put data
     var result = {};
-    // var result = new FormData();
     var roa;
     var test;
     var data;
@@ -21,7 +20,6 @@ async function sheetToJson(workbook, urlFields) {
     	try{
     		var typeData = test
     		var _tmp = test[element[0]];
-    		// console.log(_tmp);
 	    	var prop = test[element[1]]["h"];
 	    	if (typeof(_tmp) !== "undefined") {
 	    		if (_tmp["t"] == "n"){
@@ -37,7 +35,6 @@ async function sheetToJson(workbook, urlFields) {
     		// console.log(e);
     	}
     });
-    // console.log(count, countTotal);
     return result;
 }
 

@@ -73,6 +73,12 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 	}
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
+	}
 
 	//coordinate change
 	$scope.latChange = function () {
@@ -168,6 +174,13 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 	}
 
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
+	}
+
 	//coordinate change
 	$scope.latChange = function () {
 		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
@@ -260,6 +273,13 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$stateP
 		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
+	}
+
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 	}
 
 	//coordinate change
@@ -361,6 +381,13 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$state
 		AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 	}
 
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
+	}
+
 	//coordinate change
 	$scope.latChange = function () {
 		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
@@ -455,6 +482,13 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams
 		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
+	}
+
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 	}
 
 	//coordinate change

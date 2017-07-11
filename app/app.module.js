@@ -50,34 +50,6 @@ var app = angular.module('museumApp', [
 //     };
 // });
 
-// app.directive('validImage', function ($parse) {
-//     return {
-//         require: 'ngModel',
-//         restrict: 'A',
-//         link: function (scope, el, attrs, ngModel) {
-//             var model = $parse(attrs.ngModel);
-//             var modelSetter = model.assign;
-//             var maxSize = 5;
-//             el.bind('change', function () {
-//                 scope.$apply(function () {
-//                     // console.log(el[0].files)
-//                     if (el[0].files.length > 1) {
-//                         modelSetter(scope, el[0].files)
-//                     } else{
-//                         modelSetter(scope, el[0].files[0])
-//                     }
-//                     var fileSize = el[0].files[0].size/1024/1024;
-//                     // console.log(fileSize)
-//                     if (fileSize > maxSize) {
-//                         alert("Kich thuoc file vuot qua dung luong cho phep");
-//                         return false;
-//                     }
-//                 });
-//             });
-//         }
-//     };
-// });
-
 // Hiển thị thông báo, cần chạy ngay từ khi khởi động để có thể áp dụng được cho tất cả các controller
 app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, err, id, $anchorScroll) {
     $scope.message = err;
@@ -87,9 +59,14 @@ app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $sco
             $location.hash(id);
             $anchorScroll.yOffset = 100;
             $anchorScroll();
-            var x = document.getElementById(id);
-            var element = x.nextElementSibling
-            element.style.borderColor = "red";
+            try{
+                var x = document.getElementById(id);
+                var element = x.nextElementSibling
+                element.style.borderColor = "red";
+            } catch(e){
+                var x = document.getElementsByName(id);
+                x[0].style.borderColor = "red";
+            }
         }
     }
 });

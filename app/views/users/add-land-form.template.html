@@ -6,7 +6,7 @@
 				<tr>
 					<td><label >Mã đề tài <span class="has-required">(*)</span>: </label></td>
 					<td>
-						<input type="text" name ="maDeTai" disabled="true" ng-model="data.maDeTai" class="input-form" required>
+						<input type="text" name ="maDeTai" disabled="true" ng-model="maDeTai" class="input-form" required>
 					</td>
 				</tr>
 			</table>
@@ -59,7 +59,7 @@
 				</tr>
 				<tr>
 					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
+					<td><input type="text" class="input-form datepicker" id="ngayDinhTen" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam (phổ thông):</label></td>
@@ -208,7 +208,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianThuMau']}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
+					<td><input type="text" class="input-form datepicker" id="thoiGianThuMau" title="{{tooltips['thoiGianThuMau']}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
 				</tr>
 				<tr>
 					<td><label>20. Người thu mẫu <span class="has-required">(*)</span>:</label></td>
@@ -333,7 +333,7 @@
 			</tr>
 			<tr>
 				<td><label>31. Thời tiết khi thu mẫu:</label></td>
-				<td><input type="text"  title="{{tooltips['thoiTietKhiThuMau']}}" name="thoiTietKhiThuMau" ng-model="data.thoiTietKhiThuMau" id="thoiTietKhiThuMau" class="input-form"></td>
+				<td><input type="text" title="{{tooltips['thoiTietKhiThuMau']}}" name="thoiTietKhiThuMau" ng-model="data.thoiTietKhiThuMau" id="thoiTietKhiThuMau" class="input-form"></td>
 			</tr>
 			<tr>
 				<td><label>32. Dạng địa hình nơi thu mẫu <span class="has-required">(*)</span>:</label></td>
@@ -386,7 +386,7 @@
 			<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH/ GIÁM ĐỊNH MẪU</h3>
 			<tr>
 				<td><label>39. Ngày phân tích mẫu đất:</label></td>
-				<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayPhanTichMauDat']}}" name="ngayPhanTichMauDat" ng-model="data.ngayPhanTichMauDat" ></td>
+				<td><input type="text" class="input-form datepicker" id="ngayPhanTichMauDat" title="{{tooltips['ngayPhanTichMauDat']}}" name="ngayPhanTichMauDat" ng-model="data.ngayPhanTichMauDat" ></td>
 			</tr>
 			<tr>
 				<td><label>40. Hồ sơ phân tích mẫu đất:</label></td>
@@ -404,7 +404,7 @@
 			</tr>
 			<tr>
 				<td><label>42. Thời gian giám định mẫu:</label></td>
-				<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" ng-model="data.thoiGianGiamDinh" ></td>
+				<td><input type="text" class="input-form datepicker" id="thoiGianGiamDinh" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" ng-model="data.thoiGianGiamDinh" ></td>
 			</tr>
 			<tr>
 				<td><label>43. Người giám định mẫu <span class="has-required">(*)</span>:</label></td>
@@ -495,7 +495,7 @@
 			</tr>
 			<tr>
 				<td>Thời gian xử lý chế tác:</td>
-				<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy"></td>
+				<td><input type="text" class="input-form datepicker" id="thoiGianXuLy" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy"></td>
 			</tr>
 			<tr>
 				<td>Người xử lý, chế tác:</td>
@@ -588,7 +588,7 @@
 			<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 			<tr>
 				<td><label>58. Ngày nhập mẫu: </label></td>
-				<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
+				<td><input type="text" class="input-form datepicker" id="ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
 			</tr>
 			<tr>
 				<td><label>59. Người giao mẫu: </label></td>

@@ -162,18 +162,15 @@ app.controller('ModalCtrl', function($scope,  $uibModal, AuthService) {
 				}
 			}
 	    };
-	    console.log("2");
 	    var url = AuthService.hostName + "/content/" + link;
 
 	    var modalInstance = $uibModal.open($scope.opts);
-	    console.log("3");
 	    modalInstance.result.then(function(){
 	        //on ok button press
 	       	AuthService.deleteP(id, url);
 	    },function(){
 	        //on cancel button press
 	    });
-	    console.log("4");
     };
 
    

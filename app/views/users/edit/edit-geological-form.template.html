@@ -60,7 +60,7 @@
 				</tr>
 				<tr>
 					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayDinhTen']}}" id="ngayDinhTen" name="ngayDinhTen" ng-model="data.ngayDinhTen" ></td>
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam (phổ thông):</label></td>
@@ -211,7 +211,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianThuMau']}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
+					<td><input type="text" class="input-form datepicker" id="thoiGianThuMau" title="{{tooltips['thoiGianThuMau']}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau"  required></td>
 				</tr>
 				<tr>
 					<td><label>20. Người thu mẫu <span class="has-required">(*)</span>:</label></td>
@@ -350,7 +350,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 				<tr>
 					<td><label>29. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" ng-model="data.thoiGianGiamDinh" ></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['thoiGianGiamDinh']}}" id="thoiGianGiamDinh" name="thoiGianGiamDinh" ng-model="data.thoiGianGiamDinh" ></td>
 				</tr>
 				<tr>
 					<td><label>30. Người phân tích/giám định/định loại mẫu <span class="has-required">(*)</span>:</label></td>
@@ -482,7 +482,7 @@
 				</tr>
 				<tr>
 					<td>Thời gian xử lý chế tác:</td>
-					<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
+					<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" id="thoiGianXuLy" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
 				</tr>
 				<tr>
 					<td>Người xử lý, chế tác:</td>
@@ -629,7 +629,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 				<tr>
 					<td><label>57. Ngày nhập mẫu: </label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
+					<td><input type="text" class="input-form datepicker" id="ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" ng-model="data.ngayNhapMau" ></td>
 				</tr>
 				<tr>
 					<td><label>58. Người giao mẫu: </label></td>
@@ -759,6 +759,9 @@
 			<center>
 				<button type="submit" ng-click="updatePost()" class="btn btn-primary">
 					<span class="glyphicon glyphicon-pencil"></span> Cập nhật
+				</button>
+				<button type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-floppy-saved"></span> Save As
 				</button>
 				<div class="pull-right">
 					<button id="back-to-top" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span> Top</button>

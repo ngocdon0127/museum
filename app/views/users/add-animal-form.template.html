@@ -4,7 +4,8 @@
 		<center><h2>Thêm mẫu dữ liệu động vật</h2></center>
 		<div class=" map-detail" style="margin-top: 50px;">
 			<table>
-				<tr ng-if="deTai == 'DT-001'">
+				<!-- <tr ng-if="maDeTai == 'BSTMV.03/15-17'"> -->
+				<tr ng-if="maDeTai == 'DT-001'">
 					<td><h4>Nhập từ file Excel:</h4></td>
 					<td> 
 						<js-xls onread="read" onerror="error"></js-xls>
@@ -13,7 +14,7 @@
 				<tr>
 					<td><label >Mã đề tài <span class="has-required"> (*)</span>: </label></td>
 					<td>
-						<input type="text" name="maDeTai" disabled="true" ng-model="data.maDeTai" class="input-form" required>
+						<input type="text" name="maDeTai" disabled="true" ng-model="maDeTai" class="input-form" required>
 					</td>
 				</tr>
 			</table>
@@ -23,12 +24,12 @@
 				<h3 class="h3-title">SỐ HIỆU</h3>
 				<tr>
 					<td><label>01. Số hiệu BTTNVN:</label></td>
-					<td><input type="text" title="{{tooltips['soHieuBTTNVN']}}" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
+					<td><input type="text" title="{{tooltips['soHieuBTTNVN']}}" id="soHieuBTTNVN" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form"></td>
 				</tr>
 				
 				<tr>
 					<td><label>02. Số hiệu bảo tàng cơ sở <span class="has-required"> (*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form"  id="soHisoHieuBaoTangCSeuBTTNVN" required></td>
 				</tr>
 				<tr>
 					<td><label>03. Số hiệu thực địa <span class="has-required"> (*)</span>:</label></td>
@@ -36,13 +37,13 @@
 				</tr>
 				<tr>
 					<td><label>04. Các kí hiệu mẫu vật khác:</label></td>
-					<td><input type="text" ng-model="data.kyHieuMauVatKhac" title="{{tooltips['kyHieuMauVatKhac']}}" name="kyHieuMauVatKhac" class="input-form"></td>
+					<td><input type="text" ng-model="data.kyHieuMauVatKhac" id="kyHieuMauVatKhac" title="{{tooltips['kyHieuMauVatKhac']}}" name="kyHieuMauVatKhac" class="input-form"></td>
 				</tr>
 				<tr><td colspan="2"><label>05. Thông tin khác:</label></td></tr>
 				<tr>
 					<table>
 						<tr>
-							<td><input type="text" ng-model="data.thongTinKhac1Str" title="{{tooltips['thongTinKhac1Str']}}" name="thongTinKhac1Str" class="input-form"></td>
+							<td><input type="text" ng-model="data.thongTinKhac1Str" title="{{tooltips['thongTinKhac1Str']}}" name="thongTinKhac1Str" id="thongTinKhac1Str" class="input-form"></td>
 							<td>
 								<input type="file" multiple ng-model="data.thongTinKhac1File" class="inputfile customfile" data-multiple-caption="{count} file is selected" id="thongTinKhac1File" name ="thongTinKhac1File">
 								<label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>No file chosen</span><strong>Open</strong></label>
@@ -122,7 +123,7 @@
 				</tr>
 				<tr>
 					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="text" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form datepicker"></td>
+					<td><input type="text" title="{{tooltips['ngayDinhTen']}}" id="ngayDinhTen" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form datepicker"></td>
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam (phổ thông):</label></td>
@@ -269,7 +270,7 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>19. Thời gian thu mẫu <span class="has-required"> (*)</span>:</label></td>
-					<td><input type="text" ng-model="data.thoiGianThuMau" title="{{tooltips['thoiGianThuMau']}}" name="thoiGianThuMau" class="input-form datepicker" required></td>
+					<td><input type="text" ng-model="data.thoiGianThuMau" title="{{tooltips['thoiGianThuMau']}}" name="thoiGianThuMau" id="thoiGianThuMau" class="input-form datepicker" required></td>
 				</tr>
 				<tr>
 					<td><label>20. Người thu mẫu <span class="has-required"> (*)</span>:</label></td>
@@ -418,7 +419,7 @@
 			<h3 class="h3-title">NHÓM DỮ LIỆU PHÂN TÍCH MẪU</h3>
 			<tr>
 				<td><label>33. Thời gian phân tích/giám định/định loại mẫu:</label></td>
-				<td><input type="text" ng-model="data.thoiGianGiamDinh" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" class="input-form datepicker"></td>
+				<td><input type="text" ng-model="data.thoiGianGiamDinh" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" id="thoiGianGiamDinh" class="input-form datepicker"></td>
 			</tr>
 			<tr>
 				<td><label>34. Người phân tích/giám định/định loại mẫu <span class="has-required"> (*)</span>:</label></td>
@@ -544,7 +545,7 @@
 			</tr>
 			<tr>
 				<td>Thời gian xử lý chế tác:</td>
-				<td><input type="text" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
+				<td><input type="text" id="thoiGianXuLy" title="{{tooltips['thoiGianXuLy']}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" class="input-form datepicker"></td>
 			</tr>
 			<tr>
 				<td>Người xử lý, chế tác:</td>
@@ -659,7 +660,7 @@
 			<h3 class="h3-title">NHÓM DỮ LIỆU LƯU TRỮ, BẢO QUẢN MẪU</h3>
 			<tr>
 				<td><label>53. Ngày nhập mẫu: </label></td>
-				<td><input type="text" ng-model="data.ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" class="input-form datepicker"></td>
+				<td><input type="text" ng-model="data.ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" id="ngayNhapMau" name="ngayNhapMau" class="input-form datepicker"></td>
 			</tr>
 			<tr>
 				<td><label>54. Người giao mẫu: </label></td>

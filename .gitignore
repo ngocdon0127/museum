@@ -11,3 +11,4 @@ app/service.js
 deploygit.bat
 data.json
 npm-debug.log.*
+out.html

@@ -195,6 +195,7 @@ a.nav:hover{
     height:30px;
     border-radius: 4px; 
 }
+
 /*--------------end-New--------------*/
 /*------------------END-FORM_DATA---------------------*/
 
@@ -219,7 +220,7 @@ a.nav:hover{
 }
 
 @media screen and (max-width : 992px){
-  .map-detail{
+    .map-detail{
         background-color: #F3F6F9;
         padding: 15px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;

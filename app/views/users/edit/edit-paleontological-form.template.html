@@ -323,7 +323,7 @@
 									<input type="text" class="input-form flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" required>
 									<datalist id="xa">
 										<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
-									</select>
+									</datalist>
 								</td>
 							</tr>
 							<tr>
@@ -782,7 +782,6 @@
 			</center>
 		</div>
 	</form>
-	
 </div>
 <!-- Custom input file -->
 <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>

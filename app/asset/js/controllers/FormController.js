@@ -102,7 +102,6 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
 	// DatePicker
 	AuthService.initDatePicker(null, null);
 
-	$scope.data = {};
     $scope.read = function (respone) {
     	var urlFields = "/app/database/fieldsani.json"
         var result = sheetToJson(respone, urlFields)
@@ -395,7 +394,6 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
 	});
 
 	// $scope.hola = "Kevinhoa95"
-	$scope.data = {};
     $scope.read = function (respone) {
     	var urlFields = "/app/database/fieldspal.json"
         var result = sheetToJson(respone, urlFields)

@@ -1,7 +1,6 @@
 <div style="margin-top: 60px;" bs-loading-overlay bs-loading-overlay-delay="200">
 	<form id="form-content" name="FormContent" ng-submit="addPost(FormContent, form)" novalidate>
 		<center><h2>Thêm mẫu dữ liệu địa chất</h2></center>
-
 		<div class="container map-detail" style="margin-top: 50px;">
 			<table>
 				<tr>
@@ -274,7 +273,7 @@
 									<input type="text" class="input-form flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" required>
 									<datalist id="xa">
 										<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
-									</select>
+									</datalist>
 								</td>
 							</tr>
 							<tr>
@@ -757,27 +756,26 @@
 			</table>
 		</div>
 		<div style="height: 50px;"></div>
-	<div class="bottom-nav">
-		<center>
-			<button id="add-post" type="submit" class="btn btn-success">
-				<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;  Lưu mẫu
-			</button>
-			<button ng-click="saveCookies()" type="button" class="btn btn-success">
-				<span class="glyphicon glyphicon-save"></span>&nbsp; Lưu bản nháp
-			</button>
-			<button ng-click="getCookies()" type="button" class="btn btn-success">
-				<span class="glyphicon glyphicon-open"></span>&nbsp; Lấy lại bản nháp
-			</button>
-
-			<div class="pull-right">
-				<button id="back-to-top" type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-chevron-up"></span> Top
+		<div class="bottom-nav">
+			<center>
+				<button id="add-post" type="submit" class="btn btn-success">
+					<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;  Lưu mẫu
 				</button>
-			</div>
-		
-		</center>
-	</div>
+				<button ng-click="saveCookies()" type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-save"></span>&nbsp; Lưu bản nháp
+				</button>
+				<button ng-click="getCookies()" type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-open"></span>&nbsp; Lấy lại bản nháp
+				</button>
+
+				<div class="pull-right">
+					<button id="back-to-top" type="button" class="btn btn-default">
+					<span class="glyphicon glyphicon-chevron-up"></span> Top
+					</button>
+				</div>
+			
+			</center>
+		</div>
 	</form>
-	
 </div>
 <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>

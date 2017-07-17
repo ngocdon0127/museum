@@ -6,8 +6,12 @@ $(document).ready(function () {
 	Array.prototype.forEach.call( inputs, function(input)
 	{
 		// console.log(input);
-		var label = input.nextElementSibling;
-		var	labelVal = label.innerHTML;
+		try {
+			var label = input.nextElementSibling;
+			var	labelVal = label.innerHTML;
+		} catch (e){
+			// todo
+		}
 		// label.querySelector( 'span' ).innerHTML = "No file chosen";
 		//catch event file change
 		input.addEventListener('change', function(e)

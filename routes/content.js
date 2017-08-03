@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var multer = require('multer');
+var fs                   = require('fs');
+var path                 = require('path');
+var TMP_UPLOAD_DESTINATION   = 'public/uploads/tmp';
+var upload               = multer({dest: TMP_UPLOAD_DESTINATION});
 
 router.use(isLoggedIn);
 
@@ -24,7 +28,7 @@ require('./geological.js')(router);
 // handle data for paleontological form
 require('./paleontological.js')(router);
 
-// handle data for paleontological form
+// handle data for vegetable form
 require('./vegetable.js')(router);
 
 // handle download request.
@@ -59,6 +63,19 @@ router.get('/download/*', function (req, res, next) {
 	}
 	
 	// res.end('ok');
+})
+
+// upload files to tmp folders. move to real folder later.
+router.post('/tmpupload', upload.fields([{name: 'tmpfiles'}]), (req, res, next) => {
+	console.log(req.files);
+	console.log(req.body);
+	if (!req.body.key) {
+		return res.status(400).json({
+			status: 'error',
+			error: 'Missing key'
+		})
+	}
+	return res.end('ok')
 })
 
 function isLoggedIn (req, res, next) {

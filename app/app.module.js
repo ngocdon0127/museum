@@ -88,8 +88,10 @@ app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $sco
             $anchorScroll.yOffset = 100;
             $anchorScroll();
             var x = document.getElementById(id);
-            var element = x.nextElementSibling
-            element.style.borderColor = "red";
+            if (x) {
+                var element = x.nextElementSibling
+                element.style.borderColor = "red";
+            }
         }
     }
 });

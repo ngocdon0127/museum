@@ -288,8 +288,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		});
 
 		if (action == ACTION_CREATE){
-			objectInstance.created_by.userId = req.user.id // Owner
-			objectInstance.created_by.userFullName = req.user.fullname // Owner
+			objectInstance.created_by.userId = req.user.id // creater
+			objectInstance.created_by.userFullName = req.user.fullname // creater
+			objectInstance.owner.userId = req.user.id // Owner
 		}
 
 		var objectBeforeUpdate = {};
@@ -1800,7 +1801,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var HtmlDocx = require('html-docx-js');
 			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
 			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
-			fs.writeFileSync('out.html', docxHTMLSource);
+			// fs.writeFileSync('out.html', docxHTMLSource);
 			var outputFileName = 'PCSDL';
 			try {
 				if (LABEL.objectModelLabel){
@@ -3318,7 +3319,7 @@ var putHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canEdit = true;
 				}
-				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				if ((objectInstance.owner.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
 					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
 					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
 					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó

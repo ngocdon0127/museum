@@ -34,10 +34,10 @@ var getPublicIP = global.myCustomVars.getPublicIP;
 //   res.end('app');
 // });
 
-// Only admin can access these routes
+// Only manager can access these routes
 router.use('/', isLoggedIn, aclMiddleware('/manager', 'view', '/config'), express.static(path.join(__dirname, '../views/admin/')));
 
-// redirect to /admin/users
+// redirect to /manager/users
 router.get('/', function (req, res, next) {
 	res.redirect('users')
 })

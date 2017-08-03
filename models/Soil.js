@@ -7,6 +7,9 @@ module.exports = function (mongoose) {
 			userId: String,
 			userFullName: String
 		},
+		owner: {
+			userId: String,
+		},
 		updated_by: { // Only save the last update
 			userId: String,
 			userFullName: String

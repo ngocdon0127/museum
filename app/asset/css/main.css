@@ -219,10 +219,11 @@ a.nav:hover{
     .map-detail{
         background-color: #F3F6F9;
         padding: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.19)!important;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.2) !important;
         /*width: 1000px;*/
         margin-left: auto;
         margin-right: auto;
+        border-left: 1px solid #ddd;
     }
 
     .input-form{
@@ -243,6 +244,7 @@ a.nav:hover{
         /*width: 800px;*/
         margin-left: auto;
         margin-right: auto;
+        border-left: 1px solid #ddd;
     }
     .input-form{
         padding: 5px;
@@ -265,6 +267,7 @@ a.nav:hover{
         background-color: #F3F6F9;
         padding: 15px;
         box-shadow: 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        border-left: 1px solid #ddd;
     }
 
     .input-form{
@@ -283,6 +286,7 @@ a.nav:hover{
         background-color: #F3F6F9;
         padding: 15px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        border-left: 1px solid #ddd;
     }
 
     .input-form{

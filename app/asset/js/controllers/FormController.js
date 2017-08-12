@@ -93,6 +93,17 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
 		console.log(err);
 	});
 
+	$scope.tab = 1;
+
+	$scope.setTab = function (newTab) {
+		$scope.tab = newTab
+		console.log($scope.tab);
+	}
+
+	$scope.isSet = function (tab) {
+		return $scope.tab === tab
+	}
+
 	// default unit
 	initDefaultUnits($scope);
 

@@ -2,7 +2,7 @@ html {
 	padding: 0;
 	margin: 0;
 	height: 100%;
-    font-style: 15px;
+    font-style: 13px;
     /*font-family: 'Source Sans Pro', sans-serif;*/
     overflow: auto;
     box-sizing: border-box;
@@ -196,6 +196,22 @@ a.nav:hover{
     border-radius: 4px; 
 }
 
+.tab-content > .tab-pane {
+    background-color: #F3F6F9;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2) !important;
+    border-radius: 4px;
+}
+
+.nav-tabs > li > a {
+    border: 1px solid #ddd;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background-color: #F3F6F9;
+}
+
+
+
 /*--------------end-New--------------*/
 /*------------------END-FORM_DATA---------------------*/
 
@@ -203,8 +219,8 @@ a.nav:hover{
     .map-detail{
         background-color: #F3F6F9;
         padding: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        width: 1000px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 10px 0 rgba(0,0,0,0.19)!important;
+        /*width: 1000px;*/
         margin-left: auto;
         margin-right: auto;
     }
@@ -214,7 +230,7 @@ a.nav:hover{
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 300px;
+        /*width: 300px;*/
         border: 1px solid #ccc;
     }
 }
@@ -222,9 +238,9 @@ a.nav:hover{
 @media screen and (max-width : 992px){
     .map-detail{
         background-color: #F3F6F9;
-        padding: 15px;
+        padding: 15px; 
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        width: 800px;
+        /*width: 800px;*/
         margin-left: auto;
         margin-right: auto;
     }
@@ -233,7 +249,7 @@ a.nav:hover{
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 300px;
+        /*width: 300px;*/
         border: 1px solid #ccc;
     }
 }
@@ -243,12 +259,12 @@ a.nav:hover{
       color: #000;  
     }
     .map-detail{
-        width: 800px;
+        /*width: 800px;*/
         margin-left: auto;
         margin-right: auto;
         background-color: #F3F6F9;
         padding: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        box-shadow: 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
     }
 
     .input-form{
@@ -256,7 +272,7 @@ a.nav:hover{
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 250px;
+        /*width: 250px;*/
         border: 1px solid #ccc;
     }
 }
@@ -274,7 +290,7 @@ a.nav:hover{
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 200px;
+        /*width: 200px;*/
         border: 1px solid #ccc;
     }
 }

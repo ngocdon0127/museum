@@ -1,0 +1,4815 @@
+[33mcommit 19775ec923d31708ddd52dcb6b05fdb4d8e7b8c9[m
+Merge: 0925277 9a9fe80
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Jul 17 07:57:14 2017 +0700
+
+    fix ui
+
+[33mcommit 092527799a3aa1f05b47a905525ff249c04afb91[m
+Merge: 5cabab2 cdaab09
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Jul 14 13:26:24 2017 +0700
+
+    fix conflict
+
+[33mcommit 9a9fe8000f18527805ca887639611b3d745a4a7f[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Jul 13 14:50:56 2017 +0700
+
+    change ui of import data from excel file
+
+[33mcommit 5cabab2e864589f147d96b3980f977dcb52ddb3f[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Wed Jul 12 22:17:15 2017 +0700
+
+    add file to gitingnore
+
+[33mcommit cdaab09e0e026845cd0fd3c526dddcf21b4b0aee[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Wed Jul 12 16:22:01 2017 +0700
+
+    fix save as feature
+
+[33mcommit b8057e684a4df0f1e226649b4068d029415c1b00[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Wed Jul 12 16:03:38 2017 +0700
+
+    fix data list
+
+[33mcommit 8983586edd542be165c44d0506df13956c017841[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Wed Jul 12 16:03:07 2017 +0700
+
+    fix data list
+
+[33mcommit 99dc2d1c3425143d4161ac1379e71db1c9269edd[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Jul 11 15:53:46 2017 +0700
+
+    save as feature
+
+[33mcommit 1e58f36d74a214ecfd7e8bb541778bd8d226a319[m
+Merge: 992fe73 0b1a835
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Jul 11 10:04:29 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 992fe733ab626a88593ef07ad7ce51a89ffabb80[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Jul 11 09:53:58 2017 +0700
+
+    fix test
+
+[33mcommit 0b1a835a08e8b275854c3015e1a99ab9aa306744[m
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Jul 10 22:27:11 2017 +0700
+
+    Update https
+
+[33mcommit 5f223b04f2de05efc1b4933dcdbdccc7e8f29335[m
+Merge: 90df31c 2afcf19
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Jul 10 22:26:28 2017 +0700
+
+    Merge pull request #110 from kevinhoa95/master
+    
+    Test import from excel file
+
+[33mcommit 2afcf1993eb88ccfff77bb29314f172841762f3f[m
+Merge: ed919c7 90df31c
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Jul 10 17:29:52 2017 +0700
+
+    fix conflict
+
+[33mcommit ed919c7b93a76684a3b6ff3548a8b94930a27431[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Jul 10 17:19:11 2017 +0700
+
+    test import from excel file
+
+[33mcommit 34290122612feb5daf525ea8d34dbc2817bb6b86[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Jul 10 17:18:15 2017 +0700
+
+    test import from excel file
+
+[33mcommit c6936b2bce46483686e2b13cf4cf6df88cab6e2e[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Jul 10 11:04:41 2017 +0700
+
+    Fix delete sample
+
+[33mcommit 6b62abb1c115b523acdc444ae47046c2c89d9de3[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Wed Jul 5 07:08:02 2017 +0700
+
+    read data template
+
+[33mcommit 90df31ce776f31b26ddddbe47248a197b6536b3a[m
+Author: Ngoc Don <kaitouk2701@gmail.com>
+Date:   Mon Jul 3 17:19:38 2017 +0700
+
+    fix count money fields
+
+[33mcommit 12373d406703a0e214b729640efd6dc2418bd196[m
+Author: Ngoc Don <kaitouk2701@gmail.com>
+Date:   Mon Jul 3 16:54:18 2017 +0700
+
+    fix pdf
+
+[33mcommit 61edc957804f8fdd02f4db380220747caf83b31e[m
+Author: Ngoc Don <kaitouk2701@gmail.com>
+Date:   Mon Jul 3 16:37:26 2017 +0700
+
+    :bug: fix export pdf
+
+[33mcommit c04c1702d56fd3df3d290746599f7e35ba243104[m
+Author: Ngoc Don <kaitouk2701@gmail.com>
+Date:   Mon Jul 3 15:26:31 2017 +0700
+
+    reduce logs
+
+[33mcommit 2f17718401c5cda37e3cfae47bb480295b3c4762[m
+Author: Ngoc Don <kaitouk2701@gmail.com>
+Date:   Mon Jul 3 15:20:33 2017 +0700
+
+    using image-size instead of images
+
+[33mcommit 8468bb8055dd533d998dd5906b4249a1f3d1f158[m
+Author: Ngoc Don <kaitouk2701@gmail.com>
+Date:   Mon Jul 3 14:51:00 2017 +0700
+
+    add images preview to docx
+
+[33mcommit d14592fd1d44ecd016833145f8be17863bf693d2[m
+Author: Ngoc Don <kaitouk2701@gmail.com>
+Date:   Mon Jul 3 12:24:08 2017 +0700
+
+    done exporting docx using html-docx-js
+
+[33mcommit 20076bf01e4279ee07da9ec62157b1355f857f5b[m
+Merge: 93643e8 b66b8d2
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Jun 9 14:53:12 2017 +0700
+
+    Merge branch 'master' of https://github.com/kevinhoa95/museum
+
+[33mcommit 93643e880c53b002de96bebf28c2131da24e8f4c[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Jun 9 14:51:59 2017 +0700
+
+    fix data
+
+[33mcommit 4f99e84c94700db929ba38f8988005d7c98bdfce[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Jun 6 21:32:40 2017 +0700
+
+    :bug: fix view date diff log
+
+[33mcommit 9385febafde3db8fc6e467a5ac578f9608e92933[m
+Merge: 82b1a7c 573dbcc
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Jun 5 15:41:57 2017 +0700
+
+    Merge pull request #109 from kevinhoa95/master
+    
+    export files
+
+[33mcommit b66b8d22bf9434228a357fd1dab667d78043e52f[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Jun 5 14:56:53 2017 +0700
+
+    refactor code
+
+[33mcommit 573dbcce38c6c1a22afa35706a77365fb852ce71[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Jun 5 14:31:42 2017 +0700
+
+    export files with some fields
+
+[33mcommit 82b1a7c02807e94a08859c4d79a4754205de7e16[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Jun 5 13:26:16 2017 +0700
+
+    :bug: fix minor bug
+
+[33mcommit ec1029abb7754d27cd46b90ee2ac107c8ef8b7c6[m
+Merge: cbb0a52 82b1a7c
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Jun 5 13:00:16 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit cbb0a529e3353cdf468a2f57076f4bb469b3733c[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Jun 5 13:00:05 2017 +0700
+
+    commit to pull
+
+[33mcommit 34600f2a02af3fb405554515794ca7582fd6feb4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Jun 5 11:30:38 2017 +0700
+
+    get fields
+
+[33mcommit 28ac42793f9f9cd7487a8b59598e8efe42d73970[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Jun 5 08:53:37 2017 +0700
+
+    fix users interface
+
+[33mcommit 9e66f6545819db77c0c9d296234b2ab3fcbe4bad[m
+Author: donnn <donnn@baotangvn.online>
+Date:   Sat Jun 3 12:02:50 2017 +0700
+
+    do not affect objectInstance when flattening it
+
+[33mcommit 49db4f051c7c558ba0fadf513d93f198abf81794[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Jun 3 11:14:17 2017 +0700
+
+    do not print non-value property
+
+[33mcommit 2286429039b51bc05a1c4e786e43d41c7feaa2b2[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Jun 3 09:20:50 2017 +0700
+
+    fix avatar's name
+
+[33mcommit 8c49382200555b52a400098b5323b34e20ad8c60[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Fri Jun 2 14:36:36 2017 +0700
+
+    test offline
+
+[33mcommit 441e7f553cc4b625ede1bd5506d4f16e60ec1bc0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Jun 2 14:25:01 2017 +0700
+
+    all form support export file with custom fields
+
+[33mcommit ab1dbfe073fd06d0116c0c2c0edbfe5fcf1bd714[m
+Author: donnn <donnn@centos-2gb-sgp1-01.(none)>
+Date:   Fri Jun 2 10:59:22 2017 +0700
+
+    fix export xlsx
+
+[33mcommit c80467e6e4ee1e9e79cfa2103eba8f24a9aaa3c3[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Jun 2 10:06:08 2017 +0700
+
+    fix Mix Content
+
+[33mcommit dd67b8e5d8e34d6a174f2ed1a5fccd44f160d782[m
+Merge: 1b37bbc b01fe25
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Jun 2 10:01:13 2017 +0700
+
+    Merge pull request #108 from kevinhoa95/master
+    
+    fix notification error when add samples
+
+[33mcommit 6f40d12c27dd40d9f09ae5c21c94a256208991a1[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Fri Jun 2 09:04:25 2017 +0700
+
+    fix navbar
+
+[33mcommit b01fe25b5cd27d6d7c4aa0ac4a5ae69ce978e83b[m
+Merge: c8c521e b799ffb
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Jun 2 01:39:06 2017 +0700
+
+    fix notification error for add samples
+
+[33mcommit c8c521e2420ef01faba19e3cffcd878c5140b3e2[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Jun 2 01:04:04 2017 +0700
+
+    fix service
+
+[33mcommit f78b1d9655a47dc966c35e9a3dcbc3367e211e49[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Jun 2 01:02:38 2017 +0700
+
+    notifycation error when add sample
+
+[33mcommit b799ffb506a9948c4245a0d991062785644d0817[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Jun 1 16:23:28 2017 +0700
+
+    fix export fields in server
+
+[33mcommit 4dc53dbb29fef27ef9b7aadca33973703f2cfdd9[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Jun 1 16:06:31 2017 +0700
+
+    fix service.js file
+
+[33mcommit d2ab7dbf795c002215a83ccdd05ce7e7737fd5a7[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Jun 1 16:01:16 2017 +0700
+
+    fix service.js file
+
+[33mcommit 7c0f43e55501226b0999014bdcca6cd7299cfd7b[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Jun 1 16:00:28 2017 +0700
+
+    export to file with any field
+
+[33mcommit 77155ecf2753ab64bbb2f483581ac9297022cfb5[m
+Merge: 10a827a 1b37bbc
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Jun 1 08:17:46 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 9cb5c8365ad3e04cc7b2345426e6d72b687783d7[m
+Merge: c945fa3 1b37bbc
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat May 27 09:26:21 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit c945fa330afb91295e60972dfc12e14d19e64bff[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat May 27 09:26:10 2017 +0700
+
+    test
+
+[33mcommit 1b37bbc685911bc85177c7777e7671831111303b[m
+Merge: ba9be68 524a3ab
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sat May 27 09:25:18 2017 +0700
+
+    Merge pull request #107 from ngocdon0127/flex_epport
+    
+    API flex_export
+
+[33mcommit 10a827a49a0ba68e59cfea0ea79464e9ed79aea4[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat May 27 03:05:03 2017 +0700
+
+    test download file
+
+[33mcommit 794ea7048605ac5dccc6811144d6fb15a9437588[m
+Merge: c0c791a e7b5aa5
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri May 26 12:21:33 2017 +0700
+
+    Fix conflict with master
+
+[33mcommit c0c791a7ffbc40e33c984da0ca35797733d8219e[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri May 26 12:09:09 2017 +0700
+
+    add search controller
+
+[33mcommit 524a3ab9e9a76789e9ade5f9ee660823c3fe7105[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 26 11:35:51 2017 +0700
+
+    done API
+
+[33mcommit ba5c1a338ab0e02b3bb099d3cd8710756b9b8fd1[m
+Merge: b789a6e ba9be68
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon May 22 10:09:41 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum into search
+
+[33mcommit e7b5aa54769ac8d6c75ecec50715ecafa5c53c7e[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon May 22 10:04:03 2017 +0700
+
+    commit to update
+
+[33mcommit ba9be6839fe8f7751cb5b049244ba92cf3db528a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue May 16 11:42:53 2017 +0700
+
+    docx_img
+
+[33mcommit b789a6ecee566c03db38eb497a53f70958e7aacd[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Tue May 16 11:33:30 2017 +0700
+
+    search data from db
+
+[33mcommit 3122924bbb5880d55b32a1dadd3321d9378dac6a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue May 16 10:37:05 2017 +0700
+
+    fix ssl
+
+[33mcommit bcc29251735f25bd16871eefced926bf7ae09bf7[m
+Merge: 8831493 3122924
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Tue May 16 10:36:07 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 88314938adf11a97fbb61a8537d33890dd835232[m
+Merge: 0b460b4 89156dc
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Tue May 16 10:25:00 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 0b460b4fc18a12a505678809e48c0d8be006f3cb[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Tue May 16 10:24:55 2017 +0700
+
+    fix localhost
+
+[33mcommit 89156dc54f19ae4a175039c93dd08df68f80d840[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon May 15 16:10:43 2017 +0700
+
+    add link to profile
+
+[33mcommit 5dbacb7b90ecfdcb199178af043fa47390aa8a6e[m
+Merge: fd1f185 d27ec3c
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun May 14 10:36:14 2017 +0700
+
+    Merge pull request #106 from ngocdon0127/log_more
+    
+    Log more
+
+[33mcommit d27ec3c49860957c369effe4ca8ca568b153f751[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun May 14 10:34:40 2017 +0700
+
+    :bug: fix check canEdit, canDelete + fix view log
+
+[33mcommit eb689a22e5af5027156fd49aea5c3ab2216816f7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun May 14 02:27:26 2017 +0700
+
+    view other account's profile
+
+[33mcommit 2231fdd63d63e455625e8aa702da4fdcbbc08625[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun May 14 01:08:18 2017 +0700
+
+    add log
+
+[33mcommit 89cbd0057afc72d1191bb25fcafd8d0f35804751[m
+Merge: 8c33c99 fd1f185
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat May 13 22:17:51 2017 +0700
+
+    Merge branch 'master' into log_more
+
+[33mcommit fd1f1855adb5f1cc30c8e79d039f2894a802f95c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 22:09:42 2017 +0700
+
+    fix url file
+
+[33mcommit fc3415e276446e1a379a4878662c37bbeffd8608[m
+Merge: 9b27806 efb1252
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri May 12 22:05:13 2017 +0700
+
+    Merge pull request #105 from ngocdon0127/ssl
+    
+    SSL
+
+[33mcommit efb12523669ec3f6edb9c991e8899f67779dc2c7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 21:57:51 2017 +0700
+
+    fix nonsecureport
+
+[33mcommit 6c55714838d764a1da9d272180452a1123f70936[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 21:41:28 2017 +0700
+
+    dynamic choose http or https in config/config.js
+
+[33mcommit 0455b03d90d2143d2d0b436216c79312b01613bb[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 21:22:55 2017 +0700
+
+    redirect all requests to HTTPS server
+
+[33mcommit 1e1a5ec8642fe8edf758d4dfc2f8966d2c2c653f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 20:56:43 2017 +0700
+
+    fix mixed content
+
+[33mcommit fbfd08dfa1e301d4a287517aa88e25405f4fe28f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 20:47:34 2017 +0700
+
+    ssl
+
+[33mcommit 9b2780646354f7926f340e67178f69c00f457419[m
+Merge: f64a969 b51dd78
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri May 12 17:01:34 2017 +0700
+
+    Merge pull request #104 from kevinhoa95/master
+    
+    hehe
+
+[33mcommit f64a96938ab2552b50f9ddcae6ac1830a318b9ed[m
+Merge: 7baaf4d 2a09a30
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri May 12 16:55:04 2017 +0700
+
+    Merge pull request #103 from chiennguyen196bg/chien
+    
+    Floating button
+
+[33mcommit b51dd78db163d45704509fb95ef37727b16b6edc[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri May 12 16:45:40 2017 +0700
+
+    add display error
+
+[33mcommit 2a09a30d1458034e253998abe69d896593c1ed56[m
+Merge: 9e9beb9 7baaf4d
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Fri May 12 16:40:27 2017 +0700
+
+    phần float button
+
+[33mcommit a735fbf9d825324cacc93d97ccb788eb9adb17ba[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri May 12 15:47:13 2017 +0700
+
+    fix number of field
+
+[33mcommit 7baaf4d4835884671a570eae15bab079a0b397d5[m
+Merge: cbf72ca d105d38
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri May 12 15:39:39 2017 +0700
+
+    Merge pull request #101 from kevinhoa95/master
+    
+    notifications use modal
+
+[33mcommit d105d387f917dba6e1fde8a294f545edd65a19a5[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri May 12 11:43:38 2017 +0700
+
+    notifications use modal
+
+[33mcommit 8c33c994fc5543a89d0b9f344f1c1e4831473fe6[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 11:32:08 2017 +0700
+
+    tmp commit
+
+[33mcommit cbf72cab0fab1a2ae13f8fd28c3847cc4c349990[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 10:04:40 2017 +0700
+
+    fix file reponse
+
+[33mcommit 0ef09e65a41320d7894f139301c5559e30fd5028[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 09:53:28 2017 +0700
+
+    fix file extensions ttk
+
+[33mcommit 21128394cb8cfbfcfa7995ccd270983d26962078[m
+Merge: 638ff1a 813e66b
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri May 12 09:43:38 2017 +0700
+
+    Merge pull request #100 from ngocdon0127/ttk
+    
+    thongTinKhac
+
+[33mcommit 638ff1a6c9a571ef7265d2785ba3b1d0cc3fa996[m
+Merge: 95bacc0 7629e64
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri May 12 09:42:45 2017 +0700
+
+    Merge pull request #99 from kevinhoa95/master
+    
+    other info is mixed
+
+[33mcommit 813e66ba366dc60a3c5151107518ed3836fbcfc7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 09:38:59 2017 +0700
+
+    fix schemas
+
+[33mcommit 7629e641977d1e5eab77235529563db5bb9d586e[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri May 12 09:38:32 2017 +0700
+
+    other info is mixed
+
+[33mcommit a2c0b7a2effeeb36b4376772a7792258c0a2f872[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri May 12 00:44:27 2017 +0700
+
+    fix thongTinKhac
+
+[33mcommit 95bacc034061e5cac9f404a32fb3f241a3216e39[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue May 9 23:37:07 2017 +0700
+
+    sort maDeTai
+
+[33mcommit a3144b673160c4a8a067e59933ebf1f775cf1376[m
+Merge: 873e1d0 29e2119
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue May 9 14:54:12 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit 873e1d02908b6b5084ac2f47db3e481de68b93fa[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue May 9 14:53:43 2017 +0700
+
+    fix exported zip file name + role name
+
+[33mcommit 29e21190dd941dc39882552acdc319e758c71c33[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue May 9 13:38:25 2017 +0700
+
+    add user using scripts
+
+[33mcommit c3ea64d7fdb7e2dfabe8eacbf256da275eb76c9d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed May 3 00:25:44 2017 +0700
+
+    delete zip folder after exporting
+
+[33mcommit 54418ff077fd0a232fad8bbaef45a47b23b1b3fa[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue May 2 23:27:59 2017 +0700
+
+    fix download zip
+
+[33mcommit 3ecccee3c937d695214bef69b975a0e2233889af[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon May 1 23:22:38 2017 +0700
+
+    dynamic libreoffice version
+
+[33mcommit 0733f6adfb99a0415b61b5c4c307893785d55a06[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon May 1 23:18:31 2017 +0700
+
+    add download zip button
+
+[33mcommit 851eba01549e401b743e43fce68ce695c60e5068[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon May 1 23:02:00 2017 +0700
+
+    clean code
+
+[33mcommit 11018e3132f266f73402681b2cece7aa731eae5c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon May 1 22:53:54 2017 +0700
+
+    done export zip
+
+[33mcommit 042f4120093b155f9c42b2989f389e87bc8f4310[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon May 1 16:35:46 2017 +0700
+
+    tmp commit
+
+[33mcommit 9e9beb915669f70b4d26b299173a9ede2a9ad9b8[m
+Merge: b080bad 38eb9e9
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Sat Apr 29 01:35:54 2017 +0700
+
+    xong phan guest view
+
+[33mcommit 96d8df8f85e141d37e3bada62ecbfca8ef71ee2c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Apr 28 09:50:06 2017 +0700
+
+    table responsive overflow
+
+[33mcommit b080bad1e4406e936c273fb0d3b6a60f4cbf0dad[m
+Merge: 15c00e2 2787e27
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Fri Apr 28 01:53:39 2017 +0700
+
+    Merge https://github.com/ngocdon0127/museum into HEAD
+    
+    # Conflicts:
+    #       routes/auth.js
+    Xong phan floating button
+
+[33mcommit efdeccf31fa1785afc53b0ab74793258888d0526[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Apr 25 22:45:09 2017 +0700
+
+    delete redudant code
+
+[33mcommit c649694262a8cb060ad5b0b4f106574b67870d3f[m
+Merge: f82c456 9444128
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Apr 25 12:19:16 2017 +0700
+
+    Merge pull request #96 from kevinhoa95/master
+    
+    change require of place
+
+[33mcommit 94441280e625907f0e613cdbb5e58b6d1716185e[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Apr 25 12:17:56 2017 +0700
+
+    change require of place
+
+[33mcommit f82c4568e8b69e65e08fc0dfdd803873e736e90b[m
+Merge: 3289763 3ac9f03
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Apr 25 12:06:06 2017 +0700
+
+    Merge pull request #95 from kevinhoa95/master
+    
+    fix error of display
+
+[33mcommit 3ac9f03d62dbf15e72a91eee6627226173296208[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Apr 25 12:01:58 2017 +0700
+
+    copy to service example
+
+[33mcommit 3289763f27de238b37844d5421260f491b0667d3[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Apr 25 12:01:10 2017 +0700
+
+    change form
+
+[33mcommit de0d69f417df1b8adb2930c5d58ec5e34b144933[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Apr 25 11:55:16 2017 +0700
+
+    fix error of display
+
+[33mcommit e5cd87dfeec3c6d14a6e293b25a1c7812019ae90[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 23 23:07:24 2017 +0700
+
+    display avatar in admin, manager views
+
+[33mcommit cc696979948702875c0d6818ebef5e61ece2d948[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 23 20:01:06 2017 +0700
+
+    crop avatar + check old password when user want to change password
+
+[33mcommit 8a755927ed8174d432e94a9e8fdad9d0111de636[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 22 22:27:40 2017 +0700
+
+    add filter
+
+[33mcommit 38eb9e972b7d81e3c85f3d3b806ab2e0a78e1ed7[m
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Fri Apr 21 15:56:04 2017 +0700
+
+    push truoc khi quay ve float button
+
+[33mcommit 2787e27d08222b340ba90e920c9fcb2a6491cedf[m
+Merge: 771f709 de32468
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Apr 21 15:38:56 2017 +0700
+
+    Merge pull request #93 from kevinhoa95/master
+    
+    add a field in geo form
+
+[33mcommit 771f7098e73b88b03f10bbb5d769555da508a897[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Apr 21 15:37:40 2017 +0700
+
+    add phanLoaiSuDungMau Geological
+
+[33mcommit de32468390e08e76799994c147f85aa174828354[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Apr 21 15:36:10 2017 +0700
+
+    add a field in geo form
+
+[33mcommit 42eec7c5c4a24f90c87f829795f0cdfb59c52bf0[m
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Tue Apr 18 02:29:32 2017 +0700
+
+    xong cơ bản phần hiển thị và lọc kết quả cho guest view của địa chất
+
+[33mcommit 3309167a0d138ec63c5c125d74592d830bce33ce[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Apr 18 00:09:03 2017 +0700
+
+    minor fix, redirect to /home after logging in
+
+[33mcommit 718f6e423847938334ecac5ae6fdfe037c36d4a7[m
+Merge: 87085fe e8e0ced
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sat Apr 15 20:38:54 2017 +0700
+
+    Merge pull request #91 from ngocdon0127/clustering
+    
+    Clustering
+
+[33mcommit e8e0ced84913a2ad2cd1654005ab34a505b5fe23[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 15 20:27:57 2017 +0700
+
+    show only useful message from Worker
+
+[33mcommit d9910b278aa08440a2d53535dd9524a3145eb592[m
+Merge: fb7a639 65076cd
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 15 17:55:34 2017 +0700
+
+    Merge branch 'clustering' of github.com:ngocdon0127/museum into clustering
+
+[33mcommit 65076cd714a7cf4a8554b1707dd3393eef648064[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 15 10:13:49 2017 +0700
+
+    dynamic set number of threads
+
+[33mcommit 354e2c676c4f995e578da75a7fac55be1752de42[m
+Merge: 15c00e2 87085fe
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Fri Apr 14 14:42:06 2017 +0700
+
+    Merge https://github.com/ngocdon0127/museum into chien
+    
+    # Conflicts:
+    #       routes/auth.js
+    pull ve
+
+[33mcommit 87085feb920dd354dcdcd47a1ee9e423d9f363fa[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Apr 14 14:23:52 2017 +0700
+
+    fix view log manager
+
+[33mcommit fb7a639c7717f46982a9c290e8443e5572636ab0[m
+Merge: c4b392a 059fbef
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Apr 14 13:41:25 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum into clustering
+
+[33mcommit 059fbefd25b380db56c55df677054c6f30dd7e3a[m
+Merge: fd6e348 c04671b
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Apr 14 11:17:15 2017 +0700
+
+    Merge pull request #90 from kevinhoa95/master
+    
+    fix position of select add
+
+[33mcommit c04671b29a79a4f2beefbbbb082b7823d2dbeacf[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Apr 14 11:13:40 2017 +0700
+
+    fix position of select add
+
+[33mcommit fd6e348dd7bc72588ae9b00f466df6b5bd099a31[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Apr 14 10:53:58 2017 +0700
+
+    :bug: missing colon
+
+[33mcommit d1ac4f7ccb41b7ed14526ecbd97daa42aceaa185[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Apr 14 10:49:08 2017 +0700
+
+    tmp
+
+[33mcommit 356ca3da3cd94e1fba838cfa019af7d0dd2c460a[m
+Merge: 7cba855 ccff6f3
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Apr 14 10:46:43 2017 +0700
+
+    Merge pull request #89 from kevinhoa95/master
+    
+    Copy data to service example
+
+[33mcommit ccff6f31c3bcd2e07a51a65b15f07480691022ee[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Apr 14 10:42:43 2017 +0700
+
+    Copy data to service example
+
+[33mcommit c4b392a9de6663cd7f6488e22a6ce8aeaa9e8aef[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Apr 14 01:46:20 2017 +0700
+
+    run on cluster
+
+[33mcommit 6d491db2923b1e7ad5c11754e580d298530fc2ea[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Apr 14 00:38:26 2017 +0700
+
+    add dialogs for notification
+
+[33mcommit 7cba8554dff0133cb847aa2f2100781c3539adea[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 19:52:53 2017 +0700
+
+    when an user is fired, all of his privileges will be revoked
+
+[33mcommit a032334e4bf213ff641150fb03c6ba5815a1176a[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Thu Apr 13 17:13:56 2017 +0700
+
+    add modal notification
+
+[33mcommit 2b8124d8740024c242ce7efe2a2a2663194588ab[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 16:58:49 2017 +0700
+
+    recovery middleware for FE
+
+[33mcommit 95e71686559acad432fdf92b17ceed98be80bb7f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 16:05:57 2017 +0700
+
+    :bug: fix approve
+
+[33mcommit 2a69eb4dc1fdf7001d1f6ba83bee4f6ab310c655[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 15:51:38 2017 +0700
+
+    fix skin alte
+
+[33mcommit 5b0134462828edd08da07aa76dc8196e3caf0c1a[m
+Merge: d276d9b 2995601
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 15:39:09 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit d276d9b3540f4ee47af6eebd033e074480102ccf[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 15:38:30 2017 +0700
+
+    fix view log for normal user
+
+[33mcommit 299560129c78a65da176399c9449b2cb55f0eeb6[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 11:46:50 2017 +0700
+
+    fix passport
+
+[33mcommit e90af8cefe4857bb58f242eaf166d98bd94181a9[m
+Merge: 79f5fa8 9ae6cfb
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 11:27:02 2017 +0700
+
+    Merge pull request #88 from kevinhoa95/master
+    
+    service sample
+
+[33mcommit 9ae6cfb1c1bb696f32f85ac927cf1340deb7037f[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Thu Apr 13 11:24:57 2017 +0700
+
+    fix service sample
+
+[33mcommit 79f5fa87b582eb9e7ade34ba09975e4776baaf6c[m
+Merge: ad033ba 249f5c6
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 11:23:38 2017 +0700
+
+    Merge pull request #87 from kevinhoa95/master
+    
+    service sample
+
+[33mcommit 249f5c65f2f254485fbad5b917c25425584dc2b5[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Thu Apr 13 11:10:49 2017 +0700
+
+    service sample
+
+[33mcommit ad033ba19ad383c62cdf203d5d5bf7c0551ed9ea[m
+Merge: 9dc6515 bc6eece
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 11:09:39 2017 +0700
+
+    Merge pull request #86 from kevinhoa95/master
+    
+    Limit access
+
+[33mcommit 9dc6515a4f2c0b31caeac2ef2359dd2df7cdfe37[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 11:02:20 2017 +0700
+
+    fix UI admin, fixed skin
+
+[33mcommit bc6eecef8082c0d3bc2c8733dae30a6eab80d599[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Thu Apr 13 11:00:34 2017 +0700
+
+    add home page, limit access to route base on user permision
+
+[33mcommit e84ab4a0d6d4b6bb2dccb0ae090c285e57c936de[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 10:00:34 2017 +0700
+
+    minor fix /manager/statistic
+
+[33mcommit 5138ec2992cda91cbd2714fa549ef7fe7a056fbf[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Apr 13 09:50:03 2017 +0700
+
+    add chart for admin
+
+[33mcommit 1834b99ef0b0ae5a0a5ef028d0a187feb448c820[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Apr 12 17:01:16 2017 +0700
+
+    add chart in admin view
+
+[33mcommit 697441e53377eb5ceb5fded58142730d87053b82[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Apr 11 20:47:12 2017 +0700
+
+    fix /users/me
+
+[33mcommit bedb5d6c7bf34ab45ec1645609e40d7c986a5124[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Apr 10 19:40:10 2017 +0700
+
+    Name for route, reconfigure map route
+
+[33mcommit 051fcba6fe743af531a052d99090904400b83764[m
+Merge: 7ab4be6 37bdc39
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Apr 10 03:08:49 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 7ab4be62105de98311a752fc1dc93dfa5724b664[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Apr 10 03:08:43 2017 +0700
+
+    add username to nav
+
+[33mcommit 37bdc39154d36487cbe7705a331f7a7941d0854d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Apr 10 03:06:00 2017 +0700
+
+    change /users/me response
+
+[33mcommit d915e4622238cfaf0da896a09e7c4777cdbb1ed9[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Apr 10 01:46:58 2017 +0700
+
+    fix user info JSON
+
+[33mcommit 04d715f95b2c7983b8713d98a0b2e943a4acd80a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Apr 10 01:11:35 2017 +0700
+
+    fix cookie
+
+[33mcommit e3826bb4a34a82e95c4e70068350b7d979fcf61a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Apr 10 00:36:03 2017 +0700
+
+    fix header + redirect to user's profile after logging in
+
+[33mcommit 6e66cfa0be9f8b651e6cdb1f51afb17c097b345a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 9 23:50:59 2017 +0700
+
+    fix user view log + minor fix footer
+
+[33mcommit 15c00e2d8c4c0e29522f8d0367f87fda0029ae74[m
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Sun Apr 9 06:05:15 2017 +0700
+
+    Them phan floating bottom o duoi
+
+[33mcommit dbd9006a468fd3d976870e79007e331d38b98ecf[m
+Merge: 4057793 b21e6ac
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Sun Apr 9 05:24:29 2017 +0700
+
+    Merge branch 'chien' of https://github.com/chiennguyen196bg/museum into chien
+
+[33mcommit 4057793522c5e58f6b633f58e0e0194f80fc592d[m
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Sun Apr 9 05:23:01 2017 +0700
+
+    no message
+
+[33mcommit cc948345d54c283ba3a1b9dd6a49d610af9b2860[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 8 02:10:43 2017 +0700
+
+    fix avatar cookie
+
+[33mcommit 0507c8e045c96b7b53c6c3f8a4dbb315f92d6cbc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 8 02:01:42 2017 +0700
+
+    add link nav
+
+[33mcommit 80515acff48ce9a4a3a2822e6ebabea1dff7c3c4[m
+Merge: bf8c2a6 91805c9
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 8 01:50:19 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit bf8c2a6f3a9d78042ba9482c30a6d65e03e4c660[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 8 01:49:31 2017 +0700
+
+    edit user info + add user avatar
+
+[33mcommit 91805c91885b524aa8649186a46c54a0ee186d8e[m
+Merge: c575951 865e8b4
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Apr 7 14:44:20 2017 +0700
+
+    Merge pull request #84 from huyentls1114/master
+    
+    custom input file for vegetable, land form
+
+[33mcommit c575951a8a09949f4716208b984f56a9baef39c0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 2 17:25:17 2017 +0700
+
+    fix table user-permission
+
+[33mcommit 7b60b475c84ebbceaf9f2e6929492a952505994a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 2 17:10:46 2017 +0700
+
+    add label for checkbox
+
+[33mcommit 383eabd1d69fc833340c941b7f1ad19379b2aecf[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 2 16:54:27 2017 +0700
+
+    disable maDeTai in FE
+
+[33mcommit 9af9d771f735ca2f2f7e9aac1de46beca34cabc3[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 2 01:19:21 2017 +0700
+
+    fix count money
+
+[33mcommit 77136f52e5c410654856abd327beccdc29a53858[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 2 01:05:46 2017 +0700
+
+    add missing files
+
+[33mcommit 078a83b0f4c689a9cfd0a9978f97b30c3ceda0a0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 2 01:04:08 2017 +0700
+
+    add user level in admin view
+
+[33mcommit 08ae99154a7501f366856e0790d9c0549c3a8a86[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Apr 2 00:33:01 2017 +0700
+
+    manager can see roles in deTais which they manage only
+
+[33mcommit 47f01b3ae204351d8b0afc4b69387fa823ee952b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 1 23:56:03 2017 +0700
+
+    fix tootip for roles
+
+[33mcommit a9f3165782aff903ec37d04b34405712e24d2552[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 1 23:10:45 2017 +0700
+
+    do not add new maDeTai in /admin/grant/manager
+
+[33mcommit 0353539b542abb7cfc12f75ec343d9560b9eb5cb[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 1 18:46:46 2017 +0700
+
+    fix colon
+
+[33mcommit 44e5382411ac5bebebf741857198af6b7e6fcaad[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Apr 1 18:44:21 2017 +0700
+
+    fix addMDT
+
+[33mcommit 9e9e7cf7206c7620c452292d3298eefbe1db6fd8[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 31 23:42:39 2017 +0700
+
+    fix add newMaDeTai
+
+[33mcommit 5b16f32a4cd542c8a5bb1050e8cea4265a2e5689[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 31 22:49:50 2017 +0700
+
+    fix maDeTai of users
+
+[33mcommit e2ac9eef17e0fc0893c10c73e87e2a653f701c95[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 31 22:29:52 2017 +0700
+
+    use Vietnamese
+
+[33mcommit d051fb60426aea5db5c69d789dffe1213e9d3750[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 31 22:21:36 2017 +0700
+
+    fix resetpassword
+
+[33mcommit 8c8b2d6c4237c7816336cb0dacc71aea73bfde2c[m
+Merge: 2f2c4d3 0f10a4b
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 31 21:31:03 2017 +0700
+
+    q
+    Merge branch 'master' into chien
+
+[33mcommit 0f10a4b2cd3fbbed2a9f7cf5f1ddb8ea5a13faf9[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 31 21:26:31 2017 +0700
+
+    fix maDeTai
+
+[33mcommit 2f2c4d338abcfa42e346fabc3ddb1c861494a497[m
+Merge: e25d043 b21e6ac
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Mar 30 22:42:34 2017 +0700
+
+    Merge pull request #85 from chiennguyen196bg/chien
+    
+    Chien
+
+[33mcommit b21e6ac65f0f974863b42a6a2adb292b8a79e128[m
+Merge: f871b84 e25d043
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Mar 30 22:42:19 2017 +0700
+
+    Merge branch 'chien' into chien
+
+[33mcommit f871b8419b95890d40ad0e5ab9328603e6cfba34[m
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Thu Mar 30 13:20:46 2017 +0700
+
+    thêm recaptcha cho form, giới hạn số lần forgot password trong ngày, giới hạn khoảng thời gian forgot password
+
+[33mcommit e25d0438017bf59fa84f48ec3b75a9d5f8f7b740[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Mar 30 00:27:01 2017 +0700
+
+    fix thuocTinhXuLyCheTac
+
+[33mcommit 865e8b412adcad8d671610d061976d05045f70ae[m
+Merge: 5dd0204 b0cce98
+Author: Hoàng Cao Huyền <Hoàng Cao Huyền>
+Date:   Wed Mar 29 23:06:51 2017 +0700
+
+    change type of input file tag
+
+[33mcommit 5dd0204613547b109fac30044fece0d8976bc14e[m
+Author: Hoàng Cao Huyền <Hoàng Cao Huyền>
+Date:   Wed Mar 29 22:30:25 2017 +0700
+
+    fix conflict
+
+[33mcommit b0cce989c587274551173f4c1d9649b22aa42f64[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 27 14:00:11 2017 +0700
+
+    add new role for each added MaDeTai
+
+[33mcommit 98dca80c215da807de46b9d256efb5bb62ce740b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 27 12:58:11 2017 +0700
+
+    admin have to provide password before adding new MaDeTai
+
+[33mcommit ee02ef0500e5677cf6b44e593ef4f9f3c0b40725[m
+Merge: 6472bf1 2826f8b
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Mar 27 02:54:09 2017 +0700
+
+    Merge pull request #82 from kevinhoa95/master
+    
+    Fix get file name for edit form
+
+[33mcommit 2826f8b61176057f0c6f0d51f03ea201e98a2526[m
+Merge: f6a597a 6472bf1
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Mar 27 02:52:36 2017 +0700
+
+    Merge branch 'master' into master
+
+[33mcommit 6472bf1845103485f5fa61202d08c401f6c3b871[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 27 02:07:15 2017 +0700
+
+    :bug: fix chichiGiong
+
+[33mcommit ac4820b93fbf7cd23cf054b3193d53b32040ca57[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 27 02:00:59 2017 +0700
+
+    sync properties among Models
+
+[33mcommit f6a597a5be93b2c12a4c963c2a17c4bc79c57b79[m
+Merge: e8ff397 726ade5
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Mar 27 00:34:15 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit e8ff39784f04a957189b4cc1e54c14de062184ec[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Mar 27 00:34:07 2017 +0700
+
+    Fix label text for input file
+
+[33mcommit 726ade5eb1da9d63795eef25b56edabf3d2d88a1[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 23:57:02 2017 +0700
+
+    Delete phrase '..' in filenames
+
+[33mcommit 04d96d877dd3e4719443a2bfe2d3be6f9ddbb900[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 23:12:38 2017 +0700
+
+    delete junk files
+
+[33mcommit b569fce8efd9fd1006db1e83d3a7caf1b0607797[m
+Merge: c77b977 7d030c5
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 23:03:58 2017 +0700
+
+    Merge pull request #81 from kevinhoa95/master
+    
+    custom input file
+
+[33mcommit 7d030c51da0d0eb74b20c1e53cf1202ed1284a48[m
+Merge: 185c802 7eaf456
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sun Mar 26 22:43:08 2017 +0700
+
+    fix count file chosen
+
+[33mcommit c77b977fcfa180e4877c53ecf3f4c5fe21cd403b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 18:17:24 2017 +0700
+
+    fix filename
+
+[33mcommit 33b0e9ca1c2be9c8d4a9e5379ea2a644081bd194[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 17:43:44 2017 +0700
+
+    update README + fix initialize.js
+
+[33mcommit a0f032dd484f3e449e21a696b02d19498f33068b[m
+Merge: 7a38a11 7eaf456
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 16:07:51 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit 7a38a11dded7b5274e4cf450a1bed5b86f6e090c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 16:07:05 2017 +0700
+
+    Admin can add MaDeTai
+
+[33mcommit 185c80237427cc6ec79d1eb01a4728987987cae3[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sun Mar 26 11:38:57 2017 +0700
+
+    Edit chose file
+
+[33mcommit 7eaf456833fdb4f1f1635e831ae3af447789fdd3[m
+Merge: faf992e 344ced3
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun Mar 26 11:08:49 2017 +0700
+
+    Merge pull request #79 from bachkho/master
+    
+    nhapfile-form-cosinh-diachat-dongvat
+
+[33mcommit 344ced3fe407b90f798c57f9991bb5393f4f9583[m
+Author: Quynh Phung <quynhils1114@gmail.com>
+Date:   Sun Mar 26 00:27:00 2017 +0700
+
+     nhapfile-form-cosinh-diachat-dongvat
+
+[33mcommit 57376f15ea52678e899bfa9c2109b6e7666332e6[m
+Merge: 57113ff 750c3f7
+Author: Quynh Phung <quynhils1114@gmail.com>
+Date:   Sun Mar 26 00:03:13 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 57113ff6aede30876bbdf9914f71540f66e10e08[m
+Author: Quynh Phung <quynhils1114@gmail.com>
+Date:   Sun Mar 26 00:02:29 2017 +0700
+
+    sua-nhap-file-cosinh-diachat-dongvat
+
+[33mcommit faf992e3b36444aa295c83ee4a985e8e911e53df[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 25 16:23:23 2017 +0700
+
+    users statistic
+
+[33mcommit 370c9af8f0b9360afde48df430c6cd82d559047f[m
+Merge: aa44615 750c3f7
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Mar 24 09:14:02 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit aa446153259668a4a031322cdd9c562600c59c8a[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Fri Mar 24 09:13:46 2017 +0700
+
+    no chose file in add form
+
+[33mcommit e1ffc0fbf3543f0e50b11b6126d0bdda734efa09[m
+Merge: d8c3a5e 750c3f7
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Fri Mar 24 04:04:22 2017 +0700
+
+    Merge https://github.com/ngocdon0127/museum into chien
+    
+    ban local khong co day du chuc nang
+
+[33mcommit d8c3a5ee9a9ad3ca9bf28497be9c0a61cddcdb01[m
+Author: Nguyen Minh Chien <chienminhnguyen196@gmail.com>
+Date:   Thu Mar 23 17:07:36 2017 +0700
+
+    Xong phần gửi mail
+
+[33mcommit 750c3f7b7f57c7bb88522f25d6d819def1aa971e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Mar 23 11:30:54 2017 +0700
+
+    add title logs
+
+[33mcommit e793dbfe0f2fe39c78151b919249d4a1cd2565fb[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Mar 23 11:21:53 2017 +0700
+
+    use flexdatalist in admin,manager view
+
+[33mcommit 0958b1428e652583c45299333170fcc94aa379c4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Mar 23 10:39:13 2017 +0700
+
+    placeholder relogin
+
+[33mcommit 4adfe7df19619e542de318aca8fe0f1284083f80[m
+Merge: 4029ab6 a4bafc7
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Mar 23 10:37:00 2017 +0700
+
+    Merge pull request #78 from ngocdon0127/fix_config
+    
+    Fix view /config
+
+[33mcommit a4bafc73a3600a1d75a36f1d9525595c63f78980[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Mar 23 10:34:26 2017 +0700
+
+    change view /config done
+
+[33mcommit 4029ab6b18abb6ee241380673a35ba59d1933243[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 22 17:46:56 2017 +0700
+
+    fix button
+
+[33mcommit ecf69d39f69025e659580f0a44b1eb437381898a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 22 17:44:56 2017 +0700
+
+    add lockscreen
+
+[33mcommit 6fa5698a4aa965fa4ecc647809ae07f79e2f6f32[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 22 16:59:34 2017 +0700
+
+    add missing files
+
+[33mcommit 7a9164df19373d3865cfd76a66f5795e70257ac6[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 22 16:10:01 2017 +0700
+
+    change view /config
+
+[33mcommit 34ef4718d7c1b64fffc2d07e3a9ef870d5da9b59[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 21 16:49:48 2017 +0700
+
+    Fix /config
+
+[33mcommit 75abe8ac39fb70ba6a53881b2a0ee1031068eb76[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 21 13:14:37 2017 +0700
+
+    add promise-generators to init.js
+
+[33mcommit df316addeed90dac376ff322542ef6964d070bd5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 20 21:12:01 2017 +0700
+
+    reset maDeTai
+
+[33mcommit e7e3851e75cefecfe62a26aea9fe5352d60b5a6a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 20 20:47:17 2017 +0700
+
+    fix language
+
+[33mcommit 745f4fdac7ec532fadd15053e215a9ede44ff85a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 20 20:30:37 2017 +0700
+
+    statistic data
+
+[33mcommit 5d7e95a761620431f24f7e1019c9a1e81ac43657[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 17 15:35:39 2017 +0700
+
+    fix null shareData
+
+[33mcommit c3a760dad8603bff10ac563d943dfb8062e99cb1[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 17 14:51:52 2017 +0700
+
+    :bug: fix link
+
+[33mcommit 03bfe61e3f2562569ba5aed44d2fbc4ba4385f9a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Mar 16 21:05:21 2017 +0700
+
+    check sharedData null
+
+[33mcommit e8a17dafe4b66bf6cff94fb4a58aedc043b626f7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 15 17:43:31 2017 +0700
+
+    fix export xlsx
+
+[33mcommit 60c60804f0f5033d8178fb1f579e7ec31442e33a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 15 17:23:10 2017 +0700
+
+    fix export pdf
+
+[33mcommit 14918171f05ca6831d1a41c921bc7c793492a9e4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 15 01:27:45 2017 +0700
+
+    fix export pdf
+
+[33mcommit d635f6593eada99cfe8e3427b6198dfe55c1fa39[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 15 01:23:13 2017 +0700
+
+    fix export pdf
+
+[33mcommit 080849a1100fabcc864a992e41b25c2cc295d65f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 15 01:14:24 2017 +0700
+
+    fix manage-post + do not limit result on /content/*
+
+[33mcommit 660137367e5aae29744f7b0e3e30e2418a3bbe7a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Mar 15 00:53:12 2017 +0700
+
+    restore progress bar
+
+[33mcommit 602a29ae48b952b78e427e2ad1cd873c2169d0be[m
+Merge: e11fe60 03d0bb7
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Wed Mar 15 00:46:16 2017 +0700
+
+    Merge pull request #77 from kevinhoa95/master
+    
+    Change ui of manage form
+
+[33mcommit 03d0bb701bc747eef3a391a347bd830aa044ed7c[m
+Merge: 20375cb e11fe60
+Author: -g <kevinhoa95@gmail.com>
+Date:   Wed Mar 15 00:25:50 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 20375cbf8e088717218aa1ff1a82f3ab9ade65de[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Wed Mar 15 00:24:47 2017 +0700
+
+    change ui of manage form
+
+[33mcommit e11fe605687c577001c46dd071082ca36e09de15[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 22:46:08 2017 +0700
+
+    fix UI
+
+[33mcommit e6a08f2d8ce361679a84ca112bd6828ec3465e27[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 19:32:37 2017 +0700
+
+    Use Vietnamese in Manager Dashboard + add favicon
+
+[33mcommit 42d1408e438c2787ae544bde7482c286167eb715[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 02:32:15 2017 +0700
+
+    decrease render flexdatalist + sort DataTables
+
+[33mcommit ff948cb31d9a0798eda552a57d60a8cde2335464[m
+Merge: 614ee5b eeea18c
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 02:23:50 2017 +0700
+
+    Merge pull request #76 from kevinhoa95/master
+    
+    Fix change require place
+
+[33mcommit 614ee5bcf29d205c3a0e6c414e58d97e55ec8911[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 02:22:05 2017 +0700
+
+    upload missing views
+
+[33mcommit f34cfa68afc8888708e57a8abd2baf6b81296718[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 02:21:02 2017 +0700
+
+    Change logs UI
+
+[33mcommit ac1acb17dbd374549545afd5fc2319efde688199[m
+Merge: eeea18c 43f4de5
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Mar 14 02:12:08 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit eeea18cfb597d2d250056d616954f0a2d6e00f95[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Mar 14 02:07:44 2017 +0700
+
+    fix change require place
+
+[33mcommit 43f4de5cd2f78e8ffac9a8312f09babc6465e459[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 01:32:45 2017 +0700
+
+    fix log view + validate Integer
+
+[33mcommit 612bb26a570f375112f767740a97aacbec4e0c0b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 00:45:05 2017 +0700
+
+    fix approve
+
+[33mcommit 912c07b2dd8e532dd5379552b37592e5f86448a0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 00:29:55 2017 +0700
+
+    fix approvePost in all forms
+
+[33mcommit 0b82a58483236d00b60baf72f3674597d0f7db5e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Mar 14 00:26:33 2017 +0700
+
+    done approve post
+
+[33mcommit 48342a8a1e9d033660a67f0fc0fdb59f888c3f67[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 23:52:05 2017 +0700
+
+    fix API getAll: /content/dong-vat
+
+[33mcommit 1834e2428f0251ef596a69d3ad4eb7a42430c26c[m
+Merge: 33682b0 4e1c3ff
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Mar 13 23:43:43 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 33682b0cd58960e4659aa01201bfea0ce6a6e87b[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Mar 13 23:43:33 2017 +0700
+
+    Fix time delay
+
+[33mcommit 4e1c3ff47b497d5497d2eb7e4b78ccb1b8a886cf[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 21:50:34 2017 +0700
+
+    add Approve-route + fix filename
+
+[33mcommit ee74c20b923f15dbdd1d9d250b5029a8e8e6ce33[m
+Merge: f66a1f5 23ca248
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Mar 13 12:39:32 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit f66a1f501c2e02bf289ffbb2c2a7a12a1d6794e4[m
+Merge: 44a31ca 8186a9e
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Mar 13 12:35:16 2017 +0700
+
+    custom file for edit form
+
+[33mcommit 23ca248a5d696daebaf475353c04f05fad9cde1b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 02:19:26 2017 +0700
+
+    fix display date
+
+[33mcommit 0a64c2ca5d20d68c9a5c57aeadbbc5beae98b1c4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 02:15:36 2017 +0700
+
+    fix display date
+
+[33mcommit 1ff62bc370ebe68f80025741191dd752efd7f874[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 02:10:31 2017 +0700
+
+    admin + manager can fire user now
+
+[33mcommit dc429c9968ddba4345557e74c881638ef57bda18[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 01:37:36 2017 +0700
+
+    Display time
+
+[33mcommit ead77a8551531cb45bcd356c78f70d76e53c9272[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 01:23:01 2017 +0700
+
+    fix admin, manager 's views
+
+[33mcommit 6e7f6a55896474c54ab78778da70ef3832487858[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 13 00:58:07 2017 +0700
+
+    fix issue 75
+
+[33mcommit 44a31ca12269ce034b65aaf731c59a2f15706d7a[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Mar 13 00:25:20 2017 +0700
+
+    custom file input
+
+[33mcommit 8186a9e98b4d007b1d36a21d1c99a6bc1eed9386[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 23:28:50 2017 +0700
+
+    update User model, add created_at
+
+[33mcommit b3509acae3e61115f13216f42547493c9a7b6857[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 23:22:11 2017 +0700
+
+    :bug: fix log view
+
+[33mcommit 5b05f2ea6df970b6d938ec8e465c3240b90b84ff[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 23:04:42 2017 +0700
+
+    delete PERM_* + fix admin view forms
+
+[33mcommit 7ccf5975ed5a6c1b7a625ed89a6e6866dbd0222a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 14:36:18 2017 +0700
+
+    Reopen signup. Fix update permissions
+
+[33mcommit 89702004c58b875125ef97c3cb17ab18776a4058[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 13:29:02 2017 +0700
+
+    add autocomplete fields
+
+[33mcommit 4d7254922483db693d0e36680105a68f6b590307[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 13:22:18 2017 +0700
+
+    add roles
+
+[33mcommit 22ef0ebc3658688b7dce3f98ad89bf8224f82a9f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 13:19:59 2017 +0700
+
+    Add link to admin view
+
+[33mcommit c6bb7eb8986f99be944263cbdc3b64889fd0b184[m
+Merge: 0dcd982 53e7278
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 13:12:20 2017 +0700
+
+    merge
+
+[33mcommit 0dcd982a03a81f3589e2cbc12ad278642d015bde[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 13:02:32 2017 +0700
+
+    Done new model for ACL
+
+[33mcommit 1a84cb5af633b566636e0ed54e6de750bf8e7367[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 11:08:18 2017 +0700
+
+    manager API
+
+[33mcommit 53e72780c90239a9ee6083dfd0fe4a4cab83b868[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 01:43:34 2017 +0700
+
+    :bug: fix passing saveOrUpdate function
+
+[33mcommit 5be09492106eed6776773fde3717f0969c9ff74d[m
+Merge: 4a01c37 0f8c2f7
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 01:34:03 2017 +0700
+
+    Merge pull request #74 from kevinhoa95/master
+    
+    Fix place form
+
+[33mcommit afced2f78380937a60f41db95298ec7d32ec4c07[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 12 01:17:21 2017 +0700
+
+    done acl
+
+[33mcommit 03243e3c35734e13f7bb86e3e66a93eee2ba9394[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 11 21:40:43 2017 +0700
+
+    searchable table
+
+[33mcommit 91b8360c066d733623fe57ac79e8c925fb955e30[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 11 20:44:56 2017 +0700
+
+    done add-remove-manager-permissions
+
+[33mcommit 3d62de72ac4c3eb807fe535cb254a9e55bf6c65d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 11 19:21:56 2017 +0700
+
+    tmp commit
+
+[33mcommit 0f8c2f7b4b7f43ee44563125171dc0a4a3e494ff[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat Mar 11 13:59:17 2017 +0700
+
+    fix place form
+
+[33mcommit 18a74a1ec5061872452f76d6f7581aa4c33c1c5b[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat Mar 11 10:46:23 2017 +0700
+
+    change type of place form
+
+[33mcommit 5634e47442f384542d81854c52c2f62cc7ac5cc5[m
+Merge: 3e0d27a 4a01c37
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat Mar 11 10:09:04 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 3e0d27aafa2e929f6c52f9cd8b2aee55f5a071b2[m
+Merge: 9b8db04 1cd5e67
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat Mar 11 10:08:30 2017 +0700
+
+    test place autocomplete
+
+[33mcommit 4a01c3753a1cb923e3a361d30f05008ce6aeef88[m
+Merge: 464482d e093fd7
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Mar 10 20:56:17 2017 +0700
+
+    Merge pull request #73 from bachkho/master
+    
+    Fix form land
+
+[33mcommit e093fd7afb8abc1d882342e483ec5dea87bd40fc[m
+Merge: ca094e9 e0bbcc3
+Author: Quynh Phung <quynhils1114@gmail.com>
+Date:   Sun Mar 12 17:15:37 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit ca094e95138c4291ba7f607d86faa53bec4bb01d[m
+Author: Quynh Phung <quynhils1114@gmail.com>
+Date:   Sun Mar 12 17:15:27 2017 +0700
+
+    fix form land
+
+[33mcommit 464482db7041d38a890885e3e34a96faad3438fc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 10 20:48:31 2017 +0700
+
+    Big Update. Move route handlers to init.js
+
+[33mcommit e0bbcc3513e2cc8cbf103b1431f7f48e4c9c2f6b[m
+Merge: ec72a7c ab046ea
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Mar 10 17:10:06 2017 +0700
+
+    Merge pull request #72 from huyentls1114/master
+    
+    fix form thuc vat
+
+[33mcommit ab046eac95dcbbd1ac1bd2b93799d7605910ab76[m
+Author: Hoàng Cao Huyền <Hoàng Cao Huyền>
+Date:   Fri Mar 10 17:01:10 2017 +0700
+
+    fix form
+
+[33mcommit ec72a7c19190e7dbb258d8b5fedd1176999d440a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 10 15:15:39 2017 +0700
+
+    handle undefined autocompletion
+
+[33mcommit 204b836fe933253e34d863a065c9069e4d1beb5f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 10 09:42:11 2017 +0700
+
+    modify models March 7 2017
+
+[33mcommit 9b8db04749a10620560ebd7a605aedd342fe3c79[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Mar 7 22:15:47 2017 +0700
+
+    Fix spinner
+
+[33mcommit 1cd5e67172eeaffa6fb5d41f68bcb16268b7af22[m
+Merge: af614db c273294
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Tue Mar 7 11:41:02 2017 +0700
+
+    add loading spinner
+
+[33mcommit af614db97115fcdf456e82963d99e511b740230c[m
+Merge: 7321ea5 8e51a79
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Tue Mar 7 11:11:56 2017 +0700
+
+    fix conflict
+
+[33mcommit 7321ea58546a22ef34a1c00da05590d749b052fd[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Tue Mar 7 11:06:24 2017 +0700
+
+    add loading overlay
+
+[33mcommit c273294dbe10d9e11f59a0bdf72d64f36ecb1dad[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 6 02:24:44 2017 +0700
+
+    Update models, add user created, updated
+
+[33mcommit 8db64d820d84df4b4f51932647c261dc7286ab8a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 6 01:35:41 2017 +0700
+
+    handle undefined tinh, huyen, xa
+
+[33mcommit a531e913513913cd0d45b89bbe8fa226b5f3f36e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 6 01:14:59 2017 +0700
+
+    Delete spinner before alert info
+
+[33mcommit 3c28dc923cdd4ae5453d156c455b36a53a433473[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Mar 6 00:51:38 2017 +0700
+
+    add spinner
+
+[33mcommit e10755d86d2398b509a9ba04cebfc979320cd8ed[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 22:13:04 2017 +0700
+
+    fix Animal issue
+
+[33mcommit 436086719fedc81bed1630bc2dd6834946cad263[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 22:05:15 2017 +0700
+
+    fix Geological issue
+
+[33mcommit b555b7bb45baa2dd14d69912338ae42f7860f1bd[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 21:51:17 2017 +0700
+
+    fix Paleontological
+
+[33mcommit 654aedc973a37cb87953bb35ced90a801577e4ba[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 20:57:49 2017 +0700
+
+    fix Vegetable thongTinKhac3
+
+[33mcommit d9cea7379923db4fe2d16498f67b8f50a4f9aa76[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 20:49:20 2017 +0700
+
+    :bug: fix hinhThucNhapMau
+
+[33mcommit 568aa85c914bf8ca405c2f5201927d175549a333[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 20:30:08 2017 +0700
+
+    update service.js
+
+[33mcommit d86e4bc2139639cfe38b6946eb409d797c9a1171[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 20:29:33 2017 +0700
+
+    fix label Soil
+
+[33mcommit 75d49445daa39fced4f7388beba1912abb22c963[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 16:26:26 2017 +0700
+
+    fix autocomplete
+
+[33mcommit 98e0fd39fa33007e7b4dc2ab14881a5afaf46895[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 11:30:22 2017 +0700
+
+    fix multiple files
+
+[33mcommit 1011fa90bbf88ddcf6debb589dcc725f54d5fac5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 11:09:04 2017 +0700
+
+    fix display when no images specified
+
+[33mcommit 15708d31b361a2ee844f662095deeaa2d6cd80d9[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 10:58:24 2017 +0700
+
+    display images, videos
+
+[33mcommit 9d0d8beb9a38ac5cb99dbced35e24b7ee1126709[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 08:54:43 2017 +0700
+
+    fix regex giaTriThucDia
+
+[33mcommit 831550c3892d868b34e017952bc8e9a6943d6d77[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Mar 5 01:47:45 2017 +0700
+
+    fix datalist, allow comma
+
+[33mcommit 43b98e0cb51fed618af8995a7c4a2e1952683289[m
+Merge: bbda6e8 3f6c163
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 4 15:23:43 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit bbda6e8a0c600248c03f6715e439559ed55e5cd3[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 4 15:22:38 2017 +0700
+
+    clean autocompletion
+
+[33mcommit 3f6c163cc8281ee9e01a7e5b81a4408f0ceb9b2f[m
+Merge: 70376af 8e51a79
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sat Mar 4 12:47:04 2017 +0700
+
+    Merge pull request #71 from kevinhoa95/master
+    
+    Fix new issue
+
+[33mcommit 70376af25165ac1c809d1704c4a9dc8ce5069218[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 4 11:31:14 2017 +0700
+
+    fix datalist
+
+[33mcommit ff639459e9e0cf8dfbb997bc5a3d8a1c5c20dcfe[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Mar 4 11:12:50 2017 +0700
+
+    Fix issue #70
+
+[33mcommit 8e51a79c39798eb777c06c9ac8beef3ad9282d22[m
+Merge: 9dbf517 49f82df
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat Mar 4 10:38:05 2017 +0700
+
+    Merge branch 'master' of https://github.com/kevinhoa95/museum
+
+[33mcommit 9dbf517f7b73bf424e08ee30d8e4c85ed01300a3[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat Mar 4 10:37:44 2017 +0700
+
+    fix conflict
+
+[33mcommit fa1da4b1f49fda134425028076ad63e688afd76d[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Sat Mar 4 10:36:59 2017 +0700
+
+    fix form
+
+[33mcommit c922f56b562ea9133618c0a320b8057bfa33d74d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 3 17:25:30 2017 +0700
+
+    Fix anhMauVat file size
+
+[33mcommit 8c9bf1ca521cdd0c239258b39e6af70003b54424[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 3 16:50:49 2017 +0700
+
+    :bug: fix Places
+
+[33mcommit 8e266381d9aaf47295ba5db6a0a6a7327c79fa5b[m
+Merge: 9c48a67 79b50aa
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 3 16:30:23 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit 9c48a67a327d50d019f6ee287c336766c41718d4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Mar 3 16:29:18 2017 +0700
+
+    init autocompletion
+
+[33mcommit 79b50aa6f26f5fbad6b4f457aa9e237de8c0474a[m
+Merge: 74fdc06 94299e1
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Mar 2 10:42:28 2017 +0700
+
+    Merge pull request #67 from ngocdon0127/donnn
+    
+    test safe branch
+
+[33mcommit 94299e1fe61cffa284bc62463da065b8cd126dbf[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Mar 2 10:30:53 2017 +0700
+
+    test safe branch
+
+[33mcommit 74fdc06a1b376b16a3b04f49724cbd251b6812dd[m
+Merge: ea7cff8 49f82df
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Mar 2 10:24:41 2017 +0700
+
+    Merge pull request #66 from kevinhoa95/master
+    
+    fix tips
+
+[33mcommit 49f82df307a4b0113d7cc1b4145f36d3d67e1ad8[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Mar 2 09:47:11 2017 +0700
+
+    Fix tooltip
+
+[33mcommit 6935b80c25be3c1fb6f79a240e5b43de7eb16a39[m
+Merge: 9fae8d2 ea7cff8
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Mar 2 09:43:39 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 9fae8d23a60fa319dd33cfdf38aeae9428a1a5cf[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Mar 2 09:43:33 2017 +0700
+
+    add something
+
+[33mcommit ea7cff8afb815e4ec4ef2ef42a36980e60304545[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 28 23:00:23 2017 +0700
+
+    :bug: fix accepted files
+
+[33mcommit 91b0afbd20f401a3fd3e56d0a8e6a42fc40a01bd[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 28 22:51:07 2017 +0700
+
+    update service.js.example
+
+[33mcommit df43b9e2ac1ace581811f9ac5dcdcf8ef67f8544[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 28 22:49:10 2017 +0700
+
+    AutoComplete noiLuuTruMau
+
+[33mcommit 4c3bfb5d1945e668b6ddb8ad95de44deca3dbc04[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 28 22:12:56 2017 +0700
+
+    :bug: fix issue 64
+
+[33mcommit 281c20bd3c1df1f11513f07cb566af5b3faab331[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 28 21:45:52 2017 +0700
+
+    Check Number
+
+[33mcommit d07f79265d122a9939809bb7c991e19bb351631d[m
+Merge: 86d8883 82caa85
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Feb 28 01:20:53 2017 +0700
+
+    Merge pull request #62 from kevinhoa95/master
+    
+    fix title form
+
+[33mcommit 82caa85964e2eaa3cf46ed39da5824643a4149d6[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Feb 28 01:16:05 2017 +0700
+
+    fix title form
+
+[33mcommit 86d88839e38f9b4fb733c9e124e17778b2883b83[m
+Merge: bb59a2c 75de773
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Feb 28 00:51:09 2017 +0700
+
+    Merge pull request #61 from kevinhoa95/master
+    
+    Fix issue
+
+[33mcommit 75de77357ab22158ccd618609f86c7046bf79535[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Feb 28 00:49:03 2017 +0700
+
+    Add autocompelete some field
+
+[33mcommit 4bb8357e844f78e3bcd04bbbae28be6e16c750d0[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Feb 28 00:42:40 2017 +0700
+
+    fix coordinate
+
+[33mcommit c5448ca93b6d0e8fb28d25df71f68751aa1018ed[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Tue Feb 28 00:20:02 2017 +0700
+
+    sort city, district, ward name acs
+
+[33mcommit bb59a2cffd453bd4a39e9097b7a10c868c041474[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 21:23:03 2017 +0700
+
+    update service.js.example
+
+[33mcommit d8872747dd38345abbfaa620e1fd44b293bb62f1[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 21:21:12 2017 +0700
+
+    flexdatalist display options when focus
+
+[33mcommit 9c885c94e187268faadd27e6fd42518adaa0ebc8[m
+Merge: 01acd3b 6f6efb7
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 11:41:38 2017 +0700
+
+    Merge pull request #59 from kevinhoa95/master
+    
+    fix edit animal coordinate
+
+[33mcommit 6f6efb73bb52e2289480f31fe328cd23ac9c45d8[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Feb 27 11:39:34 2017 +0700
+
+    fix edit coordinate
+
+[33mcommit 01acd3bfd97c8885aa04617821b479782b952e5c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 11:20:22 2017 +0700
+
+    Update LibreOffice
+
+[33mcommit f450f0e89db7b2bd5132c6405b522112bc582203[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 09:59:08 2017 +0700
+
+    :bug: fix file name upperCase
+
+[33mcommit cad4152140027365f9c7827449b3b46a924f8093[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 09:43:10 2017 +0700
+
+    :bug: fix null datepicker
+
+[33mcommit 8c7bd341554b7a06dcca9c634975cca0d696e4a8[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Feb 27 09:39:06 2017 +0700
+
+    add tips coordinates
+
+[33mcommit aaad922fdf7d6ae8940edfa4763ac38d714c352e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 09:33:13 2017 +0700
+
+    Fix label
+
+[33mcommit 72ea3509bfa20a9e923150870384a83fedd7b566[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 09:11:56 2017 +0700
+
+    fix hinhThucNhapMau UI
+
+[33mcommit 773bd28f307443fdd221ff615f7185f32f00d812[m
+Merge: cdb9823 3051a2f
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 08:44:55 2017 +0700
+
+    Merge pull request #58 from kevinhoa95/master
+    
+    fix tips geo form
+
+[33mcommit 3051a2feb4ffe8afe03e18e8ca66b41e584099ab[m
+Author: -g <kevinhoa95@gmail.com>
+Date:   Mon Feb 27 00:36:50 2017 +0700
+
+    fix tips geo form
+
+[33mcommit cdb9823fab710d00aaa80d1c4706ad71aa8490c8[m
+Merge: cacb965 2a2f10e
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Mon Feb 27 00:02:13 2017 +0700
+
+    Merge pull request #57 from kevinhoa95/master
+    
+    tooltips edit form
+
+[33mcommit 2a2f10e4646b52f2da6d1ca904dab2f9297bb9e5[m
+Author: -g <-g>
+Date:   Sun Feb 26 23:50:08 2017 +0700
+
+    fix tooltips edit form
+
+[33mcommit cacb9656aaf05d23fd743820ff73b0a17cf470a3[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 26 22:50:50 2017 +0700
+
+    :bug: fix initialize
+
+[33mcommit 7cecfb92d37733960d45a22b7bf10caea3595fab[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 26 22:32:15 2017 +0700
+
+    :bug: Test icon
+
+[33mcommit ab56ab51d0cdf8026f0cba70fed8b78459038e9d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 26 21:00:26 2017 +0700
+
+    update readme
+
+[33mcommit f8950c8268921095d28c23993d5b2d5cc4a2a734[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 26 20:57:39 2017 +0700
+
+    update readme
+
+[33mcommit 8f4b4d00b19e20918e3a3c5bb1e1c1a51ff28561[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 26 20:30:50 2017 +0700
+
+    Update readme + auto initializing system
+
+[33mcommit 02d1c2aaa0afc1513f8b0134d3533ec11048d69c[m
+Merge: 7034e07 4fdc67f
+Author: -g <-g>
+Date:   Sun Feb 26 10:01:49 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 7034e075bb842a896e26fc68174cc371cb3c9af7[m
+Author: -g <-g>
+Date:   Sun Feb 26 10:01:34 2017 +0700
+
+    fix form
+
+[33mcommit 4fdc67ff24d4e0bf49df4330c0926093bc25ef22[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 26 00:21:27 2017 +0700
+
+    Fix datepicker
+
+[33mcommit 2212008fca2e6f2e9b8a08374eaa3e2a2f04ba9f[m
+Merge: 1621751 d6699f1
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Feb 24 23:27:15 2017 +0700
+
+    Merge pull request #56 from sangdv/master
+    
+    fix tips for edit-landform
+
+[33mcommit 16217512b258abefd0a6f2c85af18b83599e73f4[m
+Merge: a131f96 033068c
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Feb 24 23:26:57 2017 +0700
+
+    Merge pull request #55 from dohuyvuong/master
+    
+    fix tooltip geological
+
+[33mcommit 1431b9571615ebe4ffd2c5f0ba596a4178572300[m
+Author: -g <-g>
+Date:   Fri Feb 24 16:17:31 2017 +0700
+
+    fix tips vegetable
+
+[33mcommit 841d1f1161de2d40f6d03ce5a005026b8943160d[m
+Author: -g <-g>
+Date:   Fri Feb 24 15:50:49 2017 +0700
+
+    fix tips paleontology
+
+[33mcommit 033068c309f123780834f070bfcfa3747ecde43c[m
+Author: Vượng Đỗ Huy <Vượng Đỗ Huy>
+Date:   Fri Feb 24 15:41:59 2017 +0700
+
+    fix tooltip geological
+
+[33mcommit a2ebdbdea016ea045e272795e70e87ba0ddaec58[m
+Author: Vượng Đỗ Huy <Vượng Đỗ Huy>
+Date:   Fri Feb 24 15:32:36 2017 +0700
+
+    fix tooltip geological
+
+[33mcommit d34269bc446c9e5827d7731e67b9c4d1dacd10f2[m
+Merge: 46bd95b a131f96
+Author: -g <-g>
+Date:   Fri Feb 24 15:21:25 2017 +0700
+
+    fix tips animal
+
+[33mcommit 46bd95b86f6f4748ddfeecfdf42f0599c286af61[m
+Author: -g <-g>
+Date:   Fri Feb 24 15:18:17 2017 +0700
+
+    fix tip animal
+
+[33mcommit d6699f18fd8b98ea41f88021309eccf829227edc[m
+Author: sangdv <sangdv@soict.hust.edu.vn>
+Date:   Fri Feb 24 12:28:25 2017 +0700
+
+    fix tips land
+
+[33mcommit da151918d6f8ade04b241fcc2bbb96d6b46d552a[m
+Author: sangdv <sangdv@soict.hust.edu.vn>
+Date:   Fri Feb 24 12:20:59 2017 +0700
+
+    fix tip edit landform
+
+[33mcommit ef72e6fab518d6f3600862b59bf1bf00926a2e3c[m
+Merge: 3e1510b a131f96
+Author: sangdv <sangdv@soict.hust.edu.vn>
+Date:   Fri Feb 24 11:01:44 2017 +0700
+
+    add tooltips
+
+[33mcommit a131f96553b6088f43a08805db188ab5127589ce[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Feb 24 10:18:35 2017 +0700
+
+    Fix hinhThucNhapMau autocomplete
+
+[33mcommit b9996b9e238fc45b82945de9dfb71b6356b12d6b[m
+Merge: bcf4bf3 3cd030f
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Fri Feb 24 10:06:26 2017 +0700
+
+    Merge pull request #54 from kevinhoa95/master
+    
+    tooltips
+
+[33mcommit 3cd030f2dbb1eadfb87c91b9b973612e9dd8fbcf[m
+Merge: 249cb8f 5db749d
+Author: -g <-g>
+Date:   Fri Feb 24 01:12:02 2017 +0700
+
+    fix tooltips
+
+[33mcommit 249cb8f87d82a51ca79deee302d9e4dcdd2bc83c[m
+Author: -g <-g>
+Date:   Thu Feb 23 18:19:05 2017 +0700
+
+    fix form
+
+[33mcommit bcf4bf318c02448758c82d1eb132317a8f4df219[m
+Merge: 3e30378 5db749d
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Thu Feb 23 11:52:06 2017 +0700
+
+    Merge pull request #51 from kevinhoa95/master
+    
+    date change to text
+
+[33mcommit 5db749dd6c9da9d2987134bd49da9b66a4c795b7[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Feb 23 11:50:15 2017 +0700
+
+    fix conflict
+
+[33mcommit ff9fe18920c81663b80914d319baba923a893d8a[m
+Merge: 6939e88 3e30378
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Feb 23 11:43:26 2017 +0700
+
+    fix conflict
+
+[33mcommit 6939e88fbf85735a3a7cd5dc950394c3615a48b0[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Thu Feb 23 11:32:29 2017 +0700
+
+    fix tooltips form
+
+[33mcommit 3e3037852dd427d97d8f35d95cbe9228986a0c6d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Feb 23 11:13:08 2017 +0700
+
+    Fix form UI
+
+[33mcommit 7ca5e2abb41a0513273bf43823eef7e111d67ff0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Feb 23 02:58:14 2017 +0700
+
+    Fix datepicker in EditForms
+
+[33mcommit 99c0481bceaaccbe9b3ccd805f72bc19b44e59a5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Feb 23 02:50:19 2017 +0700
+
+    change thuocTinhXuLy to File
+
+[33mcommit 4a297e062764168f856c8c47391b4cb6e8e0a51d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Feb 23 02:37:33 2017 +0700
+
+    update service.js.example
+
+[33mcommit 24f05bcb70b2f853587078b483ca12f20e8a4e37[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Feb 23 02:35:07 2017 +0700
+
+    Display datetime in dd/MM/yyyy
+
+[33mcommit 2f63afa44ba77c42a14b39cb7efe7948402c522e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Feb 22 21:39:45 2017 +0700
+
+    Sync models with FE
+
+[33mcommit 748d2bd67e7b168577e1f7669ae2e84c9fbe08ff[m
+Merge: a062675 d026b09
+Author: -g <-g>
+Date:   Wed Feb 22 09:56:07 2017 +0700
+
+    fix conflict
+
+[33mcommit a062675ee09f225f56f24c1431ef7913d4d5610a[m
+Author: -g <-g>
+Date:   Wed Feb 22 09:51:58 2017 +0700
+
+    fix form
+
+[33mcommit d026b09960c765bd7382024a8d9ae79c8690449f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Feb 22 01:20:10 2017 +0700
+
+    fix model
+
+[33mcommit 08e48707e8cc5d782d9704d23e57a8c68171dd12[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Feb 22 00:00:19 2017 +0700
+
+    Fix models
+
+[33mcommit 25bf6597c87df01d2d83be41548805e22fd5b08e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 23:02:20 2017 +0700
+
+    Disable soLuongTieuBan + fix save autocompletion
+
+[33mcommit 98ee10d2f80e7ea0ac39d969f5a4a5ae17302efc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 22:18:41 2017 +0700
+
+    Update service.js.example
+
+[33mcommit 0e32b93e1af1e0dede43ec8717f049ceae7996ca[m
+Merge: d30d41d 1cfbbb4
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 22:16:48 2017 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit d30d41d589528f495e79f16fa9fe51ad2915faec[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 22:14:42 2017 +0700
+
+    multiple choices datalist in Edit-Forms
+
+[33mcommit 1cfbbb48bb77363872e4b9d4db760e2e22eb2614[m
+Merge: 4851720 2f8588f
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 17:51:50 2017 +0700
+
+    Merge pull request #46 from sangdv/patch-1
+    
+    Update tooltipsani.json
+
+[33mcommit 485172041c7be1b52738675b31206ba838ae629d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 17:49:31 2017 +0700
+
+    update service.js
+
+[33mcommit f49f1a7bace03a38415b8228b45af6c6f758c65d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 17:45:38 2017 +0700
+
+    flexdatalist in add-form
+
+[33mcommit 2f8588f8a4fbbba802be40487276b71774a89613[m
+Author: sangdv <sangdv@soict.hust.edu.vn>
+Date:   Tue Feb 21 14:37:52 2017 +0700
+
+    Update tooltipsani.json
+
+[33mcommit c4793e30bae1306dbfb73f2c42fbb03efac4acf0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 11:53:18 2017 +0700
+
+    tmp
+
+[33mcommit 8a2ac32e8c4c52539c2039976a2eae6b7e203f79[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 01:24:47 2017 +0700
+
+    Fix default units
+
+[33mcommit 7878d340e7ac1304a1f194655e0b089dab1eb308[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Feb 21 00:55:51 2017 +0700
+
+    Default values for donVi_* fields
+
+[33mcommit 46c49d9b6fd23c274f05d812228c1fe83e4de43b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 20 23:21:39 2017 +0700
+
+    User datalist for autocomplete-fields
+
+[33mcommit 9dfda4e7b2560696ba0c4a5823e7f531114f1c66[m
+Merge: 6a901d8 2d9e88e
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Feb 20 11:25:29 2017 +0700
+
+    valid file size
+
+[33mcommit ccc60e3853a00d80356adcc6c5fa22c99810413a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 20 11:09:09 2017 +0700
+
+    hide id in manage-post
+
+[33mcommit a5033cfa6e858ab0b48226021610d7c0468883aa[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Feb 20 09:58:52 2017 +0700
+
+    use fs.unlinkSync instead of fs.unlink + check max size of uploaded-files
+
+[33mcommit 6a901d800c2c5e99d3683898427825a824889817[m
+Author: Hola Nguyen <kevinhoa95@mgail.com>
+Date:   Mon Feb 20 02:02:32 2017 +0700
+
+    fix form
+
+[33mcommit c3d60213cb445924d91637b8a357693d912191bc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 19 01:51:02 2017 +0700
+
+    Add FileSaver.js
+
+[33mcommit 8337f8ebc1aa0a00c7a144bca7cd7d03bee65b23[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 19 01:47:54 2017 +0700
+
+    Fix download progress bar
+
+[33mcommit 4dd9b59a1d0ca27acdd00008a80e763d9f988934[m
+Merge: 9dec5e3 2d9e88e
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun Feb 19 00:30:54 2017 +0700
+
+    Merge pull request #41 from kevinhoa95/master
+    
+    two options for Coordinates
+
+[33mcommit 9dec5e3b16fa944d8bea22624158ec1c697c9c2f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Feb 19 00:29:02 2017 +0700
+
+    Add Async-Preprocess-Blocks in exportFile + exportXLSX
+
+[33mcommit 2d9e88e5043e3fb1b2ae00eb29f11dbe503db50a[m
+Merge: 25c26e2 ec99103
+Author: -g <-g>
+Date:   Sun Feb 19 00:21:45 2017 +0700
+
+    fix conflict
+
+[33mcommit 25c26e294db8aa2d6ba98c0a99ae03c5994ba296[m
+Author: -g <-g>
+Date:   Sun Feb 19 00:17:51 2017 +0700
+
+    two option for Coordinates
+
+[33mcommit ab7f681766161467a4f51812539d57e63be289d2[m
+Author: -g <-g>
+Date:   Sat Feb 18 16:02:43 2017 +0700
+
+    Fix all form
+
+[33mcommit ec99103c0be4231603d4a00cca43d298403a1925[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Feb 18 01:58:41 2017 +0700
+
+    async-await + download files using AJAX
+
+[33mcommit 4349d3cf0e094c036a4ce53889fc2d33dc2262e5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Feb 17 23:43:06 2017 +0700
+
+    fix syntax
+
+[33mcommit a27ddb3a87b338b87dafdceb938b2be61bf555ab[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Feb 17 23:40:00 2017 +0700
+
+    Fix Form
+
+[33mcommit 9c3c9e6f4bc79abbedea602c5ebbab905e71c4c1[m
+Author: -g <-g>
+Date:   Fri Feb 17 22:15:48 2017 +0700
+
+    fix pal form
+
+[33mcommit 5964df46f210d0f37a7399321bc3d24c1b259d48[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Feb 8 00:59:27 2017 +0700
+
+    Cache places + remove log while filtering places
+
+[33mcommit b50d0df639dff2cf0221a07c13302940010e67e1[m
+Merge: 369126a 51767ed
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Wed Feb 8 00:40:11 2017 +0700
+
+    Merge pull request #40 from kevinhoa95/master
+    
+    fix get place
+
+[33mcommit 51767ed7dd183fe95d5e493c61edaf582f10fb82[m
+Author: -g <-g>
+Date:   Wed Feb 8 00:31:25 2017 +0700
+
+    fix get place
+
+[33mcommit 369126ac6023812abc2f385ca757673a61233329[m
+Merge: 62f7f9a e79f29d
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Feb 7 11:11:06 2017 +0700
+
+    Merge pull request #39 from kevinhoa95/master
+    
+    Fixed form
+
+[33mcommit e79f29dec202942535acf9d5892c80897b9b05e0[m
+Merge: c7a130e 62f7f9a
+Author: -g <-g>
+Date:   Sat Jan 28 10:42:32 2017 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 62f7f9a3180e4c08d96759f0d15c27d5c8493dbb[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Jan 24 10:46:59 2017 +0700
+
+    Add progress bar
+
+[33mcommit e46a0e50c6ebd6a45ff9856a25e5f22680c983c5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Jan 24 10:17:38 2017 +0700
+
+    Fix timeout download multiple files
+
+[33mcommit 596e011f43cf44e60bff33def18d5533ac2e6383[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Jan 24 09:52:20 2017 +0700
+
+    Resolve place id
+
+[33mcommit e363e70886804aba7e42440716ff667d60ee1781[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Jan 24 09:20:10 2017 +0700
+
+    Fix xlsx
+
+[33mcommit c7a130e67e51df722bc8458da10394aec93faead[m
+Author: -g <-g>
+Date:   Mon Jan 23 23:53:39 2017 +0700
+
+    Fix pal form
+
+[33mcommit f35c0d8462298f4956bae28d1ffd70a25030658f[m
+Author: -g <-g>
+Date:   Mon Jan 23 23:20:43 2017 +0700
+
+    Fix geological form
+
+[33mcommit bae8561a0ade9f1d421da7537c772dcbf841ab33[m
+Author: -g <-g>
+Date:   Mon Jan 23 22:48:49 2017 +0700
+
+    Fix land form
+
+[33mcommit 3cffc8d4486bacb5e46f5079702cf22f3facb0d2[m
+Author: -g <-g>
+Date:   Mon Jan 23 21:51:45 2017 +0700
+
+    fix vegetable form
+
+[33mcommit 6e4f32b926993869968cf0584eb67f4e567a0aa5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Jan 23 16:36:17 2017 +0700
+
+    Fix font xlsx
+
+[33mcommit 391a955649ab17e04709e3c50e4076c0f024656f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Jan 23 16:25:44 2017 +0700
+
+    Delete redudant code blocks
+
+[33mcommit 4d1b14ce104494a0be6d92dcd7db6f574d5f33a1[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Jan 23 16:20:07 2017 +0700
+
+    Catch unlink-file-error
+
+[33mcommit 45f5a9d0de175378e1772e419e5972aaf2805678[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Jan 23 16:17:40 2017 +0700
+
+    Export XLSX using msexcel-builder
+
+[33mcommit b1852dd4cc796b57b53a19c8dcb6252e6254da07[m
+Author: -g <-g>
+Date:   Sun Jan 22 09:38:16 2017 +0700
+
+    Fix animal form
+
+[33mcommit 3e1510b682028338ad1e6ec5f88ee81125939cc3[m
+Author: sangdv <sangdv@soict.hust.edu.vn>
+Date:   Fri Jan 20 11:49:19 2017 +0700
+
+    Update tooltipsani.json
+
+[33mcommit 3ad753fd6aa9c67e1ef8bd161759fe4cc2c94837[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Jan 17 23:00:01 2017 +0700
+
+    Do not limit length of String field
+
+[33mcommit 714599ad3166a016136c02efd77f3862b2d45407[m
+Merge: 53efc27 0083a73
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Jan 17 12:34:14 2017 +0700
+
+    Merge pull request #37 from kevinhoa95/master
+    
+    change form
+
+[33mcommit 0083a7356cbc9b2bac17f3f9c96421a438fafad7[m
+Author: -g <-g>
+Date:   Tue Jan 17 12:13:42 2017 +0700
+
+    fix form
+
+[33mcommit 53efc27a1898f533a038167a48b686864707fa15[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Jan 17 09:50:15 2017 +0700
+
+    Fix Schema
+
+[33mcommit f9e510be86705de3eabdaa3c8f788b8245969222[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Jan 16 01:32:46 2017 +0700
+
+    Update Schema
+
+[33mcommit 1bf29e6106e34624e7dcd8cef25515fc8fa20685[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Jan 15 22:15:59 2017 +0700
+
+    Fix DiaDiemThuMau. Fields can be set as money or nonMoney in runtime
+
+[33mcommit 6c9607191055eceadd9aeb9e2ad4d0812bd0cb78[m
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Fri Jan 13 17:27:13 2017 +0700
+
+    Fix some field
+
+[33mcommit 7cf2f3efdcba19b042715445be7d78da5af8dc2b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Jan 13 10:08:21 2017 +0700
+
+    Fix download file
+
+[33mcommit f323191851a6697049c11a9bd6074df163d54255[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Jan 13 09:55:27 2017 +0700
+
+    Download files with original file names
+
+[33mcommit 2e56edd4c2db4eff2e07345e027b3ad361d2d2bd[m
+Author: -g <-g>
+Date:   Fri Jan 13 09:29:32 2017 +0700
+
+    fix form
+
+[33mcommit e697bfb6fb0d2146c08e2cdbc34c5e57a16643c1[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Jan 13 04:04:33 2017 +0700
+
+    Using custom unit in kichThuocMau
+
+[33mcommit dbb31f5d86b250a5aa4ae924af46fdc11aa4c459[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Jan 13 01:23:09 2017 +0700
+
+    Remove required field + count filled fields
+
+[33mcommit f2b541c986c25c73e2053fa80de039e1758fab38[m
+Merge: fa764df fb08d92
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Tue Dec 13 16:52:59 2016 +0700
+
+    Merge pull request #36 from kevinhoa95/master
+    
+    fix conflict land form
+
+[33mcommit fb08d92af88e714c2d3f23b61a02681e1227bc3f[m
+Author: -g <-g>
+Date:   Tue Dec 13 16:50:44 2016 +0700
+
+    fix conflict land form
+
+[33mcommit fa764df645a393934828190edd7815f934ba3460[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Dec 12 02:49:37 2016 +0700
+
+    Check Vege before contacting
+
+[33mcommit 2f44c000394a964ac91a283f2dac40ab71d3f607[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Dec 12 02:39:47 2016 +0700
+
+    Check Soil before meeting
+
+[33mcommit dd02c03d9505dfb124b0c42ccf2dcb594d5f4a34[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Dec 12 02:21:19 2016 +0700
+
+    Check Animal before meeting
+
+[33mcommit 8eecd9e9513be1345d429f9a84c2742fdf9881b0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Dec 12 01:55:29 2016 +0700
+
+    Check Geo before metting
+
+[33mcommit 8f357c475bc47a327c4fc09032ebbcb5430a25ae[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Dec 12 01:14:29 2016 +0700
+
+    Check Pale before meeting
+
+[33mcommit 51bd0998e99209dac5977b3e5c9a2f09fc03529a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Dec 11 23:44:07 2016 +0700
+
+    Fix label Geological
+
+[33mcommit dab1b5a68703c5d72562968b23e6d22fe0d25e0f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Dec 11 23:39:26 2016 +0700
+
+    Fix Geological
+
+[33mcommit 69d431ffd7df563934092a94e4a7077b8e1e63ce[m
+Merge: c98b1a0 020b0a3
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Sun Dec 11 22:54:47 2016 +0700
+
+    Merge pull request #35 from kevinhoa95/master
+    
+    fix display fields
+
+[33mcommit 020b0a365ee1ce6b6ce96df6bc99aabd3c42299d[m
+Author: -g <-g>
+Date:   Sun Dec 11 22:51:45 2016 +0700
+
+    fix display fields
+
+[33mcommit c98b1a05f6f22bf1c83a6d146ebc905c17dba7d1[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Dec 10 19:19:51 2016 +0700
+
+    Update title
+
+[33mcommit 79acac4e46a8cc94e1172bc5aca90f187be4292e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Dec 6 17:33:43 2016 +0700
+
+    Fix title
+
+[33mcommit dc3684d71d01af00e2e7f07306f6c0aabc2436a0[m
+Merge: 3a5e481 d7b5cde
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Tue Dec 6 17:31:48 2016 +0700
+
+    Merge pull request #34 from kevinhoa95/master
+    
+    add choose to export file
+
+[33mcommit 3a5e481fc42e5641424999625a29aeca5db6347d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Dec 6 17:30:30 2016 +0700
+
+    Add skip limit in query data
+
+[33mcommit d7b5cdeb0ca5c40be461593ca3bac114e36a28c2[m
+Merge: 88dfd8a 2f84dc2
+Author: -g <-g>
+Date:   Tue Dec 6 17:30:07 2016 +0700
+
+    fix conflict
+
+[33mcommit 88dfd8a59417a390c0657fedcfc22006f8e79f69[m
+Author: -g <-g>
+Date:   Tue Dec 6 17:26:03 2016 +0700
+
+    add choose file to export
+
+[33mcommit 2f84dc28933f6ca132e9e2dce604a7564835e163[m
+Merge: d5364c6 a61e2d6
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Dec 6 15:13:17 2016 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit d5364c6b4ecdd792dc86226094a25d17e8c61eff[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Dec 6 15:12:27 2016 +0700
+
+    Add routes check permission of user
+
+[33mcommit a61e2d690362bcc64312239c3d58999d01b03db9[m
+Author: Nguyen Tat Hoa <kevinhoa95@gmail.com>
+Date:   Tue Dec 6 12:10:12 2016 +0700
+
+    Fix display data select box (#33)
+    
+    * fix error string
+    
+    * Fix display data in selectbox
+
+[33mcommit 6e1b475def13b26b9362bda0592590f96a94d9b3[m
+Merge: cb53d8f f85b0df
+Author: -g <-g>
+Date:   Tue Dec 6 11:46:05 2016 +0700
+
+    fix conflict
+
+[33mcommit cb53d8f1765167aa6ed056a242edaa6ece1207e3[m
+Author: -g <-g>
+Date:   Tue Dec 6 11:40:33 2016 +0700
+
+    Fix display data in selectbox
+
+[33mcommit f85b0df05f3edb2ca3815452ecb23e678731319e[m
+Author: Nguyen Tat Hoa <kevinhoa95@gmail.com>
+Date:   Tue Dec 6 07:28:25 2016 +0700
+
+    fix error string (#32)
+
+[33mcommit 1012080dbd068ab1d7a4c2b8cda2cfaebf59e443[m
+Merge: fb04b9f 03a00e7
+Author: -g <-g>
+Date:   Tue Dec 6 03:13:43 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit fb04b9f10e8e74f28b5773fb21bfb491283f5fc4[m
+Author: -g <-g>
+Date:   Tue Dec 6 03:06:02 2016 +0700
+
+    fix error string
+
+[33mcommit 03a00e72d73951dc1df6ec040da0c628a0e5db13[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Dec 6 02:31:01 2016 +0700
+
+    Reduce tooltip size
+
+[33mcommit d4f9eda14b93e01de154823e795d1067c9770159[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Dec 6 02:24:04 2016 +0700
+
+    Display roles permissions
+
+[33mcommit 1abb15ef5a113aa5feb7cf976c010861479c0761[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Dec 1 10:48:30 2016 +0700
+
+    Disable Register
+
+[33mcommit aaae921d167a082ebfbd2b7439a5c5cfe153a044[m
+Merge: b1e095f ebbd683
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Thu Dec 1 09:50:05 2016 +0700
+
+    Merge pull request #31 from kevinhoa95/master
+    
+    turn on loading-bar
+
+[33mcommit ebbd683788ee3bc90ae073f2f9d6b7cc63278c91[m
+Author: -g <-g>
+Date:   Thu Dec 1 09:45:23 2016 +0700
+
+    turn on loading-bar
+
+[33mcommit 72327a2611dfda54652b170812e2ff6c5696d8c3[m
+Author: -g <-g>
+Date:   Thu Dec 1 09:35:09 2016 +0700
+
+    edit select-box
+
+[33mcommit b1e095f3b3332bea67d79783cacb22b4290b89eb[m
+Merge: 2fddca6 5448f95
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Wed Nov 30 11:14:47 2016 +0700
+
+    Merge pull request #29 from kevinhoa95/master
+    
+    fix edit form
+
+[33mcommit db14ce499e571259a9f021641ec0f3e445c5bd2d[m
+Merge: 5448f95 2fddca6
+Author: -g <-g>
+Date:   Wed Nov 30 11:12:52 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 5448f95f025f7edb539dc9266c9bffd4c3218f33[m
+Author: -g <-g>
+Date:   Wed Nov 30 11:12:20 2016 +0700
+
+    fix edit form
+
+[33mcommit 2fddca69796f7b4b7cc61639cc398e0536eb64a8[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 22:06:19 2016 +0700
+
+    Fix required field while editing form + fix models
+
+[33mcommit a24aa099e8f9022d81d56959c06744c4f031b94a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 16:50:41 2016 +0700
+
+    Fix Palen
+
+[33mcommit e1ffede0ca0a5de834c6388fbb3a1adba72024c2[m
+Merge: ce12bdb 06a0d86
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 16:48:02 2016 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit ce12bdbfe464899edbeddc3340fc586423cb1667[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 16:47:39 2016 +0700
+
+    Fix model Pale
+
+[33mcommit 06a0d86536cb0137f190b623c273e0e4d74f9527[m
+Merge: 0bc6638 b12b3d1
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Tue Nov 29 16:30:05 2016 +0700
+
+    Merge pull request #28 from kevinhoa95/master
+    
+    fix error input
+
+[33mcommit b12b3d1d422cd1176d0ada883f29fbb4552dbdc8[m
+Author: -g <-g>
+Date:   Tue Nov 29 16:28:52 2016 +0700
+
+    fix error input data
+
+[33mcommit 9e765c0a614b491036879f90acf0db2a04b31b63[m
+Merge: 37455d6 0bc6638
+Author: -g <-g>
+Date:   Tue Nov 29 16:13:53 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 0bc663831a1e76320fcd459cd56dbe78fdf18a7b[m
+Merge: c5a5f77 319f3c9
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Tue Nov 29 16:05:41 2016 +0700
+
+    Merge pull request #27 from kevinhoa95/master
+    
+    Clean code && fix error paleontological form
+
+[33mcommit c5a5f7743ae662d7de1a39f6b32f664b71aff3cf[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 16:05:20 2016 +0700
+
+    Fix UI nav
+
+[33mcommit 37455d69057da72c7a99e4b88285a8e47588c324[m
+Merge: 319f3c9 14c02e2
+Author: -g <-g>
+Date:   Tue Nov 29 16:03:05 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 319f3c9117cb92b1b103f1c853b5e768d16f5e46[m
+Author: -g <-g>
+Date:   Tue Nov 29 16:02:23 2016 +0700
+
+    clean code
+
+[33mcommit 14c02e256aef2a4240ea2111c8e755b0cf24a86b[m
+Merge: 349b92c 0a031d9
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 15:06:17 2016 +0700
+
+    Merge branch 'flex_perm'
+
+[33mcommit 0a031d9bdd7c600b4041be849fa81a6eda7dfd5c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 15:06:02 2016 +0700
+
+    Fix flex_perm
+
+[33mcommit 349b92cceadcd6c01fdad0acab929c4248c78d52[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 14:41:12 2016 +0700
+
+    Display old email when login fail
+
+[33mcommit b66fb04613373264563bf0c56fcdbdd3b55b2f8a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 13:50:31 2016 +0700
+
+    Fix UI config + confirm before deleting a role
+
+[33mcommit aeba19e659c19e81929ae837a989c6230691dc3c[m
+Merge: 3a809f1 11bb5d6
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 29 12:08:50 2016 +0700
+
+    Merge master + Fix UI config
+
+[33mcommit 11bb5d62028f9069da1f6081a1c9b984ac8a1f55[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 28 11:35:42 2016 +0700
+
+    Remove 'Ban hanh kem theo Cong van so....'
+
+[33mcommit 4d58cef79194eba569ae8dac294cf1122f2ccb49[m
+Merge: b0ab45d a549ab0
+Author: -g <-g>
+Date:   Mon Nov 28 11:34:31 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit b0ab45d1280561ac5d67d4493f1f7a78334afa8a[m
+Author: -g <-g>
+Date:   Mon Nov 28 11:34:20 2016 +0700
+
+    fix field place
+
+[33mcommit a549ab0c2b577ee28ea28678b2159855abd4129f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 28 08:42:33 2016 +0700
+
+    Update readme + export file in landscape orientation
+
+[33mcommit b826148ec70413f89eab32bf5305cfd32357d33a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 28 08:19:17 2016 +0700
+
+    Hide error stack trace in production
+
+[33mcommit 69ef0e1de01077e02498e029516c732816109a81[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 28 07:48:06 2016 +0700
+
+    Separate webcontent from nav bar 100px
+
+[33mcommit 83c430faa878e9933c8424f75b3df2937364fe09[m
+Merge: ebf1c14 754e0a1
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Mon Nov 28 03:50:23 2016 +0700
+
+    Merge pull request #26 from kevinhoa95/master
+    
+    validation client side
+
+[33mcommit 3a809f1f8126df2e12fb2488a24903021c785e18[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 28 03:49:05 2016 +0700
+
+    Role has edit priv will also has view priv
+
+[33mcommit 754e0a15b18c79eaee5775f41bad653da2fb6c7f[m
+Author: -g <-g>
+Date:   Mon Nov 28 03:43:02 2016 +0700
+
+    validation client side
+
+[33mcommit ebf1c1438ef685f2e978297a3ab75c2b96e1c9c0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 28 01:21:00 2016 +0700
+
+    Use save style for nav bar
+
+[33mcommit 9d76e2ea1634f36360606d663cf1dd8b0a2eba85[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 28 01:08:40 2016 +0700
+
+    Change login UI + phanBoVietNam label
+
+[33mcommit d4df24efef3a9d5bc22019e58e5020ed5eb5c5ad[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Nov 27 23:28:41 2016 +0700
+
+    Fix export files
+
+[33mcommit 2b1cfe55bd6f9d9773c4d856e050b4b33455ec95[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Nov 27 21:22:07 2016 +0700
+
+    Fix file extension
+
+[33mcommit d5c2bd1e81c8cff1d3def7b051e87dda88cbb511[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Nov 27 21:07:32 2016 +0700
+
+    Fix model
+
+[33mcommit 159fc53a4de2e0c8d638364e64654387e79a1d91[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Nov 27 21:03:02 2016 +0700
+
+    Fix Vegetable
+
+[33mcommit 40b3dda6b65c530d9409d25685fcb3eced92a46d[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Sat Nov 26 10:15:52 2016 +0700
+
+    Export pdf
+
+[33mcommit 51aef1c5de1ae1b4ad9cdf652630f6188cfb9582[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Sat Nov 26 09:52:17 2016 +0700
+
+    Exclude roles.json
+
+[33mcommit 07f36e7088b629375e729b538bdbe616e65b1253[m
+Merge: ce91bc8 567a207
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Fri Nov 25 21:55:12 2016 +0700
+
+    Merge pull request #25 from kevinhoa95/master
+    
+    Loading pages
+
+[33mcommit 11128ad84ec2812cb3a477e8a00fba8f9b78d3ef[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 19:34:17 2016 +0700
+
+    Flexible permission
+
+[33mcommit 567a2070530127ef3b064680a3d04a6303e0133d[m
+Merge: a0b9003 ce91bc8
+Author: -g <-g>
+Date:   Fri Nov 25 19:28:29 2016 +0700
+
+    change notification
+
+[33mcommit a0b9003a81933a51521816b2756e306d66458a05[m
+Merge: de7dfed c251a80
+Author: -g <-g>
+Date:   Fri Nov 25 19:22:05 2016 +0700
+
+    Merge branch 'master' of https://github.com/kevinhoa95/museum
+
+[33mcommit de7dfedf6b6f2899ddb893608471d904dd798b45[m
+Author: -g <-g>
+Date:   Fri Nov 25 19:21:14 2016 +0700
+
+    add loading-angular
+
+[33mcommit 0dd3e71cc188d97b5eb00db136220ab27f666d07[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 16:44:59 2016 +0700
+
+    Done UI config
+
+[33mcommit ce91bc8740748238d90bcc9fc861927bf19cc207[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 14:07:25 2016 +0700
+
+    Fix vegetable json
+
+[33mcommit c1044a1de64cdeced35e6b4efe9e0bd9a6ad249e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 14:05:56 2016 +0700
+
+    Done Vegetable
+
+[33mcommit d152dca29c6a76930b5e4b92726f11ed9aaf62e3[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 13:56:27 2016 +0700
+
+    Done Soil
+
+[33mcommit 1540e593866d4fbe8db8f80312ef4219fdb9011f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 13:50:00 2016 +0700
+
+    Done Animal + fix display last login
+
+[33mcommit 01d1347deac13e4adc4b665dad3bb42704846816[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 13:38:22 2016 +0700
+
+    Done Geo + display last login
+
+[33mcommit 0c31641b94ce9ce426b93a9b824cd4215ffe68ff[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Nov 25 13:07:13 2016 +0700
+
+    Check Pale + add lastLogin to User
+
+[33mcommit c2a65c96185db641ab5739a6ea42ce7105e129ab[m
+Author: -g <-g>
+Date:   Wed Nov 23 06:54:02 2016 +0700
+
+    add loading bar
+
+[33mcommit 873df09e2f947211a4c608de47172218138bec40[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 22 15:49:05 2016 +0700
+
+    Fix display diff
+
+[33mcommit 45ffd78fe937904529a820546f30530bcdc7f00e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 22 13:14:26 2016 +0700
+
+    Update readme
+
+[33mcommit e2370afaa3b4729834dccfdc057db5245cbb11bc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 22 11:14:52 2016 +0700
+
+    Fix geological required
+
+[33mcommit c251a8037c31dbd86181d550f01f5444af59c796[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 21 20:05:45 2016 +0700
+
+    Edit generated file name
+
+[33mcommit 5018e73ba0fd8c728025a7b8d4650f97f837492b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 21 20:03:07 2016 +0700
+
+    Fix download file
+
+[33mcommit 259878a41801d19992ccf5f15382bea767f5da2a[m
+Author: -g <-g>
+Date:   Mon Nov 21 15:36:20 2016 +0700
+
+    display error
+
+[33mcommit 3797b93caec5ef9fd3183cdfe6cd785302c192c6[m
+Merge: c341fe3 8596a84
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Mon Nov 21 15:27:10 2016 +0700
+
+    Merge pull request #24 from kevinhoa95/master
+    
+    Error display
+
+[33mcommit c341fe3d00e39c35323840f3190281af76014e35[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 21 15:25:25 2016 +0700
+
+    Fix moTaHinhThai field
+
+[33mcommit 8596a84eb9f772f95a7913a52e550891d465f90c[m
+Author: -g <-g>
+Date:   Mon Nov 21 15:25:15 2016 +0700
+
+    display error
+
+[33mcommit 8717f60d7d0ca94540426fd5830fb035095fc5be[m
+Author: -g <-g>
+Date:   Mon Nov 21 15:23:46 2016 +0700
+
+    Fix error display
+
+[33mcommit 9a2d94473d6a4bddbb1ec0d73ade21d3d83c5c3b[m
+Merge: bf4de24 cad30ae
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Mon Nov 21 13:23:56 2016 +0700
+
+    Merge pull request #23 from kevinhoa95/master
+    
+    Fix conflict form
+
+[33mcommit cad30aebf9516f7142fbb0d4f5553d5e94c8bd51[m
+Merge: 2e8c5a8 bf4de24
+Author: -g <-g>
+Date:   Mon Nov 21 10:35:06 2016 +0700
+
+    Fix conflict
+
+[33mcommit 2e8c5a83c113307806f62788599abf884ce5dea1[m
+Author: -g <-g>
+Date:   Mon Nov 21 10:19:54 2016 +0700
+
+    Fix conflict
+
+[33mcommit 1dcbd4423bc31b24cca00d98dc5ce247601c0fe6[m
+Author: -g <-g>
+Date:   Mon Nov 21 09:00:58 2016 +0700
+
+    Fix form data
+
+[33mcommit bf4de247323e40920973971d9a521e83ebd1e245[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 21 08:48:48 2016 +0700
+
+    Fix models
+
+[33mcommit 915048834590c85ada24603758ef7e38fc7069e6[m
+Author: -g <-g>
+Date:   Mon Nov 21 08:42:56 2016 +0700
+
+    Fix add and edit form
+
+[33mcommit 4400b29936cae598b5e65823dbfe57cc7c47c1bb[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 21 08:19:54 2016 +0700
+
+    Fix models
+
+[33mcommit bb504c724b042eb1164041225ea30dc3baa29035[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Nov 21 07:54:31 2016 +0700
+
+    Update models
+
+[33mcommit d401b0a538a7b620b9174809ff72df9e159bd4d9[m
+Merge: fe9b099 95e39a6
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Nov 17 10:58:38 2016 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit fe9b0994a709ba685b7b1e27ecb56d11fa4536fd[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Nov 17 10:58:15 2016 +0700
+
+    Cross Origin
+
+[33mcommit 95e39a635c846bb82cac314af28c0ce62e04064d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 21:53:11 2016 +0700
+
+    Fix HomePage
+
+[33mcommit 37dfd5d32769a895d1c8c4d83e77c9282661789b[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 16:44:51 2016 +0700
+
+    Fix synstax error
+
+[33mcommit d72d02bb5e8a6fc133798a4f676434670c5788e0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 16:43:00 2016 +0700
+
+    Add maDeTai.maDeTai to all schemas
+
+[33mcommit edcef0e92c87283e1e7e8c1698a92972928bbc35[m
+Merge: ffe8075 f11e1f8
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Wed Nov 16 16:14:06 2016 +0700
+
+    Merge pull request #22 from kevinhoa95/master
+    
+    Change form interface
+
+[33mcommit ffe80751b6be0af8013276f270b09f1507620078[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 16:08:55 2016 +0700
+
+    Fix required fields
+
+[33mcommit 5de76f874cc0d33f34817b70081e40afd7025d85[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 14:51:32 2016 +0700
+
+    Fix docx
+
+[33mcommit f11e1f8d4a4fcac8797d23d46fccdd719a2ade00[m
+Author: -g <-g>
+Date:   Wed Nov 16 09:00:39 2016 +0700
+
+    Change form interface
+
+[33mcommit 567b91a1cb19b1044cf39e7aaded14fa4cf5cf4d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 02:05:42 2016 +0700
+
+    Fix edit form
+
+[33mcommit 88c0892aa7c3f6e818c490f48276f517ceeed784[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 01:47:13 2016 +0700
+
+    Fix error while exporting docx
+
+[33mcommit d687788284401320280542eef0d57a2e36400ed7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 01:45:41 2016 +0700
+
+    Add button export docx
+
+[33mcommit d39717bc18ec427920858e4c29cd04705ebc24b6[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Wed Nov 16 01:29:39 2016 +0700
+
+    done export docx
+
+[33mcommit 0d75ba198676619f0d627335b7f1a802d6ace807[m
+Merge: 6a7c73c 82b60b4
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Tue Nov 15 15:50:18 2016 +0700
+
+    Merge pull request #21 from kevinhoa95/master
+    
+    fix form add data
+
+[33mcommit 6a7c73cbda6aabff98d58aa4fdc13c597b99f54d[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 15 15:49:37 2016 +0700
+
+    Use officegen
+
+[33mcommit 82b60b43c88984f1cdcfa9c1a66de8ab24353d6d[m
+Author: -g <-g>
+Date:   Tue Nov 15 15:47:18 2016 +0700
+
+    fix form add data
+
+[33mcommit a9c5de69f1340f187a189f4f016b01512628c3fc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Nov 15 10:31:45 2016 +0700
+
+    Integrate XLSX
+
+[33mcommit 2e6003eb607991dcf62e382c2da1e642c9636dc6[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Nov 3 19:53:24 2016 +0700
+
+    Update readme
+
+[33mcommit 7dae83b1e79410433cb492b209c0114b351a0f42[m
+Merge: 4465345 bab239f
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Wed Nov 2 13:10:02 2016 +0700
+
+    Merge pull request #20 from kevinhoa95/master
+    
+    Update Readme
+
+[33mcommit bab239f84d980dea07b41d1249b50f11dc28f312[m
+Author: -g <-g>
+Date:   Wed Nov 2 06:06:02 2016 +0700
+
+    Update Readme
+
+[33mcommit 4465345826cbb377d8f60cfd7304a868ffa105aa[m
+Merge: 1551d5a 7e1784c
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Wed Oct 26 16:53:44 2016 +0700
+
+    Merge pull request #19 from kevinhoa95/master
+    
+    Hoan thanh cac chuc nang co ban
+
+[33mcommit 1551d5a00bb3de3e3a5da29a32696459a7de6f6b[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Wed Oct 26 16:50:50 2016 +0700
+
+    reload page when update permission fail
+
+[33mcommit 7e1784cce1c5e75f71e40b16b293c2589e4c3154[m
+Author: -g <-g>
+Date:   Wed Oct 26 16:48:37 2016 +0700
+
+    Hoan thanh cac chuc nang co ban
+
+[33mcommit aaf54372c27d25b49fa80ec2a3a90b286901a1c7[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Wed Oct 26 16:21:28 2016 +0700
+
+    fix display logs + handle invalid input in type number
+
+[33mcommit 0be17027a2ba2490af553a2358087a37d9e59084[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Wed Oct 26 15:49:22 2016 +0700
+
+    Fix prop + readme
+
+[33mcommit 906eebfbfe554129e5209358410ee90053e1ff04[m
+Merge: cb73d2f 4a2cea8
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Wed Oct 26 15:40:39 2016 +0700
+
+    Merge pull request #18 from kevinhoa95/master
+    
+    Fix add request
+
+[33mcommit cb73d2f260be4b63bea245a3ad631c5dbb1a09e5[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Wed Oct 26 15:40:06 2016 +0700
+
+    Update readme
+
+[33mcommit 4a2cea87f43282bafc5e61cf8e06555f9c39d06d[m
+Author: -g <-g>
+Date:   Wed Oct 26 15:36:15 2016 +0700
+
+    Fix add request
+
+[33mcommit 3184aae6e2af29baa16d667d194545f37d56a98b[m
+Merge: abee556 9a87cf9
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Wed Oct 26 15:31:32 2016 +0700
+
+    Merge pull request #17 from kevinhoa95/master
+    
+    Sua mot so the trong form
+
+[33mcommit abee55698c13b49443b104f5063f66c8bea0d92c[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Wed Oct 26 15:31:02 2016 +0700
+
+    Include /config/roles.json into Repo
+
+[33mcommit 9a87cf94073897d6087e9f6e7384c9cc913780b0[m
+Author: -g <-g>
+Date:   Wed Oct 26 15:29:08 2016 +0700
+
+    Sua mot so the trong form
+
+[33mcommit 991d9f6c7c12a1fe5da3d0a202ada1d3f3c3afcb[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Wed Oct 26 15:18:25 2016 +0700
+
+    Handle vegetable + paleontological
+
+[33mcommit 7fc694e4c465f9233c21fb5fd51764a038ab4e2e[m
+Merge: 3414b6b db33944
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Mon Oct 24 22:02:51 2016 +0700
+
+    Merge pull request #16 from kevinhoa95/master
+    
+    edit form for 4
+
+[33mcommit 3414b6bf957ed0149b04af7e08cedf7ee48b9b14[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 24 21:56:19 2016 +0700
+
+    Fix API param
+
+[33mcommit db339440959fe8b03c16fb635c035e1a4e0bf908[m
+Merge: 9471f2e 25d75d9
+Author: -g <-g>
+Date:   Mon Oct 24 21:48:35 2016 +0700
+
+    add form edit for 4 form
+
+[33mcommit 25d75d91545364a26d3ada8d05f340e24b36db37[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 24 11:10:38 2016 +0700
+
+    make login more convernient
+
+[33mcommit ee7d8b98290a25dd57636362ff3c1ca205608a9f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 22:11:05 2016 +0700
+
+    Fix filter
+
+[33mcommit 03f718c0c2597208be71cfe54cc9421b28c7e4a8[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 22:08:39 2016 +0700
+
+    Filter logs by object type
+
+[33mcommit 666838ef7ad49f0cd320119fa6ba619880562f86[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 21:34:23 2016 +0700
+
+    Fix display log
+
+[33mcommit a370f2e197c1f9f36df2b144e29e6aa5dc8c5d3f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 18:16:32 2016 +0700
+
+    Fix soil form
+
+[33mcommit 8986752a51ecba91f4ba3bc16e41d5ee8bc004d7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 18:10:07 2016 +0700
+
+    Fix schema + alert bug
+
+[33mcommit f1d21272375e6c75c6562778a343b97c3c7378bb[m
+Merge: a20104d 5803622
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 17:40:08 2016 +0700
+
+    merge master
+
+[33mcommit a20104d4f9a45c8a338f1fc84da03baa3d2a89c4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 17:37:33 2016 +0700
+
+    Beautify code
+
+[33mcommit 58036227e97a62bf0244683e416467d6cc2d77e8[m
+Author: Nguyen Tat Hoa <kevinhoa95@gmail.com>
+Date:   Sun Oct 23 15:29:46 2016 +0700
+
+    fix conflict (#15)
+    
+    * fix properties of some form
+    
+    * add edit form
+
+[33mcommit 9471f2ea77ac6d9be8ce625972602c6896a201ca[m
+Merge: 29d333c ee54b77
+Author: -g <-g>
+Date:   Sun Oct 23 15:24:26 2016 +0700
+
+    fix conflict
+
+[33mcommit 29d333c683aa61547a7d4fb412971be3c61cbedb[m
+Author: -g <-g>
+Date:   Sun Oct 23 15:17:16 2016 +0700
+
+    add edit form
+
+[33mcommit ee54b7734502c4dc1d972e1467aefb65911718ec[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 14:51:36 2016 +0700
+
+    Handle Geological form
+
+[33mcommit bb63c9973b93658ef2f8cfe4225091a0a1aad29a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 10:52:44 2016 +0700
+
+    handle Soil routes
+
+[33mcommit e0e49b59a67fec6a22297a2a219911d896735f8c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 23 10:44:42 2016 +0700
+
+    Refactor code
+
+[33mcommit 12e0690d670e5d51da35ccc96aa6340b988a98e4[m
+Author: -g <-g>
+Date:   Sat Oct 22 02:02:18 2016 +0700
+
+    fix properties of some form
+
+[33mcommit 1226cccb93e5d293e5ec3c37a3f01c7d996b139f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Oct 22 02:30:46 2016 +0700
+
+    Add JSOn for Soil
+
+[33mcommit 48babd0696e706cd37789b8215f3795ad974ce91[m
+Author: -g <-g>
+Date:   Sat Oct 22 02:02:18 2016 +0700
+
+    fix properties of some form
+
+[33mcommit 8bb3510d8bf4eb6462c936b325aa53f7392579ef[m
+Merge: b141edb 433dd0f
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Oct 22 01:08:40 2016 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit b141edb301273db51a5d5b8858a10b54f12cbeaf[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Oct 22 01:08:01 2016 +0700
+
+    Filter by object
+
+[33mcommit 433dd0f324f06f5337116af64cc611080ecbeda9[m
+Merge: 00fa874 667e878
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Sat Oct 22 01:07:48 2016 +0700
+
+    Merge pull request #13 from kevinhoa95/master
+    
+    add three form
+
+[33mcommit 667e878c987f83adab6ab3639f7339e1efa373cc[m
+Author: -g <-g>
+Date:   Sat Oct 22 00:57:55 2016 +0700
+
+    add three form
+
+[33mcommit 00fa87491545d672cd239cea12be26e0571e350c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 23:41:11 2016 +0700
+
+    Fix date in manage-post
+
+[33mcommit fa22ffdd71dc6e01b1defc0558edc17554bd3143[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 23:25:33 2016 +0700
+
+    Add link to dong-vat
+
+[33mcommit c18a9b1976166ea1eb5b1c4c247abbb70ae21b29[m
+Merge: 9d15a3c 7e4ebb7
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Mon Oct 17 22:59:32 2016 +0700
+
+    Merge pull request #12 from kevinhoa95/master
+    
+    add some information for managepost page
+
+[33mcommit 7e4ebb732595216c81d99b8d483395933119059e[m
+Author: -g <-g>
+Date:   Mon Oct 17 22:38:42 2016 +0700
+
+    add some information for managepost page
+
+[33mcommit 9d15a3cdec9feb2a96950778e619e31757847923[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 16:43:36 2016 +0700
+
+    Fix Upload destination
+
+[33mcommit fe3d38279e7def5e1d7b18b8f1f2eea8e0c2c147[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 16:21:27 2016 +0700
+
+    Fix Display Date
+
+[33mcommit 24240a19474440f2b1f5849bba8987bf487f1c0f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 15:29:24 2016 +0700
+
+    Display files + prop name
+
+[33mcommit c6b4c56f0c883e6479ceb68a1ac6d5768bca84a7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 01:40:19 2016 +0700
+
+    Fix UI
+
+[33mcommit 33b4295a0bf9803bd99aa151b47e3c039b35c4ab[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 01:23:24 2016 +0700
+
+    Fix Schema + exclude service.js
+
+[33mcommit 12b2acb59d0ba1cc6eb716afc97f638b56b91bf6[m
+Merge: c79c540 5d2633d
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Mon Oct 17 01:17:26 2016 +0700
+
+    Merge pull request #11 from kevinhoa95/master
+    
+    add regular expression
+
+[33mcommit 5d2633d99a096d06b74e0bb6b0368417b5ad6170[m
+Author: -g <-g>
+Date:   Mon Oct 17 01:15:08 2016 +0700
+
+    add regular expression
+
+[33mcommit c79c5407033837c7bde753f186cec485927777e7[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Oct 17 01:14:51 2016 +0700
+
+    Hide nav bar
+
+[33mcommit a3fd1ae8156496f69598194b59199ece00b9feb0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 16 02:11:26 2016 +0700
+
+    Filter logs by user + action
+
+[33mcommit 129445710e71af8aebe2671a80a3d2da9b69efdc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Oct 16 00:58:09 2016 +0700
+
+    Fix scroll + Use Vietnamese
+
+[33mcommit a3c90785a47426aaffff7143b6d0077a2d3f76ca[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Oct 15 17:40:19 2016 +0700
+
+    Scroll to missing field
+
+[33mcommit 17969be648666944df16b5581e0f2967207d6cdd[m
+Merge: 9bff027 d2b5fce
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Sat Oct 15 12:55:02 2016 +0700
+
+    Merge pull request #10 from kevinhoa95/master
+    
+    fix some properties
+
+[33mcommit d2b5fce5444120dd9c179d8ec8c133c09154663c[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Sat Oct 15 12:52:31 2016 +0700
+
+    fix some properties
+
+[33mcommit 9bff0271c4eb65d495aded704d5ab93ccd62c393[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Sat Oct 15 12:21:53 2016 +0700
+
+    Save Mixed field
+
+[33mcommit 6c5a3f7b1b2a19023fc97e55c3083bb71be5ff7a[m
+Merge: c4fd0bd 673c361
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Sat Oct 15 12:02:28 2016 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit 673c3614e5b9ad737523327c03a201e87a86401e[m
+Merge: ea3439f dab53ae
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Sat Oct 15 12:02:11 2016 +0700
+
+    Merge pull request #9 from kevinhoa95/master
+    
+    fix type of maps property
+
+[33mcommit c4fd0bdb1a984bb341898f92f7ffe7da8a941d47[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Sat Oct 15 11:59:43 2016 +0700
+
+    Filter properties in req.body
+
+[33mcommit dab53aeb45f366543c8ea99090faad3dca025caf[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Sat Oct 15 11:53:05 2016 +0700
+
+    fix type of maps property
+
+[33mcommit ea3439f8e02196cbb4fb501912c49fc28de04f32[m
+Merge: e0074a9 6663b7a
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Sat Oct 15 11:35:52 2016 +0700
+
+    Fix conflict
+
+[33mcommit e0074a9d570cd11d9e5dcf68aec783c76fa456ea[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Sat Oct 15 11:33:30 2016 +0700
+
+    Fix log Date
+
+[33mcommit 6663b7a0043b00822a5b9eb88a0a67c816c03b73[m
+Merge: d952bf4 180e089
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Sat Oct 15 11:32:49 2016 +0700
+
+    Merge pull request #8 from kevinhoa95/master
+    
+    render date data
+
+[33mcommit 180e08911cd25340830d25f4c75b0cc3d37626b2[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Sat Oct 15 11:17:22 2016 +0700
+
+    Fix data when render date date
+
+[33mcommit 4a045e9c134bafce2c3cebdac421de8d59d4e760[m
+Merge: 8aef57e d952bf4
+Author: Hola <kevinhoa95@gmail.com>
+Date:   Fri Oct 14 14:48:55 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 8aef57e07d8612c9b7ebcfff09cdb87a2dbb2b25[m
+Merge: 3319870 8d3610e
+Author: Hola <kevinhoa95@gmail.com>
+Date:   Fri Oct 14 14:48:35 2016 +0700
+
+    Fix conflix
+
+[33mcommit d952bf424165129c9b9a8ed7438bbbdd7d1b83f5[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Fri Oct 14 14:46:09 2016 +0700
+
+    Fix thoiGianThuMau
+
+[33mcommit 3319870db154c23f0d601e3938aa89af15534656[m
+Author: Hola <kevinhoa95@gmail.com>
+Date:   Fri Oct 14 14:23:36 2016 +0700
+
+    render data for edit form
+
+[33mcommit 8d3610e2f2f4bd898df87c0ac7fbba3143fa83c3[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Fri Oct 14 14:02:10 2016 +0700
+
+    Delete uploaded files when rejecting request
+
+[33mcommit 7f022f0854d8a6f5340c64e53484f648b5128732[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Fri Oct 14 13:01:42 2016 +0700
+
+    Fix DELETE method
+
+[33mcommit 1862875b4ecaa4a9245075717eefd8d139d0554e[m
+Merge: 659c786 c96d3a2
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Fri Oct 14 00:51:31 2016 +0700
+
+    Merge pull request #7 from kevinhoa95/master
+    
+    add delete feature
+
+[33mcommit c96d3a2f6b84fd5e92d42ecf71c240807d33fe78[m
+Merge: cb062d9 659c786
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Fri Oct 14 00:42:12 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 659c7866c80c11193116ea2dbac2032630ef7f4b[m
+Author: Ngoc Don <donnn271@gmail.com>
+Date:   Fri Oct 14 00:40:27 2016 +0700
+
+    Fix DELETE method
+
+[33mcommit cb062d9e23f5355a21ced4bb9da713241e57b2b2[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Fri Oct 14 00:32:17 2016 +0700
+
+    add delete feature
+
+[33mcommit 9415b35a4681b7f8d9359ee1a0e8e604dd1f6407[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Oct 14 00:31:32 2016 +0700
+
+    Fix DELETE method
+
+[33mcommit f04eefbc729e6a57193d9ca2d75ea121bae7d9d0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Oct 14 00:21:04 2016 +0700
+
+    Fix display log info
+
+[33mcommit d9c3ac965541f972d80703c3e28ef96a7b9a91b5[m
+Merge: eeb1b6e a86a00f
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Thu Oct 13 22:09:17 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit a86a00fa8f3155adec01d24268c96722795d53a2[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 22:08:41 2016 +0700
+
+    Fix trim()
+
+[33mcommit eeb1b6e1396fe9b4f2e4faeca8539083266dbdac[m
+Merge: d5a517c 27468b0
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Thu Oct 13 21:57:58 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 27468b0eab1f98f421bb132fb3d205e17b65a38c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 21:57:29 2016 +0700
+
+    Fix PUT
+
+[33mcommit d5a517c6be1d587e281d7eaa31023a6ccb4f2f23[m
+Merge: 8729866 5512115
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Thu Oct 13 21:24:18 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 872986665d7798c3e06af023121a39a845a09679[m
+Merge: 0b805b0 6622ce6
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Thu Oct 13 21:23:53 2016 +0700
+
+    Add form edit
+
+[33mcommit 551211519d1a01bb780cffb29274f782a1540d2a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 17:16:45 2016 +0700
+
+    Fix PUT method
+
+[33mcommit 3b880a4e5aa02c6f1b6edb1ba7e9df1d4735689a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 14:49:34 2016 +0700
+
+    Validate File name using Regex
+
+[33mcommit 0b805b01feebfbef96c0833a480d001fc79c5ac6[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Thu Oct 13 14:24:51 2016 +0700
+
+    fix title
+
+[33mcommit 6622ce6a2cdecfa564d365344a9d1e482834c4fc[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 14:21:51 2016 +0700
+
+    Fix auto completion
+
+[33mcommit 522736b44ded8eedbf0aa6fb729bf6b3f87a5f94[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 13:22:49 2016 +0700
+
+    Fix Form
+
+[33mcommit cf0ba4c0b7821edf69fda686b785f9671ae415dd[m
+Merge: e01ddd9 c4d6273
+Author: Don Nguyen Ngoc <donnn271@gmail.com>
+Date:   Thu Oct 13 13:03:06 2016 +0700
+
+    Merge pull request #6 from kevinhoa95/master
+    
+    fix form
+
+[33mcommit e01ddd926f97fa119868df63dc94d385f0c48498[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 11:06:49 2016 +0700
+
+    Fix API Get AutoCompletion
+
+[33mcommit c4d627394f1034d57bd7f60ab538cea18b0af1a3[m
+Merge: d3fa15e e01ddd9
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Thu Oct 13 05:54:02 2016 +0700
+
+    change some properties of animal form
+
+[33mcommit d3fa15e1a7ea295bc85a89d72f026269cab5b335[m
+Author: Hola <kevinhoa95@gmail.com>
+Date:   Thu Oct 13 11:12:52 2016 +0700
+
+    add manage post
+
+[33mcommit 6a51e7604b638ec8c6dbf47e683a6d41ae99b0db[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 00:59:55 2016 +0700
+
+    Fix
+
+[33mcommit f886e26201441508b88462dbe943c852a2ad43d2[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Thu Oct 13 00:42:42 2016 +0700
+
+    Mixed Type
+
+[33mcommit 08231a2ce8a9294627a6aa77baf2d5e4b544e057[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Tue Oct 11 17:42:09 2016 +0700
+
+    done autocomplete
+
+[33mcommit ed1fda7cd92877baa8a10d0f9c6e6af47bf89dfb[m
+Merge: af73045 683d779
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Tue Oct 11 17:07:44 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit af7304560f476fe6ee120995735bd10ce9f7ce06[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Tue Oct 11 17:07:30 2016 +0700
+
+    Add autocomplete
+
+[33mcommit 683d779bb147f8247a4c7511762791f2e5405522[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Oct 11 16:37:40 2016 +0700
+
+    Fix Animal's props
+
+[33mcommit 6c65c20631684d612fdb07bedfeb351f4f4e0548[m
+Merge: 0ee2a54 df8cca3
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Oct 11 15:06:17 2016 +0700
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 0ee2a5463ebc84691890bd34292e053f24eaa7d2[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Oct 11 15:05:37 2016 +0700
+
+    Merge
+
+[33mcommit df8cca33ff978b1a5ccfc97b61bdd2d1694c8b21[m
+Merge: a307dce 91e6be1
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Tue Oct 11 15:05:05 2016 +0700
+
+    Merge pull request #5 from kevinhoa95/master
+    
+    fix form
+
+[33mcommit 91e6be170b88e6947317b6924839a623a6a9b296[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Tue Oct 11 15:01:02 2016 +0700
+
+    fix form animal clearly
+
+[33mcommit a307dce08f7261e775fc16f513e84672d11b6f20[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Oct 11 13:31:20 2016 +0700
+
+    Auto Completion Animal
+
+[33mcommit 6e5ddd66bb12064bf876a33ad8bde6f1f2fe7f1a[m
+Merge: 620f321 a0457f3
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Tue Oct 11 12:07:54 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 620f3218aa852a6536272e88eef8bd104bed5d4b[m
+Author: Hola Nguyen <Hola Nguyen>
+Date:   Tue Oct 11 12:06:09 2016 +0700
+
+    Fix form animal
+
+[33mcommit a0457f33ab08ca81d5305d7d58f01b8602fc92c6[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Oct 4 17:17:42 2016 +0700
+
+    Test RegExp
+
+[33mcommit 73a8e9c61f700d9be4d354e07ee9fa29dcbd665a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Oct 4 16:06:47 2016 +0700
+
+    Canvas
+
+[33mcommit db9f4449b7669a54c241cac525fd53d9d3a04f2a[m
+Merge: 1498d15 0a68016
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Tue Aug 23 08:16:39 2016 +0700
+
+    Fix conflict
+
+[33mcommit 1498d1521010cd3c49b3fab21321e094f9bded83[m
+Merge: 6f318a8 b8e430d
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Tue Aug 23 08:13:23 2016 +0700
+
+    fix some fields
+
+[33mcommit 0a68016f1b93a06042443c970945ad0b4107c760[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 23 01:53:53 2016 +0700
+
+    Refactor
+
+[33mcommit c294bfaf465235d578b5486f67f2aba7a447e63e[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 23 01:06:32 2016 +0700
+
+    Filter logs by animal
+
+[33mcommit 059ec472d0fded9ff8c4e5b0f0a3296f4ad0f491[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Aug 22 23:47:24 2016 +0700
+
+    Fix UI
+
+[33mcommit 8f794055b3f90f19733336ebbccb112adf2e996a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Aug 22 21:41:21 2016 +0700
+
+    Visualize Logs
+
+[33mcommit 396c6148a48eead3f1bcc8d184b5fa251bc0bbad[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 20 22:57:02 2016 +0700
+
+    Fix UI homepage
+
+[33mcommit 090903b74c084d614024f19a82894cc025467a80[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 20 22:51:41 2016 +0700
+
+    Use Vietnamese
+
+[33mcommit 0fda25d745275f80abc42cc6e0e64a0f1f686534[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 20 22:19:26 2016 +0700
+
+    Fix home, add test account
+
+[33mcommit f92d3db24b1096a97a068f77696e70d382b093ac[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 20 22:05:49 2016 +0700
+
+    Log when server start
+
+[33mcommit e2badf82690300eb764ce605abbab6ead847c939[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 20 22:02:19 2016 +0700
+
+    Demo
+
+[33mcommit 3cda9ad82a013daf3a818458f12ddfb67312b655[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 20 21:42:57 2016 +0700
+
+    Fix edit animal
+
+[33mcommit 53369ca4d845e873994f75f184146b1de5870327[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Aug 19 17:30:37 2016 +0700
+
+    Edit animal
+
+[33mcommit 94ec2546f6594d7e5800fa3448cd4121b9bc938a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Aug 19 15:35:53 2016 +0700
+
+    Update AnimalSchemaProps
+
+[33mcommit 1e4622950553f14fedfb164e01df7beeac0760e5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 16 17:17:51 2016 +0700
+
+    View 1 single animal
+
+[33mcommit c94dd9501cd817b9dce52f78151abc9f3f4c6ac4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 16 16:29:37 2016 +0700
+
+    log when animal is being deleted
+
+[33mcommit b34f6bdc38ea9001067594265a336197021128d4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 16 14:23:04 2016 +0700
+
+    fix UI + exclude acl.json roles.json
+
+[33mcommit b8e430d7b09fad4461b300073314ad25158af043[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 16 11:29:22 2016 +0700
+
+    fix log
+
+[33mcommit 6f318a890318ce2a8236269a680f3c2e6ac55fc9[m
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Tue Aug 16 11:03:42 2016 +0700
+
+    Fix Form
+
+[33mcommit e9051f8ac28d982cfd258df516e5ec2a35113c5f[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 16 10:47:39 2016 +0700
+
+    Add delete animal
+
+[33mcommit 9d8416539b8df178c423a33f2f469c7d85e68604[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Aug 15 11:41:08 2016 +0700
+
+    fix schema
+
+[33mcommit 8f0a173dff94859614ee549715f3695a8987f1f0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 14 23:54:39 2016 +0700
+
+    Use acl to check permission to access /app, instead of passport
+
+[33mcommit c05050cb73dd0edadbcb1c49b546f862b1e0e9c3[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 14 23:13:29 2016 +0700
+
+    fix filter logs
+
+[33mcommit 9471f1c03d14f9bda056d612a3091154c166d1a2[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 14 02:11:17 2016 +0700
+
+    add api log
+
+[33mcommit 1fffdbba0a09b3f556bd935817dd08fce9861957[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 14 00:23:36 2016 +0700
+
+    fix log
+
+[33mcommit 335854619bb55dfa3e0d142855d833b4e4807a5a[m
+Merge: 87c9ca2 49a4bb5
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 14 00:03:49 2016 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit 87c9ca2dc04c1ef0579b2027e2883bd089f59ac0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 14 00:03:11 2016 +0700
+
+    use acl in animal.js
+
+[33mcommit 49a4bb52bb50dd4d10b1a254fff8f01cf6a87cab[m
+Merge: b154878 af50571
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun Aug 14 00:01:26 2016 +0700
+
+    Merge pull request #4 from kevinhoa95/master
+    
+    get data about place
+
+[33mcommit af505719b3a378f4a9c2aef9d6db810a79f9d057[m
+Merge: ff7121f b154878
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Sat Aug 13 23:57:35 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit ff7121f24ead3b478f368f078c14d577b8fc6c9d[m
+Merge: 461c3b8 8f4efa1
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Sat Aug 13 23:57:13 2016 +0700
+
+    add place
+
+[33mcommit b15487819b46390aceca31222fc5e7f335c1158a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 13 23:15:36 2016 +0700
+
+    Fix config
+
+[33mcommit 7e53c3af24ebf8345fb7e5a60871716d88d11cb0[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 13 13:11:01 2016 +0700
+
+    Add route config
+
+[33mcommit d1c13c03b0768b18c5de84b03e958d5e2a70dc9c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 13 12:13:57 2016 +0700
+
+    Auto assign roles to user
+
+[33mcommit 8f4efa10fb1b1dd610b9abeebd8ea1d7a3de202a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Fri Aug 12 13:09:45 2016 +0700
+
+    Hash plain password before sending to server
+
+[33mcommit 461c3b8d4e6206518e1637c0d3231bb216aef9eb[m
+Merge: 55d13e9 3ccefaa
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Thu Aug 11 10:28:25 2016 +0700
+
+    place.json
+
+[33mcommit 55d13e966f91b6f78d4a77f6e33554722e508144[m
+Merge: d63cb05 ea0144d
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Wed Aug 10 16:38:30 2016 +0700
+
+    add some form input data
+
+[33mcommit 3ccefaadcc5a4cc8e155f9e0e022c31158e29233[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 9 15:20:18 2016 +0700
+
+    Role from files
+
+[33mcommit 92a13364ac317c88417ee24674869bab0a7ca3e4[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 9 14:50:47 2016 +0700
+
+    ACL
+
+[33mcommit fd230c47d8051d6b31879e880e4e68c29cce5f09[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Tue Aug 9 13:54:37 2016 +0700
+
+    Demo ACL
+
+[33mcommit db96e659194d57886943d29c0ea0f624f34fcd1a[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Aug 8 11:00:56 2016 +0700
+
+    add ACL + fix form animal
+
+[33mcommit d63cb0576e3a7899cb81645d3184ed7fb8565f99[m
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Mon Aug 8 09:58:19 2016 +0700
+
+    fix error
+
+[33mcommit ea0144de4027be339b8eb561ff398620e81eab59[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Mon Aug 8 01:19:27 2016 +0700
+
+    Done inserting new Animal
+
+[33mcommit 349e17cbd22a8d4d87130c3bc1ba986c91cf6588[m
+Merge: 5471713 0b659be
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Mon Aug 8 00:28:07 2016 +0700
+
+    Merge branch 'master' of https://github.com/ngocdon0127/museum
+
+[33mcommit 5471713f4286c9b868c08672875efe67e5ddfe57[m
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Mon Aug 8 00:27:56 2016 +0700
+
+    add form vegetable
+
+[33mcommit 0b659bedaf69abf7b83c8c28dbf45b16d7b3c6ff[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 7 18:21:51 2016 +0700
+
+    Fix Animal model
+
+[33mcommit a4fecd10893ce76b82428348afd51f296e8c90bf[m
+Merge: ba62788 adc5fbd
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 7 17:08:39 2016 +0700
+
+    Merge branch 'master' of github.com:ngocdon0127/museum
+
+[33mcommit ba6278838c32bf1fa24e9e1f9e3806b986fb700c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 7 17:08:28 2016 +0700
+
+    Fix Animal model
+
+[33mcommit adc5fbd8b43b09d77b142b6bf89521be6de87433[m
+Merge: 6ebbf77 350b40c
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun Aug 7 17:07:41 2016 +0700
+
+    Merge pull request #3 from kevinhoa95/master
+    
+    Form UI
+
+[33mcommit 350b40c35c532fa0f5f7ef2954c70ae6120acbe1[m
+Merge: aba2f1c 6ebbf77
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Sun Aug 7 17:00:12 2016 +0700
+
+    add select box for cities, districts
+
+[33mcommit aba2f1c5bd6a04bc084db39952e58d5a29d76145[m
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Sun Aug 7 16:58:49 2016 +0700
+
+    add select box for cities, districts
+
+[33mcommit 6ebbf77eb01361b416825defed485ee8c5dabde6[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sun Aug 7 16:11:16 2016 +0700
+
+    Insert Animal form
+
+[33mcommit 7d044b0f2d2bf82d9b349016732664c06efce389[m
+Merge: 3c14b0d eff4c98
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sun Aug 7 11:46:40 2016 +0700
+
+    Merge pull request #2 from kevinhoa95/master
+    
+    UI form animal
+
+[33mcommit eff4c98128baa99cc9d48d3b71f4b49e858f827c[m
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Sun Aug 7 11:30:34 2016 +0700
+
+    UI form animal
+
+[33mcommit 3c14b0d0c4d3b37560ab3e479ae92b426b4ea253[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 6 16:45:53 2016 +0700
+
+    Fix authen
+
+[33mcommit 1eb0b633aec494b99a9f71430e9270a1ca221d5e[m
+Merge: 6d5541c cb54c36
+Author: Don Nguyen Ngoc <kaitoukid2701@gmail.com>
+Date:   Sat Aug 6 16:43:27 2016 +0700
+
+    Merge pull request #1 from kevinhoa95/master
+    
+    Front end
+
+[33mcommit cb54c36e669fdd4d9ff8702bce957e5d9a7a9149[m
+Author: Hola Nguyen <kevinhoa95@gmail.com>
+Date:   Sat Aug 6 16:33:32 2016 +0700
+
+    Front end
+
+[33mcommit 6d5541ce0bb11b99be8c82ff3f9cd687e2720194[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 6 16:16:21 2016 +0700
+
+    Update readme + demo include static files
+
+[33mcommit 5d96d8ac8d4a00fb3d80c75816681e0a4dff5ee5[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 6 16:07:34 2016 +0700
+
+    Add readme
+
+[33mcommit 397305c79d6081b019c0266319d8989159f2b04c[m
+Author: Ngoc Don <kaitoukid2701@gmail.com>
+Date:   Sat Aug 6 16:03:36 2016 +0700
+
+    Initial commit

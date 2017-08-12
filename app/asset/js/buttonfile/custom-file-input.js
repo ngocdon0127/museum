@@ -1,9 +1,9 @@
 'use strict';
 $(document).ready(function () {
-	// console.log('custom file loaded');
+	console.log('custom file loaded');
 	var inputs = document.querySelectorAll('.inputfile');
-	// console.log(inputs)
-	Array.prototype.forEach.call( inputs, function(input)
+	// console.log(inputs);
+	Array.prototype.forEach.call(inputs, function(input)
 	{
 		// console.log(input);
 		try {
@@ -11,6 +11,7 @@ $(document).ready(function () {
 			var	labelVal = label.innerHTML;
 		} catch (e){
 			// todo
+			console.log(e);
 		}
 		// label.querySelector( 'span' ).innerHTML = "No file chosen";
 		//catch event file change
@@ -23,6 +24,7 @@ $(document).ready(function () {
 	  //     	};
 			
 			// reader.readAsText(e.target.files[0])
+			console.log("file changed");
 			var max_sizes = this.getAttribute('max-file-size');
 			//Kiem tra xem dung luong file co vuot qua dung luong cho phep
 			var fileName = '';

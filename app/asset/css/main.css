@@ -202,15 +202,23 @@ a.nav:hover{
     border-radius: 4px;
 }
 
-.nav-tabs > li > a {
+.tabs > li > a {
     border: 1px solid #ddd;
 }
 
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+.tabs > li.active > a, .tabs > li.active > a:hover, .tabs > li.active > a:focus {
     background-color: #F3F6F9;
 }
 
+.group > li > a{
+    background-color: #19C662;
+    color: #fff;
+}
 
+.group > li > a:hover{
+   background-color: #f5f5f5;
+    color: #000;
+}
 
 /*--------------end-New--------------*/
 /*------------------END-FORM_DATA---------------------*/

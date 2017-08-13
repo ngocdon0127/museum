@@ -47,6 +47,7 @@
 
 .inputfile + label strong {
     color: #f1e5e6;
-    background-color: #d3394c;
+    /*background-color: #d3394c;*/
+    background-color: #794044;
     display: inline-block;
 }

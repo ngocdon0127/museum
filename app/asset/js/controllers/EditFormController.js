@@ -6,6 +6,16 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 		console.log(err);
 	});
 
+	$scope.tab = 1;
+
+	$scope.setTab = function (newTab) {
+		$scope.tab = newTab;
+	}
+
+	$scope.isSet = function (tab) {
+		return $scope.tab === tab
+	}
+
 	var arrAuto = AuthService.arrAuto;
 	
 	$http.get(AuthService.hostName + '/content/dong-vat/auto').then(function(res) {
@@ -56,6 +66,8 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 			}
 			if ($scope.data.fDiaDiemThuMau == "bien") {
 				document.getElementById("trenBien").checked = true;
+			} else if ($scope.data.fDiaDiemThuMau == "dao"){
+				document.getElementById("dao").checked = true;
 			} else{
 				document.getElementById("datLien").checked = true;
 			}
@@ -156,6 +168,8 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 			}
 			if ($scope.data.fDiaDiemThuMau == "bien") {
 				document.getElementById("trenBien").checked = true;
+			} else if ($scope.data.fDiaDiemThuMau == "dao"){
+				document.getElementById("dao").checked = true;
 			} else{
 				document.getElementById("datLien").checked = true;
 			}

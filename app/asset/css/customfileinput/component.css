@@ -21,22 +21,21 @@
 
 /* style 6 */
 
-.customfile + label {
+.inputfile + label {
     color: #00994c;
-    margin: 5px;
     border-radius: 4px;
 }
 
-.customfile + label {
+.inputfile + label {
     border: 1px solid #ccc;
 }
 
-.customfile + label span,
-.customfile + label strong {
+.inputfile + label span,
+.inputfile + label strong {
     padding: 5px 5px;
 }
 
-.customfile + label span {
+.inputfile + label span {
     max-width: 200px;
     min-height: 2em;
     display: inline-block;
@@ -46,7 +45,7 @@
     vertical-align: top;
 }
 
-.customfile + label strong {
+.inputfile + label strong {
     color: #f1e5e6;
     background-color: #d3394c;
     display: inline-block;

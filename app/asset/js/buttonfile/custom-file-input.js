@@ -1,6 +1,5 @@
 'use strict';
 $(document).ready(function () {
-	console.log('custom file loaded');
 	var inputs = document.querySelectorAll('.inputfile');
 	// console.log(inputs);
 	Array.prototype.forEach.call(inputs, function(input)

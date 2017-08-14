@@ -96,8 +96,7 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
 	$scope.tab = 1;
 
 	$scope.setTab = function (newTab) {
-		$scope.tab = newTab
-		console.log($scope.tab);
+		$scope.tab = newTab;
 	}
 
 	$scope.isSet = function (tab) {

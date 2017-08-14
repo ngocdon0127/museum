@@ -189,16 +189,22 @@ a.nav:hover{
 }
 .datatext {
     border: #ccc 1px solid;
-    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     height: 30px;
-    position:relative;
+    width: 50px;
+    /*position:relative;*/
     padding-left: 5px;
-    margin-top: 3px;
+    margin-top: 5px;
 }
 .contentselect {
     border: #ccc 1px solid; 
     height:30px;
-    border-radius: 4px; 
+    /*border-radius: 4px; */
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    position: absolute;
+    margin-top: 5px;
 }
 
 .tab-content > .tab-pane {
@@ -209,6 +215,8 @@ a.nav:hover{
 
 .tabs > li > a {
     border: 1px solid #ddd;
+    margin: 0px;
+    padding: 5px 10px;
 }
 
 .tabs > li.active > a, .tabs > li.active > a:hover, .tabs > li.active > a:focus {
@@ -229,14 +237,10 @@ a.nav:hover{
 /*------------------END-FORM_DATA---------------------*/
 
 @media screen and (min-width : 992px){
-    .wrap-content{
-        width: 1130px;
-    }
     .map-detail{
         background-color: #F3F6F9;
         padding: 15px;
         box-shadow: 4px 4px 10px rgba(0,0,0,0.2) !important;
-        /*width: 1000px;*/
         margin-left: auto;
         margin-right: auto;
         border-left: 1px solid #ddd;

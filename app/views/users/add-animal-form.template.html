@@ -1,7 +1,7 @@
 <!-- <div style="margin-top: 20px;" bs-loading-overlay bs-loading-overlay-delay="200"> -->
 	<form id="form-content" name="FormContent" ng-submit="addPost(FormContent, form)" novalidate>
-		<center><h3>Thêm mẫu dữ liệu động vật > Đề tài: {{maDeTai}} </h3></center>
-		<div class="container wrap-content">
+		<center><h3>Thêm mẫu dữ liệu động vật> Đề tài: {{maDeTai}} </h3></center>
+		<div class="container-fluid wrap-content">
 			<ul class="nav nav-tabs group tabs">
 		    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu mẫu vật</a></li>
 		    	<li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">Tên mẫu vật</a></li>
@@ -248,7 +248,6 @@
 							</div>
 							<div class="col-sm-3">
 								<span>Thể tích: </span>
-								<br>
 								<span>
 									<input type="text" title="{{tooltips['theTich']}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
 									<select class="contentselect" ng-model="data.donVi_theTich" name="donVi_theTich">
@@ -265,7 +264,7 @@
 							<input type="text" ng-model="data.tinhTrangMau" title="{{tooltips['tinhTrangMau']}}" name="tinhTrangMau" class="input-form form-control" required>
 						</div>
 					</div>
-					<div class="row" style="margin-top: 40px;">
+					<div class="row" style="margin-top: 20px;">
 						<div class="col-sm-8">
 							<label for="thongTinKhac3Str">18. Thông tin khác:</label>
 							<textarea type="text" ng-model="data.thongTinKhac3Str" title="{{tooltips['thongTinKhac3Str']}}" name="thongTinKhac3Str" id="thongTinKhac3Str" class="input-form form-control" rows="5"></textarea>

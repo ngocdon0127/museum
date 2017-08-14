@@ -29,17 +29,17 @@
 // }
 
 app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
-    $scope.openFile = function(event) {
-      	var input = event.target;
+    $scope.openFile = function (event) {
+        var input = event.target;
 
-      	var reader = new FileReader();
-      	reader.onload = function(){
-        	var text = reader.result;
-        	var node = document.getElementById('output');
-        	node.innerText = text;
-        	console.log(reader.result.substring(0, 200));
-      	};
-      	reader.readAsText(input.files[0]);
+        var reader = new FileReader();
+        reader.onload = function () {
+            var text = reader.result;
+            var node = document.getElementById('output');
+            node.innerText = text;
+            console.log(reader.result.substring(0, 200));
+        };
+        reader.readAsText(input.files[0]);
     };
 
     $scope.read = function (data) {
@@ -48,7 +48,7 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
         result.then(function success(res) {
             console.log(res);
         })
-        
+
         // AuthService.startSpinner();
         // AuthService.addSample(result, AuthService.hostName + '/content/dong-vat', urlRe);
     }
@@ -74,18 +74,20 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
         // }
         console.log(data);
         var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if ((xhr.readyState == 4) && (xhr.status == 200)){
-                  var disposition = xhr.getResponseHeader('Content-Disposition');
-                  var file_names = disposition.split([';'])
-                  var file_name = decodeURIComponent(file_names[2]);
-                  var type = xhr.getResponseHeader('Content-Type');
-                  var blob = new Blob([xhr.response], {type: type});
-                  saveAs(blob, file_name);
-                }
+        xhr.onreadystatechange = function () {
+            if ((xhr.readyState == 4) && (xhr.status == 200)) {
+                var disposition = xhr.getResponseHeader('Content-Disposition');
+                var file_names = disposition.split([';'])
+                var file_name = decodeURIComponent(file_names[2]);
+                var type = xhr.getResponseHeader('Content-Type');
+                var blob = new Blob([xhr.response], {
+                    type: type
+                });
+                saveAs(blob, file_name);
             }
+        }
         xhr.responseType = 'arraybuffer';
-        xhr.open('POST',link, true);
+        xhr.open('POST', link, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(data);
     }

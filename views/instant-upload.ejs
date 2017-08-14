@@ -25,6 +25,7 @@
 				data.append('field', input.name)
 				var randomStr = 'donnn'
 				data.append('randomStr', randomStr)
+				input.disabled = true;
 	    		$.ajax({
 	    			url: '/content/instant-upload',
 	    			method: 'POST',
@@ -34,6 +35,7 @@
 					success: function (res) {
 						console.log('success');
 						console.log(res);
+						input.disabled = false;
 						if (res.status == 'success') {
 							var ul = ob('ul_' + res.field);
 							ul.innerHTML = ''
@@ -56,6 +58,7 @@
 						}
 					},
 					error: function (err) {
+						input.disabled = false;
 						console.log('error');
 						console.log(err);
 					}

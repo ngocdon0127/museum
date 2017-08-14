@@ -2,6 +2,13 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var multer = require('multer');
+const TMP_UPLOAD_DIR = 'public/uploads/tmp';
+var upload = multer({dest: TMP_UPLOAD_DIR})
+const path = require('path');
+const fs = require('fs');
+const fsE = require('fs-extra');
+const ROOT = path.join(__dirname, '../')
+
 
 router.use(isLoggedIn);
 
@@ -59,6 +66,79 @@ router.get('/download/*', function (req, res, next) {
 	}
 	
 	// res.end('ok');
+})
+
+router.get('/instant-upload', (req, res) => {
+	res.render('instant-upload', {
+		user: req.user,
+		sidebar: {
+			active: 'profile'
+		},
+	});
+})
+
+router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) => {
+	console.log(req.files);
+	console.log(req.body);
+	 /* { fieldname: 'tmpfiles',
+       originalname: '851575_126362140881916_1086262136_n.png',
+       encoding: '7bit',
+       mimetype: 'image/png',
+       destination: 'public/uploads/tmp',
+       filename: '1370080d63c024328a49fb7cc56aa2b5',
+       path: 'public\\uploads\\tmp\\1370080d63c024328a49fb7cc56aa2b5',
+       size: 8752 }, */
+    req.files.tmpfiles.map(cur => {
+		try {
+			fsE.moveSync(path.join(ROOT, TMP_UPLOAD_DIR, cur.filename),
+				path.join(ROOT, 
+					TMP_UPLOAD_DIR,
+					req.body.randomStr + '_+_' + req.body.field + '_+_' + cur.originalname
+				)
+			);
+		}
+		catch (e) {
+			console.log(e);
+		}
+	})
+	let files = []
+	fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
+		let prefix = req.body.randomStr + '_+_' + req.body.field + '_+_';
+		if (fileName.indexOf(prefix) == 0) {
+			files.push(fileName.substring(fileName.lastIndexOf('_+_') + 3))
+		}
+	});
+	return res.json({
+		status: 'success',
+		field: req.body.field,
+		randomStr: req.body.randomStr,
+		files: files
+	})
+})
+
+router.post('/instant-upload/delete', upload.fields([{name: 'tmpfiles'}]), (req, res) => {
+	console.log(req.files);
+	console.log(req.body);
+	try {
+		fsE.removeSync(path.join(ROOT,
+			TMP_UPLOAD_DIR, req.body.randomStr + '_+_' + req.body.field + '_+_' + req.body.fileName
+		))
+	} catch (e) {
+		console.log(e);
+	}
+	let files = []
+	fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
+		let prefix = req.body.randomStr + '_+_' + req.body.field + '_+_';
+		if (fileName.indexOf(prefix) == 0) {
+			files.push(fileName.substring(fileName.lastIndexOf('_+_') + 3))
+		}
+	});
+	return res.json({
+		status: 'success',
+		field: req.body.field,
+		randomStr: req.body.randomStr,
+		files: files
+	})
 })
 
 function isLoggedIn (req, res, next) {

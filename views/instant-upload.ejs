@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lịch sử nhập liệu</title>
+		<% include header %>
+	</head>
+	</head>
+	<body>
+		<% include nav %>
+		<div class="container-fluid" style="margin-top: 100px">
+			<input type="file" id='file1' name="file1" multiple="multiple" onchange="instantUpload(this)">
+			<ul id="ul_file1"></ul>
+		</div>
+		<script>
+			function ob(x) {
+				return document.getElementById(x)
+			}
+			function instantUpload(input) {
+				var data = new FormData()
+				console.log(input.name);
+				console.log(input.files);
+				for (var i = 0; i < input.files.length; i++) {
+					data.append('tmpfiles', input.files[i])
+				}
+				data.append('field', input.name)
+				var randomStr = 'donnn'
+				data.append('randomStr', randomStr)
+	    		$.ajax({
+	    			url: '/content/instant-upload',
+	    			method: 'POST',
+	    			contentType: false,
+					processData: false,
+					data: data,
+					success: function (res) {
+						console.log('success');
+						console.log(res);
+						if (res.status == 'success') {
+							var ul = ob('ul_' + res.field);
+							ul.innerHTML = ''
+							for (var i = 0; i < res.files.length; i++) {
+								var li = document.createElement('li');
+								li.setAttribute('data-file-name', res.files[i]);
+								li.setAttribute('data-field-name', res.field);
+								li.setAttribute('data-random-str', res.randomStr);
+								li.innerHTML = res.files[i];
+								li.addEventListener('click', function (event) {
+									console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
+									deleteTmpFile({
+										fileName: event.target.getAttribute('data-file-name'),
+										field: event.target.getAttribute('data-field-name'),
+										randomStr: event.target.getAttribute('data-random-str')
+									})
+								})
+								ul.appendChild(li)
+							}
+						}
+					},
+					error: function (err) {
+						console.log('error');
+						console.log(err);
+					}
+	    		})
+			}
+			function deleteTmpFile(file) {
+				$.ajax({
+	    			url: '/content/instant-upload/delete',
+	    			method: 'POST',
+					data: file,
+					success: function (res) {
+						console.log('success');
+						console.log(res);
+						if (res.status == 'success') {
+							var ul = ob('ul_' + res.field);
+							ul.innerHTML = ''
+							for (var i = 0; i < res.files.length; i++) {
+								var li = document.createElement('li');
+								li.setAttribute('data-file-name', res.files[i]);
+								li.setAttribute('data-field-name', res.field);
+								li.setAttribute('data-random-str', res.randomStr);
+								li.innerHTML = res.files[i];
+								li.addEventListener('click', function (event) {
+									console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
+									deleteTmpFile({
+										fileName: event.target.getAttribute('data-file-name'),
+										field: event.target.getAttribute('data-field-name'),
+										randomStr: event.target.getAttribute('data-random-str')
+									})
+								})
+								ul.appendChild(li)
+							}
+						}
+					},
+					error: function (err) {
+						console.log('error');
+						console.log(err);
+					}
+	    		})
+			}
+		</script>
+	</body>
+</html>

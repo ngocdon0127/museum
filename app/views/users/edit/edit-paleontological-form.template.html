@@ -284,8 +284,8 @@
 							<tr>
 								<td>Vị trí: </td>
 								<td>
-									<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="starDatLien()" id="datLien"> Trên đất liền 
-									<input type="radio" name="fDiaDiemThuMau" value="dao" id="datLien" ng-click="starDao()" ng-model="trenDao"> Trên đảo
+									<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-click="starDatLien()" id="datLien"> Trên đất liền 
+									<input type="radio" name="fDiaDiemThuMau" value="dao" id="dao" ng-click="starDao()" ng-model="trenDao"> Trên đảo
 									<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="starBien()" ng-model="trenBien"> Trên biển
 								</td>
 							</tr>
@@ -323,7 +323,7 @@
 									<input type="text" class="input-form flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" required>
 									<datalist id="xa">
 										<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
-									</select>
+									</datalist>
 								</td>
 							</tr>
 							<tr>
@@ -771,10 +771,10 @@
 		<div class="bottom-nav">
 			<center>
 				<button type="submit" ng-click="updatePost()" class="btn btn-primary">
-					<span class="glyphicon glyphicon-pencil"></span> Cập nhật
+					<span class="glyphicon glyphicon-pencil"></span> Cập nhật mẫu cũ
 				</button>
 				<button type="button" ng-click="saveAs()" class="btn btn-success">
-					<span class="glyphicon glyphicon-floppy-saved"></span> Save As
+					<span class="glyphicon glyphicon-floppy-saved"></span> Lưu mẫu mới
 				</button>
 				<div class="pull-right">
 					<button id="back-to-top" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span> Top</button>
@@ -782,7 +782,6 @@
 			</center>
 		</div>
 	</form>
-	
 </div>
 <!-- Custom input file -->
 <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>

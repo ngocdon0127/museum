@@ -327,7 +327,7 @@
 									<input type="text" class="input-form flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" required>
 									<datalist id="xa">
 										<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
-									</select>
+									</datalist>
 								</td>
 							</tr>
 							<tr>
@@ -765,10 +765,10 @@
 		<div class="bottom-nav">
 			<center>
 				<button type="submit" ng-click="updatePost()" class="btn btn-primary">
-					<span class="glyphicon glyphicon-pencil"></span> Cập nhật
+					<span class="glyphicon glyphicon-pencil"></span> Cập nhật mẫu cũ
 				</button>
 				<button type="button" ng-click="saveAs()" class="btn btn-success">
-					<span class="glyphicon glyphicon-floppy-saved"></span> Save As
+					<span class="glyphicon glyphicon-floppy-saved"></span> Lưu mẫu mới
 				</button>
 				<div class="pull-right">
 					<button id="back-to-top" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span> Top</button>

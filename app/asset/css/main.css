@@ -2,7 +2,7 @@ html {
 	padding: 0;
 	margin: 0;
 	height: 100%;
-    font-style: 15px;
+    font-style: 13px;
     /*font-family: 'Source Sans Pro', sans-serif;*/
     overflow: auto;
     box-sizing: border-box;
@@ -17,8 +17,9 @@ body {
   position: relative;
   margin: 0;
   padding-bottom: 6rem;
+  padding-top: 60px;
   min-height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: serif;
 }
 
 .coordinates{
@@ -60,6 +61,10 @@ body {
 .check-box:focus{
     outline: 0 none;
     box-shadow: none;
+}
+
+.select-date{
+    border-radius: 4px;
 }
 
 /*------------------customize checkbox---------------------*/
@@ -195,46 +200,75 @@ a.nav:hover{
     height:30px;
     border-radius: 4px; 
 }
+
+.tab-content > .tab-pane {
+    background-color: #F3F6F9;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2) !important;
+    border-radius: 4px;
+}
+
+.tabs > li > a {
+    border: 1px solid #ddd;
+}
+
+.tabs > li.active > a, .tabs > li.active > a:hover, .tabs > li.active > a:focus {
+    background-color: #F3F6F9;
+}
+
+.group > li > a{
+    background-color: #31708f;
+    color: #fff;
+}
+
+.group > li > a:hover{
+    background-color: #f5f5f5;
+    color: #000;
+}
+
 /*--------------end-New--------------*/
 /*------------------END-FORM_DATA---------------------*/
 
 @media screen and (min-width : 992px){
+    .wrap-content{
+        width: 1130px;
+    }
     .map-detail{
         background-color: #F3F6F9;
         padding: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        width: 1000px;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.2) !important;
+        /*width: 1000px;*/
         margin-left: auto;
         margin-right: auto;
+        border-left: 1px solid #ddd;
     }
 
-    .input-form{
-        padding: 5px;
+/*    .input-form{
+        height: 25px;
+        padding: 4px 7px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 300px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
 @media screen and (max-width : 992px){
-  .map-detail{
+    .map-detail{
         background-color: #F3F6F9;
-        padding: 15px;
+        padding: 15px; 
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        width: 800px;
+        /*width: 800px;*/
         margin-left: auto;
         margin-right: auto;
+        border-left: 1px solid #ddd;
     }
-    .input-form{
+/*    .input-form{
         padding: 5px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 300px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
 @media only screen and (max-width: 768px){
@@ -242,22 +276,22 @@ a.nav:hover{
       color: #000;  
     }
     .map-detail{
-        width: 800px;
+        /*width: 800px;*/
         margin-left: auto;
         margin-right: auto;
         background-color: #F3F6F9;
         padding: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        box-shadow: 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        border-left: 1px solid #ddd;
     }
 
-    .input-form{
+/*    .input-form{
         padding: 5px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 250px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
 /*  480px hoặc nhỏ hơn */
@@ -266,16 +300,16 @@ a.nav:hover{
         background-color: #F3F6F9;
         padding: 15px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        border-left: 1px solid #ddd;
     }
 
-    .input-form{
+/*    .input-form{
         padding: 5px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 200px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
 /* --------------RESPONSIVE LAYOUT----------- */
@@ -286,7 +320,6 @@ a.nav:hover{
     width: 100%;
     bottom: 10px;
     padding: 5px;
-    /*right: 20px;*/
 }
 
 .toggle-nav {

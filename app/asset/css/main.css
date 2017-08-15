@@ -39,7 +39,11 @@ body {
     border-radius: 4px;
     width: 300px;
 }
-/*------------------customize checkbox---------------------*/
+
+.select-date{
+    border-radius: 4px;
+}
+/*------------------customize checkbox-----------*/
 
 .check-box{
     cursor: pointer;
@@ -48,10 +52,11 @@ body {
     background: #bdc3c7;
     border-radius: 4px;
     box-sizing: border-box;
-    position: relative;
+    position: absolute;
     box-sizing: content-box ;
     width: 20px;
     height: 20px;
+    margin: 0px;
     border-width: 0;
     transition: all .3s linear;
 }
@@ -63,11 +68,12 @@ body {
     box-shadow: none;
 }
 
-.select-date{
-    border-radius: 4px;
+tr > td > a{
+    margin-left: 30px;
 }
 
-/*------------------customize checkbox---------------------*/
+
+/*------------------customize checkbox----------*/
 
 
 
@@ -162,7 +168,7 @@ a.nav:hover{
 #loading-bar .bar {
   position: relative;
 }
-/*------------------END-NAVBAR---------------------*/
+/*------------------END-NAVBAR--------------------*/
 
 /*------------------FORM_DATA---------------------*/
 .has-error{
@@ -234,7 +240,7 @@ a.nav:hover{
 }
 
 /*--------------end-New--------------*/
-/*------------------END-FORM_DATA---------------------*/
+/*-------------END-FORM_DATA----*/
 
 @media screen and (min-width : 992px){
     .map-detail{
@@ -316,9 +322,9 @@ a.nav:hover{
     }*/
 }
 
-/* --------------RESPONSIVE LAYOUT----------- */
+/* --------------RESPONSIVE LAYOUT------------------*/
 
-/* -------------Phan button phia duoi cung */
+/* -------------Phan button phia duoi cung----------*/
 .bottom-nav {
     position: fixed;
     width: 100%;

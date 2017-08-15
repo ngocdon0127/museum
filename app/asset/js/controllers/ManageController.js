@@ -197,7 +197,7 @@ app.controller('ExportFileController', function ($scope, AuthService, $uibModal,
         }, function (err) {
             // log something
         })
-    }, 1000)
+    }, 2000)
 
 
     $scope.export = function (id) {

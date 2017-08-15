@@ -9,13 +9,15 @@
 			</div>
 		</div>
 	</div>
-	<center><h2>Các mẫu vật đã đăng</h2></center>
-	<table id="managerpost" class="table table-hover table-bordered">
+	<center><h3><b>Quản lý mẫu vật đã đăng {{data.length}}</b></h3></center>
+	<table class="table">
 		<thead>
 			<tr>
-				<th colspan="6">
-					<div class="dropdown">
-						<button class="btn btn-primary">Trích xuất file <b class="caret"></b></button>
+				<th colspan="7">
+					<button class="btn btn-sm btn-success" style="cursor: pointer; float: right; border-radius: 0px;" ng-click="selectAll()"><span class="glyphicons glyphicons-ok"></span> Select all</button>
+
+					<div class="dropdown" style="float: right;">
+						<button class="btn btn-sm btn-primary" style="border-radius: 0px;"><span class="glyphicon glyphicon-export"></span> Trích xuất <b class="caret"></b></button>
 						<input type="hidden" name="link" ng-bind="link" id="input" class="form-control" value="">
 						<div class="dropdown-content" ng-controller="ExportFileController">
 					    	<a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
@@ -24,7 +26,7 @@
 					    	<a ng-click="export('zip')"><span class="glyphicon glyphicon-download"></span> Xuất zip</a>
 						</div>
 					</div>
-					<button class="btn btn-success" style="cursor: pointer" ng-click="selectAll()"><span class="glyphicons glyphicons-ok"></span> Select all</button>
+					
 					<!-- <div class="btn-group" data-toggle="buttons">
 						<label class="btn btn-success active">
 							<input type="checkbox" ng-model="selectall" ng-click="selectAll()">
@@ -34,8 +36,11 @@
 				</th>
 			</tr>
 		</thead>
+	</table>
+	<table id="managerpost" class="map-detail  table table-striped table-bordered">
 		<thead>
 			<tr>
+				<th>STT</th>
 				<th>Tên mẫu vật</th>
 				<th>Tên người lập phiếu</th>
 				<th>Thông tin cơ bản</th>
@@ -46,6 +51,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="(key, post) in data">
+				<td>{{key + 1}}</td>
 				<td>
 					<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{link}}/{{post._id}}?display='>
 					<a style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</span></a>
@@ -54,7 +60,7 @@
 					{{post.nguoiLapPhieuMauVat ? post.nguoiLapPhieuMauVat : 'Chưa có tên'}}
 				</td>
 				<td>
-					<span>Người thu mẫu: </span>{{post.nguoiThuMau}}				
+					<span>Người thu mẫu: </span>{{post.nguoiThuMau ? post.nguoiThuMau : 'Chưa có tên'}}				
 				</td>
 				<td>
 					{{post.created_at | date: "yyyy-MM-dd hh:mm:ss"}}
@@ -123,7 +129,6 @@
 							<i class="glyphicon glyphicon-trash"></i>
 						</button>
 					</div>
-					<!-- </div> -->
 				</td>
 			</tr>
 		</tbody>
@@ -177,7 +182,7 @@
 <script src="/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
-<!-- <script>
+<script>
 	$(document).ready(function () {
 		setTimeout(function(){
 			$('#managerpost').DataTable({
@@ -192,7 +197,7 @@
 				    "emptyTable":     "Không có dữ liệu",
 				    "info":           "<strong>Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi</strong>",
 				    "infoEmpty":      "<strong>Đang xem từ 0 tới 0 trong tổng số 0</strong>",
-				    "infoFiltered":   "(filtered from _MAX_ total entries)",
+				    "infoFiltered":   "(Lọc trong _MAX_ mẫu)",
 				    "infoPostFix":    "",
 				    "thousands":      ",",
 				    "lengthMenu":     "Xem _MENU_ mẫu vật",
@@ -211,10 +216,10 @@
 				        "sortDescending": ": activate to sort column descending"
 				    }
 				}
-			}).order([3, 'desc']).draw();
+			}).order([0, 'asc']).draw();
 		}, 1000);
 	});
-</script> -->
+</script>
 
 <script type="text/javascript">
 	$(document).ready(function () {

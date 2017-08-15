@@ -1,9 +1,45 @@
+// var setTable = function() {
+//     $('#managerpost').DataTable({
+//         "paging": true,
+//         "lengthChange": true,
+//         "searching": true,
+//         "ordering": true,
+//         "info": true,
+//         "autoWidth": true,
+//         "language": {
+//             "decimal":        "",
+//             "emptyTable":     "Không có dữ liệu",
+//             "info":           "<strong>Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi</strong>",
+//             "infoEmpty":      "<strong>Đang xem từ 0 tới 0 trong tổng số 0</strong>",
+//             "infoFiltered":   "(filtered from _MAX_ total entries)",
+//             "infoPostFix":    "",
+//             "thousands":      ",",
+//             "lengthMenu":     "Xem _MENU_ mẫu vật",
+//             "loadingRecords": "Đang tải...",
+//             "processing":     "Đang xử lý...",
+//             "search":         "<b>Tìm kiếm:</b>",
+//             "zeroRecords":    "<b>Không tìm thấy nội dung</b>",
+//             "paginate": {
+//                 "first":      "Đầu trang",
+//                 "last":       "Cuối trang",
+//                 "next":       "Sau",
+//                 "previous":   "Trước"
+//             },
+//             "aria": {
+//                 "sortAscending":  ": activate to sort column ascending",
+//                 "sortDescending": ": activate to sort column descending"
+//             }
+//         }
+//     }).order([3, 'desc']).draw();
+// }
+
 app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
     var url = AuthService.hostName + '/content/dong-vat';
     $http.get(url).then(function (res) {
         $scope.data = res.data.animals;
         $scope.status = res.data.status;
         $scope.link = 'dong-vat';
+        // setTable();
     }, function (err) {
         console.log(err);
         $scope.status = res.data.status;

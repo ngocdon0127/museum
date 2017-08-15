@@ -771,10 +771,14 @@
 				</div>
 			
 				<div class="map-detail form-group" ng-show="isSet(9)" style="padding-top: 30px;">
-					<label for="thongTinKhac9Str">67. Thông tin khác: </label>
-					<textarea type="text" ng-model="data.thongTinKhac9Str" title="{{tooltips['thongTinKhac9Str']}}" id="thongTinKhac9Str" name="thongTinKhac9Str" class="form-control input-form" rows="5"></textarea>
-					<input type="file" multiple ng-model="data.thongTinKhac9File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac9File" name ="thongTinKhac9File">
-					<label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<div class="row">
+						<div class="col-sm-8">
+							<label for="thongTinKhac9Str">67. Thông tin khác: </label>
+							<textarea type="text" ng-model="data.thongTinKhac9Str" title="{{tooltips['thongTinKhac9Str']}}" id="thongTinKhac9Str" name="thongTinKhac9Str" class="form-control input-form" rows="7"></textarea>
+							<input type="file" multiple ng-model="data.thongTinKhac9File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac9File" name ="thongTinKhac9File">
+							<label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+						</div>
+					</div>
 				</div>
 		</div>
 		

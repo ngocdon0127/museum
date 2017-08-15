@@ -4,7 +4,7 @@
 
 </div>
 <div class="modal-body">
-	<input type="text" title="{{tooltips['fields']}}" name="fields" class=" col-xs-12 input-form flexdatalist-force" data-min-length='0' multiple='multiple' ng-model="data.fields" list="fields">
+	<input type="text" title="{{tooltips['fields']}}" name="fields" class=" col-xs-12 input-form form-control flexdatalist-force" data-min-length='0' multiple='multiple' ng-model="data.fields" list="fields">
 	<datalist id="fields">
 		<option ng-repeat="(key, value) in fields" value="{{key}}">{{value}}</option>
 	</datalist>

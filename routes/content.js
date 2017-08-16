@@ -90,10 +90,15 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
        size: 8752 }, */
     req.files.tmpfiles.map(cur => {
 		try {
+			// Xóa bỏ 2 hoặc nhiều dấu chấm liền nhau. Đề phòng lỗi khi nó cố tình download file ngoài thư mục public
+			// while (cur.originalname.indexOf('..') >= 0){
+			// 	cur.originalname = cur.originalname.replace('..', '.');
+			// }
+			cur.originalname = cur.originalname.replace(/\.{2,}/g, '.');
 			fsE.moveSync(path.join(ROOT, TMP_UPLOAD_DIR, cur.filename),
 				path.join(ROOT, 
 					TMP_UPLOAD_DIR,
-					req.body.randomStr + '_+_' + req.body.field + '_+_' + cur.originalname
+					req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR + cur.originalname
 				)
 			);
 		}
@@ -103,9 +108,9 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 	})
 	let files = []
 	fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
-		let prefix = req.body.randomStr + '_+_' + req.body.field + '_+_';
+		let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
 		if (fileName.indexOf(prefix) == 0) {
-			files.push(fileName.substring(fileName.lastIndexOf('_+_') + 3))
+			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
 		}
 	});
 	return res.json({
@@ -121,16 +126,16 @@ router.post('/instant-upload/delete', upload.fields([{name: 'tmpfiles'}]), (req,
 	console.log(req.body);
 	try {
 		fsE.removeSync(path.join(ROOT,
-			TMP_UPLOAD_DIR, req.body.randomStr + '_+_' + req.body.field + '_+_' + req.body.fileName
+			TMP_UPLOAD_DIR, req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR + req.body.fileName
 		))
 	} catch (e) {
 		console.log(e);
 	}
 	let files = []
 	fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
-		let prefix = req.body.randomStr + '_+_' + req.body.field + '_+_';
+		let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
 		if (fileName.indexOf(prefix) == 0) {
-			files.push(fileName.substring(fileName.lastIndexOf('_+_') + 3))
+			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
 		}
 	});
 	return res.json({

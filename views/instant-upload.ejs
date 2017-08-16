@@ -8,10 +8,21 @@
 	<body>
 		<% include nav %>
 		<div class="container-fluid" style="margin-top: 100px">
-			<input type="file" id='file1' name="file1" multiple="multiple" onchange="instantUpload(this)">
-			<ul id="ul_file1"></ul>
+			<div class="row">
+				<input type="file" id='anhMauVat' name="anhMauVat" multiple="multiple" onchange="instantUpload(this)">
+				<ul id="ul_anhMauVat"></ul>
+			</div>
+
+			<div class="row">
+				<input type="file" id='hinhAnhNgoaiThucDia' name="hinhAnhNgoaiThucDia" multiple="multiple" onchange="instantUpload(this)">
+				<ul id="ul_hinhAnhNgoaiThucDia"></ul>
+			</div>
 		</div>
 		<script>
+			var soureHash = navigator.userAgent + (new Date()).getTime().toString();
+			console.log('soureHash:', soureHash);
+			var randomStr = CryptoJS.MD5(soureHash).toString();
+			console.log('randomStr:', randomStr);
 			function ob(x) {
 				return document.getElementById(x)
 			}
@@ -23,7 +34,6 @@
 					data.append('tmpfiles', input.files[i])
 				}
 				data.append('field', input.name)
-				var randomStr = 'donnn'
 				data.append('randomStr', randomStr)
 				input.disabled = true;
 	    		$.ajax({

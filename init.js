@@ -4,8 +4,9 @@
 var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 require('./config/acl.js')(acl);
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
+const fsE = require('fs-extra');
 
 // place all global Promises inside this object
 global.myCustomVars.promises = {}
@@ -693,7 +694,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				}
 				return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error'], ['Error while saving to database']);
 			}
-
+			const TMP_UPLOAD_DIR = 'public/uploads/tmp';
+			const ROOT = path.join(__dirname);
+			const currentTmpFiles = fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'});
 			// rename images
 			FILE_FIELDS.map(function (element) {
 				// console.log('---');
@@ -739,6 +742,24 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					rename(req.files[element.name], element.name, objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DESTINATION, result.id);
 					// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DESTINATION, result.id);
 				}
+
+				// Thêm các file được tải lên bằng route /content/instant-upload vào trong mẫu vật.
+				// (các file được tải lên trong khi người dùng đang nhập liệu, trước khi mẫu vật được thực sự tạo ra)
+				
+				let randomStr = req.body.randomStr;
+				currentTmpFiles.map((fileName) => {
+					let prefix = req.body.randomStr + STR_SEPERATOR + element.name + STR_SEPERATOR;
+					if (fileName.indexOf(prefix) == 0) {
+						let curFullName = fileName.split(STR_SEPERATOR);
+						curFullName[0] = result.id;
+						let newFullName = curFullName.join(STR_SEPERATOR);
+						fsE.moveSync(
+							path.join(ROOT, TMP_UPLOAD_DIR, fileName),
+							path.join(ROOT, _UPLOAD_DESTINATION, newFullName)
+						);
+						objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
+					}
+				});
 			})
 
 			if (action == ACTION_CREATE){
@@ -2783,7 +2804,6 @@ var exportZipPromise = (objectInstance, options, extension) => {
 			let fileName = result.outputFileName.xlsx;
 			fs.renameSync(result.absoluteFilePath.xlsx, path.join(__dirname, 'tmp', tmpFolderName, result.outputFileName.xlsx));
 			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
-			let fsE = require('fs-extra');
 			// console.log('here process flatOI ' + Object.keys(flatOI).length);
 			for(let i in flatOI){
 				let arrFiles = flatOI[i];
@@ -2860,7 +2880,6 @@ function exportZip (objectInstance, options, res, extension) {
 					return res.end(err);
 				}
 				try {
-					let fsE = require('fs-extra');
 					fsE.removeSync(path.join(__dirname, 'tmp', wrapperName + '.zip'));
 					fsE.removeSync(path.join(__dirname, 'tmp', wrapperName));
 				}

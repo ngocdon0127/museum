@@ -117,6 +117,16 @@ app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService',
         console.log(err);
     });
 
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    }
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    }
+
     var arrAuto = AuthService.arrAuto;
 
     $http.get(AuthService.hostName + '/content/co-sinh/auto').then(function (res) {
@@ -220,6 +230,16 @@ app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$sta
         console.log(err);
     });
 
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    }
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    }
+
     var arrAuto = AuthService.arrAuto;
 
     $http.get(AuthService.hostName + '/content/thuc-vat/auto').then(function (res) {
@@ -320,6 +340,16 @@ app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$st
     }, function (err) {
         console.log(err);
     });
+
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    }
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    }
 
     var arrAuto = AuthService.arrAuto;
 
@@ -426,6 +456,16 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
     }, function (err) {
         console.log(err);
     });
+
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    }
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    }
 
     var arrAuto = AuthService.arrAuto;
 

@@ -187,7 +187,7 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		templateUrl: 'views/errors/error.template.html',
 		controller: 'OfflineCtrl'
 	});
-	$urlRouterProvider.otherwise('/loi-trang');
+	$urlRouterProvider.otherwise('/');
 });
 
 app.run(function($rootScope, $location, $state, $stateParams, $http, AuthService){

@@ -181,8 +181,13 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		url: '/guest/test',
 		templateUrl: 'views/guest/test.template.html',
 		controller: 'OfflineCtrl'
+	})
+	.state('error-page', {
+		url: '/loi-trang',
+		templateUrl: 'views/errors/error.template.html',
+		controller: 'OfflineCtrl'
 	});
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/loi-trang');
 });
 
 app.run(function($rootScope, $location, $state, $stateParams, $http, AuthService){

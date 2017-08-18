@@ -194,6 +194,16 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     // default unit
     initDefaultUnits($scope);
 
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    };
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    };
+
     // render flexdatalist
     AuthService.renderFlexdatalist()
 
@@ -347,6 +357,16 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) 
     // default unit
     initDefaultUnits($scope);
 
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    };
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    };
+
     // render flexdatalist
     AuthService.renderFlexdatalist()
 
@@ -431,6 +451,16 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
 
     // default unit
     initDefaultUnits($scope);
+
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    };
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    };
 
     // render flexdatalist
     AuthService.renderFlexdatalist()

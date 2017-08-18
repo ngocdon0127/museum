@@ -127,7 +127,7 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 		// get all current saved files in the object
 		let model = models[req.body.form];
 		model.findById(req.body.objectId, (err, objectInstance) => {
-			if (!err) {
+			if (!err && objectInstance) {
 				let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
 				let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;
 				let UPLOAD_DESTINATION = global.myCustomVars.models[req.body.form].UPLOAD_DESTINATION;
@@ -201,7 +201,7 @@ router.post('/instant-upload/delete', upload.fields([{name: 'tmpfiles'}]), (req,
 		// get all current saved files in the object
 		let model = models[req.body.form];
 		model.findById(req.body.objectId, (err, objectInstance) => {
-			if (!err) {
+			if (!err && objectInstance) {
 				let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
 				let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;
 				let UPLOAD_DESTINATION = global.myCustomVars.models[req.body.form].UPLOAD_DESTINATION;

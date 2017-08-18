@@ -296,7 +296,7 @@ var await = require('asyncawait/await');
 // }
 
 
-var officegen = require('officegen-complex-table');
+var officegen = require('officegen');
 var fs = require('fs');
 var path = require('path');
 
@@ -501,4 +501,9 @@ var tableStyle = {
 }
 
 // docx.createTable (table, tableStyle);
-docx.generate(out);
+// docx.generate(out);
+// 
+const util = require('util')
+console.log(fs.statSync('./2.txt'));
+console.log(util.inspect(fs.statSync('./2.txt')))
+console.log((new Date(fs.statSync('./2.txt').mtime)).getTime());

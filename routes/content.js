@@ -8,6 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const fsE = require('fs-extra');
 const ROOT = path.join(__dirname, '../')
+const mongoose = require('mongoose');
 
 
 router.use(isLoggedIn);
@@ -113,12 +114,61 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
 		}
 	});
-	return res.json({
-		status: 'success',
-		field: req.body.field,
-		randomStr: req.body.randomStr,
-		files: files
-	})
+	let savedFiles = []
+	// TODO
+	let models = {
+		'co-sinh': mongoose.model('Paleontological'),
+		'dia-chat': mongoose.model('Geological'),
+		'dong-vat': mongoose.model('Animal'),
+		'tho-nhuong': mongoose.model('Soil'),
+		'thuc-vat': mongoose.model('Vegetable'),
+	}
+	if (req.body.objectId && req.body.form && (req.body.form in models)) {
+		// get all current saved files in the object
+		let model = models[req.body.form];
+		model.findById(req.body.objectId, (err, objectInstance) => {
+			if (!err) {
+				let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
+				let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;
+				let UPLOAD_DESTINATION = global.myCustomVars.models[req.body.form].UPLOAD_DESTINATION;
+				let objectChild = global.myCustomVars.objectChild;
+				let arr = []
+				if (req.body.field in PROP_FIELDS_OBJ) {
+					arr = objectChild(objectInstance, PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].schemaProp)[req.body.field];
+					console.log('savedFiles');
+					console.log(arr);
+					arr.map(f => {
+						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+					})
+				} else {
+					console.log(req.body.field, 'not in', 'PROP_FIELDS_OBJ');
+				}
+			} else {
+				console.log(err);
+			}
+			return res.json({
+				status: 'success',
+				field: req.body.field,
+				randomStr: req.body.randomStr,
+				files: files,
+				savedFiles: savedFiles
+			})
+		})
+	} else {
+		return res.json({
+			status: 'success',
+			field: req.body.field,
+			randomStr: req.body.randomStr,
+			files: files,
+			savedFiles: savedFiles
+		})
+	}
+	// return res.json({
+	// 	status: 'success',
+	// 	field: req.body.field,
+	// 	randomStr: req.body.randomStr,
+	// 	files: files
+	// })
 })
 
 router.post('/instant-upload/delete', upload.fields([{name: 'tmpfiles'}]), (req, res) => {
@@ -138,12 +188,56 @@ router.post('/instant-upload/delete', upload.fields([{name: 'tmpfiles'}]), (req,
 			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
 		}
 	});
-	return res.json({
-		status: 'success',
-		field: req.body.field,
-		randomStr: req.body.randomStr,
-		files: files
-	})
+	let savedFiles = []
+	// TODO
+	let models = {
+		'co-sinh': mongoose.model('Paleontological'),
+		'dia-chat': mongoose.model('Geological'),
+		'dong-vat': mongoose.model('Animal'),
+		'tho-nhuong': mongoose.model('Soil'),
+		'thuc-vat': mongoose.model('Vegetable'),
+	}
+	if (req.body.objectId && req.body.form && (req.body.form in models)) {
+		// get all current saved files in the object
+		let model = models[req.body.form];
+		model.findById(req.body.objectId, (err, objectInstance) => {
+			if (!err) {
+				let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
+				let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;
+				let UPLOAD_DESTINATION = global.myCustomVars.models[req.body.form].UPLOAD_DESTINATION;
+				let objectChild = global.myCustomVars.objectChild;
+				let arr = []
+				if (req.body.field in PROP_FIELDS_OBJ) {
+					arr = objectChild(objectInstance, PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].schemaProp)[req.body.field];
+					console.log('savedFiles');
+					console.log(arr);
+					arr.map(f => {
+						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+					})
+				} else {
+					console.log(req.body.field, 'not in', 'PROP_FIELDS_OBJ');
+				}
+			} else {
+				console.log(err);
+			}
+			return res.json({
+				status: 'success',
+				field: req.body.field,
+				randomStr: req.body.randomStr,
+				files: files,
+				savedFiles: savedFiles
+			})
+		})
+	} else {
+		return res.json({
+			status: 'success',
+			field: req.body.field,
+			randomStr: req.body.randomStr,
+			files: files,
+			savedFiles: savedFiles
+		})
+	}
+	
 })
 
 function isLoggedIn (req, res, next) {

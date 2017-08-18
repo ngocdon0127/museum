@@ -35,6 +35,8 @@
 				}
 				data.append('field', input.name)
 				data.append('randomStr', randomStr)
+				data.append('form', 'dong-vat')
+				data.append('objectId', '58d79d38e2058328e82fd863')
 				input.disabled = true;
 	    		$.ajax({
 	    			url: '/content/instant-upload',
@@ -60,7 +62,9 @@
 									deleteTmpFile({
 										fileName: event.target.getAttribute('data-file-name'),
 										field: event.target.getAttribute('data-field-name'),
-										randomStr: event.target.getAttribute('data-random-str')
+										randomStr: event.target.getAttribute('data-random-str'),
+										form: 'dong-vat',
+										objectId: '58d79d38e2058328e82fd863'
 									})
 								})
 								ul.appendChild(li)
@@ -96,7 +100,9 @@
 									deleteTmpFile({
 										fileName: event.target.getAttribute('data-file-name'),
 										field: event.target.getAttribute('data-field-name'),
-										randomStr: event.target.getAttribute('data-random-str')
+										randomStr: event.target.getAttribute('data-random-str'),
+										form: 'dong-vat',
+										objectId: '58d79d38e2058328e82fd863'
 									})
 								})
 								ul.appendChild(li)

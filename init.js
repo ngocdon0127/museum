@@ -7,6 +7,8 @@ require('./config/acl.js')(acl);
 const path = require('path');
 const fs = require('fs');
 const fsE = require('fs-extra');
+const TMP_UPLOAD_DIR = 'public/uploads/tmp';
+const ROOT = path.join(__dirname);
 
 // place all global Promises inside this object
 global.myCustomVars.promises = {}
@@ -694,8 +696,6 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				}
 				return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error'], ['Error while saving to database']);
 			}
-			const TMP_UPLOAD_DIR = 'public/uploads/tmp';
-			const ROOT = path.join(__dirname);
 			const currentTmpFiles = fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'});
 			// rename images
 			FILE_FIELDS.map(function (element) {
@@ -723,19 +723,23 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// TODO
 						// need to delete old files.
 						// console.log('delete old files');
-						var files = objectChild(objectInstance, element.schemaProp)[element.name];
-						// console.log(files);
-						for (var j = 0; j < files.length; j++) {
-							// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-							try {
-								fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-								console.log('deleted ' + files[j])
-							}
-							catch (e){
-								console.log('delete failed ' + files[j])
-								console.log(e)
-							}
-						}
+						// 
+						// NOW we don't need to delete old files.
+						// have a new API to to that
+						// the remaining files are actually necessary
+						// var files = objectChild(objectInstance, element.schemaProp)[element.name];
+						// // console.log(files);
+						// for (var j = 0; j < files.length; j++) {
+						// 	// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 	try {
+						// 		fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 		console.log('deleted ' + files[j])
+						// 	}
+						// 	catch (e){
+						// 		console.log('delete failed ' + files[j])
+						// 		console.log(e)
+						// 	}
+						// }
 
 					}
 					objectChild(objectInstance, element.schemaProp)[element.name] = [];
@@ -3271,6 +3275,163 @@ var deleteHandler = function (options) {
 
 global.myCustomVars.deleteHandler = deleteHandler;
 
+var deleteFileHander = options => {
+	return (req, res, next) => {
+		async(() => {
+			let objectModelIdParamName = options.objectModelIdParamName
+			let UPLOAD_DESTINATION = options.UPLOAD_DESTINATION
+			let ObjectModel = options.ObjectModel
+			let saveOrUpdate = options.saveOrUpdate;
+			let PROP_FIELDS = options.PROP_FIELDS;
+			let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
+			// console.log(objectModelIdParamName);
+			var missingParam = checkRequiredParams([objectModelIdParamName, 'randomStr', 'field', 'fileName'], req.body);
+			if (missingParam){
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + missingParam]);  
+			}
+			// console.log(req.body.animalId);
+			var objectModelId = '';
+			try {
+				// console.log(req.body[objectModelIdParamName]);
+				objectModelId = mongoose.Types.ObjectId(req.body[objectModelIdParamName]);
+			}
+			catch (e){
+				console.log(e);
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
+			}
+			var objectInstance = await(new Promise((resolve, reject) => {
+				ObjectModel.findById(objectModelId, function (err, objectInstance) {
+					if (err){
+						console.log(err);
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ["Error while reading database"])
+						resolve(null)
+					}
+					
+					if (objectInstance && (!objectInstance.deleted_at)) {
+						resolve(objectInstance);
+					}
+
+					else {
+						responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
+						resolve(null)
+					}
+				})
+			}))
+			if (objectInstance){
+				var canEdit = false;
+
+				var userRoles = await(new Promise((resolve, reject) => {
+					acl.userRoles(req.session.userId, (err, roles) => {
+						console.log('promised userRoles called');
+						if (err){
+							resolve([])
+						}
+						else {
+							resolve(roles)
+						}
+					})
+				}))
+
+				if (userRoles.indexOf('admin') >= 0){
+					// Nếu là Admin, cập nhật đẹp
+					canEdit = true;
+				}
+				if ((userRoles.indexOf('manager') >= 0) && req.user.maDeTai == objectInstance.maDeTai.maDeTai){
+					// Nếu là chủ nhiệm đề tài, cũng OK
+					canEdit = true;
+				}
+				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
+					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
+					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
+				}
+
+				// ===
+				// if (objectInstance.created_by.userId == req.user.id){
+				// 	canEdit = true; // Nếu mẫu do chính user tạo, có thể cập nhật
+				// }
+				// if (req.user.level){
+				// 	let level = parseInt(req.user.level);
+				// 	if (level >= PERM_ACCESS_ALL){
+				// 		canEdit = true; // Nếu là SUPERUSER, cập nhật đẹp
+				// 	}
+				// 	else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				// 		canEdit = true; // Nếu là chủ nhiệm đề tài, cũng OK
+				// 	}
+				// }
+				// ===
+
+				if (!canEdit){
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'], ['Bạn không có quyền sửa đổi mẫu dữ liệu này'])
+				}
+
+				// return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
+				let oldFileName = objectInstance.id + STR_SEPERATOR + req.body.field + STR_SEPERATOR + req.body.fileName;
+				if (!(PROP_FIELDS_OBJ[req.body.field])) {
+					return res.status(400).json({
+						status: 'error',
+						error: 'invalid field'
+					})
+				}
+				console.log(oldFileName);
+				let arr = objectChild(objectInstance, PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].schemaProp) [req.body.field];
+				let pos = arr.indexOf(oldFileName);
+				let savedFiles = [];
+				if (pos < 0) {
+					let files = []
+					fs.readdirSync(path.join(__dirname, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
+						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+						if (fileName.indexOf(prefix) == 0) {
+							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+						}
+					});
+					arr.map(f => {
+						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+					})
+					return res.status(400).json({
+						status: 'error',
+						error: 'file not found',
+						files: files,
+						savedFiles: savedFiles,
+					})
+				}
+				
+				try {
+					arr.splice(pos, 1);
+					fs.unlinkSync(path.join(__dirname, UPLOAD_DESTINATION, oldFileName));
+				} catch (e) {
+					console.log(e);
+				}
+
+				objectInstance.save((err, oi) => {
+					if (err) {
+						console.log(err);
+					}
+					let files = []
+					fs.readdirSync(path.join(__dirname, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
+						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+						if (fileName.indexOf(prefix) == 0) {
+							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+						}
+					});
+					arr.map(f => {
+						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+					})
+					return responseSuccess(res, ['files', 'savedFiles'], [files, savedFiles]);
+				})
+
+			} else {
+				return res.status(404).json({
+					status: 'error',
+					error: 'Not found'
+				})
+			}
+		})();
+	}
+}
+
+global.myCustomVars.deleteFileHander = deleteFileHander;
+
 var putHandler = function (options) {
 	return function (req, res, next) {
 		// console.log(req.body);
@@ -3285,7 +3446,7 @@ var putHandler = function (options) {
 			// console.log(objectModelIdParamName);
 			var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
 			if (missingParam){
-				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + missingParam]);  
 			}
 			// console.log(req.body.animalId);
 			var objectModelId = '';

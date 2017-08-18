@@ -15,6 +15,7 @@ var acl = require('acl');
 var app = express();
 
 global.myCustomVars = {};
+global.myCustomVars.models = {};
 
 var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);

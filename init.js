@@ -722,15 +722,17 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// console.log('delete old files');
 						var files = objectChild(objectInstance, element.schemaProp)[element.name];
 						// console.log(files);
-						for (var j = 0; j < files.length; j++) {
-							// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-							try {
-								fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-								console.log('deleted ' + files[j])
-							}
-							catch (e){
-								console.log('delete failed ' + files[j])
-								console.log(e)
+						if(files instanceof Array) {
+							for (var j = 0; j < files.length; j++) {
+								// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+								try {
+									fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+									console.log('deleted ' + files[j])
+								}
+								catch (e){
+									console.log('delete failed ' + files[j])
+									console.log(e)
+								}
 							}
 						}
 

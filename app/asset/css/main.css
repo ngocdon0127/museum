@@ -6,7 +6,7 @@ html {
     /*font-family: 'Source Sans Pro', sans-serif;*/
     overflow: auto;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
 }
 *,
 *:before,
@@ -19,7 +19,7 @@ body {
   padding-bottom: 6rem;
   padding-top: 60px;
   min-height: 100%;
-  font-family: serif;
+  /*font-family: serif;*/
 }
 
 .coordinates{
@@ -79,7 +79,7 @@ body {
 
 /*------------------NAVBAR---------------------*/
 .navbar-default{
-	background-color: #19C662;
+	background-color: #0e8110;
 }
 
 .navbar-brand{
@@ -230,7 +230,7 @@ a.nav:hover{
 }
 
 .group > li > a{
-    background-color: #31708f;
+    background-color: #1a439a;
     color: #fff;
 }
 
@@ -327,7 +327,8 @@ a.nav:hover{
 /* -------------Phan button phia duoi cung----------*/
 .bottom-nav {
     position: fixed;
-    width: 100%;
+    width: 80%;
+    margin: auto;
     bottom: 10px;
     padding: 5px;
 }
@@ -339,4 +340,14 @@ a.nav:hover{
 .toggle-nav ul li {
     /*margin-top: 5px;*/
     /*width: 100%;*/
+}
+
+.btn-circle{
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
 }

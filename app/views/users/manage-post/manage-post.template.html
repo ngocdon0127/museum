@@ -70,9 +70,6 @@
 				</td>
 				<td>
 					<div ng-if="link == 'dong-vat'" ng-controller="ModalCtrl">
-						<button data-toggle="popover" data-trigger="hover" data-content="{{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}" class="btn btn-{{post.fApproved ? 'info' : 'warning'}} btn-xs" ng-if="restricted.restrict.dongvat.approve" ng-click="approvePost(post._id, post.fApproved)">
-							<i class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></i>
-						</button>
 						<button data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success" ng-if="restricted.restrict.dongvat.edit" ui-sref= "chinh-sua-dong-vat({id : post._id})">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -82,10 +79,6 @@
 					</div>
 
 					<div ng-if="link == 'thuc-vat'" ng-controller="ModalCtrl">
-						<button ng-if="restricted.restrict.thucvat.approve" ng-click="approvePost(post._id, post.fApproved)" data-toggle="popover" data-trigger="hover" data-content="{{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}" class="btn btn-{{post.fApproved ? 'info' : 'warning'}} btn-xs">
-							<i class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></i> 
-						</button>
-
 						<button ng-if="restricted.restrict.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -95,9 +88,6 @@
 					</div>
 
 					<div ng-if="link == 'co-sinh'" ng-controller="ModalCtrl">
-						<button ng-if="restricted.restrict.cosinh.approve" ng-click="approvePost(post._id, post.fApproved)" data-toggle="popover" data-trigger="hover" data-content="{{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}" class="btn btn-{{post.fApproved ? 'info' : 'warning'}} btn-xs">
-							<i class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></i>
-						</button>
 						<button ng-if="restricted.restrict.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -107,9 +97,6 @@
 					</div>
 
 					<div ng-if="link == 'tho-nhuong'" ng-controller="ModalCtrl">
-						<button ng-if="restricted.restrict.thonhuong.approve" ng-click="approvePost(post._id, post.fApproved)" data-toggle="popover" data-trigger="hover" data-content="{{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}" class="btn btn-{{post.fApproved ? 'info' : 'warning'}} btn-xs">
-							<i class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></i>
-						</button>
 						<button ng-if="restricted.restrict.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -119,9 +106,6 @@
 					</div>
 
 					<div ng-if="link == 'dia-chat'" ng-controller="ModalCtrl">
-						<button ng-if="restricted.restrict.diachat.approve" ng-click="approvePost(post._id, post.fApproved)" data-toggle="popover" data-trigger="hover" data-content="{{post.fApproved ? 'Hủy phê duyệt' : ' Phê duyệt'}}" class="btn btn-{{post.fApproved ? 'info' : 'warning'}} btn-xs">
-							<i class="glyphicon glyphicon-{{post.fApproved ? 'ok' : 'warning-sign'}}"></i>
-						</button>
 						<button ng-if="restricted.restrict.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>

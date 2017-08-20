@@ -4,7 +4,7 @@
     </center>
     <div class="container-fluid">
         <ul class="nav nav-tabs group tabs">
-            <li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu mẫu vật</a></li>
+            <li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu</a></li>
             <li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">Tên mẫu vật</a></li>
             <li ng-class="{active: isSet(3)}"><a href ng-click="setTab(3)">Số lượng</a></li>
             <li ng-class="{active: isSet(4)}"><a href ng-click="setTab(4)">DL thu mẫu</a></li>
@@ -254,14 +254,14 @@
                         </div>
                         <div class="col-sm-2">
                             Huyện<span ng-show="star" class="has-required"> (*)</span>:
-                            <input type="text" class="input-form form-control flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" required ng-model= "data.huyen" ng-change="districtChange()">
+                            <input type="text" class="input-form form-control flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" ng-model= "data.huyen" ng-change="districtChange()">
                             <datalist id="huyen">
                                 <option ng-repeat="district in districts | customCity: id_tinh | orderBy: 'name'" id="{{district.name}}" value="{{district.id}}">{{district.name}}</option>
                             </datalist>
                         </div>
                         <div class="col-sm-2">
                             Xã<span ng-show="star" class="has-required"> (*)</span>: 
-                            <input type="text" class="input-form form-control flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" required>
+                            <input type="text" class="input-form form-control flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa">
                             <datalist id="xa">
                                 <option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
                             </datalist>
@@ -285,7 +285,7 @@
                 <div class="container-fluid col-sm-12">
                     <div class="col-sm-6">
                         Vĩ độ N <span class="has-required">(*)</span>:
-                        <input type="text" id="dms" ng-init="showCoor = 'false'; data.viDo=''" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control" required>
+                        <input type="text" id="dms" ng-init="showCoor = 'false'; data.viDo=''" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control">
                         <div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
                             <input type="number" step="1" ng-model= "vido_do" ng-change="latChange()" class = "coordinates" name=""> độ
                             <input type="number" step="1" ng-model= "vido_phut" ng-change="latChange()" class = "coordinates" name=""> phút
@@ -294,7 +294,7 @@
                     </div>
                     <div class="col-sm-6">
                         Kinh độ E <span class="has-required">(*)</span>:
-                        <input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control" required>
+                        <input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control">
                         <div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
                             <input type="number" step="1" ng-model="kinhdo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
                             <input type="number" step="1" ng-model="kinhdo_phut" ng-change="lonChange()" class = "coordinates" name=""> phút
@@ -311,7 +311,7 @@
             
                 <div class="col-sm-4">
                     <label>26. Ghi chép thực địa<span class="has-required"> (*)</span>:</label>
-                    <textarea ng-model="data.ghiChepThucDia" title="{{tooltips['ghiChepThucDia']}}" name="ghiChepThucDia" class="input-form form-control" rows="3" required></textarea>
+                    <textarea ng-model="data.ghiChepThucDia" title="{{tooltips['ghiChepThucDia']}}" name="ghiChepThucDia" class="input-form form-control" rows="3"></textarea>
                 </div>
                 <div class="col-sm-4">
                     <label>27. Bản đồ:</label></br>
@@ -728,7 +728,7 @@
 				</button>
 
                 <div class="pull-right">
-                    <button id="back-to-top" type="button" class="btn btn-default">
+                    <button id="back-to-top" type="button" class="btn btn-circle btn-default">
 					<span class="glyphicon glyphicon-chevron-up"></span> Top
 					</button>
                 </div>

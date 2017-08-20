@@ -2,7 +2,7 @@
 	<center><h3>Thêm mẫu dữ liệu cổ sinh > Đề tài: {{maDeTai}}</h3></center>
 	<div class="container-fluid">
 		<ul class="nav nav-tabs group tabs">
-	    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu mẫu vật</a></li>
+	    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu</a></li>
 	    	<li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">Tên mẫu vật</a></li>
 	    	<li ng-class="{active: isSet(3)}"><a href ng-click="setTab(3)">Số lượng</a></li>
 	    	<li ng-class="{active: isSet(4)}"><a href ng-click="setTab(4)">DL thu mẫu</a></li>
@@ -20,7 +20,7 @@
 				</div>
 				<div class="col-sm-6">
 					<label>02. Số hiệu bảo tàng cơ sở <span class="has-required"> (*)</span>:</label>
-					<span><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form form-control"  id="soHieuBaoTangCS"><span>
+					<span><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form form-control"  id="soHieuBaoTangCS"></span>
 				</div>
 			</div>
 			<div class="row">
@@ -194,7 +194,7 @@
 						<span>Chiều rộng: </span>
 						<span>
 							<input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-							<select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+							<select class="contentselect" ng-model="data.donVi_chieuRong" name="donVi_chieuRong">
 								<option value="mm">mm</option>
 								<option value="cm">cm</option>
 								<option value="m">m</option>
@@ -279,7 +279,7 @@
 					<input type="text" title="{{tooltips['phuongPhapThuMau']}}" name="phuongPhapThuMau" ng-model="data.phuongPhapThuMau" class="input-form form-control">
 				</div>
 			</div>
-			<div class="row" style="margin-top: 20px;">
+			<div class="row">
 				<div class="col-sm-12">
 					<label>23. Địa điểm thu mẫu: </label>
 				</div>
@@ -289,8 +289,8 @@
 							<span>Vị trí: </span>
 						</div>
 						<div class="col-sm-10">
-							<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="starDatLien()" id="datLien"> Trên đất liền
-							<input type="radio" name="fDiaDiemThuMau" value="dao" id="datLien" ng-click="starDao()" ng-model="trenDao"> Trên đảo
+							<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-click="starDatLien()" id="datLien"> Trên đất liền
+							<input type="radio" name="fDiaDiemThuMau" value="dao" id="dao" ng-click="starDao()" ng-model="trenDao"> Trên đảo
 							<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="starBien()" ng-model="trenBien"> Trên biển
 						</div>
 					</div>
@@ -335,8 +335,8 @@
 					<label>24. Vị trí tọa độ theo hệ tọa độ Việt Nam 2000: </label>
 				</div>
 				<div class="col-sm-7">
-					<input type="radio" name="fViTriToaDo" ng-checked="'true'" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
-					<input type="radio" name="fViTriToaDo" value="false" ng-click="dd()"><span class="label label-default"> DD</span>
+					<input type="radio" name="fViTriToaDo" id="vitri-dms" ng-checked="'true'" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
+					<input type="radio" name="fViTriToaDo" id="vitri-dd" value="false" ng-click="dd()"><span class="label label-default"> DD</span>
 				</div>
 
 				<div class="container-fluid col-sm-12">
@@ -377,7 +377,7 @@
 				</div>
 				<div class="col-sm-6">
 					<label>28. Bản đồ:</label><br>		
-					<input type="file" multiple id="banDo" accept=".zip, .rar" name="banDo" class="inputfile customfile" data-multiple-caption="{count} file is selected">
+					<input type="file" multiple id="banDo" ng-model="data.banDo" name="banDo" class="inputfile customfile" data-multiple-caption="{count} file is selected">
 					<label for="banDo" title="{{tooltips['banDo']}}"><span>No file chosen</span><strong>Open</strong></label>
 				</div>
 			</div>
@@ -759,7 +759,7 @@
 			</button>
 
 			<div class="pull-right">
-				<button id="back-to-top" type="button" class="btn btn-default">
+				<button id="back-to-top" type="button" class="btn btn-circle btn-default">
 				<span class="glyphicon glyphicon-chevron-up"></span> Top
 				</button>
 			</div>

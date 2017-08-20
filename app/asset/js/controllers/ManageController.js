@@ -178,7 +178,7 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 app.controller('ModalCtrl', function ($scope, $uibModal, AuthService) {
 
     $scope.showModal = function (id, link) {
-        console.log("da chay o day");
+        // console.log("da chay o day");
         $scope.opts = {
             backdrop: true,
             backdropClick: true,

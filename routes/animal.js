@@ -37,6 +37,10 @@ PROP_FIELDS.map(function (element, index) {
 	LABEL[element.name] = element.label;
 });
 
+global.myCustomVars.models['dong-vat'].PROP_FIELDS = PROP_FIELDS;
+global.myCustomVars.models['dong-vat'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
+global.myCustomVars.models['dong-vat'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
+
 {
 	var index = 0;
 	while (true){
@@ -197,7 +201,16 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	objectModelIdParamName: objectModelIdParamName,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelName: objectModelName,
-	objectModelIdParamName: objectModelIdParamName,
 	ObjectModel: ObjectModel
+}))
+
+var deleteFileHander = global.myCustomVars.deleteFileHander; // Delet file in a field
+router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteFileHander({
+	objectModelIdParamName: objectModelIdParamName,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+	objectModelName: objectModelName,
+	ObjectModel: ObjectModel,
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ
 }))
 }

@@ -1,6 +1,7 @@
 <!-- <div style="margin-top: 20px;" bs-loading-overlay bs-loading-overlay-delay="200"> -->
 	<form id="form-content" name="FormContent" ng-submit="addPost(FormContent, form)" novalidate>
-		<input type="hidden" name="randomStr" value="2f41bc570ba88480a3269a7fd17b8da9">
+		<input type="hidden" name="randomStr" value="{{randomStr}}" id="randomStr">
+		<input type="hidden" name="sample" value="dong-vat" id="sample">
 		<center><h3>Thêm mẫu dữ liệu động vật > Đề tài: {{maDeTai}} </h3></center>
 		<div class="container-fluid">
 			<ul class="nav nav-tabs group tabs">
@@ -54,6 +55,7 @@
 					<div class="col-sm-12">
 						<input type="file" multiple ng-model="data.thongTinKhac1File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac1File" name ="thongTinKhac1File">
 						<label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+						<!-- <ul id="ul_thongTinKhac1File"></ul> -->
 					</div>
 				</div>
 			</div>

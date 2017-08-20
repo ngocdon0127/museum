@@ -47,6 +47,9 @@
 						console.log(res);
 						input.disabled = false;
 						if (res.status == 'success') {
+							// Tao danh sach cac file da upload vao bo tam
+							var fileElement = document.getElementById(res.field);
+
 							var ul = ob('ul_' + res.field);
 							ul.innerHTML = ''
 							for (var i = 0; i < res.files.length; i++) {

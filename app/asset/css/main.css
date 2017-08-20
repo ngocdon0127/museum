@@ -222,7 +222,7 @@ a.nav:hover{
 .tabs > li > a {
     border: 1px solid #ddd;
     margin: 0px;
-    padding: 5px 10px;
+    padding: 5px 5px;
 }
 
 .tabs > li.active > a, .tabs > li.active > a:hover, .tabs > li.active > a:focus {

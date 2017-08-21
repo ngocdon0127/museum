@@ -151,7 +151,9 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 				field: req.body.field,
 				randomStr: req.body.randomStr,
 				files: files,
-				savedFiles: savedFiles
+				savedFiles: savedFiles,
+				id: req.body.id,
+				form: req.body.form
 			})
 		})
 	} else {
@@ -160,7 +162,9 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 			field: req.body.field,
 			randomStr: req.body.randomStr,
 			files: files,
-			savedFiles: savedFiles
+			savedFiles: savedFiles,
+			id: req.body.id,
+			form: req.body.form
 		})
 	}
 	// return res.json({
@@ -225,7 +229,9 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
 				field: req.body.field,
 				randomStr: req.body.randomStr,
 				files: files,
-				savedFiles: savedFiles
+				savedFiles: savedFiles,
+				id: req.body.id,
+				form: req.body.form
 			})
 		})
 	} else {
@@ -234,7 +240,9 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
 			field: req.body.field,
 			randomStr: req.body.randomStr,
 			files: files,
-			savedFiles: savedFiles
+			savedFiles: savedFiles,
+			id: req.body.id,
+			form: req.body.form
 		})
 	}
 	

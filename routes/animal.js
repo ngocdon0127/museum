@@ -211,6 +211,7 @@ router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'dele
 	objectModelName: objectModelName,
 	ObjectModel: ObjectModel,
 	PROP_FIELDS: PROP_FIELDS,
-	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+	form: 'dong-vat'
 }))
 }

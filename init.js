@@ -759,7 +759,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						let newFullName = curFullName.join(STR_SEPERATOR);
 						fsE.moveSync(
 							path.join(ROOT, TMP_UPLOAD_DIR, fileName),
-							path.join(ROOT, _UPLOAD_DESTINATION, newFullName)
+							path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
+							{overwrite: true}
 						);
 						objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
 					}

@@ -3300,6 +3300,7 @@ var deleteFileHander = options => {
 			let saveOrUpdate = options.saveOrUpdate;
 			let PROP_FIELDS = options.PROP_FIELDS;
 			let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
+			let form = options.form;
 			// console.log(objectModelIdParamName);
 			var missingParam = checkRequiredParams([objectModelIdParamName, 'randomStr', 'field', 'fileName'], req.body);
 			if (missingParam){
@@ -3409,6 +3410,8 @@ var deleteFileHander = options => {
 						error: 'file not found',
 						files: files,
 						savedFiles: savedFiles,
+						form: form,
+						id: objectInstance.id
 					})
 				}
 				
@@ -3433,7 +3436,7 @@ var deleteFileHander = options => {
 					arr.map(f => {
 						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
 					})
-					return responseSuccess(res, ['files', 'savedFiles'], [files, savedFiles]);
+					return responseSuccess(res, ['files', 'savedFiles', 'form', 'id'], [files, savedFiles, form, objectInstance.id]);
 				})
 
 			} else {

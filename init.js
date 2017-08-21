@@ -728,19 +728,19 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// NOW we don't need to delete old files.
 						// have a new API to to that
 						// the remaining files are actually necessary
-						var files = objectChild(objectInstance, element.schemaProp)[element.name];
-						// console.log(files);
-						for (var j = 0; j < files.length; j++) {
-							// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-							try {
-								fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-								console.log('deleted ' + files[j])
-							}
-							catch (e){
-								console.log('delete failed ' + files[j])
-								console.log(e)
-							}
-						}
+						// var files = objectChild(objectInstance, element.schemaProp)[element.name];
+						// // console.log(files);
+						// for (var j = 0; j < files.length; j++) {
+						// 	// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 	try {
+						// 		fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 		console.log('deleted ' + files[j])
+						// 	}
+						// 	catch (e){
+						// 		console.log('delete failed ' + files[j])
+						// 		console.log(e)
+						// 	}
+						// }
 						// var files = objectChild(objectInstance, element.schemaProp)[element.name];
 						// // console.log(files);
 						// if(files instanceof Array) {
@@ -773,14 +773,11 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						let curFullName = fileName.split(STR_SEPERATOR);
 						curFullName[0] = result.id;
 						let newFullName = curFullName.join(STR_SEPERATOR);
-						try {
-							fsE.moveSync(
-								path.join(ROOT, TMP_UPLOAD_DIR, fileName),
-								path.join(ROOT, _UPLOAD_DESTINATION, newFullName)
-							);
-						} catch (e) {
-							console.log(e);
-						}
+						fsE.moveSync(
+							path.join(ROOT, TMP_UPLOAD_DIR, fileName),
+							path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
+							{overwrite: true}
+						);
 						objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
 					}
 				});

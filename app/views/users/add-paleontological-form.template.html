@@ -1,4 +1,6 @@
 <form id="form-content" name="FormContent" ng-submit="addPost(FormContent, form)" novalidate>
+	<input type="hidden" name="randomStr" value="{{randomStr}}" id="randomStr">
+	<input type="hidden" name="sample" value="dong-vat" id="sample">
 	<center><h3>Thêm mẫu dữ liệu cổ sinh > Đề tài: {{maDeTai}}</h3></center>
 	<div class="container-fluid">
 		<ul class="nav nav-tabs group tabs">
@@ -378,7 +380,7 @@
 				<div class="col-sm-6">
 					<label>28. Bản đồ:</label><br>		
 					<input type="file" multiple id="banDo" ng-model="data.banDo" name="banDo" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="banDo" title="{{tooltips['banDo']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="banDo" title="{{tooltips['banDo']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 			</div>
 			<div class="row">
@@ -422,24 +424,24 @@
 				</div>
 				<div class="col-sm-6">
 					<input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10">
-					<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
 					<label>34. Kết quả phân tích định tuổi: </label>
 					<input type="file" id="ketQuaPhanTichDinhTuoi" multiple ng-model="data.ketQuaPhanTichDinhTuoi" name="ketQuaPhanTichDinhTuoi" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" >
-					<label for="ketQuaPhanTichDinhTuoi" title="{{tooltips['ketQuaPhanTichDinhTuoi']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="ketQuaPhanTichDinhTuoi" title="{{tooltips['ketQuaPhanTichDinhTuoi']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 				<div class="col-sm-4">
 					<label>35. Đặc điểm vi cấu trúc: </label><br>
 					<input type="file" id="dacDiemViCauTruc" multiple ng-model="data.dacDiemViCauTruc" name="dacDiemViCauTruc" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="dacDiemViCauTruc" title="{{tooltips['dacDiemViCauTruc']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="dacDiemViCauTruc" title="{{tooltips['dacDiemViCauTruc']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 				<div class="col-sm-4">
 					<label>36. Đặc điểm lát mỏng: </label><br>
 					<input type="file" id="dacDiemLatMong" multiple ng-model="data.dacDiemLatMong" name="dacDiemLatMong" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="dacDiemLatMong" title="{{tooltips['dacDiemLatMong']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="dacDiemLatMong" title="{{tooltips['dacDiemLatMong']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 			</div>
 			<div class="row">
@@ -450,7 +452,7 @@
 				<div class="col-sm-6">
 					<label>38. Hình vẽ:</label><br>
 					<input type="file" multiple ng-model="data.hinhVe" id="hinhVe" name="hinhVe" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*, .docx, .doc, .pdf" max-file-size="5">
-					<label for="hinhVe" title="{{tooltips['hinhVe']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="hinhVe" title="{{tooltips['hinhVe']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 			</div>
 			<div class="row">
@@ -469,12 +471,12 @@
 				<div class="col-sm-3">
 					<label>40. Ảnh mẫu vật  <span class="has-required">(*)</span>:</label><br>
 					<input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10">
-					<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 				<div class="col-sm-3">
 					<label>41. Hình ảnh mẫu ngoài thực địa:</label><br>
 					<input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 				<div class="col-sm-3">
 					<label>42. Thông tin về phim, video: </label>
@@ -483,7 +485,7 @@
 				<div class="col-sm-3">
 					<label>43. Đính kèm phim, video:</label>
 					<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected"  max-file-size="100">
-					<label for="videoFile" title="{{tooltips['videoFile']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="videoFile" title="{{tooltips['videoFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 			</div>
 			<div class="row">
@@ -495,12 +497,12 @@
 						<div class="col-sm-3">
 							Hình ảnh đính kèm Xử lý chế tác:
 							<input type="file" multiple id="hinhAnhDinhKem" ng-model="data.hinhAnhDinhKem" name="hinhAnhDinhKem" accept="image/*" max-file-size="5" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-							<label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>No file chosen</span><strong>Open</strong></label>
+							<label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 						</div>
 						<div class="col-sm-3">
 							Đính kèm Xử lý chế tác:
 							<input type="file" multiple ng-model="data.dinhKemXuLyCheTac" id="dinhKemXuLyCheTac" accept=".docx, .doc, .pdf" name="dinhKemXuLyCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-							<label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>No file chosen</span><strong>Open</strong></label>
+							<label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 						</div>
 						<div class="col-sm-3">
 							Thuộc tính Xử lý chế tác:
@@ -531,7 +533,7 @@
 						<div class="col-sm-3">
 							Ảnh mẫu sau chế tác:
 							<input type="file" id="anhMauSauCheTac" multiple ng-model="data.anhMauSauCheTac" name="anhMauSauCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="5">
-							<label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>No file chosen</span><strong>Open</strong></label>
+							<label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 						</div>
 					</div>
 				</div>
@@ -552,7 +554,7 @@
 					<div class="col-sm-3">
 						Đính kèm trình tự DNA
 						<input type="file" multiple ng-model="data.dinhKemTrinhTuDNA" id="dinhKemTrinhTuDNA" name="dinhKemTrinhTuDNA" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-						<label for="dinhKemTrinhTuDNA" title="{{tooltips['dinhKemTrinhTuDNA']}}"><span>No file chosen</span><strong>Open</strong></label>
+						<label for="dinhKemTrinhTuDNA" title="{{tooltips['dinhKemTrinhTuDNA']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 					</div>
 					<div class="col-sm-3">
 						Công bố/thông tin quốc tế (genbank...)
@@ -582,7 +584,7 @@
 					</div>
 					<div class="col-sm-6">
 						<input type="file" multiple ng-model="data.phanBoVietNamFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" id="phanBoVietNamFile" name ="phanBoVietNamFile">
-						<label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>No file chosen</span><strong>Open</strong></label>
+						<label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 					</div>
 				</div>
 			</div>
@@ -596,7 +598,7 @@
 					</div>
 					<div class="col-sm-6">
 						<input type="file" id="phanBoTrenTheGioiFile" multiple ng-model="data.phanBoTrenTheGioiFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" name ="phanBoTrenTheGioiFile">
-						<label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>No file chosen</span><strong>Open</strong></label>
+						<label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 					</div>
 				</div>
 			</div>
@@ -703,12 +705,12 @@
 				<div class="col-sm-4">
 					<label>60. Giấy phép nhập mẫu:</label><br>
 					<input type="file" multiple id="giayPhepNhapMau" ng-model="data.giayPhepNhapMau" name="giayPhepNhapMau" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*, .pdf">
-					<label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 				<div class="col-sm-4">
 					<label>61. Hồ sơ nhập mẫu vật đi kèm:</label>
 					<input type="file" multiple ng-model="data.hoSoNhapMauVatDiKem" id="hoSoNhapMauVatDiKem" name="hoSoNhapMauVatDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
-					<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>No file chosen</span><strong>Open</strong></label>
+					<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
 				</div>
 			</div>
 			<div class="row">
@@ -751,19 +753,21 @@
 			<button id="add-post" type="submit" class="btn btn-success">
 				<span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;  Lưu mẫu
 			</button>
-			<button ng-click="saveCookies()" type="button" class="btn btn-success">
-				<span class="glyphicon glyphicon-save"></span>&nbsp; Lưu bản nháp
+			<button id="add-post" type="button" class="btn btn-info">
+				<span class="glyphicon glyphicon-export"></span>&nbsp;  Nhập từ mẫu trước
 			</button>
-			<button ng-click="getCookies()" type="button" class="btn btn-success">
+			<js-xls onread="read" onerror="error" id="excelfile" class="excelfile btn-warning"></js-xls>
+			<label for="excelfile"><strong> Nhập từ file excel </strong></label>
+
+			<!-- <button ng-click="getCookies()" type="button" class="btn btn-success">
 				<span class="glyphicon glyphicon-open"></span>&nbsp; Lấy lại bản nháp
-			</button>
+			</button> -->
 
 			<div class="pull-right">
 				<button id="back-to-top" type="button" class="btn btn-circle btn-default">
-				<span class="glyphicon glyphicon-chevron-up"></span> Top
+					<span class="glyphicon glyphicon-chevron-up"></span>
 				</button>
 			</div>
-		
 		</center>
 	</div>
 </form>

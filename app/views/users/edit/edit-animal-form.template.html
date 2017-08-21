@@ -2,6 +2,8 @@
 	<center><h3>Chỉnh sửa mẫu dữ liệu động vật > Đề tài: {{maDeTai}}</h3></center>
 	<div class="container-fluid">
 		<input type="text" name="id" id="obId" style="display: none;" ng-model="data.id">
+		<input type="hidden" name="randomStr" value="{{randomStr}}" id="randomStr">
+		<input type="hidden" name="sample" value="dong-vat" id="sample">
 		<ul class="nav nav-tabs group tabs">
 	    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu</a></li>
 	    	<li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">Tên mẫu vật</a></li>
@@ -13,7 +15,7 @@
 	    	<li ng-class="{active: isSet(8)}"><a href ng-click="setTab(8)">Lưu trữ/Bảo quản</a></li>
 	    	<li ng-class="{active: isSet(9)}"><a href ng-click="setTab(9)">Thông tin khác</a></li>
 	  	</ul>
-		<div class="map-detail form-group" ng-show="isSet(1)" style="padding-top: 40px;">
+		<div class="map-detail form-group" ng-show="isSet(1)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-6">
 					<label>01. Số hiệu BTTNVN:</label>
@@ -45,7 +47,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="map-detail form-group" ng-show="isSet(2)" style="padding-top: 40px;">
+		<div class="map-detail form-group" ng-show="isSet(2)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-12">
 					<label class="control-label">06. Tên khoa học (tên latin)</label>

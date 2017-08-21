@@ -1,5 +1,7 @@
 <form id="form-content" name="FormData">
 	<input type="text" name="id" style="display: none;" ng-model="data.id">
+	<input type="hidden" name="randomStr" value="{{randomStr}}" id="randomStr">
+	<input type="hidden" name="sample" value="dong-vat" id="sample">
 	<center><h2>Chỉnh sửa mẫu dữ liệu thổ nhưỡng > Đề tài: {{maDeTai}}</h2></center>
 	<div class="container-fluid">
 		<ul class="nav nav-tabs group tabs">
@@ -13,7 +15,7 @@
 		  	<li ng-class="{active: isSet(8)}"><a href ng-click="setTab(8)">Lưu trữ/Bảo quản</a></li>
 		  	<li ng-class="{active: isSet(9)}"><a href ng-click="setTab(9)">Thông tin khác</a></li>
 	 	</ul>
-		<div class="form-group map-detail" ng-show="isSet(1)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(1)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-6">
 					<label>01. Số hiệu BTTNVN:</label>
@@ -45,7 +47,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(2)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(2)" style="padding-top: 30px;">
 			<div class="row">
 		        <div class="col-sm-4">
 		          <label>06. Tên MV theo hệ thống phân loại của Quốc tế: </label>
@@ -95,7 +97,7 @@
 	        	</div>
       		</div>
 		</div>
-	<div class="form-group map-detail" ng-show="isSet(3)" style="padding-top: 40px;">	
+	<div class="form-group map-detail" ng-show="isSet(3)" style="padding-top: 30px;">	
       	<div class="row">
         	<div class="col-sm-6">
           		<label>14. Số lượng tiêu bản:</label>
@@ -193,7 +195,7 @@
         </div>
       </div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(4)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(4)" style="padding-top: 30px;">
 			<div class="row">
 		        <div class="col-sm-4">
 		          <label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label>
@@ -373,7 +375,7 @@
 		        </div>
 		      </div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(5)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(5)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-4">
 					<label>39. Ngày phân tích mẫu đất:</label>
@@ -435,7 +437,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(6)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(6)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-3">
 					<label>47. Ảnh mẫu vật <span class="has-required">(*)</span>:</label>
@@ -519,7 +521,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(7)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(7)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-12">
 					<label>54. Phân bố Việt Nam <span class="has-required">(*)</span>:</label>
@@ -567,7 +569,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(8)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(8)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-3">
 					<label>58. Ngày nhập mẫu: </label>

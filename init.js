@@ -773,10 +773,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						let curFullName = fileName.split(STR_SEPERATOR);
 						curFullName[0] = result.id;
 						let newFullName = curFullName.join(STR_SEPERATOR);
-						fsE.moveSync(
-							path.join(ROOT, TMP_UPLOAD_DIR, fileName),
-							path.join(ROOT, _UPLOAD_DESTINATION, newFullName)
-						);
+						try {
+							fsE.moveSync(
+								path.join(ROOT, TMP_UPLOAD_DIR, fileName),
+								path.join(ROOT, _UPLOAD_DESTINATION, newFullName)
+							);
+						} catch (e) {
+							console.log(e);
+						}
 						objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
 					}
 				});

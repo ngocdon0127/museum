@@ -6,6 +6,9 @@ app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateP
         console.log(err);
     });
 
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
+
     $scope.tab = 1;
 
     $scope.setTab = function (newTab) {
@@ -116,6 +119,9 @@ app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService',
     }, function (err) {
         console.log(err);
     });
+
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
     $scope.tab = 1;
 
@@ -230,6 +236,9 @@ app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$sta
         console.log(err);
     });
 
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
+
     $scope.tab = 1;
 
     $scope.setTab = function (newTab) {
@@ -340,6 +349,9 @@ app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$st
     }, function (err) {
         console.log(err);
     });
+
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
     $scope.tab = 1;
 
@@ -456,6 +468,9 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
     }, function (err) {
         console.log(err);
     });
+
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
     $scope.tab = 1;
 

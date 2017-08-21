@@ -16,7 +16,7 @@
             <li ng-class="{active: isSet(9)}"><a href ng-click="setTab(9)">Lưu trữ/Bảo quản</a></li>
             <li ng-class="{active: isSet(10)}"><a href ng-click="setTab(10)">Thông tin khác</a></li>
         </ul>
-		<div class="form-group map-detail" ng-show="isSet(1)" style="padding-top: 40px;">		
+		<div class="form-group map-detail" ng-show="isSet(1)" style="padding-top: 30px;">		
 			<div class="row">
                 <div class="col-sm-6">
                     <label>01. Số hiệu BTTNVN:</label>
@@ -49,7 +49,7 @@
                 </div>
             </div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(2)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(2)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-4">
                     <label>06. Tên MV theo hệ thống phân loại của Quốc tế: </label>
@@ -99,7 +99,7 @@
                 </div>
             </div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(3)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(3)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-6">
                     <label>14. Số lượng tiêu bản:</label>
@@ -198,7 +198,7 @@
             </div>
 		</div>
 
-		<div class="form-group map-detail" ng-show="isSet(4)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(4)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-4">
                     <label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label>
@@ -332,7 +332,7 @@
             </div>
 		</div>
 
-		<div class="form-group map-detail" ng-show="isSet(5)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(5)" style="padding-top: 30px;">
 			 <div class="row">
                 <div class="col-sm-6">
                     <label>29. Thời gian phân tích/giám định/định loại mẫu:</label>
@@ -362,7 +362,7 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10">
-                    <label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{getName(data.taiLieuPhanTichFile)}}</span><strong>Open</strong></label>
+                    <label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{getName(data.taiLieuPhanTichFile)}}</span><strong>Đính kèm file</strong></label>
                 </div>
             </div>
             <div class="row">
@@ -374,24 +374,24 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" id="phanTichQuangHocFile" multiple accept=".doc, .docx, .pdf" name="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10">
-                    <label for="phanTichQuangHocFile" title="{{tooltips['phanTichQuangHocFile']}}"><span>{{getName(data.phanTichQuangHocFile)}}</span><strong>Open</strong></label>
+                    <label for="phanTichQuangHocFile" title="{{tooltips['phanTichQuangHocFile']}}"><span>{{getName(data.phanTichQuangHocFile)}}</span><strong>Đính kèm file</strong></label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <label>34. Các kết quả phân tích thành phần vật chất:</label>
                     <input type="file" multiple id="ketQuaThanhPhanVatChat" name="ketQuaThanhPhanVatChat" ng-model="data.ketQuaThanhPhanVatChat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".docx, .doc, .pdf">
-                    <label for="ketQuaThanhPhanVatChat" title="{{tooltips['ketQuaThanhPhanVatChat']}}"><span>{{getName(data.ketQuaThanhPhanVatChat)}}</span><strong>Open</strong></label>
+                    <label for="ketQuaThanhPhanVatChat" title="{{tooltips['ketQuaThanhPhanVatChat']}}"><span>{{getName(data.ketQuaThanhPhanVatChat)}}</span><strong>Đính kèm file</strong></label>
                 </div>
                 <div class="col-sm-4">
                     <label>35. Kết quả phân tích đồng vị và định tuổi:</label>
                     <input type="file" multiple id="ketQuaPhanTichDinhTuoi" name="ketQuaPhanTichDinhTuoi" ng-model="data.ketQuaPhanTichDinhTuoi" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".docx, .doc, .pdf">
-                    <label for="ketQuaPhanTichDinhTuoi" title="{{tooltips['ketQuaPhanTichDinhTuoi']}}"><span>{{getName(data.ketQuaPhanTichDinhTuoi)}}</span><strong>Open</strong></label>
+                    <label for="ketQuaPhanTichDinhTuoi" title="{{tooltips['ketQuaPhanTichDinhTuoi']}}"><span>{{getName(data.ketQuaPhanTichDinhTuoi)}}</span><strong>Đính kèm file</strong></label>
                 </div>
                 <div class="col-sm-4">
                     <label>36. Các phân tích khác:</label></br>
                     <input type="file" multiple id="phanTichKhac" name="phanTichKhac" ng-model="data.phanTichKhac" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".docx, .doc, .pdf">
-                    <label for="phanTichKhac" title="{{tooltips['phanTichKhac']}}"><span>{{getName(data.phanTichKhac)}}</span><strong>Open</strong></label>
+                    <label for="phanTichKhac" title="{{tooltips['phanTichKhac']}}"><span>{{getName(data.phanTichKhac)}}</span><strong>Đính kèm file</strong></label>
                 </div>
             </div>
             <div class="row">
@@ -420,17 +420,17 @@
                 </div>
             </div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(6)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(6)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-3">
                     <label>39. Ảnh mẫu vật <span class="has-required">(*)</span>:</label>
                     <input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10">
-                    <label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{getName(data.anhMauVat)}}</span><strong>Open</strong></label>
+                    <label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{getName(data.anhMauVat)}}</span><strong>Đính kèm file</strong></label>
                 </div>
                 <div class="col-sm-3">
                     <label>40. Hình ảnh mẫu ngoài thực địa:</label>
                     <input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-                    <label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{getName(data.hinhAnhNgoaiThucDia)}}</span><strong>Open</strong></label>
+                    <label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{getName(data.hinhAnhNgoaiThucDia)}}</span><strong>Đính kèm file</strong></label>
                 </div>
                 <div class="col-sm-3">
                     <label>41. Thông tin về phim, video: </label>
@@ -440,7 +440,7 @@
                     <label>42. Đính kèm phim, video:</label>
 
                     <input type="file" multiple accept="video/*" name="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="100">
-                    <label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{getName(data.videoFile)}}</span><strong>Open</strong></label>
+                    <label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{getName(data.videoFile)}}</span><strong>Đính kèm file</strong></label>
                 </div>
             </div>
             <div class="row">
@@ -451,12 +451,12 @@
                     <div class="col-sm-4">
                         Hình ảnh đính kèm Xử lý chế tác:
                         <input type="file" multiple id="hinhAnhDinhKem" ng-model="data.hinhAnhDinhKem" name="hinhAnhDinhKem" accept="image/*" max-file-size="5" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-                        <label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>{{getName(data.hinhAnhDinhKem)}}</span><strong>Open</strong></label>
+                        <label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>{{getName(data.hinhAnhDinhKem)}}</span><strong>Đính kèm file</strong></label>
                     </div>
                     <div class="col-sm-4">
                         Đính kèm xử lý chế tác:</br>
                         <input type="file" multiple ng-model="data.dinhKemXuLyCheTac" id="dinhKemXuLyCheTac" accept=".docx, .doc, .pdf" name="dinhKemXuLyCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-                        <label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>{{getName(data.dinhKemXuLyCheTac)}}</span><strong>Open</strong></label>
+                        <label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>{{getName(data.dinhKemXuLyCheTac)}}</span><strong>Đính kèm file</strong></label>
                     </div>
                     <div class="col-sm-4">
                         Thuộc tính Xử lý chế tác:
@@ -485,7 +485,7 @@
                     <div class="col-sm-4">
                         Ảnh mẫu sau chế tác:</br>
                         <input type="file" id="anhMauSauCheTac" multiple ng-model="data.anhMauSauCheTac" name="anhMauSauCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="5">
-                        <label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>{{getName(data.anhMauSauCheTac)}}</span><strong>Open</strong></label>
+                        <label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>{{getName(data.anhMauSauCheTac)}}</span><strong>Đính kèm file</strong></label>
                     </div>
                 </div>
             </div>
@@ -501,7 +501,7 @@
             </div>
 		</div>
 
-		<div class="form-group map-detail" ng-show="isSet(7)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(7)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-4">
                     <label>45. Loại mẫu <span class="has-required">(*)</span>:</label>
@@ -544,7 +544,7 @@
                 <div class="col-sm-4">
                     <label>51. Công thức hóa học:</label></br>
                     <input type="file" id="congThucHoaHoc" multiple ng-model="data.congThucHoaHoc" name="congThucHoaHoc" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
-                    <label for="congThucHoaHoc" title="{{tooltips['congThucHoaHoc']}}"><span>{{getName(data.congThucHoaHoc)}}</span><strong>Open</strong></label>
+                    <label for="congThucHoaHoc" title="{{tooltips['congThucHoaHoc']}}"><span>{{getName(data.congThucHoaHoc)}}</span><strong>Đính kèm file</strong></label>
                 </div>
                 <div class="col-sm-4">
                     <label>52. Thành phần hóa học:</label>
@@ -552,7 +552,7 @@
                 </div>
             </div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(8)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(8)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-12">
                     <label>53. Phân bố Việt Nam <span class="has-required">(*)</span>:</label>
@@ -562,7 +562,7 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" multiple ng-model="data.phanBoVietNamFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" id="phanBoVietNamFile" name="phanBoVietNamFile">
-                    <label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>{{getName(data.phanBoVietNamFile)}}</span><strong>Open</strong></label>
+                    <label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>{{getName(data.phanBoVietNamFile)}}</span><strong>Đính kèm file</strong></label>
                 </div>
             </div>
             <div class="row">
@@ -574,7 +574,7 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" id="phanBoTrenTheGioiFile" multiple ng-model="data.phanBoTrenTheGioiFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" name="phanBoTrenTheGioiFile">
-                    <label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>{{getName(data.phanBoTrenTheGioiFile)}}</span><strong>Open</strong></label>
+                    <label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>{{getName(data.phanBoTrenTheGioiFile)}}</span><strong>Đính kèm file</strong></label>
                 </div>
             </div>
             <div class="row">
@@ -600,7 +600,7 @@
                 </div>
             </div>
 		</div>
-		<div class="form-group map-detail" ng-show="isSet(9)" style="padding-top: 40px;">
+		<div class="form-group map-detail" ng-show="isSet(9)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-3">
                     <label>57. Ngày nhập mẫu: </label>
@@ -678,12 +678,12 @@
                 <div class="col-sm-6">
                     <label>66. Giấy phép nhập mẫu:</label><br>
                     <input type="file" multiple id="giayPhepNhapMau" ng-model="data.giayPhepNhapMau" name="giayPhepNhapMau" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*, .pdf">
-                    <label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>{{getName(data.giayPhepNhapMau)}}</span><strong>Open</strong></label>
+                    <label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>{{getName(data.giayPhepNhapMau)}}</span><strong>Đính kèm file</strong></label>
                 </div>
                 <div class="col-sm-6">
                     <label>67. Hồ sơ nhập mẫu vật đi kèm:</label><br>
                     <input type="file" multiple ng-model="data.hoSoNhapMauVatDiKem" id="hoSoNhapMauVatDiKem" name="hoSoNhapMauVatDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
-                    <label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{getName(data.hoSoNhapMauVatDiKem)}}</span><strong>Open</strong></label>
+                    <label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{getName(data.hoSoNhapMauVatDiKem)}}</span><strong>Đính kèm file</strong></label>
                 </div>
             </div>
             <div class="row">
@@ -707,7 +707,7 @@
                 </div>
             </div>
 		</div>
-		 <div class="form-group map-detail" ng-show="isSet(10)" style="padding-top: 40px;">
+		 <div class="form-group map-detail" ng-show="isSet(10)" style="padding-top: 30px;">
             <label for="thongTinKhac9Str">71. Thông tin khác: </label>
             <textarea type="text" ng-model="data.thongTinKhac9Str" title="{{tooltips['thongTinKhac9Str']}}" id="thongTinKhac9Str" name="thongTinKhac9Str" class="form-control input-form" rows="5"></textarea>
             <input type="file" multiple ng-model="data.thongTinKhac9File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac9File" name ="thongTinKhac9File">

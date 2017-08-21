@@ -37,17 +37,6 @@ async function sheetToJson(workbook, urlFields) {
     return result;
 }
 
-function hashCode(str){
-    var hash = 0;
-    if (str.length == 0) return hash;
-    for (i = 0; i < str.length; i++) {
-        char = str.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
-}
-
 function initDefaultUnits(_scope) {
     setTimeout((function (_scope) {
         return function () {
@@ -94,13 +83,10 @@ function saveData(id, data) {
 
 app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval) {
 
-    // setInterval(saveData("dataAni", $scope.data), 2000);
-    // setTimeout(getData("dataAni"), 1000);
-    // $scope.sample = "dong-vat"
+
     // Sinh key cho tu dong upload
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
-    $scope.randomStr = hashCode(keyid);
-
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
     $http.get('/app/database/tipsani.json').then(function (res) {
         $scope.tooltips = res.data;
@@ -207,6 +193,9 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
         console.log(err);
     });
 
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
+
     // default unit
     initDefaultUnits($scope);
 
@@ -291,6 +280,9 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
         console.log(err);
     });
 
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
+
     $scope.tab = 1;
 
     $scope.setTab = function (newTab) {
@@ -372,6 +364,9 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) 
 
     // default unit
     initDefaultUnits($scope);
+
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
     $scope.tab = 1;
 
@@ -467,6 +462,9 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
 
     // default unit
     initDefaultUnits($scope);
+
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
     $scope.tab = 1;
 

@@ -3,19 +3,17 @@
 function ob(x) {
 	return document.getElementById(x)
 }
-function instantUpload(input, sample) {
-	var randomId = document.getElementById("randomStr");
-	var randomStr = randomId.value
-	console.log(randomStr);
+function instantUpload(input, formData) {
+
 	var data = new FormData()
-	console.log(input.name);
-	console.log(input.files);
+	// console.log(input.files);
 	for (var i = 0; i < input.files.length; i++) {
 		data.append('tmpfiles', input.files[i])
 	}
 	data.append('field', input.name)
-	data.append('randomStr', randomStr)
-	data.append('form', sample)
+	data.append('randomStr', formData.randomStr)
+	data.append('form', formData.form)
+	data.append('id', formData.id)
 	input.disabled = true;
 	$.ajax({
 		url: '/content/instant-upload',
@@ -29,24 +27,32 @@ function instantUpload(input, sample) {
 			input.disabled = false;
 			if (res.status == 'success') {
 				// Tao danh sach cac file da upload vao bo tam
-				var parentFile = document.getElementById(res.field).parentElement
-				var ulTag = document.createElement("ul")
-				ulTag.setAttribute("id", "ul_" + res.field)
-				parentFile.appendChild(ulTag);
-				// var ul = ob('ul_' + res.field);
-				ulTag.innerHTML = ''
+				var ulTag = ob('ul_' + res.field);
+				if (ulTag == null) {
+					var parentFile = document.getElementById(res.field).parentElement
+					var ulTag = document.createElement("ul")
+					ulTag.setAttribute("id", "ul_" + res.field)
+					parentFile.appendChild(ulTag);
+				} else{
+					ulTag.innerHTML = ''
+				}
+				
 				for (var i = 0; i < res.files.length; i++) {
 					var li = document.createElement('li');
 					li.setAttribute('data-file-name', res.files[i]);
 					li.setAttribute('data-field-name', res.field);
 					li.setAttribute('data-random-str', res.randomStr);
+					li.setAttribute('data-form-val', res.form);
+					li.setAttribute('data-form-id', res.id);
 					li.innerHTML = res.files[i];
 					li.addEventListener('click', function (event) {
 						console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
 						deleteTmpFile({
 							fileName: event.target.getAttribute('data-file-name'),
 							field: event.target.getAttribute('data-field-name'),
-							randomStr: event.target.getAttribute('data-random-str')
+							randomStr: event.target.getAttribute('data-random-str'),
+							form: event.target.getAttribute('ddata-form-val'),
+							id: event.target.getAttribute('data-form-id')
 						})
 					})
 					ulTag.appendChild(li)
@@ -82,7 +88,9 @@ function deleteTmpFile(file) {
 						deleteTmpFile({
 							fileName: event.target.getAttribute('data-file-name'),
 							field: event.target.getAttribute('data-field-name'),
-							randomStr: event.target.getAttribute('data-random-str')
+							randomStr: event.target.getAttribute('data-random-str'),
+							form: sampleVal,
+							id: sampleId
 						})
 					})
 					ul.appendChild(li)
@@ -100,23 +108,33 @@ $(document).ready(function () {
 	// console.log(inputs);
 	Array.prototype.forEach.call(inputs, function(input)
 	{
-		// console.log(input);
 		try {
 			var label = input.nextElementSibling;
 			var	labelVal = label.innerHTML;
 		} catch (e){
-			// todo
 			console.log(e);
 		}
 		var sample = document.getElementById("sample")
 		var sampleVal = sample.value
-		// console.log(sampleVal);
-		// label.querySelector( 'span' ).innerHTML = "No file chosen";
-		//catch event file change
+		var obId =  document.getElementById("obId");
+		var sampleId = "";
+		if (obId !== null) {
+			sampleId = obId.value;
+		}
+
+		var randomId = document.getElementById("randomStr");
+		var randomStr = randomId.value
+
+		var formData = {
+			form: sampleVal,
+			id: sampleId,
+			randomStr: randomStr
+		}
+		//bat su kien file change
 		input.addEventListener('change', function(e)
 		{
 			var max_sizes = this.getAttribute('max-file-size');
-			console.log(this.name);
+			
 			//Kiem tra xem dung luong file co vuot qua dung luong cho phep
 			var fileName = '';
 			if (max_sizes != null) {
@@ -144,7 +162,7 @@ $(document).ready(function () {
 						label.querySelector('span').innerHTML = fileName;
 					else
 						label.innerHTML = labelVal;
-					instantUpload(this, sampleVal);
+					instantUpload(this, formData);
 
 				}
 			} else {
@@ -161,7 +179,7 @@ $(document).ready(function () {
 					label.querySelector('span').innerHTML = fileName;
 				else
 					label.innerHTML = labelVal;
-				instantUpload(this, sampleVal);
+				instantUpload(this, formData);
 			}
 		});
 

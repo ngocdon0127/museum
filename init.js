@@ -723,6 +723,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// TODO
 						// need to delete old files.
 						// console.log('delete old files');
+<<<<<<< HEAD
 						// 
 						// NOW we don't need to delete old files.
 						// have a new API to to that
@@ -740,6 +741,23 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// 		console.log(e)
 						// 	}
 						// }
+=======
+						var files = objectChild(objectInstance, element.schemaProp)[element.name];
+						// console.log(files);
+						if(files instanceof Array) {
+							for (var j = 0; j < files.length; j++) {
+								// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+								try {
+									fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+									console.log('deleted ' + files[j])
+								}
+								catch (e){
+									console.log('delete failed ' + files[j])
+									console.log(e)
+								}
+							}
+						}
+>>>>>>> 34480d47cc87eaef79dbb3654f590b1be3f25ba6
 
 					}
 					objectChild(objectInstance, element.schemaProp)[element.name] = [];

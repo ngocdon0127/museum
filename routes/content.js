@@ -123,10 +123,10 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 		'tho-nhuong': mongoose.model('Soil'),
 		'thuc-vat': mongoose.model('Vegetable'),
 	}
-	if (req.body.objectId && req.body.form && (req.body.form in models)) {
+	if (req.body.id && req.body.form && (req.body.form in models)) {
 		// get all current saved files in the object
 		let model = models[req.body.form];
-		model.findById(req.body.objectId, (err, objectInstance) => {
+		model.findById(req.body.id, (err, objectInstance) => {
 			if (!err && objectInstance) {
 				let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
 				let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;
@@ -171,7 +171,7 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 	// })
 })
 
-router.post('/instant-upload/delete', upload.fields([{name: 'tmpfiles'}]), (req, res) => {
+router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) => {
 	console.log(req.files);
 	console.log(req.body);
 	try {
@@ -197,10 +197,10 @@ router.post('/instant-upload/delete', upload.fields([{name: 'tmpfiles'}]), (req,
 		'tho-nhuong': mongoose.model('Soil'),
 		'thuc-vat': mongoose.model('Vegetable'),
 	}
-	if (req.body.objectId && req.body.form && (req.body.form in models)) {
+	if (req.body.id && req.body.form && (req.body.form in models)) {
 		// get all current saved files in the object
 		let model = models[req.body.form];
-		model.findById(req.body.objectId, (err, objectInstance) => {
+		model.findById(req.body.id, (err, objectInstance) => {
 			if (!err && objectInstance) {
 				let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
 				let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;

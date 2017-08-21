@@ -26,6 +26,7 @@
 			function ob(x) {
 				return document.getElementById(x)
 			}
+
 			function instantUpload(input) {
 				var data = new FormData()
 				console.log(input.name);
@@ -36,7 +37,7 @@
 				data.append('field', input.name)
 				data.append('randomStr', randomStr)
 				data.append('form', 'dong-vat')
-				data.append('objectId', '58d79d38e2058328e82fd862')
+				data.append('id', '58d79d38e2058328e82fd862')
 				input.disabled = true;
 	    		$.ajax({
 	    			url: '/content/instant-upload',
@@ -49,6 +50,9 @@
 						console.log(res);
 						input.disabled = false;
 						if (res.status == 'success') {
+							// Tao danh sach cac file da upload vao bo tam
+							var fileElement = document.getElementById(res.field);
+
 							var ul = ob('ul_' + res.field);
 							ul.innerHTML = ''
 							for (var i = 0; i < res.files.length; i++) {
@@ -64,7 +68,7 @@
 										field: event.target.getAttribute('data-field-name'),
 										randomStr: event.target.getAttribute('data-random-str'),
 										form: 'dong-vat',
-										objectId: '58d79d38e2058328e82fd862'
+										id: '58d79d38e2058328e82fd862'
 									})
 								})
 								ul.appendChild(li)
@@ -102,7 +106,7 @@
 										field: event.target.getAttribute('data-field-name'),
 										randomStr: event.target.getAttribute('data-random-str'),
 										form: 'dong-vat',
-										objectId: '58d79d38e2058328e82fd862'
+										id: '58d79d38e2058328e82fd862'
 									})
 								})
 								ul.appendChild(li)

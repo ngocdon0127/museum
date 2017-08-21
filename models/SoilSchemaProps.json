@@ -1126,7 +1126,7 @@
 	},
 	{
 		"name": "thongTinKhac8",
-		"schemaProp": "duLieuThuMau",
+		"schemaProp": "luuTruBaoQuan",
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
@@ -1138,7 +1138,7 @@
 	},
 	{
 		"name": "thongTinKhac8Str",
-		"schemaProp": "duLieuThuMau.thongTinKhac8Mixed",
+		"schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
@@ -1147,7 +1147,7 @@
 	},
 	{
 		"name": "thongTinKhac8File",
-		"schemaProp": "duLieuThuMau.thongTinKhac8Mixed",
+		"schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,

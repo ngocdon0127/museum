@@ -199,4 +199,15 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	objectModelIdParamName: objectModelIdParamName,
 	ObjectModel: ObjectModel
 }))
+
+var deleteFileHander = global.myCustomVars.deleteFileHander; // Delet file in a field
+router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteFileHander({
+	objectModelIdParamName: objectModelIdParamName,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+	objectModelName: objectModelName,
+	ObjectModel: ObjectModel,
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+	form: 'dia-chat'
+}))
 }

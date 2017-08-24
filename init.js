@@ -3184,6 +3184,8 @@ var duplicateHandler = function (options) {
 					})
 				}
 				else {
+					// TODO
+					// Need to check if this user can view this data or not !!!
 					let newInstance = new ObjectModel(objectInstance);
 					newInstance._id = mongoose.Types.ObjectId();
 					newInstance.isNew = true; // VERY IMPORTANT

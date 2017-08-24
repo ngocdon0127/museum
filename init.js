@@ -3096,6 +3096,9 @@ var getSingleHandler = function (options) {
 					if (req.query.display == 'html'){
 						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length)});
 					}
+					else if (req.query.display == 'nested') {
+						return responseSuccess(res, [objectModelName], [objectInstance]);
+					}
 					else if (['docx', 'pdf', 'xlsx', 'zip'].indexOf(req.query.display) >= 0){
 
 						console.log('combined');
@@ -3151,6 +3154,89 @@ var getSingleHandler = function (options) {
 }
 
 global.myCustomVars.getSingleHandler = getSingleHandler;
+
+var duplicateHandler = function (options) {
+	return function (req, res) {
+
+		var ObjectModel = options.ObjectModel;
+		var objectModelName = options.objectModelName;
+		var PROP_FIELDS = options.PROP_FIELDS;
+		let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ
+		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
+		var objectModelIdParamName = options.objectModelIdParamName;
+		var objectBaseURL = options.objectBaseURL;
+		var LABEL = options.LABEL;
+		var objectModelLabel = options.objectModelLabel;
+		options.req = req;
+		ObjectModel.findById(req.params.objectModelIdParamName, function (err, objectInstance) {
+			if (err){
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
+			}
+			if (objectInstance){
+				if (objectInstance.deleted_at){
+					Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.objectModelIdParamName)}}, function (err, logs) {
+						if (err || (logs.length < 1)){
+							console.log(err);
+							return responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
+						}
+						// console.log(logs);
+						return responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
+					})
+				}
+				else {
+					let newInstance = new ObjectModel(objectInstance);
+					newInstance._id = mongoose.Types.ObjectId();
+					newInstance.isNew = true; // VERY IMPORTANT
+					newInstance.created_at = new Date();
+					delete newInstance.updated_at;
+					newInstance.created_by = {
+						userId: req.user._id,
+						userFullName: req.user.fullname
+					}
+					delete newInstance.updated_by
+					delete newInstance.deleted_by
+					let tmp = flatObjectModel(PROP_FIELDS, newInstance);
+					let duplicatedFiles = []
+					for(p in tmp){
+						if (tmp[p] instanceof Array){ // Chỉ có những trường file đính kèm thì mới là Array
+							let files = tmp[p];
+							objectChild(newInstance, PROP_FIELDS[PROP_FIELDS_OBJ[p]].schemaProp)[p] = []
+							files.map((f, i) => {
+								try {
+									let duplicatedFileName = f.replace(objectInstance._id, newInstance._id);
+									fsE.copySync(path.join(ROOT, UPLOAD_DESTINATION, f), path.join(ROOT, UPLOAD_DESTINATION, duplicatedFileName));
+									duplicatedFiles.push(duplicatedFileName)
+									objectChild(newInstance, PROP_FIELDS[PROP_FIELDS_OBJ[p]].schemaProp)[p].push(duplicatedFileName);
+								} catch (e) {
+									console.log(e);
+								}
+							})
+						}
+					}
+					newInstance.save(err => {
+						if (err) {
+							console.log(err);
+							for(f of duplicatedFiles) {
+								try {
+									fsE.removeSync(path.join(ROOT, UPLOAD_DESTINATION, f))
+								} catch (e) {
+									console.log(e);
+								}
+							}
+							return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], [err])
+						}
+						return responseSuccess(res, [objectModelName], [newInstance])
+					})
+				}
+			}
+			else{
+				responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ['Không tìm thấy']);
+			}
+		})
+	}
+}
+
+global.myCustomVars.duplicateHandler = duplicateHandler;
 
 // hanle route: objectBaseURL + '/log/:logId/:position'
 var getLogHandler = function (options) {

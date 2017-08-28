@@ -3168,13 +3168,13 @@ var duplicateHandler = function (options) {
 		var LABEL = options.LABEL;
 		var objectModelLabel = options.objectModelLabel;
 		options.req = req;
-		ObjectModel.findById(req.params.objectModelIdParamName, function (err, objectInstance) {
+		ObjectModel.findById(req.body[objectModelIdParamName], function (err, objectInstance) {
 			if (err){
 				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
 			}
 			if (objectInstance){
 				if (objectInstance.deleted_at){
-					Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.params.objectModelIdParamName)}}, function (err, logs) {
+					Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.body[objectModelIdParamName])}}, function (err, logs) {
 						if (err || (logs.length < 1)){
 							console.log(err);
 							return responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
@@ -3227,7 +3227,9 @@ var duplicateHandler = function (options) {
 							}
 							return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], [err])
 						}
-						return responseSuccess(res, [objectModelName], [newInstance])
+						let r = flatObjectModel(PROP_FIELDS, newInstance);
+						r.id = r._id = newInstance._id;
+						return responseSuccess(res, [objectModelName], [r])
 					})
 				}
 			}

@@ -58,6 +58,10 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', func
         AuthService.approvePost(id, approved, 'dong-vat')
     }
 
+    $scope.duplicateFile = function (id, form) {
+        AuthService.duplicateFile(id, form)
+    }
+
 }]);
 
 app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
@@ -178,7 +182,6 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 app.controller('ModalCtrl', function ($scope, $uibModal, AuthService) {
 
     $scope.showModal = function (id, link) {
-        // console.log("da chay o day");
         $scope.opts = {
             backdrop: true,
             backdropClick: true,
@@ -233,7 +236,7 @@ app.controller('ExportFileController', function ($scope, AuthService, $uibModal,
         }, function (err) {
             // log something
         })
-    }, 2000)
+    }, 1000)
 
 
     $scope.export = function (id) {

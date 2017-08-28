@@ -3,6 +3,11 @@
 function ob(x) {
 	return document.getElementById(x)
 }
+
+function loadFile() {
+	console.log("Load data");
+}
+
 function instantUpload(input, formData) {
 
 	var randomId = document.getElementById("randomStr");
@@ -39,9 +44,8 @@ function instantUpload(input, formData) {
 				} else{
 					ulTag.innerHTML = ''
 				}
-				
 				for (var i = 0; i < res.files.length; i++) {
-					var li = document.createElement('li');				
+					var li = document.createElement('li');
 					li.setAttribute('class', 'list-group-item');
 					li.setAttribute('style', 'overflow: auto;')
 					var txtFile = "";
@@ -55,6 +59,10 @@ function instantUpload(input, formData) {
 					// Tao cac the hien thi danh sach cac file
 					var spanParent = document.createElement('span');
 					spanParent.setAttribute('class', 'pull-right')
+
+					var div = document.createElement('div')
+					div.setAttribute('id', 'progressbar')
+					spanParent.append(div)
 
 					var spanChild = document.createElement('span');
 					spanChild.setAttribute('data-file-name', res.files[i]);
@@ -104,7 +112,6 @@ function deleteTmpFile(file) {
 				for (var i = 0; i < res.files.length; i++) {
 					var li = document.createElement('li');
 					li.setAttribute('class', 'list-group-item');
-
 					var txtFile = "";
 					if ( res.files[i].length > 20) {
 						txtFile = res.files[i].slice(0, 20) + "...";
@@ -231,6 +238,8 @@ $(document).ready(function () {
 					}
 				else
 					label.innerHTML = labelVal;
+				console.log("get name of data");
+				console.log(this.getAttribute('name'));
 				instantUpload(this, formData);
 			}
 		});

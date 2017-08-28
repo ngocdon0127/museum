@@ -5,9 +5,10 @@ async function sheetToJson(workbook, urlFields) {
     var test;
     var data;
     await workbook.SheetNames.forEach(function (sheetName) {
+        if (sheetName == "Mau Hang") {
         roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
         test = workbook.Sheets[sheetName];
-        // console.log(test);
+        }
     });
 
     await $.get(urlFields).then(function success(res) {
@@ -19,8 +20,8 @@ async function sheetToJson(workbook, urlFields) {
     await data.forEach(function (element) {
         try {
             var typeData = test
-            var _tmp = test[element[0]];
-            var prop = test[element[1]]["h"];
+            var _tmp = test[element[1]];
+            var prop = test[element[0]]["h"];
             if (typeof (_tmp) !== "undefined") {
                 if (_tmp["t"] == "n") {
                     result[prop] = _tmp["v"];
@@ -114,11 +115,11 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
     AuthService.initDatePicker(null, null);
 
     $scope.read = function (respone) {
-        var urlFields = "/app/database/fieldsani.json"
+        var urlFields = "/app/database/templateAni.json"
         var result = sheetToJson(respone, urlFields)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            // console.log(res_tmp);
+            console.log(res_tmp);
             initDefaultUnits($scope);
             $scope.$apply();
         })

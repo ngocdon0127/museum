@@ -70,6 +70,9 @@
 				</td>
 				<td>
 					<div ng-if="link == 'dong-vat'" ng-controller="ModalCtrl">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+							<i class="glyphicon glyphicon-duplicate"></i>
+						</button>
 						<button data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success" ng-if="restricted.restrict.dongvat.edit" ui-sref= "chinh-sua-dong-vat({id : post._id})">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -79,6 +82,9 @@
 					</div>
 
 					<div ng-if="link == 'thuc-vat'" ng-controller="ModalCtrl">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+							<i class="glyphicon glyphicon-duplicate"></i>
+						</button>
 						<button ng-if="restricted.restrict.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -88,6 +94,9 @@
 					</div>
 
 					<div ng-if="link == 'co-sinh'" ng-controller="ModalCtrl">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+							<i class="glyphicon glyphicon-duplicate"></i>
+						</button>
 						<button ng-if="restricted.restrict.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -97,6 +106,9 @@
 					</div>
 
 					<div ng-if="link == 'tho-nhuong'" ng-controller="ModalCtrl">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+							<i class="glyphicon glyphicon-duplicate"></i>
+						</button>
 						<button ng-if="restricted.restrict.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
@@ -106,6 +118,9 @@
 					</div>
 
 					<div ng-if="link == 'dia-chat'" ng-controller="ModalCtrl">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+							<i class="glyphicon glyphicon-duplicate"></i>
+						</button>
 						<button ng-if="restricted.restrict.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>

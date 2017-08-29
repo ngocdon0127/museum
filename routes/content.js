@@ -2,12 +2,6 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var multer = require('multer');
-<<<<<<< HEAD
-var fs                   = require('fs');
-var path                 = require('path');
-var TMP_UPLOAD_DESTINATION   = 'public/uploads/tmp';
-var upload               = multer({dest: TMP_UPLOAD_DESTINATION});
-=======
 const TMP_UPLOAD_DIR = 'public/uploads/tmp';
 var upload = multer({dest: TMP_UPLOAD_DIR})
 const path = require('path');
@@ -15,8 +9,6 @@ const fs = require('fs');
 const fsE = require('fs-extra');
 const ROOT = path.join(__dirname, '../')
 const mongoose = require('mongoose');
-
->>>>>>> dev
 
 router.use(isLoggedIn);
 

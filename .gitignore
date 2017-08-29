@@ -10,3 +10,5 @@ app/service.js
 *.sublime-project
 deploygit.bat
 data.json
+npm-debug.log.*
+out.html

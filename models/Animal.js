@@ -208,5 +208,9 @@ module.exports = function (mongoose) {
 	};
 	var animalSchema = mongoose.Schema(schemaPrototype);
 	var Animal = mongoose.model("Animal", animalSchema);
+	global.myCustomVars.models.Animal = {
+		mongooseModel: Animal
+	}
+	global.myCustomVars.models['dong-vat'] = global.myCustomVars.models.Animal;
 	return Animal;
 }

@@ -12,14 +12,6 @@
 	<link rel="stylesheet" type="text/css" href="asset/js/angular-loading-bar/build/loading-bar.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/flexdatalist/jquery.flexdatalist.min.css">
 	<link rel="stylesheet" href="/admin/plugins/datatables/dataTables.bootstrap.css">
-	<style >
-		.flexdatalist-multiple{
-			width: 300px;
-			margin-left: 5px;
-		}
-		
-		body { padding-top: 60px; } 
-	</style>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -55,19 +47,24 @@
 							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="quan-ly-dia-chat">Mẫu địa chất</a></li>
 							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="quan-ly-dong-vat">Mẫu động vật</a></li>
 							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong">Mẫu thổ nhưỡng</a></li>
-							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">thực vật</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">Mẫu thực vật</a></li>
 						</ul>
 					</li>
-					<li><a href="/log/all"><b>Lịch sử nhập liệu</b></a></li>
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Báo cáo</b> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/log">Lịch sử nhập liệu</a></li>
+							<li><a href="">Thống kê</a></li>
+						</ul>
+					</li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{restricted.user.fullname}}</b><b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b ng-bind="restricted.user.fullname"></b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/admin"><b>Quản lý tài khoản</b></a></li>
 							<li><a href="/users"><b>Trang cá nhân</b></a></li>
-							<!-- <li><a ui-sref="nhap-offline"><b>Nhập offline</b></a></li> -->
 							<li><a href="/auth/logout"><b>Đăng xuất</b></a></li>
 						</ul>
 					</li>
@@ -82,9 +79,11 @@
 			</div>
 		</div>
 	</nav>
-	<div ui-view> </div>
-<!-- 	<footer style="bottom: 0px; position: absolute; width: 100%;">
-		<div class="input-form">&copy; Copyright. All right is reserved</div>
+	<section>
+		<div ui-view style="margin-top: 20px;" class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12"></div>
+	</section>
+	<!-- <footer style="bottom: 0px; position: absolute; width: 100%;">
+		<div class="input-form form-control">&copy; Copyright. All right is reserved</div>
 	</footer> -->
 	<script type="text/javascript" src="asset/js/jquery/jquery/jquery.js"></script>
 	<script type="text/javascript" src="asset/js/jquery/jquery/jquery-ui.min.js"></script>
@@ -103,6 +102,7 @@
 	<script type="text/javascript" src="asset/js/angular-js-xlsx/angular-js-xlsx.js"></script>
 	<script type="text/javascript" src="asset/js/angular-js-xlsx/xlsx.core.min.js"></script>
 	<script type="text/javascript" src="/javascripts/flexdatalist/jquery.flexdatalist.min.js"></script>
+	<script type="text/javascript" src="/javascripts/crypto-js.js"></script>
 
 	<!-- handler -->
 	<script type="text/javascript" src="app.module.js"></script>
@@ -117,9 +117,10 @@
 	<script type="text/javascript" src="asset/js/controllers/OfflineController.js"></script>
 	<script type="text/javascript" src="asset/js/filter/propertyFilter.js"></script>
 	<script type="text/javascript" src="asset/js/angular-messages/angular-messages.min.js"></script>
-	<script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>
+	<!-- <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script> -->
 	<script type="text/javascript" src="asset/js/controllers/TestController.js"></script>
 	<script type="text/javascript" src="asset/js/controllers/GuestViewsController.js"></script>
 	<script type="text/javascript" src="asset/js/angular-paging/paging.min.js"></script>
 </body>
 </html>
+

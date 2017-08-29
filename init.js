@@ -539,7 +539,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								if (!regex.test(file.originalname)){
 									// console.log(regex);
 									// console.log(file.originalname);
-									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Tên file trong trường không hợp lệ', element.name]);
+									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field', 'invalidFileName'], ['Tên file trong trường không hợp lệ', element.name, file.originalname]);
 								}
 							}
 						}

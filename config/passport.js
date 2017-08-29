@@ -91,4 +91,34 @@ module.exports = function (passport, User) {
 			})
 		})
 	}));
+
+	passport.use("login-as", new LocalStrategy({
+		usernameField: 'email',
+		passwordField: 'password',
+		passReqToCallback: true
+	}, function (req, username, password, done) {
+		console.log('executing passport login-as');
+		User.findById(req.query.userid, function (err, user) {
+			if (err || !user){
+				console.log(err);
+				console.log(user);
+				User.findById(req.session.userId, (err, user) => {
+					if (err) {
+						console.log(err);
+						return done(err)
+					}
+					return done(null, user)
+				})
+				return done(err);
+			}
+
+			console.log(user);
+			
+			// login acl
+			req.session.userId = user.id;
+
+			// login passport
+			done(null, user);
+		})
+	}));
 }

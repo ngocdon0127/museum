@@ -3502,7 +3502,9 @@ var deleteFileHander = options => {
 						files: files,
 						savedFiles: savedFiles,
 						form: form,
-						id: objectInstance.id
+						id: objectInstance.id,
+						randomStr: req.body.randomStr,
+						field: req.body.field
 					})
 				}
 				
@@ -3517,6 +3519,8 @@ var deleteFileHander = options => {
 					if (err) {
 						console.log(err);
 					}
+					// TODO
+					// Save log
 					let files = []
 					fs.readdirSync(path.join(__dirname, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
 						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
@@ -3527,7 +3531,7 @@ var deleteFileHander = options => {
 					arr.map(f => {
 						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
 					})
-					return responseSuccess(res, ['files', 'savedFiles', 'form', 'id'], [files, savedFiles, form, objectInstance.id]);
+					return responseSuccess(res, ['files', 'savedFiles', 'form', 'id', 'randomStr', 'field'], [files, savedFiles, form, objectInstance.id, req.body.randomStr, req.body.field]);
 				})
 
 			} else {

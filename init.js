@@ -291,8 +291,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		});
 
 		if (action == ACTION_CREATE){
-			objectInstance.created_by.userId = req.user.id // creater
-			objectInstance.created_by.userFullName = req.user.fullname // creater
+			objectInstance.created_by.userId = req.user.id // creator
+			objectInstance.created_by.userFullName = req.user.fullname // creator
 			objectInstance.owner.userId = req.user.id // Owner
 		}
 
@@ -2940,17 +2940,17 @@ var getAllHandler = function (options) {
 				})
 			}))
 			// Default. User chỉ có thể xem những phiếu do chính mình tạo
-			selection['created_by.userId'] = req.user._id;
+			selection['owner.userId'] = req.user._id;
 
 			if (userRoles.indexOf('manager') >= 0){
 				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
-				delete selection['created_by.userId'];
+				delete selection['owner.userId'];
 				selection['maDeTai.maDeTai'] = req.user.maDeTai;
 			}
 
 			if (userRoles.indexOf('admin') >= 0){
 				// Admin, Xem tất
-				delete selection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
+				delete selection['owner.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
 				delete selection['maDeTai.maDeTai'];
 			}
 			// ObjectModel.find(selection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
@@ -3335,7 +3335,7 @@ var deleteHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canDelete = true;
 				}
-				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				if ((objectInstance.owner.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
 					canDelete = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
 					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
 					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
@@ -3449,7 +3449,7 @@ var deleteFileHander = options => {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canEdit = true;
 				}
-				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				if ((objectInstance.owner.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
 					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
 					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
 					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó

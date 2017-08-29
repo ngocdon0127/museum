@@ -95,6 +95,7 @@ app.use(function (req, res, next) { // Để đây thì khi client request stati
 	console.log(req.headers['user-agent']);
 	if ('user' in req){
 		console.log(req.user);
+		console.log(req.session);
 		res.cookie('username', req.user.username, {maxAge: timeCookie, httpOnly: true});
 	}
 	next();

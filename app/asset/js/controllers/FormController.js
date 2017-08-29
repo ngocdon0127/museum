@@ -119,7 +119,6 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         var result = sheetToJson(respone, urlFields)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            console.log(res_tmp);
             initDefaultUnits($scope);
             $scope.$apply();
         })

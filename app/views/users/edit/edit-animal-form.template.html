@@ -1,7 +1,7 @@
 <form id="form-content" name="FormData">
 	<center><h3>Chỉnh sửa mẫu dữ liệu động vật > Đề tài: {{maDeTai}}</h3></center>
 	<div class="container-fluid">
-		<input type="text" name="id" id="obId" style="display: none;" ng-model="data.id">
+		<input type="text" name="id" id="obId" value="{{data.id}}" style="display: none;" ng-model="data.id">
 		<input type="hidden" name="randomStr" value="{{randomStr}}" id="randomStr">
 		<input type="hidden" name="sample" value="dong-vat" id="sample">
 		<ul class="nav nav-tabs group tabs">
@@ -41,9 +41,16 @@
 					<label for="thongTinKhac1Str">05. Thông tin khác:</label>
 					<textarea type="text" ng-model="data.thongTinKhac1Str" title="{{tooltips['thongTinKhac1Str']}}" name="thongTinKhac1Str" id="thongTinKhac1Str" class="input-form form-control" rows="5"></textarea>
 				</div>
-				<div class="col-sm-12">
+				<div class=" row col-sm-6">
 					<input type="file" multiple ng-model="data.thongTinKhac1File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac1File" name ="thongTinKhac1File">
-					<label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>{{getName(data.thongTinKhac1File)}}</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<ul id="ul_thongTinKhac1File" class="list-group">
+						<li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac1File" style="overflow: auto;">{{file.fileName}}
+							<span class="pull-right">
+								<span data-file-name="{{file.fileName}}" data-field-name="thongTinKhac1File" data-random-str="{{randomStr}}" data-form-val="dong-vat" data-form-id="{{data.id}}" class="glyphicon glyphicon-remove" style="cursor: pointer;"></span>
+							</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

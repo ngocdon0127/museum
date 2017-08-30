@@ -3255,6 +3255,7 @@ var chownHandler = function (options) {
 		var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ
 		var LABEL = options.LABEL
 		var objectModelLabel = options.objectModelLabel
+		var aclMiddlewareBaseURL = options.aclMiddlewareBaseURL
 		options.req = req;
 		var nullParam = checkUnNullParams([objectModelIdParamName, 'userId'], req.body);
 
@@ -3311,6 +3312,26 @@ var chownHandler = function (options) {
 			}
 			// now we have: user.maDeTai == maDeTai == req.user.maDeTai
 			// TODO check if user have permission to view this type of form
+			let per = await (new Promise((resolve, reject) => {
+				acl.isAllowed(user.id, aclMiddlewareBaseURL, 'view', function (err, result) {
+					if (err){
+						console.log(err);
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Có lỗi xảy ra, vui lòng thử lại sau.'])
+						resolve(null)
+					}
+					// console.log('result: ', result);
+					if (result){
+						resolve(true)
+					}
+					else {
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['User ' + user.fullname + ' không có quyền xem dữ liệu thuộc loại ' + objectModelLabel])
+						resolve(false)
+					}
+				});
+			}))
+			if (!per) {
+				return;
+			}
 			let newLog = new Log();
 			newLog.userId = req.session.userId;
 			newLog.userFullName = req.user.fullname,

@@ -134,7 +134,8 @@ router.put(objectBaseURL + '/chown', aclMiddleware('/manager', 'edit'),
 		PROP_FIELDS: PROP_FIELDS,
 		PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 		LABEL: LABEL,
-		objectModelLabel: objectModelLabel
+		objectModelLabel: objectModelLabel,
+		aclMiddlewareBaseURL: aclMiddlewareBaseURL
 	})
 )
 

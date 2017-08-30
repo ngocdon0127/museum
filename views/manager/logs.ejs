@@ -92,7 +92,7 @@
 										<tbody>
 										<% for(var i = 0; i < logs.length; i++) { 
 											var log = logs[i]; 
-											var action = logs[i].action; %>
+											var action = log.action; %>
 											<tr>
 												<% var date = new Date(logs[i].time) %>
 												<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>

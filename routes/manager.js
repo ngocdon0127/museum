@@ -43,8 +43,6 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/users', function (req, res, next) {
-	var async = require('asyncawait/async')
-	var await = require('asyncawait/await')
 	async(() => {
 		var user = JSON.parse(JSON.stringify(req.user));
 		delete user.password;
@@ -81,8 +79,6 @@ router.get('/test', function (req, res, next) {
 router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, next) {
 	// Coi vai trò của user đang request là manager.
 	// Admin sẽ có route assign riêng
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 
 	var nullParam = checkUnNullParams(['userId'], req.body);
 
@@ -190,8 +186,6 @@ router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, ne
 router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next) {
 	// Coi vai trò của user đang request là manager.
 	// Admin sẽ có route fire riêng
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 
 	var nullParam = checkUnNullParams(['userId'], req.body);
 
@@ -324,8 +318,6 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 })
 
 router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, next) {
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 	var nullParam = checkUnNullParams(['form', 'id', 'approved'], req.body);
 
 	if (nullParam){
@@ -453,8 +445,6 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 
 router.get('/statistic', (req, res, next) => {
 	// Admin và Manager dùng chung route này.
-	var async = require('asyncawait/async');
-	var await = require('asyncawait/await');
 
 	async(() => {
 		var userRoles = await(new Promise((resolve, reject) => {
@@ -534,7 +524,6 @@ router.get('/statistic', (req, res, next) => {
 		}
 		return res.render('manager/chartjs', resResult)
 	})()
-	
 })
 
 function isLoggedIn (req, res, next) {

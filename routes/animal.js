@@ -120,7 +120,7 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 )
 
 var chownHandler = global.myCustomVars.chownHandler; // Only manager, admin
-router.put(objectBaseURL, aclMiddleware('/manager', 'edit'), 
+router.put(objectBaseURL + '/chown', aclMiddleware('/manager', 'edit'), 
 	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
 		preArray.push({name: curElement.name}); 
 		return preArray;

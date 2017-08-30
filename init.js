@@ -3256,7 +3256,7 @@ var chownHandler = function (options) {
 		var LABEL = options.LABEL
 		var objectModelLabel = options.objectModelLabel
 		options.req = req;
-		var nullParam = checkUnNullParams([objectModelIdParamName, 'approved'], req.body);
+		var nullParam = checkUnNullParams([objectModelIdParamName, 'userId'], req.body);
 
 		if (nullParam){
 			return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
@@ -3310,6 +3310,7 @@ var chownHandler = function (options) {
 				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['User ' + user.fullname + ' không nằm trong đề tài mà bạn quản lý'])
 			}
 			// now we have: user.maDeTai == maDeTai == req.user.maDeTai
+			// TODO check if user have permission to view this type of form
 			let newLog = new Log();
 			newLog.userId = req.session.userId;
 			newLog.userFullName = req.user.fullname,

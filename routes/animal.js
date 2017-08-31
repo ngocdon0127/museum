@@ -139,7 +139,6 @@ router.put(objectBaseURL + '/chown', aclMiddleware('/manager', 'edit'),
 	})
 )
 
-
 var getAllHandler = global.myCustomVars.getAllHandler; // Check owner, Admin bypass. OK OK OK
 router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHandler({
 	ObjectModel: ObjectModel,

@@ -83,6 +83,7 @@ module.exports = function (mongoose) {
 			diaDiemThuMau: {
 				quocGia: String,
 				tinh: String,
+				tinhKhac: String,
 				huyen: String,
 				xa: String,
 				thon: String

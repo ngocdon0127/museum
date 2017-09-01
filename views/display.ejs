@@ -4,7 +4,10 @@
 		<title><%= title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<% include header %>
-	</head>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+   crossorigin=""/>
+
 	</head>
 	<body>
 		<div class="container">
@@ -202,5 +205,18 @@
 				</table>
 			</div>
 		</div>
+		<div id="leafletdiv" style="height: 300px">
+				
+			</div>
+		<!-- Make sure you put this AFTER Leaflet's CSS -->
+ 		<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+   crossorigin=""></script>
+   <script>
+   	function ob(x) {
+   		return document.getElementById(x)
+   	}
+   	var mymap = L.map('leafletdiv').setView([20.9850683, 105.8437908], 13);
+   </script>
 	</body>
 </html>

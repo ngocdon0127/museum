@@ -2925,6 +2925,10 @@ var getAllHandler = function (options) {
 	return function (req, res) {
 		async(() => {
 			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			var objectModelIdParamName = options.objectModelIdParamName;
+			var objectBaseURL = options.objectBaseURL;
+			var LABEL = options.LABEL;
+			var objectModelLabel = options.objectModelLabel;
 			var ObjectModel = options.ObjectModel;
 			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 			var PROP_FIELDS = options.PROP_FIELDS;
@@ -3029,6 +3033,49 @@ var getAllHandler = function (options) {
 				// console.log("==================");
 				// console.log("time: " + ((d2.getTime() - d1.getTime()) / 1000));
 				// console.log("==================");
+				if (req.query.display == 'html') {
+					let coordinationArr = []
+					let firstInstance = -1;
+					objectInstances.map((instance, idx) => {
+						try {
+							let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+							let longitude = '';
+							if (!(regex.test(instance.kinhDo.toLowerCase()))){
+								// console.log('Tọa độ thực')
+								longitude = parseFloat(instance.kinhDo.toLowerCase());
+							}
+							else {
+								// console.log('Tọa độ rời rạc')
+								let matches = instance.kinhDo.toLowerCase().match(regex);
+								longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+							}
+
+							let latitude = '';
+							if (!(regex.test(instance.viDo.toLowerCase()))){
+								// console.log('Tọa độ thực')
+								latitude = parseFloat(instance.viDo.toLowerCase());
+							}
+							else {
+								// console.log('Tọa độ rời rạc')
+								let matches = instance.viDo.toLowerCase().match(regex);
+								latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+							}
+							if (longitude && latitude) {
+								if (firstInstance == -1) {
+									firstInstance = idx
+								}
+								coordinationArr.push([latitude, longitude])
+							}
+						} catch (e) {
+							console.log(e);
+						}
+						
+					})
+					// return res.json({
+					// 	coordinationArr: coordinationArr
+					// })
+					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: {kinhDo: objectInstances[firstInstance].kinhDo, viDo: objectInstances[firstInstance].viDo}, objectModelId: '', props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: coordinationArr});
+				}
 				return responseSuccess(res, ['status', objectModelNames, 'total'], ['success', objectInstances, objectInstances.length]);
 			})
 		})();

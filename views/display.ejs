@@ -206,8 +206,8 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<div id="leafletdiv" style="height: 600px;">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-md-off-set-3 col-lg-offset-3">
+				<div id="leafletdiv" style="height: 750px;">
 				
 				</div>
 				<div id="images"></div>
@@ -260,8 +260,9 @@
 		var latitude = <%= latitude %>
 		console.log(longitude);
 		console.log(latitude);
-		var zoom = 7
-		var mymap = L.map('leafletdiv').setView([latitude, longitude], zoom);
+		var zoom = 6
+		// var mymap = L.map('leafletdiv').setView([latitude, longitude], zoom);
+		var mymap = L.map('leafletdiv').setView([16.24261, 106.33832], zoom);
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(mymap);

@@ -11,10 +11,12 @@
 	</head>
 	<body>
 		<div class="container">
-			<% if (typeof(objectModelId) != 'undefined') { %>
-				<a class="btn btn-success" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa mẫu dữ liệu này</a>
-				<a class="btn btn-primary" role="button" href="<%= '/app/#!/bai-dang' + objectPath %>">Đến trang quản lý mẫu</a>
-			<% } %>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<% if (typeof(objectModelId) != 'undefined') { %>
+					<a class="btn btn-success" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa mẫu dữ liệu này</a>
+					<a class="btn btn-primary" role="button" href="<%= '/app/#!/bai-dang' + objectPath %>">Đến trang quản lý mẫu</a>
+				<% } %>
+			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<%
 				// console.log("here");
@@ -204,12 +206,15 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-		<div id="leafletdiv" style="height: 600px; width: 800px; margin: auto auto">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div id="leafletdiv" style="height: 600px;">
 				
+				</div>
+				<div id="images"></div>
+				<div id="imgleaf"></div>
+			</div>
 		</div>
-		<div id="images"></div>
-		<div id="imgleaf"></div>
+		
 		<!-- Make sure you put this AFTER Leaflet's CSS -->
 		<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
 	 integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="

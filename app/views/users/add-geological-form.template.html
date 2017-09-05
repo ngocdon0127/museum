@@ -121,8 +121,8 @@
                 <div class="col-sm-12">
                     <label>16. Kích thước mẫu vật<span class="has-required"> (*)</span>:</label>
                 </div>
-                <div class="container-fluid">
-                    <div class="col-sm-4">
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
                         <span>Chiều cao: </span>
                         <span class="box">
 					      <input type="text" title="{{tooltips['chieuCao']}}" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
@@ -133,7 +133,7 @@
 					       </select>
 					    </span>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <span>Chiều rộng: </span>
                         <span class="box">
 					      <input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
@@ -145,7 +145,7 @@
 					    </span>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <span>Chiều dài: </span>
                         <span class="box">
 				        <input type="text" title="{{tooltips['chieuDai']}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <span>Trọng lượng: </span>
                         <span class="box">
 					    <input type="text" title="{{tooltips['trongLuong']}}" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
@@ -169,7 +169,7 @@
 					       </select>
 					    </span>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <span>Thể tích: </span>
                         <span class="box">
 					      <input type="text" title="{{tooltips['theTich']}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
@@ -240,37 +240,43 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             Quốc gia<span class="has-required"> (*)</span>: 
                             <input type="text" list="quocGia" class="input-form form-control flexdatalist" data-min-length='0' ng-model="data.quocGia" ng-change="countryChange()" title="{{tooltips['quocGia']}}" name="quocGia">
                             <datalist id="quocGia">
                                 <option value="Việt Nam">Việt Nam</option>
                             </datalist>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             Tỉnh/Thành phố<span ng-show="star_tinh" class="has-required"> (*)</span>: 
                             <input type="text" list="tinh" class="input-form form-control flexdatalist" ng-model="data.tinh" ng-change="cityChange()" data-min-length='0' title="{{tooltips['tinh']}}" name="tinh">
                             <datalist id="tinh">
                                 <option ng-repeat="city in cities | orderBy: 'name'" id="{{city.name}}" value="{{city.id}}">{{city.name}}</option>
                             </datalist>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             Huyện<span ng-show="star" class="has-required"> (*)</span>:
                             <input type="text" class="input-form form-control flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" ng-model= "data.huyen" ng-change="districtChange()">
                             <datalist id="huyen">
                                 <option ng-repeat="district in districts | customCity: id_tinh | orderBy: 'name'" id="{{district.name}}" value="{{district.id}}">{{district.name}}</option>
                             </datalist>
                         </div>
-                        <div class="col-sm-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
                             Xã<span ng-show="star" class="has-required"> (*)</span>: 
                             <input type="text" class="input-form form-control flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa">
                             <datalist id="xa">
                                 <option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
                             </datalist>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             Thôn/bản: 
                             <input type="text" ng-model="data.thon" title="{{tooltips['thon']}}" name="thon" id="thon" class="input-form form-control">
+                        </div>
+                        <div class="col-sm-3">
+                            Thông tin khác: 
+                            <input type="text" ng-model="data.tinhKhac" title="{{tooltips['tinhKhac']}}" name="tinhKhac" id="tinhKhac" class="input-form form-control">
                         </div>
                     </div>
                 </div>

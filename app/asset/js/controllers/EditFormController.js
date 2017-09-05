@@ -6,6 +6,22 @@ app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateP
         console.log(err);
     });
 
+    $scope.deleteTmpFile = function (file, field) {
+        // var ob = document.getAttribute('data-file-name');
+        var urlDelete = '/content/dong-vat/file'
+        
+        var data = {
+            'form': document.getElementById("sample").value,
+            'id': $stateParams.id,
+            'randomStr': $scope.randomStr,
+            'field': field,
+            'fileName': file.fileName
+        }
+        AuthService.deleteTmpFile(data, urlDelete);
+        // $scope.data[field].slice(key, 1);
+        // $scope.$apply();
+    }
+
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
@@ -74,8 +90,6 @@ app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateP
             } else {
                 document.getElementById("datLien").checked = true;
             }
-            document.getElementsByName('tinh')[0].click()
-            document.getElementsByName('huyen')[0].click()
         }, 500);
     }, function (err) {
         $scope.status = err.data.status;
@@ -189,9 +203,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService',
             } else {
                 document.getElementById("datLien").checked = true;
             }
-            document.getElementsByName('tinh')[0].click()
-            document.getElementsByName('huyen')[0].click()
-        }, 1000);
+        }, 500);
     }, function (err) {
         $scope.status = err.data.status;
     });
@@ -303,9 +315,7 @@ app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$sta
             } else {
                 document.getElementById("datLien").checked = true;
             }
-            document.getElementsByName('tinh')[0].click()
-            document.getElementsByName('huyen')[0].click()
-        }, 1000);
+        }, 500);
     }, function (err) {
         $scope.status = err.data.status;
     });
@@ -422,9 +432,7 @@ app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$st
             } else {
                 document.getElementById("datLien").checked = true;
             }
-            document.getElementsByName('tinh')[0].click()
-            document.getElementsByName('huyen')[0].click()
-        }, 1000);
+        }, 500);
     }, function (err) {
         $scope.status = err.data.status;
     });
@@ -516,7 +524,6 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
         AuthService.initDatePicker($scope.data);
 
         $timeout(function () {
-            // if ($scope.data.viDo != null) {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
                 $scope.vido_do = parseInt(coor[1].trim());
@@ -537,10 +544,8 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
             } else {
                 document.getElementById("datLien").checked = true;
             }
-            document.getElementsByName('tinh')[0].click()
-            document.getElementsByName('huyen')[0].click()
             // }
-        }, 1000);
+        }, 500);
     }, function (err) {
         $scope.status = err.data.status;
     });

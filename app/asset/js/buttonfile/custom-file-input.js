@@ -5,13 +5,13 @@ function ob(x) {
 }
 
 function loadFile() {
-	console.log("Load data");
+	// console.log("Load data");
 }
 
 // Tao the li tuong ung voi cac file truyen vao
 function createLiTags(data, ulTag, files, urlDelete) {
-	console.log("Link api delete");
-	console.log(urlDelete);
+// 	console.log("Link api delete");
+// 	console.log(urlDelete);
 	for (var i = 0; i < files.length; i++) {
 		var li = document.createElement('li');
 		li.setAttribute('class', 'list-group-item');
@@ -42,7 +42,7 @@ function createLiTags(data, ulTag, files, urlDelete) {
 		spanChild.setAttribute('style', 'cursor: pointer;')
 		// Bat su kien xoa file trong bo nho tam
 		spanChild.addEventListener('click', function(event){
-			console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
+			// console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
 			deleteTmpFile({
 				fileName: event.target.getAttribute('data-file-name'),
 				field: event.target.getAttribute('data-field-name'),
@@ -192,6 +192,7 @@ $(document).ready(function () {
 					else
 						label.innerHTML = labelVal;
 					instantUpload(this, formData);
+					this.value = null;
 					return false
 				}
 			} else {
@@ -212,7 +213,9 @@ $(document).ready(function () {
 					}
 				else
 					label.innerHTML = labelVal;
+				//auto upload data and delete from input
 				instantUpload(this, formData);
+				this.value = null;
 				return false
 			}
 		});

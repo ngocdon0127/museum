@@ -198,7 +198,7 @@ a.nav:hover{
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     height: 30px;
-    width: 50px;
+    /*width: 50px;*/
     /*position:relative;*/
     padding-left: 5px;
     margin-top: 5px;
@@ -237,6 +237,10 @@ a.nav:hover{
 .group > li > a:hover{
     background-color: #f5f5f5;
     color: #000;
+}
+
+.modal-input{
+    top: 30px;
 }
 
 /*--------------end-New--------------*/

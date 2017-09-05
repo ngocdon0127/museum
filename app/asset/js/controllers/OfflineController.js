@@ -1,44 +1,47 @@
 // // Dong bo de doc du lieu tu file excel
-async function sheetToJson(workbook, urlFields) {
-    // create a Form data to put data
-    var result = {};
-    var roa;
-    var test;
-    var data;
-    await workbook.SheetNames.forEach(function (sheetName) {
-        roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-        test = workbook.Sheets[sheetName];
-        // console.log(test);
-    });
+// async function sheetToJson(workbook, urlFields) {
+//     // create a Form data to put data
+//     var result = {};
+//     var roa;
+//     var test;
+//     var data;
+//     await workbook.SheetNames.forEach(function (sheetName) {
+//         console.log(sheetName);
+//         if (sheetName == "Mau Hang") {
+//         roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+//         test = workbook.Sheets[sheetName];
+//         // console.log(test)
+//         }
+//     });
 
-    // await $.get(urlFields).then(function success(res) {
-    //     data = res
-    // }, function error(err) {
-    //     console.log(err);
-    // });
+//     await $.get(urlFields).then(function success(res) {
+//         data = res
+//         // console.log(data);
+//     }, function error(err) {
+//         console.log(err);
+//     });
 
-    // await data.forEach(function (element) {
-    //     try {
-    //         var typeData = test
-    //         var _tmp = test[element[0]];
-    //         var prop = test[element[1]]["h"];
-    //         if (typeof (_tmp) !== "undefined") {
-    //             if (_tmp["t"] == "n") {
-    //                 result[prop] = _tmp["v"];
-    //             } else {
-    //                 result[prop] = _tmp["h"].trim();
-    //             }
-    //         } else {
-    //             result[prop] = "";
-    //         }
-    //     } catch (e) {
-    //         // console.log(e);
-    //     }
-    // });
-    // return result;
-
-    return test;
-}
+//     await data.forEach(function (element) {
+//         try {
+//             var typeData = test
+//             var _tmp = test[element[1]];
+//             var prop = test[element[0]]["h"];
+//             if (typeof (_tmp) !== "undefined") {
+//                 if (_tmp["t"] == "n") {
+//                     result[prop] = _tmp["v"];
+//                 } else {
+//                     result[prop] = _tmp["h"].trim();
+//                 }
+//             } else {
+//                 result[prop] = "";
+//             }
+//         } catch (e) {
+//             // console.log(e);
+//         }
+//     });
+//     console.log(result);
+//     return result;
+// }
 
 app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
     // $scope.openFile = function (event) {
@@ -55,19 +58,20 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
 
     $scope.name = "not read";
 
-    $scope.read = function (data) {
-        $scope.name = "read";
-        urlRe = "quan-ly-dong-vat"
-        console.log(data);
-        var result = sheetToJson(data)
-        result.then(function success(res) {
-            // console.log(res);
-        })
-    }
+    // $scope.read = function (data) {
+    //     $scope.name = "read";
+    //     urlRe = "quan-ly-dong-vat"
+    //     var urlFields = "/app/database/templateAni.json"
+    //     // console.log(data);
+    //     var result = sheetToJson(data, urlFields)
+    //     result.then(function success(res) {
+    //         console.log("success");
+    //     })
+    // }
 
-    $scope.error = function (e) {
-        console.log(e);
-    }
+    // $scope.error = function (e) {
+    //     console.log(e);
+    // }
 
     // $scope.download = function () {
     //     var link = "/content/co-sinh/58efc6ae1115041b38decf48?display=docx";

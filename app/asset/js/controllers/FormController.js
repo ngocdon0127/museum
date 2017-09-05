@@ -1,26 +1,30 @@
-async function sheetToJson(workbook, urlFields) {
+async function sheetToJson(workbook, urlFields, urlDates, row) {
     // create a Form data to put data
     var result = {};
-    var roa;
-    var test;
+    var dic;
     var data;
+    var datefields;
     await workbook.SheetNames.forEach(function (sheetName) {
-        roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-        test = workbook.Sheets[sheetName];
-        // console.log(test);
+        if (sheetName == "Mau Hang") {
+        dic = workbook.Sheets[sheetName];
+        }
     });
 
-    await $.get(urlFields).then(function success(res) {
-        data = res
+    await $.get(urlDates).then(function success(res) {
+        datefields = res;
     }, function error(err) {
         console.log(err);
     });
-
+    await $.get(urlFields).then(function success(res) {
+        data = res;
+    }, function error(err) {
+        console.log(err);
+    });
     await data.forEach(function (element) {
         try {
-            var typeData = test
-            var _tmp = test[element[0]];
-            var prop = test[element[1]]["h"];
+            var typeData = dic
+            var _tmp = dic[element[1] + row];
+            var prop = dic[element[0]]["h"];
             if (typeof (_tmp) !== "undefined") {
                 if (_tmp["t"] == "n") {
                     result[prop] = _tmp["v"];
@@ -34,6 +38,19 @@ async function sheetToJson(workbook, urlFields) {
             // console.log(e);
         }
     });
+
+    await datefields.forEach(function (element) {
+        var ngay = element + "_ngay";
+        var thang = element + "_thang";
+        var nam = element + "_nam";
+        var dat = [result[ngay] + "/", result[thang] + "/", result[nam]]
+        result[element] = "";
+        for (var i = 0; i < dat.length; i++) {
+            if (dat[i] != "/") {
+                result[element] += dat[i];
+            }
+        }
+    })
     return result;
 }
 
@@ -68,7 +85,6 @@ function initDefaultUnits(_scope) {
 				}
 			]
             donVis.map(function (donVi) {
-                // document.getElementsByName(donVi.unitField)[0].value = donVi.defaultValue;
                 _scope.data[donVi.unitField] = donVi.defaultValue;
             })
         }
@@ -114,12 +130,37 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
     AuthService.initDatePicker(null, null);
 
     $scope.read = function (respone) {
-        var urlFields = "/app/database/fieldsani.json"
-        var result = sheetToJson(respone, urlFields)
+        var urlFields = "/app/database/templateexcel/templateAni.json"
+        var urlDates = "/app/database/templateexcel/anidate.json"
+        var row = prompt("Nhập số thứ tự của mẫu: ")
+        // console.log(row);
+        var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            // console.log(res_tmp);
-            initDefaultUnits($scope);
+            console.log(res_tmp);
+            setTimeout(function () {
+                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.vido_do = parseInt(coor[1].trim());
+                    $scope.vido_phut = parseInt(coor[2].trim());
+                    $scope.vido_giay = parseInt(coor[3].trim());
+                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.kinhdo_do = parseInt(coor[1].trim());
+                    $scope.kinhdo_phut = parseInt(coor[2].trim());
+                    $scope.kinhdo_giay = parseInt(coor[3].trim());
+                    document.getElementById("vitri-dms").checked = true;
+                    $scope.showCoor = true;
+                } else {
+                    document.getElementById("vitri-dd").checked = true;
+                    $scope.showCoor = false;
+                }
+                if ($scope.data.fDiaDiemThuMau == "bien") {
+                    document.getElementById("trenBien").checked = true;
+                } else {
+                    document.getElementById("datLien").checked = true;
+                }
+                // }
+            }, 500);
             $scope.$apply();
         })
     }
@@ -224,6 +265,41 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     }, function (err) {
         console.log(err);
     });
+
+    $scope.read = function (respone) {
+        var urlFields = "/app/database/templateexcel/templateVeg.json"
+        var urlDates = "/app/database/templateexcel/vegdate.json"
+         var row = prompt("Nhập số thứ tự của mẫu: ")
+        var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
+        result.then(function success(res_tmp) {
+            $scope.data = res_tmp;
+            console.log(res_tmp);
+            setTimeout(function () {
+                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.vido_do = parseInt(coor[1].trim());
+                    $scope.vido_phut = parseInt(coor[2].trim());
+                    $scope.vido_giay = parseInt(coor[3].trim());
+                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.kinhdo_do = parseInt(coor[1].trim());
+                    $scope.kinhdo_phut = parseInt(coor[2].trim());
+                    $scope.kinhdo_giay = parseInt(coor[3].trim());
+                    document.getElementById("vitri-dms").checked = true;
+                    $scope.showCoor = true;
+                } else {
+                    document.getElementById("vitri-dd").checked = true;
+                    $scope.showCoor = false;
+                }
+                if ($scope.data.fDiaDiemThuMau == "bien") {
+                    document.getElementById("trenBien").checked = true;
+                } else {
+                    document.getElementById("datLien").checked = true;
+                }
+                // }
+            }, 500);
+            $scope.$apply();
+        })
+    }
 
     //name of route, config in app.config.js file
     var urlRe = 'quan-ly-thuc-vat';
@@ -590,11 +666,8 @@ app.controller('PlaceController', function ($scope, $http, $filter, AuthService,
                         minLength: 0
                     });
                 }, 200)
-                // })
-                // console.log($scope.districts);
             }
         } else {
-            // console.log('districts cache miss')
             $http.get('/app/database/districts.json').then(function (res) {
                 $scope.districts = res.data;
                 places.districts = res.data;

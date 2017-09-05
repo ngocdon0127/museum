@@ -1,38 +1,3 @@
-// var setTable = function() {
-//     $('#managerpost').DataTable({
-//         "paging": true,
-//         "lengthChange": true,
-//         "searching": true,
-//         "ordering": true,
-//         "info": true,
-//         "autoWidth": true,
-//         "language": {
-//             "decimal":        "",
-//             "emptyTable":     "Không có dữ liệu",
-//             "info":           "<strong>Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi</strong>",
-//             "infoEmpty":      "<strong>Đang xem từ 0 tới 0 trong tổng số 0</strong>",
-//             "infoFiltered":   "(filtered from _MAX_ total entries)",
-//             "infoPostFix":    "",
-//             "thousands":      ",",
-//             "lengthMenu":     "Xem _MENU_ mẫu vật",
-//             "loadingRecords": "Đang tải...",
-//             "processing":     "Đang xử lý...",
-//             "search":         "<b>Tìm kiếm:</b>",
-//             "zeroRecords":    "<b>Không tìm thấy nội dung</b>",
-//             "paginate": {
-//                 "first":      "Đầu trang",
-//                 "last":       "Cuối trang",
-//                 "next":       "Sau",
-//                 "previous":   "Trước"
-//             },
-//             "aria": {
-//                 "sortAscending":  ": activate to sort column ascending",
-//                 "sortDescending": ": activate to sort column descending"
-//             }
-//         }
-//     }).order([3, 'desc']).draw();
-// }
-
 app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
     var url = AuthService.hostName + '/content/dong-vat';
     $http.get(url).then(function (res) {
@@ -58,6 +23,10 @@ app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', func
         AuthService.approvePost(id, approved, 'dong-vat')
     }
 
+    $scope.duplicateFile = function (id, form) {
+        var redirect = {sample: 'animal', link: 'chinh-sua-dong-vat'};
+        AuthService.duplicateFile(id, form, redirect)
+    }
 }]);
 
 app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
@@ -80,9 +49,10 @@ app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', f
         }
     }
 
-    // $scope.export = function (id) {
-    // 	AuthService.exportFile(id);
-    // };
+    $scope.duplicateFile = function (id, form) {
+        var redirect = {sample: 'vegetable', link: 'chinh-sua-thuc-vat'};
+        AuthService.duplicateFile(id, form, redirect)
+    }
 
     $scope.approvePost = function (id, approved) {
         AuthService.approvePost(id, approved, 'thuc-vat')
@@ -109,9 +79,10 @@ app.controller('LandManageController', ['$scope', '$http', 'AuthService', functi
         }
     }
 
-    // $scope.export = function (id) {
-    // 	AuthService.exportFile(id);
-    // };
+    $scope.duplicateFile = function (id, form) {
+        var redirect = {sample: 'soil', link: 'chinh-sua-tho-nhuong'};
+        AuthService.duplicateFile(id, form, redirect)
+    }
 
     $scope.approvePost = function (id, approved) {
         AuthService.approvePost(id, approved, 'tho-nhuong')
@@ -137,9 +108,10 @@ app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', 
         }
     }
 
-    // $scope.export = function (id) {
-    // 	AuthService.exportFile(id);
-    // };
+    $scope.duplicateFile = function (id, form) {
+        var redirect = {sample: 'geological', link: 'chinh-sua-dia-chat'};
+        AuthService.duplicateFile(id, form, redirect)
+    }
 
     $scope.approvePost = function (id, approved) {
         AuthService.approvePost(id, approved, 'dia-chat')
@@ -166,9 +138,10 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
         }
     }
 
-    // $scope.export = function (id) {
-    // 	AuthService.exportFile(id);
-    // };
+    $scope.duplicateFile = function (id, form) {
+        var redirect = {sample: 'paleontological', link: 'chinh-sua-co-sinh'};
+        AuthService.duplicateFile(id, form, redirect)
+    }
 
     $scope.approvePost = function (id, approved) {
         AuthService.approvePost(id, approved, 'co-sinh')
@@ -178,7 +151,6 @@ app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthServi
 app.controller('ModalCtrl', function ($scope, $uibModal, AuthService) {
 
     $scope.showModal = function (id, link) {
-        // console.log("da chay o day");
         $scope.opts = {
             backdrop: true,
             backdropClick: true,
@@ -233,7 +205,7 @@ app.controller('ExportFileController', function ($scope, AuthService, $uibModal,
         }, function (err) {
             // log something
         })
-    }, 2000)
+    }, 1000)
 
 
     $scope.export = function (id) {

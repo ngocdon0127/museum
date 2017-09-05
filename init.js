@@ -542,7 +542,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								if (!regex.test(file.originalname)){
 									// console.log(regex);
 									// console.log(file.originalname);
-									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Tên file trong trường không hợp lệ', element.name]);
+									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field', 'invalidFile'], ['Tên file trong trường không hợp lệ', element.name, file.originalname]);
 								}
 							}
 						}
@@ -1164,7 +1164,12 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										let td = ``;
 										for(let iidx = 0; iidx < value.length; iidx++) {
 											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
-												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												try {
+													td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												} catch (e) {
+													console.log(e);
+													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+												}
 											} else {
 												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
 											}

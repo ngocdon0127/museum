@@ -1,5 +1,5 @@
 <form id="form-content" name="FormData">
-	<input type="text" name="id" style="display: none;" ng-model="data.id">
+	<input type="text" name="id" id="obId" style="display: none;" ng-model="data.id">
 	<input type="hidden" name="randomStr" value="{{randomStr}}" id="randomStr">
 	<input type="hidden" name="sample" value="dong-vat" id="sample">
 	<center><h2>Chỉnh sửa mẫu dữ liệu thổ nhưỡng > Đề tài: {{maDeTai}}</h2></center>
@@ -250,23 +250,29 @@
 								<option ng-repeat="city in cities | orderBy: 'name'" id="{{city.name}}" value="{{city.id}}">{{city.name}}</option>
 							</datalist>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							Huyện<span ng-show="star" class="has-required"> (*)</span>:
 							<input type="text" class="input-form form-control flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" ng-model= "data.huyen" ng-change="districtChange()">
 							<datalist id="huyen">
 								<option ng-repeat="district in districts | customCity: id_tinh | orderBy: 'name'" id="{{district.name}}" value="{{district.id}}">{{district.name}}</option>
 							</datalist>
 						</div>
-						<div class="col-sm-2">
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
 							Xã<span ng-show="star" class="has-required"> (*)</span>: 
 							<input type="text" class="input-form form-control flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa">
 							<datalist id="xa">
 								<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
 							</datalist>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-3">
 							Thôn/bản: 
 							<input type="text" ng-model="data.thon" title="{{tooltips['thon']}}" name="thon" id="thon" class="input-form form-control">
+						</div>
+						<div class="col-sm-3">
+							Thông tin khác: 
+							<input type="text" ng-model="data.tinhKhac" title="{{tooltips['tinhKhac']}}" name="tinhKhac" id="tinhKhac" class="input-form form-control">
 						</div>
 					</div>
 				</div>
@@ -691,11 +697,11 @@
 		<div class="bottom-nav">
 			<center>
 				<button type="submit" ng-click="updatePost()" class="btn btn-primary">
-					<span class="glyphicon glyphicon-pencil"></span> Cập nhật mẫu cũ
+					<span class="glyphicon glyphicon-pencil"></span> Cập nhật mẫu
 				</button>
-				<button type="button" ng-click="saveAs()" class="btn btn-success">
+				<!-- <button type="button" ng-click="saveAs()" class="btn btn-success">
 					<span class="glyphicon glyphicon-floppy-saved"></span> Lưu mẫu mới
-				</button>
+				</button> -->
 				<div class="pull-right">
 					<button id="back-to-top" type="button" class="btn btn-circle btn-default">
 						<span class="glyphicon glyphicon-chevron-up"></span> Top

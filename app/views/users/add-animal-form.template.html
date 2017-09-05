@@ -304,7 +304,7 @@
 							</div>
 							<div class="col-sm-10">
 								<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="starDatLien()" id="datLien"> Trên đất liền
-								<input type="radio" name="fDiaDiemThuMau" value="dao" id="datLien" ng-click="starDao()" ng-model="trenDao"> Trên đảo
+								<input type="radio" name="fDiaDiemThuMau" value="dao" id="dao" ng-click="starDao()" ng-model="trenDao"> Trên đảo
 								<input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="starBien()" ng-model="trenBien"> Trên biển
 							</div>
 						</div>
@@ -323,23 +323,29 @@
 									<option ng-repeat="city in cities | orderBy: 'name'" id="{{city.name}}" value="{{city.id}}">{{city.name}}</option>
 								</datalist>
 							</div>
-							<div class="col-sm-2">
+							<div class="col-sm-3">
 								Huyện<span ng-show="star" class="has-required"> (*)</span>:
 								<input type="text" class="input-form form-control flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" ng-model= "data.huyen" ng-change="districtChange()">
 								<datalist id="huyen">
 									<option ng-repeat="district in districts | customCity: id_tinh | orderBy: 'name'" id="{{district.name}}" value="{{district.id}}">{{district.name}}</option>
 								</datalist>
 							</div>
-							<div class="col-sm-2">
+						</div>
+						<div class="row">
+							<div class="col-sm-3">
 								Xã<span ng-show="star" class="has-required"> (*)</span>: 
 								<input type="text" class="input-form form-control flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa">
 								<datalist id="xa">
 									<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
 								</datalist>
 							</div>
-							<div class="col-sm-2">
+							<div class="col-sm-3">
 								Thôn/bản: 
 								<input type="text" ng-model="data.thon" title="{{tooltips['thon']}}" name="thon" id="thon" class="input-form form-control">
+							</div>
+							<div class="col-sm-3">
+								Thông tin khác: 
+								<input type="text" ng-model="data.tinhKhac" title="{{tooltips['tinhKhac']}}" name="tinhKhac" id="tinhKhac" class="input-form form-control">
 							</div>
 						</div>
 					</div>
@@ -349,8 +355,8 @@
 						<label>24. Vị trí tọa độ theo hệ tọa độ Việt Nam 2000: </label>
 					</div>
 					<div class="col-sm-7">
-						<input type="radio" name="fViTriToaDo" ng-checked="'true'" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
-						<input type="radio" name="fViTriToaDo" value="false" ng-click="dd()"><span class="label label-default"> DD</span>
+						<input type="radio" name="fViTriToaDo" id="vitri-dms" ng-checked="'true'" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
+						<input type="radio" name="fViTriToaDo" id="vitri-dd" value="false" ng-click="dd()"><span class="label label-default"> DD</span>
 					</div>
 
 					<div class="container-fluid col-sm-12">

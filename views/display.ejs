@@ -205,7 +205,7 @@
 				</table>
 			</div>
 		</div>
-		<div id="leafletdiv" style="height: 300px">
+		<div id="leafletdiv" style="height: 600px">
 				
 			</div>
 		<!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -222,37 +222,31 @@
 			let zoom = 0;
    	%>
    	<% 
-   	if (!(/([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/.test(obj1.kinhDo.toLowerCase()))){
+   	let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+   	if (!(regex.test(obj1.kinhDo.toLowerCase()))){
 			// console.log('Tọa độ thực')
-			
 			longitude = parseFloat(obj1.viDo.toLowerCase());
 		}
 		else {
 			// console.log('Tọa độ rời rạc')
-			let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
 			let matches = obj1.kinhDo.toLowerCase().match(regex);
 			longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
 		}
-		if (!(/([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/.test(obj1.viDo.toLowerCase()))){
+		if (!(regex.test(obj1.viDo.toLowerCase()))){
 			// console.log('Tọa độ thực')
 			latitude = parseFloat(obj1.viDo.toLowerCase());
 		}
 		else {
 			// console.log('Tọa độ rời rạc')
-			// calculate
-			// latitude = parseFloat(obj1.viDo.toLowerCase());
-			let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
 			let matches = obj1.viDo.toLowerCase().match(regex);
 			latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
 		}
-
-		console.log(longitude);
-		console.dir(latitude);
-
 		%>
 		var longitude = <%= longitude %>
    	var latitude = <%= latitude %>
-   	var zoom = 14
+   	console.log(longitude);
+		console.log(latitude);
+   	var zoom = 7
    	var mymap = L.map('leafletdiv').setView([latitude, longitude], zoom);
    	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

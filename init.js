@@ -3075,6 +3075,7 @@ var getSingleHandler = function (options) {
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;
+		let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 		var objectModelIdParamName = options.objectModelIdParamName;
 		var objectBaseURL = options.objectBaseURL;
@@ -3099,7 +3100,52 @@ var getSingleHandler = function (options) {
 				else {
 					// return responseSuccess(res, ['objectInstance'], [objectInstance]);
 					if (req.query.display == 'html'){
-						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length)});
+						let foi = flatObjectModel(PROP_FIELDS, objectInstance)
+						if (foi.loai) {
+							let field = PROP_FIELDS[PROP_FIELDS_OBJ['loai']].schemaProp + '.loai';
+							let selection = {}
+							selection[field] = foi.loai
+							console.log(selection);
+							ObjectModel.find(selection, (err, instances) => {
+								let coordinationArr = []
+								if (err) {
+									console.log(err);
+								} else {
+									console.log('cung loai:', instances.length);
+									instances.map(instance => {
+										let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+										let longitude = '';
+										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase()))){
+											// console.log('Tọa độ thực')
+											longitude = parseFloat(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase());
+										}
+										else {
+											// console.log('Tọa độ rời rạc')
+											let matches = instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase().match(regex);
+											longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+										}
+
+										let latitude = '';
+										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase()))){
+											// console.log('Tọa độ thực')
+											latitude = parseFloat(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase());
+										}
+										else {
+											// console.log('Tọa độ rời rạc')
+											let matches = instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase().match(regex);
+											latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+										}
+										if (longitude && latitude) {
+											coordinationArr.push([latitude, longitude])
+										}
+									})
+								}
+								return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: coordinationArr});
+							})
+						} else {
+							return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: null});
+						}
+						
 					}
 					else if (req.query.display == 'nested') {
 						return responseSuccess(res, [objectModelName], [objectInstance]);

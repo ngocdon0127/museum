@@ -225,7 +225,7 @@
    	let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
    	if (!(regex.test(obj1.kinhDo.toLowerCase()))){
 			// console.log('Tọa độ thực')
-			longitude = parseFloat(obj1.viDo.toLowerCase());
+			longitude = parseFloat(obj1.kinhDo.toLowerCase());
 		}
 		else {
 			// console.log('Tọa độ rời rạc')
@@ -252,6 +252,12 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mymap);
     var marker = L.marker([latitude, longitude]).addTo(mymap);
+    <% if (coordinationArr) { %>
+    	var c = <%- JSON.stringify(coordinationArr) %>
+    	for(var i = 0; i < c.length; i++) {
+    		var marker = L.marker(c[i]).addTo(mymap);
+    	}
+    <% } %>
    </script>
 	</body>
 </html>

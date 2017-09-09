@@ -45,9 +45,16 @@
                     <label for="thongTinKhac1Str">05. Thông tin khác:</label>
                     <textarea type="text" ng-model="data.thongTinKhac1Str" title="{{tooltips['thongTinKhac1Str']}}" name="thongTinKhac1Str" id="thongTinKhac1Str" class="input-form form-control" rows="5"></textarea>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <input type="file" multiple ng-model="data.thongTinKhac1File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac1File" name="thongTinKhac1File">
-                    <label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>{{getName(data.thongTinKhac1File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac1File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac1File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac1File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -95,9 +102,16 @@
                     <label for="thongTinKhac2Str">13. Thông tin khác:</label>
                     <textarea type="text" ng-model="data.thongTinKhac2Str" title="{{tooltips['thongTinKhac2Str']}}" name="thongTinKhac2Str" id="thongTinKhac2Str" class="input-form form-control" rows="5"></textarea>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <input type="file" multiple ng-model="data.thongTinKhac2File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac2File" name="thongTinKhac2File">
-                    <label for="thongTinKhac2File" title="{{tooltips['thongTinKhac2File']}}"><span>{{getName(data.thongTinKhac2File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac2File" title="{{tooltips['thongTinKhac2File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac2File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac2File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac2File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -195,7 +209,14 @@
                 </div>
                 <div class="col-sm-12">
                     <input type="file" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
-                    <label for="thongTinKhac3File" title="{{tooltips['thongTinKhac3File']}}"><span>{{getName(data.thongTinKhac3File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac3File" title="{{tooltips['thongTinKhac3File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac3File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac3File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac3File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -325,7 +346,14 @@
                 <div class="col-sm-4">
                     <label>27. Bản đồ:</label></br>
                     <input type="file" multiple id="banDo" name="banDo" ng-model="data.banDo" class="inputfile" data-multiple-caption="{count} file is selected">
-                    <label for="banDo" title="{{tooltips['banDo']}}"><span>{{getName(data.banDo)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="banDo" title="{{tooltips['banDo']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_banDo" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.banDo" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'banDo', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -335,7 +363,14 @@
                 </div>
                 <div class="col-sm-12">
                     <input type="file" multiple ng-model="data.thongTinKhac4File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac4File" name ="thongTinKhac4File">
-                    <label for="thongTinKhac4File" title="{{tooltips['thongTinKhac4File']}}"><span>{{getName(data.thongTinKhac4File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac4File" title="{{tooltips['thongTinKhac4File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac4File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac4File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac4File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -370,7 +405,14 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10">
-                    <label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{getName(data.taiLieuPhanTichFile)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_taiLieuPhanTichFile" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.taiLieuPhanTichFile" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'taiLieuPhanTichFile', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -382,24 +424,52 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" id="phanTichQuangHocFile" multiple accept=".doc, .docx, .pdf" name="phanTichQuangHocFile" ng-model="data.phanTichQuangHocFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10">
-                    <label for="phanTichQuangHocFile" title="{{tooltips['phanTichQuangHocFile']}}"><span>{{getName(data.phanTichQuangHocFile)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="phanTichQuangHocFile" title="{{tooltips['phanTichQuangHocFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_phanTichQuangHocFile" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.phanTichQuangHocFile" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'phanTichQuangHocFile', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <label>34. Các kết quả phân tích thành phần vật chất:</label>
                     <input type="file" multiple id="ketQuaThanhPhanVatChat" name="ketQuaThanhPhanVatChat" ng-model="data.ketQuaThanhPhanVatChat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".docx, .doc, .pdf">
-                    <label for="ketQuaThanhPhanVatChat" title="{{tooltips['ketQuaThanhPhanVatChat']}}"><span>{{getName(data.ketQuaThanhPhanVatChat)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="ketQuaThanhPhanVatChat" title="{{tooltips['ketQuaThanhPhanVatChat']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_ketQuaThanhPhanVatChat" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.ketQuaThanhPhanVatChat" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'ketQuaThanhPhanVatChat', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-sm-4">
                     <label>35. Kết quả phân tích đồng vị và định tuổi:</label>
                     <input type="file" multiple id="ketQuaPhanTichDinhTuoi" name="ketQuaPhanTichDinhTuoi" ng-model="data.ketQuaPhanTichDinhTuoi" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".docx, .doc, .pdf">
-                    <label for="ketQuaPhanTichDinhTuoi" title="{{tooltips['ketQuaPhanTichDinhTuoi']}}"><span>{{getName(data.ketQuaPhanTichDinhTuoi)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="ketQuaPhanTichDinhTuoi" title="{{tooltips['ketQuaPhanTichDinhTuoi']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_ketQuaPhanTichDinhTuoi" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.ketQuaPhanTichDinhTuoi" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'ketQuaPhanTichDinhTuoi', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-sm-4">
                     <label>36. Các phân tích khác:</label></br>
                     <input type="file" multiple id="phanTichKhac" name="phanTichKhac" ng-model="data.phanTichKhac" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".docx, .doc, .pdf">
-                    <label for="phanTichKhac" title="{{tooltips['phanTichKhac']}}"><span>{{getName(data.phanTichKhac)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="phanTichKhac" title="{{tooltips['phanTichKhac']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_phanTichKhac" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.phanTichKhac" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'phanTichKhac', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -424,7 +494,14 @@
                 </div>
                 <div class="col-sm-12">
                     <input type="file" multiple ng-model="data.thongTinKhac5File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac5File" name ="thongTinKhac5File">
-                    <label for="thongTinKhac5File" title="{{tooltips['thongTinKhac5File']}}"><span>{{getName(data.thongTinKhac5File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac5File" title="{{tooltips['thongTinKhac5File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac5File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac5File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac5File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -433,12 +510,26 @@
                 <div class="col-sm-3">
                     <label>39. Ảnh mẫu vật <span class="has-required">(*)</span>:</label>
                     <input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10">
-                    <label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{getName(data.anhMauVat)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_anhMauVat" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.anhMauVat" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'anhMauVat', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-sm-3">
                     <label>40. Hình ảnh mẫu ngoài thực địa:</label>
                     <input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-                    <label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{getName(data.hinhAnhNgoaiThucDia)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_hinhAnhNgoaiThucDia" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.hinhAnhNgoaiThucDia" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hinhAnhNgoaiThucDia', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-sm-3">
                     <label>41. Thông tin về phim, video: </label>
@@ -448,7 +539,14 @@
                     <label>42. Đính kèm phim, video:</label>
 
                     <input type="file" multiple accept="video/*" name="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="100">
-                    <label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{getName(data.videoFile)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="videoFile" title="{{tooltips['videoFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_videoFile" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.videoFile" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'videoFile', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -459,12 +557,26 @@
                     <div class="col-sm-4">
                         Hình ảnh đính kèm Xử lý chế tác:
                         <input type="file" multiple id="hinhAnhDinhKem" ng-model="data.hinhAnhDinhKem" name="hinhAnhDinhKem" accept="image/*" max-file-size="5" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-                        <label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>{{getName(data.hinhAnhDinhKem)}}</span><strong>Đính kèm file</strong></label>
+                        <label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                        <ul id="ul_hinhAnhDinhKem" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.hinhAnhDinhKem" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hinhAnhDinhKem', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                     </div>
                     <div class="col-sm-4">
                         Đính kèm xử lý chế tác:</br>
                         <input type="file" multiple ng-model="data.dinhKemXuLyCheTac" id="dinhKemXuLyCheTac" accept=".docx, .doc, .pdf" name="dinhKemXuLyCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-                        <label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>{{getName(data.dinhKemXuLyCheTac)}}</span><strong>Đính kèm file</strong></label>
+                        <label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                        <ul id="ul_dinhKemXuLyCheTac" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.dinhKemXuLyCheTac" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'dinhKemXuLyCheTac', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                     </div>
                     <div class="col-sm-4">
                         Thuộc tính Xử lý chế tác:
@@ -493,7 +605,14 @@
                     <div class="col-sm-4">
                         Ảnh mẫu sau chế tác:</br>
                         <input type="file" id="anhMauSauCheTac" multiple ng-model="data.anhMauSauCheTac" name="anhMauSauCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="5">
-                        <label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>{{getName(data.anhMauSauCheTac)}}</span><strong>Đính kèm file</strong></label>
+                        <label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                        <ul id="ul_anhMauSauCheTac" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.anhMauSauCheTac" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'anhMauSauCheTac', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                     </div>
                 </div>
             </div>
@@ -504,7 +623,14 @@
                 </div>
                 <div class="col-sm-12">
                     <input type="file" multiple ng-model="data.thongTinKhac6File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac6File" name ="thongTinKhac6File">
-                    <label for="thongTinKhac6File" title="{{tooltips['thongTinKhac6File']}}"><span>{{getName(data.thongTinKhac6File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac6File" title="{{tooltips['thongTinKhac6File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac6File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac6File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac6File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -552,7 +678,14 @@
                 <div class="col-sm-4">
                     <label>51. Công thức hóa học:</label></br>
                     <input type="file" id="congThucHoaHoc" multiple ng-model="data.congThucHoaHoc" name="congThucHoaHoc" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
-                    <label for="congThucHoaHoc" title="{{tooltips['congThucHoaHoc']}}"><span>{{getName(data.congThucHoaHoc)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="congThucHoaHoc" title="{{tooltips['congThucHoaHoc']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_congThucHoaHoc" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.congThucHoaHoc" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'congThucHoaHoc', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-sm-4">
                     <label>52. Thành phần hóa học:</label>
@@ -570,7 +703,14 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" multiple ng-model="data.phanBoVietNamFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" id="phanBoVietNamFile" name="phanBoVietNamFile">
-                    <label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>{{getName(data.phanBoVietNamFile)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_phanBoVietNamFile" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.phanBoVietNamFile" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'phanBoVietNamFile', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -582,7 +722,14 @@
                 </div>
                 <div class="col-sm-6">
                     <input type="file" id="phanBoTrenTheGioiFile" multiple ng-model="data.phanBoTrenTheGioiFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" name="phanBoTrenTheGioiFile">
-                    <label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>{{getName(data.phanBoTrenTheGioiFile)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_phanBoTrenTheGioiFile" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.phanBoTrenTheGioiFile" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'phanBoTrenTheGioiFile', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -604,7 +751,14 @@
                 </div>
                 <div class="col-sm-12">
                     <input type="file" multiple ng-model="data.thongTinKhac7File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac7File" name ="thongTinKhac7File">
-                    <label for="thongTinKhac7File" title="{{tooltips['thongTinKhac7File']}}"><span>{{getName(data.thongTinKhac7File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac7File" title="{{tooltips['thongTinKhac7File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac7File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac7File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac7File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -686,12 +840,26 @@
                 <div class="col-sm-6">
                     <label>66. Giấy phép nhập mẫu:</label><br>
                     <input type="file" multiple id="giayPhepNhapMau" ng-model="data.giayPhepNhapMau" name="giayPhepNhapMau" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*, .pdf">
-                    <label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>{{getName(data.giayPhepNhapMau)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_giayPhepNhapMau" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.giayPhepNhapMau" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'giayPhepNhapMau', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-sm-6">
                     <label>67. Hồ sơ nhập mẫu vật đi kèm:</label><br>
                     <input type="file" multiple ng-model="data.hoSoNhapMauVatDiKem" id="hoSoNhapMauVatDiKem" name="hoSoNhapMauVatDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
-                    <label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{getName(data.hoSoNhapMauVatDiKem)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_hoSoNhapMauVatDiKem" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.hoSoNhapMauVatDiKem" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hoSoNhapMauVatDiKem', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -711,7 +879,14 @@
                 </div>
                 <div class="col-sm-12">
                     <input type="file" multiple ng-model="data.thongTinKhac8File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac8File" name ="thongTinKhac8File">
-                    <label for="thongTinKhac8File" title="{{tooltips['thongTinKhac8File']}}"><span>{{getName(data.thongTinKhac8File)}}</span><strong>Đính kèm file</strong></label>
+                    <label for="thongTinKhac8File" title="{{tooltips['thongTinKhac8File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+                    <ul id="ul_thongTinKhac8File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac8File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac8File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 		</div>
@@ -719,7 +894,14 @@
             <label for="thongTinKhac9Str">71. Thông tin khác: </label>
             <textarea type="text" ng-model="data.thongTinKhac9Str" title="{{tooltips['thongTinKhac9Str']}}" id="thongTinKhac9Str" name="thongTinKhac9Str" class="form-control input-form" rows="5"></textarea>
             <input type="file" multiple ng-model="data.thongTinKhac9File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac9File" name ="thongTinKhac9File">
-            <label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>{{getName(data.thongTinKhac9File)}}</span><strong>Đính kèm file</strong></label>
+            <label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+            <ul id="ul_thongTinKhac9File" class="list-group">
+                        <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac9File" style="overflow: auto;">{{file.fileName}}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac9File', key)"></span>
+                            </span>
+                        </li>
+                    </ul>
         </div>
 	</div>
 	<div style="height: 20px;"></div>
@@ -738,6 +920,6 @@
 			</div>
 		</center>
 	</div>
-</form>>
+</form>
 <!-- Custom input file -->
 <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>

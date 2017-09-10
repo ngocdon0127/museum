@@ -1,8 +1,17 @@
-app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, $compileProvider) {
+app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $httpProvider, $compileProvider, $translateProvider) {
 	$compileProvider.debugInfoEnabled(false);
 	$httpProvider.useApplyAsync(1000);
+	// Remove #! with tag <base href="/../#!" in index file
 	$locationProvider.html5Mode(false);
 	$locationProvider.hashPrefix('!');
+	
+	$translateProvider.useStaticFilesLoader({
+      prefix: '/app/asset/lang/',
+      suffix: '.json'
+    });
+    $translateProvider.useLocalStorage();
+    $translateProvider.preferredLanguage('vi');
+
 	$stateProvider
 	.state('home', {
 		url: '/',

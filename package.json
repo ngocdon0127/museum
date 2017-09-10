@@ -44,5 +44,8 @@
     "serve-favicon": "~2.3.0",
     "ua-parser": "^0.3.5",
     "useragent": "^2.1.13"
+  },
+  "devDependencies": {
+    "angular-translate": "^2.15.2"
   }
 }

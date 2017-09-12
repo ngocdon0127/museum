@@ -192,7 +192,8 @@ module.exports = function (mongoose) {
 		},
 		flag: {
 			fDiaDiemThuMau: String,
-			fApproved: Boolean
+			fApproved: Boolean,
+			fMissingDateTime: Number
 		}
 	};
 	var paleontologicalSchema = mongoose.Schema(schemaPrototype);

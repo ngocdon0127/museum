@@ -200,7 +200,8 @@ module.exports = function (mongoose) {
 		},
 		flag: {
 			fDiaDiemThuMau: String,
-			fApproved: Boolean
+			fApproved: Boolean,
+			fMissingDateTime: Number
 		}
 	};
 	var animalSchema = mongoose.Schema(schemaPrototype);

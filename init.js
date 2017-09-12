@@ -50,6 +50,10 @@ global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
 
+const DATE_FULL = 0;
+const DATE_MISSING_DAY = 1;
+const DATE_MISSING_MONTH = 2;
+
 
 
 // ============== Places ================
@@ -497,9 +501,39 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// Catch error later
 						try {
 							let dateValue_ = req.body[element.name].split('/');
-							if (dateValue_.length < 3){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+							// reject if day or month is missing
+							// if (dateValue_.length < 3){
+							// 	return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+							// }
+							// 
+							// now, allow to save and mark the flag
+							console.log(dateValue_);
+							let dl = dateValue_.length;
+							console.log('dateValue_ len:', dl);
+							let flagMissingDateTime = DATE_FULL;
+							try {
+								flagMissingDateTime = objectInstance.flag.fMissingDateTime;
+							} catch (e) {
+								console.log(e);
 							}
+							if (dl == 2) {
+								// date: 12/2017 => 1/12/2017
+								dateValue_.unshift('1'); // Chỉnh về ngày mùng 1 trong tháng
+								flagMissingDateTime = DATE_MISSING_DAY;
+							} else if (dl == 1) {
+								// date: 2017 => 1/1/2017
+								dateValue_.unshift('1');
+								dateValue_.unshift('1'); // Chỉnh về ngày 1 tháng 1 trong năm
+								flagMissingDateTime = DATE_MISSING_MONTH;
+							}
+							if (objectInstance.flag) {
+								objectInstance.flag.fMissingDateTime = flagMissingDateTime
+							} else {
+								objectInstance.flag = {
+									fMissingDateTime: flagMissingDateTime
+								}
+							}
+							console.log(dateValue_);
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
 							})

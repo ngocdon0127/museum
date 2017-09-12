@@ -1226,6 +1226,15 @@
 		"type": "String"
 	},
 	{
+		"name": "fMissingDateTime",
+		"schemaProp": "flag",
+		"label": "Kiểu ngày tháng",
+		"required": false,
+		"money": false,
+		"type": "Number"
+	},
+
+	{
 		"name": "soHieu",
 		"type": "Metadata",
 		"label": "Số hiệu mẫu vật"

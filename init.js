@@ -1209,6 +1209,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
+									// TODO 2283 CHECK PRINT OR NOT
 									if (printAll || (display(flatOI[sp]) && (sp in printedProperties))) {
 										flagHasRealChildren = true;
 										break;
@@ -2278,7 +2279,8 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (display(flatOI[sp]) && (sp in printedProperties)){
+									// TODO 1212 CHECK PRINT OR NOT
+									if (display(flatOI[sp]) && (printAll || (sp in printedProperties))){
 										flagHasRealChildren = true;
 										break;
 									}

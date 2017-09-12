@@ -224,6 +224,7 @@
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 	 <script type="text/javascript" src='/javascripts/leaflet.browser.print.min.js'></script>
 	 <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
+	 <script type="text/javascript" src="/javascripts/Map.SelectArea.min.js"></script>
 	 <script>
 		function ob(x) {
 			return document.getElementById(x)
@@ -262,10 +263,13 @@
 		console.log(latitude);
 		var zoom = 6
 		// var mymap = L.map('leafletdiv').setView([latitude, longitude], zoom);
-		var mymap = L.map('leafletdiv').setView([16.24261, 106.33832], zoom);
+		var mymap = L.map('leafletdiv', {selectArea: true}).setView([16.24261, 106.33832], zoom);
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(mymap);
+		mymap.on('areaselected', (e) => {
+		  console.log(e.bounds.toBBoxString()); // lon, lat, lon, lat
+		});
 		L.control.layers({
 	      'Satellite Map': L.mapbox.tileLayer('bobbysud.map-l4i2m7nd', {
 	          detectRetina: true

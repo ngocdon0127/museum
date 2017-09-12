@@ -60,6 +60,7 @@
 		          	<label>08. Ngày định tên: </label>
 		          	<select ng-model="date_ndt" class="select-date">
 		            	<option value="dd/mm/yyyy">Full date</option>
+		            	<option value="mm/yyyy">Mon/Year</option>
 		            	<option value="yyyy">Year</option>
 		          	</select>
 		          	<input type="text" class="input-form form-control datepicker" id="ngayDinhTen" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" placeholder="{{date_ndt}}" ng-model="data.ngayDinhTen">
@@ -198,6 +199,7 @@
 		          	<label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label>
 		          	<select ng-model="date_tgtm" class="select-date">
 		            	<option value="dd/mm/yyyy">Full date</option>
+		            	<option value="mm/yyyy">Mon/Year</option>
 		            	<option value="yyyy">Year</option>
 		          	</select>
           			<input type="text" class="input-form form-control datepicker" id="thoiGianThuMau" title="{{tooltips['thoiGianThuMau']}}" placeholder="{{date_tgtm}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau">
@@ -381,8 +383,9 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>39. Ngày phân tích mẫu đất:</label>
-						<select ng-model="date_ptmd" class="select-date">
+					<select ng-model="date_ptmd" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
+                        <option value="mm/yyyy">Mon/Year</option>
                         <option value="yyyy">Year</option>
                     </select>
 					<input type="text" class="input-form form-control datepicker" id="ngayPhanTichMauDat" title="{{tooltips['ngayPhanTichMauDat']}}" name="ngayPhanTichMauDat" placeholder="{{date_ptmd}}" ng-model="data.ngayPhanTichMauDat" >
@@ -403,6 +406,7 @@
 					<label>42. Thời gian giám định mẫu:</label>
 					<select ng-model="date_tggd" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
+                        <option value="mm/yyyy">Mon/Year</option>
                         <option value="yyyy">Year</option>
                     </select>
 					<input type="text" class="input-form form-control datepicker" id="thoiGianGiamDinh" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" placeholder="{{date_tggd}}" ng-model="data.thoiGianGiamDinh" >
@@ -492,6 +496,7 @@
 						Thời gian xử lý chế tác:
 						<select ng-model="date_tgct" class="select-date">
 	                        <option value="dd/mm/yyyy">Full date</option>
+	                        <option value="mm/yyyy">Mon/Year</option>
 	                        <option value="yyyy">Year</option>
 	                    </select>
 						<input type="text" class="input-form form-control datepicker" id="thoiGianXuLy" title="{{tooltips['thoiGianXuLy']}}" placeholder="{{date_tgct}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy">
@@ -578,6 +583,7 @@
 					<label>58. Ngày nhập mẫu: </label>
 						<select ng-model="date_nnm" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
+                        <option value="mm/yyyy">Mon/Year</option>
                         <option value="yyyy">Year</option>
                     </select>
 					<input type="text" class="input-form form-control datepicker" id="ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" placeholder="{{date_nnm}}" ng-model="data.ngayNhapMau" >

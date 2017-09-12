@@ -1,6 +1,6 @@
 app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
 	return ({
-		//hostName: 'http://localhost:8000',
+		// hostName: 'http://localhost:8000',
 		hostName: 'https://baotangvn.online',
 		deleteP: deleteP,
 		approvePost: approvePost,
@@ -419,7 +419,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				valueProperty: value,
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-		}, 100)
+		}, 1000)
 	}
 
 	function fetchFlexdatalist(_scope) {
@@ -445,7 +445,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			$('html, body').animate({
 				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
 			}, 1);
-		}, 10);
+		}, 1000);
 	}
 
 	function initDatePicker(_scope) {

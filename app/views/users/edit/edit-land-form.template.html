@@ -7,7 +7,7 @@
 				<tr>
 					<td><label >Mã đề tài <span class="has-required">(*)</span>: </label></td>
 					<td>
-						<input type="text" name="maDeTai" disabled="true" ng-model="data.maDeTai" class="input-form" required>
+						<input type="text" name="maDeTai" disabled="true" ng-model="data.maDeTai" class="input-form" >
 					</td>
 				</tr>
 			</table>
@@ -21,11 +21,11 @@
 				</tr>
 				<tr>
 					<td><label>02. Số hiệu bảo tàng cơ sở <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>03. Số hiệu thực địa <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['soHieuThucDia']}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['soHieuThucDia']}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>04. Các kí hiệu mẫu vật khác:</label></td>
@@ -64,7 +64,7 @@
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam(phổ thông)</td>
-					<td><input type="text" title="{{tooltips['tenVietNam']}}" name="tenVietNam" ng-model="data.tenVietNam" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['tenVietNam']}}" name="tenVietNam" ng-model="data.tenVietNam" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>10. Tên địa phương:</label></td>
@@ -187,7 +187,7 @@
 				</tr>
 				<tr>
 					<td><label>17. Tình trạng mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['tinhTrangMau']}}" name="tinhTrangMau" ng-model="data.tinhTrangMau" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['tinhTrangMau']}}" name="tinhTrangMau" ng-model="data.tinhTrangMau" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>18. Thông tin khác </label></td>
@@ -210,11 +210,11 @@
 				<h3 class="h3-title">NHÓM DỮ LIỆU THU MẪU</h3>
 				<tr>
 					<td><label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" class="input-form datepicker" title="{{tooltips['nguoiThuMau']}}" id="thoiGianThuMau" name="thoiGianThuMau" ng-model="data.thoiGianThuMau" required></td>
+					<td><input type="text" class="input-form datepicker" title="{{tooltips['nguoiThuMau']}}" id="thoiGianThuMau" name="thoiGianThuMau" ng-model="data.thoiGianThuMau" ></td>
 				</tr>
 				<tr>
 					<td><label>20. Người thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['coQuanThuMau']}}" name="nguoiThuMau" ng-model="data.nguoiThuMau" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['coQuanThuMau']}}" name="nguoiThuMau" ng-model="data.nguoiThuMau" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>21. Cơ quan thu mẫu: </label></td>
@@ -222,7 +222,7 @@
 				</tr>
 				<tr>
 					<td><label>22. Phương pháp thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" ng-model="data.phuongPhapThuMau" title="{{tooltips['phuongPhapThuMau']}}" name="phuongPhapThuMau" class="input-form" required></td>
+					<td><input type="text" ng-model="data.phuongPhapThuMau" title="{{tooltips['phuongPhapThuMau']}}" name="phuongPhapThuMau" class="input-form" ></td>
 				</tr>
 				<tr><td><label>23. Địa điểm thu mẫu: </label></td></tr>
 				<tr>
@@ -258,7 +258,7 @@
 							<tr>
 								<td>Huyện<span ng-show="star" class="has-required"> (*)</span>:</td>
 								<td>
-									<input type="text" class="input-form flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" required ng-model= "data.huyen" ng-change="districtChange()">
+									<input type="text" class="input-form flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen"  ng-model= "data.huyen" ng-change="districtChange()">
 									<datalist id="huyen">
 										<option ng-repeat="district in districts | customCity: id_tinh | orderBy: 'name'" id="{{district.name}}" value="{{district.id}}">{{district.name}}</option>
 									</datalist>
@@ -267,7 +267,7 @@
 							<tr>
 								<td>Xã<span ng-show="star" class="has-required"> (*)</span>: </td>
 								<td>
-									<input type="text" class="input-form flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" required>
+									<input type="text" class="input-form flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa" >
 									<datalist id="xa">
 										<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
 									</select>
@@ -290,7 +290,7 @@
 				<tr>
 					<td>Vĩ độ N <span class="has-required">(*)</span>:</td>
 					<td>
-						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form" required>
+						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form" >
 						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
 							<input type="text" ng-model= "vido_do" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
 							<input type="text" ng-model= "vido_phut" ng-change="latChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
@@ -301,7 +301,7 @@
 				<tr>
 					<td>Kinh độ E <span class="has-required">(*)</span>:</td>
 					<td>
-						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" required>
+						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form" >
 						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
 							<input type="text" ng-model="kinhdo_do" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> độ
 							<input type="text" ng-model="kinhdo_phut" ng-change="lonChange()" style="width: 30px; border-width: 1px; border-radius: 3px;" name=""> phút
@@ -312,11 +312,11 @@
 				</tr>
 				<tr>
 					<td><label>25. Mẫu chất ở vị trí thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['mauChatOViTriThuMau']}}" name="mauChatOViTriThuMau" ng-model="data.mauChatOViTriThuMau" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['mauChatOViTriThuMau']}}" name="mauChatOViTriThuMau" ng-model="data.mauChatOViTriThuMau" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>26. Độ cao (m)<span class="has-required">(*)</span>: </label></td>
-					<td><input type="number" min="0" title="{{tooltips['doCao']}}" name="doCao" ng-model="data.doCao" class="input-form" required ></td>
+					<td><input type="number" min="0" title="{{tooltips['doCao']}}" name="doCao" ng-model="data.doCao" class="input-form"  ></td>
 				</tr>
 				<tr>
 					<td><label>27. Độ sâu (m):</label></td>
@@ -324,15 +324,15 @@
 				</tr>
 				<tr>
 					<td><label>28. Độ dốc nơi thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="number" required min="0" title="{{tooltips['doDocNoiThuMau']}}" name="doDocNoiThuMau" ng-model="data.doDocNoiThuMau" class="input-form"></td>
+					<td><input type="number"  min="0" title="{{tooltips['doDocNoiThuMau']}}" name="doDocNoiThuMau" ng-model="data.doDocNoiThuMau" class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>29. Mực nước ngầm nơi thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="number" title="{{tooltips['mucNuocNgamNoiThuMau']}}" name="mucNuocNgamNoiThuMau" ng-model="data.mucNuocNgamNoiThuMau" id="mucNuocNgamNoiThuMau" required class="input-form"></td>
+					<td><input type="number" title="{{tooltips['mucNuocNgamNoiThuMau']}}" name="mucNuocNgamNoiThuMau" ng-model="data.mucNuocNgamNoiThuMau" id="mucNuocNgamNoiThuMau"  class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>30. Khả năng thoát nước nơi thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['khaNangThoatNuoc']}}" name="khaNangThoatNuoc" ng-model="data.khaNangThoatNuoc" id="khaNangThoatNuoc" required class="input-form"></td>
+					<td><input type="text" title="{{tooltips['khaNangThoatNuoc']}}" name="khaNangThoatNuoc" ng-model="data.khaNangThoatNuoc" id="khaNangThoatNuoc"  class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>31. Thời tiết khi thu mẫu:</label></td>
@@ -340,19 +340,19 @@
 				</tr>
 				<tr>
 					<td><label>32. Dạng địa hình nơi thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['dangDiaHinhNoiThuMau']}}" name="dangDiaHinhNoiThuMau" ng-model="data.dangDiaHinhNoiThuMau" id="dangDiaHinhNoiThuMau" required class="input-form"></td>
+					<td><input type="text" title="{{tooltips['dangDiaHinhNoiThuMau']}}" name="dangDiaHinhNoiThuMau" ng-model="data.dangDiaHinhNoiThuMau" id="dangDiaHinhNoiThuMau"  class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>33. Thảm thực vật hiện tại nơi thu mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['thamThucVatNoiThuMau']}}" name="thamThucVatNoiThuMau" ng-model="data.thamThucVatNoiThuMau" id="thamThucVatNoiThuMau" required class="input-form"></td>
+					<td><input type="text" title="{{tooltips['thamThucVatNoiThuMau']}}" name="thamThucVatNoiThuMau" ng-model="data.thamThucVatNoiThuMau" id="thamThucVatNoiThuMau"  class="input-form"></td>
 				</tr>
 				<tr>
 					<td><label>34. Thông tin về Dự án, đề tài/chuyến/đợt thu thập mẫu vật <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" ng-model="data.thongTinDuAn" title="{{tooltips['thongTinDuAn']}}" name="thongTinDuAn" class="input-form" required></td>
+					<td><input type="text" ng-model="data.thongTinDuAn" title="{{tooltips['thongTinDuAn']}}" name="thongTinDuAn" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>35. Ghi chép thực địa <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['ghiChepThucDia']}}" name="ghiChepThucDia" ng-model="data.ghiChepThucDia" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['ghiChepThucDia']}}" name="ghiChepThucDia" ng-model="data.ghiChepThucDia" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>36. Bản đồ:</label></td>
@@ -401,7 +401,7 @@
 				<tr>
 					<td><label>41. Kết quả phân tích <span class="has-required">(*)</span>:</label></td>
 					<td>
-						<input type="file" multiple id="ketQuaPhanTich" name="ketQuaPhanTich" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf" max-file-size="10" required>
+						<input type="file" multiple id="ketQuaPhanTich" name="ketQuaPhanTich" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf" max-file-size="10" >
 						<label for="ketQuaPhanTich" title="{{tooltips['ketQuaPhanTich']}}"><span>{{getName(data.ketQuaPhanTich)}}</span><strong>Open</strong></label>
 					</td>
 				</tr>
@@ -411,19 +411,19 @@
 				</tr>
 				<tr>
 					<td><label>43. Người giám định mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['nguoiGiamDinh']}}" name="nguoiGiamDinh" ng-model="data.nguoiGiamDinh" id="nguoiGiamDinh" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['nguoiGiamDinh']}}" name="nguoiGiamDinh" ng-model="data.nguoiGiamDinh" id="nguoiGiamDinh" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>44. Cơ quan/tổ chức giám định mẫu <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['coQuanToChucGiamDinh']}}" name="coQuanToChucGiamDinh" ng-model="data.coQuanToChucGiamDinh" id="coQuanToChucGiamDinh" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['coQuanToChucGiamDinh']}}" name="coQuanToChucGiamDinh" ng-model="data.coQuanToChucGiamDinh" id="coQuanToChucGiamDinh" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>45. Tài liệu phân tích/giám định/phân loại đi kèm <span class="has-required"> (*)</span>:</label></td>
 				</tr>
 				<tr>
-					<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips['taiLieuPhanTichStr']}}" name="taiLieuPhanTichStr" class="input-form" required></td>
+					<td><input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips['taiLieuPhanTichStr']}}" name="taiLieuPhanTichStr" class="input-form" ></td>
 					<td>
-						<input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10" required>
+						<input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10" >
 						<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{getName(data.taiLieuPhanTichFile)}}</span><strong>Open</strong></label>
 					</td>
 				</tr>
@@ -449,7 +449,7 @@
 				<tr>
 					<td><label>47. Ảnh mẫu vật <span class="has-required">(*)</span>:</label></td>
 					<td>
-						<input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10" required>
+						<input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10" >
 						<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{getName(data.anhMauVat)}}</span><strong>Open</strong></label>
 					</td>
 				</tr>
@@ -511,7 +511,7 @@
 				<tr>
 					<td><label>52. Tài liệu đi kèm <span class="has-required">(*)</span>:</label></td>
 					<td>
-						<input type="file" multiple ng-model="data.taiLieuDiKem" id="taiLieuDiKem" accept=".docx, .doc, .pdf" max-file-size="10" required name="taiLieuDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected">
+						<input type="file" multiple ng-model="data.taiLieuDiKem" id="taiLieuDiKem" accept=".docx, .doc, .pdf" max-file-size="10"  name="taiLieuDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected">
 						<label for="taiLieuDiKem" title="{{tooltips['taiLieuDiKem']}}"><span>{{getName(data.taiLieuDiKem)}}</span><strong>Open</strong></label>
 					</td>
 				</tr>
@@ -539,7 +539,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="text" title="{{tooltips['phanBoVietNamStr']}}" name="phanBoVietNamStr" ng-model="data.phanBoVietNamStr" class="input-form" required>
+						<input type="text" title="{{tooltips['phanBoVietNamStr']}}" name="phanBoVietNamStr" ng-model="data.phanBoVietNamStr" class="input-form" >
 					</td>
 					<td>
 						<input type="file" multiple ng-model="data.phanBoVietNamFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" id="phanBoVietNamFile" name ="phanBoVietNamFile">
@@ -675,7 +675,7 @@
 				</tr>
 				<tr>
 					<td><label>69. Người lập phiếu mẫu vật <span class="has-required">(*)</span>:</label></td>
-					<td><input type="text" title="{{tooltips['nguoiLapPhieuMauVat']}}" name="nguoiLapPhieuMauVat" ng-model="data.nguoiLapPhieuMauVat" class="input-form" required></td>
+					<td><input type="text" title="{{tooltips['nguoiLapPhieuMauVat']}}" name="nguoiLapPhieuMauVat" ng-model="data.nguoiLapPhieuMauVat" class="input-form" ></td>
 				</tr>
 				<tr>
 					<td><label>70. Người nhập thông tin vào phần mềm:</label></td>
@@ -723,7 +723,7 @@
 				<button type="submit" ng-click="updatePost()" class="btn btn-primary">
 					<span class="glyphicon glyphicon-pencil"></span> Cập nhật
 				</button>
-				<button type="button" class="btn btn-success">
+				<button type="button" ng-click="saveAs()" class="btn btn-success">
 					<span class="glyphicon glyphicon-floppy-saved"></span> Save As
 				</button>
 				<div class="pull-right">

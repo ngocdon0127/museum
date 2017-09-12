@@ -195,6 +195,11 @@ a.nav:hover{
     height:30px;
     border-radius: 4px; 
 }
+
+.select-date{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 /*--------------end-New--------------*/
 /*------------------END-FORM_DATA---------------------*/
 

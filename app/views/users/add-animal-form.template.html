@@ -122,8 +122,15 @@
 					<td><input type="text" ng-model="data.nguoiDinhTen" title="{{tooltips['nguoiDinhTen']}}" name="nguoiDinhTen" class="input-form"></td>
 				</tr>
 				<tr>
-					<td><label>08. Ngày định tên: </label></td>
-					<td><input type="text" title="{{tooltips['ngayDinhTen']}}" id="ngayDinhTen" name="ngayDinhTen" ng-model="data.ngayDinhTen" class="input-form datepicker"></td>
+					<td>
+						<label>08. Ngày định tên </label>
+						<select ng-model="date_ndt" class="select-date">
+	                        <option value="dd/mm/yyyy">Full date</option>
+	                        <option value="mm/yyyy">Mon/Year</option>
+	                        <option value="yyyy">Year</option>
+	                    </select>:
+					</td>
+					<td><input type="text" title="{{tooltips['ngayDinhTen']}}" id="ngayDinhTen" name="ngayDinhTen" ng-model="data.ngayDinhTen" placeholder="{{date_ndt}}" class="input-form datepicker"></td>
 				</tr>
 				<tr>
 					<td><label>09. Tên Việt Nam (phổ thông):</label></td>

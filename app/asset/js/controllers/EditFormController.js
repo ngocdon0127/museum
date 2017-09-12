@@ -644,3 +644,42 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
         $scope.showCoor = false
     }
 }]);
+
+app.controller('GoogleMapController', function($scope, $uibModal){
+    $scope.showModal = function () {
+        $scope.modal = $uibModal.open({
+            templateUrl: 'storeShowModal.html',
+            controller: 'ModalShowStore',
+            resolve: {
+                store: function () {
+                    return { "latitude": 21.026341, "longitude": 105.845718 };
+                }
+            }
+        });
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.close();
+    };
+})
+
+app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, store) {
+    $scope.center = [store.latitude,store.longitude];
+    $scope.position = [store.latitude,store.longitude];
+    NgMap.getMap().then(function (map) {
+        google.maps.event.trigger(map, "resize"); 
+        google.maps.event.addListener(map, 'click', function(event) {
+            console.log(event);
+            var viDo = document.getElementById('viDo');
+            var kinhDo = document.getElementById('kinhDo');
+            console.log(viDo);
+        });
+    });
+
+    
+    $scope.store = store;
+
+    $scope.cancel = function () {
+        $uibModalInstance.close();
+    };
+});

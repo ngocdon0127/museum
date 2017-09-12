@@ -12,6 +12,7 @@ var app = angular.module('museumApp', [
     'ngSanitize',
     'InlineTextEditor',
     'ng',
+    'ngMap',
     'ngCookies',
     'pascalprecht.translate'
 ])

@@ -54,6 +54,8 @@ const DATE_FULL = 0;
 const DATE_MISSING_DAY = 1;
 const DATE_MISSING_MONTH = 2;
 
+const EXPORT_NULL_FIELD = true;
+
 
 
 // ============== Places ================
@@ -2144,6 +2146,20 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+
+			// fMissingDateTime
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'fMissingDateTime'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
+			}
+			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
 			/**
@@ -2241,16 +2257,16 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 
 							
-							
-							if (value){
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
 									setCell(sheet, 2, sheetRowIndex, p, detailOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
+							}
 
-
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -2314,7 +2330,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
 									// TODO 1212 CHECK PRINT OR NOT
-									if (display(flatOI[sp]) && (printAll || (sp in printedProperties))){
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
 										flagHasRealChildren = true;
 										break;
 									}
@@ -2341,14 +2357,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							
 							
 							// console.log(p + ' : ' + value)
-							if (value){
-
+							if (EXPORT_NULL_FIELD || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
-
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;

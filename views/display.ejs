@@ -65,7 +65,14 @@
 						return result;
 					}
 					else if (obj instanceof Date){
-						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+						let h = obj.getHours();
+						if (h == 2) {
+							return obj.getFullYear()
+						}
+						if (h == 1) {
+							return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+						}
+						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 					}
 					// Need to escape to prevent injected HTML + JS
 					return escape(obj).replace(/_-_/g, ', ');

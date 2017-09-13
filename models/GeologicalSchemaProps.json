@@ -1233,6 +1233,7 @@
         "money": false,
         "type": "String"
     },
+
     {
         "name": "soHieu",
         "type": "Metadata",

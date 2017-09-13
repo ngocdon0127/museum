@@ -68,7 +68,7 @@ if (cluster.isMaster){
 		}
 	})
 
-	console.log('master ' + process.pid + ' is forking childs...');
+	console.log('master ' + process.pid + ' is forking children...');
 	if (noThreads == 'optimal'){
 		noThreads = noCPUs;
 	}

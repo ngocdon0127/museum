@@ -1208,14 +1208,6 @@
 		"money": false,
 		"type": "String"
 	},
-	{
-		"name": "fMissingDateTime",
-		"schemaProp": "flag",
-		"label": "Kiểu ngày tháng",
-		"required": false,
-		"money": false,
-		"type": "Number"
-	},
 
 	{
 		"name": "soHieu",

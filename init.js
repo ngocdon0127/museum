@@ -503,44 +503,50 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// Catch error later
 						try {
 							let dateValue_ = req.body[element.name].split('/');
-							// reject if day or month is missing
-							// if (dateValue_.length < 3){
-							// 	return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
-							// }
+							let timeValue_ = [];
+							// reject if req has more than 3 numbers
+							if (dateValue_.length > 3){
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
+							}
 							// 
 							// now, allow to save and mark the flag
 							console.log(dateValue_);
 							let dl = dateValue_.length;
 							console.log('dateValue_ len:', dl);
-							let flagMissingDateTime = DATE_FULL;
-							try {
-								flagMissingDateTime = objectInstance.flag.fMissingDateTime;
-							} catch (e) {
-								console.log(e);
-							}
+							// let flagMissingDateTime = DATE_FULL;
+							// try {
+							// 	flagMissingDateTime = objectInstance.flag.fMissingDateTime;
+							// } catch (e) {
+							// 	console.log(e);
+							// }
 							if (dl == 2) {
 								// date: 12/2017 => 1/12/2017
 								dateValue_.unshift('1'); // Chỉnh về ngày mùng 1 trong tháng
-								flagMissingDateTime = DATE_MISSING_DAY;
+								// flagMissingDateTime = DATE_MISSING_DAY;
+								timeValue_ = [DATE_MISSING_DAY + '', '0', '0'];
 							} else if (dl == 1) {
 								// date: 2017 => 1/1/2017
 								dateValue_.unshift('1');
 								dateValue_.unshift('1'); // Chỉnh về ngày 1 tháng 1 trong năm
-								flagMissingDateTime = DATE_MISSING_MONTH;
+								// flagMissingDateTime = DATE_MISSING_MONTH;
+								timeValue_ = [DATE_MISSING_MONTH + '', '0', '0'];
 							}
-							if (objectInstance.flag) {
-								objectInstance.flag.fMissingDateTime = flagMissingDateTime
-							} else {
-								objectInstance.flag = {
-									fMissingDateTime: flagMissingDateTime
-								}
-							}
+							// Use flag to mark Missing Date
+							// if (objectInstance.flag) {
+							// 	objectInstance.flag.fMissingDateTime = flagMissingDateTime
+							// } else {
+							// 	objectInstance.flag = {
+							// 		fMissingDateTime: flagMissingDateTime
+							// 	}
+							// }
 							console.log(dateValue_);
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
 							})
 							dateValue_.reverse();
-							req.body[element.name] = dateValue_.join('/')
+							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
+							// Use flag to mark Missing Date
+							// req.body[element.name] = dateValue_.join('/')
 							console.log(req.body[element.name]);
 						}
 						catch (e){
@@ -1005,16 +1011,16 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			// End of fApproved
 			
 			// fMissingDateTime
-			for(var i = 0; i < PROP_FIELDS.length; i++){
-				var field = PROP_FIELDS[i];
-				// console.log(field.name);
-				if (field.name == 'fMissingDateTime'){
-					console.log('len: ' + PROP_FIELDS.length);
-					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
-					console.log('len: ' + PROP_FIELDS.length);
-					break;
-				}
-			}
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
 			// End of fMissingDateTime
 
 
@@ -1041,7 +1047,14 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -2166,16 +2179,16 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			
 
 			// fMissingDateTime
-			for(var i = 0; i < PROP_FIELDS.length; i++){
-				var field = PROP_FIELDS[i];
-				// console.log(field.name);
-				if (field.name == 'fMissingDateTime'){
-					console.log('len: ' + PROP_FIELDS.length);
-					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
-					console.log('len: ' + PROP_FIELDS.length);
-					break;
-				}
-			}
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
 			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
@@ -2199,7 +2212,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					return result;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;

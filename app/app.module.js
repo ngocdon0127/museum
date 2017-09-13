@@ -8,7 +8,9 @@ var app = angular.module('museumApp', [
 	'cfp.loadingBar',
 	'ngAnimate',
     'bw.paging',
-    'angular-js-xlsx'
+    'angular-js-xlsx',
+    'ngSanitize',
+    'InlineTextEditor'
 	])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();

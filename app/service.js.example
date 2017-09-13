@@ -15,7 +15,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		stopSpinner: stopSpinner,
 		todoRef: todoRef,
 		getRestrict: getRestrict,
-		arrAuto: [	
+		arrAuto: [
 			'tenDongNghia',
 			'tenTheoBaoTang',
 			'tenVietNam',
@@ -460,7 +460,14 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							// console.log(name);
 							if (_scope[name]){
 								var date = new Date(_scope[name]);
-								_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								var h = date.getHours();
+								if (h == 2) {
+									_scope[name] = date.getFullYear();
+								} else if (h == 1) {
+									_scope[name] = (date.getMonth() + 1) + '/' + date.getFullYear();
+								} else {
+									_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								}
 							}
 						}
 					}

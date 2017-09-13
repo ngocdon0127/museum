@@ -1178,7 +1178,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="tnrlb">${stt}</p></td>
 											<td class="td"><p class="tnr">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`
@@ -1360,7 +1360,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="ct tnr lb"></p></td>
 											<td class="td"><p class="tnri">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`

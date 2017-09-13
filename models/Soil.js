@@ -180,8 +180,7 @@ module.exports = function (mongoose) {
 		},
 		flag: {
 			fDiaDiemThuMau: String,
-			fApproved: Boolean,
-			fMissingDateTime: Number
+			fApproved: Boolean
 		}
 	};
 	var soilSchema = mongoose.Schema(schemaPrototype);

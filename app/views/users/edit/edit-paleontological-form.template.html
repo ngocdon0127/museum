@@ -92,6 +92,7 @@
 				<tr>
 					<td>Chi/Giống: </td>
 					<td>
+						<input type="hidden" title="{{tooltips['chiGiong']}}" name="chiGiong" value="{{data.chiGiong}}" ng-bind="data.chiGiong">
 						<div type="text" inline-text-editor context-menu="contextMenu" id="chiGiong" ng-model="data.chiGiong" contentEditable class="inline-text-editor" title="{{tooltips['chiGiong']}}" name="chiGiong"></div>
 					</td>
 				</tr>
@@ -103,6 +104,7 @@
 				<tr>
 					<td>Loài: </td>
 					<td>
+						<input type="hidden" title="{{tooltips['loai']}}" name="loai" value="{{data.loai}}" ng-bind="data.loai">
 						<div type="text" inline-text-editor context-menu="contextMenu" id="loai" ng-model="data.loai" contentEditable class="inline-text-editor" title="{{tooltips['loai']}}" name="loai"></div>
 					</td>
 				</tr>
@@ -370,6 +372,7 @@
 				<tr>
 					<td><label>25. Thông tin địa tầng và tuổi địa chất <span class="has-required">(*)</span>:</label></td>
 					<td>
+						<input type="hidden" title="{{tooltips['thongTinDiaTang']}}" value="{{data.thongTinDiaTang}}" name="thongTinDiaTang" ng-bind="data.thongTinDiaTang" class="input-form">
 						<div type="text" inline-text-editor context-menu="contextMenu" id="thongTinDiaTang" ng-model="data.thongTinDiaTang" contentEditable class="inline-text-editor" title="{{tooltips['thongTinDiaTang']}}" name="thongTinDiaTang"></div>
 					</td>
 				</tr>

@@ -1204,7 +1204,7 @@
 	},
 	{
 		"name": "thongTinKhac9Str",
-		"schemaProp": "thongTinKhac.thongTinKhac9",
+		"schemaProp": "thongTinKhac.thongTinKhac9Mixed",
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,
@@ -1213,7 +1213,7 @@
 	},
 	{
 		"name": "thongTinKhac9File",
-		"schemaProp": "thongTinKhac.thongTinKhac9",
+		"schemaProp": "thongTinKhac.thongTinKhac9Mixed",
 		"label": "Thông tin khác",
 		"required": false,
 		"money": false,

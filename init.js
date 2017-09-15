@@ -503,6 +503,10 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// Catch error later
 						try {
 							let dateValue_ = req.body[element.name].split('/');
+							dateValue_ = dateValue_.filter(e => {
+								let n = parseInt(e);
+								return Number.isInteger(n) && (n > 0)
+							})
 							let timeValue_ = [];
 							// reject if req has more than 3 numbers
 							if (dateValue_.length > 3){

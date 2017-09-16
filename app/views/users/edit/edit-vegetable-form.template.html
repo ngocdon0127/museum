@@ -39,12 +39,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-8">
-					<label for="thongTinKhac1Str">05. Thông tin khác:</label>
+					<label for="thongTinKhac1Str">05. {{"veg.thongTinKhac1Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac1Str" title="{{tooltips['thongTinKhac1Str']}}" name="thongTinKhac1Str" id="thongTinKhac1Str" class="input-form form-control form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac1File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac1File" name ="thongTinKhac1File">
-					<label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac1File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac1File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -58,73 +58,73 @@
 		<div class="form-group map-detail" ng-show="isSet(2)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-12">
-					<label>06. Tên khoa học (tên latin)</label>
+					<label>06. {{"veg.tenKhoaHoc" | translate }}</label>
 				</div>
 				<div>
 					<div class="col-sm-3">
-						Tên đồng nghĩa:
+						{{"veg.tenDongNghia" | translate }}:
 						<input type="text" title="{{tooltips['tenDongNghia']}}" name="tenDongNghia" ng-model="data.tenDongNghia" id="tenDongNghia" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Giới:
+						{{"veg.gioi" | translate }}:
 						<input type="text" title="{{tooltips['gioi']}}" name="gioi" ng-model="data.gioi" id="gioi" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Ngành:
+						{{"veg.nganh" | translate }}:
 						<input type="text" title="{{tooltips['nganh']}}" name="nganh" ng-model="data.nganh" id="nganh" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Lớp <span class="has-required">(*)</span>:
+						{{"veg.lop" | translate }} <span class="has-required">(*)</span>:
 						<input type="text" title="{{tooltips['lop']}}" name="lop" ng-model="data.lop" id="lop" class="input-form form-control">
 					</div>
 				</div>
 				<div>
 					<div class="col-sm-3">
-						Phân lớp:
+						{{"veg.phanLop" | translate }}:
 						<input type="text" id="phanLop" ng-model="data.phanLop" title="{{tooltips['phanLop']}}" name="phanLop" class="input-form form-control" >
 					</div>
 					<div class="col-sm-3">
-						Bộ <span class="has-required">(*)</span>:
+						{{"veg.bo" | translate }} <span class="has-required">(*)</span>:
 						<input type="text" title="{{tooltips['bo']}}" name="bo" ng-model="data.bo" id="bo" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Phân bộ:
+						{{"veg.phanBo" | translate }}:
 						<input type="text" title="{{tooltips['phanBo']}}" name="phanBo" ng-model="data.phanBo" id="phanBo" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Liên họ:
+						{{"veg.lienHo" | translate }}:
 						<input type="text" title="{{tooltips['lienHo']}}" name="lienHo" ng-model="data.lienHo" id="lienHo" class="input-form form-control">
 					</div>
 				</div>
 				<div>
 					<div class="col-sm-3">
-						Họ <span class="has-required">(*)</span>:
+						{{"veg.ho" | translate }} <span class="has-required">(*)</span>:
 						<input type="text" title="{{tooltips['ho']}}" name="ho" ng-model="data.ho" id="ho" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Phân họ:
+						{{"veg.phanHo" | tr:
 						<input type="text" title="{{tooltips['phanHo']}}" name="phanHo" ng-model="data.phanHo" id="phanHo" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Tông:
+						{{"veg.tong" | translate }}:
 						<input type="text" title="{{tooltips['tong']}}" name="tong" ng-model="data.tong" id="tong" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Chi <span class="has-required">(*)</span>:
+						{{"veg.chiGiong" | translate }} <span class="has-required">(*)</span>:
 						<input type="text" title="{{tooltips['chiGiong']}}" name="chiGiong" ng-model="data.chiGiong" id="chiGiong" class="input-form form-control">
 					</div>
 				</div>
 				<div>
 					<div class="col-sm-3">
-						Phân chi:
+						{{"veg.phanChiPhanGiong" | translate }}:
 						<input type="text" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong" ng-model="data.phanChiPhanGiong" id="phanChiPhanGiong" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Loài (nếu có):
+						{{"veg.loai" | translate }}:
 						<input type="text" id="loai" ng-model="data.loai" class="input-form form-control" title="{{tooltips['loai']}}" name="loai">
 					</div>
 					<div class="col-sm-3">
-						Dưới loài/phân loài:
+						{{"veg.duoiLoai" | translate }}:
 						<input type="text" title="{{tooltips['duoiLoai']}}" name="duoiLoai" ng-model="data.duoiLoai" class="input-form form-control" id="duoiLoai">
 					</div>
 				</div>
@@ -135,7 +135,7 @@
 					<input type="text" title="{{tooltips['nguoiDinhTen']}}" name="nguoiDinhTen" ng-model="data.nguoiDinhTen" class="input-form form-control" >
 				</div>
 				<div class="col-sm-4">
-					<label>08. Ngày định tên: </label>
+					<label>08. {{"veg.ngayDinhTen" | translate }}: </label>
 					<select ng-model="date_ndt" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
                         <option value="mm/yyyy">Mon/Year</option>
@@ -164,12 +164,12 @@
 			</div>
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-sm-8">
-					<label for="thongTinKhac2Str">13. Thông tin khác:</label>
+					<label for="thongTinKhac2Str">13. {{"veg.thongTinKhac2Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac2Str" title="{{tooltips['thongTinKhac2Str']}}" name="thongTinKhac2Str" id="thongTinKhac2Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac2File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac2File" name ="thongTinKhac2File">
-					<label for="thongTinKhac2File" title="{{tooltips['thongTinKhac2File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac2File" title="{{tooltips['thongTinKhac2File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac2File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac2File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -198,13 +198,13 @@
 			</div>
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-sm-12">
-					<label>16. Kích thước mẫu vật<span class="has-required"> (*)</span>:</label>
+					<label>16. {{"veg.kichThuocMau" | translate }}<span class="has-required"> (*)</span>:</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="col-sm-3">
-						<span>Chiều cao: </span>
+						<span>{{"veg.chieuCao" | translate }}: </span>
 						<span>
 							<input type="text" title="{{tooltips['chieuCao']}}" name="chieuCao" ng-model="data.chieuCao" class="datatext" id="datatext">
 							<select class="contentselect" ng-model="data.donVi_chieuCao" name="donVi_chieuCao">
@@ -215,7 +215,7 @@
 						</span>
 					</div>
 					<div class="col-sm-3">
-						<span>Chiều rộng: </span>
+						<span>{{"veg.chieuRong" | translate }}: </span>
 						<span>
 							<input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
 							<select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
@@ -226,7 +226,7 @@
 						</span>
 					</div>
 					<div class="col-sm-3">
-						<span>Chiều dài: </span>
+						<span>{{"veg.chieuDai" | translate }}: </span>
 						<span>
 							<input type="text" title="{{tooltips['chieuDai']}}" name="chieuDai" ng-model="data.chieuDai" class="datatext" id="datatext">
 							<select class="contentselect" ng-model="data.donVi_chieuDai" name="donVi_chieuDai">
@@ -239,7 +239,7 @@
 				</div>
 				<div class="col-sm-12">
 					<div class="col-sm-3">
-						<span>Trọng lượng: </span>
+						<span>{{"veg.trongLuong" | translate }}: </span>
 						<span>
 							<input type="text" title="{{tooltips['trongLuong']}}" name="trongLuong" ng-model="data.trongLuong" class="datatext" id="datatext">
 							<select class="contentselect" ng-model="data.donVi_trongLuong" name="donVi_trongLuong">
@@ -250,7 +250,7 @@
 						</span>
 					</div>
 					<div class="col-sm-3">
-						<span>Thể tích: </span>
+						<span>{{"veg.theTich" | translate }}: </span>
 						<span>
 							<input type="text" title="{{tooltips['theTich']}}" name="theTich" class="datatext" ng-model="data.theTich" id="datatext">
 							<select class="contentselect" ng-model="data.donVi_theTich" name="donVi_theTich">
@@ -269,12 +269,12 @@
 			</div>
 			<div class="row" style="margin-top: 20px;">
 				<div class="col-sm-8">
-					<label for="thongTinKhac3Str">18. Thông tin khác:</label>
+					<label for="thongTinKhac3Str">18. {{"veg.thongTinKhac3Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac3Str" title="{{tooltips['thongTinKhac3Str']}}" name="thongTinKhac3Str" id="thongTinKhac3Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
-					<label for="thongTinKhac3File" title="{{tooltips['thongTinKhac3File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac3File" title="{{tooltips['thongTinKhac3File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac3File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac3File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -288,7 +288,7 @@
 		<div class="form-group map-detail" ng-show="isSet(4)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-4">
-					<label>19. Thời gian thu mẫu <span class="has-required">(*)</span>:</label>
+					<label>19. {{"veg.thoiGianThuMau" | translate }} <span class="has-required">(*)</span>:</label>
 					<select ng-model="date_tgtm" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
                         <option value="mm/yyyy">Mon/Year</option>
@@ -312,12 +312,12 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>23. Địa điểm thu mẫu: </label>
+					<label>23.{{"veg.fDiaDiemThuMau" | translate }}: </label>
 				</div>
 				<div class="container-fluid" ng-controller="PlaceController">
 					<div class="row">
 						<div class="col-sm-2">
-							<span>Vị trí: </span>
+							<span>{{"veg.viTri" | translate }}: </span>
 						</div>
 						<div class="col-sm-10">
 							<input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-click="starDatLien()" id="datLien"> Trên đất liền
@@ -327,21 +327,21 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
-							Quốc gia<span class="has-required"> (*)</span>: 
+							{{"veg.quocGia" | translate }}<span class="has-required"> (*)</span>: 
 							<input type="text" list="quocGia" class="input-form form-control flexdatalist" data-min-length='0' ng-model="data.quocGia" ng-change="countryChange()" title="{{tooltips['quocGia']}}" name="quocGia">
 							<datalist id="quocGia">
 								<option value="Việt Nam">Việt Nam</option>
 							</datalist>
 						</div>
 						<div class="col-sm-3">
-							Tỉnh/Thành phố<span ng-show="star_tinh" class="has-required"> (*)</span>: 
+							{{"veg.tinh" | translate }}<span ng-show="star_tinh" class="has-required"> (*)</span>: 
 							<input type="text" list="tinh" class="input-form form-control flexdatalist" ng-model="data.tinh" ng-change="cityChange()" data-min-length='0' title="{{tooltips['tinh']}}" name="tinh">
 							<datalist id="tinh">
 								<option ng-repeat="city in cities | orderBy: 'name'" id="{{city.name}}" value="{{city.id}}">{{city.name}}</option>
 							</datalist>
 						</div>
 						<div class="col-sm-3">
-							Huyện<span ng-show="star" class="has-required"> (*)</span>:
+							{{"veg.huyen" | translate }}<span ng-show="star" class="has-required"> (*)</span>:
 							<input type="text" class="input-form form-control flexdatalist" title="{{tooltips['huyen']}}" id="render_districts" name="huyen" list="huyen" ng-model= "data.huyen" ng-change="districtChange()">
 							<datalist id="huyen">
 								<option ng-repeat="district in districts | customCity: id_tinh | orderBy: 'name'" id="{{district.name}}" value="{{district.id}}">{{district.name}}</option>
@@ -350,18 +350,18 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
-							Xã<span ng-show="star" class="has-required"> (*)</span>: 
+							{{"veg.xa" | translate }}<span ng-show="star" class="has-required"> (*)</span>: 
 							<input type="text" class="input-form form-control flexdatalist" ng-model="data.xa" id="render_wards" title="{{tooltips['xa']}}" name="xa" list="xa">
 							<datalist id="xa">
 								<option ng-repeat="ward in wards | customDistrict: id_huyen | orderBy:'name'" value="{{ward.id}}">{{ward.name}}</option>
 							</datalist>
 						</div>
 						<div class="col-sm-3">
-							Thôn/bản: 
+							{{"veg.thon" | translate }}: 
 							<input type="text" ng-model="data.thon" title="{{tooltips['thon']}}" name="thon" id="thon" class="input-form form-control">
 						</div>
 						<div class="col-sm-3">
-							Thông tin khác: 
+							{{"veg.tinhKhac" | translate }}: 
 							<input type="text" ng-model="data.tinhKhac" title="{{tooltips['tinhKhac']}}" name="tinhKhac" id="tinhKhac" class="input-form form-control">
 						</div>
 					</div>
@@ -369,7 +369,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-5">
-					<label>24. Vị trí tọa độ theo hệ tọa độ Việt Nam 2000: </label>
+					<label>24. {{"veg.viTriToaDo" | translate }}: </label>
 				</div>
 				<div class="col-sm-7">
 					<input type="radio" name="fViTriToaDo" id="vitri-dms" ng-checked="'true'" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
@@ -378,7 +378,7 @@
 
 				<div class="container-fluid col-sm-12">
 					<div class="col-sm-6">
-						Vĩ độ N <span class="has-required">(*)</span>:
+						{{"veg.viDo" | translate }} <span class="has-required">(*)</span>:
 						<input type="text" id="dms" ng-init="showCoor = 'false'; data.viDo=''" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control">
 						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
 							<input type="number" step="1" ng-model= "vido_do" ng-change="latChange()" class = "coordinates" name=""> độ
@@ -387,7 +387,7 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
-						Kinh độ E <span class="has-required">(*)</span>:
+						{{"veg.kinhDo" | translate }} <span class="has-required">(*)</span>:
 						<input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control">
 						<div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
 							<input type="number" step="1" ng-model="kinhdo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
@@ -427,7 +427,7 @@
 				<div class="col-sm-4">
 					<label>31. {{"veg.banDo" | translate }} </label><br>
 					<input type="file" multiple id="banDo"  name="banDo" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="banDo" title="{{tooltips['banDo']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="banDo" title="{{tooltips['banDo']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_banDo" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.banDo" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -439,12 +439,12 @@
 			</div>
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-sm-8">
-					<label for="thongTinKhac4Str">32. Thông tin khác:</label>
+					<label for="thongTinKhac4Str">32. {{"veg.thongTinKhac4Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac4Str" title="{{tooltips['thongTinKhac4Str']}}" name="thongTinKhac4Str" id="thongTinKhac4Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac4File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac4File" name ="thongTinKhac4File">
-					<label for="thongTinKhac4File" title="{{tooltips['thongTinKhac4File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac4File" title="{{tooltips['thongTinKhac4File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac4File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac4File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -458,7 +458,7 @@
 		<div class="form-group map-detail" ng-show="isSet(5)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-6">
-					<label>33. Thời gian phân tích/giám định/định loại mẫu:</label>
+					<label>33. {{"veg.thoiGianGiamDinh" | translate }}:</label>
 					<select ng-model="date_tgpt" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
                         <option value="mm/yyyy">Mon/Year</option>
@@ -479,7 +479,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>36. Tài liệu phân tích/giám định/phân loại đi kèm <span class="has-required"> (*)</span>:</label>
+					<label>36. {{"veg.taiLieuPhanTich" | translate }}<span class="has-required"> (*)</span>:</label>
 				</div>
 				<div class="container-fluid">
 					<div class="col-sm-4">
@@ -487,7 +487,7 @@
 					</div>
 					<div class="col-sm-4">
 						<input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10">
-						<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+						<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 						<ul id="ul_taiLieuPhanTichFile" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.taiLieuPhanTichFile" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -500,7 +500,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>37. Mô tả/đặc điểm hình thái <span class="has-required"> (*)</span></label>
+					<label>37. {{"veg.moTaHinhThai" | translate }} <span class="has-required"> (*)</span></label>
 				</div>
 				<div class="container-fluid">
 					<div class="col-sm-4">
@@ -508,7 +508,7 @@
 					</div>
 					<div class="col-sm-4">
 						<input type="file" multiple id="moTaHinhThaiFile" accept=".docx, .doc, .pdf" ng-model="data.moTaHinhThaiFile" name ="moTaHinhThaiFile" max-file-size="10" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-						<label for="moTaHinhThaiFile" title="{{tooltips['moTaHinhThaiFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+						<label for="moTaHinhThaiFile" title="{{tooltips['moTaHinhThaiFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 						<ul id="ul_moTaHinhThaiFile" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.moTaHinhThaiFile" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -523,7 +523,7 @@
 				<div class="col-sm-4">
 					<label>38. {{"veg.hinhVe" | translate }} </label><br>
 					<input type="file" multiple ng-model="data.hinhVe" id="hinhVe" name="hinhVe" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="5">
-					<label for="hinhVe" title="{{tooltips['hinhVe']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="hinhVe" title="{{tooltips['hinhVe']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_hinhVe" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.hinhVe" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -535,12 +535,12 @@
 			</div>
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-sm-8">
-					<label for="thongTinKhac5Str">39. Thông tin khác:</label>
+					<label for="thongTinKhac5Str">39. {{"veg.thongTinKhac5Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac5Str" title="{{tooltips['thongTinKhac5Str']}}" name="thongTinKhac5Str" id="thongTinKhac5Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac5File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac5File" name ="thongTinKhac5File">
-					<label for="thongTinKhac5File" title="{{tooltips['thongTinKhac5File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac5File" title="{{tooltips['thongTinKhac5File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac5File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac5File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -556,7 +556,7 @@
 				<div class="col-sm-3">
 					<label>40. {{"veg.anhMauVat" | translate }} <span class="has-required">(*)</span>:</label>
 					<input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10">
-					<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_anhMauVat" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.anhMauVat" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -568,7 +568,7 @@
 				<div class="col-sm-3">
 					<label>41. {{"veg.hinhAnhNgoaiThucDia" | translate }} </label>
 					<input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_hinhAnhNgoaiThucDia" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.hinhAnhNgoaiThucDia" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -582,9 +582,9 @@
 					<input type="text" title="{{tooltips['videoStr']}}" name="videoStr" ng-model="data.videoStr" class="input-form form-control" >
 				</div>
 				<div class="col-sm-3">
-					<label>43. Đính kèm phim, video:</label>
+					<label>43. {{"veg.videoFile" | translate }}:</label>
 					<input type="file" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-					<label for="videoFile" title="{{tooltips['videoFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_videoFile" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.videoFile" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -596,14 +596,14 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>44. Xử lý chế tác mẫu vật: </label>
+					<label>44. {{"veg.xuLyCheTac" | translate }}: </label>
 				</div>
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-3">
-							Hình ảnh đính kèm Xử lý chế tác:
+							{{"veg.hinhAnhDinhKem" | translate }}:
 							<input type="file" multiple id="hinhAnhDinhKem" ng-model="data.hinhAnhDinhKem" name="hinhAnhDinhKem" accept="image/*" max-file-size="5" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-							<label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+							<label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 							<ul id="ul_hinhAnhDinhKem" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.hinhAnhDinhKem" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -613,9 +613,9 @@
                     </ul>
 						</div>
 						<div class="col-sm-3">
-							Đính kèm xử lý chế tác:
+							{{"veg.dinhKemXuLyCheTac" | translate }}:
 							<input type="file" multiple ng-model="data.dinhKemXuLyCheTac" id="dinhKemXuLyCheTac" accept=".docx, .doc, .pdf" name="dinhKemXuLyCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-							<label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+							<label for="dinhKemXuLyCheTac" title="{{tooltips['dinhKemXuLyCheTac']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 							<ul id="ul_dinhKemXuLyCheTac" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.dinhKemXuLyCheTac" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -625,17 +625,17 @@
                     </ul>
 						</div>
 						<div class="col-sm-3">
-							Thuộc tính xử lý chế tác 
+							{{"veg.thuocTinhXuLyCheTac" | translate }} 
 							<input type="text" title="{{tooltips['thuocTinhXuLyCheTac']}}" name="thuocTinhXuLyCheTac" ng-model="data.thuocTinhXuLyCheTac" class="input-form form-control">
 						</div>
 						<div class="col-sm-3">
-							Phương thức xử lý chế tác:
+							{{"veg.phuongThucXuLy" | translate }}:
 							<input type="text" title="{{tooltips['phuongThucXuLy']}}" name="phuongThucXuLy" ng-model="data.phuongThucXuLy" class="input-form form-control">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
-							Thời gian xử lý chế tác:
+							{{"veg.thoiGianXuLy" | translate }}:
 							<select ng-model="date_tgct" class="select-date">
 		                        <option value="dd/mm/yyyy">Full date</option>
 		                        <option value="mm/yyyy">Mon/Year</option>
@@ -644,17 +644,17 @@
 							<input type="text" title="{{tooltips['thoiGianXuLy']}}" id="thoiGianXuLy" name="thoiGianXuLy" ng-model="data.thoiGianXuLy" placeholder="{{date_tgct}}" class="input-form form-control datepicker">
 						</div>
 						<div class="col-sm-3">
-							Người xử lý, chế tác:
+							{{"veg.nguoiXuLy" | translate }}:
 							<input type="text" title="{{tooltips['nguoiXuLy']}}" name="nguoiXuLy" ng-model="data.nguoiXuLy" class="input-form form-control">
 						</div>
 						<div class="col-sm-3">
-							Cơ quan xử lý, chế tác mẫu:
+							{{"veg.coQuanXuLy" | translate }}:
 							<input type="text" title="{{tooltips['coQuanXuLy']}}" name="coQuanXuLy" ng-model="data.coQuanXuLy" id="coQuanXuLy" class="input-form form-control">
 						</div>
 						<div class="col-sm-3">
-							Ảnh mẫu sau chế tác:
+							{{"veg.anhMauSauCheTac" | translate }}:
 							<input type="file" id="anhMauSauCheTac" multiple ng-model="data.anhMauSauCheTac" name="anhMauSauCheTac" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="5">
-							<label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+							<label for="anhMauSauCheTac" title="{{tooltips['anhMauSauCheTac']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 							<ul id="ul_anhMauSauCheTac" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.anhMauSauCheTac" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -668,28 +668,28 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>45. Thông tin DNA</label>
+					<label>45. {{"veg.thongTinDNA" | translate }}</label>
 				</div>
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-3">
-							Vị trí lấy mẫu DNA (lá, thân, rễ,...):
+							{{"veg.viTriLayMauDNA" | translate }}:
 							<input type="text" id="viTriLayMauDNA" title="{{tooltips['viTriLayMauDNA']}}" name="viTriLayMauDNA" ng-model="data.viTriLayMauDNA" class="input-form form-control">
 						</div>
 						<div class="col-sm-3">
-							Mẫu DNA (khô, nước...):
+							{{"veg.mauDNA" | translate }}:
 							<input type="text" id="mauDNA" title="{{tooltips['mauDNA']}}" name="mauDNA" ng-model="data.mauDNA" class="input-form form-control">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
-							Vùng gen phân tích: 
+							{{"veg.vungGenPhanTich" | translate }}: 
 							<input type="text" id="vungGenPhanTich" title="{{tooltips['vungGenPhanTich']}}" name="vungGenPhanTich" ng-model="data.vungGenPhanTich" class="input-form form-control">
 						</div>
 						<div class="col-sm-3">
-							Trình tự DNA<br>
+							{{"veg.dinhKemTrinhTuDNA" | translate }}<br>
 							<input type="file" multiple ng-model="data.dinhKemTrinhTuDNA" id="dinhKemTrinhTuDNA" name="dinhKemTrinhTuDNA" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected">
-							<label for="dinhKemTrinhTuDNA" title="{{tooltips['dinhKemTrinhTuDNA']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+							<label for="dinhKemTrinhTuDNA" title="{{tooltips['dinhKemTrinhTuDNA']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 							<ul id="ul_dinhKemTrinhTuDNA" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.dinhKemTrinhTuDNA" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -699,7 +699,7 @@
                     </ul>
 						</div>
 						<div class="col-sm-3">
-							Công bố/thông tin quốc tế (genbank...)
+							{{"veg.congBoQuocTe" | translate }}
 							<input type="text" title="{{tooltips['congBoQuocTe']}}" name="congBoQuocTe" ng-model="data.congBoQuocTe" class="input-form form-control">
 						</div>
 					</div>
@@ -714,12 +714,12 @@
 
 			<div class="row" style="margin-top: 40px;">
 				<div class="col-sm-8">
-					<label for="thongTinKhac6Str">47. Thông tin khác:</label>
+					<label for="thongTinKhac6Str">47. {{"veg.thongTinKhac6Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac6Str" title="{{tooltips['thongTinKhac6Str']}}" name="thongTinKhac6Str" id="thongTinKhac6Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac6File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac6File" name ="thongTinKhac6File">
-					<label for="thongTinKhac6File" title="{{tooltips['thongTinKhac6File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac6File" title="{{tooltips['thongTinKhac6File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac6File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac6File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -733,7 +733,7 @@
 		<div class="form-group map-detail" ng-show="isSet(7)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-12">
-					<label>48. Phân bố Việt Nam <span class="has-required">(*)</span>:</label>
+					<label>48. {{"veg.phanBoVietNam" | translate }} <span class="has-required">(*)</span>:</label>
 				</div>
 				<div class="container-fluid">
 					<div class="col-sm-6">
@@ -741,7 +741,7 @@
 					</div>
 					<div class="col-sm-6">
 						<input type="file" multiple ng-model="data.phanBoVietNamFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" id="phanBoVietNamFile" name ="phanBoVietNamFile">
-						<label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+						<label for="phanBoVietNamFile" title="{{tooltips['phanBoVietNamFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 						<ul id="ul_phanBoVietNamFile" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.phanBoVietNamFile" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -754,7 +754,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>49. Phân bố trên thế giới (nếu có):</label>
+					<label>49. {{"veg.phanBoTrenTheGioi" | translate }}:</label>
 				</div>
 				<div class="container-fluid">
 					<div class="col-sm-6">
@@ -762,7 +762,7 @@
 					</div>
 					<div class="col-sm-6">
 						<input type="file" id="phanBoTrenTheGioiFile" multiple ng-model="data.phanBoTrenTheGioiFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" name ="phanBoTrenTheGioiFile">
-						<label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+						<label for="phanBoTrenTheGioiFile" title="{{tooltips['phanBoTrenTheGioiFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 						<ul id="ul_phanBoTrenTheGioiFile" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.phanBoTrenTheGioiFile" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -787,12 +787,12 @@
 			</div>
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-sm-8">
-					<label for="thongTinKhac7Str">51. Thông tin khác:</label>
+					<label for="thongTinKhac7Str">51. {{"veg.thongTinKhac7Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac7Str" title="{{tooltips['thongTinKhac7Str']}}" name="thongTinKhac7Str" id="thongTinKhac7Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac7File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac7File" name ="thongTinKhac7File">
-					<label for="thongTinKhac7File" title="{{tooltips['thongTinKhac7File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac7File" title="{{tooltips['thongTinKhac7File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac7File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac7File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -806,7 +806,7 @@
 		<div class="form-group map-detail" ng-show="isSet(8)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-3">
-					<label>52. Ngày nhập mẫu: </label>
+					<label>52. {{"veg.ngayNhapMau" | translate }}: </label>
 					<select ng-model="date_nnm" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
                         <option value="mm/yyyy">Mon/Year</option>
@@ -859,23 +859,23 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<label>60. Khu lưu trữ mẫu:</label>
+					<label>60. {{"veg.khuLuuTruMau" | translate }}:</label>
 				</div>
 				<div class="container-fluid">
 					<div class="col-sm-3">
-						Phòng
+						{{"veg.phong" | translate }}
 						<input type="text" title="{{tooltips['phong']}}" name="phong" ng-model="data.phong" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Tủ, giá
+						{{"veg.tuGia" | translate }}
 						<input type="text" title="{{tooltips['tuGia']}}" name="tuGia" ng-model="data.tuGia" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Ngăn tủ, ngăn giá
+						{{"veg.ngan" | translate }}
 						<input type="text" title="{{tooltips['ngan']}}" name="ngan" ng-model="data.ngan" class="input-form form-control">
 					</div>
 					<div class="col-sm-3">
-						Hộp
+						{{"veg.hop" | translate }}
 						<input type="text" title="{{tooltips['hop']}}" name="hop" ng-model="data.hop" class="input-form form-control">
 					</div>
 				</div>
@@ -884,7 +884,7 @@
 				<div class="col-sm-4">
 					<label>61. {{"veg.giayPhepNhapMau" | translate }} </label><br>
 					<input type="file" multiple id="giayPhepNhapMau" ng-model="data.giayPhepNhapMau" name="giayPhepNhapMau" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*, .pdf">
-					<label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_giayPhepNhapMau" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.giayPhepNhapMau" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -896,7 +896,7 @@
 				<div class="col-sm-4">
 					<label>62. {{"veg.hoSoNhapMauVatDiKem" | translate }} </label>
 					<input type="file" multiple ng-model="data.hoSoNhapMauVatDiKem" id="hoSoNhapMauVatDiKem" name="hoSoNhapMauVatDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
-					<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_hoSoNhapMauVatDiKem" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.hoSoNhapMauVatDiKem" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -918,12 +918,12 @@
 			</div>
 			<div class="row" style="margin-top: 30px;">
 				<div class="col-sm-8">
-					<label for="thongTinKhac8Str">65. Thông tin khác:</label>
+					<label for="thongTinKhac8Str">65. {{"veg.thongTinKhac8Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac8Str" title="{{tooltips['thongTinKhac8Str']}}" name="thongTinKhac8Str" id="thongTinKhac8Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac8File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac8File" name ="thongTinKhac8File">
-					<label for="thongTinKhac8File" title="{{tooltips['thongTinKhac8File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac8File" title="{{tooltips['thongTinKhac8File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac8File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac8File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">
@@ -937,12 +937,12 @@
 		<div class="form-group map-detail" ng-show="isSet(9)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-8">
-					<label for="thongTinKhac9Str">66. Thông tin khác:</label>
+					<label for="thongTinKhac9Str">66. {{"veg.thongTinKhac9Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac9Str" title="{{tooltips['thongTinKhac9Str']}}" name="thongTinKhac9Str" id="thongTinKhac9Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
 					<input type="file" multiple ng-model="data.thongTinKhac9File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac9File" name ="thongTinKhac9File">
-					<label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>No file chosen</span><strong>Đính kèm file</strong></label>
+					<label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac9File" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac9File" style="overflow: auto;">{{file.fileName}}
                             <span class="pull-right">

@@ -858,5 +858,9 @@
 	    "thongTinKhac7Mixed": "Thông tin khác",
 	    "thongTinKhac8Mixed": "Thông tin khác",
 	    "thongTinKhac9Mixed": "Thông tin khác"
+	},
+	"customfile": {
+		"nofilechose": "Chưa chọn file",
+		"open": "Đính kèm file"
 	}
 }

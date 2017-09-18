@@ -734,11 +734,11 @@ app.controller('HttpIntegrationController', function ($scope, $http, $sce, bsLoa
     $scope.result = $sce.trustAsHtml('Fetch result here');
     $scope.fetchRandomText = function () {
         $http.get('http://hipsterjesus.com/api/')
-            .success(function (data) {
-                $scope.result = $sce.trustAsHtml(data.text);
-            })
-            .error(function () {
-                $scope.result = $sce.trustAsHtml('Can not get the article');
-            });
+        .success(function (data) {
+            $scope.result = $sce.trustAsHtml(data.text);
+        })
+        .error(function () {
+            $scope.result = $sce.trustAsHtml('Can not get the article');
+        });
     };
 });

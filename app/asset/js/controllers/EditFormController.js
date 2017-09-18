@@ -134,6 +134,22 @@ app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService',
         console.log(err);
     });
 
+    $scope.deleteTmpFile = function (file, field) {
+        // var ob = document.getAttribute('data-file-name');
+        var urlDelete = '/content/co-sinh/file'
+        
+        var data = {
+            'form': document.getElementById("sample").value,
+            'id': $stateParams.id,
+            'randomStr': $scope.randomStr,
+            'field': field,
+            'fileName': file.fileName
+        }
+        AuthService.deleteTmpFile(data, urlDelete);
+        // $scope.data[field].slice(key, 1);
+        // $scope.$apply();
+    }
+
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
@@ -248,6 +264,22 @@ app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$sta
         console.log(err);
     });
 
+    $scope.deleteTmpFile = function (file, field) {
+        // var ob = document.getAttribute('data-file-name');
+        var urlDelete = '/content/thuc-vat/file'
+        
+        var data = {
+            'form': document.getElementById("sample").value,
+            'id': $stateParams.id,
+            'randomStr': $scope.randomStr,
+            'field': field,
+            'fileName': file.fileName
+        }
+        AuthService.deleteTmpFile(data, urlDelete);
+        // $scope.data[field].slice(key, 1);
+        // $scope.$apply();
+    }
+
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
@@ -359,6 +391,22 @@ app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$st
     }, function (err) {
         console.log(err);
     });
+
+    $scope.deleteTmpFile = function (file, field) {
+        // var ob = document.getAttribute('data-file-name');
+        var urlDelete = '/content/dia-chat/file'
+        
+        var data = {
+            'form': document.getElementById("sample").value,
+            'id': $stateParams.id,
+            'randomStr': $scope.randomStr,
+            'field': field,
+            'fileName': file.fileName
+        }
+        AuthService.deleteTmpFile(data, urlDelete);
+        // $scope.data[field].slice(key, 1);
+        // $scope.$apply();
+    }
 
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
@@ -477,6 +525,22 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
         console.log(err);
     });
 
+    $scope.deleteTmpFile = function (file, field) {
+        // var ob = document.getAttribute('data-file-name');
+        var urlDelete = '/content/tho-nhuong/file'
+        
+        var data = {
+            'form': document.getElementById("sample").value,
+            'id': $stateParams.id,
+            'randomStr': $scope.randomStr,
+            'field': field,
+            'fileName': file.fileName
+        }
+        AuthService.deleteTmpFile(data, urlDelete);
+        // $scope.data[field].slice(key, 1);
+        // $scope.$apply();
+    }
+
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
@@ -580,3 +644,42 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
         $scope.showCoor = false
     }
 }]);
+
+app.controller('GoogleMapController', function($scope, $uibModal){
+    $scope.showModal = function () {
+        $scope.modal = $uibModal.open({
+            templateUrl: 'storeShowModal.html',
+            controller: 'ModalShowStore',
+            resolve: {
+                store: function () {
+                    return { "latitude": 21.026341, "longitude": 105.845718 };
+                }
+            }
+        });
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.close();
+    };
+})
+
+app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, store) {
+    $scope.center = [store.latitude,store.longitude];
+    $scope.position = [store.latitude,store.longitude];
+    NgMap.getMap().then(function (map) {
+        google.maps.event.trigger(map, "resize"); 
+        google.maps.event.addListener(map, 'click', function(event) {
+            console.log(event);
+            var viDo = document.getElementById('viDo');
+            var kinhDo = document.getElementById('kinhDo');
+            console.log(viDo);
+        });
+    });
+
+    
+    $scope.store = store;
+
+    $scope.cancel = function () {
+        $uibModalInstance.close();
+    };
+});

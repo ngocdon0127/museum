@@ -56,6 +56,11 @@ const DATE_MISSING_MONTH = 2;
 
 const EXPORT_NULL_FIELD = true;
 
+const ORIGIN_TIME = new Date('1970/1/1');
+const NULL_TIMES = [ORIGIN_TIME.getTime(), 0];
+global.myCustomVars.ORIGIN_TIME = ORIGIN_TIME;
+global.myCustomVars.NULL_TIMES = NULL_TIMES;
+
 
 
 // ============== Places ================
@@ -514,9 +519,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							}
 							// 
 							// now, allow to save and mark the flag
-							console.log(dateValue_);
+							// console.log(dateValue_);
 							let dl = dateValue_.length;
-							console.log('dateValue_ len:', dl);
+							// console.log('dateValue_ len:', dl);
 							// let flagMissingDateTime = DATE_FULL;
 							// try {
 							// 	flagMissingDateTime = objectInstance.flag.fMissingDateTime;
@@ -543,7 +548,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							// 		fMissingDateTime: flagMissingDateTime
 							// 	}
 							// }
-							console.log(dateValue_);
+							// console.log(dateValue_);
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
 							})
@@ -551,7 +556,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
 							// Use flag to mark Missing Date
 							// req.body[element.name] = dateValue_.join('/')
-							console.log(req.body[element.name]);
+							// console.log(req.body[element.name]);
 						}
 						catch (e){
 							console.log(e)
@@ -1051,6 +1056,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
 					let h = obj.getHours();
 					if (h == 2) {
 						return obj.getFullYear()
@@ -2215,6 +2223,9 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					return result;
 				}
 				else if (obj instanceof Date){
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
 					let h = obj.getHours();
 					if (h == 2) {
 						return obj.getFullYear()

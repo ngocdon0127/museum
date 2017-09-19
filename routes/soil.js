@@ -118,6 +118,26 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 	})
 )
 
+var chownHandler = global.myCustomVars.chownHandler; // Only manager, admin
+router.put(objectBaseURL + '/chown', aclMiddleware('/manager', 'edit'), 
+	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
+		preArray.push({name: curElement.name}); 
+		return preArray;
+	}, [])),
+	chownHandler({
+		ObjectModel: ObjectModel,
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+		objectModelIdParamName: objectModelIdParamName,
+		objectBaseURL: objectBaseURL,
+		objectModelName: objectModelName,
+		PROP_FIELDS: PROP_FIELDS,
+		PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+		LABEL: LABEL,
+		objectModelLabel: objectModelLabel,
+		aclMiddlewareBaseURL: aclMiddlewareBaseURL
+	})
+)
+
 
 var getAllHandler = global.myCustomVars.getAllHandler;
 router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHandler({

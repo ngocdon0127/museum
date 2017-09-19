@@ -291,8 +291,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		});
 
 		if (action == ACTION_CREATE){
-			objectInstance.created_by.userId = req.user.id // Owner
-			objectInstance.created_by.userFullName = req.user.fullname // Owner
+			objectInstance.created_by.userId = req.user.id // creator
+			objectInstance.created_by.userFullName = req.user.fullname // creator
+			objectInstance.owner.userId = req.user.id // Owner
 		}
 
 		var objectBeforeUpdate = {};
@@ -1847,7 +1848,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var HtmlDocx = require('html-docx-js');
 			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
 			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
-			fs.writeFileSync('out.html', docxHTMLSource);
+			// fs.writeFileSync('out.html', docxHTMLSource);
 			var outputFileName = 'PCSDL';
 			try {
 				if (LABEL.objectModelLabel){
@@ -2948,17 +2949,17 @@ var getAllHandler = function (options) {
 				})
 			}))
 			// Default. User chỉ có thể xem những phiếu do chính mình tạo
-			selection['created_by.userId'] = req.user._id;
+			selection['owner.userId'] = req.user._id;
 
 			if (userRoles.indexOf('manager') >= 0){
 				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
-				delete selection['created_by.userId'];
+				delete selection['owner.userId'];
 				selection['maDeTai.maDeTai'] = req.user.maDeTai;
 			}
 
 			if (userRoles.indexOf('admin') >= 0){
 				// Admin, Xem tất
-				delete selection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
+				delete selection['owner.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
 				delete selection['maDeTai.maDeTai'];
 			}
 			// ObjectModel.find(selection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
@@ -3340,6 +3341,124 @@ var duplicateHandler = function (options) {
 
 global.myCustomVars.duplicateHandler = duplicateHandler;
 
+var chownHandler = function (options) {
+	return function (req, res) {
+
+		var ObjectModel = options.ObjectModel
+		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION
+		var objectModelIdParamName = options.objectModelIdParamName
+		var objectBaseURL = options.objectBaseURL
+		var objectModelName = options.objectModelName
+		var PROP_FIELDS = options.PROP_FIELDS
+		var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ
+		var LABEL = options.LABEL
+		var objectModelLabel = options.objectModelLabel
+		var aclMiddlewareBaseURL = options.aclMiddlewareBaseURL
+		options.req = req;
+		var nullParam = checkUnNullParams([objectModelIdParamName, 'userId'], req.body);
+
+		if (nullParam){
+			return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
+		}
+		async(() => {
+			let oi = await (new Promise((resolve, reject) => {
+				ObjectModel.findById(req.body[objectModelIdParamName], function (err, objectInstance) {
+					if (err){
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
+						return resolve(null);
+					}
+					if (objectInstance){
+						if (objectInstance.deleted_at){
+							Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.body[objectModelIdParamName])}}, function (err, logs) {
+								if (err || (logs.length < 1)){
+									console.log(err);
+									responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
+									return resolve(null)
+								}
+								// console.log(logs);
+								responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
+								return resolve(null)
+							})
+						}
+						else {
+							return resolve(objectInstance)
+						}
+					}
+					else{
+						responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ['Không tìm thấy']);
+						return resolve(null)
+					}
+				})
+			}))
+			if (!oi) {
+				return;
+			}
+			let maDeTai = oi.maDeTai.maDeTai;
+			if (maDeTai != req.user.maDeTai) {
+				return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'], ['Mẫu dữ liệu này thuộc mã đề tài ' + maDeTai + ', không thuộc quyền quản lý của bạn']);
+			}
+			if (oi.owner.userId == req.body.userId) {
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Mẫu dữ liệu này hiện đang thuộc quyền quản lý của user ' + req.body.userId]);
+			}
+			let user = await (getUser(req.body.userId))
+			if (!user) {
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['User không tồn tại'])
+			}
+			user = user.userNormal;
+			if (user.maDeTai != req.user.maDeTai) {
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['User ' + user.fullname + ' không nằm trong đề tài mà bạn quản lý'])
+			}
+			// now we have: user.maDeTai == maDeTai == req.user.maDeTai
+			// TODO check if user have permission to view this type of form
+			let per = await (new Promise((resolve, reject) => {
+				acl.isAllowed(user.id, aclMiddlewareBaseURL, 'view', function (err, result) {
+					if (err){
+						console.log(err);
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Có lỗi xảy ra, vui lòng thử lại sau.'])
+						resolve(null)
+					}
+					// console.log('result: ', result);
+					if (result){
+						resolve(true)
+					}
+					else {
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['User ' + user.fullname + ' không có quyền xem dữ liệu thuộc loại ' + objectModelLabel])
+						resolve(false)
+					}
+				});
+			}))
+			if (!per) {
+				return;
+			}
+			let newLog = new Log();
+			newLog.userId = req.session.userId;
+			newLog.userFullName = req.user.fullname,
+			newLog.action = 'chown',
+			newLog.time = new Date(),
+			newLog.objType = objectModelName,
+			newLog.obj1 = JSON.parse(JSON.stringify(oi)),
+			// newLog.obj2: Object,
+			newLog.extra = {
+				agent: req.headers['user-agent'],
+				localIP: req.body.localIP,
+				publicIP: getPublicIP(req)
+			}
+			oi.owner.userId = user.id
+			oi.save((err, result) => {
+				if (err) {
+					console.log(err);
+					return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Có lỗi xảy ra, vui lòng thử lại sau'])
+				}
+				newLog.obj2 = JSON.parse(JSON.stringify(oi));
+				newLog.save();
+				return responseSuccess(res, [], [])
+			})
+		})()
+	}
+}
+
+global.myCustomVars.chownHandler = chownHandler;
+
 // hanle route: objectBaseURL + '/log/:logId/:position'
 var getLogHandler = function (options) {
 	return function (req, res) {
@@ -3432,7 +3551,7 @@ var deleteHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canDelete = true;
 				}
-				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				if ((objectInstance.owner.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
 					canDelete = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
 					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
 					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
@@ -3546,7 +3665,7 @@ var deleteFileHander = options => {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canEdit = true;
 				}
-				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				if ((objectInstance.owner.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
 					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
 					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
 					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
@@ -3711,7 +3830,7 @@ var putHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canEdit = true;
 				}
-				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				if ((objectInstance.owner.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
 					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
 					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
 					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó

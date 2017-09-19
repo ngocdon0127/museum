@@ -10,7 +10,6 @@ const fsE = require('fs-extra');
 const ROOT = path.join(__dirname, '../')
 const mongoose = require('mongoose');
 
-
 router.use(isLoggedIn);
 
 var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
@@ -32,7 +31,7 @@ require('./geological.js')(router);
 // handle data for paleontological form
 require('./paleontological.js')(router);
 
-// handle data for paleontological form
+// handle data for vegetable form
 require('./vegetable.js')(router);
 
 // handle download request.
@@ -69,6 +68,7 @@ router.get('/download/*', function (req, res, next) {
 	// res.end('ok');
 })
 
+// upload files to tmp folders. move to real folder later.
 router.get('/instant-upload', (req, res) => {
 	res.render('instant-upload', {
 		user: req.user,
@@ -245,7 +245,6 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
 			form: req.body.form
 		})
 	}
-	
 })
 
 function isLoggedIn (req, res, next) {

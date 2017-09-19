@@ -12,10 +12,39 @@ var await = require('asyncawait/await');
 
 var PROMISES = global.myCustomVars.promises;
 
-/* GET users listing. */
+
 router.get('/', function(req, res, next) {
   res.redirect('/users/me');
 });
+
+router.get('/all', isLoggedIn, (req, res, next) =>{
+	async (() => {
+		let user = await(PROMISES.getUser(req.session.userId));
+		user = JSON.parse(JSON.stringify(user.userNormal));
+		console.log(user);
+		delete user.password;
+		delete user.forgot_password;
+		delete user.__v;
+		let users = await (PROMISES.getUsers()).usersNormal;
+		users.map((u) => {
+			delete u.password;
+			delete u.forgot_password;
+			delete u.__v;
+		})
+		if (user.level !== 'admin'){
+			users = users.filter((u) => {
+				return u.maDeTai == user.maDeTai;
+				// return true;
+			})
+		}
+		return res.json({
+			status: 'success',
+			count: users.length,
+			user: user,
+			users: users
+		})
+	})()
+})
 
 router.get('/me', isLoggedIn, function (req, res, next) {
 	if (!req.query.hasOwnProperty('datatype') || (req.query.datatype != 'json')){

@@ -265,8 +265,10 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				console.log(err);
 				var id = JSON.parse(err.responseText).field;
 				var x = document.getElementById(id);
-				var element = x.nextElementSibling
-				element.style.borderColor = "red";
+				if (x) {
+					var element = x.nextElementSibling;
+					element.style.borderColor = "red";
+				}
 				setTimeout(function () { // Stop spinner before alerting
 					// alert(JSON.parse(err.responseText).error);
 					var modalInstance = $uibModal.open({
@@ -282,8 +284,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							}
 						}
 					});
-
-					
 				}, 100)
 			}
 		});
@@ -504,8 +504,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 				})
 			}
-			
-
 			$( ".datepicker" ).datepicker({
 				dateFormat: 'dd/mm/yy',
 				changeMonth: 'true',

@@ -94,8 +94,9 @@
 							<input type="text" title="{{tooltips['phanHo']}}" name="phanHo" ng-model="data.phanHo" id="phanHo" class="input-form form-control">
 						</div>
 						<div class="col-sm-3">
-							{{"pal.chiGiong" | translate }}: 
-							<input type="text" title="{{tooltips['chiGiong']}}" name="chiGiong" ng-model="data.chiGiong" id="chiGiong" class="input-form form-control">
+							{{"pal.chiGiong" | translate }}:
+							<input type="hidden" title="{{tooltips['chiGiong']}}" name="chiGiong" value="{{data.chiGiong}}" ng-bind="data.chiGiong">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="chiGiong" ng-model="data.chiGiong" contentEditable class="inline-text-editor" title="{{tooltips['chiGiong']}}" name="chiGiong"></div>
 						</div>
 					</div>
 					<div>
@@ -106,7 +107,8 @@
 
 						<div class="col-sm-3">
 							{{"pal.loai" | translate }}: 
-							<input type="text" id="loai" ng-model="data.loai" class="input-form form-control" title="{{tooltips['loai']}}" name="loai">
+							<input type="hidden" title="{{tooltips['loai']}}" name="loai" value="{{data.loai}}" ng-bind="data.loai">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="loai" ng-model="data.loai" contentEditable class="inline-text-editor" title="{{tooltips['loai']}}" name="loai"></div>
 						</div>
 						<div class="col-sm-3">
 							{{"pal.duoiLoai" | translate }}: 
@@ -370,8 +372,8 @@
 			</div>
 			<div class="row" style="margin-top: 20px;">
 				<div class="col-sm-4">
-					<label>25. {{"pal.thongTinDiaTang" | translate }}<span class="has-required">(*)</span>:</label>
-					<input type="text" title="{{tooltips['thongTinDiaTang']}}" name="thongTinDiaTang" ng-model="data.thongTinDiaTang" class="input-form form-control">
+					<input type="hidden" title="{{tooltips['thongTinDiaTang']}}" name="thongTinDiaTang" value="{{data.thongTinDiaTang}}" ng-bind="data.thongTinDiaTang">
+					<div type="text" inline-text-editor context-menu="contextMenu" id="thongTinDiaTang" ng-model="data.thongTinDiaTang" contentEditable class="inline-text-editor" title="{{tooltips['thongTinDiaTang']}}" name="thongTinDiaTang"></div>
 				</div>
 				<div class="col-sm-4">
 					<label>26. {{"pal.thongTinDuAn" | translate }}<span class="has-required">(*)</span>:</label>

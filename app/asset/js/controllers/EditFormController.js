@@ -670,9 +670,14 @@ app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, sto
         google.maps.event.trigger(map, "resize"); 
         google.maps.event.addListener(map, 'click', function(event) {
             console.log(event);
-            var viDo = document.getElementById('viDo');
-            var kinhDo = document.getElementById('kinhDo');
-            console.log(viDo);
+            var cusorViDo = document.getElementById('viDo');
+            var cusorKinhDo = document.getElementById('kinhDo');
+            var donVi = document.getElementById('vitri-dd');
+            donVi.checked = true;
+            var latLong = event.latLng.toString();
+            latLong = latLong.replace(/\(|\)/gi,"");
+            cusorViDo.value = latLong.split(",")[0];
+            cusorKinhDo.value = latLong.split(",")[1];
         });
     });
 

@@ -301,6 +301,10 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
         })
     }
 
+    $scope.error = function (e) {
+        console.log(e);
+    }
+
     //name of route, config in app.config.js file
     var urlRe = 'quan-ly-thuc-vat';
 
@@ -378,6 +382,46 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
 
     // DatePicker
     AuthService.initDatePicker(null, null);
+
+    $scope.read = function (respone) {
+        var urlFields = "/app/database/templateexcel/templateGeo.json"
+        var urlDates = "/app/database/templateexcel/geodate.json"
+        var row = prompt("Nhập số thứ tự của mẫu: ")
+        // console.log(row);
+        var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
+        result.then(function success(res_tmp) {
+            $scope.data = res_tmp;
+            console.log(res_tmp);
+            setTimeout(function () {
+                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.vido_do = parseInt(coor[1].trim());
+                    $scope.vido_phut = parseInt(coor[2].trim());
+                    $scope.vido_giay = parseInt(coor[3].trim());
+                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.kinhdo_do = parseInt(coor[1].trim());
+                    $scope.kinhdo_phut = parseInt(coor[2].trim());
+                    $scope.kinhdo_giay = parseInt(coor[3].trim());
+                    document.getElementById("vitri-dms").checked = true;
+                    $scope.showCoor = true;
+                } else {
+                    document.getElementById("vitri-dd").checked = true;
+                    $scope.showCoor = false;
+                }
+                if ($scope.data.fDiaDiemThuMau == "bien") {
+                    document.getElementById("trenBien").checked = true;
+                } else {
+                    document.getElementById("datLien").checked = true;
+                }
+                // }
+            }, 500);
+            $scope.$apply();
+        })
+    }
+
+    $scope.error = function (e) {
+        console.log(e);
+    }
 
     var arrAuto = AuthService.arrAuto;
     $http.get(AuthService.hostName + '/content/dia-chat/auto').then(function (res) {
@@ -460,6 +504,46 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) 
     // DatePicker
     AuthService.initDatePicker(null, null);
 
+    $scope.read = function (respone) {
+        var urlFields = "/app/database/templateexcel/templateLand.json"
+        var urlDates = "/app/database/templateexcel/landdate.json"
+        var row = prompt("Nhập số thứ tự của mẫu: ")
+        // console.log(row);
+        var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
+        result.then(function success(res_tmp) {
+            $scope.data = res_tmp;
+            console.log(res_tmp);
+            setTimeout(function () {
+                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.vido_do = parseInt(coor[1].trim());
+                    $scope.vido_phut = parseInt(coor[2].trim());
+                    $scope.vido_giay = parseInt(coor[3].trim());
+                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.kinhdo_do = parseInt(coor[1].trim());
+                    $scope.kinhdo_phut = parseInt(coor[2].trim());
+                    $scope.kinhdo_giay = parseInt(coor[3].trim());
+                    document.getElementById("vitri-dms").checked = true;
+                    $scope.showCoor = true;
+                } else {
+                    document.getElementById("vitri-dd").checked = true;
+                    $scope.showCoor = false;
+                }
+                if ($scope.data.fDiaDiemThuMau == "bien") {
+                    document.getElementById("trenBien").checked = true;
+                } else {
+                    document.getElementById("datLien").checked = true;
+                }
+                // }
+            }, 500);
+            $scope.$apply();
+        })
+    }
+
+    $scope.error = function (e) {
+        console.log(e);
+    }
+
     var arrAuto = AuthService.arrAuto;
     $http.get(AuthService.hostName + '/content/tho-nhuong/auto').then(function (res) {
         $scope.auto = res.data;
@@ -522,12 +606,36 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
 
     // $scope.hola = "Kevinhoa95"
     $scope.read = function (respone) {
-        var urlFields = "/app/database/fieldspal.json"
-        var result = sheetToJson(respone, urlFields)
+        var urlFields = "/app/database/templateexcel/templatePal.json"
+        var urlDates = "/app/database/templateexcel/paldate.json"
+         var row = prompt("Nhập số thứ tự của mẫu: ")
+        var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             console.log(res_tmp);
-            initDefaultUnits($scope);
+            setTimeout(function () {
+                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.vido_do = parseInt(coor[1].trim());
+                    $scope.vido_phut = parseInt(coor[2].trim());
+                    $scope.vido_giay = parseInt(coor[3].trim());
+                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                    $scope.kinhdo_do = parseInt(coor[1].trim());
+                    $scope.kinhdo_phut = parseInt(coor[2].trim());
+                    $scope.kinhdo_giay = parseInt(coor[3].trim());
+                    document.getElementById("vitri-dms").checked = true;
+                    $scope.showCoor = true;
+                } else {
+                    document.getElementById("vitri-dd").checked = true;
+                    $scope.showCoor = false;
+                }
+                if ($scope.data.fDiaDiemThuMau == "bien") {
+                    document.getElementById("trenBien").checked = true;
+                } else {
+                    document.getElementById("datLien").checked = true;
+                }
+                // }
+            }, 500);
             $scope.$apply();
         })
     }

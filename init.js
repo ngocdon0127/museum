@@ -53,6 +53,17 @@ global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
 
+const DATE_FULL = 0;
+const DATE_MISSING_DAY = 1;
+const DATE_MISSING_MONTH = 2;
+
+const EXPORT_NULL_FIELD = true;
+
+const ORIGIN_TIME = new Date('1970/1/1');
+const NULL_TIMES = [ORIGIN_TIME.getTime(), 0];
+global.myCustomVars.ORIGIN_TIME = ORIGIN_TIME;
+global.myCustomVars.NULL_TIMES = NULL_TIMES;
+
 
 
 // ============== Places ================
@@ -500,15 +511,55 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// Catch error later
 						try {
 							let dateValue_ = req.body[element.name].split('/');
-							if (dateValue_.length < 3){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+							dateValue_ = dateValue_.filter(e => {
+								let n = parseInt(e);
+								return Number.isInteger(n) && (n > 0)
+							})
+							let timeValue_ = [];
+							// reject if req has more than 3 numbers
+							if (dateValue_.length > 3){
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
 							}
+							// 
+							// now, allow to save and mark the flag
+							// console.log(dateValue_);
+							let dl = dateValue_.length;
+							// console.log('dateValue_ len:', dl);
+							// let flagMissingDateTime = DATE_FULL;
+							// try {
+							// 	flagMissingDateTime = objectInstance.flag.fMissingDateTime;
+							// } catch (e) {
+							// 	console.log(e);
+							// }
+							if (dl == 2) {
+								// date: 12/2017 => 1/12/2017
+								dateValue_.unshift('1'); // Chỉnh về ngày mùng 1 trong tháng
+								// flagMissingDateTime = DATE_MISSING_DAY;
+								timeValue_ = [DATE_MISSING_DAY + '', '0', '0'];
+							} else if (dl == 1) {
+								// date: 2017 => 1/1/2017
+								dateValue_.unshift('1');
+								dateValue_.unshift('1'); // Chỉnh về ngày 1 tháng 1 trong năm
+								// flagMissingDateTime = DATE_MISSING_MONTH;
+								timeValue_ = [DATE_MISSING_MONTH + '', '0', '0'];
+							}
+							// Use flag to mark Missing Date
+							// if (objectInstance.flag) {
+							// 	objectInstance.flag.fMissingDateTime = flagMissingDateTime
+							// } else {
+							// 	objectInstance.flag = {
+							// 		fMissingDateTime: flagMissingDateTime
+							// 	}
+							// }
+							// console.log(dateValue_);
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
 							})
 							dateValue_.reverse();
-							req.body[element.name] = dateValue_.join('/')
-							console.log(req.body[element.name]);
+							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
+							// Use flag to mark Missing Date
+							// req.body[element.name] = dateValue_.join('/')
+							// console.log(req.body[element.name]);
 						}
 						catch (e){
 							console.log(e)
@@ -1007,6 +1058,19 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 
 			// delete objectInstance.flag;
@@ -1032,7 +1096,17 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -1148,7 +1222,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
-							if (value){
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
 									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
@@ -1156,7 +1230,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="tnrlb">${stt}</p></td>
 											<td class="td"><p class="tnr">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`
@@ -1185,6 +1259,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									}
 									
 								}
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1254,7 +1330,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (printAll || (display(flatOI[sp]) && (sp in printedProperties))) {
+									// TODO 2283 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
+									// if (printAll || ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (sp in printedProperties))) {
 										flagHasRealChildren = true;
 										break;
 									}
@@ -1323,7 +1401,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
-							if (value){
+							if (EXPORT_NULL_FIELD || value) {
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
 									// docxHTMLSource += `
@@ -1339,7 +1417,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="ct tnr lb"></p></td>
 											<td class="td"><p class="tnri">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`
@@ -1363,7 +1441,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										`
 									}
 								}
-								
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1743,7 +1822,6 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			catch (e){
 				console.log(e);
 			}
-
 			// var fs = require('fs');
 			var tmpFileName = (new Date()).getTime() + '.tmp.docx';
 			/*
@@ -1847,7 +1925,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var HtmlDocx = require('html-docx-js');
 			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
 			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
-			fs.writeFileSync('out.html', docxHTMLSource);
+			fs.writeFile('out.html', docxHTMLSource);
 			var outputFileName = 'PCSDL';
 			try {
 				if (LABEL.objectModelLabel){
@@ -2154,6 +2232,20 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
 			/**
@@ -2176,7 +2268,17 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					return result;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -2251,16 +2353,16 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 
 							
-							
-							if (value){
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
 									setCell(sheet, 2, sheetRowIndex, p, detailOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
+							}
 
-
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -2323,7 +2425,8 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (display(flatOI[sp]) && (sp in printedProperties)){
+									// TODO 1212 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
 										flagHasRealChildren = true;
 										break;
 									}
@@ -2350,14 +2453,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							
 							
 							// console.log(p + ' : ' + value)
-							if (value){
-
+							if (EXPORT_NULL_FIELD || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
-
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;

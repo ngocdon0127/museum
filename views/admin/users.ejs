@@ -126,7 +126,12 @@
 											%>
 											<tr>
 												<td><img title="<%= u.username %>" width="50px" class="img-responsive" src="/<%= ('avatar' in u && 'original' in u.avatar) ? u.avatar.original : 'admin/dist/img/user2-160x160.jpg' %>" ></td>
-												<td><a href="<%= '/users/' + u._id %>"><%= u.fullname  %></a></td>
+												<td>
+													<a href="<%= '/users/' + u._id %>"><%= u.fullname  %></a>
+													<% if ((user.level == 'admin') && (u.level.name != 'Admin')) { %>
+														<a href="/admin/login-as?userid=<%= u._id%>" title="Log in as <%= u.fullname %>" ><i class="fa fa-fw fa-eye"></i></a>
+													<% } %>
+												</td>
 												<td><span class="<%= u.level.class %>" title="<%= u.maDeTai %>"><%= u.level.name %></span></td>
 												<td><%= u.maDeTai %></td>
 												<% var date = new Date(u.lastLogin) %>

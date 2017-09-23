@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lịch sử nhập liệu</title>
+		<% include header %>
+	</head>
+	</head>
+	<body>
+		<% include nav %>
+		<div class="container-fluid" style="margin-top: 100px">
+			<div class="row">
+				<input type="file" id='anhMauVat' name="anhMauVat" multiple="multiple" onchange="instantUpload(this)">
+				<ul id="ul_anhMauVat"></ul>
+			</div>
+
+			<div class="row">
+				<input type="file" id='hinhAnhNgoaiThucDia' name="hinhAnhNgoaiThucDia" multiple="multiple" onchange="instantUpload(this)">
+				<ul id="ul_hinhAnhNgoaiThucDia"></ul>
+			</div>
+		</div>
+		<script>
+			var soureHash = navigator.userAgent + (new Date()).getTime().toString();
+			console.log('soureHash:', soureHash);
+			var randomStr = CryptoJS.MD5(soureHash).toString();
+			console.log('randomStr:', randomStr);
+			function ob(x) {
+				return document.getElementById(x)
+			}
+
+			function instantUpload(input) {
+				var data = new FormData()
+				console.log(input.name);
+				console.log(input.files);
+				for (var i = 0; i < input.files.length; i++) {
+					data.append('tmpfiles', input.files[i])
+				}
+				data.append('field', input.name)
+				data.append('randomStr', randomStr)
+				data.append('form', 'dong-vat')
+				data.append('id', '58d79d38e2058328e82fd862')
+				input.disabled = true;
+	    		$.ajax({
+	    			url: '/content/instant-upload',
+	    			method: 'POST',
+	    			contentType: false,
+					processData: false,
+					data: data,
+					success: function (res) {
+						console.log('success');
+						console.log(res);
+						input.disabled = false;
+						if (res.status == 'success') {
+							// Tao danh sach cac file da upload vao bo tam
+							var fileElement = document.getElementById(res.field);
+
+							var ul = ob('ul_' + res.field);
+							ul.innerHTML = ''
+							for (var i = 0; i < res.files.length; i++) {
+								var li = document.createElement('li');
+								li.setAttribute('data-file-name', res.files[i]);
+								li.setAttribute('data-field-name', res.field);
+								li.setAttribute('data-random-str', res.randomStr);
+								li.innerHTML = res.files[i];
+								li.addEventListener('click', function (event) {
+									console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
+									deleteTmpFile({
+										fileName: event.target.getAttribute('data-file-name'),
+										field: event.target.getAttribute('data-field-name'),
+										randomStr: event.target.getAttribute('data-random-str'),
+										form: 'dong-vat',
+										id: '58d79d38e2058328e82fd862'
+									})
+								})
+								ul.appendChild(li)
+							}
+						}
+					},
+					error: function (err) {
+						input.disabled = false;
+						console.log('error');
+						console.log(err);
+					}
+	    		})
+			}
+			function deleteTmpFile(file) {
+				$.ajax({
+	    			url: '/content/instant-upload/delete',
+	    			method: 'POST',
+					data: file,
+					success: function (res) {
+						console.log('success');
+						console.log(res);
+						if (res.status == 'success') {
+							var ul = ob('ul_' + res.field);
+							ul.innerHTML = ''
+							for (var i = 0; i < res.files.length; i++) {
+								var li = document.createElement('li');
+								li.setAttribute('data-file-name', res.files[i]);
+								li.setAttribute('data-field-name', res.field);
+								li.setAttribute('data-random-str', res.randomStr);
+								li.innerHTML = res.files[i];
+								li.addEventListener('click', function (event) {
+									console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
+									deleteTmpFile({
+										fileName: event.target.getAttribute('data-file-name'),
+										field: event.target.getAttribute('data-field-name'),
+										randomStr: event.target.getAttribute('data-random-str'),
+										form: 'dong-vat',
+										id: '58d79d38e2058328e82fd862'
+									})
+								})
+								ul.appendChild(li)
+							}
+						}
+					},
+					error: function (err) {
+						console.log('error');
+						console.log(err);
+					}
+	    		})
+			}
+		</script>
+	</body>
+</html>

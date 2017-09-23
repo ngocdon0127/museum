@@ -522,6 +522,15 @@
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": true
+	},{
+		"name": "tinhKhac",
+		"schemaProp": "duLieuThuMau.diaDiemThuMau",
+		"label": "Tỉnh Khác",
+		"required": false,
+		"money": true,
+		"type": "String",
+		"regex": "^.{0,}$",
+		"autoCompletion": false
 	},
 	{
 		"name": "huyen",

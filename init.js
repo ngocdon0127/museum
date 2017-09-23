@@ -4,8 +4,11 @@
 var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 require('./config/acl.js')(acl);
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
+const fsE = require('fs-extra');
+const TMP_UPLOAD_DIR = 'public/uploads/tmp';
+const ROOT = path.join(__dirname);
 
 // place all global Promises inside this object
 global.myCustomVars.promises = {}
@@ -590,7 +593,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								if (!regex.test(file.originalname)){
 									// console.log(regex);
 									// console.log(file.originalname);
-									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field', 'invalidFileName'], ['Tên file trong trường không hợp lệ', element.name, file.originalname]);
+									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field', 'invalidFile'], ['Tên file trong trường không hợp lệ', element.name, file.originalname]);
 								}
 							}
 						}
@@ -744,7 +747,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				}
 				return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error'], ['Error while saving to database']);
 			}
-
+			const currentTmpFiles = fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'});
 			// rename images
 			FILE_FIELDS.map(function (element) {
 				// console.log('---');
@@ -771,27 +774,64 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// TODO
 						// need to delete old files.
 						// console.log('delete old files');
-						var files = objectChild(objectInstance, element.schemaProp)[element.name];
-						// console.log(files);
-						if(files instanceof Array) {
-							for (var j = 0; j < files.length; j++) {
-								// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-								try {
-									fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-									console.log('deleted ' + files[j])
-								}
-								catch (e){
-									console.log('delete failed ' + files[j])
-									console.log(e)
-								}
-							}
-						}
+
+						// 
+						// NOW we don't need to delete old files.
+						// have a new API to to that
+						// the remaining files are actually necessary
+						// var files = objectChild(objectInstance, element.schemaProp)[element.name];
+						// // console.log(files);
+						// for (var j = 0; j < files.length; j++) {
+						// 	// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 	try {
+						// 		fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 		console.log('deleted ' + files[j])
+						// 	}
+						// 	catch (e){
+						// 		console.log('delete failed ' + files[j])
+						// 		console.log(e)
+						// 	}
+						// }
+						// var files = objectChild(objectInstance, element.schemaProp)[element.name];
+						// // console.log(files);
+						// if(files instanceof Array) {
+						// 	for (var j = 0; j < files.length; j++) {
+						// 		// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 		try {
+						// 			fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+						// 			console.log('deleted ' + files[j])
+						// 		}
+						// 		catch (e){
+						// 			console.log('delete failed ' + files[j])
+						// 			console.log(e)
+						// 		}
+						// 	}
+						// }
 
 					}
 					objectChild(objectInstance, element.schemaProp)[element.name] = [];
 					rename(req.files[element.name], element.name, objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DESTINATION, result.id);
 					// rename(req.files[element.name], objectChild(objectInstance, element.schemaProp)[element.name], _UPLOAD_DESTINATION, result.id);
 				}
+
+				// Thêm các file được tải lên bằng route /content/instant-upload vào trong mẫu vật.
+				// (các file được tải lên trong khi người dùng đang nhập liệu, trước khi mẫu vật được thực sự tạo ra)
+				
+				let randomStr = req.body.randomStr;
+				currentTmpFiles.map((fileName) => {
+					let prefix = req.body.randomStr + STR_SEPERATOR + element.name + STR_SEPERATOR;
+					if (fileName.indexOf(prefix) == 0) {
+						let curFullName = fileName.split(STR_SEPERATOR);
+						curFullName[0] = result.id;
+						let newFullName = curFullName.join(STR_SEPERATOR);
+						fsE.moveSync(
+							path.join(ROOT, TMP_UPLOAD_DIR, fileName),
+							path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
+							{overwrite: true}
+						);
+						objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
+					}
+				});
 			})
 
 			if (action == ACTION_CREATE){
@@ -1198,7 +1238,12 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										let td = ``;
 										for(let iidx = 0; iidx < value.length; iidx++) {
 											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
-												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												try {
+													td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												} catch (e) {
+													console.log(e);
+													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+												}
 											} else {
 												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
 											}
@@ -2888,7 +2933,6 @@ var exportZipPromise = (objectInstance, options, extension) => {
 			let fileName = result.outputFileName.xlsx;
 			fs.renameSync(result.absoluteFilePath.xlsx, path.join(__dirname, 'tmp', tmpFolderName, result.outputFileName.xlsx));
 			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
-			let fsE = require('fs-extra');
 			// console.log('here process flatOI ' + Object.keys(flatOI).length);
 			for(let i in flatOI){
 				let arrFiles = flatOI[i];
@@ -2965,7 +3009,6 @@ function exportZip (objectInstance, options, res, extension) {
 					return res.end(err);
 				}
 				try {
-					let fsE = require('fs-extra');
 					fsE.removeSync(path.join(__dirname, 'tmp', wrapperName + '.zip'));
 					fsE.removeSync(path.join(__dirname, 'tmp', wrapperName));
 				}
@@ -2985,6 +3028,10 @@ var getAllHandler = function (options) {
 	return function (req, res) {
 		async(() => {
 			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			var objectModelIdParamName = options.objectModelIdParamName;
+			var objectBaseURL = options.objectBaseURL;
+			var LABEL = options.LABEL;
+			var objectModelLabel = options.objectModelLabel;
 			var ObjectModel = options.ObjectModel;
 			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 			var PROP_FIELDS = options.PROP_FIELDS;
@@ -3089,6 +3136,49 @@ var getAllHandler = function (options) {
 				// console.log("==================");
 				// console.log("time: " + ((d2.getTime() - d1.getTime()) / 1000));
 				// console.log("==================");
+				if (req.query.display == 'html') {
+					let coordinationArr = []
+					let firstInstance = -1;
+					objectInstances.map((instance, idx) => {
+						try {
+							let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+							let longitude = '';
+							if (!(regex.test(instance.kinhDo.toLowerCase()))){
+								// console.log('Tọa độ thực')
+								longitude = parseFloat(instance.kinhDo.toLowerCase());
+							}
+							else {
+								// console.log('Tọa độ rời rạc')
+								let matches = instance.kinhDo.toLowerCase().match(regex);
+								longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+							}
+
+							let latitude = '';
+							if (!(regex.test(instance.viDo.toLowerCase()))){
+								// console.log('Tọa độ thực')
+								latitude = parseFloat(instance.viDo.toLowerCase());
+							}
+							else {
+								// console.log('Tọa độ rời rạc')
+								let matches = instance.viDo.toLowerCase().match(regex);
+								latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+							}
+							if (longitude && latitude) {
+								if (firstInstance == -1) {
+									firstInstance = idx
+								}
+								coordinationArr.push([latitude, longitude])
+							}
+						} catch (e) {
+							console.log(e);
+						}
+						
+					})
+					// return res.json({
+					// 	coordinationArr: coordinationArr
+					// })
+					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: {kinhDo: objectInstances[firstInstance].kinhDo, viDo: objectInstances[firstInstance].viDo}, objectModelId: '', props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: coordinationArr});
+				}
 				return responseSuccess(res, ['status', objectModelNames, 'total'], ['success', objectInstances, objectInstances.length]);
 			})
 		})();
@@ -3135,6 +3225,7 @@ var getSingleHandler = function (options) {
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;
+		let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 		var objectModelIdParamName = options.objectModelIdParamName;
 		var objectBaseURL = options.objectBaseURL;
@@ -3159,7 +3250,55 @@ var getSingleHandler = function (options) {
 				else {
 					// return responseSuccess(res, ['objectInstance'], [objectInstance]);
 					if (req.query.display == 'html'){
-						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length)});
+						let foi = flatObjectModel(PROP_FIELDS, objectInstance)
+						if (foi.loai) {
+							let field = PROP_FIELDS[PROP_FIELDS_OBJ['loai']].schemaProp + '.loai';
+							let selection = {}
+							selection[field] = foi.loai
+							console.log(selection);
+							ObjectModel.find(selection, (err, instances) => {
+								let coordinationArr = []
+								if (err) {
+									console.log(err);
+								} else {
+									console.log('cung loai:', instances.length);
+									instances.map(instance => {
+										let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+										let longitude = '';
+										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase()))){
+											// console.log('Tọa độ thực')
+											longitude = parseFloat(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase());
+										}
+										else {
+											// console.log('Tọa độ rời rạc')
+											let matches = instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase().match(regex);
+											longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+										}
+
+										let latitude = '';
+										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase()))){
+											// console.log('Tọa độ thực')
+											latitude = parseFloat(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase());
+										}
+										else {
+											// console.log('Tọa độ rời rạc')
+											let matches = instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase().match(regex);
+											latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+										}
+										if (longitude && latitude) {
+											coordinationArr.push([latitude, longitude])
+										}
+									})
+								}
+								return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: coordinationArr});
+							})
+						} else {
+							return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: null});
+						}
+						
+					}
+					else if (req.query.display == 'nested') {
+						return responseSuccess(res, [objectModelName], [objectInstance]);
 					}
 					else if (['docx', 'pdf', 'xlsx', 'zip'].indexOf(req.query.display) >= 0){
 
@@ -3216,6 +3355,93 @@ var getSingleHandler = function (options) {
 }
 
 global.myCustomVars.getSingleHandler = getSingleHandler;
+
+var duplicateHandler = function (options) {
+	return function (req, res) {
+
+		var ObjectModel = options.ObjectModel;
+		var objectModelName = options.objectModelName;
+		var PROP_FIELDS = options.PROP_FIELDS;
+		let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ
+		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
+		var objectModelIdParamName = options.objectModelIdParamName;
+		var objectBaseURL = options.objectBaseURL;
+		var LABEL = options.LABEL;
+		var objectModelLabel = options.objectModelLabel;
+		options.req = req;
+		ObjectModel.findById(req.body[objectModelIdParamName], function (err, objectInstance) {
+			if (err){
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
+			}
+			if (objectInstance){
+				if (objectInstance.deleted_at){
+					Log.find({action: {$eq: 'delete'}, "obj1._id": {$eq: mongoose.Types.ObjectId(req.body[objectModelIdParamName])}}, function (err, logs) {
+						if (err || (logs.length < 1)){
+							console.log(err);
+							return responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa"]);
+						}
+						// console.log(logs);
+						return responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ["Mẫu dữ liệu này đã bị xóa bởi " + logs[0].userFullName]);
+					})
+				}
+				else {
+					// TODO
+					// Need to check if this user can view this data or not !!!
+					let newInstance = new ObjectModel(objectInstance);
+					newInstance._id = mongoose.Types.ObjectId();
+					newInstance.isNew = true; // VERY IMPORTANT
+					newInstance.created_at = new Date();
+					delete newInstance.updated_at;
+					newInstance.created_by = {
+						userId: req.user._id,
+						userFullName: req.user.fullname
+					}
+					delete newInstance.updated_by
+					delete newInstance.deleted_by
+					let tmp = flatObjectModel(PROP_FIELDS, newInstance);
+					let duplicatedFiles = []
+					for(p in tmp){
+						if (tmp[p] instanceof Array){ // Chỉ có những trường file đính kèm thì mới là Array
+							let files = tmp[p];
+							objectChild(newInstance, PROP_FIELDS[PROP_FIELDS_OBJ[p]].schemaProp)[p] = []
+							files.map((f, i) => {
+								try {
+									let duplicatedFileName = f.replace(objectInstance._id, newInstance._id);
+									fsE.copySync(path.join(ROOT, UPLOAD_DESTINATION, f), path.join(ROOT, UPLOAD_DESTINATION, duplicatedFileName));
+									duplicatedFiles.push(duplicatedFileName)
+									objectChild(newInstance, PROP_FIELDS[PROP_FIELDS_OBJ[p]].schemaProp)[p].push(duplicatedFileName);
+								} catch (e) {
+									console.log(e);
+								}
+							})
+						}
+					}
+					newInstance.save(err => {
+						if (err) {
+							console.log(err);
+							for(f of duplicatedFiles) {
+								try {
+									fsE.removeSync(path.join(ROOT, UPLOAD_DESTINATION, f))
+								} catch (e) {
+									console.log(e);
+								}
+							}
+							return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], [err])
+						}
+						let r = flatObjectModel(PROP_FIELDS, newInstance);
+						r.id = r._id = newInstance._id;
+						return responseSuccess(res, [objectModelName], [r])
+					})
+				}
+			}
+			else{
+				responseError(req, UPLOAD_DESTINATION, res, 404, ['error'], ['Không tìm thấy']);
+			}
+		})
+	}
+}
+
+global.myCustomVars.duplicateHandler = duplicateHandler;
 
 // hanle route: objectBaseURL + '/log/:logId/:position'
 var getLogHandler = function (options) {
@@ -3357,6 +3583,170 @@ var deleteHandler = function (options) {
 
 global.myCustomVars.deleteHandler = deleteHandler;
 
+var deleteFileHander = options => {
+	return (req, res, next) => {
+		async(() => {
+			let objectModelIdParamName = options.objectModelIdParamName
+			let UPLOAD_DESTINATION = options.UPLOAD_DESTINATION
+			let ObjectModel = options.ObjectModel
+			let saveOrUpdate = options.saveOrUpdate;
+			let PROP_FIELDS = options.PROP_FIELDS;
+			let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
+			let form = options.form;
+			// console.log(objectModelIdParamName);
+			var missingParam = checkRequiredParams([objectModelIdParamName, 'randomStr', 'field', 'fileName'], req.body);
+			if (missingParam){
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + missingParam]);  
+			}
+			// console.log(req.body.animalId);
+			var objectModelId = '';
+			try {
+				// console.log(req.body[objectModelIdParamName]);
+				objectModelId = mongoose.Types.ObjectId(req.body[objectModelIdParamName]);
+			}
+			catch (e){
+				console.log(e);
+				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], [objectModelIdParamName + " không đúng"]);
+			}
+			var objectInstance = await(new Promise((resolve, reject) => {
+				ObjectModel.findById(objectModelId, function (err, objectInstance) {
+					if (err){
+						console.log(err);
+						responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ["Error while reading database"])
+						resolve(null)
+					}
+					
+					if (objectInstance && (!objectInstance.deleted_at)) {
+						resolve(objectInstance);
+					}
+
+					else {
+						responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], [objectModelIdParamName + ' không đúng'])
+						resolve(null)
+					}
+				})
+			}))
+			if (objectInstance){
+				var canEdit = false;
+
+				var userRoles = await(new Promise((resolve, reject) => {
+					acl.userRoles(req.session.userId, (err, roles) => {
+						console.log('promised userRoles called');
+						if (err){
+							resolve([])
+						}
+						else {
+							resolve(roles)
+						}
+					})
+				}))
+
+				if (userRoles.indexOf('admin') >= 0){
+					// Nếu là Admin, cập nhật đẹp
+					canEdit = true;
+				}
+				if ((userRoles.indexOf('manager') >= 0) && req.user.maDeTai == objectInstance.maDeTai.maDeTai){
+					// Nếu là chủ nhiệm đề tài, cũng OK
+					canEdit = true;
+				}
+				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
+					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
+					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
+				}
+
+				// ===
+				// if (objectInstance.created_by.userId == req.user.id){
+				// 	canEdit = true; // Nếu mẫu do chính user tạo, có thể cập nhật
+				// }
+				// if (req.user.level){
+				// 	let level = parseInt(req.user.level);
+				// 	if (level >= PERM_ACCESS_ALL){
+				// 		canEdit = true; // Nếu là SUPERUSER, cập nhật đẹp
+				// 	}
+				// 	else if ((level >= PERM_ACCESS_SAME_MUSEUM) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+				// 		canEdit = true; // Nếu là chủ nhiệm đề tài, cũng OK
+				// 	}
+				// }
+				// ===
+
+				if (!canEdit){
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'], ['Bạn không có quyền sửa đổi mẫu dữ liệu này'])
+				}
+
+				// return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
+				let oldFileName = objectInstance.id + STR_SEPERATOR + req.body.field + STR_SEPERATOR + req.body.fileName;
+				if (!(PROP_FIELDS_OBJ[req.body.field])) {
+					return res.status(400).json({
+						status: 'error',
+						error: 'invalid field'
+					})
+				}
+				console.log(oldFileName);
+				let arr = objectChild(objectInstance, PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].schemaProp) [req.body.field];
+				let pos = arr.indexOf(oldFileName);
+				let savedFiles = [];
+				if (pos < 0) {
+					let files = []
+					fs.readdirSync(path.join(__dirname, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
+						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+						if (fileName.indexOf(prefix) == 0) {
+							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+						}
+					});
+					arr.map(f => {
+						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+					})
+					return res.status(400).json({
+						status: 'error',
+						error: 'file not found',
+						files: files,
+						savedFiles: savedFiles,
+						form: form,
+						id: objectInstance.id,
+						randomStr: req.body.randomStr,
+						field: req.body.field
+					})
+				}
+				
+				try {
+					arr.splice(pos, 1);
+					fs.unlinkSync(path.join(__dirname, UPLOAD_DESTINATION, oldFileName));
+				} catch (e) {
+					console.log(e);
+				}
+
+				objectInstance.save((err, oi) => {
+					if (err) {
+						console.log(err);
+					}
+					// TODO
+					// Save log
+					let files = []
+					fs.readdirSync(path.join(__dirname, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
+						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+						if (fileName.indexOf(prefix) == 0) {
+							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+						}
+					});
+					arr.map(f => {
+						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+					})
+					return responseSuccess(res, ['files', 'savedFiles', 'form', 'id', 'randomStr', 'field'], [files, savedFiles, form, objectInstance.id, req.body.randomStr, req.body.field]);
+				})
+
+			} else {
+				return res.status(404).json({
+					status: 'error',
+					error: 'Not found'
+				})
+			}
+		})();
+	}
+}
+
+global.myCustomVars.deleteFileHander = deleteFileHander;
+
 var putHandler = function (options) {
 	return function (req, res, next) {
 		// console.log(req.body);
@@ -3371,7 +3761,7 @@ var putHandler = function (options) {
 			// console.log(objectModelIdParamName);
 			var missingParam = checkRequiredParams([objectModelIdParamName], req.body);
 			if (missingParam){
-				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + objectModelIdParamName]);  
+				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Thiếu ' + missingParam]);  
 			}
 			// console.log(req.body.animalId);
 			var objectModelId = '';

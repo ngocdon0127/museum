@@ -13,6 +13,9 @@
     cursor: pointer;
     display: inline-block;
     overflow: hidden;
+    color: #00994c;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 .no-js .inputfile + label {
@@ -21,22 +24,7 @@
 
 /* style 6 */
 
-.customfile + label {
-    color: #00994c;
-    margin: 5px;
-    border-radius: 4px;
-}
-
-.customfile + label {
-    border: 1px solid #ccc;
-}
-
-.customfile + label span,
-.customfile + label strong {
-    padding: 5px 5px;
-}
-
-.customfile + label span {
+.inputfile + label span {
     max-width: 200px;
     min-height: 2em;
     display: inline-block;
@@ -44,10 +32,57 @@
     white-space: nowrap;
     overflow: hidden;
     vertical-align: top;
+    padding: 5px 5px;
 }
 
-.customfile + label strong {
+.inputfile + label strong {
     color: #f1e5e6;
-    background-color: #d3394c;
+    background-color: #a71c20;
     display: inline-block;
+    padding: 5px 5px;
 }
+
+
+.excelfile {
+    /*width: 0.1px;*/
+    /*height: 0.1px;*/
+    opacity: 0;
+    overflow: hidden;
+    position: fixed;
+    z-index: -1;
+}
+
+.excelfile + label {
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    cursor: pointer;
+    /*display: inline-block;*/
+    /*overflow: hidden;*/
+    color: #00994c;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/*.no-js .excelfile + label {
+    display: none;
+}
+
+/* style 6 */
+
+.excelfile + label span {
+    max-width: 200px;
+    min-height: 2em;
+    /*display: inline-block;*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: center;
+    padding: 6px 6px;
+}
+
+.excelfile + label strong {
+    color: #f1e5e6;
+    background-color: #e3a207;
+    display: inline-block;
+    padding: 6px 6px;
+}*/

@@ -15,6 +15,7 @@ var acl = require('acl');
 var app = express();
 
 global.myCustomVars = {};
+global.myCustomVars.models = {};
 
 var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);
@@ -68,6 +69,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
+	name: require('./config/config').app.sessionCookieName,
 	secret: "SecretKeyMy",
 	resave: true,
 	saveUninitialized: true,

@@ -10,8 +10,12 @@ var app = angular.module('museumApp', [
     'bw.paging',
     'angular-js-xlsx',
     'ngSanitize',
-    'InlineTextEditor'
-	])
+    'InlineTextEditor',
+    'ng',
+    'ngMap',
+    'ngCookies',
+    'pascalprecht.translate'
+])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();
 })
@@ -72,3 +76,10 @@ app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $sco
         }
     }
 });
+
+app.controller('translateCtrl', function($scope, $translate) {
+    $scope.changeLang = function changeLangFn(langKey) {
+      $translate.use(langKey);
+    };
+  }
+);

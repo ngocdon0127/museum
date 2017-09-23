@@ -10,6 +10,8 @@ var docx = officegen({
 	orientation: 'portrait'
 });
 var fs = require('fs');
+
+
 // var XLSX = require('xlsx');
 // var datenum                    = global.myCustomVars.datenum;
 // var sheet_from_array_of_arrays = global.myCustomVars.sheet_from_array_of_arrays;
@@ -370,5 +372,11 @@ router.get('/email/:email', function(req, res){
 		res.send('err: ' + err);
 	});
 });
+
+var makeDwCA = require("../utils/makeDwCAFile/makeDCAFile.js");
+
+router.get("/makeDwCA", function(req, res) {
+	makeDwCA(res, 'Soil');
+})
 
 module.exports = router;

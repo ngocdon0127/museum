@@ -976,7 +976,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 			// DiaDiemThuMau
 
-			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
+			if (objectInstance.flag.fDiaDiemThuMau == 'Trên biển'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -986,7 +986,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đảo'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['huyen', 'xa'].indexOf(field.name) >= 0){
@@ -996,7 +996,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đất liền'){
 				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
 			}
 
@@ -2146,7 +2146,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 
 			// DiaDiemThuMau
 
-			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
+			if (objectInstance.flag.fDiaDiemThuMau == 'Trên biển'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -2156,7 +2156,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đảo'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['huyen', 'xa'].indexOf(field.name) >= 0){
@@ -2166,7 +2166,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đất liền'){
 				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
 				
 			}

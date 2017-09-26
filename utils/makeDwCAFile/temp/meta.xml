@@ -1,0 +1,11 @@
+<archive xmlns="http://rs.tdwg.org/dwc/text/">
+  <core encoding="UTF-8" fieldsTerminatedBy="\t" linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.tdwg.org/dwc/terms/Occurrence">
+    <files>
+      <location>occurrence.txt</location>
+    </files>
+    <id index="0"/>
+    <field index="1" term="http://rs.tdwg.org/dwc/terms/institutionCode"/>
+    <field index="2" term="http://rs.tdwg.org/dwc/terms/collectionCode"/>
+    <field index="3" term="http://rs.tdwg.org/dwc/terms/basisOfRecord"/>
+  </core>
+</archive>

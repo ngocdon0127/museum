@@ -236,9 +236,9 @@
                             <span>{{"geo.viTri" | translate }}: </span>
                         </div>
                         <div class="col-sm-10">
-                            <input type="radio" name="fDiaDiemThuMau" value="dat-lien" ng-model="datLien" ng-checked="true" ng-click="starDatLien()" id="datLien"> Trên đất liền
-                            <input type="radio" name="fDiaDiemThuMau" value="dao" id="datLien" ng-click="starDao()" ng-model="trenDao"> Trên đảo
-                            <input type="radio" name="fDiaDiemThuMau" value="bien" id="trenBien" ng-click="starBien()" ng-model="trenBien"> Trên biển
+                            <input type="radio" name="fDiaDiemThuMau" value="Trên đất liền" ng-model="data.fDiaDiemThuMau" ng-checked="true" ng-click="starDatLien()" id="datLien"> Trên đất liền
+                            <input type="radio" name="fDiaDiemThuMau" value="Trên đảo" id="datLien" ng-click="starDao()" ng-model="data.fDiaDiemThuMau"> Trên đảo
+                            <input type="radio" name="fDiaDiemThuMau" value="Trên biển" id="trenBien" ng-click="starBien()" ng-model="data.fDiaDiemThuMau"> Trên biển
                         </div>
                     </div>
                     <div class="row">
@@ -283,39 +283,43 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <label>24. {{"geo.viTriToaDo" | translate }}: </label>
+            <div class="row" ng-controller="GoogleMapController" ng-init="data.fViTriToaDo='dms'">
+                <div class="col-sm-5">
+                    <label>24. {{"ani.viTriToaDo" | translate }}: </label>
                 </div>
-                <div class="col-sm-4">
-                    <input type="radio" name="fViTriToaDo" ng-checked="'true'" value="true" ng-click="dms()"><span class="label label-default"> DMS</span>
-                    <input type="radio" name="fViTriToaDo" value="false" ng-click="dd()"><span class="label label-default"> DD</span>
+                <div class="col-sm-7">
+                    <input type="radio" name="fViTriToaDo" id="vitri-dms" ng-model="data.fViTriToaDo" value="dms"><span class="label label-default"> DMS</span>
+                    <input type="radio" name="fViTriToaDo" id="vitri-dd" ng-model="data.fViTriToaDo" value="dd"><span class="label label-default"> DD</span>
                 </div>
 
                 <div class="container-fluid col-sm-12">
-                    <div class="col-sm-6">
-                        {{"geo.viDo" | translate }}  <span class="has-required">(*)</span>:
-                        <input type="text" id="dms" ng-init="showCoor = 'false'; data.viDo=''" ng-show="!showCoor" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control">
-                        <div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
+                    <div class="col-sm-4">
+                        {{"ani.viDo" | translate }} <span class="has-required">(*)</span>:
+                        <input type="text" id="viDo" ng-show="data.fViTriToaDo=='dd'" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control">
+                        <div id="dd" ng-show="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
                             <input type="number" step="1" ng-model= "vido_do" ng-change="latChange()" class = "coordinates" name=""> độ
                             <input type="number" step="1" ng-model= "vido_phut" ng-change="latChange()" class = "coordinates" name=""> phút
                             <input type="number" step="1" ng-model= "vido_giay" ng-change="latChange()" class = "coordinates" name=""> giây
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        {{"geo.kinhDo" | translate }} <span class="has-required">(*)</span>:
-                        <input type="text" id="dms" ng-show="!showCoor" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control">
-                        <div id="dd" ng-show="showCoor" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
+                    <div class="col-sm-4">
+                        {{"ani.kinhDo" | translate }} <span class="has-required">(*)</span>:
+                        <input type="text" id="kinhDo" ng-show="data.fViTriToaDo=='dd'" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control">
+                        <div id="dd" ng-show="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
                             <input type="number" step="1" ng-model="kinhdo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
                             <input type="number" step="1" ng-model="kinhdo_phut" ng-change="lonChange()" class = "coordinates" name=""> phút
                             <input type="number" step="1" ng-model="kinhdo_giay" ng-change="lonChange()" class = "coordinates" name=""> giây
                         </div>
                     </div>
+                    <div class="col-sm-4">
+                        <label> </label><br>
+                        <button type="button" class="btn btn-success" ng-click="showModal()">Chọn trên bản đồ</button>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <label>25. {{"geo.thongTinDuAn" | translate }}<span class="has-required">(*)</span>:</label>
+                    <label>geo.. {{"geo.thongTinDuAn" | translate }}<span class="has-required">(*)</span>:</label>
                     <input type="text" title="{{tooltips['thongTinDuAn']}}" name="thongTinDuAn" ng-model="data.thongTinDuAn" class="input-form form-control">
                 </div>
             
@@ -733,9 +737,9 @@
                 <button id="add-post" type="submit" class="btn btn-success">
                     <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;  Lưu mẫu
                 </button>
-                <button id="add-post" type="button" class="btn btn-info">
+                <!-- <button id="add-post" type="button" class="btn btn-info">
                     <span class="glyphicon glyphicon-export"></span>&nbsp;  Nhập từ mẫu trước
-                </button>
+                </button> -->
                 <js-xls onread="read" onerror="error" id="excelfile" class="excelfile btn-warning"></js-xls>
                 <label for="excelfile"><strong> Nhập từ file excel </strong></label>
 

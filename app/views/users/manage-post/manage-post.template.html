@@ -134,6 +134,10 @@
 	</table>
 </div>
 <style type="text/css">
+	#managerpost{
+	    table-layout: fixed !important;
+	    word-wrap:break-word;
+	}
 	.dropbtn {
 	    background-color: #337ab7;
 	    color: white;
@@ -190,7 +194,30 @@
 				"searching": true,
 				"ordering": true,
 				"info": true,
-				"autoWidth": true,
+				"autoWidth": false,
+				"columns": [
+		            {
+		                width: 30
+		            },
+		            {
+		                width: undefined
+		            },
+		            {
+		                width: 150
+		            },
+		            {
+		                width: 200
+		            },
+		            {
+		                width: undefined
+		            },
+		            {
+		                width: undefined
+		            },
+		            {
+		                width: undefined
+		            }
+		        ],
 				"language": {
 				    "decimal":        "",
 				    "emptyTable":     "Không có dữ liệu",

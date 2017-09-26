@@ -83,3 +83,78 @@ app.controller('translateCtrl', function($scope, $translate) {
     };
   }
 );
+
+app.controller('GoogleMapController', function($scope, $uibModal){
+    $scope.showModal = function () {
+        $scope.modal = $uibModal.open({
+            templateUrl: 'views/modals/storeShowModal.blade.html',
+            controller: 'ModalShowStore',
+            scope: $scope,
+            resolve: {
+                store: function () {
+                    return {"name": "Xin mời chọn trên bản đồ", "latitude": 21.026341, "longitude": 105.845718 };
+                }
+            }
+        });
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.close();
+    };
+
+    $scope.latChange = function () {
+        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+    }
+    $scope.lonChange = function () {
+        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+    }
+})
+
+app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, store) {
+    $scope.center = [store.latitude,store.longitude];
+    $scope.position = [store.latitude,store.longitude];
+    NgMap.getMap().then(function (map) {
+        var markers = [];
+        google.maps.event.trigger(map, "resize"); 
+        // google.maps.event.addListener(map, "mouseover", function (e) {
+        //     console.log(e.latLng.lat());
+        //     var infoWindow = new google.maps.InfoWindow({
+        //         content: 'Vĩ độ: ' + e.latLng.lat() + '<br />Kinh độ: ' + e.latLng.lng()
+        //     });
+        //     infoWindow.open(map, this);
+        // });
+        google.maps.event.addListener(map, 'click', function(event) {
+
+            var location = event.latLng;
+            //Xoa tat ca nhung marker truoc do
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+            // Tao marker tren ban do
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            // Bat su kien mouseover khi di chuyen qua marker
+            google.maps.event.addListener(marker, "mouseover", function (e) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: 'Vĩ độ: ' + location.lat() + '<br />Kinh độ: ' + location.lng()
+                });
+                infoWindow.open(map, marker);
+            });
+            // Day du lieu toa do ve form 
+            $scope.data.fViTriToaDo = 'dd';
+            $scope.data.viDo = event.latLng.lat();
+            $scope.data.kinhDo = event.latLng.lng();
+            markers.push(marker);
+        });
+    });
+
+    $scope.store = store;
+
+    $scope.cancel = function () {
+        $uibModalInstance.close();
+    };
+});

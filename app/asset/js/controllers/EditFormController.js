@@ -77,18 +77,9 @@ app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateP
                 $scope.kinhdo_do = parseInt(coor[1].trim());
                 $scope.kinhdo_phut = parseInt(coor[2].trim());
                 $scope.kinhdo_giay = parseInt(coor[3].trim());
-                document.getElementById("vitri-dms").checked = true;
-                $scope.showCoor = true;
+                $scope.data.fViTriToaDo = 'dms';
             } else {
-                document.getElementById("vitri-dd").checked = true;
-                $scope.showCoor = false;
-            }
-            if ($scope.data.fDiaDiemThuMau == "bien") {
-                document.getElementById("trenBien").checked = true;
-            } else if ($scope.data.fDiaDiemThuMau == "dao") {
-                document.getElementById("dao").checked = true;
-            } else {
-                document.getElementById("datLien").checked = true;
+                $scope.data.fViTriToaDo = 'dd';
             }
         }, 500);
     }, function (err) {
@@ -107,21 +98,6 @@ app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateP
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
-    }
-
-    //coordinate change
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
-
-    $scope.dms = function () {
-        $scope.showCoor = true;
-    }
-    $scope.dd = function () {
-        $scope.showCoor = false
     }
 }]);
 
@@ -206,18 +182,9 @@ app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService',
                 $scope.kinhdo_do = parseInt(coor[1].trim());
                 $scope.kinhdo_phut = parseInt(coor[2].trim());
                 $scope.kinhdo_giay = parseInt(coor[3].trim());
-                document.getElementById("vitri-dms").checked = true;
-                $scope.showCoor = true;
+                $scope.data.fViTriToaDo = 'dms';
             } else {
-                document.getElementById("vitri-dd").checked = true;
-                $scope.showCoor = false;
-            }
-            if ($scope.data.fDiaDiemThuMau == "bien") {
-                document.getElementById("trenBien").checked = true;
-            } else if ($scope.data.fDiaDiemThuMau == "dao") {
-                document.getElementById("dao").checked = true;
-            } else {
-                document.getElementById("datLien").checked = true;
+                $scope.data.fViTriToaDo = 'dd';
             }
         }, 500);
     }, function (err) {
@@ -336,16 +303,9 @@ app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$sta
                 $scope.kinhdo_do = parseInt(coor[1].trim());
                 $scope.kinhdo_phut = parseInt(coor[2].trim());
                 $scope.kinhdo_giay = parseInt(coor[3].trim());
-                document.getElementById("vitri-dms").checked = true;
-                $scope.showCoor = true;
+                $scope.data.fViTriToaDo = 'dms';
             } else {
-                document.getElementById("vitri-dd").checked = true;
-                $scope.showCoor = false;
-            }
-            if ($scope.data.fDiaDiemThuMau == "bien") {
-                document.getElementById("trenBien").checked = true;
-            } else {
-                document.getElementById("datLien").checked = true;
+                $scope.data.fViTriToaDo = 'dd';
             }
         }, 500);
     }, function (err) {
@@ -458,27 +418,16 @@ app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$st
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                try {
-                    $scope.vido_do = parseInt(coor[1].trim());
-                    $scope.vido_phut = parseInt(coor[2].trim());
-                    $scope.vido_giay = parseInt(coor[3].trim());
-                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.kinhdo_do = parseInt(coor[1].trim());
-                    $scope.kinhdo_phut = parseInt(coor[2].trim());
-                    $scope.kinhdo_giay = parseInt(coor[3].trim());
-                } catch (e) {
-                    console.log(e)
-                }
-                document.getElementById("vitri-dms").checked = true;
-                $scope.showCoor = true;
+                $scope.vido_do = parseInt(coor[1].trim());
+                $scope.vido_phut = parseInt(coor[2].trim());
+                $scope.vido_giay = parseInt(coor[3].trim());
+                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.kinhdo_do = parseInt(coor[1].trim());
+                $scope.kinhdo_phut = parseInt(coor[2].trim());
+                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.fViTriToaDo = 'dms';
             } else {
-                document.getElementById("vitri-dd").checked = true;
-                $scope.showCoor = false;
-            }
-            if ($scope.data.fDiaDiemThuMau == "bien") {
-                document.getElementById("trenBien").checked = true;
-            } else {
-                document.getElementById("datLien").checked = true;
+                $scope.data.fViTriToaDo = 'dd';
             }
         }, 500);
     }, function (err) {
@@ -597,18 +546,10 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
                 $scope.kinhdo_do = parseInt(coor[1].trim());
                 $scope.kinhdo_phut = parseInt(coor[2].trim());
                 $scope.kinhdo_giay = parseInt(coor[3].trim());
-                document.getElementById("vitri-dms").checked = true;
-                $scope.showCoor = true;
+                $scope.data.fViTriToaDo = 'dms';
             } else {
-                document.getElementById("vitri-dd").checked = true;
-                $scope.showCoor = false;
+                $scope.data.fViTriToaDo = 'dd';
             }
-            if ($scope.data.fDiaDiemThuMau == "bien") {
-                document.getElementById("trenBien").checked = true;
-            } else {
-                document.getElementById("datLien").checked = true;
-            }
-            // }
         }, 500);
     }, function (err) {
         $scope.status = err.data.status;
@@ -644,47 +585,3 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
         $scope.showCoor = false
     }
 }]);
-
-app.controller('GoogleMapController', function($scope, $uibModal){
-    $scope.showModal = function () {
-        $scope.modal = $uibModal.open({
-            templateUrl: 'storeShowModal.html',
-            controller: 'ModalShowStore',
-            resolve: {
-                store: function () {
-                    return { "latitude": 21.026341, "longitude": 105.845718 };
-                }
-            }
-        });
-    };
-
-    $scope.closeModal = function () {
-        $scope.modal.close();
-    };
-})
-
-app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, store) {
-    $scope.center = [store.latitude,store.longitude];
-    $scope.position = [store.latitude,store.longitude];
-    NgMap.getMap().then(function (map) {
-        google.maps.event.trigger(map, "resize"); 
-        google.maps.event.addListener(map, 'click', function(event) {
-            console.log(event);
-            var cusorViDo = document.getElementById('viDo');
-            var cusorKinhDo = document.getElementById('kinhDo');
-            var donVi = document.getElementById('vitri-dd');
-            donVi.checked = true;
-            var latLong = event.latLng.toString();
-            latLong = latLong.replace(/\(|\)/gi,"");
-            cusorViDo.value = latLong.split(",")[0];
-            cusorKinhDo.value = latLong.split(",")[1];
-        });
-    });
-
-    
-    $scope.store = store;
-
-    $scope.cancel = function () {
-        $uibModalInstance.close();
-    };
-});

@@ -235,6 +235,9 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 				},
 				'add-mdt': {
 					label: 'Thêm đề tài'
+				},
+				'chown': {
+					label: 'Chuyển sở hữu'
 				}
 			}
 			var forms = {

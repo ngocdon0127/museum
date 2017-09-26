@@ -834,6 +834,7 @@ router.get('/login-as', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 
 		// login passport
 		req.user = user;
+		req.session.passport.user = user.id;
 		return res.redirect('/users/me')
 	})
 })

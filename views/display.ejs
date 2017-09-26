@@ -1,17 +1,24 @@
+<% let NULL_TIMES = global.myCustomVars.NULL_TIMES %>
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<title><%= title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<% include header %>
-	</head>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+	 integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+	 crossorigin=""/>
+
 	</head>
 	<body>
 		<div class="container">
-			<% if (typeof(objectModelId) != 'undefined') { %>
-				<a class="btn btn-success" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa mẫu dữ liệu này</a>
-				<a class="btn btn-primary" role="button" href="<%= '/app/#!/bai-dang' + objectPath %>">Đến trang quản lý mẫu</a>
-			<% } %>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<% if ((typeof(objectModelId) != 'undefined') && (typeof(objectPath) != 'undefined')) { %>
+					<a class="btn btn-success" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa mẫu dữ liệu này</a>
+					<a class="btn btn-primary" role="button" href="<%= '/app/#!/quan-ly-mau' + objectPath %>">Đến trang quản lý mẫu</a>
+				<% } %>
+			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<%
 				// console.log("here");
@@ -65,7 +72,17 @@
 						return result;
 					}
 					else if (obj instanceof Date){
-						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+						if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+							return '';
+						}
+						let h = obj.getHours();
+						if (h == 2) {
+							return obj.getFullYear()
+						}
+						if (h == 1) {
+							return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+						}
+						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 					}
 					// Need to escape to prevent injected HTML + JS
 					return escape(obj).replace(/_-_/g, ', ');
@@ -201,6 +218,107 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-md-off-set-3 col-lg-offset-3">
+				<div id="leafletdiv" style="height: 750px;">
+				
+				</div>
+				<div id="images"></div>
+				<div id="imgleaf"></div>
+			</div>
 		</div>
+		
+		<!-- Make sure you put this AFTER Leaflet's CSS -->
+		<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+	 integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+	 crossorigin=""></script>
+	 <!--Add mapbox.js -->
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+	 <script type="text/javascript" src='/javascripts/leaflet.browser.print.min.js'></script>
+	 <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
+	 <script type="text/javascript" src="/javascripts/Map.SelectArea.min.js"></script>
+	 <script>
+		function ob(x) {
+			return document.getElementById(x)
+		}
+		<% 
+			let longitude = 0;
+			let latitude = 0;
+			let zoom = 0;
+		%>
+		<% 
+		let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+		if (obj1.kinhDo && obj1.viDo) {
+			if (!(regex.test(obj1.kinhDo.toLowerCase()))){
+				// console.log('Tọa độ thực')
+				longitude = parseFloat(obj1.kinhDo.toLowerCase());
+			}
+			else {
+				// console.log('Tọa độ rời rạc')
+				let matches = obj1.kinhDo.toLowerCase().match(regex);
+				longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+			}
+			if (!(regex.test(obj1.viDo.toLowerCase()))){
+				// console.log('Tọa độ thực')
+				latitude = parseFloat(obj1.viDo.toLowerCase());
+			}
+			else {
+				// console.log('Tọa độ rời rạc')
+				let matches = obj1.viDo.toLowerCase().match(regex);
+				latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+			}
+		}
+		%>
+		var longitude = <%= longitude %>
+		var latitude = <%= latitude %>
+		console.log(longitude);
+		console.log(latitude);
+		var zoom = 6
+		// var mymap = L.map('leafletdiv').setView([latitude, longitude], zoom);
+		var mymap = L.map('leafletdiv', {selectArea: true}).setView([16.24261, 106.33832], zoom);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(mymap);
+		mymap.on('areaselected', (e) => {
+		  console.log(e.bounds.toBBoxString()); // lon, lat, lon, lat
+		});
+		L.control.layers({
+	      'Satellite Map': L.mapbox.tileLayer('bobbysud.map-l4i2m7nd', {
+	          detectRetina: true
+	      }).addTo(mymap),
+	      'Terrain Map': L.mapbox.tileLayer('bobbysud.i2pfp2lb', {
+	          detectRetina: true
+	      })
+	  }).addTo(mymap);
+
+		var marker = L.marker([latitude, longitude]).addTo(mymap);
+		<% if (coordinationArr) { %>
+			var c = <%- JSON.stringify(coordinationArr) %>
+			for(var i = 0; i < c.length; i++) {
+				var marker = L.marker(c[i], {title: i, riseOnHover: true}).addTo(mymap);
+			}
+		<% } %>
+	 </script>
+	 <script>
+		// var map = L.map('imgleaf').setView([38.9, -77.03], 14)
+		// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		// 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		// }).addTo(mymap);
+		var d1 = new Date();
+		leafletImage(mymap, function(err, canvas) {
+			// now you have canvas
+			// example thing to do with that canvas:
+			var d2 = new Date();
+			console.log(d2.getTime() - d1.getTime(), ' miliseconds');
+			var img = document.createElement('img');
+			var dimensions = mymap.getSize();
+			img.width = dimensions.x;
+			img.height = dimensions.y;
+			img.src = canvas.toDataURL();
+			document.getElementById('images').innerHTML = '';
+			document.getElementById('images').appendChild(img);
+		});
+		// L.browserPrint().addTo(mymap)
+	 </script>
 	</body>
 </html>

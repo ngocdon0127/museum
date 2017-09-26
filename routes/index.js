@@ -28,6 +28,10 @@ router.post('/dmm', (req, res) => {
 	return res.end('ok')
 })
 
+router.get('/leaflet', (req, res) => {
+	return res.render('leaflet')
+})
+
 router.get('/agent', (req, res) => {
 	let agent = req.headers['user-agent'];
 	let uap = require('ua-parser');

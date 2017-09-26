@@ -53,6 +53,17 @@ global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
 
+const DATE_FULL = 0;
+const DATE_MISSING_DAY = 1;
+const DATE_MISSING_MONTH = 2;
+
+const EXPORT_NULL_FIELD = true;
+
+const ORIGIN_TIME = new Date('1970/1/1');
+const NULL_TIMES = [ORIGIN_TIME.getTime(), 0];
+global.myCustomVars.ORIGIN_TIME = ORIGIN_TIME;
+global.myCustomVars.NULL_TIMES = NULL_TIMES;
+
 
 
 // ============== Places ================
@@ -500,15 +511,55 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// Catch error later
 						try {
 							let dateValue_ = req.body[element.name].split('/');
-							if (dateValue_.length < 3){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+							dateValue_ = dateValue_.filter(e => {
+								let n = parseInt(e);
+								return Number.isInteger(n) && (n > 0)
+							})
+							let timeValue_ = [];
+							// reject if req has more than 3 numbers
+							if (dateValue_.length > 3){
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
 							}
+							// 
+							// now, allow to save and mark the flag
+							// console.log(dateValue_);
+							let dl = dateValue_.length;
+							// console.log('dateValue_ len:', dl);
+							// let flagMissingDateTime = DATE_FULL;
+							// try {
+							// 	flagMissingDateTime = objectInstance.flag.fMissingDateTime;
+							// } catch (e) {
+							// 	console.log(e);
+							// }
+							if (dl == 2) {
+								// date: 12/2017 => 1/12/2017
+								dateValue_.unshift('1'); // Chỉnh về ngày mùng 1 trong tháng
+								// flagMissingDateTime = DATE_MISSING_DAY;
+								timeValue_ = [DATE_MISSING_DAY + '', '0', '0'];
+							} else if (dl == 1) {
+								// date: 2017 => 1/1/2017
+								dateValue_.unshift('1');
+								dateValue_.unshift('1'); // Chỉnh về ngày 1 tháng 1 trong năm
+								// flagMissingDateTime = DATE_MISSING_MONTH;
+								timeValue_ = [DATE_MISSING_MONTH + '', '0', '0'];
+							}
+							// Use flag to mark Missing Date
+							// if (objectInstance.flag) {
+							// 	objectInstance.flag.fMissingDateTime = flagMissingDateTime
+							// } else {
+							// 	objectInstance.flag = {
+							// 		fMissingDateTime: flagMissingDateTime
+							// 	}
+							// }
+							// console.log(dateValue_);
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
 							})
 							dateValue_.reverse();
-							req.body[element.name] = dateValue_.join('/')
-							console.log(req.body[element.name]);
+							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
+							// Use flag to mark Missing Date
+							// req.body[element.name] = dateValue_.join('/')
+							// console.log(req.body[element.name]);
 						}
 						catch (e){
 							console.log(e)
@@ -925,7 +976,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 			// DiaDiemThuMau
 
-			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
+			if (objectInstance.flag.fDiaDiemThuMau == 'Trên biển'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -935,7 +986,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đảo'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['huyen', 'xa'].indexOf(field.name) >= 0){
@@ -945,7 +996,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đất liền'){
 				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
 			}
 
@@ -1007,6 +1058,19 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 
 			// delete objectInstance.flag;
@@ -1032,7 +1096,17 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -1148,7 +1222,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
-							if (value){
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
 									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
@@ -1156,7 +1230,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="tnrlb">${stt}</p></td>
 											<td class="td"><p class="tnr">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`
@@ -1164,7 +1238,12 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										let td = ``;
 										for(let iidx = 0; iidx < value.length; iidx++) {
 											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
-												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												try {
+													td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												} catch (e) {
+													console.log(e);
+													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+												}
 											} else {
 												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
 											}
@@ -1180,6 +1259,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									}
 									
 								}
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1249,7 +1330,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (printAll || (display(flatOI[sp]) && (sp in printedProperties))) {
+									// TODO 2283 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
+									// if (printAll || ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (sp in printedProperties))) {
 										flagHasRealChildren = true;
 										break;
 									}
@@ -1318,7 +1401,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
-							if (value){
+							if (EXPORT_NULL_FIELD || value) {
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
 									// docxHTMLSource += `
@@ -1334,15 +1417,23 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="ct tnr lb"></p></td>
 											<td class="td"><p class="tnri">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`
 									} else {
 										let td = ``;
+										if (!(value instanceof Array)) {
+											value = []
+										}
 										for(let iidx = 0; iidx < value.length; iidx++) {
 											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
-												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												try {
+													td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												} catch (e) {
+													console.log(e);
+													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+												}
 											} else {
 												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
 											}
@@ -1358,7 +1449,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										`
 									}
 								}
-								
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1738,7 +1830,6 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			catch (e){
 				console.log(e);
 			}
-
 			// var fs = require('fs');
 			var tmpFileName = (new Date()).getTime() + '.tmp.docx';
 			/*
@@ -1842,7 +1933,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var HtmlDocx = require('html-docx-js');
 			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
 			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
-			fs.writeFileSync('out.html', docxHTMLSource);
+			fs.writeFile('out.html', docxHTMLSource);
 			var outputFileName = 'PCSDL';
 			try {
 				if (LABEL.objectModelLabel){
@@ -1870,13 +1961,14 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					// 		console.log(e);
 					// 	}
 					// });
+					// console.log(outputFileName);
 					RESOLVE({
 						status: 'success',
 						absoluteFilePath: {
 							docx: path.join(__dirname, tmpFileName)
 						},
 						outputFileName: {
-							docx: outputFileName
+							docx: encodeURIComponent(outputFileName)
 						}
 					})
 				}
@@ -1908,8 +2000,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								pdf: path.join(__dirname, pdfFileName),
 							},
 							outputFileName: {
-								docx: outputDocxFileName,
-								pdf: outputFileName
+								docx: encodeURIComponent(outputDocxFileName),
+								pdf: encodeURIComponent(outputFileName)
 							}
 						})
 					})
@@ -2063,7 +2155,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 
 			// DiaDiemThuMau
 
-			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
+			if (objectInstance.flag.fDiaDiemThuMau == 'Trên biển'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -2073,7 +2165,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đảo'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['huyen', 'xa'].indexOf(field.name) >= 0){
@@ -2083,7 +2175,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đất liền'){
 				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
 				
 			}
@@ -2149,6 +2241,20 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
 			/**
@@ -2171,7 +2277,17 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					return result;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -2246,16 +2362,16 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 
 							
-							
-							if (value){
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
 									setCell(sheet, 2, sheetRowIndex, p, detailOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
+							}
 
-
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -2318,7 +2434,8 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (display(flatOI[sp]) && (sp in printedProperties)){
+									// TODO 1212 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
 										flagHasRealChildren = true;
 										break;
 									}
@@ -2345,14 +2462,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							
 							
 							// console.log(p + ' : ' + value)
-							if (value){
-
+							if (EXPORT_NULL_FIELD || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
-
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -2747,13 +2864,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					// 		console.log(e);
 					// 	}
 					// });
+					
 					RESOLVE({
 						status: 'success',
 						absoluteFilePath: {
 							xlsx: path.join(__dirname, tmpFileName)
 						} ,
 						outputFileName: {
-							xlsx: outputFileName
+							xlsx: encodeURIComponent(outputFileName)
 						}
 					})
 				}
@@ -2920,6 +3038,10 @@ var getAllHandler = function (options) {
 	return function (req, res) {
 		async(() => {
 			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			var objectModelIdParamName = options.objectModelIdParamName;
+			var objectBaseURL = options.objectBaseURL;
+			var LABEL = options.LABEL;
+			var objectModelLabel = options.objectModelLabel;
 			var ObjectModel = options.ObjectModel;
 			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 			var PROP_FIELDS = options.PROP_FIELDS;
@@ -3024,6 +3146,49 @@ var getAllHandler = function (options) {
 				// console.log("==================");
 				// console.log("time: " + ((d2.getTime() - d1.getTime()) / 1000));
 				// console.log("==================");
+				if (req.query.display == 'html') {
+					let coordinationArr = []
+					let firstInstance = -1;
+					objectInstances.map((instance, idx) => {
+						try {
+							let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+							let longitude = '';
+							if (!(regex.test(instance.kinhDo.toLowerCase()))){
+								// console.log('Tọa độ thực')
+								longitude = parseFloat(instance.kinhDo.toLowerCase());
+							}
+							else {
+								// console.log('Tọa độ rời rạc')
+								let matches = instance.kinhDo.toLowerCase().match(regex);
+								longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+							}
+
+							let latitude = '';
+							if (!(regex.test(instance.viDo.toLowerCase()))){
+								// console.log('Tọa độ thực')
+								latitude = parseFloat(instance.viDo.toLowerCase());
+							}
+							else {
+								// console.log('Tọa độ rời rạc')
+								let matches = instance.viDo.toLowerCase().match(regex);
+								latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+							}
+							if (longitude && latitude) {
+								if (firstInstance == -1) {
+									firstInstance = idx
+								}
+								coordinationArr.push([latitude, longitude])
+							}
+						} catch (e) {
+							console.log(e);
+						}
+						
+					})
+					// return res.json({
+					// 	coordinationArr: coordinationArr
+					// })
+					return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: {kinhDo: objectInstances[firstInstance].kinhDo, viDo: objectInstances[firstInstance].viDo}, objectModelId: '', props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: coordinationArr});
+				}
 				return responseSuccess(res, ['status', objectModelNames, 'total'], ['success', objectInstances, objectInstances.length]);
 			})
 		})();
@@ -3070,6 +3235,7 @@ var getSingleHandler = function (options) {
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;
+		let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 		var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 		var objectModelIdParamName = options.objectModelIdParamName;
 		var objectBaseURL = options.objectBaseURL;
@@ -3094,7 +3260,52 @@ var getSingleHandler = function (options) {
 				else {
 					// return responseSuccess(res, ['objectInstance'], [objectInstance]);
 					if (req.query.display == 'html'){
-						return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, objectInstance), objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length)});
+						let foi = flatObjectModel(PROP_FIELDS, objectInstance)
+						if (foi.loai) {
+							let field = PROP_FIELDS[PROP_FIELDS_OBJ['loai']].schemaProp + '.loai';
+							let selection = {}
+							selection[field] = foi.loai
+							console.log(selection);
+							ObjectModel.find(selection, (err, instances) => {
+								let coordinationArr = []
+								if (err) {
+									console.log(err);
+								} else {
+									console.log('cung loai:', instances.length);
+									instances.map(instance => {
+										let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+										let longitude = '';
+										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase()))){
+											// console.log('Tọa độ thực')
+											longitude = parseFloat(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase());
+										}
+										else {
+											// console.log('Tọa độ rời rạc')
+											let matches = instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase().match(regex);
+											longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+										}
+
+										let latitude = '';
+										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase()))){
+											// console.log('Tọa độ thực')
+											latitude = parseFloat(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase());
+										}
+										else {
+											// console.log('Tọa độ rời rạc')
+											let matches = instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase().match(regex);
+											latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+										}
+										if (longitude && latitude) {
+											coordinationArr.push([latitude, longitude])
+										}
+									})
+								}
+								return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: coordinationArr});
+							})
+						} else {
+							return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: null});
+						}
+						
 					}
 					else if (req.query.display == 'nested') {
 						return responseSuccess(res, [objectModelName], [objectInstance]);

@@ -7,6 +7,8 @@ var tmp = require('tmp');
 var builder = require('xmlbuilder');
 var archive = require("archiver");
 
+const STR_AUTOCOMPLETION_SEPERATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR;
+
 function deepFind(obj, path) {
     var paths = path.split('.'),
         current = obj,
@@ -19,7 +21,7 @@ function deepFind(obj, path) {
             current = current[paths[i]];
         }
     }
-    return current;
+    return (current + '').replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
 }
 
 var createMetaFile = (tempFolder) => {

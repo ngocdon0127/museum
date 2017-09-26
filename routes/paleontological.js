@@ -65,6 +65,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/co-sinh';
 var objectModelLabel       = 'cổ sinh';
 
+const ROOT = path.join(__dirname, '../');
+
 LABEL.objectModelLabel = objectModelLabel;
 
 var bundle = {
@@ -202,5 +204,9 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	objectModelIdParamName: objectModelIdParamName,
 	ObjectModel: ObjectModel
 }))
+
+router.get(objectBaseURL + '/export/darwin', (req, res) => {
+	require(path.join(ROOT, 'utils/makeDwCAFile/makeDCAFile'))(res, ObjectModel.modelName)
+})
 
 }

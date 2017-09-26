@@ -116,6 +116,13 @@ app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, sto
     NgMap.getMap().then(function (map) {
         var markers = [];
         google.maps.event.trigger(map, "resize"); 
+        // google.maps.event.addListener(map, "mouseover", function (e) {
+        //     console.log(e.latLng.lat());
+        //     var infoWindow = new google.maps.InfoWindow({
+        //         content: 'Vĩ độ: ' + e.latLng.lat() + '<br />Kinh độ: ' + e.latLng.lng()
+        //     });
+        //     infoWindow.open(map, this);
+        // });
         google.maps.event.addListener(map, 'click', function(event) {
 
             var location = event.latLng;

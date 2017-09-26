@@ -62,15 +62,10 @@
 					</li>
 				</ul>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li ng-controller="translateCtrl">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown">{{'ngonngu' | translate }}<b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li ng-click="changeLang('eng')"><a href="">English</a></li>
-							<li  ng-click="changeLang('vi')"><a href="">Vietnamese</a></li>
-						</ul>
-						<!-- <button type="button" class="btn btn-success"">Change</button> -->
-					</li>
+				<ul class="nav navbar-nav navbar-right" ng-controller="translateCtrl">
+					<li><a href="">{{'ngonngu' | translate }}:</a></li>
+					<li ng-click="changeLang('eng')"><a href=""><img src="asset/image/en.gif"></a></li>
+					<li  ng-click="changeLang('vi')"><a href=""><img src="asset/image/vi.gif"></a></li>
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b ng-bind="restricted.user.fullname"></b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -147,4 +142,3 @@
 	<script type="text/javascript" src="asset/js/angular-paging/paging.min.js"></script>
 </body>
 </html>
-

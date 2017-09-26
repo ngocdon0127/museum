@@ -83,3 +83,52 @@ app.controller('translateCtrl', function($scope, $translate) {
     };
   }
 );
+
+app.controller('GoogleMapController', function($scope, $uibModal){
+    $scope.showModal = function () {
+        $scope.modal = $uibModal.open({
+            templateUrl: 'views/modals/storeShowModal.blade.html',
+            controller: 'ModalShowStore',
+            scope: $scope,
+            resolve: {
+                store: function () {
+                    return {"name": "Xin mời chọn trên bản đồ", "latitude": 21.026341, "longitude": 105.845718 };
+                }
+            }
+        });
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.close();
+    };
+
+    $scope.latChange = function () {
+        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
+    }
+    $scope.lonChange = function () {
+        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
+    }
+})
+
+app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, store) {
+    $scope.center = [store.latitude,store.longitude];
+    $scope.position = [store.latitude,store.longitude];
+    NgMap.getMap().then(function (map) {
+        google.maps.event.trigger(map, "resize"); 
+        google.maps.event.addListener(map, 'click', function(event) {
+            $scope.data.fViTriToaDo = 'dd';
+            var latLong = event.latLng.toString();
+            latLong = latLong.replace(/\(|\)| /gi,"");
+            $scope.data.viDo = latLong.split(",")[0];
+            $scope.data.kinhDo = latLong.split(",")[1];
+            $scope.position = [$scope.data.viDo,$scope.data.kinhDo];
+            console.log(latLong);
+        });
+    });
+
+    $scope.store = store;
+
+    $scope.cancel = function () {
+        $uibModalInstance.close();
+    };
+});

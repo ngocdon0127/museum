@@ -14,9 +14,9 @@
 	<body>
 		<div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<% if (typeof(objectModelId) != 'undefined') { %>
+				<% if ((typeof(objectModelId) != 'undefined') && (typeof(objectPath) != 'undefined')) { %>
 					<a class="btn btn-success" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa mẫu dữ liệu này</a>
-					<a class="btn btn-primary" role="button" href="<%= '/app/#!/bai-dang' + objectPath %>">Đến trang quản lý mẫu</a>
+					<a class="btn btn-primary" role="button" href="<%= '/app/#!/quan-ly-mau' + objectPath %>">Đến trang quản lý mẫu</a>
 				<% } %>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

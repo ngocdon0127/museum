@@ -1423,6 +1423,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										`
 									} else {
 										let td = ``;
+										if (!(value instanceof Array)) {
+											value = []
+										}
 										for(let iidx = 0; iidx < value.length; iidx++) {
 											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
 												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
@@ -1953,13 +1956,14 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					// 		console.log(e);
 					// 	}
 					// });
+					// console.log(outputFileName);
 					RESOLVE({
 						status: 'success',
 						absoluteFilePath: {
 							docx: path.join(__dirname, tmpFileName)
 						},
 						outputFileName: {
-							docx: outputFileName
+							docx: encodeURIComponent(outputFileName)
 						}
 					})
 				}
@@ -1991,8 +1995,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								pdf: path.join(__dirname, pdfFileName),
 							},
 							outputFileName: {
-								docx: outputDocxFileName,
-								pdf: outputFileName
+								docx: encodeURIComponent(outputDocxFileName),
+								pdf: encodeURIComponent(outputFileName)
 							}
 						})
 					})
@@ -2855,13 +2859,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					// 		console.log(e);
 					// 	}
 					// });
+					
 					RESOLVE({
 						status: 'success',
 						absoluteFilePath: {
 							xlsx: path.join(__dirname, tmpFileName)
 						} ,
 						outputFileName: {
-							xlsx: outputFileName
+							xlsx: encodeURIComponent(outputFileName)
 						}
 					})
 				}

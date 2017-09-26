@@ -126,7 +126,7 @@
 											%>
 											<tr>
 												<td><img title="<%= u.username %>" width="50px" class="img-responsive" src="/<%= ('avatar' in u && 'original' in u.avatar) ? u.avatar.original : 'admin/dist/img/user2-160x160.jpg' %>" ></td>
-												<td><%= u.fullname  %></td>
+												<td><a href="<%= '/users/' + u._id %>"><%= u.fullname  %></a></td>
 												<td><span class="<%= u.level.class %>" title="<%= u.maDeTai %>"><%= u.level.name %></span></td>
 												<td><%= u.maDeTai %></td>
 												<% var date = new Date(u.lastLogin) %>
@@ -147,7 +147,7 @@
 																	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action
 																		<span class="fa fa-caret-down"></span></button>
 																	<ul class="dropdown-menu">
-																		<li><a style="color: #000" href="#" onclick="assignTo('<%= u._id %>')">Assign to</a></li>
+																		<li><a style="color: #000" href="#" onclick="assignToHandler('<%= u._id %>')">Assign to</a></li>
 																	</ul>
 																</div>
 																<!-- /btn-group -->
@@ -162,7 +162,7 @@
 																<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action
 																	<span class="fa fa-caret-down"></span></button>
 																<ul class="dropdown-menu">
-																	<li><a style="color: #000" href="#" onclick="revokeManager('<%= u._id %>')">Revoke Manager Role</a></li>
+																	<li><a style="color: #000" href="#" onclick="revokeManagerHandler('<%= u._id %>')">Revoke Manager Role</a></li>
 																</ul>
 															</div>
 														</div>
@@ -183,10 +183,10 @@
 																<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action
 																	<span class="fa fa-caret-down"></span></button>
 																<ul class="dropdown-menu">
-																	<li><a style="color: #000" href="#" onclick="assignTo('<%= u._id %>')">Assign to</a></li>
-																	<li><a style="color: #000" href="#" onclick="grantManager('<%= u._id %>')">Grant Manager Role on</a></li>
+																	<li><a style="color: #000" href="#" onclick="assignToHandler('<%= u._id %>')">Assign to</a></li>
+																	<li><a style="color: #000" href="#" onclick="grantManagerHandler('<%= u._id %>')">Grant Manager Role on</a></li>
 																	<% if (u.level.name == 'Normal User') { %>
-																	<li><a style="color: #000" href="#" onclick="fire('<%= u._id %>')">Fire</a></li>
+																	<li><a style="color: #000" href="#" onclick="fireHandler('<%= u._id %>')">Fire</a></li>
 																	<% } %>
 																</ul>
 															</div>
@@ -261,7 +261,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" id="btnAddMDT" onclick="processAddMDT()">Thêm mã đề tài này</button>
+					<button type="button" class="btn btn-danger" id="btnAddMDT" onclick="processAddMDTHandler()">Thêm mã đề tài này</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
 				</div>
 			</div><!-- /.modal-content -->
@@ -359,6 +359,15 @@
 </script>
 
 <script>
+
+	function revokeManagerHandler(userId) {
+		setTimeout((function (uid) {
+			return function (){
+				revokeManager(userId)
+			}
+		})(userId), 500)
+	}
+
 	function revokeManager(userId) {
 		console.log('revoking ' + userId);
 		$.ajax({
@@ -389,7 +398,17 @@
 		return document.getElementById(x)
 	}
 
+	function grantManagerHandler(userId) {
+		// console.log('grantManagerHandler invoked');
+		setTimeout((function (uid) {
+			return function (){
+				grantManager(userId)
+			}
+		})(userId), 500)
+	}
+
 	function grantManager(userId) {
+		// console.log('grantManager invoked');
 		var maDeTai = ob('maDeTai-' + userId).value.trim();
 		if (!maDeTai){
 			alert('Chưa nhập mã đề tài hoặc mã đề tài không hợp lệ');
@@ -430,6 +449,14 @@
 				}
 			}
 		})
+	}
+
+	function assignToHandler(userId) {
+		setTimeout((function (uid) {
+			return function (){
+				assignTo(userId)
+			}
+		})(userId), 500)
 	}
 
 	function assignTo(userId) {
@@ -475,6 +502,14 @@
 		})
 	}
 
+	function processAddMDTHandler(userId) {
+		setTimeout((function (uid) {
+			return function (){
+				processAddMDT(userId)
+			}
+		})(userId), 500)
+	}
+
 	function processAddMDT() {
 		var plainPass = $('#adminPassword').val();
 		var i = 0;
@@ -506,6 +541,15 @@
 				// window.location.reload(true);
 			}
 		})
+	}
+
+
+	function fireHandler(userId) {
+		setTimeout((function (uid) {
+			return function (){
+				fire(userId)
+			}
+		})(userId), 500)
 	}
 
 	function fire(userId) {

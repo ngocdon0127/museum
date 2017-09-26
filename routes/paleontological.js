@@ -121,6 +121,7 @@ var getAllHandler = global.myCustomVars.getAllHandler;
 router.get(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'view'), getAllHandler({
 	ObjectModel: ObjectModel,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+	objectModelName: objectModelName,
 	objectModelNames: objectModelNames,
 	PROP_FIELDS: PROP_FIELDS,
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ
@@ -132,8 +133,38 @@ router.get(objectBaseURL + '/auto', aclMiddleware(aclMiddlewareBaseURL, 'create'
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION
 }))
 
+var getFieldsHandler = global.myCustomVars.getFieldsHandler;
+router.get(objectBaseURL + '/fields', aclMiddleware(aclMiddlewareBaseURL, 'view'), getFieldsHandler({
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+	LABEL: LABEL,
+}))
+
 var getSingleHandler = global.myCustomVars.getSingleHandler;
 router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), getSingleHandler({
+	ObjectModel: ObjectModel,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+	objectModelIdParamName: objectModelIdParamName,
+	objectBaseURL: objectBaseURL,
+	objectModelName: objectModelName,
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+	LABEL: LABEL,
+	objectModelLabel: objectModelLabel,
+	paragraph: {
+		text: [
+		'PHIẾU CƠ SỞ DỮ LIỆU MẪU CỔ SINH HỌC', 
+		// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
+		],
+		style: [
+			{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
+			// {color: "000000", font_face: "Times New Roman", font_size: 12}
+		]
+
+	}
+}))
+
+router.post(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), getSingleHandler({
 	ObjectModel: ObjectModel,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelIdParamName: objectModelIdParamName,
@@ -171,4 +202,5 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	objectModelIdParamName: objectModelIdParamName,
 	ObjectModel: ObjectModel
 }))
+
 }

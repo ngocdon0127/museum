@@ -1,7 +1,7 @@
 app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
 	return ({
-		//hostName: 'http://localhost:8000',
-		hostName: 'http://baotangvn.online',
+		// hostName: 'http://localhost:8000',
+		hostName: 'https://baotangvn.online',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,
@@ -15,7 +15,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		stopSpinner: stopSpinner,
 		todoRef: todoRef,
 		getRestrict: getRestrict,
-		arrAuto: [	
+		arrAuto: [
 			'tenDongNghia',
 			'tenTheoBaoTang',
 			'tenVietNam',
@@ -67,13 +67,12 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		})
 		//handle error
 		.error(function(err){
-			console.log(err);
 			defer.reject("Lỗi trong quá trình tải dữ liệu...");
 		});
 		return defer.promise;
 	}
 
-	function exportFile(id){
+	function exportFile(id, fields_form){
 		var arr = document.getElementsByClassName("check-box");
 
 		var urls = [];
@@ -96,30 +95,45 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			progressBar.setAttribute('aria-valuenow', 0);
 			$(progressBarContainer).fadeIn();
 		} else{
-			$uibModal.open({
+
+			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: function ($scope) {
-					$scope.message = "Xin hãy chọn file.";
-					$scope.ok = function () {
-						// $uibModalInstance.close();
+				controller: "ModalInstanceCtrl",
+				controllerAs: '$ctrl',
+				resolve: {
+					err: function () {
+						return "Xin hãy chọn file";
+					},
+					id: function () {
+						return "";
 					}
 				}
 			});
 		}
-		download(0);
+		download(0, fields_form);
 
-		function download(index) {
-			// console.log('processing ' + index);
+		function download(index, fields_form) {
 			if (index >= totalFile){
 				$(progressBarContainer).fadeOut(1000);
 			}
 			else {
 				var xhr = new XMLHttpRequest();
+				if (fields_form != "") {
+					xhr.open('POST', urls[index], true);
+					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhr.responseType = 'arraybuffer';
+					xhr.send(fields_form);
+				} else{
+					xhr.open('GET', urls[index], true);
+					xhr.responseType = 'arraybuffer';
+					xhr.send();
+				}
+			
+
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
 						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
-						// console.log(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -143,14 +157,8 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
 							fileName = decodeURIComponent(fileName);
 						}
-						if (['"', "'"].indexOf(fileName[fileName.length - 1]) >= 0){
-							// PCSDL_export-2017-5-2_23:20:52.zip"
-							fileName = fileName.substring(0, fileName.length - 1);
-						}
-						// console.log(fields);
 						var type = xhr.getResponseHeader('Content-Type');
 						// console.log(type);
-						// var blob = new Blob([xhr.response], {type: 'application/x-binary; charset=utf-8'});
 						var blob = new Blob([xhr.response], {type: type});
 						saveAs(blob, fileName);
 						arr[index].checked = false;
@@ -164,13 +172,10 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 						}
 						setTimeout(function () {
-							download(index + 1);
+							download(index + 1, fields_form);
 						}, 100);
 					}
 				}
-				xhr.responseType = 'arraybuffer';
-				xhr.open('GET', urls[index], true);
-				xhr.send();
 			}
 		}
 	}
@@ -186,12 +191,16 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				stopSpinner();
 				setTimeout(function () {
-					$uibModal.open({
+					var modalInstance = $uibModal.open({
 						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: function ($scope) {
-							$scope.message = "Thêm mẫu vật thành công";
-							$scope.ok = function () {
-								 // $scope.showModal = false;
+						controller: "ModalInstanceCtrl",
+						controllerAs: '$ctrl',
+						resolve: {
+							err: function () {
+								return "Thêm mẫu vật thành công";
+							},
+							id: function () {
+								return "";
 							}
 						}
 					});
@@ -202,35 +211,21 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				stopSpinner();
 				cfpLoadingBar.set(0);
-				setTimeout(function () { // Stop spinner before alerting
-					var _tmp = JSON.parse(err.responseText).error;
-					$uibModal.open({
+				setTimeout(function () {
+					var modalInstance = $uibModal.open({
 						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: function ($scope) {
-							$scope.message = "Lỗi, xin hãy nhập lại";
-							$scope.ok = function () {
-								$uibModalInstance.close();
+						controller: "ModalInstanceCtrl",
+						controllerAs: '$ctrl',
+						resolve: {
+							err: function () {
+								return JSON.parse(err.responseText).error;
+							},
+							id: function () {
+								return JSON.parse(err.responseText).field;
 							}
 						}
 					});
 				}, 100)
-				console.log(err);
-
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0];
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
-				}
-				catch (e){
-					// do not care
-				}
 			}
 		});
 	}
@@ -246,12 +241,16 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				stopSpinner();
 				setTimeout(function () { // Stop spinner before alerting
-					$uibModal.open({
+					var modalInstance = $uibModal.open({
 						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: function ($scope) {
-							$scope.message = "Chỉnh sửa mẫu vật thành công";
-							$scope.ok = function () {
-								 $scope.showModal = false;
+						controller: "ModalInstanceCtrl",
+						controllerAs: '$ctrl',
+						resolve: {
+							err: function () {
+								return "Chỉnh sửa mẫu vật thành công";
+							},
+							id: function () {
+								return "";
 							}
 						}
 					});
@@ -262,7 +261,11 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
 				stopSpinner();
-				// console.log(err);
+				
+				var id = JSON.parse(err.responseText).field;
+				var x = document.getElementById(id);
+				var element = x.nextElementSibling
+				element.style.borderColor = "red";
 				setTimeout(function () { // Stop spinner before alerting
 					// alert(JSON.parse(err.responseText).error);
 					var modalInstance = $uibModal.open({
@@ -274,27 +277,13 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								return JSON.parse(err.responseText).error;
 							},
 							id: function () {
-								return JSON.parse(err.responseText).field;
+								return id;
 							}
 						}
 					});
+
+					
 				}, 100)
-				var element = document.getElementsByName(JSON.parse(err.responseText).field)[0]
-				console.log(element);
-				try {
-					element.style.background = '#EE543A';
-					setTimeout((function (e) {
-						return function () {
-							e.style.background = 'white';
-						}
-					})(element), 2000);
-					$('html, body').animate({
-						scrollTop: $(element).offset().top - 100
-					}, 500);
-				}
-				catch (e){
-					// do not care
-				}
 			}
 		});
 	}
@@ -305,9 +294,23 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			headers: {'Content-Type': 'application/json'},
 			data: {id: id}
 		}).then(function (res) {
+			var modalInstance = $uibModal.open({
+				templateUrl: 'views/modals/dialogs.blade.html',
+				controller: "ModalInstanceCtrl",
+				controllerAs: '$ctrl',
+				resolve: {
+					err: function () {
+						return "Xóa thành công";
+					},
+					id: function () {
+						return "";
+					}
+				}
+			});
+
 			$state.reload();
 		}, function (err) {
-			console.log(err);
+			// console.log(err);
 		});
 	}
 
@@ -324,28 +327,48 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		}).then(function (res) {
 			// console.log(res);
 			if (res.data.status == 'success'){
-				$uibModal.open({
+				var modalInstance = $uibModal.open({
 					templateUrl: 'views/modals/dialogs.blade.html',
-					controller: function ($scope) {
-						$scope.message = "Thành công";
+					controller: "ModalInstanceCtrl",
+					controllerAs: '$ctrl',
+					resolve: {
+						err: function () {
+							return "Thành công";
+						},
+						id: function () {
+							return "";
+						}
 					}
 				});
 			}
 			else {
-				$uibModal.open({
+				var modalInstance = $uibModal.open({
 					templateUrl: 'views/modals/dialogs.blade.html',
-					controller: function ($scope) {
-						$scope.message = "Bạn không được phê duyệt mẫu vật này.";
+					controller: "ModalInstanceCtrl",
+					controllerAs: '$ctrl',
+					resolve: {
+						err: function () {
+							return "Bạn không được phê duyệt mẫu vật này.";
+						},
+						id: function () {
+							return "";
+						}
 					}
 				});
 			}
 			$state.reload();
 		}, function (err) {
-			// console.log(err);
-			$uibModal.open({
+			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
-				controller: function ($scope) {
-					$scope.message = "Bạn không được phê duyệt mẫu vật này.";
+				controller: "ModalInstanceCtrl",
+				controllerAs: '$ctrl',
+				resolve: {
+					err: function () {
+						return "Bạn không được phê duyệt mẫu vật này.";
+					},
+					id: function () {
+						return "";
+					}
 				}
 			});
 			$state.reload();
@@ -353,18 +376,10 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	}
 
 	function autoCom(str, _scope) {
-		// jQuery("#"+str).autocomplete({
-		// 	source : $scope.auto[str]
-		// })
-		
-		
-		// console.log('autoCom ' + str);
 		var dtl = document.createElement('datalist')
 		dtl.setAttribute('id', 'datalist-' + str);
-		// console.log(_scope.auto[str])
 		try {
 			_scope.auto[str].forEach(function(val) {
-				// console.log(val);
 				if (!val){
 					return;
 				}
@@ -374,19 +389,16 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 					dtl.appendChild(opt);
 				}
 				catch (e){
-					console.log(e)
+					// console.log(e)
 				}
 			})
 			try {
 				var input = document.getElementsByName(str)[0];
-				// console.log('input');
-				// console.log(input)
 				$(dtl).appendTo($(input).parent())
 				input.setAttribute('list', 'datalist-' + str);
 			}
 			catch (e){
 				// console.log(e);
-				console.log(str);
 			}
 		}
 		catch (err){
@@ -394,7 +406,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		}
 	};
 
-	function renderFlexdatalist() {
+	function renderFlexdatalist(value) {
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
 				minLength: 0,
@@ -404,6 +416,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
+				valueProperty: value,
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 		}, 1000)
@@ -411,19 +424,15 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 	function fetchFlexdatalist(_scope) {
 		setTimeout(function () {
-			// console.log('render1')
 			// Render
 			$('.flexdatalist').flexdatalist({
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
 
-
-
 			// Must call another time. Do not know why.
 			$('.flexdatalist').flexdatalist({
 				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
 			});
-			// console.log('done render');
 
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
@@ -436,7 +445,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			$('html, body').animate({
 				scrollTop: $(document.getElementsByTagName('html')[0]).offset().top
 			}, 1);
-		}, 10);
+		}, 1000);
 	}
 
 	function initDatePicker(_scope) {
@@ -451,7 +460,14 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							// console.log(name);
 							if (_scope[name]){
 								var date = new Date(_scope[name]);
-								_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								var h = date.getHours();
+								if (h == 2) {
+									_scope[name] = date.getFullYear();
+								} else if (h == 1) {
+									_scope[name] = (date.getMonth() + 1) + '/' + date.getFullYear();
+								} else {
+									_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								}
 							}
 						}
 					}
@@ -523,17 +539,3 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
 var SPINNER = null;
-
-//Autocomplete
-// app.directive('autoComplete', function($timeout) {
-//     return function(scope, iElement, iAttrs) {
-//         iElement.autocomplete({
-//             source: scope[iAttrs.uiItems],
-//             select: function() {
-//                 $timeout(function() {
-//                   iElement.trigger('input');
-//                 }, 0);
-//             }
-//         });
-//     };
-// });

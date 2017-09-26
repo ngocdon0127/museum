@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Trang cá nhân</title>
+  <% if (profileUser._id == user._id) { %>
+    <title>Trang cá nhân</title>
+  <% } else { %>
+    <title><%= profileUser.fullname %></title>
+  <% } %>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -47,11 +51,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Trang cá nhân
+        <%= (profileUser._id == user._id) ? 'Trang cá nhân' : 'Thông tin tài khoản' %>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-        <li class="active">Trang cá nhân</li>
+        <li class="active"><%= (profileUser._id == user._id) ? 'Trang cá nhân' : 'Thông tin tài khoản' %></li>
       </ol>
     </section>
 
@@ -64,9 +68,9 @@
           <!-- Profile Image -->
           <div class="box box-success">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" style="width: 150px; height: 150px;" src="<%= (('avatar' in user) && ('original' in user.avatar) && (user.avatar.original)) ? ('/' + user.avatar.original) : '/admin/dist/img/user4-128x128.jpg' %>" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" style="width: 150px; height: 150px;" src="<%= (('avatar' in profileUser) && ('original' in profileUser.avatar) && (profileUser.avatar.original)) ? ('/' + profileUser.avatar.original) : '/admin/dist/img/user4-128x128.jpg' %>" alt="User profile picture">
 
-              <h3 class="profile-username text-center"><%= user.fullname %></h3>
+              <h3 class="profile-username text-center"><%= profileUser.fullname %></h3>
               <%
                 let obj = {
                   'admin': 'Admin',
@@ -75,19 +79,26 @@
                   'pending-user': 'Nhân viên'
                 }
               %>
-              <p class="text-muted text-center"><%= obj[user.level] %></p>
+              <p class="text-muted text-center"><%= profileUser.username %></p>
+              <p class="text-primary text-center text-bold"><%= obj[profileUser.level] %></p>
               <br>
+              <strong><i class="fa fa-book margin-r-5"></i> Mã đề tài</strong>
+
+              <p class="text-muted">
+                <%= profileUser.maDeTai %>
+              </p>
+
               <strong><i class="fa fa-book margin-r-5"></i> Đề tài</strong>
 
               <p class="text-muted">
-                <%= user.deTai %>
+                <%= profileUser.deTai %>
               </p>
 
               <hr>
               <strong><i class="fa fa-folder-open margin-r-5"></i> Số lượng mẫu vật đã nhập</strong>
               <p></p>
               <ul class="list-group list-group-unbordered">
-                <% for(let s of user.statistic) { %>
+                <% for(let s of profileUser.statistic) { %>
                   <li class="list-group-item">
                     <%= s.title %> <a class="pull-right"><%= s.number %></a>
                   </li>
@@ -103,85 +114,87 @@
           
         </div>
         <!-- /.col -->
-        <div class="col-md-9">
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li><a href="#settings" data-toggle="tab">Thông tin tài khoản</a></li>
-              
-            </ul>
-            <div class="tab-content">
-              
-              <div class="tab-pane active" id="settings">
-                <form class="form-horizontal" method="post" enctype='multipart/form-data' id="form-update-info">
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Tên</label>
+        <% if (profileUser._id == user._id) { %>
+          <div class="col-md-9">
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li><a href="#settings" data-toggle="tab">Thông tin tài khoản</a></li>
+                
+              </ul>
+              <div class="tab-content">
+                
+                <div class="tab-pane active" id="settings">
+                  <form class="form-horizontal" method="post" enctype='multipart/form-data' id="form-update-info">
+                    <div class="form-group">
+                      <label for="inputName" class="col-sm-2 control-label">Tên</label>
 
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" name="inputFullName" id="inputName" value="<%= user.fullname %>">
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="inputFullName" id="inputName" value="<%= profileUser.fullname %>">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                    <div class="form-group">
+                      <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
-                    <div class="col-sm-10">
-                      <input type="email" disabled="disabled" class="form-control" id="inputEmail" value="<%= user.username %>">
+                      <div class="col-sm-10">
+                        <input type="email" disabled="disabled" class="form-control" id="inputEmail" value="<%= profileUser.username %>">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Ảnh đại diện</label>
+                    <div class="form-group">
+                      <label for="inputEmail" class="col-sm-2 control-label">Ảnh đại diện</label>
 
-                    <div class="col-sm-10">
-                      <input type="file" class="form-control" name="inputAvatar" id="inputAvatar" onchange="handleChangeAvatar(this)">
+                      <div class="col-sm-10">
+                        <input type="file" class="form-control" name="inputAvatar" id="inputAvatar" onchange="handleChangeAvatar(this)">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Crop ảnh đại diện</label>
+                    <div class="form-group">
+                      <label for="inputEmail" class="col-sm-2 control-label">Crop ảnh đại diện</label>
 
-                    <div class="col-sm-4">
-                      <div id="divPreview"><img src="" id="imgPreview"></div>
+                      <div class="col-sm-4">
+                        <div id="divPreview"><img src="" id="imgPreview"></div>
+                      </div>
+                      <div class="col-sm-6">
+                      </div>
                     </div>
-                    <div class="col-sm-6">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="oldPassword" class="col-sm-2 control-label">Mật khẩu cũ</label>
+                    <div class="form-group">
+                      <label for="oldPassword" class="col-sm-2 control-label">Mật khẩu cũ</label>
 
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control" name="oldPassword" id="oldPassword" placeholder="Nhập nếu muốn đổi mật khẩu">
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" name="oldPassword" id="oldPassword" placeholder="Nhập nếu muốn đổi mật khẩu">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 control-label">Mật khẩu mới</label>
+                    <div class="form-group">
+                      <label for="inputPassword" class="col-sm-2 control-label">Mật khẩu mới</label>
 
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="">
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputRepeat" class="col-sm-2 control-label">Nhập lại</label>
+                    <div class="form-group">
+                      <label for="inputRepeat" class="col-sm-2 control-label">Nhập lại</label>
 
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control" name="inputRepeat" id="inputRepeat" placeholder="">
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" name="inputRepeat" id="inputRepeat" placeholder="">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label text-success"><%= msg %></label>
-                  </div>
-                  
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <a href="#" class="btn btn-success" onclick="handleSubmit()">Cập nhật</a>
-                      
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label text-success"><%= msg %></label>
                     </div>
-                  </div>
-                </form>
+                    
+                    <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <a href="#" class="btn btn-success" onclick="handleSubmit()">Cập nhật</a>
+                        
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.tab-pane -->
               </div>
-              <!-- /.tab-pane -->
+              <!-- /.tab-content -->
             </div>
-            <!-- /.tab-content -->
+            <!-- /.nav-tabs-custom -->
           </div>
-          <!-- /.nav-tabs-custom -->
-        </div>
+        <% } %>
         <!-- /.col -->
       </div>
       <!-- /.row -->

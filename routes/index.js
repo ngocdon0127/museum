@@ -21,6 +21,33 @@ router.use(function (req, res, next) {
 var async = require('asyncawait/async')
 var await = require('asyncawait/await')
 
+router.post('/dmm', (req, res) => {
+	console.log('=====');
+	console.log(req.body);
+	console.log('=====');
+	return res.end('ok')
+})
+
+router.get('/agent', (req, res) => {
+	let agent = req.headers['user-agent'];
+	let uap = require('ua-parser');
+	let eua = require('express-useragent');
+	let ua = require('useragent');
+	let result = {}
+	result['ua-parser'] = uap.parse(agent);
+	result['useragent'] = ua.parse(agent)
+	try {
+		result['x-forwarded-for'] = req.headers['x-forwarded-for']; 
+	    result['connection.remoteAddress'] = req.connection.remoteAddress
+	    result['socket.remoteAddress'] = req.socket.remoteAddress
+	    result['connection.socket.remoteAddress;'] = req.connection.socket.remoteAddress;
+	}
+	catch (e){
+		console.log(e);
+	}
+	return res.json(result)
+})
+
 router.get('/home', isLoggedIn, function (req, res) {
 	// res.render('home', {user: req.user, path: req.path});
 	acl.isAllowed(req.session.userId, '/app', 'view', function (err, result) {

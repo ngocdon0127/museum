@@ -7,6 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="asset/css/bootstrap/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="asset/css/customfileinput/component.css">
 	<link rel="stylesheet" type="text/css" href="asset/css/main.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="asset/js/angular-inline-text-editor/ite.css">
 	<!-- framework -->
 	<link rel="stylesheet" type="text/css" href="asset/css/jquery/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="asset/js/angular-loading-bar/build/loading-bar.css">
@@ -32,14 +34,14 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/">Trang chủ</a>
+				<a class="navbar-brand" href="/"><b>Trang chủ</b></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li class="dropdown" ng-if="restricted.restrict">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown">Thêm mẫu vật <b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh">Cổ sinh</a></li>
 							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat">Địa chất</a></li>
@@ -48,19 +50,36 @@
 							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat">Thực vật</a></li>
 						</ul>
 					</li>
-					<li><a ui-sref="quan-ly">Quản lý mẫu vật</a></li>
-					<li><a href="/log/all">Lịch sử nhập liệu</a></li>
+					<li class="dropdown" ng-if="restricted.restrict">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Quản lý mẫu vật</b> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="quan-ly-co-sinh">Mẫu cổ sinh</a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="quan-ly-dia-chat">Mẫu địa chất</a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="quan-ly-dong-vat">Mẫu động vật</a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong">Mẫu thổ nhưỡng</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">Mẫu thực vật</a></li>
+						</ul>
+					</li>
+					<li><a href="/log/all"><b>Lịch sử nhập liệu</b></a></li>
 				</ul>
+
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown">{{restricted.user.fullname}} <b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b ng-bind="restricted.user.fullname"></b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/admin">Quản lý tài khoản</a></li>
-							<li><a href="/users">Trang cá nhân</a></li>
-							<li><a href="/auth/logout">Đăng xuất</a></li>
+							<li><a href="/admin"><b>Quản lý tài khoản</b></a></li>
+							<li><a href="/users"><b>Trang cá nhân</b></a></li>
+							<li><a href="/auth/logout"><b>Đăng xuất</b></a></li>
 						</ul>
 					</li>
 				</ul>
+
+				<!-- <form class="navbar-form navbar-right" role="search" ng-controller="SearchController">
+					<div class="form-group">
+						<input type="text" class="form-control" ng-model="searchData" placeholder="Tìm kiếm...">
+					</div>
+					<button type="button" ng-click="search(searchData)" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+				</form> -->
 			</div>
 		</div>
 	</nav>
@@ -73,6 +92,11 @@
 
 	<script type="text/javascript" src="asset/js/jquery/bootstrap.js"></script>
 	<script type="text/javascript" src="asset/js/angular/angular.js"></script>
+	<script type="text/javascript" src="asset/js/angular-inline-text-editor/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-inline-text-editor/bower_components/rangy/rangy-core.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-inline-text-editor/bower_components/rangy/rangy-classapplier.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-inline-text-editor/bower_components/rangy/rangy-selectionsaverestore.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-inline-text-editor/ite.js"></script>
 	<script type="text/javascript" src="asset/js/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="asset/js/spinner/spin.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
@@ -82,6 +106,8 @@
 	<script type="text/javascript" src="asset/js/angular-loading-bar/build/loading-bar.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-loading-overlay/dist/angular-loading-overlay.js"></script>
 	<script type="text/javascript" src="asset/js/angular-loading-overlay-http-interceptor/dist/angular-loading-overlay-http-interceptor.js"></script>
+	<script type="text/javascript" src="asset/js/angular-js-xlsx/angular-js-xlsx.js"></script>
+	<script type="text/javascript" src="asset/js/angular-js-xlsx/xlsx.core.min.js"></script>
 	<script type="text/javascript" src="/javascripts/flexdatalist/jquery.flexdatalist.min.js"></script>
 
 	<!-- handler -->
@@ -92,7 +118,9 @@
 	<script type="text/javascript" src="asset/js/controllers/FormController.js"></script>
 	<script type="text/javascript" src="asset/js/controllers/EditFormController.js"></script>
 	<script type="text/javascript" src="asset/js/controllers/ManageController.js"></script>
+	<script type="text/javascript" src="asset/js/controllers/SearchController.js"></script>
 	<script type="text/javascript" src="asset/js/filter/placeFilter.js"></script>
+	<script type="text/javascript" src="asset/js/controllers/OfflineController.js"></script>
 	<script type="text/javascript" src="asset/js/filter/propertyFilter.js"></script>
 	<script type="text/javascript" src="asset/js/angular-messages/angular-messages.min.js"></script>
 	<script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>
@@ -101,3 +129,4 @@
 	<script type="text/javascript" src="asset/js/angular-paging/paging.min.js"></script>
 </body>
 </html>
+

@@ -1,3 +1,43 @@
+async function sheetToJson(workbook, urlFields) {
+    // create a Form data to put data
+    var result = {};
+    var roa;
+    var test;
+    var data;
+    await workbook.SheetNames.forEach(function(sheetName) {
+        roa = XLS.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        test = workbook.Sheets[sheetName];
+        // console.log(test);
+    });
+
+    await $.get(urlFields).then(function success(res) {
+                data = res
+            }, function error(err) {
+                console.log(err);
+            });
+
+    await data.forEach(function(element) {
+    	try{
+    		var typeData = test
+    		var _tmp = test[element[0]];
+	    	var prop = test[element[1]]["h"];
+	    	if (typeof(_tmp) !== "undefined") {
+	    		if (_tmp["t"] == "n"){
+	        		result[prop] = _tmp["v"];
+	    		}
+	        	else {
+	        		result[prop] = _tmp["h"].trim();
+	        	}
+	        } else{
+	        	result[prop] = "";
+	        }
+    	} catch (e){
+    		// console.log(e);
+    	}
+    });
+    return result;
+}
+
 function initDefaultUnits(_scope) {
 	setTimeout((function (_scope) {
 		return function () {
@@ -39,11 +79,10 @@ function initDefaultUnits(_scope) {
 function saveData(id, data) {
 		return function () {
 			localStorage.setItem(id, JSON.stringify(data))
-			console.log(data);
 		}
 	}
 
-app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval) {
 
 	// setInterval(saveData("dataAni", $scope.data), 2000);
 	// setTimeout(getData("dataAni"), 1000);
@@ -62,7 +101,22 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 
 	// DatePicker
 	AuthService.initDatePicker(null, null);
-	
+
+    $scope.read = function (respone) {
+    	var urlFields = "/app/database/fieldsani.json"
+        var result = sheetToJson(respone, urlFields)
+        result.then(function success(res_tmp) {
+            $scope.data = res_tmp;
+            // console.log(res_tmp);
+            initDefaultUnits($scope);
+            $scope.$apply();
+        })
+    }
+
+    $scope.error = function (e) {
+        console.log(e);
+    }
+
 	//auto complete
 
 	var arrAuto = AuthService.arrAuto;
@@ -80,7 +134,8 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 	var urlRe = 'quan-ly-dong-vat';
 
 	$scope.addPost = function(FormContent){
-			
+		
+		//Bắt lỗi valid dưới client
 		// if ($scope.FormContent.$valid) {
 			AuthService.startSpinner();
 			var fd = new FormData(document.getElementById('form-content'));
@@ -107,16 +162,19 @@ app.controller('AnimalFormCtrl', ['$scope','$http','AuthService', function ($sco
 		$scope.showCoor = false
 	}
 
+	saveData = $interval(function() {
+		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
+	}, 900000)
+
 	$scope.saveCookies = function () {
 		localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
-		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
 		$scope.data = JSON.parse(localStorage.getItem("dataAnimal"))
 	}
-}]);
+});
 
-app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $interval) {
 
 	$http.get('/app/database/tipsveg.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -178,18 +236,19 @@ app.controller('VegetableFormCtrl', ['$scope','$http','AuthService', function ($
 		$scope.showCoor = false
 	}
 
-	$scope.saveCookies = function () {
-		console.log("saving data")
+	saveData = $interval(function() {
 		localStorage.setItem("dataVeg", JSON.stringify($scope.data))
-		console.log($scope.data);
+	}, 900000)
+
+	$scope.saveCookies = function () {
+		localStorage.setItem("dataVeg", JSON.stringify($scope.data))
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataVeg"))
 	}
-}]);
+});
 
-app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $interval) {
 	
 	$http.get('/app/database/tipsgeo.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -245,19 +304,19 @@ app.controller('GeologicalFormCtrl', ['$scope','$http','AuthService', function (
 		$scope.data.kinhDo = ""
 		$scope.showCoor = false
 	}
+	saveData = $interval(function() {
+		localStorage.setItem("dataGeo", JSON.stringify($scope.data))
+	}, 900000)
 
 	$scope.saveCookies = function () {
-		console.log("saving data")
 		localStorage.setItem("dataGeo", JSON.stringify($scope.data))
-		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataGeo"))
 	}
-}]);
+});
 
-app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope, $http, AuthService) {
+app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) {
 
 	$http.get('/app/database/tipslan.json').then(function(res){
 		$scope.tooltips = res.data;
@@ -314,24 +373,41 @@ app.controller('LandFormCtrl', ['$scope','$http','AuthService', function ($scope
 		$scope.showCoor = false
 	}
 
-	$scope.saveCookies = function () {
-		console.log("saving data")
+	saveData = $interval(function() {
 		localStorage.setItem("dataLand", JSON.stringify($scope.data))
-		console.log($scope.data);
+	}, 900000)
+
+	$scope.saveCookies = function () {
+		localStorage.setItem("dataLand", JSON.stringify($scope.data))
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataLand"))
 	}
-}]);
+});
 
-app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoadingOverlayService', function ($scope, $http, AuthService, bsLoadingOverlayService) {
+app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, $interval) {
 
 	$http.get('/app/database/tipspal.json').then(function(res){
 		$scope.tooltips = res.data;
 	}, function(err){
 		console.log(err);
 	});
+
+	// $scope.hola = "Kevinhoa95"
+    $scope.read = function (respone) {
+    	var urlFields = "/app/database/fieldspal.json"
+        var result = sheetToJson(respone, urlFields)
+        result.then(function success(res_tmp) {
+            $scope.data = res_tmp;
+            console.log(res_tmp);
+            initDefaultUnits($scope);
+            $scope.$apply();
+        })
+    }
+
+    $scope.error = function (e) {
+        console.log(e);
+    }
 
 	// default unit
 	initDefaultUnits($scope);
@@ -381,19 +457,19 @@ app.controller('PaleontologicalFormCtrl', ['$scope','$http','AuthService','bsLoa
 		$scope.data.kinhDo = ""
 		$scope.showCoor = false
 	}
+	saveData = $interval(function() {
+		localStorage.setItem("dataPal", JSON.stringify($scope.data))
+	}, 900000)
 
 	$scope.saveCookies = function () {
-		console.log("saving data")
 		localStorage.setItem("dataPal", JSON.stringify($scope.data))
-		console.log($scope.data);
 	}
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem("dataPal"))
 	}
-}]);
+});
 
-app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$timeout', function ($scope, $http, $filter, AuthService, $timeout) {
+app.controller('PlaceController', function ($scope, $http, $filter, AuthService, $timeout, $interval) {
 	var places = {};
 	$http.get('/app/database/cities.json').then(function(res){
 		$scope.cities = res.data;
@@ -406,13 +482,13 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 				places.wards = res.data // pre load
 				// console.log('cached');
 			}, function(res){
-				console.log(res);
+				alert("Lỗi không xác định!")
 			});
 		}, function(res){
-			console.log(res);
+			alert("Lỗi không xác định!")
 		});
 	}, function(res){
-		console.log(res);
+		alert("Lỗi không xác định!")
 	});
 	function bodauTiengViet(str) {
         str = str.toLowerCase();
@@ -495,7 +571,6 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 			}
 		}
 		else {
-			// console.log('wards cache miss')
 			$http.get('/app/database/wards.json').then(function(res){
 				$scope.wards = res.data;
 				places.wards = res.data
@@ -505,22 +580,19 @@ app.controller('PlaceController', ['$scope','$http','$filter', 'AuthService', '$
 		}
 		
 	};
-}]);
+});
 
-app.controller('CookiesManageController', ['$scope', '$cookies', function($scope, $cookies){
+app.controller('CookiesManageController', function($scope, $cookies){
 	
 	$scope.saveCookies = function () {
-		console.log("saving data")
 		localStorage.setItem('data', JSON.stringify($scope.data));
-		console.log("saved")
+		alert("Dữ liệu đã được lưu");
 	}
 
 	$scope.getCookies = function () {
-		console.log("Get data")
 		$scope.data = JSON.parse(localStorage.getItem('data'));
-		$cookies.remove('data')
 	}
-}])
+})
 
 app.controller('HttpIntegrationController', function($scope, $http, $sce, bsLoadingOverlayService) {
 	$scope.result = $sce.trustAsHtml('Fetch result here');

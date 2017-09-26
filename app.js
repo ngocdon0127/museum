@@ -18,6 +18,7 @@ global.myCustomVars = {};
 
 var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);
+
 require('./models/User.js')(mongoose);
 
 require('./models/Animal.js')(mongoose);
@@ -90,6 +91,7 @@ app.use(flash());
 let timeCookie = 3 * 86400 * 1000; // 3 days
 
 app.use(function (req, res, next) { // Để đây thì khi client request static files, hàm này sẽ không cần chạy.
+	console.log(req.headers['user-agent']);
 	if ('user' in req){
 		console.log(req.user);
 		res.cookie('username', req.user.username, {maxAge: timeCookie, httpOnly: true});

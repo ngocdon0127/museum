@@ -50,6 +50,17 @@ global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
 
+const DATE_FULL = 0;
+const DATE_MISSING_DAY = 1;
+const DATE_MISSING_MONTH = 2;
+
+const EXPORT_NULL_FIELD = true;
+
+const ORIGIN_TIME = new Date('1970/1/1');
+const NULL_TIMES = [ORIGIN_TIME.getTime(), 0];
+global.myCustomVars.ORIGIN_TIME = ORIGIN_TIME;
+global.myCustomVars.NULL_TIMES = NULL_TIMES;
+
 
 
 // ============== Places ================
@@ -232,11 +243,15 @@ function propsName (_PROP_FIELDS) {
 global.myCustomVars.propsName = propsName;
 
 function flatObjectModel (_PROP_FIELDS, objectInstance) {
+	objectInstance = JSON.parse(JSON.stringify(objectInstance));
 	var result = {};
 	_PROP_FIELDS.map(function (element) {
-		// if (element.type.localeCompare('File')){
+		if (element.type.localeCompare('Date') === 0){
+			result[element.name] = new Date(objectChild(objectInstance, element.schemaProp)[element.name]);
+		}
+		else {
 			result[element.name] = objectChild(objectInstance, element.schemaProp)[element.name];
-		// }
+		}
 	});
 	return result;
 }
@@ -493,15 +508,55 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// Catch error later
 						try {
 							let dateValue_ = req.body[element.name].split('/');
-							if (dateValue_.length < 3){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+							dateValue_ = dateValue_.filter(e => {
+								let n = parseInt(e);
+								return Number.isInteger(n) && (n > 0)
+							})
+							let timeValue_ = [];
+							// reject if req has more than 3 numbers
+							if (dateValue_.length > 3){
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
 							}
+							// 
+							// now, allow to save and mark the flag
+							// console.log(dateValue_);
+							let dl = dateValue_.length;
+							// console.log('dateValue_ len:', dl);
+							// let flagMissingDateTime = DATE_FULL;
+							// try {
+							// 	flagMissingDateTime = objectInstance.flag.fMissingDateTime;
+							// } catch (e) {
+							// 	console.log(e);
+							// }
+							if (dl == 2) {
+								// date: 12/2017 => 1/12/2017
+								dateValue_.unshift('1'); // Chỉnh về ngày mùng 1 trong tháng
+								// flagMissingDateTime = DATE_MISSING_DAY;
+								timeValue_ = [DATE_MISSING_DAY + '', '0', '0'];
+							} else if (dl == 1) {
+								// date: 2017 => 1/1/2017
+								dateValue_.unshift('1');
+								dateValue_.unshift('1'); // Chỉnh về ngày 1 tháng 1 trong năm
+								// flagMissingDateTime = DATE_MISSING_MONTH;
+								timeValue_ = [DATE_MISSING_MONTH + '', '0', '0'];
+							}
+							// Use flag to mark Missing Date
+							// if (objectInstance.flag) {
+							// 	objectInstance.flag.fMissingDateTime = flagMissingDateTime
+							// } else {
+							// 	objectInstance.flag = {
+							// 		fMissingDateTime: flagMissingDateTime
+							// 	}
+							// }
+							// console.log(dateValue_);
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
 							})
 							dateValue_.reverse();
-							req.body[element.name] = dateValue_.join('/')
-							console.log(req.body[element.name]);
+							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
+							// Use flag to mark Missing Date
+							// req.body[element.name] = dateValue_.join('/')
+							// console.log(req.body[element.name]);
 						}
 						catch (e){
 							console.log(e)
@@ -535,7 +590,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								if (!regex.test(file.originalname)){
 									// console.log(regex);
 									// console.log(file.originalname);
-									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Tên file trong trường không hợp lệ', element.name]);
+									return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field', 'invalidFileName'], ['Tên file trong trường không hợp lệ', element.name, file.originalname]);
 								}
 							}
 						}
@@ -718,15 +773,17 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// console.log('delete old files');
 						var files = objectChild(objectInstance, element.schemaProp)[element.name];
 						// console.log(files);
-						for (var j = 0; j < files.length; j++) {
-							// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-							try {
-								fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
-								console.log('deleted ' + files[j])
-							}
-							catch (e){
-								console.log('delete failed ' + files[j])
-								console.log(e)
+						if(files instanceof Array) {
+							for (var j = 0; j < files.length; j++) {
+								// fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+								try {
+									fs.unlinkSync(path.join(_UPLOAD_DESTINATION, files[j]));
+									console.log('deleted ' + files[j])
+								}
+								catch (e){
+									console.log('delete failed ' + files[j])
+									console.log(e)
+								}
 							}
 						}
 
@@ -775,12 +832,70 @@ function createSaveOrUpdateFunction (variablesBundle) {
 global.myCustomVars.createSaveOrUpdateFunction = createSaveOrUpdateFunction;
 
 var exportFilePromise = (objectInstance, options, extension) => {
+	let docxHTMLSource = fs.readFileSync(path.join(__dirname, 'templates', 'header.html')).toString('utf-8');
 	let PROP_FIELDS = options.PROP_FIELDS;
 
 	let ObjectModel = options.ObjectModel;
 	let LABEL = options.LABEL;
+	let UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
+	let printedProperties = options.req.body;
+	let IMG_MAX_WIDTH = 300;
+	let IMG_MAX_HEIGHT = 300;
+	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
+
+	// const images = require('images');
+	const images = require('image-size');
+	// function to encode file data to base64 encoded string
+	function base64_encode(file) {
+		// read binary data
+		var bitmap = fs.readFileSync(file);
+		// convert binary data to base64 encoded string
+		return new Buffer(bitmap).toString('base64');
+	}
+	let img2HTML = (imgpath, maxWidth, maxHeight) => {
+		let image = images(imgpath);
+		let width = image.width;
+		let height = image.height;
+		let newWidth = -1;
+		let newHeight = -1;
+		if ((width <= maxWidth) && (height <= maxHeight)){
+			newWidth = width;
+			newHeight = height;
+		} else {
+			if (width / maxWidth < height / maxHeight){
+				// scale height
+				let rate = height / maxHeight;
+				// console.log('rate:', rate)
+				newHeight = height / rate;
+				newWidth = width / rate;
+			} else {
+				// scale width
+				let rate = width / maxWidth;
+				// console.log('rate:', rate)
+				newHeight = height / rate;
+				newWidth = width / rate;
+			}
+		}
+		newWidth = Math.round(newWidth);
+		newHeight = Math.round(newHeight);
+		// console.log('new size:', newWidth, ' x ', newHeight);
+		let base64str = base64_encode(imgpath);
+		let extension = imgpath.substring(imgpath.lastIndexOf('.') + 1).toLowerCase();
+		let MIME = {
+			jpg: 'jpeg',
+			jpeg: 'jpeg',
+			gif: 'gif',
+			png: 'png'
+		}
+		if (MIME.hasOwnProperty(extension)) {
+			let mime = MIME[extension];
+			return `<img src="data:image/${mime};base64,${base64str}" width='${newWidth}' height='${newHeight}'/>`
+		} else {
+			return ''
+		}
+	}
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
 			console.log("calling docx");
@@ -903,6 +1018,19 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 
 			// delete objectInstance.flag;
@@ -915,19 +1043,30 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				// console.log(staticPath)
 				// console.log(count)
 				if (obj instanceof Array){
-					var result =  obj.reduce(function (preStr, curElement, curIndex){
-						// console.log(curElement.split('_+_')[1]);
-						// preStr += curElement.split('_+_')[1];
-						preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
-						if (curIndex < obj.length - 1){
-							preStr += ', \n\n';
-						}
-						return preStr;
-					}, '');
-					return result;
+					// var result =  obj.reduce(function (preStr, curElement, curIndex){
+					// 	// console.log(curElement.split('_+_')[1]);
+					// 	// preStr += curElement.split('_+_')[1];
+					// 	preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+					// 	if (curIndex < obj.length - 1){
+					// 		preStr += ', \n\n';
+					// 	}
+					// 	return preStr;
+					// }, '');
+					// return result;
+					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -982,7 +1121,13 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: rowSpanOpts
 								}
 							];
-							table.push(row);
+							// table.push(row);
+							docxHTMLSource += `
+								<tr>
+									<td colspan="4" class="bg td"><p class="tnr lb"><b>${p}</b></p></td>
+								</tr>
+							`
+							
 							break;
 						case 1:
 							stt++;
@@ -1037,8 +1182,40 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
+								if (printAll || (prop in printedProperties)){
+									// table.push(row);
+									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="tnrlb">${stt}</p></td>
+											<td class="td"><p class="tnr">${p}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
+											<td class="td"></td>
+										</tr>
+										`
+									} else {
+										let td = ``;
+										for(let iidx = 0; iidx < value.length; iidx++) {
+											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+											} else {
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+											}
+										}
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="tnrlb">${stt}</p></td>
+											<td class="td"><p class="tnr">${p}</p></td>
+											<td class="td">${td}</td>
+											<td class="td"></td>
+										</tr>
+										`
+									}
+									
+								}
+							}
 							if (value){
-								table.push(row);
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1079,7 +1256,48 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
 							var row = null;
-							if (addPropRow){
+							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
+							// Có thể cứ in ()
+							// hoặc là xét xem các thuộc tính con có giá trị thì mới in
+							let subProps;
+							let flagHasRealChildren = false; // Oánh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+							if (curProp.indexOf('Mixed') >= 0){
+								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
+								subProps = element_.subProps;
+								// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
+								// Tiện vl. :-D
+							}
+							else {
+								// console.log('get', curProp);
+								subProps = [];
+								for(let k in flatOI){
+									try {
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
+											subProps.push(k);
+										}
+									}
+									catch (e){
+										// console.log(e);
+									}
+								}
+							}
+							// console.log(subProps);
+							if (subProps instanceof Array){
+								for(let j = 0; j < subProps.length; j++){
+									let sp = subProps[j];
+									// TODO 2283 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
+									// if (printAll || ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (sp in printedProperties))) {
+										flagHasRealChildren = true;
+										break;
+									}
+								}
+							}
+							else {
+								flagHasRealChildren = true;
+							}
+							if (addPropRow && flagHasRealChildren){
+								// Thêm 1 dòng cho các thể loại: Thông tin khác, Phân bố Việt Nam, các thuộc tính mixed
 								try{
 									curProp = LABEL[curProp];
 								}
@@ -1106,8 +1324,18 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										opts: detailOpts
 									}
 								]
-								table.push(row);
+								// table.push(row);
+								docxHTMLSource += `
+									<tr>
+										<td class="td"><p class="tnrlb">${stt}</p></td>
+										<td class="td"><p class="tnr">${curProp}</p></td>
+										<td class="td"><p class="tnr"></p></td>
+										<td class="td"></td>
+									</tr>
+									`
 								addPropRow = false;
+							} else {
+								// console.log('khong in', curProp, 'prop row', addPropRow);
 							}
 							
 							row = [
@@ -1128,8 +1356,48 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
+							if (EXPORT_NULL_FIELD || value) {
+								if (printAll || (prop in printedProperties)){
+									// table.push(row);
+									// docxHTMLSource += `
+									// <tr>
+									// 	<td class="td"><p class="ct tnr lb"></p></td>
+									// 	<td class="td"><p class="tnri">${p}</p></td>
+									// 	<td class="td"><p class="tnr">${value}</p></td>
+									// 	<td class="td"></td>
+									// </tr>
+									// `
+									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="ct tnr lb"></p></td>
+											<td class="td"><p class="tnri">${p}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
+											<td class="td"></td>
+										</tr>
+										`
+									} else {
+										let td = ``;
+										for(let iidx = 0; iidx < value.length; iidx++) {
+											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+											} else {
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+											}
+											// td +=  '<img src="" >\n';
+										}
+										docxHTMLSource += `
+										<tr>
+											<td class="td"><p class="ct tnr lb"></p></td>
+											<td class="td"><p class="tnri">${p}</p></td>
+											<td class="td">${td}</td>
+											<td class="td"></td>
+										</tr>
+										`
+									}
+								}
+							}
 							if (value){
-								table.push(row);
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1152,37 +1420,39 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			}
 
 			var fs = require('fs');
-			var officegen = require('officegen');
-			var docx = officegen({
-				type: 'docx',
-				subjects: 'Mẫu phiếu dữ liệu',
-				orientation: 'landscape'
-				// orientation: 'portrait'
-			});
+			// var officegen = require('officegen');
+			// var docx = officegen({
+			// 	type: 'docx',
+			// 	subjects: 'Mẫu phiếu dữ liệu',
+			// 	orientation: 'landscape'
+			// 	// orientation: 'portrait'
+			// });
 
-			docx.on('finalize', function (written) {
-				console.log("Docx: written " + written + " bytes.");
-			});
+			// docx.on('finalize', function (written) {
+			// 	console.log("Docx: written " + written + " bytes.");
+			// });
 
-			docx.on('error', function (error) {
-				console.log("Docx: Error");
-				console.log(error);
-				console.log("===");
-			})
+			// docx.on('error', function (error) {
+			// 	console.log("Docx: Error");
+			// 	console.log(error);
+			// 	console.log("===");
+			// })
 
-			
-
+			docxHTMLSource += '<div class="row" id="pcsdl-title">';
 			for(var i = 0; i < paragraph.text.length; i++){
-				var pObj = docx.createP();
-				pObj.options.align = "center";
-				pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
+				docxHTMLSource += `<p class="ptitle">${paragraph.text[i]}</p>`
+				// var pObj = docx.createP();
+				// pObj.options.align = "center";
+				// pObj.addText(paragraph.text[i] + '\n\n', paragraph.style[i]);
 			}
 
 			var flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 
-			var pObj = docx.createP();
-			pObj.options.align = "center";
-			pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			// var pObj = docx.createP();
+			// pObj.options.align = "center";
+			// pObj.addText('Mã đề tài: ' + display(flatOI.maDeTai), {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `<p class='ptitle'>Mã đề tài: ${display(flatOI.maDeTai)}</p>`
+			docxHTMLSource += '</div>';
 
 			var rowSpanOpts = {
 				// cellColWidth: 2261,
@@ -1294,7 +1564,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							}
 						}
 					}
-				}) // Delete subprops
+				}) // Delete subProps
 			}
 
 			var PROP_FIELDS_OBJ = {};
@@ -1434,6 +1704,16 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var curDeep = 0;
 			var stt = 0;
 			
+			docxHTMLSource += `
+				<table id='maintable'>
+					<tbody>
+						<tr>
+							<th class="td"><p class="ct tnr lb">STT</p></th>
+							<th class="td"><p class="ct tnr lb">Trường dữ liệu</p></th>
+							<th class="td"><p class="ct tnr lb">Nội dung</p></th>
+							<th class="td"><p class="ct tnr lb">Ghi chú</p></th>
+						</tr>
+			`
 			
 
 			inOrder(oi);
@@ -1447,7 +1727,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				borders: true
 			}
 
-			docx.createTable (table, tableStyle);
+			// docx.createTable (table, tableStyle);
 
 			// Những trường con của các trường Mixed luôn có money = false
 			// => Chúng luôn được thêm vào:
@@ -1469,31 +1749,37 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 			})
 
-			pObj = docx.createP();
-			pObj.options.align = "left";
-			pObj.addText('', {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `</tbody></table>`
+
+			// pObj = docx.createP();
+			// pObj.options.align = "left";
+			// pObj.addText('', {color: '000000', bold: true, font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += '<p class="tnr b"></p><br />'
 
 			// statistics
-			pObj = docx.createP();
-			pObj.options.align = "left";
-			pObj.addText('Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			// pObj = docx.createP();
+			// pObj.options.align = "left";
+			// pObj.addText('Số trường bắt buộc đã nhập: ' + statistics.moneyPropFilled + '/' + statistics.totalMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `<p class="tnr b">Số trường bắt buộc đã nhập: ${statistics.moneyPropFilled}/${statistics.totalMoneyProp}.</p>`
 
-			pObj = docx.createP();
-			pObj.options.align = "left";
-			pObj.addText('Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			// pObj = docx.createP();
+			// pObj.options.align = "left";
+			// pObj.addText('Số trường không bắt buộc đã nhập: ' + statistics.nonMoneyPropFilled + '/' + statistics.totalNonMoneyProp + '.', {color: '000000', font_face: 'Times New Roman', font_size: 12});
+			docxHTMLSource += `<p class="tnr b">Số trường không bắt buộc đã nhập: ${statistics.nonMoneyPropFilled}/${statistics.totalNonMoneyProp}.</p>`
 
 			
 			try {
-				pObj = docx.createP();
-				pObj.options.align = "left";
-				pObj.addText('Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt'), {color: '000000', font_face: 'Times New Roman', font_size: 12});
+				// pObj = docx.createP();
+				// pObj.options.align = "left";
+				// pObj.addText('Phê duyệt: ' + (objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt'), {color: '000000', font_face: 'Times New Roman', font_size: 12});
+				docxHTMLSource += `<p class='tnr'>Phê duyệt: ${(objectInstance.flag.fApproved ? 'Đã phê duyệt' : 'Chưa phê duyệt')}</p>`
 			}
 			catch (e){
 				console.log(e);
 			}
-
 			// var fs = require('fs');
 			var tmpFileName = (new Date()).getTime() + '.tmp.docx';
+			/*
 			var outputStream = fs.createWriteStream(path.join(__dirname, tmpFileName));
 			outputStream.on('close', function () {
 				console.log('output done.');
@@ -1589,7 +1875,134 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 				// res.end("OK");
 			});
-			docx.generate(outputStream);
+			docx.generate(outputStream); */
+			docxHTMLSource += fs.readFileSync(path.join(__dirname, 'templates', 'footer.html'));
+			var HtmlDocx = require('html-docx-js');
+			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
+			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
+			fs.writeFile('out.html', docxHTMLSource);
+			var outputFileName = 'PCSDL';
+			try {
+				if (LABEL.objectModelLabel){
+					outputFileName += '_' + LABEL.objectModelLabel;
+				}
+				if (flatOI.tenVietNam){
+					outputFileName += '_' + flatOI.tenVietNam;
+				}
+				if (flatOI.soHieuBaoTangCS){
+					outputFileName += '_' + flatOI.soHieuBaoTangCS;
+				}
+			}
+			catch (e){
+				console.log(e);
+			}
+			fs.writeFile(tmpFileName, docx, function(err) {
+				if (err) throw err;
+				if (extension == 'docx'){
+					outputFileName += '.docx';
+					// res.download(path.join(__dirname, tmpFileName), outputFileName, function (err) {
+					// 	try {
+					// 		fs.unlinkSync(path.join(__dirname, tmpFileName));
+					// 	}
+					// 	catch (e){
+					// 		console.log(e);
+					// 	}
+					// });
+					RESOLVE({
+						status: 'success',
+						absoluteFilePath: {
+							docx: path.join(__dirname, tmpFileName)
+						},
+						outputFileName: {
+							docx: outputFileName
+						}
+					})
+				}
+				else if (extension == 'pdf'){
+					console.log('pdf');
+					const HTMLPDF = require('html-pdf');
+					outputDocxFileName = outputFileName + '.docx';
+					outputFileName += '.pdf';
+					pdfFileName = tmpFileName.substring(0, tmpFileName.length - 'docx'.length) + 'pdf';
+					HTMLPDF.create(docxHTMLSource, {format: 'A4', orientation: 'landscape', border: "1cm"}).toFile(pdfFileName, (err, result) => {
+						console.log('create pdf done');
+						if (err){
+							console.log(err);
+							try {
+								fs.unlinkSync(path.join(__dirname, tmpFileName));
+							}
+							catch (e){
+								console.log(e);
+							}
+							RESOLVE({
+								status: 'error',
+								error: 'error while converting to pdf'
+							})
+						}
+						RESOLVE({
+							status: 'success',
+							absoluteFilePath: {
+								docx: path.join(__dirname, tmpFileName),
+								pdf: path.join(__dirname, pdfFileName),
+							},
+							outputFileName: {
+								docx: outputDocxFileName,
+								pdf: outputFileName
+							}
+						})
+					})
+					// var exec = require('child_process').exec;
+					// var cmd = 'cd ' + __dirname + ' && ' + require('./config/config.js').libreoffice + ' --invisible --convert-to pdf ' + tmpFileName;
+					// console.log('starting: ' + cmd);
+					console.log(objectInstance.id);
+					/*
+					exec(cmd, function (err, stdout, stderr) {
+						if (err){
+							console.log(err);
+							try {
+								fs.unlinkSync(path.join(__dirname, tmpFileName));
+							}
+							catch (e){
+								console.log(e);
+							}
+							RESOLVE({
+								status: 'error',
+								error: 'error while converting to pdf'
+							})
+						}
+						console.log('--out-')
+						console.log(stdout);
+						console.log('--err-')
+						console.log(stderr);
+						console.log('--end-')
+						
+						// console.log(pdfFileName);
+						// console.log(outputFileName);
+						// res.download(path.join(__dirname, pdfFileName), outputFileName, function (err) {
+							// try {
+								// fs.unlinkSync(path.join(__dirname, pdfFileName));
+								// fs.unlinkSync(path.join(__dirname, tmpFileName)); 
+							// }
+							// catch (e){
+							// 	console.log(e);
+							// }
+						// });
+						RESOLVE({
+							status: 'success',
+							absoluteFilePath: {
+								docx: path.join(__dirname, tmpFileName),
+								pdf: path.join(__dirname, pdfFileName),
+							},
+							outputFileName: {
+								docx: outputDocxFileName,
+								pdf: outputFileName
+							}
+						})
+					}) */
+					// return res.end("ok")
+
+				}
+			});
 
 
 			// Assume objectInstance is a tree (JSON),
@@ -1599,10 +2012,10 @@ var exportFilePromise = (objectInstance, options, extension) => {
 }
 
 function exportFile (objectInstance, options, res, extension) {
-	console.log(options);
+	// console.log(options);
 	async (() => {
 		let result = await (exportFilePromise(objectInstance, options, extension));
-		console.log(result);
+		// console.log(result);
 		if (result.status == 'success'){
 			if (['docx', 'pdf'].indexOf(extension) >= 0){
 				res.download(result.absoluteFilePath[extension], result.outputFileName[extension], function (err) {
@@ -1633,6 +2046,9 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 	let LABEL = options.LABEL;
 	let paragraph = options.paragraph;
 	let objectModelName = options.objectModelName;
+	let printedProperties = options.req.body;
+	let printAll = !(('body' in options.req) && (options.req.body.custom == 1))
+
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
 			console.log("calling xlsx");
@@ -1771,6 +2187,20 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
 			/**
@@ -1793,7 +2223,17 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					return result;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -1868,14 +2308,16 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 
 							
-							
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
+								if (printAll || (prop in printedProperties)){
+									setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
+									setCell(sheet, 2, sheetRowIndex, p, detailOpts);
+									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
+									sheetRowIndex++;
+								}
+							}
+
 							if (value){
-								setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
-								setCell(sheet, 2, sheetRowIndex, p, detailOpts);
-								setCell(sheet, 3, sheetRowIndex, value, detailOpts);
-								sheetRowIndex++;
-
-
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1910,7 +2352,45 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 							}
 							var row = null;
-							if (addPropRow){
+							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
+							// Có thể cứ in ()
+							// hoặc là xét xem các thuộc tính con có gía trị thì mới in
+							let subProps;
+							let flagHasRealChildren = false; // Óanh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+							if (curProp.indexOf('Mixed') >= 0){
+								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
+								subProps = element_.subProps;
+								// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
+								// Tiện vl. :-D
+							}
+							else {
+								// console.log('get', curProp);
+								subProps = [];
+								for(let k in flatOI){
+									try {
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
+											subProps.push(k);
+										}
+									}
+									catch (e){
+										// console.log(e);
+									}
+								}
+							}
+							if (subProps instanceof Array){
+								for(let j = 0; j < subProps.length; j++){
+									let sp = subProps[j];
+									// TODO 1212 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
+										flagHasRealChildren = true;
+										break;
+									}
+								}
+							}
+							else {
+								flagHasRealChildren = true;
+							}
+							if (addPropRow && flagHasRealChildren){
 								try{
 									curProp = LABEL[curProp];
 								}
@@ -1928,12 +2408,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							
 							
 							// console.log(p + ' : ' + value)
+							if (EXPORT_NULL_FIELD || value) {
+								if (printAll || (prop in printedProperties)){
+									setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
+									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
+									sheetRowIndex++;
+								}
+							}
 							if (value){
-
-								setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
-								setCell(sheet, 3, sheetRowIndex, value, detailOpts);
-								sheetRowIndex++;
-
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -2089,7 +2571,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 						}
 					}
-				}) // Delete subprops
+				}) // Delete subProps
 			}
 
 			var PROP_FIELDS_OBJ = {};
@@ -2509,7 +2991,7 @@ var getAllHandler = function (options) {
 			var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 			var objectModelNames = options.objectModelNames;
 			var objectModelName = options.objectModelName;
-			var projection = {deleted_at: {$eq: null}};
+			var selection = {deleted_at: {$eq: null}};
 			var userRoles = await(new Promise((resolve, reject) => {
 				acl.userRoles(req.session.userId, (err, roles) => {
 					// console.log('promised userRoles called');
@@ -2522,20 +3004,20 @@ var getAllHandler = function (options) {
 				})
 			}))
 			// Default. User chỉ có thể xem những phiếu do chính mình tạo
-			projection['created_by.userId'] = req.user._id;
+			selection['created_by.userId'] = req.user._id;
 
 			if (userRoles.indexOf('manager') >= 0){
 				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
-				delete projection['created_by.userId'];
-				projection['maDeTai.maDeTai'] = req.user.maDeTai;
+				delete selection['created_by.userId'];
+				selection['maDeTai.maDeTai'] = req.user.maDeTai;
 			}
 
 			if (userRoles.indexOf('admin') >= 0){
 				// Admin, Xem tất
-				delete projection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
-				delete projection['maDeTai.maDeTai'];
+				delete selection['created_by.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
+				delete selection['maDeTai.maDeTai'];
 			}
-			// ObjectModel.find(projection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			// ObjectModel.find(selection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
 			
 			// Filter
 			for (let p in req.query) {
@@ -2546,13 +3028,13 @@ var getAllHandler = function (options) {
 					try {
 						let prop = PROP_FIELDS[PROP_FIELDS_OBJ[p]];
 						if (prop.type == 'String'){
-							projection[prop.schemaProp + '.' + p] = new RegExp(v, 'i'); // bỏ qua chữ hoa chữ thường
+							selection[prop.schemaProp + '.' + p] = new RegExp(v, 'i'); // bỏ qua chữ hoa chữ thường
 						}
 						else if (prop.type == 'Integer'){
-							projection[prop.schemaProp + '.' + p] = parseInt(v);
+							selection[prop.schemaProp + '.' + p] = parseInt(v);
 						}
 						else if (prop.type == 'Number'){
-							projection[prop.schemaProp + '.' + p] = parseFloat(v);
+							selection[prop.schemaProp + '.' + p] = parseFloat(v);
 						}
 					}
 					catch (e){
@@ -2563,8 +3045,8 @@ var getAllHandler = function (options) {
 					console.log('unexpected: ' + p);
 				}
 			}
-			console.log(projection);
-			ObjectModel.find(projection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
+			// console.log(selection);
+			ObjectModel.find(selection, {}, {sort: {created_at: -1}}, function (err, objectInstances) {
 				if (err){
 					console.log(err);
 					return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
@@ -2649,8 +3131,7 @@ global.myCustomVars.getAutoCompletionHandler = getAutoCompletionHandler;
 
 var getSingleHandler = function (options) {
 	return function (req, res) {
-		// console.log(ObjectId(req.params.animalId));
-		// console.log(req.params.animalId);
+
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
 		var PROP_FIELDS = options.PROP_FIELDS;
@@ -2659,6 +3140,7 @@ var getSingleHandler = function (options) {
 		var objectBaseURL = options.objectBaseURL;
 		var LABEL = options.LABEL;
 		var objectModelLabel = options.objectModelLabel;
+		options.req = req;
 		ObjectModel.findById(req.params.objectModelIdParamName, function (err, objectInstance) {
 			if (err){
 				return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Error while reading database']);
@@ -2827,8 +3309,10 @@ var deleteHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canDelete = true;
 				}
-				if (objectInstance.created_by.userId == req.user.id){
-					canDelete = true; // Nếu mẫu do chính user tạo, có thể xóa
+				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+					canDelete = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
+					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
+					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
 				}
 
 				// ===
@@ -2940,8 +3424,10 @@ var putHandler = function (options) {
 					// Nếu là chủ nhiệm đề tài, cũng OK
 					canEdit = true;
 				}
-				if (objectInstance.created_by.userId == req.user.id){
-					canEdit = true; // Nếu mẫu do chính user tạo, có thể cập nhật
+				if ((objectInstance.created_by.userId == req.user.id) && (req.user.maDeTai == objectInstance.maDeTai.maDeTai)){
+					canEdit = true; // Nếu mẫu do chính user tạo, và mẫu vật nằm trong đề tài của user
+					// Có thể sau khi user tạo mẫu ở đề tài A, sau đó user được phân sang đề tài B
+					// => user không thể sửa, xóa mẫu vật do user tạo trong đề tài A trước đó
 				}
 
 				// ===
@@ -3011,6 +3497,55 @@ var restart = function (res) {
 }
 
 global.myCustomVars.restart = restart;
+
+var getPublicIP = function (req) {
+	let publicIP = {
+	}
+	try {
+		publicIP['x-forwarded-for'] = req.headers['x-forwarded-for']
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['connection-remoteAddress'] = req.connection.remoteAddress
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['socket-remoteAddress'] = req.socket.remoteAddress
+	}
+	catch (e){
+		console.log(e);
+	}
+	try {
+		publicIP['connection-socket-remoteAddress'] = req.connection.socket.remoteAddress;
+	}
+	catch (e){
+		console.log(e);
+	}
+	return publicIP;
+}
+global.myCustomVars.getPublicIP = getPublicIP;
+
+var getFieldsHandler = (options) => {
+	var LABEL = options.LABEL;
+	var PROP_FIELDS = options.PROP_FIELDS;
+	return (req, res) => {
+		res.json({
+			status: 'success',
+			fields: PROP_FIELDS.reduce((obj, curElement) => {
+				let e = curElement;
+				if (('type' in e) && (['Mixed', 'Unit'].indexOf(e.type) < 0) && (['maDeTai', 'fDiaDiemThuMau', 'fApproved'].indexOf(e.name) < 0)){
+					obj[e.name] = LABEL[e.name];
+				}
+				return obj;
+			}, {})
+		})
+	}
+}
+global.myCustomVars.getFieldsHandler = getFieldsHandler;
 
 // ============= Generate Promise for async/await =======================
 

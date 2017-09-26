@@ -13,14 +13,19 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -34,7 +39,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				$scope.vido_do = parseInt(coor[1].trim());
 				$scope.vido_phut = parseInt(coor[2].trim());
@@ -56,7 +61,7 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 			}
 			document.getElementsByName('tinh')[0].click()
 			document.getElementsByName('huyen')[0].click()
-		}, 1000);
+		}, 500);
 	}, function (err){
 		$scope.status = err.data.status;
 	});
@@ -67,6 +72,12 @@ app.controller('EditAnimalFormCtrl', ['$http','$scope','AuthService','$statePara
 		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe);
+	}
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
 	}
 
 	//coordinate change
@@ -101,14 +112,20 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -122,7 +139,7 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				$scope.vido_do = parseInt(coor[1].trim());
 				$scope.vido_phut = parseInt(coor[2].trim());
@@ -157,6 +174,13 @@ app.controller('EditPaleontologicalFormCtrl', ['$http','$scope','AuthService','$
 		AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe);
 	}
 
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
+	}
+
 	//coordinate change
 	$scope.latChange = function () {
 		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
@@ -189,14 +213,20 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$stateP
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -210,7 +240,7 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$stateP
 		AuthService.initDatePicker($scope.data);
 
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				$scope.vido_do = parseInt(coor[1].trim());
 				$scope.vido_phut = parseInt(coor[2].trim());
@@ -245,6 +275,13 @@ app.controller('EditVegetableFormCtrl', ['$http','$scope','AuthService','$stateP
 		AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
 	}
 
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
+	}
+
 	//coordinate change
 	$scope.latChange = function () {
 		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
@@ -277,14 +314,20 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$state
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -299,7 +342,7 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$state
 		AuthService.initDatePicker($scope.data);
 		
 		$timeout(function(){
-			if (isNaN($scope.data.viDo)) {
+			if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 				var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 				try{
 					$scope.vido_do = parseInt(coor[1].trim());
@@ -338,6 +381,13 @@ app.controller('EditGeologicalFormCtrl', ['$http','$scope','AuthService','$state
 		AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe);
 	}
 
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
+	}
+
 	//coordinate change
 	$scope.latChange = function () {
 		$scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
@@ -370,14 +420,20 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams
 		setTimeout(function () {
 			// Load name for input file
 			$scope.getName = function (arr) {
-				return arr.length ? arr[0] : "No file chosen...";
+				try{
+					fileName = arr.length ? arr[0].fileName : "No file chosen...";
+				} catch (err){
+					fileName = "No file chosen...";
+				}
+				return fileName;
 			}
+
 			arrAuto.forEach(function (val) {
 				AuthService.autoCom(val, $scope);
 			})
 			// Fetch data to datalist
 			AuthService.fetchFlexdatalist($scope);
-		}, 500)
+		}, 200)
 	}, function (err) {
 		console.log(err);
 	});
@@ -392,7 +448,7 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams
 
 		$timeout(function(){
 			// if ($scope.data.viDo != null) {
-				if (isNaN($scope.data.viDo)) {
+				if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
 					var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
 					$scope.vido_do = parseInt(coor[1].trim());
 					$scope.vido_phut = parseInt(coor[2].trim());
@@ -426,6 +482,13 @@ app.controller('EditLandFormCtrl', ['$http','$scope','AuthService','$stateParams
 		AuthService.startSpinner();
 		var fd = new FormData(document.getElementById('form-content'));
 		AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
+	}
+
+	$scope.saveAs = function(){
+		cfpLoadingBar.start();
+		AuthService.startSpinner();
+		var fd = new FormData(document.getElementById('form-content'));
+		AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
 	}
 
 	//coordinate change

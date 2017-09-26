@@ -138,7 +138,7 @@ app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, sto
             });
 
             // Bat su kien mouseover khi di chuyen qua marker
-            google.maps.event.addListener(marker, "mouseover", function (e) {
+            marker.addListener("mouseover", function (e) {
                 var infoWindow = new google.maps.InfoWindow({
                     content: 'Vĩ độ: ' + location.lat() + '<br />Kinh độ: ' + location.lng()
                 });

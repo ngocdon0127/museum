@@ -2,11 +2,11 @@ html {
 	padding: 0;
 	margin: 0;
 	height: 100%;
-    font-style: 15px;
+    font-style: 13px;
     /*font-family: 'Source Sans Pro', sans-serif;*/
     overflow: auto;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
 }
 *,
 *:before,
@@ -17,8 +17,9 @@ body {
   position: relative;
   margin: 0;
   padding-bottom: 6rem;
+  padding-top: 60px;
   min-height: 100%;
-  font-family: 'Roboto', sans-serif;
+  /*font-family: serif;*/
 }
 
 .coordinates{
@@ -38,7 +39,11 @@ body {
     border-radius: 4px;
     width: 300px;
 }
-/*------------------customize checkbox---------------------*/
+
+.select-date{
+    border-radius: 4px;
+}
+/*------------------customize checkbox-----------*/
 
 .check-box{
     cursor: pointer;
@@ -47,10 +52,11 @@ body {
     background: #bdc3c7;
     border-radius: 4px;
     box-sizing: border-box;
-    position: relative;
+    position: absolute;
     box-sizing: content-box ;
     width: 20px;
     height: 20px;
+    margin: 0px;
     border-width: 0;
     transition: all .3s linear;
 }
@@ -62,13 +68,18 @@ body {
     box-shadow: none;
 }
 
-/*------------------customize checkbox---------------------*/
+.tenvietnam{
+    margin-left: 30px;
+}
+
+
+/*------------------customize checkbox----------*/
 
 
 
 /*------------------NAVBAR---------------------*/
 .navbar-default{
-	background-color: #19C662;
+	background-color: #0e8110;
 }
 
 .navbar-brand{
@@ -157,7 +168,7 @@ a.nav:hover{
 #loading-bar .bar {
   position: relative;
 }
-/*------------------END-NAVBAR---------------------*/
+/*------------------END-NAVBAR--------------------*/
 
 /*------------------FORM_DATA---------------------*/
 .has-error{
@@ -184,16 +195,52 @@ a.nav:hover{
 }
 .datatext {
     border: #ccc 1px solid;
-    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     height: 30px;
-    position:relative;
+    /*width: 50px;*/
+    /*position:relative;*/
     padding-left: 5px;
-    margin-top: 3px;
+    margin-top: 5px;
 }
 .contentselect {
     border: #ccc 1px solid; 
     height:30px;
-    border-radius: 4px; 
+    /*border-radius: 4px; */
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    position: absolute;
+    margin-top: 5px;
+}
+
+.tab-content > .tab-pane {
+    background-color: #F3F6F9;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2) !important;
+    border-radius: 4px;
+}
+
+.tabs > li > a {
+    border: 1px solid #ddd;
+    margin: 0px;
+    padding: 10px 10px;
+}
+
+.tabs > li.active > a, .tabs > li.active > a:hover, .tabs > li.active > a:focus {
+    background-color: #F3F6F9;
+}
+
+.group > li > a{
+    /*background-color: #1a439a;*/
+    /*color: #fff;*/
+}
+
+.group > li > a:hover{
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+.modal-input{
+    top: 30px;
 }
 
 .select-date{
@@ -201,45 +248,45 @@ a.nav:hover{
     border-radius: 4px;
 }
 /*--------------end-New--------------*/
-/*------------------END-FORM_DATA---------------------*/
+/*-------------END-FORM_DATA----*/
 
 @media screen and (min-width : 992px){
     .map-detail{
         background-color: #F3F6F9;
         padding: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        width: 1000px;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.2) !important;
         margin-left: auto;
         margin-right: auto;
+        border-left: 1px solid #ddd;
     }
 
-    .input-form{
-        padding: 5px;
+/*    .input-form{
+        height: 25px;
+        padding: 4px 7px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 300px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
 @media screen and (max-width : 992px){
-  .map-detail{
+    .map-detail{
         background-color: #F3F6F9;
-        padding: 15px;
+        padding: 15px; 
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
-        width: 800px;
+        /*width: 800px;*/
         margin-left: auto;
         margin-right: auto;
+        border-left: 1px solid #ddd;
     }
-    .input-form{
+/*    .input-form{
         padding: 5px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 300px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
 @media only screen and (max-width: 768px){
@@ -247,22 +294,22 @@ a.nav:hover{
       color: #000;  
     }
     .map-detail{
-        width: 800px;
+        /*width: 800px;*/
         margin-left: auto;
         margin-right: auto;
         background-color: #F3F6F9;
         padding: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        box-shadow: 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        border-left: 1px solid #ddd;
     }
 
-    .input-form{
+/*    .input-form{
         padding: 5px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 250px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
 /*  480px hoặc nhỏ hơn */
@@ -271,27 +318,27 @@ a.nav:hover{
         background-color: #F3F6F9;
         padding: 15px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important;
+        border-left: 1px solid #ddd;
     }
 
-    .input-form{
+/*    .input-form{
         padding: 5px;
         border-color: #d2e3ae;
         border-radius: 4px;
         margin: 5px;
-        width: 200px;
         border: 1px solid #ccc;
-    }
+    }*/
 }
 
-/* --------------RESPONSIVE LAYOUT----------- */
+/* --------------RESPONSIVE LAYOUT------------------*/
 
-/* -------------Phan button phia duoi cung */
+/* -------------Phan button phia duoi cung----------*/
 .bottom-nav {
     position: fixed;
-    width: 100%;
+    width: 80%;
+    margin: auto;
     bottom: 10px;
     padding: 5px;
-    /*right: 20px;*/
 }
 
 .toggle-nav {
@@ -301,4 +348,14 @@ a.nav:hover{
 .toggle-nav ul li {
     /*margin-top: 5px;*/
     /*width: 100%;*/
+}
+
+.btn-circle{
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
 }

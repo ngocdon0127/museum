@@ -822,6 +822,23 @@ router.get('/statistic', (req, res, next) => {
 	})()
 })
 
+router.get('/login-as', aclMiddleware('/admin', 'edit'), (req, res, next) => {
+	User.findById(req.query.userid, function (err, user) {
+		if (err || !user){
+			console.log(err);
+			return res.redirect('/users/me')
+		}
+		console.log(user);
+		// login acl
+		req.session.userId = user.id;
+
+		// login passport
+		req.user = user;
+		req.session.passport.user = user.id;
+		return res.redirect('/users/me')
+	})
+})
+
 
 
 function isLoggedIn (req, res, next) {
@@ -829,6 +846,7 @@ function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()){
 		return res.redirect('/auth/login');
 	}
+	console.log('pass isLoggedIn');
 	return next();
 }
 

@@ -58,7 +58,7 @@
   "thongTinDuAn": "",
   "ghiChepThucDia": " Không giới hạn trang",
   "banDo": "Bản đồ số và 1 file scan của bản đồ: 1 file scan của bản đồ với các điểm phân bố được đánh dấu trên bản đồ. Sử dụng định dạng Mapinfo (Tab file) hoặc ESRI (Shp file), Bản đồ số thường có một số file. Để nghị nén vào file zip rồi đính kèm",
-  "thongTinKhac4": "",
+  "thongTinKhac4Str": "",
   "thoiGianGiamDinh": "Thời gian giám định mẫu vật đảm bảo độ chính xác của kết quả giám định mẫu vật vì nhiều mẫu vật nếu thời gian trước giám định quá dài có thể ảnh hưởng đến kết quả giám định mẫu vật.",
   "nguoiGiamDinh": "Trường người định loại mẫu vật đảm bảo chất lượng kết quả giám định mẫu vật, độ tin cậy và trách nhiệm của người giám định mẫu vật. Nếu có nhiều người thì cách nhau bởi dấu chấm phẩy",
   "coQuanToChucGiamDinh": "Trường cơ quan/tổ chức giám định mẫu vật thể hiện độ tin cậy, chất lượng và trách nhiệm giám định mẫu vật của cơ quan hoặc tổ chức giám định mẫu.",

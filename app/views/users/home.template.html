@@ -1,7 +1,7 @@
 <style>
 .bg-1 {
 	margin-top: 0px;
-    background-color: #1abc9c;
+    background-color: #31708f;
     color: #ffffff;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -17,12 +17,17 @@
 .bg-3 {
     background-color: #ffffff;
     color: #555555;
+    margin-bottom: 60px;
 }
 .tem-file{
 	border: 1px solid #ddd;
 	box-shadow: 0px 0px 15px 0px #D6D6D6;
-	margin: 2px;
-	/*padding: 5px;*/
+	margin: 5px;
+	padding: 5px 0px 0px;
+}
+
+.tem-file-title{
+    background-color: #fff;
 }
 </style>
 <div class="container-fluid bg-1 text-center">
@@ -33,30 +38,47 @@
 <div class="container-fluid bg-2 text-center">
     <h3>Tài liệu hướng dẫn sử dụng phần mềm</h3>
     <p>Phần mềm được xây dựng và thiết kế theo chuẩn MVC dựa trên Nodejs phía server và Angularjs phía client</p>
+    <a href="asset/document/Huong-dan-nhap-lieu.xlsx" download="Huong-dan-nhap-lieu.pdf"><button type="button" class="btn btn-success">Tải xuống</button></a>
+
 </div>
 <div class="container-fluid bg-3 text-center">
-    <h3>Các file template excel</h3>
+    <h3>Templates nhập liệu từ excel</h3>
     <br>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="tem-file">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            <!-- <img src="birds1.jpg" class="img-responsive" style="width:100%" alt="Image"> -->
+    <div class="row text-center">
+        <div class="col-sm-2 tem-file">
+            <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu cổ sinh">
+            <div class="tem-file-title">
+                <p>Mẫu cổ sinh</p>
+                <a href="asset/template/pal.xlsx" download="template-co-sinh.xlsx">Tải xuống</a>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <div class="tem-file">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            <!-- <img src="birds2.jpg" class="img-responsive" style="width:100%" alt="Image"> -->
+        <div class="col-sm-2 tem-file">
+            <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu địa chất">
+            <div class="tem-file-title">
+                <p>Mẫu địa chất</p>
+                <a href="asset/template/geo.xlsx" download="template-dia-chat.xlsx">Tải xuống</a>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <div class="tem-file">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            <!-- <img src="birds3.jpg" class="img-responsive" style="width:100%" alt="Image"> -->
+        <div class="col-sm-2 tem-file">
+            <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu động vật">
+            <div class="tem-file-title">
+                <p>Mẫu động vật</p>
+                <a href="asset/template/ani.xlsx" download="template-dong-vat.xlsx">Tải xuống</a>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <div class="tem-file">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            <!-- <img src="birds3.jpg" class="img-responsive" style="width:100%" alt="Image"> -->
+        <div class="col-sm-2 tem-file">
+            <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu thổ nhưỡng">
+            <div class="tem-file-title">
+                <p>Mẫu thổ nhưỡng</p>
+                <a href="asset/template/soil.xlsx" download="template-tho-nhuong.xlsx">Tải xuống</a>
+            </div>
         </div>
-         <div class="col-sm-4">
-            <div class="tem-file">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-            <!-- <img src="birds3.jpg" class="img-responsive" style="width:100%" alt="Image"> -->
+         <div class="col-sm-2 tem-file">
+            <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu thực vật">
+            <div class="tem-file-title">
+                <p>Mẫu thực vật</p>
+                <a href="asset/template/veg.xlsx" download="template-thuc-vat.xlsx">Tải xuống</a>
+            </div>
         </div>
     </div>
 </div>

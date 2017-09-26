@@ -119,21 +119,25 @@ app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, sto
         google.maps.event.addListener(map, 'click', function(event) {
 
             var location = event.latLng;
+            //Xoa tat ca nhung marker truoc do
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
             }
             markers = [];
+            // Tao marker tren ban do
             var marker = new google.maps.Marker({
                 position: location,
                 map: map
             });
 
+            // Bat su kien mouseover khi di chuyen qua marker
             google.maps.event.addListener(marker, "mouseover", function (e) {
                 var infoWindow = new google.maps.InfoWindow({
                     content: 'Vĩ độ: ' + location.lat() + '<br />Kinh độ: ' + location.lng()
                 });
                 infoWindow.open(map, marker);
             });
+            // Day du lieu toa do ve form 
             $scope.data.fViTriToaDo = 'dd';
             $scope.data.viDo = event.latLng.lat();
             $scope.data.kinhDo = event.latLng.lng();

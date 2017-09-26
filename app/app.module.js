@@ -114,15 +114,30 @@ app.controller('ModalShowStore', function ($scope, $uibModalInstance, NgMap, sto
     $scope.center = [store.latitude,store.longitude];
     $scope.position = [store.latitude,store.longitude];
     NgMap.getMap().then(function (map) {
+        var markers = [];
         google.maps.event.trigger(map, "resize"); 
         google.maps.event.addListener(map, 'click', function(event) {
+
+            var location = event.latLng;
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            google.maps.event.addListener(marker, "mouseover", function (e) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: 'Vĩ độ: ' + location.lat() + '<br />Kinh độ: ' + location.lng()
+                });
+                infoWindow.open(map, marker);
+            });
             $scope.data.fViTriToaDo = 'dd';
-            var latLong = event.latLng.toString();
-            latLong = latLong.replace(/\(|\)| /gi,"");
-            $scope.data.viDo = latLong.split(",")[0];
-            $scope.data.kinhDo = latLong.split(",")[1];
-            $scope.position = [$scope.data.viDo,$scope.data.kinhDo];
-            console.log(latLong);
+            $scope.data.viDo = event.latLng.lat();
+            $scope.data.kinhDo = event.latLng.lng();
+            markers.push(marker);
         });
     });
 

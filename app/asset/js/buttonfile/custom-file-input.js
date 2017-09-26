@@ -20,7 +20,7 @@ function createLiTags(data, ulTag, files, urlDelete) {
 		if ( files[i].length > 20) {
 			txtFile = files[i].slice(0, 20) + "...";
 		} else{
-			txtFile = files[i]
+			txtFile = files[i];
 		}
 		var txtNode = document.createTextNode(txtFile);
 

@@ -85,7 +85,8 @@ module.exports = function (mongoose) {
 				tinh: String,
 				huyen: String,
 				xa: String,
-				thon: String
+				thon: String,
+				tinhKhac: String,
 			},
 			viTriToaDo: {
 				viDo: String,

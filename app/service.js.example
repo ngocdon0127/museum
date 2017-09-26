@@ -17,7 +17,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		stopSpinner: stopSpinner,
 		todoRef: todoRef,
 		getRestrict: getRestrict,
-		arrAuto: [	
+		arrAuto: [
 			'tenDongNghia',
 			'tenTheoBaoTang',
 			'tenVietNam',
@@ -134,8 +134,8 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
+						disposition = decodeURIComponent(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -144,7 +144,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								fileNameIndex = index;
 							}
 						})
-						var fileName = '';
 						if (fileNameIndex == -1){
 							for(var i = 0; i < fields.length; i++){
 								if (fields[i].indexOf('filename=') >= 0){
@@ -152,6 +151,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								}
 							}
 						}
+						var fileName = '';
 						if (fileNameIndex == -1){
 							fileName = 'PCSDL.' + id;
 						}
@@ -494,7 +494,14 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							// console.log(name);
 							if (_scope[name]){
 								var date = new Date(_scope[name]);
-								_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								var h = date.getHours();
+								if (h == 2) {
+									_scope[name] = date.getFullYear();
+								} else if (h == 1) {
+									_scope[name] = (date.getMonth() + 1) + '/' + date.getFullYear();
+								} else {
+									_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								}
 							}
 						}
 					}

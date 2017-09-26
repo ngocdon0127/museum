@@ -10,6 +10,7 @@
     "angular-loading-overlay": "^1.1.1",
     "angular-loading-overlay-http-interceptor": "^1.1.1",
     "angular-ui-router": "^0.4.2",
+    "archiver": "^2.0.3",
     "asyncawait": "^1.0.6",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
@@ -42,8 +43,10 @@
     "request": "~2.81.0",
     "request-promise": "^4.2.0",
     "serve-favicon": "~2.3.0",
+    "tmp": "0.0.33",
     "ua-parser": "^0.3.5",
-    "useragent": "^2.1.13"
+    "useragent": "^2.1.13",
+    "xmlbuilder": "^9.0.4"
   },
   "devDependencies": {
     "angular-translate": "^2.15.2"

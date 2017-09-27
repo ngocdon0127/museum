@@ -545,7 +545,7 @@
                 <div class="col-sm-3">
                     <label>42. {{"geo.videoFile" | translate }} </label>
 
-                    <input type="file" max-file-size="100" multiple accept="video/*" name="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="100">
+                    <input type="file" max-file-size="100" multiple accept="video/*" name="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected">
                     <label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
                     <ul id="ul_videoFile" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.videoFile" style="overflow: auto;">{{file.fileName}}

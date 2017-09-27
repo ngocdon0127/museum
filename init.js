@@ -821,15 +821,31 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				currentTmpFiles.map((fileName) => {
 					let prefix = req.body.randomStr + STR_SEPERATOR + element.name + STR_SEPERATOR;
 					if (fileName.indexOf(prefix) == 0) {
+						// fileName: 6d90732ef697bbf4f1248e1958ac1060_+_anhMauVat_+_18952851_2101188366876603_8950647639813852835_n.jpg
+						// curFullName = [6d90732ef697bbf4f1248e1958ac1060, anhMauVat, 18952851_2101188366876603_8950647639813852835_n.jpg]
 						let curFullName = fileName.split(STR_SEPERATOR);
-						curFullName[0] = result.id;
-						let newFullName = curFullName.join(STR_SEPERATOR);
-						fsE.moveSync(
-							path.join(ROOT, TMP_UPLOAD_DIR, fileName),
-							path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
-							{overwrite: true}
-						);
-						objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
+						if (curFullName[1] in PROP_FIELDS_OBJ) {
+							let f = false;
+							if ('regex' in _PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]]) {
+								let regex = new RegExp(_PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]].regex);
+								if (regex.test(curFullName[2])) {
+									f = true;
+								}
+							} else {
+								f = true;
+							}
+							if (f) {
+								curFullName[0] = result.id;
+								let newFullName = curFullName.join(STR_SEPERATOR);
+								fsE.moveSync(
+									path.join(ROOT, TMP_UPLOAD_DIR, fileName),
+									path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
+									{overwrite: true}
+								);
+								objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
+							}
+						}
+						
 					}
 				});
 			})

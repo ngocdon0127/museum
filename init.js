@@ -2929,8 +2929,8 @@ var exportZipPromise = (objectInstance, options, extension) => {
 			}
 			let r = result;
 			console.log(r);
-			fs.renameSync(r.absoluteFilePath.docx, path.join(__dirname, 'tmp', tmpFolderName, r.outputFileName.docx));
-			fs.renameSync(r.absoluteFilePath.pdf, path.join(__dirname, 'tmp', tmpFolderName, r.outputFileName.pdf));
+			fs.renameSync(r.absoluteFilePath.docx, path.join(__dirname, 'tmp', tmpFolderName, decodeURIComponent(r.outputFileName.docx)));
+			fs.renameSync(r.absoluteFilePath.pdf, path.join(__dirname, 'tmp', tmpFolderName, decodeURIComponent(r.outputFileName.pdf)));
 			
 			result = await (exportXLSXPromise(objectInstance, options, 'xlsx'));
 			// console.log(result);
@@ -2941,7 +2941,7 @@ var exportZipPromise = (objectInstance, options, extension) => {
 				})
 			}
 			let fileName = result.outputFileName.xlsx;
-			fs.renameSync(result.absoluteFilePath.xlsx, path.join(__dirname, 'tmp', tmpFolderName, result.outputFileName.xlsx));
+			fs.renameSync(result.absoluteFilePath.xlsx, path.join(__dirname, 'tmp', tmpFolderName, decodeURIComponent(result.outputFileName.xlsx)));
 			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 			// console.log('here process flatOI ' + Object.keys(flatOI).length);
 			for(let i in flatOI){
@@ -2987,13 +2987,14 @@ function exportZip (objectInstance, options, res, extension) {
 
 			// wrapperName có prefix 'PCSDL_' là để client download file cho tiện. Xem app/service.js
 
-			console.log(absoluteFolderPath);
+			
 			fs.mkdirSync(path.join(__dirname, 'tmp', wrapperName));
 			let exec = require('child_process').exec;
-			let fileName = result.fileName;
+			let fileName = decodeURIComponent(result.fileName);
+
 			fs.renameSync(absoluteFolderPath, path.join(__dirname, 'tmp', wrapperName, fileName));
 			cmd = 'cd "' + path.join(__dirname, 'tmp') + '" && zip -r "' + wrapperName + '.zip" "' + wrapperName + '"';
-			console.log(cmd);
+			
 			result = await (new Promise((resolve, reject) => {
 				exec(cmd, function (err, stdout, stderr) {
 					if (err){

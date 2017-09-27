@@ -442,7 +442,7 @@
 				</div>
 				<div class="col-sm-4">
 					<label>40. {{"land.hoSoPhanTichMauDat" | translate }} </label><br>
-					<input type="file" max-file-size="100" multiple id="hoSoPhanTichMauDat" name="hoSoPhanTichMauDat" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10" accept=".doc, .docx, .pdf">
+					<input type="file" multiple id="hoSoPhanTichMauDat" name="hoSoPhanTichMauDat" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10" accept=".doc, .docx, .pdf">
 					<label for="hoSoPhanTichMauDat" title="{{tooltips['hoSoPhanTichMauDat']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_hoSoPhanTichMauDat" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.hoSoPhanTichMauDat" style="overflow: auto;">{{file.fileName}}
@@ -454,7 +454,7 @@
 				</div>
 				<div class="col-sm-4">
 					<label>41. {{"land.ketQuaPhanTich" | translate }} <span class="has-required">(*)</span>:</label><br>
-						<input type="file" max-file-size="100" multiple id="ketQuaPhanTich" name="ketQuaPhanTich" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf" max-file-size="10" required>
+						<input type="file" multiple id="ketQuaPhanTich" name="ketQuaPhanTich" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf" max-file-size="10" required>
 						<label for="ketQuaPhanTich" title="{{tooltips['ketQuaPhanTich']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 						<ul id="ul_ketQuaPhanTich" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.ketQuaPhanTich" style="overflow: auto;">{{file.fileName}}
@@ -492,7 +492,7 @@
 					<input type="text" ng-model="data.taiLieuPhanTichStr" title="{{tooltips['taiLieuPhanTichStr']}}" name="taiLieuPhanTichStr" class="input-form form-control" required>
 				</div>
 				<div class="col-sm-6">
-					<input type="file" max-file-size="100" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10" required>
+					<input type="file" id="taiLieuPhanTichFile" multiple ng-model="data.taiLieuPhanTichFile" name="taiLieuPhanTichFile" accept=".doc, .docx, .pdf" class="inputfile customfile" data-multiple-caption="{count} file is selected" max-file-size="10" required>
 					<label for="taiLieuPhanTichFile" title="{{tooltips['taiLieuPhanTichFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_taiLieuPhanTichFile" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.taiLieuPhanTichFile" style="overflow: auto;">{{file.fileName}}
@@ -525,7 +525,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<label>47. {{"land.anhMauVat" | translate }} <span class="has-required">(*)</span>:</label>
-					<input type="file" max-file-size="100" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10" required>
+					<input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10" required>
 					<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_anhMauVat" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.anhMauVat" style="overflow: auto;">{{file.fileName}}
@@ -537,7 +537,7 @@
 				</div>
 				<div class="col-sm-3">
 					<label>48. {{"land.hinhAnhNgoaiThucDia" | translate }} </label>
-					<input type="file" max-file-size="100" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
+					<input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
 					<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_hinhAnhNgoaiThucDia" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.hinhAnhNgoaiThucDia" style="overflow: auto;">{{file.fileName}}
@@ -626,7 +626,7 @@
 			<div class="row">
 				<div class="col-sm-6"></br>
 					<label>52. {{"land.taiLieuDiKem" | translate }} <span class="has-required">(*)</span>:</label><br>
-					<input type="file" max-file-size="100" multiple ng-model="data.taiLieuDiKem" id="taiLieuDiKem" accept=".docx, .doc, .pdf" max-file-size="10" required name="taiLieuDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected">
+					<input type="file" multiple ng-model="data.taiLieuDiKem" id="taiLieuDiKem" accept=".docx, .doc, .pdf" max-file-size="10" required name="taiLieuDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected">
 					<label for="taiLieuDiKem" title="{{tooltips['taiLieuDiKem']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_taiLieuDiKem" class="list-group">
                         <li class="list-group-item" ng-repeat="(key, file) in data.taiLieuDiKem" style="overflow: auto;">{{file.fileName}}

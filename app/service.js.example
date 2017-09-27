@@ -95,6 +95,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			progressBar.innerHTML = '0 / ' + totalFile;
 			progressBar.setAttribute('aria-valuenow', 0);
 			$(progressBarContainer).fadeIn();
+			$('#circle-progress').fadeIn();
 		} else{
 
 			var modalInstance = $uibModal.open({
@@ -116,9 +117,34 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		function download(index, fields_form) {
 			if (index >= totalFile){
 				$(progressBarContainer).fadeOut(1000);
+				$('#circle-progress').fadeOut(1000);
 			}
 			else {
+				$('#circle-progress').circleProgress({
+			    value: 0,
+			    size: 80,
+			    fill: {
+			      gradient: ["green"]
+			    }
+			  });
 				var xhr = new XMLHttpRequest();
+				// var xhr = $.ajaxSettings.xhr();
+				xhr.onprogress = function (e) {
+					// console.log('on download progress');
+					// console.log(e);
+          // For downloads
+          if (e.lengthComputable) {
+              console.log((e.loaded / e.total *100|0)+"%");
+              $('#circle-progress').circleProgress('value', e.loaded / e.total)
+          }
+        };
+        xhr.upload.onprogress = function (e) {
+        	// console.log('on upload progress');
+          // For uploads
+          if (e.lengthComputable) {
+              console.log((e.loaded / e.total *100|0)+"%");
+          }
+        };
 				if (fields_form != "") {
 					xhr.open('POST', urls[index], true);
 					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

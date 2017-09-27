@@ -3,6 +3,7 @@
 	<head>
 		<title>Lịch sử nhập liệu</title>
 		<% include header %>
+		<script src="/javascripts/circle-progress/circle-progress.min.js"></script>
 	</head>
 	</head>
 	<body>
@@ -16,6 +17,10 @@
 			<div class="row">
 				<input type="file" id='hinhAnhNgoaiThucDia' name="hinhAnhNgoaiThucDia" multiple="multiple" onchange="instantUpload(this)">
 				<ul id="ul_hinhAnhNgoaiThucDia"></ul>
+			</div>
+			<div class="row">
+				<div id="circle"></div>
+
 			</div>
 		</div>
 		<script>
@@ -43,43 +48,59 @@
 	    			url: '/content/instant-upload',
 	    			method: 'POST',
 	    			contentType: false,
-					processData: false,
-					data: data,
-					success: function (res) {
-						console.log('success');
-						console.log(res);
-						input.disabled = false;
-						if (res.status == 'success') {
-							// Tao danh sach cac file da upload vao bo tam
-							var fileElement = document.getElementById(res.field);
+						processData: false,
+						data: data,
+						xhr: function () {
+              var xhr = $.ajaxSettings.xhr();
+              xhr.onprogress = function (e) {
+                // For downloads
+                if (e.lengthComputable) {
+                    console.log((e.loaded / e.total *100|0)+"%");
+                }
+              };
+              xhr.upload.onprogress = function (e) {
+                // For uploads
+                if (e.lengthComputable) {
+                    console.log((e.loaded / e.total *100|0)+"%");
+                }
+              };
+              return xhr;
+            },
+						success: function (res) {
+							console.log('success');
+							console.log(res);
+							input.disabled = false;
+							if (res.status == 'success') {
+								// Tao danh sach cac file da upload vao bo tam
+								var fileElement = document.getElementById(res.field);
 
-							var ul = ob('ul_' + res.field);
-							ul.innerHTML = ''
-							for (var i = 0; i < res.files.length; i++) {
-								var li = document.createElement('li');
-								li.setAttribute('data-file-name', res.files[i]);
-								li.setAttribute('data-field-name', res.field);
-								li.setAttribute('data-random-str', res.randomStr);
-								li.innerHTML = res.files[i];
-								li.addEventListener('click', function (event) {
-									console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
-									deleteTmpFile({
-										fileName: event.target.getAttribute('data-file-name'),
-										field: event.target.getAttribute('data-field-name'),
-										randomStr: event.target.getAttribute('data-random-str'),
-										form: 'dong-vat',
-										id: '58d79d38e2058328e82fd862'
+								var ul = ob('ul_' + res.field);
+								ul.innerHTML = ''
+								for (var i = 0; i < res.files.length; i++) {
+									var li = document.createElement('li');
+									li.setAttribute('data-file-name', res.files[i]);
+									li.setAttribute('data-field-name', res.field);
+									li.setAttribute('data-random-str', res.randomStr);
+									li.innerHTML = res.files[i];
+									li.addEventListener('click', function (event) {
+										console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
+										deleteTmpFile({
+											fileName: event.target.getAttribute('data-file-name'),
+											field: event.target.getAttribute('data-field-name'),
+											randomStr: event.target.getAttribute('data-random-str'),
+											form: 'dong-vat',
+											id: '58d79d38e2058328e82fd862'
+										})
 									})
-								})
-								ul.appendChild(li)
+									ul.appendChild(li)
+								}
 							}
+						},
+						error: function (err) {
+							input.disabled = false;
+							console.log('error');
+							console.log(err);
 						}
-					},
-					error: function (err) {
-						input.disabled = false;
-						console.log('error');
-						console.log(err);
-					}
 	    		})
 			}
 			function deleteTmpFile(file) {
@@ -119,6 +140,19 @@
 					}
 	    		})
 			}
+		</script>
+		<script>
+		  $('#circle').circleProgress({
+		    value: 0.25,
+		    size: 80,
+		    fill: {
+		      gradient: ["green"]
+		    },
+		    animation: false
+		  });
+		  setTimeout(function () {
+		  	$('#circle').circleProgress('value', 0.75)
+		  }, 1000)
 		</script>
 	</body>
 </html>

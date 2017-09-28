@@ -81,6 +81,7 @@
 									<table id="example1" class="table table-bordered table-hover">
 										<thead>
 										<tr>
+											<th>Tóm tắt</th>
 											<th>Thời gian</th>
 											<th>Nhân viên</th>
 											<th>Hành động</th>
@@ -91,9 +92,41 @@
 										</thead>
 										<tbody>
 										<% for(var i = 0; i < logs.length; i++) { 
-											var log = logs[i]; 
+											var log = logs[i];
+											console.log(log.id);
 											var action = logs[i].action; %>
 											<tr>
+
+												<% let summary = '' 
+													switch (action) {
+														case 'create':
+														case 'update':
+														case 'delete':
+														case 'approve':
+														case 'disapprove':
+															summary = log.userFullName + ' ' + actions[action].label + ' ' +  forms[log.objType].objectModelLabel + ' ' + logs[i].obj1._id.toString()
+															break;
+														case 'assign':
+															summary = log.userFullName + ' assign ' + log.obj2.fullname + ' vào đề tài ' + log.obj2.maDeTai
+															break;
+														case 'fire':
+															summary = log.userFullName + ' thu hồi quyền truy cập của tài khoản ' + log.obj2.fullname
+															break;
+														case 'grant-manager':
+															summary = log.userFullName + ' cấp quyền chủ nhiệm đề tài ' + log.obj2.maDeTai + ' cho tài khoản ' + log.obj2.fullname
+															break;
+														case 'revoke-manager':
+															summary = log.userFullName + ' thu hồi quyền chủ nhiệm đề tài ' + log.obj1.maDeTai + ' của tài khoản ' + log.obj1.fullname
+															break;
+														case 'add-mdt':
+															summary = log.userFullName + ' tạo mới đề tài ' + log.obj1.tenDeTai + ' với mã ' + log.obj1.maDeTai + ', đơn vị chủ trì ' + log.obj1.donViChuTri
+															break;
+														case 'chown':
+															summary = log.userFullName + ' chuyển đổi quyền sở hữu ' + forms[log.objType].objectModelLabel + ' ' + log.obj1._id + ' từ user ' + log.obj1.owner.userId + ' cho user ' + log.obj2.owner.userId
+															break;
+													}
+												%>
+												<td><span><i class="fa fa-fw fa-info-circle" title="<%= summary %>"></i></span></td>
 												<% var date = new Date(logs[i].time) %>
 												<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
 												<td><a title="Lọc nhật ký của người dùng này" href="<%= path + '?user=' + log.userId %>"><h4><%= log.userFullName %></h4></a></td>
@@ -134,6 +167,7 @@
 										</tbody>
 										<tfoot>
 										<tr>
+											<th>Tóm tắt</th>
 											<th>Thời gian</th>
 											<th>Nhân viên</th>
 											<th>Hành động</th>

@@ -67,6 +67,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/tho-nhuong';
 var objectModelLabel       = 'thổ nhưỡng';
 
+const ROOT = path.join(__dirname, '../');
+
 LABEL.objectModelLabel = objectModelLabel;
 
 var bundle = {
@@ -150,6 +152,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 	objectBaseURL: objectBaseURL,
 	objectModelName: objectModelName,
 	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	LABEL: LABEL,
 	objectModelLabel: objectModelLabel,
 	paragraph: {
@@ -165,7 +168,8 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 	}
 }))
 
-router.post(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewareBaseURL, 'view'), getSingleHandler({
+var duplicateHandler = global.myCustomVars.duplicateHandler;
+router.post(objectBaseURL + '/duplicate', aclMiddleware(aclMiddlewareBaseURL, 'view'), aclMiddleware(aclMiddlewareBaseURL, 'create'), duplicateHandler({
 	ObjectModel: ObjectModel,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelIdParamName: objectModelIdParamName,
@@ -174,18 +178,7 @@ router.post(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlew
 	PROP_FIELDS: PROP_FIELDS,
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	LABEL: LABEL,
-	objectModelLabel: objectModelLabel,
-	paragraph: {
-		text: [
-		'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỔ NHƯỠNG', 
-		// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
-		],
-		style: [
-			{color: "000000", bold: true, font_face: "Times New Roman", font_size: 12},
-			// {color: "000000", font_face: "Times New Roman", font_size: 12}
-		]
-
-	}
+	objectModelLabel: objectModelLabel
 }))
 
 var getLogHandler = global.myCustomVars.getLogHandler;
@@ -203,4 +196,18 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	objectModelIdParamName: objectModelIdParamName,
 	ObjectModel: ObjectModel
 }))
+
+var deleteFileHander = global.myCustomVars.deleteFileHander; // Delete file in a field
+router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteFileHander({
+	objectModelIdParamName: objectModelIdParamName,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+	objectModelName: objectModelName,
+	ObjectModel: ObjectModel,
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+	form: 'tho-nhuong'
+}))
+router.get(objectBaseURL + '/export/darwin', (req, res) => {
+	require(path.join(ROOT, 'utils/makeDwCAFile/makeDCAFile'))(res, ObjectModel.modelName)
+})
 }

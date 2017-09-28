@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" data-ng-click="cancel()" aria-hidden="true">OK</button>
+    <h4 class="modal-title text-align-center fw-bold mt" id="myModalLabel18">{{ store.name }}</h4>
+</div>
+<div class="modal-body bg-gray-lighter">
+    <div class="row">
+        <div class="col-md-12">
+            <ng-map center="{{ center }}" zoom="10">
+                <!-- <marker position="{{ position }}"></marker> -->
+            </ng-map>
+        </div>
+    </div>
+</div>

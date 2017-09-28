@@ -7,6 +7,8 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		addSample: addSample,
 		editForm: editForm,
 		exportFile: exportFile,
+		duplicateFile: duplicateFile,
+		deleteTmpFile, deleteTmpFile,
 		autoCom: autoCom,
 		renderFlexdatalist: renderFlexdatalist,
 		fetchFlexdatalist: fetchFlexdatalist,
@@ -132,8 +134,8 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
+						disposition = decodeURIComponent(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -142,7 +144,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								fileNameIndex = index;
 							}
 						})
-						var fileName = '';
 						if (fileNameIndex == -1){
 							for(var i = 0; i < fields.length; i++){
 								if (fields[i].indexOf('filename=') >= 0){
@@ -150,6 +151,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								}
 							}
 						}
+						var fileName = '';
 						if (fileNameIndex == -1){
 							fileName = 'PCSDL.' + id;
 						}
@@ -169,7 +171,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							setTimeout(function () {
 								$(progressBarContainer).fadeOut(1000);
 							}, 500)
-
 						}
 						setTimeout(function () {
 							download(index + 1, fields_form);
@@ -261,7 +262,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
 				stopSpinner();
-				
+				console.log(err);
 				var id = JSON.parse(err.responseText).field;
 				var x = document.getElementById(id);
 				var element = x.nextElementSibling
@@ -287,6 +288,39 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			}
 		});
 	}
+
+	// Create a duplicate file
+	function duplicateFile(id, form, redirect) {
+		$http({
+			method: 'POST',
+			data: {id: id},
+			url: "/content/" + form + "/duplicate"
+		}).then(function success(res) {
+			var sample = redirect.sample;
+			var id = res.data[sample].id
+			$state.go(redirect.link, {id: id});
+		}, function error(err) {
+			alert("Tao mau moi khong thanh cong")
+		})
+	}
+
+	function deleteTmpFile(data, urlDelete) {
+		$.ajax({
+			url: urlDelete,
+			method: 'DELETE',
+			data: data,
+			success: function (res) {
+				console.log(res);
+				if (res.status == 'success') {
+					// $state.reload();
+				}
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		})
+	}
+
 	function deleteP(id, urlDelete){
 		$http({
 			method: 'DELETE',

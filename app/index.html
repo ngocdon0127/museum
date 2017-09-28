@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="museumApp">
 <head>
+	<!-- <base href="/app/#!"> -->
 	<meta charset="UTF-8">
-	<title>Bảo tàng thiên nhiên</title>
+	<title>{{'tieude' | translate}}</title>
 	<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="asset/css/bootstrap/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="asset/css/customfileinput/component.css">
 	<link rel="stylesheet" type="text/css" href="asset/css/main.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="asset/js/angular-inline-text-editor/ite.css">
 	<!-- framework -->
 	<link rel="stylesheet" type="text/css" href="asset/css/jquery/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="asset/js/angular-loading-bar/build/loading-bar.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/flexdatalist/jquery.flexdatalist.min.css">
 	<link rel="stylesheet" href="/admin/plugins/datatables/dataTables.bootstrap.css">
-	<style >
-		.flexdatalist-multiple{
-			width: 300px;
-			margin-left: 5px;
-		}
-		
-		body { padding-top: 60px; } 
-	</style>
+	<link rel="stylesheet" type="text/css" href="asset/js/angular-inline-text-editor/ite.css">
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,42 +27,50 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/"><b>Trang chủ</b></a>
+				<a class="navbar-brand" href="/"><b>{{'nav.tieude' | translate }}</b></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li class="dropdown" ng-if="restricted.restrict">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b> <b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{'nav.themmauvat.tieude' | translate }}</b> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh">Cổ sinh</a></li>
-							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat">Địa chất</a></li>
-							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="them-dong-vat">Động vật</a></li>
-							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="them-tho-nhuong">Thổ nhưỡng</a></li>
-							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat">Thực vật</a></li>
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="them-co-sinh">{{'nav.themmauvat.cosinh' | translate}}</a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="them-dia-chat">{{'nav.themmauvat.diachat' | translate}}</a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="them-dong-vat">{{'nav.themmauvat.dongvat' | translate}}</a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="them-tho-nhuong">{{'nav.themmauvat.thonhuong' | translate}}</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="them-thuc-vat">{{'nav.themmauvat.thucvat' | translate}}</a></li>
 						</ul>
 					</li>
 					<li class="dropdown" ng-if="restricted.restrict">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>Quản lý mẫu vật</b> <b class="caret"></b></a>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{'nav.quanly.tieude' | translate }}</b> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="quan-ly-co-sinh">Mẫu cổ sinh</a></li>
-							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="quan-ly-dia-chat">Mẫu địa chất</a></li>
-							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="quan-ly-dong-vat">Mẫu động vật</a></li>
-							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong">Mẫu thổ nhưỡng</a></li>
-							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">Mẫu thực vật</a></li>
+							<li ng-if="restricted.restrict.cosinh.create"><a ui-sref="quan-ly-co-sinh">{{'nav.quanly.cosinh' | translate }}</a></li>
+							<li ng-if="restricted.restrict.diachat.create"><a ui-sref="quan-ly-dia-chat">{{'nav.quanly.diachat' | translate }}</a></li>
+							<li ng-if="restricted.restrict.dongvat.create"><a ui-sref="quan-ly-dong-vat">{{'nav.quanly.dongvat' | translate }}</a></li>
+							<li ng-if="restricted.restrict.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong">{{'nav.quanly.thonhuong' | translate }}</a></li>
+							<li ng-if="restricted.restrict.thucvat.create"><a ui-sref="quan-ly-thuc-vat">{{'nav.quanly.thucvat' | translate }}</a></li>
 						</ul>
 					</li>
-					<li><a href="/log/all"><b>Lịch sử nhập liệu</b></a></li>
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{'nav.baocao.tieude' | translate }}</b> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/log/all">{{'nav.baocao.lichsunhaplieu' | translate }}</a></li>
+							<li><a href="">{{'nav.baocao.thongke' | translate }}</a></li>
+						</ul>
+					</li>
 				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right" ng-controller="translateCtrl">
+					<li><a href="">{{'ngonngu' | translate }}:</a></li>
+					<li ng-click="changeLang('eng')"><a href=""><img src="asset/image/en.gif"></a></li>
+					<li  ng-click="changeLang('vi')"><a href=""><img src="asset/image/vi.gif"></a></li>
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b ng-bind="restricted.user.fullname"></b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/admin"><b>Quản lý tài khoản</b></a></li>
-							<li><a href="/users"><b>Trang cá nhân</b></a></li>
-							<li><a href="/auth/logout"><b>Đăng xuất</b></a></li>
+							<li><a href="/admin"><b>{{'nav.taikhoan.quanly' | translate }}</b></a></li>
+							<li><a href="/users"><b>{{'nav.taikhoan.trangcanhan' | translate }}</b></a></li>
+							<li><a href="/auth/logout"><b>{{'nav.taikhoan.dangxuat' | translate }}</b></a></li>
 						</ul>
 					</li>
 				</ul>
@@ -83,15 +84,19 @@
 			</div>
 		</div>
 	</nav>
-	<div ui-view> </div>
-<!-- 	<footer style="bottom: 0px; position: absolute; width: 100%;">
-		<div class="input-form">&copy; Copyright. All right is reserved</div>
+	<section>
+		<div ui-view class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12"></div>
+	</section>
+	<!-- <footer style="bottom: 0px; position: absolute; width: 100%;">
+		<div class="input-form form-control">&copy; Copyright. All right is reserved</div>
 	</footer> -->
 	<script type="text/javascript" src="asset/js/jquery/jquery/jquery.js"></script>
 	<script type="text/javascript" src="asset/js/jquery/jquery/jquery-ui.min.js"></script>
-
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
 	<script type="text/javascript" src="asset/js/jquery/bootstrap.js"></script>
 	<script type="text/javascript" src="asset/js/angular/angular.js"></script>
+	<script type="text/javascript" src="asset/js/angular-google-maps/ng-map.js"></script>
+	<!-- <script type="text/javascript" src="asset/js/angular-map/angular-google-maps.min.js"></script> -->
 	<script type="text/javascript" src="asset/js/angular-inline-text-editor/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-inline-text-editor/bower_components/rangy/rangy-core.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-inline-text-editor/bower_components/rangy/rangy-classapplier.min.js"></script>
@@ -99,6 +104,12 @@
 	<script type="text/javascript" src="asset/js/angular-inline-text-editor/ite.js"></script>
 	<script type="text/javascript" src="asset/js/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="asset/js/spinner/spin.min.js"></script>
+
+	<script type="text/javascript" src="asset/js/angular-translate/dist/angular-translate.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+	<script type="text/javascript" src="asset/js/angular-translate/dist/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+
 	<script type="text/javascript" src="asset/js/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 	<script type="text/javascript" src="asset/js/angular-ui-bootstrap/dist/ui-bootstrap-tpls-1.3.3.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-animate/angular-animate.min.js"></script>
@@ -109,6 +120,7 @@
 	<script type="text/javascript" src="asset/js/angular-js-xlsx/angular-js-xlsx.js"></script>
 	<script type="text/javascript" src="asset/js/angular-js-xlsx/xlsx.core.min.js"></script>
 	<script type="text/javascript" src="/javascripts/flexdatalist/jquery.flexdatalist.min.js"></script>
+	<script type="text/javascript" src="/javascripts/crypto-js.js"></script>
 
 	<!-- handler -->
 	<script type="text/javascript" src="app.module.js"></script>
@@ -123,10 +135,9 @@
 	<script type="text/javascript" src="asset/js/controllers/OfflineController.js"></script>
 	<script type="text/javascript" src="asset/js/filter/propertyFilter.js"></script>
 	<script type="text/javascript" src="asset/js/angular-messages/angular-messages.min.js"></script>
-	<script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>
+	<!-- <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script> -->
 	<script type="text/javascript" src="asset/js/controllers/TestController.js"></script>
 	<script type="text/javascript" src="asset/js/controllers/GuestViewsController.js"></script>
 	<script type="text/javascript" src="asset/js/angular-paging/paging.min.js"></script>
 </body>
 </html>
-

@@ -207,7 +207,7 @@
 						<span>{{"veg.chieuRong" | translate }}: </span><br>
 						<span>
 							<input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-							<select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+							<select class="contentselect" ng-model="data.donVi_chieuRong" name="donVi_chieuRong">
 								<option value="mm">mm</option>
 								<option value="cm">cm</option>
 								<option value="m">m</option>
@@ -262,7 +262,7 @@
 					<textarea type="text" ng-model="data.thongTinKhac3Str" title="{{tooltips['thongTinKhac3Str']}}" name="thongTinKhac3Str" id="thongTinKhac3Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-6">
-					<input type="file"   max-file-size="100" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
+					<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
 					<label for="thongTinKhac3File" title="{{tooltips['thongTinKhac3File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
 			</div>
@@ -506,12 +506,12 @@
 		<div class="form-group map-detail" ng-show="isSet(6)" style="padding-top: 30px;">
 			<div class="row">
 				<div class="col-sm-4">
-					<label>40. {{"veg.anhMauVat" | translate }} <span class="has-required">(*)</span>:</label>
+					<label>40. {{"veg.anhMauVat" | translate }} <span class="has-required">(*)</span>:</label><br>
 					<input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10">
 					<label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
 				<div class="col-sm-4">
-					<label>41. {{"veg.hinhAnhNgoaiThucDia" | translate }} </label>
+					<label>41. {{"veg.hinhAnhNgoaiThucDia" | translate }} </label><br>
 					<input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
 					<label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
@@ -522,8 +522,8 @@
 					<input type="text" title="{{tooltips['videoStr']}}" name="videoStr" ng-model="data.videoStr" class="input-form form-control" >
 				</div>
 				<div class="col-sm-4">
-					<label>43. {{"veg.videoFile" | translate }}:</label>
-					<input type="file"   max-file-size="100" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected">
+					<label>43. {{"veg.videoFile" | translate }}:</label><br>
+					<input type="file" max-file-size="100" multiple accept="video/*" name ="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected">
 					<label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
 			</div>
@@ -773,7 +773,7 @@
 					<input type="text" title="{{tooltips['nguoiLapPhieuMauVat']}}" name="nguoiLapPhieuMauVat" ng-model="data.nguoiLapPhieuMauVat" class="input-form form-control">
 				</div>
 				<div class="col-sm-4">
-					<label>62. {{"veg.hoSoNhapMauVatDiKem" | translate }} </label>
+					<label>62. {{"veg.hoSoNhapMauVatDiKem" | translate }} </label><br>
 					<input type="file" max-file-size="100" multiple ng-model="data.hoSoNhapMauVatDiKem" id="hoSoNhapMauVatDiKem" name="hoSoNhapMauVatDiKem" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
 					<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>

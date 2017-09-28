@@ -156,7 +156,7 @@
                             <span>{{"geo.chieuRong" | translate }}: </span><br>
                             <span class="box">
     					      <input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-    					      <select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+    					      <select class="contentselect" ng-model="data.donVi_chieuRong" name="donVi_chieuRong">
     					          <option value="mm">mm</option>
     					          <option value="cm">cm</option>
     					          <option value="m">m</option>
@@ -522,7 +522,7 @@
 		<div class="form-group map-detail" ng-show="isSet(6)" style="padding-top: 30px;">
 			<div class="row">
                 <div class="col-sm-4">
-                    <label>39. {{"geo.anhMauVat" | translate }} <span class="has-required">(*)</span>:</label>
+                    <label>39. {{"geo.anhMauVat" | translate }} <span class="has-required">(*)</span>:</label><br>
                     <input type="file" multiple id="anhMauVat" ng-model="data.anhMauVat" name="anhMauVat" class="inputfile customfile" data-multiple-caption="{count} file is selected" accept="image/*" max-file-size="10">
                     <label for="anhMauVat" title="{{tooltips['anhMauVat']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
                     <ul id="ul_anhMauVat" class="list-group">
@@ -534,7 +534,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4">
-                    <label>40. {{"geo.hinhAnhNgoaiThucDia" | translate }}: </label>
+                    <label>40. {{"geo.hinhAnhNgoaiThucDia" | translate }}: </label><br>
                     <input type="file" multiple id="hinhAnhNgoaiThucDia" accept="image/*" max-file-size="10" ng-model="data.hinhAnhNgoaiThucDia" name="hinhAnhNgoaiThucDia" class="inputfile customfile" data-multiple-caption="{count} file is selected">
                     <label for="hinhAnhNgoaiThucDia" title="{{tooltips['hinhAnhNgoaiThucDia']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
                     <ul id="ul_hinhAnhNgoaiThucDia" class="list-group">
@@ -552,8 +552,7 @@
                     <input type="text" title="{{tooltips['videoStr']}}" name="videoStr" ng-model="data.videoStr" class="input-form form-control">
                 </div>
                 <div class="col-sm-4">
-                    <label>42. {{"geo.videoFile" | translate }}: </label>
-
+                    <label>42. {{"geo.videoFile" | translate }}: </label><br>
                     <input type="file" max-file-size="100" multiple accept="video/*" name="videoFile" ng-model="data.videoFile" id="videoFile" class="inputfile customfile" data-multiple-caption="{count} file is selected">
                     <label for="videoFile" title="{{tooltips['videoFile']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
                     <ul id="ul_videoFile" class="list-group">
@@ -580,7 +579,7 @@
                             <input type="text" title="{{tooltips['phuongThucXuLy']}}" name="phuongThucXuLy" ng-model="data.phuongThucXuLy" class="input-form form-control">
                         </div>
                         <div class="col-sm-4">
-                            {{"geo.hinhAnhDinhKem" | translate }}:
+                            {{"geo.hinhAnhDinhKem" | translate }}:<br>
                             <input type="file" multiple id="hinhAnhDinhKem" ng-model="data.hinhAnhDinhKem" name="hinhAnhDinhKem" accept="image/*" max-file-size="5" class="inputfile customfile" data-multiple-caption="{count} file is selected">
                             <label for="hinhAnhDinhKem" title="{{tooltips['hinhAnhDinhKem']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
                             <ul id="ul_hinhAnhDinhKem" class="list-group">

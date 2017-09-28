@@ -37,6 +37,10 @@ PROP_FIELDS.map(function (element, index) {
 	LABEL[element.name] = element.label;
 });
 
+global.myCustomVars.models['dia-chat'].PROP_FIELDS = PROP_FIELDS;
+global.myCustomVars.models['dia-chat'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
+global.myCustomVars.models['dia-chat'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
+
 {
 	var index = 0;
 	while (true){
@@ -63,6 +67,8 @@ var objectModelNames       = 'geologicals';
 var objectModelIdParamName = 'id';
 var objectBaseURL          = '/dia-chat';
 var objectModelLabel       = 'địa chất';
+
+const ROOT = path.join(__dirname, '../');
 
 LABEL.objectModelLabel = objectModelLabel;
 
@@ -211,7 +217,7 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	ObjectModel: ObjectModel
 }))
 
-var deleteFileHander = global.myCustomVars.deleteFileHander; // Delet file in a field
+var deleteFileHander = global.myCustomVars.deleteFileHander; // Delete file in a field
 router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteFileHander({
 	objectModelIdParamName: objectModelIdParamName,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
@@ -221,4 +227,7 @@ router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'dele
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	form: 'dia-chat'
 }))
+router.get(objectBaseURL + '/export/darwin', (req, res) => {
+	require(path.join(ROOT, 'utils/makeDwCAFile/makeDCAFile'))(res, ObjectModel.modelName)
+})
 }

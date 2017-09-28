@@ -1,3 +1,5 @@
+<% let NULL_TIMES = global.myCustomVars.NULL_TIMES %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,9 +14,9 @@
 	<body>
 		<div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<% if (typeof(objectModelId) != 'undefined') { %>
+				<% if ((typeof(objectModelId) != 'undefined') && (typeof(objectPath) != 'undefined')) { %>
 					<a class="btn btn-success" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa mẫu dữ liệu này</a>
-					<a class="btn btn-primary" role="button" href="<%= '/app/#!/bai-dang' + objectPath %>">Đến trang quản lý mẫu</a>
+					<a class="btn btn-primary" role="button" href="<%= '/app/#!/quan-ly-mau' + objectPath %>">Đến trang quản lý mẫu</a>
 				<% } %>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -70,7 +72,17 @@
 						return result;
 					}
 					else if (obj instanceof Date){
-						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+						if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+							return '';
+						}
+						let h = obj.getHours();
+						if (h == 2) {
+							return obj.getFullYear()
+						}
+						if (h == 1) {
+							return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+						}
+						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 					}
 					// Need to escape to prevent injected HTML + JS
 					return escape(obj).replace(/_-_/g, ', ');

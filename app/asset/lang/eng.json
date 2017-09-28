@@ -1,8 +1,8 @@
 {
-	"tieude": "VietNam National Museum Of Nature",
+	"tieude": "Vietnam National Museum Of Nature",
 	"ngonngu": "Language",
 	"home":{
-		"tieude": "VietNam National Museum Of Nature"
+		"tieude": "Vietnam National Museum Of Nature"
 	},
 	"nav":{
 		"tieude": "Home",
@@ -845,5 +845,9 @@
 	    "thongTinKhac7Mixed": "Thông tin khác",
 	    "thongTinKhac8Mixed": "Thông tin khác",
 	    "thongTinKhac9Mixed": "Thông tin khác"
+	},
+	"customfile": {
+		"nofilechose": "No file chosen",
+		"open": "Open"
 	}
 }

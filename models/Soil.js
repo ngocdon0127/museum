@@ -190,5 +190,10 @@ module.exports = function (mongoose) {
 	var soilSchema = mongoose.Schema(schemaPrototype);
 
 	var Soil = mongoose.model("Soil", soilSchema);
+
+	global.myCustomVars.models.Soil = {
+		mongooseModel: Soil
+	}
+	global.myCustomVars.models['tho-nhuong'] = global.myCustomVars.models.Soil;
 	return Soil;
 }

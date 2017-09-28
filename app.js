@@ -69,6 +69,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
+	name: require('./config/config').app.sessionCookieName,
 	secret: "SecretKeyMy",
 	resave: true,
 	saveUninitialized: true,

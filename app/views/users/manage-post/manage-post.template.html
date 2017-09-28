@@ -1,10 +1,16 @@
 <script src="/javascripts/FileSaver.js"></script>
+<script src="/javascripts/circle-progress/circle-progress.min.js"></script>
 <div class="container-fluid">
 	<div id="download-progress-bar-container" style="margin-bottom: 10px; margin-top: 20px; margin-left: 0px; display: none">
 		<div class="container" style="padding-left: 0px;">
-			<div class="progress">
-				<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%" id="download-progress-bar">
-					70%
+			<div class="col-lg-2 col-md-2 col-xs-12 col-sm-2">
+				<div id="circle-progress"></div>
+			</div>
+			<div class="col-lg-10 col-md-10 col-xs-12 col-sm-10">
+				<div class="progress">
+					<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%" id="download-progress-bar">
+						70%
+					</div>
 				</div>
 			</div>
 		</div>
@@ -41,8 +47,8 @@
 		<thead>
 			<tr>
 				<th>STT</th>
-				<th>Tên mẫu vật</th>
-				<th>Tên người lập phiếu</th>
+				<th>Mẫu vật</th>
+				<th>Người lập phiếu</th>
 				<th>Thông tin cơ bản</th>
 				<th>Ngày đăng</th>
 				<th>Trạng thái</th>
@@ -54,7 +60,7 @@
 				<td>{{key + 1}}</td>
 				<td>
 					<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{link}}/{{post._id}}?display='>
-					<a class="tenvietnam" style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html"><span class="label label-info">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</span></a>
+					<a class="tenvietnam" style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
 				</td>
 				<td>
 					{{post.nguoiLapPhieuMauVat ? post.nguoiLapPhieuMauVat : 'Chưa có tên'}}
@@ -134,6 +140,10 @@
 	</table>
 </div>
 <style type="text/css">
+	#managerpost{
+	    table-layout: fixed !important;
+	    word-wrap:break-word;
+	}
 	.dropbtn {
 	    background-color: #337ab7;
 	    color: white;
@@ -190,7 +200,30 @@
 				"searching": true,
 				"ordering": true,
 				"info": true,
-				"autoWidth": true,
+				"autoWidth": false,
+				"columns": [
+		            {
+		                width: "7%"
+		            },
+		            {
+		                width: "10%"
+		            },
+		            {
+		                width: "15%"
+		            },
+		            {
+		                width: "17%"
+		            },
+		            {
+		                width: undefined
+		            },
+		            {
+		                width: undefined
+		            },
+		            {
+		                width: undefined
+		            }
+		        ],
 				"language": {
 				    "decimal":        "",
 				    "emptyTable":     "Không có dữ liệu",
@@ -224,6 +257,6 @@
 	$(document).ready(function () {
 		setTimeout(function (argument) {
 			$('[data-toggle="popover"]').popover();
-		}, 500)
+		}, 1000)
 	})
 </script>

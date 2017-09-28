@@ -56,21 +56,15 @@
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{'nav.baocao.tieude' | translate }}</b> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/log">{{'nav.baocao.lichsunhaplieu' | translate }}</a></li>
+							<li><a href="/log/all">{{'nav.baocao.lichsunhaplieu' | translate }}</a></li>
 							<li><a href="">{{'nav.baocao.thongke' | translate }}</a></li>
 						</ul>
 					</li>
 				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-					<li ng-controller="translateCtrl">
-						<a href="" class="dropdown-toggle" data-toggle="dropdown">{{'ngonngu' | translate }}<b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li ng-click="changeLang('eng')"><a href="">English</a></li>
-							<li  ng-click="changeLang('vi')"><a href="">Vietnamese</a></li>
-						</ul>
-						<!-- <button type="button" class="btn btn-success"">Change</button> -->
-					</li>
+				<ul class="nav navbar-nav navbar-right" ng-controller="translateCtrl">
+					<li><a href="">{{'ngonngu' | translate }}:</a></li>
+					<li ng-click="changeLang('eng')"><a href=""><img src="asset/image/en.gif"></a></li>
+					<li  ng-click="changeLang('vi')"><a href=""><img src="asset/image/vi.gif"></a></li>
 					<li class="dropdown">
 						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b ng-bind="restricted.user.fullname"></b><b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -91,14 +85,14 @@
 		</div>
 	</nav>
 	<section>
-		<div ui-view style="margin-top: 20px;" class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12"></div>
+		<div ui-view class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12"></div>
 	</section>
 	<!-- <footer style="bottom: 0px; position: absolute; width: 100%;">
 		<div class="input-form form-control">&copy; Copyright. All right is reserved</div>
 	</footer> -->
 	<script type="text/javascript" src="asset/js/jquery/jquery/jquery.js"></script>
 	<script type="text/javascript" src="asset/js/jquery/jquery/jquery-ui.min.js"></script>
-
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
 	<script type="text/javascript" src="asset/js/jquery/bootstrap.js"></script>
 	<script type="text/javascript" src="asset/js/angular/angular.js"></script>
 	<script type="text/javascript" src="asset/js/angular-google-maps/ng-map.js"></script>
@@ -147,4 +141,3 @@
 	<script type="text/javascript" src="asset/js/angular-paging/paging.min.js"></script>
 </body>
 </html>
-

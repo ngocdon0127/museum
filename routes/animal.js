@@ -68,6 +68,8 @@ var objectModelIdParamName = 'id';
 var objectBaseURL          = '/dong-vat';
 var objectModelLabel       = 'động vật';
 
+const ROOT = path.join(__dirname, '../');
+
 LABEL.objectModelLabel = objectModelLabel;
 
 var bundle = {
@@ -214,7 +216,7 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	ObjectModel: ObjectModel
 }))
 
-var deleteFileHander = global.myCustomVars.deleteFileHander; // Delet file in a field
+var deleteFileHander = global.myCustomVars.deleteFileHander; // Delete file in a field
 router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteFileHander({
 	objectModelIdParamName: objectModelIdParamName,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
@@ -224,4 +226,8 @@ router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'dele
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	form: 'dong-vat'
 }))
+router.get(objectBaseURL + '/export/darwin', (req, res) => {
+	require(path.join(ROOT, 'utils/makeDwCAFile/makeDCAFile'))(res, ObjectModel.modelName)
+})
+
 }

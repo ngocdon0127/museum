@@ -53,6 +53,17 @@ global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
 var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
 
+const DATE_FULL = 0;
+const DATE_MISSING_DAY = 1;
+const DATE_MISSING_MONTH = 2;
+
+const EXPORT_NULL_FIELD = true;
+
+const ORIGIN_TIME = new Date('1970/1/1');
+const NULL_TIMES = [ORIGIN_TIME.getTime(), 0];
+global.myCustomVars.ORIGIN_TIME = ORIGIN_TIME;
+global.myCustomVars.NULL_TIMES = NULL_TIMES;
+
 
 
 // ============== Places ================
@@ -501,15 +512,55 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// Catch error later
 						try {
 							let dateValue_ = req.body[element.name].split('/');
-							if (dateValue_.length < 3){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Không đúng định dạng ngày tháng', element.name])
+							dateValue_ = dateValue_.filter(e => {
+								let n = parseInt(e);
+								return Number.isInteger(n) && (n > 0)
+							})
+							let timeValue_ = [];
+							// reject if req has more than 3 numbers
+							if (dateValue_.length > 3){
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
 							}
+							// 
+							// now, allow to save and mark the flag
+							// console.log(dateValue_);
+							let dl = dateValue_.length;
+							// console.log('dateValue_ len:', dl);
+							// let flagMissingDateTime = DATE_FULL;
+							// try {
+							// 	flagMissingDateTime = objectInstance.flag.fMissingDateTime;
+							// } catch (e) {
+							// 	console.log(e);
+							// }
+							if (dl == 2) {
+								// date: 12/2017 => 1/12/2017
+								dateValue_.unshift('1'); // Chỉnh về ngày mùng 1 trong tháng
+								// flagMissingDateTime = DATE_MISSING_DAY;
+								timeValue_ = [DATE_MISSING_DAY + '', '0', '0'];
+							} else if (dl == 1) {
+								// date: 2017 => 1/1/2017
+								dateValue_.unshift('1');
+								dateValue_.unshift('1'); // Chỉnh về ngày 1 tháng 1 trong năm
+								// flagMissingDateTime = DATE_MISSING_MONTH;
+								timeValue_ = [DATE_MISSING_MONTH + '', '0', '0'];
+							}
+							// Use flag to mark Missing Date
+							// if (objectInstance.flag) {
+							// 	objectInstance.flag.fMissingDateTime = flagMissingDateTime
+							// } else {
+							// 	objectInstance.flag = {
+							// 		fMissingDateTime: flagMissingDateTime
+							// 	}
+							// }
+							// console.log(dateValue_);
 							dateValue_.map((element, index) => {
 								dateValue_[index] = element.trim();
 							})
 							dateValue_.reverse();
-							req.body[element.name] = dateValue_.join('/')
-							console.log(req.body[element.name]);
+							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
+							// Use flag to mark Missing Date
+							// req.body[element.name] = dateValue_.join('/')
+							// console.log(req.body[element.name]);
 						}
 						catch (e){
 							console.log(e)
@@ -771,15 +822,31 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				currentTmpFiles.map((fileName) => {
 					let prefix = req.body.randomStr + STR_SEPERATOR + element.name + STR_SEPERATOR;
 					if (fileName.indexOf(prefix) == 0) {
+						// fileName: 6d90732ef697bbf4f1248e1958ac1060_+_anhMauVat_+_18952851_2101188366876603_8950647639813852835_n.jpg
+						// curFullName = [6d90732ef697bbf4f1248e1958ac1060, anhMauVat, 18952851_2101188366876603_8950647639813852835_n.jpg]
 						let curFullName = fileName.split(STR_SEPERATOR);
-						curFullName[0] = result.id;
-						let newFullName = curFullName.join(STR_SEPERATOR);
-						fsE.moveSync(
-							path.join(ROOT, TMP_UPLOAD_DIR, fileName),
-							path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
-							{overwrite: true}
-						);
-						objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
+						if (curFullName[1] in PROP_FIELDS_OBJ) {
+							let f = false;
+							if ('regex' in _PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]]) {
+								let regex = new RegExp(_PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]].regex);
+								if (regex.test(curFullName[2])) {
+									f = true;
+								}
+							} else {
+								f = true;
+							}
+							if (f) {
+								curFullName[0] = result.id;
+								let newFullName = curFullName.join(STR_SEPERATOR);
+								fsE.moveSync(
+									path.join(ROOT, TMP_UPLOAD_DIR, fileName),
+									path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
+									{overwrite: true}
+								);
+								objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
+							}
+						}
+						
 					}
 				});
 			})
@@ -926,7 +993,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 			// DiaDiemThuMau
 
-			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
+			if (objectInstance.flag.fDiaDiemThuMau == 'Trên biển'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -936,7 +1003,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đảo'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['huyen', 'xa'].indexOf(field.name) >= 0){
@@ -946,7 +1013,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đất liền'){
 				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
 			}
 
@@ -1008,6 +1075,19 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 
 			// delete objectInstance.flag;
@@ -1033,7 +1113,17 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					return (obj.length < 1) ? '' : obj;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -1118,6 +1208,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;
@@ -1149,7 +1240,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
-							if (value){
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
 									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
@@ -1157,7 +1248,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="tnrlb">${stt}</p></td>
 											<td class="td"><p class="tnr">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`
@@ -1186,6 +1277,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									}
 									
 								}
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1214,6 +1307,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;
@@ -1255,7 +1349,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (printAll || (display(flatOI[sp]) && (sp in printedProperties))) {
+									// TODO 2283 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
+									// if (printAll || ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (sp in printedProperties))) {
 										flagHasRealChildren = true;
 										break;
 									}
@@ -1324,7 +1420,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 									opts: detailOpts
 								}
 							]
-							if (value){
+							if (EXPORT_NULL_FIELD || value) {
 								if (printAll || (prop in printedProperties)){
 									// table.push(row);
 									// docxHTMLSource += `
@@ -1340,15 +1436,23 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										<tr>
 											<td class="td"><p class="ct tnr lb"></p></td>
 											<td class="td"><p class="tnri">${p}</p></td>
-											<td class="td"><p class="tnr">${value}</p></td>
+											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
 											<td class="td"></td>
 										</tr>
 										`
 									} else {
 										let td = ``;
+										if (!(value instanceof Array)) {
+											value = []
+										}
 										for(let iidx = 0; iidx < value.length; iidx++) {
 											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
-												td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												try {
+													td += img2HTML(path.join(__dirname, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
+												} catch (e) {
+													console.log(e);
+													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+												}
 											} else {
 												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
 											}
@@ -1364,7 +1468,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 										`
 									}
 								}
-								
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -1744,7 +1849,6 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			catch (e){
 				console.log(e);
 			}
-
 			// var fs = require('fs');
 			var tmpFileName = (new Date()).getTime() + '.tmp.docx';
 			/*
@@ -1876,13 +1980,14 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					// 		console.log(e);
 					// 	}
 					// });
+					// console.log(outputFileName);
 					RESOLVE({
 						status: 'success',
 						absoluteFilePath: {
 							docx: path.join(__dirname, tmpFileName)
 						},
 						outputFileName: {
-							docx: outputFileName
+							docx: encodeURIComponent(outputFileName)
 						}
 					})
 				}
@@ -1914,8 +2019,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								pdf: path.join(__dirname, pdfFileName),
 							},
 							outputFileName: {
-								docx: outputDocxFileName,
-								pdf: outputFileName
+								docx: encodeURIComponent(outputDocxFileName),
+								pdf: encodeURIComponent(outputFileName)
 							}
 						})
 					})
@@ -2069,7 +2174,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 
 			// DiaDiemThuMau
 
-			if (objectInstance.flag.fDiaDiemThuMau == 'bien'){
+			if (objectInstance.flag.fDiaDiemThuMau == 'Trên biển'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['tinh', 'huyen', 'xa'].indexOf(field.name) >= 0){
@@ -2079,7 +2184,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dao'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đảo'){
 				for(var i = 0; i < PROP_FIELDS.length; i++){
 					var field = PROP_FIELDS[i];
 					if (['huyen', 'xa'].indexOf(field.name) >= 0){
@@ -2089,7 +2194,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					}
 				}
 			}
-			else if (objectInstance.flag.fDiaDiemThuMau == 'dat-lien'){
+			else if (objectInstance.flag.fDiaDiemThuMau == 'Trên đất liền'){
 				// Không cần làm gì, vì tinh, huyen, xa đã mặc định là money = true
 				
 			}
@@ -2155,6 +2260,20 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			}
 			
 			// End of fApproved
+			
+
+			// fMissingDateTime
+			// for(var i = 0; i < PROP_FIELDS.length; i++){
+			// 	var field = PROP_FIELDS[i];
+			// 	// console.log(field.name);
+			// 	if (field.name == 'fMissingDateTime'){
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+			// 		console.log('len: ' + PROP_FIELDS.length);
+			// 		break;
+			// 	}
+			// }
+			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
 			/**
@@ -2177,7 +2296,17 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					return result;
 				}
 				else if (obj instanceof Date){
-					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ');
+					if (NULL_TIMES.indexOf(obj.getTime()) >= 0) {
+						return '';
+					}
+					let h = obj.getHours();
+					if (h == 2) {
+						return obj.getFullYear()
+					}
+					if (h == 1) {
+						return [obj.getMonth() + 1, obj.getFullYear()].join(' / ')
+					}
+					return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 				}
 				// Need to escape to prevent injected HTML + JS
 				return obj;
@@ -2239,6 +2368,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;
@@ -2252,16 +2382,16 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 
 							
-							
-							if (value){
+							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 1, sheetRowIndex, stt, labelOpts);
 									setCell(sheet, 2, sheetRowIndex, p, detailOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
+							}
 
-
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -2284,6 +2414,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;
@@ -2324,7 +2455,8 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							if (subProps instanceof Array){
 								for(let j = 0; j < subProps.length; j++){
 									let sp = subProps[j];
-									if (display(flatOI[sp]) && (sp in printedProperties)){
+									// TODO 1212 CHECK PRINT OR NOT
+									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
 										flagHasRealChildren = true;
 										break;
 									}
@@ -2351,14 +2483,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							
 							
 							// console.log(p + ' : ' + value)
-							if (value){
-
+							if (EXPORT_NULL_FIELD || value) {
 								if (printAll || (prop in printedProperties)){
 									setCell(sheet, 2, sheetRowIndex, p, detailItalicOpts);
 									setCell(sheet, 3, sheetRowIndex, value, detailOpts);
 									sheetRowIndex++;
 								}
-
+							}
+							if (value){
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.moneyPropFilled++;
 									statistics.moneyPropFilledStr += ' ' + prop;
@@ -2753,13 +2885,14 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					// 		console.log(e);
 					// 	}
 					// });
+					
 					RESOLVE({
 						status: 'success',
 						absoluteFilePath: {
 							xlsx: path.join(__dirname, tmpFileName)
 						} ,
 						outputFileName: {
-							xlsx: outputFileName
+							xlsx: encodeURIComponent(outputFileName)
 						}
 					})
 				}
@@ -2817,8 +2950,8 @@ var exportZipPromise = (objectInstance, options, extension) => {
 			}
 			let r = result;
 			console.log(r);
-			fs.renameSync(r.absoluteFilePath.docx, path.join(__dirname, 'tmp', tmpFolderName, r.outputFileName.docx));
-			fs.renameSync(r.absoluteFilePath.pdf, path.join(__dirname, 'tmp', tmpFolderName, r.outputFileName.pdf));
+			fs.renameSync(r.absoluteFilePath.docx, path.join(__dirname, 'tmp', tmpFolderName, decodeURIComponent(r.outputFileName.docx)));
+			fs.renameSync(r.absoluteFilePath.pdf, path.join(__dirname, 'tmp', tmpFolderName, decodeURIComponent(r.outputFileName.pdf)));
 			
 			result = await (exportXLSXPromise(objectInstance, options, 'xlsx'));
 			// console.log(result);
@@ -2829,7 +2962,7 @@ var exportZipPromise = (objectInstance, options, extension) => {
 				})
 			}
 			let fileName = result.outputFileName.xlsx;
-			fs.renameSync(result.absoluteFilePath.xlsx, path.join(__dirname, 'tmp', tmpFolderName, result.outputFileName.xlsx));
+			fs.renameSync(result.absoluteFilePath.xlsx, path.join(__dirname, 'tmp', tmpFolderName, decodeURIComponent(result.outputFileName.xlsx)));
 			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 			// console.log('here process flatOI ' + Object.keys(flatOI).length);
 			for(let i in flatOI){
@@ -2875,13 +3008,14 @@ function exportZip (objectInstance, options, res, extension) {
 
 			// wrapperName có prefix 'PCSDL_' là để client download file cho tiện. Xem app/service.js
 
-			console.log(absoluteFolderPath);
+			
 			fs.mkdirSync(path.join(__dirname, 'tmp', wrapperName));
 			let exec = require('child_process').exec;
-			let fileName = result.fileName;
+			let fileName = decodeURIComponent(result.fileName);
+
 			fs.renameSync(absoluteFolderPath, path.join(__dirname, 'tmp', wrapperName, fileName));
 			cmd = 'cd "' + path.join(__dirname, 'tmp') + '" && zip -r "' + wrapperName + '.zip" "' + wrapperName + '"';
-			console.log(cmd);
+			
 			result = await (new Promise((resolve, reject) => {
 				exec(cmd, function (err, stdout, stderr) {
 					if (err){

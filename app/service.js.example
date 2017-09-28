@@ -17,7 +17,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		stopSpinner: stopSpinner,
 		todoRef: todoRef,
 		getRestrict: getRestrict,
-		arrAuto: [	
+		arrAuto: [
 			'tenDongNghia',
 			'tenTheoBaoTang',
 			'tenVietNam',
@@ -33,7 +33,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			'ho',
 			'phanHo',
 			'toc',
-			'loai', 
 			'duoiLoai', 
 			'coQuanThuMau', 'thon',
 			'coQuanToChucGiamDinh',
@@ -96,6 +95,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			progressBar.innerHTML = '0 / ' + totalFile;
 			progressBar.setAttribute('aria-valuenow', 0);
 			$(progressBarContainer).fadeIn();
+			$('#circle-progress').fadeIn();
 		} else{
 
 			var modalInstance = $uibModal.open({
@@ -117,9 +117,35 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		function download(index, fields_form) {
 			if (index >= totalFile){
 				$(progressBarContainer).fadeOut(1000);
+				$('#circle-progress').fadeOut(1000);
 			}
 			else {
+				$('#circle-progress').circleProgress({
+			    value: 0,
+			    size: 80,
+			    fill: {
+			      gradient: ["green"]
+			    },
+			    animation: false
+			  });
 				var xhr = new XMLHttpRequest();
+				// var xhr = $.ajaxSettings.xhr();
+				xhr.onprogress = function (e) {
+					// console.log('on download progress');
+					// console.log(e);
+          // For downloads
+          if (e.lengthComputable) {
+ //             console.log((e.loaded / e.total *100|0)+"%");
+              $('#circle-progress').circleProgress('value', e.loaded / e.total)
+          }
+        };
+        xhr.upload.onprogress = function (e) {
+        	// console.log('on upload progress');
+          // For uploads
+          if (e.lengthComputable) {
+              //console.log((e.loaded / e.total *100|0)+"%");
+          }
+        };
 				if (fields_form != "") {
 					xhr.open('POST', urls[index], true);
 					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -134,8 +160,8 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 				xhr.onreadystatechange = function () {
 					if ((xhr.readyState == 4) && (xhr.status == 200)){
-						// console.log(xhr);
 						var disposition = xhr.getResponseHeader('Content-Disposition');
+						disposition = decodeURIComponent(disposition);
 						var fields = disposition.split([';']);
 						var fileNameIndex = -1;
 						fields.map(function (element, index) {
@@ -144,7 +170,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								fileNameIndex = index;
 							}
 						})
-						var fileName = '';
 						if (fileNameIndex == -1){
 							for(var i = 0; i < fields.length; i++){
 								if (fields[i].indexOf('filename=') >= 0){
@@ -152,6 +177,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 								}
 							}
 						}
+						var fileName = '';
 						if (fileNameIndex == -1){
 							fileName = 'PCSDL.' + id;
 						}
@@ -159,6 +185,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							fileName = fields[fileNameIndex].substring(fields[fileNameIndex].indexOf('PCSDL'));
 							fileName = decodeURIComponent(fileName);
 						}
+						fileName = fileName.replace(/[^a-zA-Z]+$/g, '');
 						var type = xhr.getResponseHeader('Content-Type');
 						// console.log(type);
 						var blob = new Blob([xhr.response], {type: type});
@@ -484,6 +511,8 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 	function initDatePicker(_scope) {
 		setTimeout(function () {
+			const ORIGIN_TIME = new Date('1970/1/1');
+			const NULL_TIMES = [ORIGIN_TIME.getTime(), 0];
 			if (_scope){
 				
 				// Edit Form
@@ -494,7 +523,17 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 							// console.log(name);
 							if (_scope[name]){
 								var date = new Date(_scope[name]);
-								_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								if (NULL_TIMES.indexOf(date.getTime()) >= 0) {
+									return _scope[name] = '';
+								}
+								var h = date.getHours();
+								if (h == 2) {
+									_scope[name] = date.getFullYear();
+								} else if (h == 1) {
+									_scope[name] = (date.getMonth() + 1) + '/' + date.getFullYear();
+								} else {
+									_scope[name] = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+								}
 							}
 						}
 					}

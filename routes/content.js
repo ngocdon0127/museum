@@ -81,6 +81,56 @@ router.get('/instant-upload', (req, res) => {
 router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) => {
 	console.log(req.files);
 	console.log(req.body);
+	let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
+	let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;
+	if (!(req.body.field in PROP_FIELDS_OBJ)) {
+		return res.json({
+			status: 'success',
+			field: req.body.field,
+			randomStr: req.body.randomStr,
+			files: [],
+			savedFiles: [],
+			id: req.body.id,
+			form: req.body.form,
+			warning: 'Invalid field'
+		})
+	}
+
+	let invalidFiles = [];
+
+	if ('regex' in PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]]) {
+		for (let i = 0; i < req.files.tmpfiles.length; i++) {
+			let file = req.files.tmpfiles[i];
+			var regex = new RegExp(PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].regex);
+			if (!(regex.test(file.originalname))){
+
+				// Opt1: Xóa hết tất cả các file vừa tải lên nếu có 1 file sai định dạng,
+				//       sau đó thông báo lỗi xuống FE
+				// 
+				// for (let file of req.files.tmpfiles) {
+				// 	try {
+				// 		fsE.removeSync(path.join(ROOT, file.path))
+				// 	} catch (e) {
+				// 		console.log(e);
+				// 	}
+				// }
+				// 
+				// Opt2: Tự động xóa các file không đúng định dạng, coi như ko có gì xảy ra
+				// 
+				try {
+					fsE.removeSync(path.join(ROOT, file.path))
+					invalidFiles.push(file.originalname);
+				} catch (e) {
+					console.log(e);
+				} finally {
+					req.files.tmpfiles.splice(i, 1);
+					i--;
+				}
+			}
+		}
+	}
+
+	
 	 /* { fieldname: 'tmpfiles',
        originalname: '851575_126362140881916_1086262136_n.png',
        encoding: '7bit',
@@ -128,8 +178,6 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 		let model = models[req.body.form];
 		model.findById(req.body.id, (err, objectInstance) => {
 			if (!err && objectInstance) {
-				let PROP_FIELDS_OBJ = global.myCustomVars.models[req.body.form].PROP_FIELDS_OBJ;
-				let PROP_FIELDS = global.myCustomVars.models[req.body.form].PROP_FIELDS;
 				let UPLOAD_DESTINATION = global.myCustomVars.models[req.body.form].UPLOAD_DESTINATION;
 				let objectChild = global.myCustomVars.objectChild;
 				let arr = []
@@ -153,7 +201,8 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 				files: files,
 				savedFiles: savedFiles,
 				id: req.body.id,
-				form: req.body.form
+				form: req.body.form,
+				warning: (invalidFiles.length > 0) ? ('Các file không đúng định dạng đã tự được loại bỏ: ' + invalidFiles.join(', ')) : ''
 			})
 		})
 	} else {
@@ -164,7 +213,8 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 			files: files,
 			savedFiles: savedFiles,
 			id: req.body.id,
-			form: req.body.form
+			form: req.body.form,
+			warning: (invalidFiles.length > 0) ? ('Các file không đúng định dạng đã tự được loại bỏ: ' + invalidFiles.join(', ')) : ''
 		})
 	}
 	// return res.json({

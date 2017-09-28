@@ -97,7 +97,7 @@ function saveData(id, data) {
     }
 }
 
-app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval) {
+app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval, $timeout) {
 
 
     // Sinh key cho tu dong upload
@@ -138,29 +138,21 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             console.log(res_tmp);
-            setTimeout(function () {
-                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.vido_do = parseInt(coor[1].trim());
-                    $scope.vido_phut = parseInt(coor[2].trim());
-                    $scope.vido_giay = parseInt(coor[3].trim());
-                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.kinhdo_do = parseInt(coor[1].trim());
-                    $scope.kinhdo_phut = parseInt(coor[2].trim());
-                    $scope.kinhdo_giay = parseInt(coor[3].trim());
-                    document.getElementById("vitri-dms").checked = true;
-                    $scope.showCoor = true;
-                } else {
-                    document.getElementById("vitri-dd").checked = true;
-                    $scope.showCoor = false;
-                }
-                if ($scope.data.fDiaDiemThuMau == "bien") {
-                    document.getElementById("trenBien").checked = true;
-                } else {
-                    document.getElementById("datLien").checked = true;
-                }
-                // }
-            }, 500);
+            $timeout(function () {
+            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.vido_do = parseInt(coor[1].trim());
+                $scope.vido_phut = parseInt(coor[2].trim());
+                $scope.vido_giay = parseInt(coor[3].trim());
+                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.kinhdo_do = parseInt(coor[1].trim());
+                $scope.kinhdo_phut = parseInt(coor[2].trim());
+                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.fViTriToaDo = 'dms';
+            } else {
+                $scope.data.fViTriToaDo = 'dd';
+            }
+        }, 500);
             $scope.$apply();
         })
     }
@@ -170,7 +162,6 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
     }
 
     //auto complete
-
     var arrAuto = AuthService.arrAuto;
 
     $http.get(AuthService.hostName + '/content/dong-vat/auto').then(function (res) {
@@ -196,22 +187,14 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
         // }
     }
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
 
     $scope.dms = function () {
         $scope.data.viDo = "";
         $scope.data.kinhDo = "";
-        $scope.showCoor = true;
     }
     $scope.dd = function () {
         $scope.data.viDo = ""
         $scope.data.kinhDo = ""
-        $scope.showCoor = false
     }
 
     saveData = $interval(function () {
@@ -226,7 +209,7 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
     }
 });
 
-app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $interval) {
+app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $interval, $timeout) {
 
     $http.get('/app/database/tipsveg.json').then(function (res) {
         $scope.tooltips = res.data;
@@ -274,29 +257,21 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             console.log(res_tmp);
-            setTimeout(function () {
-                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.vido_do = parseInt(coor[1].trim());
-                    $scope.vido_phut = parseInt(coor[2].trim());
-                    $scope.vido_giay = parseInt(coor[3].trim());
-                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.kinhdo_do = parseInt(coor[1].trim());
-                    $scope.kinhdo_phut = parseInt(coor[2].trim());
-                    $scope.kinhdo_giay = parseInt(coor[3].trim());
-                    document.getElementById("vitri-dms").checked = true;
-                    $scope.showCoor = true;
-                } else {
-                    document.getElementById("vitri-dd").checked = true;
-                    $scope.showCoor = false;
-                }
-                if ($scope.data.fDiaDiemThuMau == "bien") {
-                    document.getElementById("trenBien").checked = true;
-                } else {
-                    document.getElementById("datLien").checked = true;
-                }
-                // }
-            }, 500);
+            $timeout(function () {
+            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.vido_do = parseInt(coor[1].trim());
+                $scope.vido_phut = parseInt(coor[2].trim());
+                $scope.vido_giay = parseInt(coor[3].trim());
+                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.kinhdo_do = parseInt(coor[1].trim());
+                $scope.kinhdo_phut = parseInt(coor[2].trim());
+                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.fViTriToaDo = 'dms';
+            } else {
+                $scope.data.fViTriToaDo = 'dd';
+            }
+        }, 500);
             $scope.$apply();
         })
     }
@@ -332,12 +307,10 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     $scope.dms = function () {
         $scope.data.viDo = "";
         $scope.data.kinhDo = "";
-        $scope.showCoor = true;
     }
     $scope.dd = function () {
         $scope.data.viDo = ""
         $scope.data.kinhDo = ""
-        $scope.showCoor = false
     }
 
     saveData = $interval(function () {
@@ -352,7 +325,7 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     }
 });
 
-app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $interval) {
+app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $interval, $timeout) {
 
     $http.get('/app/database/tipsgeo.json').then(function (res) {
         $scope.tooltips = res.data;
@@ -379,7 +352,6 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
     // render flexdatalist
     AuthService.renderFlexdatalist();
 
-
     // DatePicker
     AuthService.initDatePicker(null, null);
 
@@ -392,29 +364,21 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             console.log(res_tmp);
-            setTimeout(function () {
-                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.vido_do = parseInt(coor[1].trim());
-                    $scope.vido_phut = parseInt(coor[2].trim());
-                    $scope.vido_giay = parseInt(coor[3].trim());
-                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.kinhdo_do = parseInt(coor[1].trim());
-                    $scope.kinhdo_phut = parseInt(coor[2].trim());
-                    $scope.kinhdo_giay = parseInt(coor[3].trim());
-                    document.getElementById("vitri-dms").checked = true;
-                    $scope.showCoor = true;
-                } else {
-                    document.getElementById("vitri-dd").checked = true;
-                    $scope.showCoor = false;
-                }
-                if ($scope.data.fDiaDiemThuMau == "bien") {
-                    document.getElementById("trenBien").checked = true;
-                } else {
-                    document.getElementById("datLien").checked = true;
-                }
-                // }
-            }, 500);
+            $timeout(function () {
+            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.vido_do = parseInt(coor[1].trim());
+                $scope.vido_phut = parseInt(coor[2].trim());
+                $scope.vido_giay = parseInt(coor[3].trim());
+                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.kinhdo_do = parseInt(coor[1].trim());
+                $scope.kinhdo_phut = parseInt(coor[2].trim());
+                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.fViTriToaDo = 'dms';
+            } else {
+                $scope.data.fViTriToaDo = 'dd';
+            }
+        }, 500);
             $scope.$apply();
         })
     }
@@ -445,22 +409,13 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
         // }
     }
 
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
-
     $scope.dms = function () {
         $scope.data.viDo = "";
         $scope.data.kinhDo = "";
-        $scope.showCoor = true;
     }
     $scope.dd = function () {
         $scope.data.viDo = ""
-        $scope.data.kinhDo = ""
-        $scope.showCoor = false
+        $scope.data.kinhDo = "";
     }
     saveData = $interval(function () {
         localStorage.setItem("dataGeo", JSON.stringify($scope.data))
@@ -474,7 +429,7 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
     }
 });
 
-app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) {
+app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, $timeout) {
 
     $http.get('/app/database/tipslan.json').then(function (res) {
         $scope.tooltips = res.data;
@@ -513,29 +468,21 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) 
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             console.log(res_tmp);
-            setTimeout(function () {
-                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.vido_do = parseInt(coor[1].trim());
-                    $scope.vido_phut = parseInt(coor[2].trim());
-                    $scope.vido_giay = parseInt(coor[3].trim());
-                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.kinhdo_do = parseInt(coor[1].trim());
-                    $scope.kinhdo_phut = parseInt(coor[2].trim());
-                    $scope.kinhdo_giay = parseInt(coor[3].trim());
-                    document.getElementById("vitri-dms").checked = true;
-                    $scope.showCoor = true;
-                } else {
-                    document.getElementById("vitri-dd").checked = true;
-                    $scope.showCoor = false;
-                }
-                if ($scope.data.fDiaDiemThuMau == "bien") {
-                    document.getElementById("trenBien").checked = true;
-                } else {
-                    document.getElementById("datLien").checked = true;
-                }
-                // }
-            }, 500);
+            $timeout(function () {
+            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.vido_do = parseInt(coor[1].trim());
+                $scope.vido_phut = parseInt(coor[2].trim());
+                $scope.vido_giay = parseInt(coor[3].trim());
+                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.kinhdo_do = parseInt(coor[1].trim());
+                $scope.kinhdo_phut = parseInt(coor[2].trim());
+                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.fViTriToaDo = 'dms';
+            } else {
+                $scope.data.fViTriToaDo = 'dd';
+            }
+        }, 500);
             $scope.$apply();
         })
     }
@@ -566,22 +513,14 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) 
         // }
     }
 
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
 
     $scope.dms = function () {
         $scope.data.viDo = "";
         $scope.data.kinhDo = "";
-        $scope.showCoor = true;
     }
     $scope.dd = function () {
         $scope.data.viDo = ""
         $scope.data.kinhDo = ""
-        $scope.showCoor = false
     }
 
     saveData = $interval(function () {
@@ -596,7 +535,7 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval) 
     }
 });
 
-app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, $interval) {
+app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, $interval, $timeout) {
 
     $http.get('/app/database/tipspal.json').then(function (res) {
         $scope.tooltips = res.data;
@@ -613,29 +552,21 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             console.log(res_tmp);
-            setTimeout(function () {
-                if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                    var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.vido_do = parseInt(coor[1].trim());
-                    $scope.vido_phut = parseInt(coor[2].trim());
-                    $scope.vido_giay = parseInt(coor[3].trim());
-                    var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                    $scope.kinhdo_do = parseInt(coor[1].trim());
-                    $scope.kinhdo_phut = parseInt(coor[2].trim());
-                    $scope.kinhdo_giay = parseInt(coor[3].trim());
-                    document.getElementById("vitri-dms").checked = true;
-                    $scope.showCoor = true;
-                } else {
-                    document.getElementById("vitri-dd").checked = true;
-                    $scope.showCoor = false;
-                }
-                if ($scope.data.fDiaDiemThuMau == "bien") {
-                    document.getElementById("trenBien").checked = true;
-                } else {
-                    document.getElementById("datLien").checked = true;
-                }
-                // }
-            }, 500);
+            $timeout(function () {
+            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.vido_do = parseInt(coor[1].trim());
+                $scope.vido_phut = parseInt(coor[2].trim());
+                $scope.vido_giay = parseInt(coor[3].trim());
+                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
+                $scope.kinhdo_do = parseInt(coor[1].trim());
+                $scope.kinhdo_phut = parseInt(coor[2].trim());
+                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.fViTriToaDo = 'dms';
+            } else {
+                $scope.data.fViTriToaDo = 'dd';
+            }
+        }, 500);
             $scope.$apply();
         })
     }
@@ -688,22 +619,13 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
         // }
     }
 
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
-
     $scope.dms = function () {
         $scope.data.viDo = "";
         $scope.data.kinhDo = "";
-        $scope.showCoor = true;
     }
     $scope.dd = function () {
         $scope.data.viDo = ""
         $scope.data.kinhDo = ""
-        $scope.showCoor = false
     }
     saveData = $interval(function () {
         localStorage.setItem("dataPal", JSON.stringify($scope.data))

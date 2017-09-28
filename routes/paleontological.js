@@ -37,6 +37,10 @@ PROP_FIELDS.map(function (element, index) {
 	LABEL[element.name] = element.label;
 });
 
+global.myCustomVars.models['co-sinh'].PROP_FIELDS = PROP_FIELDS;
+global.myCustomVars.models['co-sinh'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
+global.myCustomVars.models['co-sinh'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
+
 {
 	var index = 0;
 	while (true){
@@ -64,6 +68,8 @@ var objectModelNames       = 'paleontologicals';
 var objectModelIdParamName = 'id';
 var objectBaseURL          = '/co-sinh';
 var objectModelLabel       = 'cổ sinh';
+
+const ROOT = path.join(__dirname, '../');
 
 LABEL.objectModelLabel = objectModelLabel;
 
@@ -212,7 +218,7 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 	objectModelIdParamName: objectModelIdParamName,
 	ObjectModel: ObjectModel
 }))
-var deleteFileHander = global.myCustomVars.deleteFileHander; // Delet file in a field
+var deleteFileHander = global.myCustomVars.deleteFileHander; // Delete file in a field
 router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteFileHander({
 	objectModelIdParamName: objectModelIdParamName,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
@@ -222,4 +228,9 @@ router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'dele
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	form: 'co-sinh'
 }))
+
+router.get(objectBaseURL + '/export/darwin', (req, res) => {
+	require(path.join(ROOT, 'utils/makeDwCAFile/makeDCAFile'))(res, ObjectModel.modelName)
+})
+
 }

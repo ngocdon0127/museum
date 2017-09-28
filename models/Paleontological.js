@@ -198,5 +198,10 @@ module.exports = function (mongoose) {
 	};
 	var paleontologicalSchema = mongoose.Schema(schemaPrototype);
 	var Paleontological = mongoose.model("Paleontological", paleontologicalSchema);
+
+	global.myCustomVars.models.Paleontological = {
+		mongooseModel: Paleontological
+	}
+	global.myCustomVars.models['co-sinh'] = global.myCustomVars.models.Paleontological;
 	return Paleontological;
 }

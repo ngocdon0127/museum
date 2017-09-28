@@ -194,5 +194,9 @@ module.exports = function (mongoose) {
 	var geologicalSchema = mongoose.Schema(schemaPrototype);
 
 	var Geological = mongoose.model("Geological", geologicalSchema);
+	global.myCustomVars.models.Geological = {
+		mongooseModel: Geological
+	}
+	global.myCustomVars.models['dia-chat'] = global.myCustomVars.models.Geological;
 	return Geological;
 }

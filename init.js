@@ -1207,6 +1207,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;
@@ -1305,6 +1306,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;
@@ -2365,6 +2367,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;
@@ -2410,6 +2413,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
 									statistics.totalMoneyProp++;
 									statistics.totalMoneyPropStr += ' ' + prop;
+									p += ' (*) '
 								}
 								else {
 									statistics.totalNonMoneyProp++;

@@ -501,7 +501,7 @@
 		"schemaProp": "duLieuThuMau.diaDiemThuMau",
 		"label": "Tỉnh Khác",
 		"required": false,
-		"money": true,
+		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
 		"autoCompletion": false

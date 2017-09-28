@@ -205,5 +205,10 @@ module.exports = function (mongoose) {
 	};
 	var vegetableSchema = mongoose.Schema(schemaPrototype);
 	var Vegetable = mongoose.model("Vegetable", vegetableSchema);
+
+	global.myCustomVars.models.Vegetable = {
+		mongooseModel: Vegetable
+	}
+	global.myCustomVars.models['thuc-vat'] = global.myCustomVars.models.Vegetable;
 	return Vegetable;
 }

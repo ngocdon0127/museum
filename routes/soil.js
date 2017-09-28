@@ -40,6 +40,10 @@ PROP_FIELDS.map(function (element, index) {
 	LABEL[element.name] = element.label;
 });
 
+global.myCustomVars.models['tho-nhuong'].PROP_FIELDS = PROP_FIELDS;
+global.myCustomVars.models['tho-nhuong'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
+global.myCustomVars.models['tho-nhuong'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
+
 {
 	var index = 0;
 	while (true){

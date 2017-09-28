@@ -37,6 +37,10 @@ PROP_FIELDS.map(function (element, index) {
 	LABEL[element.name] = element.label;
 });
 
+global.myCustomVars.models['co-sinh'].PROP_FIELDS = PROP_FIELDS;
+global.myCustomVars.models['co-sinh'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
+global.myCustomVars.models['co-sinh'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
+
 {
 	var index = 0;
 	while (true){

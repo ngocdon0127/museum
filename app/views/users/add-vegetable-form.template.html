@@ -207,7 +207,7 @@
 						<span>{{"veg.chieuRong" | translate }}: </span><br>
 						<span>
 							<input type="text" title="{{tooltips['chieuRong']}}" name="chieuRong" ng-model="data.chieuRong" class="datatext" id="datatext">
-							<select class="contentselect" ng-model="data.donVi_chieuRong" ng-model="data.chieuCao" name="donVi_chieuRong">
+							<select class="contentselect" ng-model="data.donVi_chieuRong" name="donVi_chieuRong">
 								<option value="mm">mm</option>
 								<option value="cm">cm</option>
 								<option value="m">m</option>
@@ -262,7 +262,7 @@
 					<textarea type="text" ng-model="data.thongTinKhac3Str" title="{{tooltips['thongTinKhac3Str']}}" name="thongTinKhac3Str" id="thongTinKhac3Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-6">
-					<input type="file"   max-file-size="100" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
+					<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
 					<label for="thongTinKhac3File" title="{{tooltips['thongTinKhac3File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
 			</div>

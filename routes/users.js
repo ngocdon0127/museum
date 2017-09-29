@@ -144,7 +144,13 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 			
 			var data = aclRules[req.user.id];
 			for(var i = 0; i < data.roles.length; i++){
-				var allows = roles[data.roles[i]].allows;
+				let allows = '';
+				try {
+					allows = roles[data.roles[i]].allows;
+				} catch (e) {
+					console.log(e);
+					continue;
+				}
 				for(var j = 0; j < allows.length; j++){
 					if (allows[j].hasOwnProperty('actions') && allows[j].hasOwnProperty('resourceId')){
 						let resourceId = allows[j].resourceId;

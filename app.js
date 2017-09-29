@@ -42,7 +42,7 @@ require('./models/SharedData.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));
 
 
-require('./init');
+require('./bootstrap');
 
 /**
  * Use routers

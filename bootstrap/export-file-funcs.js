@@ -924,10 +924,10 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				<table id='maintable'>
 					<tbody>
 						<tr>
-							<th class="td"><p class="ct tnr lb">STT</p></th>
-							<th class="td"><p class="ct tnr lb">Trường dữ liệu</p></th>
-							<th class="td"><p class="ct tnr lb">Nội dung</p></th>
-							<th class="td"><p class="ct tnr lb">Ghi chú</p></th>
+							<th class="td-stt"><p class="ct tnr lb">STT</p></th>
+							<th class="td-field"><p class="ct tnr lb">Trường dữ liệu</p></th>
+							<th class="td-value"><p class="ct tnr lb">Nội dung</p></th>
+							<th class="td-note"><p class="ct tnr lb">Ghi chú</p></th>
 						</tr>
 			`
 			
@@ -2084,6 +2084,8 @@ var exportZipPromise = (objectInstance, options, extension) => {
 			fs.mkdirSync(absoluteFolderPath);
 			// console.log(result);
 			// return res.end('ok')
+			
+			// Export DOCX + PDF
 			let result = await (exportFilePromise(objectInstance, options, 'pdf'));
 			// console.log(result);
 			if (result.status != 'success'){
@@ -2092,27 +2094,31 @@ var exportZipPromise = (objectInstance, options, extension) => {
 					error: result.error
 				})
 			}
+			let fileName = result.outputFileName.docx;
 			let r = result;
 			console.log(r);
 			fs.renameSync(r.absoluteFilePath.docx, path.join(ROOT, 'tmp', tmpFolderName, decodeURIComponent(r.outputFileName.docx)));
 			fs.renameSync(r.absoluteFilePath.pdf, path.join(ROOT, 'tmp', tmpFolderName, decodeURIComponent(r.outputFileName.pdf)));
-			
-			result = await (exportXLSXPromise(objectInstance, options, 'xlsx'));
-			// console.log(result);
-			if (result.status != 'success'){
-				return RESOLVE({
-					status: 'error',
-					error: result.error
-				})
-			}
-			let fileName = result.outputFileName.xlsx;
-			fs.renameSync(result.absoluteFilePath.xlsx, path.join(ROOT, 'tmp', tmpFolderName, decodeURIComponent(result.outputFileName.xlsx)));
+			// End of Export DOCX, PDF
+
+			// Export XLSX
+			// result = await (exportXLSXPromise(objectInstance, options, 'xlsx'));
+			// // console.log(result);
+			// if (result.status != 'success'){
+			// 	return RESOLVE({
+			// 		status: 'error',
+			// 		error: result.error
+			// 	})
+			// }
+			// fs.renameSync(result.absoluteFilePath.xlsx, path.join(ROOT, 'tmp', tmpFolderName, decodeURIComponent(result.outputFileName.xlsx)));
+			// End of Export XLSX
+
 			let flatOI = flatObjectModel(PROP_FIELDS, objectInstance);
 			// console.log('here process flatOI ' + Object.keys(flatOI).length);
 			for(let i in flatOI){
 				let arrFiles = flatOI[i];
 				if (arrFiles instanceof Array){
-					console.log('processing files ' + arrFiles);
+					// console.log('processing files ' + arrFiles);
 					arrFiles.map((file) => {
 						try {
 							fsE.copySync(

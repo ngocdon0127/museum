@@ -13,6 +13,16 @@ const nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport(mailconfig);
 
+function verifyRecaptcha(key) {
+	return rp({
+		url: 'https://www.google.com/recaptcha/api/siteverify',
+		method: 'POST',
+		form: { secret: recaptcha.secretkey, response : key },
+		json : true
+	})
+}
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -103,12 +113,7 @@ router.get('/forgot-password', function(req, res){
 });
 
 router.post('/forgot-password', function(req, res){
-	rp({
-		url: 'https://www.google.com/recaptcha/api/siteverify',
-		method: 'POST',
-		form: { secret: recaptcha.secretkey, response : req.body['g-recaptcha-response'] },
-		json : true
-	})
+	verifyRecaptcha(req.body['g-recaptcha-response'])
 	.then((body) => {
 		if(body.success)
 			return User.findOne({'username': req.body.email}).exec();
@@ -231,14 +236,31 @@ router.get('/logout', function (req, res) {
 router.get("/signup", function (req, res) {
 	// Disable signup
 	// return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
-	res.render("signup", {message: req.flash("signupMessage"), title: "Register", user: req.user, path: '/auth/signup'})
+	res.render("signup", {
+		message: req.flash("signupMessage"), 
+		title: "Register", 
+		user: req.user, 
+		path: '/auth/signup', 
+		sitekey : recaptcha.sitekey,
+	})
 });
 
 // router.post('/signup', function (req, res) {
 // 	return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
 // })
 
-router.post("/signup", passport.authenticate('local-signup', {
+router.post("/signup", function(req, res, next){
+	verifyRecaptcha(req.body['g-recaptcha-response'])
+	.then((body)=>{
+		console.log("_________________");
+		console.log(body);
+		if(body.success){
+			return next();
+		} else {
+			res.send("Opps! You are robot!?");
+		}
+	})
+}, passport.authenticate('local-signup', {
 	successRedirect: '/auth/login',
 	failureRedirect: 'signup',
 	failureFlash: true

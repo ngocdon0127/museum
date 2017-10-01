@@ -102,10 +102,21 @@ function instantUpload(input, formData) {
 		processData: false,
 		data: data,
 		success: function (res) {
-			// console.log(res);
+			console.log(res);
 			input.disabled = false;
 			if (res.status == 'success') {
 				createTags(res)
+				if (res.warning) {
+					$.notify({
+						message: res.warning
+					},{
+						type: 'danger',
+						animate: {
+							enter: 'animated fadeInDown',
+							exit: 'animated fadeOutUp'
+						}
+					});
+				}
 			}
 		},
 		error: function (err) {
@@ -121,7 +132,7 @@ function deleteTmpFile(file, url) {
 		method: 'DELETE',
 		data: file,
 		success: function (res) {
-			// console.log(res);
+			console.log(res);
 			if (res.status == 'success') {
 				createTags(res)
 			}

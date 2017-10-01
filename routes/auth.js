@@ -252,8 +252,6 @@ router.get("/signup", function (req, res) {
 router.post("/signup", function(req, res, next){
 	verifyRecaptcha(req.body['g-recaptcha-response'])
 	.then((body)=>{
-		console.log("_________________");
-		console.log(body);
 		if(body.success){
 			return next();
 		} else {

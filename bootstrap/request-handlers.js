@@ -25,6 +25,8 @@ let STR_AUTOCOMPLETION_SEPERATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPERA
 let ORIGIN_TIME                  = global.myCustomVars.ORIGIN_TIME;
 let NULL_TIMES                   = global.myCustomVars.NULL_TIMES;
 
+let Log                         = mongoose.model('Log');
+
 var getFieldsHandler = (options) => {
 	var LABEL = options.LABEL;
 	var PROP_FIELDS = options.PROP_FIELDS;

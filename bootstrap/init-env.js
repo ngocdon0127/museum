@@ -706,6 +706,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		_PROP_FIELDS.map(function (field) {
 			if (field.type == 'Unit'){
 				// TODO unit
+				if (field.name in req.body){
+					let value_ = req.body[field.name]
+					// console.log(value_);
+					if ((value_.indexOf('undefined') >= 0) || (value_.indexOf('string') >= 0) || (value_.indexOf('?') >= 0)){
+						// console.log('delete now: ' + field.name);
+						req.body[field.name] = ''
+					}
+				}
 			}
 		})
 

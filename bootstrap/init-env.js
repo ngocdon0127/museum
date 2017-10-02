@@ -868,12 +868,12 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				}
 				newLog.userFullName = req.user.fullname;
 				newLog.save(err => {
-					console.log('ERR: Save log failed. Try again');
-					console.log(err);
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
 					newLog.save(err_ => {
-						console.log('ERR: Save log failed');
-						console.log(err_);
-						console.log(newLog);
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(newLog);
 					})
 				});
 				res.status(200).json({

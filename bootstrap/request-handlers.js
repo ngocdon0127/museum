@@ -594,12 +594,12 @@ var chownHandler = function (options) {
 				}
 				newLog.obj2 = JSON.parse(JSON.stringify(oi));
 				newLog.save(err => {
-					console.log('ERR: Save log failed. Try again');
-					console.log(err);
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
 					newLog.save(err_ => {
-						console.log('ERR: Save log failed');
-						console.log(err_);
-						console.log(newLog);
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(newLog);
 					})
 				});
 				return responseSuccess(res, [], [])
@@ -754,12 +754,12 @@ var deleteHandler = function (options) {
 				newLog.obj1 = objectInstance;
 				newLog.time = date;
 				newLog.save(err => {
-					console.log('ERR: Save log failed. Try again');
-					console.log(err);
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
 					newLog.save(err_ => {
-						console.log('ERR: Save log failed');
-						console.log(err_);
-						console.log(newLog);
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(newLog);
 					})
 				});
 				return responseSuccess(res, ['status'], ['success']);

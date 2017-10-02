@@ -236,12 +236,12 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 									}
 									// console.log('saving log');
 									log.save(err => {
-										console.log('ERR: Save log failed. Try again');
-										console.log(err);
+										console.error('ERR: Save log failed. Try again');
+										console.error(err);
 										log.save(err_ => {
-											console.log('ERR: Save log failed');
-											console.log(err_);
-											console.log(log);
+											console.error('ERR: Save log failed');
+											console.error(err_);
+											console.error(log);
 										})
 									});
 									return responseSuccess(res, [], []);
@@ -382,12 +382,12 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 				}
 				// console.log('saving log');
 				log.save(err => {
-					console.log('ERR: Save log failed. Try again');
-					console.log(err);
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
 					log.save(err_ => {
-						console.log('ERR: Save log failed');
-						console.log(err_);
-						console.log(log);
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(log);
 					})
 				});
 				return responseSuccess(res, [], []);
@@ -495,12 +495,12 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 								}
 								// console.log('saving log');
 								log.save(err => {
-									console.log('ERR: Save log failed. Try again');
-									console.log(err);
+									console.error('ERR: Save log failed. Try again');
+									console.error(err);
 									log.save(err_ => {
-										console.log('ERR: Save log failed');
-										console.log(err_);
-										console.log(log);
+										console.error('ERR: Save log failed');
+										console.error(err_);
+										console.error(log);
 									})
 								});
 								return responseSuccess(res, [], []);
@@ -556,12 +556,12 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 							}
 							// console.log('saving log');
 							log.save(err => {
-								console.log('ERR: Save log failed. Try again');
-								console.log(err);
+								console.error('ERR: Save log failed. Try again');
+								console.error(err);
 								log.save(err_ => {
-									console.log('ERR: Save log failed');
-									console.log(err_);
-									console.log(log);
+									console.error('ERR: Save log failed');
+									console.error(err_);
+									console.error(log);
 								})
 							});
 							return responseSuccess(res, [], []);
@@ -686,12 +686,12 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 							}
 							// console.log('saving log');
 							log.save(err => {
-								console.log('ERR: Save log failed. Try again');
-								console.log(err);
+								console.error('ERR: Save log failed. Try again');
+								console.error(err);
 								log.save(err_ => {
-									console.log('ERR: Save log failed');
-									console.log(err_);
-									console.log(log);
+									console.error('ERR: Save log failed');
+									console.error(err_);
+									console.error(log);
 								})
 							});
 							return responseSuccess(res, [], []);
@@ -764,12 +764,12 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 				}
 				// console.log('saving log');
 				log.save(err => {
-					console.log('ERR: Save log failed. Try again');
-					console.log(err);
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
 					log.save(err_ => {
-						console.log('ERR: Save log failed');
-						console.log(err_);
-						console.log(log);
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(log);
 					})
 				});
 				try {

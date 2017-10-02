@@ -324,6 +324,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		for(let field of specialFields.unitFields){
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
 				req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+				if (req.body[field.fieldName] < 0) {
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [field.fieldName + ' không được nhỏ hơn 0', field.fieldName]);
+				}
 			}
 		}
 		delete specialFields.unitFields;
@@ -429,7 +432,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						}
 						if ('min' in element){
 							if (value.length < element.min){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.min + ' ký tự', element.name]);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.label + ' không được ngắn hơn ' + element.min + ' ký tự', element.name]);
 							}
 						}
 
@@ -466,13 +469,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				case 'Number':
 					if ('min' in element){
 						if (parseFloat(req.body[element.name]) < element.min){
-							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được nhỏ hơn ' + element.min, element.name]);
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.label + ' không được nhỏ hơn ' + element.min, element.name]);
 						}
 					}
 
 					if ('max' in element){
 						if (parseFloat(req.body[element.name]) > element.max){
-							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được lớn hơn ' + element.max, element.name]);
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.label + ' không được lớn hơn ' + element.max, element.name]);
 						}
 					}
 					// console.log('number in ' + element.name);

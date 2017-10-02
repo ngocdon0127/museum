@@ -867,7 +867,15 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					newLog.obj2 = JSON.parse(JSON.stringify(objectInstance));
 				}
 				newLog.userFullName = req.user.fullname;
-				newLog.save();
+				newLog.save(err => {
+					console.log('ERR: Save log failed. Try again');
+					console.log(err);
+					newLog.save(err_ => {
+						console.log('ERR: Save log failed');
+						console.log(err_);
+						console.log(newLog);
+					})
+				});
 				res.status(200).json({
 					status: 'success'
 				});

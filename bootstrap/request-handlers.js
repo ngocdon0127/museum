@@ -593,7 +593,15 @@ var chownHandler = function (options) {
 					return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Có lỗi xảy ra, vui lòng thử lại sau'])
 				}
 				newLog.obj2 = JSON.parse(JSON.stringify(oi));
-				newLog.save();
+				newLog.save(err => {
+					console.log('ERR: Save log failed. Try again');
+					console.log(err);
+					newLog.save(err_ => {
+						console.log('ERR: Save log failed');
+						console.log(err_);
+						console.log(newLog);
+					})
+				});
 				return responseSuccess(res, [], [])
 			})
 		})()
@@ -745,7 +753,15 @@ var deleteHandler = function (options) {
 				newLog.objType = objectModelName;
 				newLog.obj1 = objectInstance;
 				newLog.time = date;
-				newLog.save();
+				newLog.save(err => {
+					console.log('ERR: Save log failed. Try again');
+					console.log(err);
+					newLog.save(err_ => {
+						console.log('ERR: Save log failed');
+						console.log(err_);
+						console.log(newLog);
+					})
+				});
 				return responseSuccess(res, ['status'], ['success']);
 			}
 			else{

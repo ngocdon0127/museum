@@ -102,7 +102,7 @@ function instantUpload(input, formData) {
 		processData: false,
 		data: data,
 		success: function (res) {
-			console.log(res);
+			// console.log(res);
 			input.disabled = false;
 			if (res.status == 'success') {
 				createTags(res)
@@ -132,7 +132,7 @@ function deleteTmpFile(file, url) {
 		method: 'DELETE',
 		data: file,
 		success: function (res) {
-			console.log(res);
+			// console.log(res);
 			if (res.status == 'success') {
 				createTags(res)
 			}

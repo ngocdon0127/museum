@@ -84,6 +84,9 @@ function initDefaultUnits(_scope) {
                     defaultValue: 'l'
 				}
 			]
+            if (!_scope.data) {
+                _scope.data={}
+            }
             donVis.map(function (donVi) {
                 _scope.data[donVi.unitField] = donVi.defaultValue;
             })
@@ -220,8 +223,6 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
-    // default unit
-    initDefaultUnits($scope);
 
     $scope.tab = 1;
 
@@ -233,6 +234,9 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
         return $scope.tab === tab
     };
 
+    // default unit
+    initDefaultUnits($scope);
+    
     // render flexdatalist
     AuthService.renderFlexdatalist()
 
@@ -363,7 +367,7 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            console.log(res_tmp);
+            // console.log(res_tmp);
             $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
@@ -437,9 +441,6 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, 
         console.log(err);
     });
 
-    // default unit
-    initDefaultUnits($scope);
-
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
@@ -452,6 +453,9 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, 
     $scope.isSet = function (tab) {
         return $scope.tab === tab
     };
+
+    // default unit
+    initDefaultUnits($scope);
 
     // render flexdatalist
     AuthService.renderFlexdatalist()
@@ -575,9 +579,6 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
         console.log(e);
     }
 
-    // default unit
-    initDefaultUnits($scope);
-
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
 
@@ -590,6 +591,9 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
     $scope.isSet = function (tab) {
         return $scope.tab === tab
     };
+
+    // default unit
+    initDefaultUnits($scope);
 
     // render flexdatalist
     AuthService.renderFlexdatalist()

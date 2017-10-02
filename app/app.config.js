@@ -191,6 +191,11 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		templateUrl: 'views/guest/test.template.html',
 		controller: 'OfflineCtrl'
 	})
+	.state('leaflet-map', {
+		url: '/map',
+		templateUrl : 'views/map/leaflet-map.html',
+		controller: 'LeafletMapController'
+	})
 	.state('error-page', {
 		url: '/loi-trang',
 		templateUrl: 'views/errors/error.template.html',

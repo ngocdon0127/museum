@@ -106,6 +106,17 @@ function instantUpload(input, formData) {
 			input.disabled = false;
 			if (res.status == 'success') {
 				createTags(res)
+				if (res.warning) {
+					$.notify({
+						message: res.warning
+					},{
+						type: 'danger',
+						animate: {
+							enter: 'animated fadeInDown',
+							exit: 'animated fadeOutUp'
+						}
+					});
+				}
 			}
 		},
 		error: function (err) {

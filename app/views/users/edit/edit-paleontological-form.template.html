@@ -964,6 +964,13 @@
 						<span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong>
 					</label>
 				</div>
+				<ul id="ul_thongTinKhac9File" class="list-group">
+                    <li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac9File" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
+                        <span class="pull-right">
+                            <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac9File', key)"></span>
+                        </span>
+                    </li>
+                </ul>
 			</div>
 		</div>
 	</div>

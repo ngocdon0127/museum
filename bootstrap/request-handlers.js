@@ -1,6 +1,7 @@
 const path                     = require('path');
 const ROOT                     = path.join(__dirname, '../');
 const mongoose                 = require('mongoose');
+const Log 					   = mongoose.model ('Log')
 var async                      = require('asyncawait/async');
 var await                      = require('asyncawait/await');
 let acl                        = global.myCustomVars.acl;

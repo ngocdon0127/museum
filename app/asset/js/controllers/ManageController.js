@@ -1,153 +1,3 @@
-app.controller('AnimalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
-    var url = AuthService.hostName + '/content/dong-vat';
-    $http.get(url).then(function (res) {
-        $scope.data = res.data.animals;
-        $scope.status = res.data.status;
-        $scope.link = 'dong-vat';
-        // setTable();
-    }, function (err) {
-        console.log(err);
-        $scope.status = res.data.status;
-    });
-
-    $scope.selectedAll = false;
-    $scope.selectAll = function () {
-        $scope.selectedAll = !$scope.selectedAll;
-        var arr = document.getElementsByClassName("check-box");
-        for (var i = arr.length - 1; i >= 0; i--) {
-            arr[i].checked = $scope.selectedAll;
-        }
-    }
-
-    $scope.approvePost = function (id, approved) {
-        AuthService.approvePost(id, approved, 'dong-vat')
-    }
-
-    $scope.duplicateFile = function (id, form) {
-        var redirect = {sample: 'animal', link: 'chinh-sua-dong-vat'};
-        AuthService.duplicateFile(id, form, redirect)
-    }
-}]);
-
-app.controller('VegetableManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
-    var url = AuthService.hostName + '/content/thuc-vat';
-    $http.get(url).then(function (res) {
-        $scope.data = res.data.vegetables;
-        $scope.status = res.data.status;
-        $scope.link = 'thuc-vat';
-    }, function (err) {
-        console.log(err);
-        $scope.status = res.data.status;
-    });
-
-    $scope.selectedAll = false;
-    $scope.selectAll = function () {
-        $scope.selectedAll = !$scope.selectedAll;
-        var arr = document.getElementsByClassName("check-box");
-        for (var i = arr.length - 1; i >= 0; i--) {
-            arr[i].checked = $scope.selectedAll;
-        }
-    }
-
-    $scope.duplicateFile = function (id, form) {
-        var redirect = {sample: 'vegetable', link: 'chinh-sua-thuc-vat'};
-        AuthService.duplicateFile(id, form, redirect)
-    }
-
-    $scope.approvePost = function (id, approved) {
-        AuthService.approvePost(id, approved, 'thuc-vat')
-    }
-}]);
-
-app.controller('LandManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
-    var url = AuthService.hostName + '/content/tho-nhuong';
-    $http.get(url).then(function (res) {
-        $scope.data = res.data.soils;
-        $scope.status = res.data.status;
-        $scope.link = 'tho-nhuong';
-    }, function (err) {
-        console.log(err);
-        $scope.status = res.data.status;
-    });
-
-    $scope.selectedAll = false;
-    $scope.selectAll = function () {
-        $scope.selectedAll = !$scope.selectedAll;
-        var arr = document.getElementsByClassName("check-box");
-        for (var i = arr.length - 1; i >= 0; i--) {
-            arr[i].checked = $scope.selectedAll;
-        }
-    }
-
-    $scope.duplicateFile = function (id, form) {
-        var redirect = {sample: 'soil', link: 'chinh-sua-tho-nhuong'};
-        AuthService.duplicateFile(id, form, redirect)
-    }
-
-    $scope.approvePost = function (id, approved) {
-        AuthService.approvePost(id, approved, 'tho-nhuong')
-    }
-}]);
-app.controller('GeologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
-    var url = AuthService.hostName + '/content/dia-chat';
-    $http.get(url).then(function (res) {
-        $scope.data = res.data.geologicals;
-        $scope.status = res.data.status;
-        $scope.link = 'dia-chat';
-    }, function (err) {
-        console.log(err);
-        $scope.status = res.data.status;
-    });
-
-    $scope.selectedAll = false;
-    $scope.selectAll = function () {
-        $scope.selectedAll = !$scope.selectedAll;
-        var arr = document.getElementsByClassName("check-box");
-        for (var i = arr.length - 1; i >= 0; i--) {
-            arr[i].checked = $scope.selectedAll;
-        }
-    }
-
-    $scope.duplicateFile = function (id, form) {
-        var redirect = {sample: 'geological', link: 'chinh-sua-dia-chat'};
-        AuthService.duplicateFile(id, form, redirect)
-    }
-
-    $scope.approvePost = function (id, approved) {
-        AuthService.approvePost(id, approved, 'dia-chat')
-    }
-}]);
-
-app.controller('PaleontologicalManageController', ['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
-    var url = AuthService.hostName + '/content/co-sinh';
-    $http.get(url).then(function (res) {
-        $scope.data = res.data.paleontologicals;
-        $scope.status = res.data.status;
-        $scope.link = 'co-sinh';
-    }, function (err) {
-        console.log(err);
-        $scope.status = res.data.status;
-    });
-
-    $scope.selectedAll = false;
-    $scope.selectAll = function () {
-        $scope.selectedAll = !$scope.selectedAll;
-        var arr = document.getElementsByClassName("check-box");
-        for (var i = arr.length - 1; i >= 0; i--) {
-            arr[i].checked = $scope.selectedAll;
-        }
-    }
-
-    $scope.duplicateFile = function (id, form) {
-        var redirect = {sample: 'paleontological', link: 'chinh-sua-co-sinh'};
-        AuthService.duplicateFile(id, form, redirect)
-    }
-
-    $scope.approvePost = function (id, approved) {
-        AuthService.approvePost(id, approved, 'co-sinh')
-    }
-}]);
-
 app.controller('ModalCtrl', function ($scope, $uibModal, AuthService) {
 
     $scope.showModal = function (id, link) {
@@ -245,3 +95,72 @@ app.controller('ExportFileController', function ($scope, AuthService, $uibModal,
 
     };
 })
+
+// use for all manage
+app.controller('ManageContentController', function ($scope, $http, AuthService, $state) {
+    var url_direct  = $state.current.url;
+    x = url_direct.split('/');
+    $scope.link = x[x.length - 1];
+    var url = AuthService.hostName + '/content/' + $scope.link;
+    var dic = {
+        "dong-vat": "animals",
+        "thuc-vat": "vegetables",
+        "co-sinh": "paleontologicals",
+        "tho-nhuong": "soils",
+        "dia-chat": "geologicals"
+    }
+    // map to params
+    var sample = dic[$scope.link];
+
+    $scope.sortType     = 'name'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
+    $scope.searchData   = '';
+
+    $http.get(url).then(function (res) {
+        $scope.data = res.data[sample];
+        $scope.totalItems = $scope.data.length;
+    }, function (err) {
+        console.log(err);
+    });
+
+    // pagination
+    $scope.viewby = "10"; 
+    
+    $scope.currentPage = 4;
+    $scope.itemsPerPage = $scope.viewby;
+    $scope.maxSize = 5; //Number of pager buttons to show
+
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.pageChanged = function() {
+        console.log('Page changed to: ' + $scope.currentPage);
+    };
+
+    $scope.setItemsPerPage = function(num) {
+      $scope.itemsPerPage = num;
+      $scope.currentPage = 1; //reset to first page
+    }
+
+    $scope.selectedAll = false;
+    $scope.selectAll = function () {
+        $scope.selectedAll = !$scope.selectedAll;
+        var arr = document.getElementsByClassName("check-box");
+        for (var i = arr.length - 1; i >= 0; i--) {
+            arr[i].checked = $scope.selectedAll;
+        }
+    }
+
+    // Phe duyet mau
+    $scope.approvePost = function (id, approved) {
+        AuthService.approvePost(id, approved, $scope.link)
+    }
+
+    // Tao ban sao mau
+    var sam = sample.slice(0, sample.length - 1)
+    $scope.duplicateFile = function (id, form) {
+        var redirect = {sample: sam, link: 'chinh-sua-' + $scope.link};
+        AuthService.duplicateFile(id, form, redirect)
+    }
+});

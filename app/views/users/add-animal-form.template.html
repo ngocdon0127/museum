@@ -356,13 +356,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" ng-controller="GoogleMapController" ng-init="data.fViTriToaDo='dms'" style="margin-top: 10px;">
+				<div class="row" ng-controller="GoogleMapController" style="margin-top: 10px;">
 					<div class="row">
 						<div class="col-sm-5">
 							<label>24. {{"ani.viTriToaDo" | translate }}: </label>
 						</div>
 						<div class="col-sm-7">
-							<input type="radio" name="fViTriToaDo" id="vitri-dms" ng-model="data.fViTriToaDo" value="dms"><span class="label label-default"> DMS</span>
+							<input type="radio" name="fViTriToaDo" ng-checked="true" id="vitri-dms" ng-model="data.fViTriToaDo" value="dms"><span class="label label-default"> DMS</span>
 							<input type="radio" name="fViTriToaDo" id="vitri-dd" ng-model="data.fViTriToaDo" value="dd"><span class="label label-default"> DD</span>
 						</div>
 					</div>
@@ -371,18 +371,18 @@
 							{{"ani.viDo" | translate }} <span class="has-required">(*)</span>:
 							<input type="text" id="viDo" ng-show="data.fViTriToaDo=='dd'" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control">
 							<div id="dd" ng-show="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
-								<input type="number" step="1" ng-model= "vido_do" ng-change="latChange()" class = "coordinates" name=""> độ
-								<input type="number" step="1" ng-model= "vido_phut" ng-change="latChange()" class = "coordinates" name=""> phút
-								<input type="number" step="1" ng-model= "vido_giay" ng-change="latChange()" class = "coordinates" name=""> giây
+								<input type="number" step="1" ng-model= "data.viDo_do" ng-change="latChange()" class = "coordinates" name=""> độ
+								<input type="number" step="1" ng-model= "data.viDo_phut" ng-change="latChange()" class = "coordinates" name=""> phút
+								<input type="number" step="1" ng-model= "data.viDo_giay" ng-change="latChange()" class = "coordinates" name=""> giây
 							</div>
 						</div>
 						<div class="col-sm-4">
 							{{"ani.kinhDo" | translate }} <span class="has-required">(*)</span>:
 							<input type="text" id="kinhDo" ng-show="data.fViTriToaDo=='dd'" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control">
 							<div id="dd" ng-show="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
-								<input type="number" step="1" ng-model="kinhdo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
-								<input type="number" step="1" ng-model="kinhdo_phut" ng-change="lonChange()" class = "coordinates" name=""> phút
-								<input type="number" step="1" ng-model="kinhdo_giay" ng-change="lonChange()" class = "coordinates" name=""> giây
+								<input type="number" step="1" ng-model="data.kinhDo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
+								<input type="number" step="1" ng-model="data.kinhDo_phut" ng-change="lonChange()" class = "coordinates" name=""> phút
+								<input type="number" step="1" ng-model="data.kinhDo_giay" ng-change="lonChange()" class = "coordinates" name=""> giây
 							</div>
 						</div>
 						<div class="col-sm-4">

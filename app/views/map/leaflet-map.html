@@ -1,3 +1,31 @@
+<style>
+    .legend {
+        padding: 6px 8px;
+        font: 14px/16px Arial, Helvetica, sans-serif;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        line-height: 18px;
+        border-radius: 5px;
+        color: #555;
+        min-width: 140px;
+        display: block;
+    }
+
+    .legend i {
+        color: #777;
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
+</style>
 <leaflet lf-center="map.center" lf-draw="map.drawOptions" markers-nested="true" markers="map.markers" layers="map.layers"
-    height="480px" width="100%">
+    watch-options='watchOptions' legend="map.legend" height="480px" width="100%">
 </leaflet>
+<h3>Thống kê</h3>
+<p ng-if="numAnimal">Số lượng mẫu vật động vật: <span>{{numAnimal}}</span></p>
+<p ng-if="numGeological">Số lượng mẫu vật địa chất: <span>{{numGeological}}</span></p>
+<p ng-if="numPaleontological">Số lượng mẫu vật cổ sinh: <span>{{numPaleontological}}</span></p>
+<p ng-if="numSoil">Số lượng mẫu vật thổ nhưỡng: <span>{{numSoil}}</span></p>
+<p ng-if="numVegetable">Số lượng mẫu vật thực vật: <span>{{numVegetable}}</span></p>

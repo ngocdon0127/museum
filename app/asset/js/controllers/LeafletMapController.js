@@ -27,7 +27,13 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
     var drawnItems = new L.FeatureGroup();
 
     function clearMarkers() {
-        $scope.map.markers = {};
+        $scope.map.markers = {
+            animalMarkers : {},
+            geologicalMarkers: {},
+            paleontologicalMarkers : {},
+            soidMarkers : {},
+            vegetableMarkers : {}
+        };
     }
 
     function updateMarkers(rectangleBoundary) {
@@ -42,6 +48,13 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
         return drawnItems.getLayers().length;
     }
 
+    $scope.$watch("map.markers", function () {
+        $scope.numAnimal = Object.keys($scope.map.markers.animalMarkers).length;
+        $scope.numGeological = Object.keys($scope.map.markers.geologicalMarkers).length;
+        $scope.numPaleontological = Object.keys($scope.map.markers.paleontologicalMarkers).length;
+        $scope.numSoil = Object.keys($scope.map.markers.soidMarkers).length;
+        $scope.numVegetable = Object.keys($scope.map.markers.vegetableMarkers).length;
+    })
 
     angular.extend($scope, {
         map: {
@@ -102,6 +115,19 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
                         visible: true
                     }
                 }
+            },
+            watchOptions: {
+                markers: {
+                    type: null,
+                    individual: {
+                        type: null
+                    }
+                }
+            },
+            legend: {
+                position: 'bottomleft',
+                colors: ['red', 'orange', 'purple', 'yellow', 'green'],
+                labels: ['Động vật', 'Địa chất', 'Cổ sinh', 'Thổ nhưỡng', 'Thực vật']
             }
         }
     });
@@ -122,16 +148,31 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
         },
         edited: function (e, leafletEvent, leafletObject, model, modelName) {
             console.log("edited");
-            console.log(leafletEvent);
-            console.log(e);
+            drawnItems.getLayers().forEach(function(layer){
+                var latlngs = layer._latlngs;
+                updateMarkers({
+                    left: latlngs[0].lng,
+                    bottom: latlngs[0].lat,
+                    top: latlngs[2].lat,
+                    right: latlngs[2].lng
+                })
+            })
         },
-        deleted: function (arg) {},
+        deleted: function (arg) {
+            console.log("deleted");
+            drawnItems.clearLayers();
+            clearMarkers();
+        },
         drawstart: function (arg) {},
         drawstop: function (arg) {},
         editstart: function (arg) {},
         editstop: function (arg) {},
-        deletestart: function (arg) {},
-        deletestop: function (arg) {}
+        deletestart: function (arg) {
+            console.log("deletestart")
+        },
+        deletestop: function (arg) {
+            console.log("deletestop")
+        }
     };
 
     var drawEvents = leafletDrawEvents.getAvailableEvents();

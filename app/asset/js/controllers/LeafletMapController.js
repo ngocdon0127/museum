@@ -1,10 +1,10 @@
 'use strict';
-app.factory("getMarkerForMap", function ($http) {
+app.factory("getMarkerForMap", function ($http, AuthService) {
     return function (rectangleBoundary) {
         return new Promise(function (resolve, reject) {
             var req = {
                 method: 'GET',
-                url: 'http://localhost:8000/map/get-marker',
+                url: AuthService.hostName + '/map/get-marker',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -14,9 +14,9 @@ app.factory("getMarkerForMap", function ($http) {
             };
             $http(req).then(function (response) {
                 resolve(response.data);
-                console.log(response.data)
+                // console.log(response.data)
             }, function (response) {
-                console.log(response);
+                // console.log(response);
                 reject(response);
             });
         })
@@ -137,7 +137,7 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
             drawnItems.clearLayers();
             drawnItems.addLayer(leafletEvent.layer);
             // console.log(leafletEvent);
-            console.log(leafletEvent.layer._latlngs);
+            // console.log(leafletEvent.layer._latlngs);
             var _latlngs = leafletEvent.layer._latlngs;
             updateMarkers({
                 left: _latlngs[0].lng,
@@ -147,7 +147,7 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
             })
         },
         edited: function (e, leafletEvent, leafletObject, model, modelName) {
-            console.log("edited");
+            // console.log("edited");
             drawnItems.getLayers().forEach(function(layer){
                 var latlngs = layer._latlngs;
                 updateMarkers({
@@ -159,7 +159,7 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
             })
         },
         deleted: function (arg) {
-            console.log("deleted");
+            // console.log("deleted");
             drawnItems.clearLayers();
             clearMarkers();
         },
@@ -168,10 +168,10 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
         editstart: function (arg) {},
         editstop: function (arg) {},
         deletestart: function (arg) {
-            console.log("deletestart")
+            // console.log("deletestart")
         },
         deletestop: function (arg) {
-            console.log("deletestop")
+            // console.log("deletestop")
         }
     };
 

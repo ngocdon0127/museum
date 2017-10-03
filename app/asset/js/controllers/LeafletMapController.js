@@ -49,11 +49,11 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
     }
 
     $scope.$watch("map.markers", function () {
-        $scope.numAnimal = Object.keys($scope.map.markers.animalMarkers).length;
-        $scope.numGeological = Object.keys($scope.map.markers.geologicalMarkers).length;
-        $scope.numPaleontological = Object.keys($scope.map.markers.paleontologicalMarkers).length;
-        $scope.numSoil = Object.keys($scope.map.markers.soidMarkers).length;
-        $scope.numVegetable = Object.keys($scope.map.markers.vegetableMarkers).length;
+        $scope.numAnimal = $scope.map.markers.animalMarkers ? Object.keys($scope.map.markers.animalMarkers).length : 0;
+        $scope.numGeological = $scope.map.markers.geologicalMarkers ? Object.keys($scope.map.markers.geologicalMarkers).length : 0;
+        $scope.numPaleontological = $scope.map.markers.paleontologicalMarkers ? Object.keys($scope.map.markers.paleontologicalMarkers).length : 0;
+        $scope.numSoil = $scope.map.markers.soidMarkers ? Object.keys($scope.map.markers.soidMarkers).length : 0;
+        $scope.numVegetable = $scope.map.markers.vegetableMarkers ? Object.keys($scope.map.markers.vegetableMarkers).length : 0;
     })
 
     angular.extend($scope, {

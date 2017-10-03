@@ -265,6 +265,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 	var objectModelIdParamName = variablesBundle.objectModelIdParamName;
 	var objectBaseURL = variablesBundle.objectBaseURL;
 	var _PROP_FIELDS = variablesBundle.PROP_FIELDS;
+	var _PROP_FIELDS_OBJ = variablesBundle.PROP_FIELDS_OBJ
+	var _LABEL = variablesBundle.LABEL;
 	var _UPLOAD_DESTINATION = variablesBundle.UPLOAD_DESTINATION;
 	// console.log(variablesBundle.UPLOAD_DESTINATION);
 	// console.log(1);
@@ -344,8 +346,10 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 		for(let field of specialFields.coordinations){
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
-				console.log(req.body[field.fieldName]);
-				if (!(/([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/.test(req.body[field.fieldName].toLowerCase()))){
+				if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
+					if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {
+						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
+					}
 					console.log('Tọa độ thực')
 					req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
 				}

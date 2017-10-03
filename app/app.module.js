@@ -103,9 +103,27 @@ app.controller('GoogleMapController', function($scope, $uibModal){
     };
 
     $scope.latChange = function () {
+        if ($scope.vido_do) {
+            $scope.vido_do = parseInt($scope.vido_do)
+        }
+        if ($scope.vido_phut) {
+            $scope.vido_phut = parseInt($scope.vido_phut)
+        }
+        if ($scope.vido_giay) {
+            $scope.vido_giay = parseInt($scope.vido_giay)
+        }
         $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
     }
     $scope.lonChange = function () {
+        if ($scope.kinhdo_do) {
+            $scope.kinhdo_do = parseInt($scope.kinhdo_do)
+        }
+        if ($scope.kinhdo_phut) {
+            $scope.kinhdo_phut = parseInt($scope.kinhdo_phut)
+        }
+        if ($scope.kinhdo_giay) {
+            $scope.kinhdo_giay = parseInt($scope.kinhdo_giay)
+        }
         $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
     }
 })

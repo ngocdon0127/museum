@@ -63,7 +63,7 @@ var getMarkers = function (model, rectangleBoundary, icon) {
     }
     var ObjectModel = mongoose.model(model);
     return new Promise(function (resolve, reject) {
-        ObjectModel.find().then(function (data) {
+        ObjectModel.find({}, {'duLieuThuMau.viTriToaDo': 1, 'tenMau.tenVietNam': 1, 'tenMau.tenTiengAnh': 1}).then(function (data) {
             var markers = {};
             data.forEach(function (ele) {
                 let kinhDo = convertCoordinate(ele.duLieuThuMau.viTriToaDo.kinhDo);
@@ -76,7 +76,7 @@ var getMarkers = function (model, rectangleBoundary, icon) {
                         lat: viDo,
                         lng: kinhDo,
                         message: getPopupContent(model, ele),
-                        icon: icon? icon : {}
+                        icon: icon ? icon : {}
                     }
                 }
             });

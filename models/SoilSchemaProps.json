@@ -174,7 +174,8 @@
 		"required": false,
 		"money": false,
 		"type": "Integer",
-		"autoCompletion": false
+		"autoCompletion": false,
+		"min": 0
 	},
 	{
 		"name": "loaiMauVat",

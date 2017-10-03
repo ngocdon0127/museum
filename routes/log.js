@@ -238,6 +238,9 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 				},
 				'chown': {
 					label: 'Chuyển sở hữu'
+				},
+				'duplicate': {
+					label: 'Duplicate'
 				}
 			}
 			var forms = {

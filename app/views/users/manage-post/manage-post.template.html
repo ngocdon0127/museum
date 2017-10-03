@@ -176,7 +176,7 @@
       </tr>
     </tbody>
   </table>
-  <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></uib-pagination>
+  <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage" previous-text="Trang trước" first-text="Trang đầu" last-text="Trang cuối" next-text="Trang tiếp"></uib-pagination>
 </div>
 <style type="text/css">
   #managerpost{
@@ -227,71 +227,6 @@
       color: white;
   }
 </style>
-<script src="/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
-
-<!-- <script>
-  $(document).ready(function () {
-    setTimeout(function(){
-      $('#managerpost').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "columns": [
-                {
-                    width: "7%"
-                },
-                {
-                    width: "10%"
-                },
-                {
-                    width: "15%"
-                },
-                {
-                    width: "17%"
-                },
-                {
-                    width: undefined
-                },
-                {
-                    width: undefined
-                },
-                {
-                    width: undefined
-                }
-            ],
-        "language": {
-            "decimal":        "",
-            "emptyTable":     "Không có dữ liệu",
-            "info":           "<strong>Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi</strong>",
-            "infoEmpty":      "<strong>Đang xem từ 0 tới 0 trong tổng số 0</strong>",
-            "infoFiltered":   "(Lọc trong _MAX_ mẫu)",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "lengthMenu":     "Xem _MENU_ mẫu vật",
-            "loadingRecords": "Đang tải...",
-            "processing":     "Đang xử lý...",
-            "search":         "<b>Tìm kiếm:</b>",
-            "zeroRecords":    "<b>Không tìm thấy nội dung</b>",
-            "paginate": {
-                "first":      "Đầu trang",
-                "last":       "Cuối trang",
-                "next":       "Sau",
-                "previous":   "Trước"
-            },
-            "aria": {
-                "sortAscending":  ": activate to sort column ascending",
-                "sortDescending": ": activate to sort column descending"
-            }
-        }
-      }).order([0, 'asc']).draw();
-    }, 1000);
-  });
-</script> -->
-
 <script type="text/javascript">
   $(document).ready(function () {
     setTimeout(function (argument) {

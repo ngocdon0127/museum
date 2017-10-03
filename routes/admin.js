@@ -235,10 +235,14 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 										publicIP: getPublicIP(req)
 									}
 									// console.log('saving log');
-									log.save((err) => {
-										if (err){
-											console.log(err);
-										}
+									log.save(err => {
+										console.error('ERR: Save log failed. Try again');
+										console.error(err);
+										log.save(err_ => {
+											console.error('ERR: Save log failed');
+											console.error(err_);
+											console.error(log);
+										})
 									});
 									return responseSuccess(res, [], []);
 								})
@@ -377,10 +381,14 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 					publicIP: getPublicIP(req)
 				}
 				// console.log('saving log');
-				log.save((err) => {
-					if (err){
-						console.log(err);
-					}
+				log.save(err => {
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
+					log.save(err_ => {
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(log);
+					})
 				});
 				return responseSuccess(res, [], []);
 			})
@@ -486,10 +494,14 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 									publicIP: getPublicIP(req)
 								}
 								// console.log('saving log');
-								log.save((err) => {
-									if (err){
-										console.log(err);
-									}
+								log.save(err => {
+									console.error('ERR: Save log failed. Try again');
+									console.error(err);
+									log.save(err_ => {
+										console.error('ERR: Save log failed');
+										console.error(err_);
+										console.error(log);
+									})
 								});
 								return responseSuccess(res, [], []);
 							}
@@ -543,10 +555,14 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 								publicIP: getPublicIP(req)
 							}
 							// console.log('saving log');
-							log.save((err) => {
-								if (err){
-									console.log(err);
-								}
+							log.save(err => {
+								console.error('ERR: Save log failed. Try again');
+								console.error(err);
+								log.save(err_ => {
+									console.error('ERR: Save log failed');
+									console.error(err_);
+									console.error(log);
+								})
 							});
 							return responseSuccess(res, [], []);
 						}
@@ -669,10 +685,14 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 								publicIP: getPublicIP(req)
 							}
 							// console.log('saving log');
-							log.save((err) => {
-								if (err){
-									console.log(err);
-								}
+							log.save(err => {
+								console.error('ERR: Save log failed. Try again');
+								console.error(err);
+								log.save(err_ => {
+									console.error('ERR: Save log failed');
+									console.error(err_);
+									console.error(log);
+								})
 							});
 							return responseSuccess(res, [], []);
 						})
@@ -743,10 +763,14 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 					publicIP: getPublicIP(req)
 				}
 				// console.log('saving log');
-				log.save((err) => {
-					if (err){
-						console.log(err);
-					}
+				log.save(err => {
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
+					log.save(err_ => {
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(log);
+					})
 				});
 				try {
 					process.send({actionType: 'restart', target: 'all'});

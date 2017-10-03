@@ -14,7 +14,8 @@ var app = angular.module('museumApp', [
     'ng',
     'ngMap',
     'ngCookies',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'ui-leaflet'
 ])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();
@@ -103,9 +104,27 @@ app.controller('GoogleMapController', function($scope, $uibModal){
     };
 
     $scope.latChange = function () {
+        if ($scope.data.viDo_do) {
+            $scope.data.viDo_do = parseInt($scope.data.viDo_do)
+        }
+        if ($scope.data.viDo_phut) {
+            $scope.data.viDo_phut = parseInt($scope.data.viDo_phut)
+        }
+        if ($scope.data.viDo_giay) {
+            $scope.data.viDo_giay = parseInt($scope.data.viDo_giay)
+        }
         $scope.data.viDo = $scope.data.viDo_do + " ° " + $scope.data.viDo_phut + " ' " + $scope.data.viDo_giay + '"';
     }
     $scope.lonChange = function () {
+        if ($scope.data.kinhDo_do) {
+            $scope.data.kinhDo_do = parseInt($scope.data.kinhDo_do)
+        }
+        if ($scope.data.kinhDo_phut) {
+            $scope.data.kinhDo_phut = parseInt($scope.data.kinhDo_phut)
+        }
+        if ($scope.data.kinhDo_giay) {
+            $scope.data.kinhDo_giay = parseInt($scope.data.kinhDo_giay)
+        }
         $scope.data.kinhDo = $scope.data.kinhDo_do + " ° " + $scope.data.kinhDo_phut + " ' " + $scope.data.kinhDo_giay + '"';
     }
 })

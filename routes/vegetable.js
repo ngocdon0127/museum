@@ -80,7 +80,9 @@ var bundle = {
 	objectModelIdParamName : objectModelIdParamName,
 	objectBaseURL          : objectBaseURL,
 	PROP_FIELDS            : PROP_FIELDS,
-	UPLOAD_DESTINATION     : UPLOAD_DESTINATION
+	UPLOAD_DESTINATION     : UPLOAD_DESTINATION,
+	PROP_FIELDS_OBJ        : PROP_FIELDS_OBJ,
+	LABEL                  : LABEL
 }
 
 var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);

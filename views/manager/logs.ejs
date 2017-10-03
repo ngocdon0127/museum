@@ -99,6 +99,7 @@
 												<% let summary = '' 
 													switch (action) {
 														case 'create':
+														case 'duplicate':
 														case 'update':
 														case 'delete':
 														case 'approve':
@@ -142,6 +143,9 @@
 												<td>
 													<% var basePath = forms[log.objType].basePath; %>
 													<% if (action == 'create') { %>
+														<a href="<%= basePath %>/log/<%= log._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
+														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
+													<% } else if (action == 'duplicate') { %>
 														<a href="<%= basePath %>/log/<%= log._id + '/1' %>"><h4>Dữ liệu tại thời điểm này</h4></a>
 														<a href="<%= basePath %>/<%= log.obj1._id + '?display=html' %>"><h4>Dữ liệu hiện tại</h4></a>
 													<% } else if (action == 'update') { %>

@@ -1,4 +1,4 @@
-app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateParams', '$timeout', 'cfpLoadingBar', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
+app.controller('EditAnimalFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
     var url = AuthService.hostName + '/content/dong-vat/' + $stateParams.id;
     $http.get('/app/database/tipsani.json').then(function (res) {
         $scope.tooltips = res.data;
@@ -70,13 +70,13 @@ app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateP
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
+                $scope.data.viDo_do = parseInt(coor[1].trim());
+                $scope.data.viDo_phut = parseInt(coor[2].trim());
+                $scope.data.viDo_giay = parseInt(coor[3].trim());
                 var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.kinhDo_do = parseInt(coor[1].trim());
+                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
+                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -99,9 +99,9 @@ app.controller('EditAnimalFormCtrl', ['$http', '$scope', 'AuthService', '$stateP
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
     }
-}]);
+});
 
-app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService', '$stateParams', '$timeout', 'cfpLoadingBar', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
+app.controller('EditPaleontologicalFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
     var url = AuthService.hostName + '/content/co-sinh/' + $stateParams.id;
 
     $http.get('/app/database/tipspal.json').then(function (res) {
@@ -175,13 +175,13 @@ app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService',
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
+                $scope.data.viDo_do = parseInt(coor[1].trim());
+                $scope.data.viDo_phut = parseInt(coor[2].trim());
+                $scope.data.viDo_giay = parseInt(coor[3].trim());
                 var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.kinhDo_do = parseInt(coor[1].trim());
+                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
+                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -205,24 +205,9 @@ app.controller('EditPaleontologicalFormCtrl', ['$http', '$scope', 'AuthService',
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
     }
+});
 
-    //coordinate change
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
-
-    $scope.dms = function () {
-        $scope.showCoor = true;
-    }
-    $scope.dd = function () {
-        $scope.showCoor = false
-    }
-}]);
-
-app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$stateParams', '$timeout', 'cfpLoadingBar', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
+app.controller('EditVegetableFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
     var url = AuthService.hostName + '/content/thuc-vat/' + $stateParams.id;
 
     $http.get('/app/database/tipsveg.json').then(function (res) {
@@ -296,13 +281,13 @@ app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$sta
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
+                $scope.data.viDo_do = parseInt(coor[1].trim());
+                $scope.data.viDo_phut = parseInt(coor[2].trim());
+                $scope.data.viDo_giay = parseInt(coor[3].trim());
                 var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.kinhDo_do = parseInt(coor[1].trim());
+                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
+                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -326,24 +311,9 @@ app.controller('EditVegetableFormCtrl', ['$http', '$scope', 'AuthService', '$sta
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
     }
+});
 
-    //coordinate change
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
-
-    $scope.dms = function () {
-        $scope.showCoor = true;
-    }
-    $scope.dd = function () {
-        $scope.showCoor = false
-    }
-}]);
-
-app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$stateParams', '$timeout', 'cfpLoadingBar', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
+app.controller('EditGeologicalFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
     var url = AuthService.hostName + '/content/dia-chat/' + $stateParams.id;
 
     $http.get('/app/database/tipsgeo.json').then(function (res) {
@@ -418,13 +388,13 @@ app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$st
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
+                $scope.data.viDo_do = parseInt(coor[1].trim());
+                $scope.data.viDo_phut = parseInt(coor[2].trim());
+                $scope.data.viDo_giay = parseInt(coor[3].trim());
                 var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.kinhDo_do = parseInt(coor[1].trim());
+                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
+                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -448,24 +418,9 @@ app.controller('EditGeologicalFormCtrl', ['$http', '$scope', 'AuthService', '$st
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
     }
+});
 
-    //coordinate change
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
-
-    $scope.dms = function () {
-        $scope.showCoor = true;
-    }
-    $scope.dd = function () {
-        $scope.showCoor = false
-    }
-}]);
-
-app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$stateParams', '$timeout', 'cfpLoadingBar', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
+app.controller('EditLandFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
     var url = AuthService.hostName + '/content/tho-nhuong/' + $stateParams.id;
 
     $http.get('/app/database/tipslan.json').then(function (res) {
@@ -539,13 +494,13 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
                 var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
+                $scope.data.viDo_do = parseInt(coor[1].trim());
+                $scope.data.viDo_phut = parseInt(coor[2].trim());
+                $scope.data.viDo_giay = parseInt(coor[3].trim());
                 var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
+                $scope.data.kinhDo_do = parseInt(coor[1].trim());
+                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
+                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -569,19 +524,4 @@ app.controller('EditLandFormCtrl', ['$http', '$scope', 'AuthService', '$statePar
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
     }
-
-    //coordinate change
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-    }
-
-    $scope.dms = function () {
-        $scope.showCoor = true;
-    }
-    $scope.dd = function () {
-        $scope.showCoor = false
-    }
-}]);
+});

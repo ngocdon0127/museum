@@ -292,8 +292,8 @@
 	  }).addTo(mymap);
 
 		var marker = L.marker([latitude, longitude]).addTo(mymap);
-		<% if (coordinationArr) { %>
-			var c = <%- JSON.stringify(coordinationArr) %>
+		<% if (typeof(coordinationArr) != 'undefined') { %>
+			var c = <%- coordinationArr ? JSON.stringify(coordinationArr) : JSON.stringify([]) %>
 			for(var i = 0; i < c.length; i++) {
 				var marker = L.marker(c[i], {title: i, riseOnHover: true}).addTo(mymap);
 			}

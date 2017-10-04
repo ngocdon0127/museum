@@ -170,10 +170,14 @@ router.post('/assign', aclMiddleware('/manager', 'edit'), function (req, res, ne
 							publicIP: getPublicIP(req)
 						}
 						// console.log('saving log');
-						log.save((err) => {
-							if (err){
-								console.log(err);
-							}
+						log.save(err => {
+							console.error('ERR: Save log failed. Try again');
+							console.error(err);
+							log.save(err_ => {
+								console.error('ERR: Save log failed');
+								console.error(err_);
+								console.error(log);
+							})
 						});
 						return responseSuccess(res, [], []);
 					}
@@ -298,10 +302,14 @@ router.post('/fire', aclMiddleware('/manager', 'edit'), function (req, res, next
 									publicIP: getPublicIP(req)
 								}
 								// console.log('saving log');
-								log.save((err) => {
-									if (err){
-										console.log(err);
-									}
+								log.save(err => {
+									console.error('ERR: Save log failed. Try again');
+									console.error(err);
+									log.save(err_ => {
+										console.error('ERR: Save log failed');
+										console.error(err_);
+										console.error(log);
+									})
 								});
 								return responseSuccess(res, [], []);
 							})
@@ -432,7 +440,15 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 				log.time = new Date();
 				log.objType = MODELS[req.body.form].objType;
 				log.obj1 = JSON.parse(JSON.stringify(objectInstance));
-				log.save();
+				log.save(err => {
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
+					log.save(err_ => {
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(log);
+					})
+				});
 				return responseSuccess(res, [], [])
 			}
 			else {

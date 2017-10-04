@@ -265,6 +265,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 	var objectModelIdParamName = variablesBundle.objectModelIdParamName;
 	var objectBaseURL = variablesBundle.objectBaseURL;
 	var _PROP_FIELDS = variablesBundle.PROP_FIELDS;
+	var _PROP_FIELDS_OBJ = variablesBundle.PROP_FIELDS_OBJ
+	var _LABEL = variablesBundle.LABEL;
 	var _UPLOAD_DESTINATION = variablesBundle.UPLOAD_DESTINATION;
 	// console.log(variablesBundle.UPLOAD_DESTINATION);
 	// console.log(1);
@@ -324,6 +326,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		for(let field of specialFields.unitFields){
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
 				req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+				if (req.body[field.fieldName] < 0) {
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [field.fieldName + ' không được nhỏ hơn 0', field.fieldName]);
+				}
 			}
 		}
 		delete specialFields.unitFields;
@@ -341,8 +346,10 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 		for(let field of specialFields.coordinations){
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
-				console.log(req.body[field.fieldName]);
-				if (!(/([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/.test(req.body[field.fieldName].toLowerCase()))){
+				if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
+					if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {
+						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
+					}
 					console.log('Tọa độ thực')
 					req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
 				}
@@ -429,7 +436,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						}
 						if ('min' in element){
 							if (value.length < element.min){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được ngắn hơn ' + element.min + ' ký tự', element.name]);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.label + ' không được ngắn hơn ' + element.min + ' ký tự', element.name]);
 							}
 						}
 
@@ -466,13 +473,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				case 'Number':
 					if ('min' in element){
 						if (parseFloat(req.body[element.name]) < element.min){
-							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được nhỏ hơn ' + element.min, element.name]);
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.label + ' không được nhỏ hơn ' + element.min, element.name]);
 						}
 					}
 
 					if ('max' in element){
 						if (parseFloat(req.body[element.name]) > element.max){
-							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.name + ' không được lớn hơn ' + element.max, element.name]);
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [element.label + ' không được lớn hơn ' + element.max, element.name]);
 						}
 					}
 					// console.log('number in ' + element.name);
@@ -706,6 +713,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		_PROP_FIELDS.map(function (field) {
 			if (field.type == 'Unit'){
 				// TODO unit
+				if (field.name in req.body){
+					let value_ = req.body[field.name]
+					// console.log(value_);
+					if ((value_.indexOf('undefined') >= 0) || (value_.indexOf('string') >= 0) || (value_.indexOf('?') >= 0)){
+						// console.log('delete now: ' + field.name);
+						req.body[field.name] = ''
+					}
+				}
 			}
 		})
 
@@ -856,7 +871,15 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					newLog.obj2 = JSON.parse(JSON.stringify(objectInstance));
 				}
 				newLog.userFullName = req.user.fullname;
-				newLog.save();
+				newLog.save(err => {
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
+					newLog.save(err_ => {
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(newLog);
+					})
+				});
 				res.status(200).json({
 					status: 'success'
 				});

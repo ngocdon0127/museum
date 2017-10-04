@@ -1,6 +1,9 @@
 const path                     = require('path');
 const ROOT                     = path.join(__dirname, '../');
+const fs                       = require('fs');
+const fsE                      = require('fs-extra');
 const mongoose                 = require('mongoose');
+const Log 					   = mongoose.model ('Log')
 var async                      = require('asyncawait/async');
 var await                      = require('asyncawait/await');
 let acl                        = global.myCustomVars.acl;
@@ -457,6 +460,22 @@ var duplicateHandler = function (options) {
 							}
 							return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], [err])
 						}
+						let newLog = new Log();
+						newLog.action = 'duplicate';
+						newLog.time = new Date();
+						newLog.objType = objectModelName;
+						newLog.userId = req.user.id;
+						newLog.obj1 = JSON.parse(JSON.stringify(newInstance))
+						newLog.userFullName = req.user.fullname;
+						newLog.save(err => {
+							console.error('ERR: Save log failed. Try again');
+							console.error(err);
+							newLog.save(err_ => {
+								console.error('ERR: Save log failed');
+								console.error(err_);
+								console.error(newLog);
+							})
+						});
 						let r = flatObjectModel(PROP_FIELDS, newInstance);
 						r.id = r._id = newInstance._id;
 						return responseSuccess(res, [objectModelName], [r])
@@ -591,7 +610,15 @@ var chownHandler = function (options) {
 					return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Có lỗi xảy ra, vui lòng thử lại sau'])
 				}
 				newLog.obj2 = JSON.parse(JSON.stringify(oi));
-				newLog.save();
+				newLog.save(err => {
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
+					newLog.save(err_ => {
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(newLog);
+					})
+				});
 				return responseSuccess(res, [], [])
 			})
 		})()
@@ -743,7 +770,15 @@ var deleteHandler = function (options) {
 				newLog.objType = objectModelName;
 				newLog.obj1 = objectInstance;
 				newLog.time = date;
-				newLog.save();
+				newLog.save(err => {
+					console.error('ERR: Save log failed. Try again');
+					console.error(err);
+					newLog.save(err_ => {
+						console.error('ERR: Save log failed');
+						console.error(err_);
+						console.error(newLog);
+					})
+				});
 				return responseSuccess(res, ['status'], ['success']);
 			}
 			else{

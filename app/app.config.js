@@ -134,7 +134,7 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 	.state('quan-ly-dong-vat', {
 		url: '/quan-ly-mau/dong-vat',
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
-		controller: 'AnimalManageController',
+		controller: 'ManageContentController',
 		access : {
 			sample : "dongvat",
 			action : "create",
@@ -145,7 +145,8 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 	.state('quan-ly-thuc-vat', {
 		url: '/quan-ly-mau/thuc-vat',
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
-		controller: 'VegetableManageController',
+		controller: 'ManageContentController',
+		// controller: 'VegetableManageController',
 		access : {
 			sample : "thucvat",
 			action : "create",
@@ -156,7 +157,8 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 	.state('quan-ly-tho-nhuong', {
 		url: '/quan-ly-mau/tho-nhuong',
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
-		controller: 'LandManageController',
+		controller: 'ManageContentController',
+		// controller: 'LandManageController',
 		access : {
 			sample : "thonhuong",
 			action : "create",
@@ -167,7 +169,8 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 	.state('quan-ly-dia-chat', {
 		url: '/quan-ly-mau/dia-chat',
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
-		controller: 'GeologicalManageController',
+		controller: 'ManageContentController',
+		// controller: 'GeologicalManageController',
 		access : {
 			sample : "diachat",
 			action : "create",
@@ -178,7 +181,8 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 	.state('quan-ly-co-sinh', {
 		url: '/quan-ly-mau/co-sinh',
 		templateUrl: 'views/users/manage-post/manage-post.template.html',
-		controller: 'PaleontologicalManageController',
+		controller: 'ManageContentController',
+		// controller: 'PaleontologicalManageController',
 		access : {
 			sample : "cosinh",
 			action : "create",
@@ -190,6 +194,11 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		url: '/guest/test',
 		templateUrl: 'views/guest/test.template.html',
 		controller: 'OfflineCtrl'
+	})
+	.state('leaflet-map', {
+		url: '/map',
+		templateUrl : 'views/map/leaflet-map.html',
+		controller: 'LeafletMapController'
 	})
 	.state('error-page', {
 		url: '/loi-trang',

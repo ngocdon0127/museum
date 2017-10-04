@@ -63,7 +63,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "tenDongNghia",
@@ -299,7 +299,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "soLuongTieuBan",
@@ -466,7 +466,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "thoiGianThuMau",
@@ -668,7 +668,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "thoiGianGiamDinh",
@@ -765,7 +765,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "thongTinKhac5",
@@ -795,7 +795,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "anhMauVat",
@@ -805,7 +805,7 @@
 		"money": true,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
 		"name": "hinhAnhNgoaiThucDia",
@@ -815,7 +815,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 10485760,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
 		"name": "videoStr",
@@ -843,7 +843,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "dinhKemXuLyCheTac",
@@ -907,7 +907,7 @@
 		"money": false,
 		"type": "File",
 		"maxSize": 5242880,
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps)$"
 	},
 	{
 		"name": "viTriLayMauDNA",
@@ -993,7 +993,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "phanBoVietNam",
@@ -1023,7 +1023,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "phanBoTrenTheGioi",
@@ -1053,7 +1053,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "giaTriSuDung",
@@ -1093,7 +1093,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "ngayNhapMau",
@@ -1208,7 +1208,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
 	},
 	{
 		"name": "hoSoNhapMauVatDiKem",
@@ -1265,7 +1265,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "thongTinKhac9",
@@ -1295,7 +1295,7 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
 	},
 	{
 		"name": "maDeTai",

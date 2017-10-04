@@ -3,6 +3,7 @@ const ROOT                     = path.join(__dirname, '../');
 const fs                       = require('fs');
 const fsE                      = require('fs-extra');
 const mongoose                 = require('mongoose');
+const Log 					   = mongoose.model ('Log')
 var async                      = require('asyncawait/async');
 var await                      = require('asyncawait/await');
 let acl                        = global.myCustomVars.acl;
@@ -27,8 +28,6 @@ let STR_AUTOCOMPLETION_SEPERATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPERA
 let ORIGIN_TIME                  = global.myCustomVars.ORIGIN_TIME;
 let NULL_TIMES                   = global.myCustomVars.NULL_TIMES;
 let TMP_UPLOAD_DIR               = global.myCustomVars.TMP_UPLOAD_DIR;
-
-let Log                         = mongoose.model('Log');
 
 var getFieldsHandler = (options) => {
 	var LABEL = options.LABEL;

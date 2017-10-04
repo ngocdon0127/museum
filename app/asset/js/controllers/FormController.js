@@ -7,6 +7,7 @@ async function sheetToJson(workbook, urlFields, urlDates, row) {
     await workbook.SheetNames.forEach(function (sheetName) {
         if (sheetName == "Mau Hang") {
         dic = workbook.Sheets[sheetName];
+        // console.log(dic);
         }
     });
 
@@ -140,22 +141,16 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            console.log(res_tmp);
+            console.log($scope.data);
+            console.log($scope.data.fViTriToaDo);
             $timeout(function () {
-            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
-                $scope.data.fViTriToaDo = 'dms';
-            } else {
-                $scope.data.fViTriToaDo = 'dd';
-            }
-        }, 500);
+                if ($scope.data.fViTriToaDo == "DMS") {
+                    console.log("Vi tri toa do la dms");
+                    $scope.data.fViTriToaDo = "dms";
+                } else {
+                    $scope.data.fViTriToaDo = "dd";
+                }
+            }, 500);
             $scope.$apply();
         })
     }
@@ -260,22 +255,14 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            console.log(res_tmp);
+            // console.log(res_tmp);
             $timeout(function () {
-            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
-                $scope.data.fViTriToaDo = 'dms';
-            } else {
-                $scope.data.fViTriToaDo = 'dd';
-            }
-        }, 500);
+                if ($scope.data.fViTriToaDo == "DMS") {
+                    $scope.data.fViTriToaDo = "dms";
+                } else {
+                    $scope.data.fViTriToaDo = "dd";
+                }
+            }, 500);
             $scope.$apply();
         })
     }
@@ -367,22 +354,14 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            // console.log(res_tmp);
+            console.log(res_tmp);
             $timeout(function () {
-            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
-                $scope.data.fViTriToaDo = 'dms';
-            } else {
-                $scope.data.fViTriToaDo = 'dd';
-            }
-        }, 500);
+                if ($scope.data.fViTriToaDo == "DMS") {
+                        $scope.data.fViTriToaDo = "dms";
+                } else {
+                    $scope.data.fViTriToaDo = "dd";
+                }
+            }, 500);
             $scope.$apply();
         })
     }
@@ -471,22 +450,14 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, 
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            console.log(res_tmp);
+            // console.log(res_tmp);
             $timeout(function () {
-            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
-                $scope.data.fViTriToaDo = 'dms';
-            } else {
-                $scope.data.fViTriToaDo = 'dd';
-            }
-        }, 500);
+                if ($scope.data.fViTriToaDo == "DMS") {
+                    $scope.data.fViTriToaDo = "dms";
+                } else {
+                    $scope.data.fViTriToaDo = "dd";
+                }
+            }, 500);
             $scope.$apply();
         })
     }
@@ -555,22 +526,14 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            console.log(res_tmp);
+            // console.log(res_tmp);
             $timeout(function () {
-            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.vido_do = parseInt(coor[1].trim());
-                $scope.vido_phut = parseInt(coor[2].trim());
-                $scope.vido_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.kinhdo_do = parseInt(coor[1].trim());
-                $scope.kinhdo_phut = parseInt(coor[2].trim());
-                $scope.kinhdo_giay = parseInt(coor[3].trim());
-                $scope.data.fViTriToaDo = 'dms';
-            } else {
-                $scope.data.fViTriToaDo = 'dd';
-            }
-        }, 500);
+                if ($scope.data.fViTriToaDo == "DMS") {
+                    $scope.data.fViTriToaDo = "dms";
+                } else {
+                    $scope.data.fViTriToaDo = "dd";
+                }
+            }, 500);
             $scope.$apply();
         })
     }

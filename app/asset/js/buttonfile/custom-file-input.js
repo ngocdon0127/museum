@@ -16,12 +16,7 @@ function createLiTags(data, ulTag, files, urlDelete) {
 		var li = document.createElement('li');
 		li.setAttribute('class', 'list-group-item');
 		li.setAttribute('style', 'overflow: auto;')
-		var txtFile = "";
-		if ( files[i].length > 20) {
-			txtFile = files[i].slice(0, 20) + "...";
-		} else{
-			txtFile = files[i];
-		}
+		var txtFile = (files[i].length > 20) ? (files[i].substring(0, 20) + '... .' + files[i].split('.')[files[i].split('.').length - 1]) : files[i];
 		var txtNode = document.createTextNode(txtFile);
 
 		// Tao cac the hien thi danh sach cac file

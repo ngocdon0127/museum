@@ -27,6 +27,7 @@ let STR_SEPERATOR                = global.myCustomVars.STR_SEPERATOR;
 let STR_AUTOCOMPLETION_SEPERATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR;
 let ORIGIN_TIME                  = global.myCustomVars.ORIGIN_TIME;
 let NULL_TIMES                   = global.myCustomVars.NULL_TIMES;
+let TMP_UPLOAD_DIR               = global.myCustomVars.TMP_UPLOAD_DIR;
 
 var getFieldsHandler = (options) => {
 	var LABEL = options.LABEL;
@@ -801,6 +802,7 @@ var deleteFileHander = options => {
 			let PROP_FIELDS = options.PROP_FIELDS;
 			let PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
 			let form = options.form;
+			let objectModelName = options.objectModelName;
 			// console.log(objectModelIdParamName);
 			var missingParam = checkRequiredParams([objectModelIdParamName, 'randomStr', 'field', 'fileName'], req.body);
 			if (missingParam){
@@ -836,6 +838,7 @@ var deleteFileHander = options => {
 			}))
 			if (objectInstance){
 				var canEdit = false;
+				let objectBeforeUpdate = JSON.parse(JSON.stringify(objectInstance));
 
 				var userRoles = await(new Promise((resolve, reject) => {
 					acl.userRoles(req.session.userId, (err, roles) => {
@@ -932,6 +935,23 @@ var deleteFileHander = options => {
 					}
 					// TODO
 					// Save log
+					let newLog = new Log();
+					newLog.action = 'update';
+					newLog.time = new Date();
+					newLog.objType = objectModelName;
+					newLog.userId = req.user.id;
+					newLog.obj1 = objectBeforeUpdate;
+					newLog.obj2 = JSON.parse(JSON.stringify(objectInstance));
+					newLog.userFullName = req.user.fullname;
+					newLog.save(err => {
+						console.error('ERR: Save log failed. Try again');
+						console.error(err);
+						newLog.save(err_ => {
+							console.error('ERR: Save log failed');
+							console.error(err_);
+							console.error(newLog);
+						})
+					});
 					let files = []
 					fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
 						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;

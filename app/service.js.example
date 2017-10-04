@@ -337,9 +337,9 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			method: 'DELETE',
 			data: data,
 			success: function (res) {
-				console.log(res);
+				// console.log(res);
 				if (res.status == 'success') {
-					// $state.reload();
+					createTags(res)
 				}
 			},
 			error: function (err) {
@@ -597,6 +597,74 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 	function stopSpinner() {
 		SPINNER.stop();
+	}
+
+	function createLiTags(data, ulTag, files, urlDelete) {
+	// 	console.log("Link api delete");
+	// 	console.log(urlDelete);
+		for (var i = 0; i < files.length; i++) {
+			var li = document.createElement('li');
+			li.setAttribute('class', 'list-group-item');
+			li.setAttribute('style', 'overflow: auto;')
+			var txtFile = (files[i].length > 20) ? (files[i].substring(0, 20) + '... .' + files[i].split('.')[files[i].split('.').length - 1]) : files[i];
+			var txtNode = document.createTextNode(txtFile);
+
+			// Tao cac the hien thi danh sach cac file
+			var spanParent = document.createElement('span');
+			spanParent.setAttribute('class', 'pull-right')
+
+			var div = document.createElement('div')
+			div.setAttribute('id', 'progressbar')
+			spanParent.append(div)
+
+			var spanChild = document.createElement('span');
+			spanChild.setAttribute('data-file-name', files[i]);
+			spanChild.setAttribute('data-field-name', data.field);
+			spanChild.setAttribute('data-random-str', data.randomStr);
+			spanChild.setAttribute('data-form-val', data.form);
+			spanChild.setAttribute('data-form-id', data.id);
+			spanChild.setAttribute('class', 'glyphicon glyphicon-remove')
+			spanChild.setAttribute('style', 'cursor: pointer;')
+			// Bat su kien xoa file trong bo nho tam
+			spanChild.addEventListener('click', function(event){
+				// console.log(event.target.getAttribute('data-file-name') + ' is about to be deleted');
+				deleteTmpFile({
+					fileName: event.target.getAttribute('data-file-name'),
+					field: event.target.getAttribute('data-field-name'),
+					randomStr: event.target.getAttribute('data-random-str'),
+					form: event.target.getAttribute('data-form-val'),
+					id: event.target.getAttribute('data-form-id')
+				}, urlDelete)
+			});
+			spanParent.appendChild(spanChild);
+			li.appendChild(txtNode);
+			li.appendChild(spanParent);
+			ulTag.appendChild(li)
+		}
+	}
+
+	// Tao the ul
+	function createTags(res) {
+		var ulTag = ob('ul_' + res.field);
+		if (ulTag == null) {
+			var parentFile = document.getElementsByName(res.field)[0].parentElement
+			var ulTag = document.createElement("ul")
+			ulTag.setAttribute("id", "ul_" + res.field)
+			ulTag.setAttribute("class", "list-group")
+			parentFile.appendChild(ulTag);
+		} else{
+			ulTag.innerHTML = ''
+		}
+		var data = {
+			field : res.field,
+			randomStr: res.randomStr,
+			form: res.form,
+			id: res.id
+		}
+		var urlDeleteTmp = "/content/instant-upload"
+		createLiTags(data, ulTag, res.files, urlDeleteTmp)
+		var urlDeleteSaved = "/content/" + res.form + "/file"
+		createLiTags(data, ulTag, res.savedFiles, urlDeleteSaved)
 	}
 
 });

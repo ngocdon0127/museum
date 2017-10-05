@@ -112,7 +112,8 @@
 					<div>
 						<div class="col-sm-3">
 							{{"pal.phanChiPhanGiong" | translate }}: 
-							<input type="text" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong" ng-model="data.phanChiPhanGiong" id="phanChiPhanGiong" class="input-form form-control">
+							<input type="hidden" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong" value="{{data.phanChiPhanGiong}}" ng-bind="data.phanChiPhanGiong">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="phanChiPhanGiong" ng-model="data.phanChiPhanGiong" contentEditable class="inline-text-editor" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong"></div>
 						</div>
 
 						<div class="col-sm-3">
@@ -122,7 +123,8 @@
 						</div>
 						<div class="col-sm-3">
 							{{"pal.duoiLoai" | translate }}: 
-							<input type="text" title="{{tooltips['duoiLoai']}}" name="duoiLoai" ng-model="data.duoiLoai" class="input-form form-control" id="duoiLoai">
+							<input type="hidden" title="{{tooltips['duoiLoai']}}" name="duoiLoai" value="{{data.duoiLoai}}" ng-bind="data.duoiLoai">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="duoiLoai" ng-model="data.duoiLoai" contentEditable class="inline-text-editor" title="{{tooltips['duoiLoai']}}" name="duoiLoai"></div>
 						</div>
 					</div>
 				</div>

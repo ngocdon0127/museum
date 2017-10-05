@@ -507,7 +507,7 @@
 					<ul id="ul_taiLieuPhanTichFile" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.taiLieuPhanTichFile" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'taiLieuPhanTichFile', key')"></span>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'taiLieuPhanTichFile', key)"></span>
 							</span>
 						</li>
 					</ul>
@@ -526,7 +526,7 @@
 					<ul id="ul_moTaHinhThaiFile" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.moTaHinhThaiFile" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'moTaHinhThaiFile'), key"></span>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'moTaHinhThaiFile', key)"></span>
 							</span>
 						</li>
 					</ul>
@@ -589,7 +589,7 @@
 						<ul id="ul_anhMauVat" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.anhMauVat" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'anhMauVat')"></spa, keyn>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'anhMauVat', key)"></span>
 							</span>
 						</li>
 					</ul>
@@ -601,7 +601,7 @@
 					<ul id="ul_hinhAnhNgoaiThucDia" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.hinhAnhNgoaiThucDia" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hinhAnhNgoaiThucDi, keya')"></span>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hinhAnhNgoaiThucDia', key)"></span>
 							</span>
 						</li>
 					</ul>
@@ -619,7 +619,7 @@
 					<ul id="ul_videoFile" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.videoFile" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'videoFile')"></spa, keyn>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'videoFile', key)"></span>
 							</span>
 						</li>
 					</ul>
@@ -638,7 +638,7 @@
 							<ul id="ul_hinhAnhDinhKem" class="list-group">
 								<li class="list-group-item" ng-repeat="(key, file) in data.hinhAnhDinhKem" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 									<span class="pull-right">
-										<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hinhAnhDinhKem')">, key</span>
+										<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hinhAnhDinhKem', key)"></span>
 									</span>
 								</li>
 							</ul>
@@ -693,7 +693,7 @@
 							<ul id="ul_anhMauSauCheTac" class="list-group">
 								<li class="list-group-item" ng-repeat="(key, file) in data.anhMauSauCheTac" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 									<span class="pull-right">
-										<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'anhMauSauCheTac')", key></span>
+										<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'anhMauSauCheTac', key)"></span>
 									</span>
 								</li>
 							</ul>
@@ -793,7 +793,7 @@
 					<ul id="ul_phanBoTrenTheGioiFile" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.phanBoTrenTheGioiFile" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'phanBoTrenTheGioiF, keyile')"></span>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'phanBoTrenTheGioiFile', key)"></span>
 							</span>
 						</li>
 					</ul>
@@ -920,7 +920,7 @@
 					<ul id="ul_giayPhepNhapMau" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.giayPhepNhapMau" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'giayPhepNhapMau')", key></span>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'giayPhepNhapMau', key)"></span>
 							</span>
 						</li>
 					</ul>
@@ -938,7 +938,7 @@
 					<ul id="ul_hoSoNhapMauVatDiKem" class="list-group">
 						<li class="list-group-item" ng-repeat="(key, file) in data.hoSoNhapMauVatDiKem" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
 							<span class="pull-right">
-								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hoSoNhapMauVatDiKe, keym')"></span>
+								<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hoSoNhapMauVatDiKem, key')"></span>
 							</span>
 						</li>
 					</ul>

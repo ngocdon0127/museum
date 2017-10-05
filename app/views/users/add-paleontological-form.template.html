@@ -4,15 +4,15 @@
 	<center><h3>Thêm mẫu dữ liệu cổ sinh > Đề tài: {{maDeTai}}</h3></center>
 	<div class="container-fluid">
 		<ul class="nav nav-tabs group tabs">
-	    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu</a></li>
-	    	<li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">Tên mẫu vật</a></li>
-	    	<li ng-class="{active: isSet(3)}"><a href ng-click="setTab(3)">Số lượng</a></li>
-	    	<li ng-class="{active: isSet(4)}"><a href ng-click="setTab(4)">DL thu mẫu</a></li>
-	    	<li ng-class="{active: isSet(5)}"><a href ng-click="setTab(5)">Phân tích mẫu</a></li>
-	    	<li ng-class="{active: isSet(6)}"><a href ng-click="setTab(6)">Hình ảnh/Phim</a></li>
-	    	<li ng-class="{active: isSet(7)}"><a href ng-click="setTab(7)">Phân bố/Giá trị</a></li>
-	    	<li ng-class="{active: isSet(8)}"><a href ng-click="setTab(8)">Lưu trữ/Bảo quản</a></li>
-	    	<li ng-class="{active: isSet(9)}"><a href ng-click="setTab(9)">Thông tin khác</a></li>
+	    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">{{"tab.soHieu" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">{{"tab.tenMauVat" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(3)}"><a href ng-click="setTab(3)">{{"tab.soLuong" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(4)}"><a href ng-click="setTab(4)">{{"tab.thuMau" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(5)}"><a href ng-click="setTab(5)">{{"tab.phanTichMau" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(6)}"><a href ng-click="setTab(6)">{{"tab.hinhAnh" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(7)}"><a href ng-click="setTab(7)">{{"tab.phanBo" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(8)}"><a href ng-click="setTab(8)">{{"tab.luuTru" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(9)}"><a href ng-click="setTab(9)">{{"tab.thongTinKhac" | translate }}</a></li>
 	  	</ul>
 		<div class="map-detail form-group" ng-show="isSet(1)" style="padding-top: 30px;">
 			<div class="row">
@@ -159,7 +159,7 @@
 					<label for="thongTinKhac2Str">13. {{"pal.thongTinKhac2Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac2Str" title="{{tooltips['thongTinKhac2Str']}}" name="thongTinKhac2Str" id="thongTinKhac2Str" class="input-form form-control" rows="5"></textarea>
 				</div>
-				<div class="col-sm-12">
+				<div class="col-sm-6">
 					<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac2File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac2File" name ="thongTinKhac2File">
 					<label for="thongTinKhac2File" title="{{tooltips['thongTinKhac2File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
@@ -258,7 +258,7 @@
 					<textarea type="text" ng-model="data.thongTinKhac3Str" title="{{tooltips['thongTinKhac3Str']}}" name="thongTinKhac3Str" id="thongTinKhac3Str" class="input-form form-control" rows="5"></textarea>
 				</div>
 				<div class="col-sm-12">
-					<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
+					<input type="file" max-file-size="6" multiple ng-model="data.thongTinKhac3File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac3File" name ="thongTinKhac3File">
 					<label for="thongTinKhac3File" title="{{tooltips['thongTinKhac3File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
 			</div>
@@ -408,7 +408,7 @@
 					<label for="thongTinKhac4Str">29. {{"pal.thongTinKhac4Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac4Str" title="{{tooltips['thongTinKhac4Str']}}" name="thongTinKhac4Str" id="thongTinKhac4Str" class="input-form form-control" rows="5"></textarea>
 				</div>
-				<div class="col-sm-12">
+				<div class="col-sm-6">
 					<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac4File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac4File" name ="thongTinKhac4File">
 					<label for="thongTinKhac4File" title="{{tooltips['thongTinKhac4File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
@@ -483,8 +483,8 @@
 					<label for="thongTinKhac5Str">39. {{"pal.thongTinKhac5Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac5Str" title="{{tooltips['thongTinKhac5Str']}}" name="thongTinKhac5Str" id="thongTinKhac5Str" class="input-form form-control" rows="5"></textarea>
 				</div>
-				<div class="col-sm-12">
-					<input type="file" multiple ng-model="data.thongTinKhac5File" class="inputfile" data-multiple-caption="{count} file is selected" max-file-size="10" id="thongTinKhac5File" name ="thongTinKhac5File">
+				<div class="col-sm-6">
+					<input type="file" multiple ng-model="data.thongTinKhac5File" class="inputfile" data-multiple-caption="{count} file is selected" max-file-size="100" id="thongTinKhac5File" name ="thongTinKhac5File">
 					<label for="thongTinKhac5File" title="{{tooltips['thongTinKhac5File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>
 			</div>
@@ -779,8 +779,6 @@
 				<div class="col-sm-8">
 					<label for="thongTinKhac9Str">65. {{"pal.thongTinKhac9Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac9Str" title="{{tooltips['thongTinKhac9Str']}}" name="thongTinKhac9Str" id="thongTinKhac9Str" class="input-form form-control" rows="5"></textarea>
-				</div>
-				<div class="col-sm-6">
 					<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac9File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac9File" name ="thongTinKhac9File">
 					<label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 				</div>

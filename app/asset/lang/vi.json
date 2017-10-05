@@ -4,6 +4,18 @@
 	"home":{
 		"tieude": "Chào mừng đến với Bảo tàng thiên nhiên Việt Nam"
 	},
+	"tab":{
+		"soHieu" : "Số hiệu",
+		"tenMauVat" : "Tên mẫu vật",
+		"soLuong" : "Số lượng",
+		"thuMau" : "DL thu mẫu",
+		"phanTichMau" : "Phân tích mẫu",
+		"hinhAnh" : "Hình ảnh/Phim",
+		"dacDiem": "Đặc điểm",
+		"phanBo" : "Phân bố/Giá trị",
+		"luuTru" : "Lưu trữ/Bảo quản",
+		"thongTinKhac" : "Thông tin khác"
+	},
 	"nav":{
 		"tieude": "Trang chủ",
 		"themmauvat":{

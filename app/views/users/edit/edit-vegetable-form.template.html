@@ -5,15 +5,15 @@
 	<center><h3>Chỉnh sửa mẫu dữ liệu thực vật > Đề tài: {{maDeTai}}</h3></center>
 	<div class="container-fluid">
 		<ul class="nav nav-tabs group tabs">
-	    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">Số hiệu</a></li>
-	    	<li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">Tên mẫu vật</a></li>
-	    	<li ng-class="{active: isSet(3)}"><a href ng-click="setTab(3)">Số lượng</a></li>
-	    	<li ng-class="{active: isSet(4)}"><a href ng-click="setTab(4)">DL thu mẫu</a></li>
-	    	<li ng-class="{active: isSet(5)}"><a href ng-click="setTab(5)">Phân tích mẫu</a></li>
-	    	<li ng-class="{active: isSet(6)}"><a href ng-click="setTab(6)">Hình ảnh/Phim</a></li>
-	    	<li ng-class="{active: isSet(7)}"><a href ng-click="setTab(7)">Phân bố/Giá trị</a></li>
-	    	<li ng-class="{active: isSet(8)}"><a href ng-click="setTab(8)">Lưu trữ/Bảo quản</a></li>
-	    	<li ng-class="{active: isSet(9)}"><a href ng-click="setTab(9)">Thông tin khác</a></li>
+	    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">{{"tab.soHieu" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(2)}"><a href ng-click="setTab(2)">{{"tab.tenMauVat" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(3)}"><a href ng-click="setTab(3)">{{"tab.soLuong" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(4)}"><a href ng-click="setTab(4)">{{"tab.thuMau" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(5)}"><a href ng-click="setTab(5)">{{"tab.phanTichMau" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(6)}"><a href ng-click="setTab(6)">{{"tab.hinhAnh" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(7)}"><a href ng-click="setTab(7)">{{"tab.phanBo" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(8)}"><a href ng-click="setTab(8)">{{"tab.luuTru" | translate }}</a></li>
+	    	<li ng-class="{active: isSet(9)}"><a href ng-click="setTab(9)">{{"tab.thongTinKhac" | translate }}</a></li>
 	  	</ul>
 
 		<div class="map-detail form-group" ng-show="isSet(1)" style="padding-top: 30px;">
@@ -966,8 +966,6 @@
 				<div class="col-sm-8">
 					<label for="thongTinKhac9Str">66. {{"veg.thongTinKhac9Str" | translate }}:</label>
 					<textarea type="text" ng-model="data.thongTinKhac9Str" title="{{tooltips['thongTinKhac9Str']}}" name="thongTinKhac9Str" id="thongTinKhac9Str" class="input-form form-control" rows="5"></textarea>
-				</div>
-				<div class="col-sm-8">
 					<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac9File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac9File" name ="thongTinKhac9File">
 					<label for="thongTinKhac9File" title="{{tooltips['thongTinKhac9File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
 					<ul id="ul_thongTinKhac9File" class="list-group">

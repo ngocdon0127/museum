@@ -220,7 +220,7 @@ a.nav:hover{
 }
 
 .tabs > li > a {
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     margin: 0px;
     padding: 10px 10px;
 }

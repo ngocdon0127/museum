@@ -45,6 +45,7 @@
     "request": "~2.81.0",
     "request-promise": "^4.2.0",
     "serve-favicon": "~2.3.0",
+    "sharp": "^0.18.4",
     "tmp": "0.0.33",
     "ua-parser": "^0.3.5",
     "useragent": "^2.1.13",

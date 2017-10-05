@@ -5,6 +5,7 @@ const ROOT = path.join(__dirname, '../');
 const mongoose = require('mongoose');
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
+const sharp = require('sharp');
 let acl = global.myCustomVars.acl;
 let getPublicIP                = global.myCustomVars.getPublicIP;
 let objectChild                = global.myCustomVars.objectChild;
@@ -56,46 +57,68 @@ var exportFilePromise = (objectInstance, options, extension) => {
 		return new Buffer(bitmap).toString('base64');
 	}
 	let img2HTML = (imgpath, maxWidth, maxHeight) => {
-		let image = images(imgpath);
-		let width = image.width;
-		let height = image.height;
-		let newWidth = -1;
-		let newHeight = -1;
-		if ((width <= maxWidth) && (height <= maxHeight)){
-			newWidth = width;
-			newHeight = height;
-		} else {
-			if (width / maxWidth < height / maxHeight){
-				// scale height
-				let rate = height / maxHeight;
-				// console.log('rate:', rate)
-				newHeight = height / rate;
-				newWidth = width / rate;
+		return new Promise((resolve, reject) => {
+			let image = images(imgpath);
+			let width = image.width;
+			let height = image.height;
+			let newWidth = -1;
+			let newHeight = -1;
+			if ((width <= maxWidth) && (height <= maxHeight)){
+				newWidth = width;
+				newHeight = height;
 			} else {
-				// scale width
-				let rate = width / maxWidth;
-				// console.log('rate:', rate)
-				newHeight = height / rate;
-				newWidth = width / rate;
+				if (width / maxWidth < height / maxHeight){
+					// scale height
+					let rate = height / maxHeight;
+					// console.log('rate:', rate)
+					newHeight = height / rate;
+					newWidth = width / rate;
+				} else {
+					// scale width
+					let rate = width / maxWidth;
+					// console.log('rate:', rate)
+					newHeight = height / rate;
+					newWidth = width / rate;
+				}
 			}
-		}
-		newWidth = Math.round(newWidth);
-		newHeight = Math.round(newHeight);
-		// console.log('new size:', newWidth, ' x ', newHeight);
-		let base64str = base64_encode(imgpath);
-		let extension = imgpath.substring(imgpath.lastIndexOf('.') + 1).toLowerCase();
-		let MIME = {
-			jpg: 'jpeg',
-			jpeg: 'jpeg',
-			gif: 'gif',
-			png: 'png'
-		}
-		if (MIME.hasOwnProperty(extension)) {
-			let mime = MIME[extension];
-			return `<img src="data:image/${mime};base64,${base64str}" width='${newWidth}' height='${newHeight}'/>`
-		} else {
-			return ''
-		}
+			newWidth = Math.round(newWidth);
+			newHeight = Math.round(newHeight);
+			// console.log('new size:', newWidth, ' x ', newHeight);
+
+			// let base64str = base64_encode(imgpath);
+			let base64str = await (new Promise((resolve_, reject_) => {
+				sharp(imgpath)
+					.resize(newWidth, newHeight)
+					.toBuffer()
+					.then(data => {
+						console.log('success');
+						console.log(data);
+						resolve_(data.toString('base64'))
+					})
+					.catch (err => {
+						console.log(err);
+						resolve_('')
+					})
+			}))
+			console.log('base64str');
+			console.log(base64str);
+			if (!base64str) {
+				return resolve('');
+			}
+			let extension = imgpath.substring(imgpath.lastIndexOf('.') + 1).toLowerCase();
+			let MIME = {
+				jpg: 'jpeg',
+				jpeg: 'jpeg',
+				gif: 'gif',
+				png: 'png'
+			}
+			if (MIME.hasOwnProperty(extension)) {
+				let mime = MIME[extension];
+				return resolve(`<img src="data:image/${mime};base64,${base64str}" width='${newWidth}' height='${newHeight}'/>`)
+			} else {
+				return resolve('')
+			}
+		})
 	}
 	return new Promise((RESOLVE, REJECT) => {
 		async (function (){
@@ -200,6 +223,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 			catch (e){
 				console.log(e);
+				console.log(objectInstance.duLieuThuMau.diaDiemThuMau.tinh);
 				// do not care
 			}
 
@@ -278,361 +302,380 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var addPropRow = true;
 
 			function inOrder (tree) {
-				if (!tree){
-					return;
-				}
-				if (tree instanceof Function){
-					return;
-				}
-				if (typeof(tree) == 'string'){
-					return;
-				}
-				for(var i = 0; i < Object.keys(tree).length; i++){
-					var prop = Object.keys(tree)[i];
-					// console.log(stt + ' : ' + prop + ' : ' + curDeep);
-					// Add data to docx object
-					var p;
-					switch (curDeep){
-						case 0:
-							addPropRow = true;
-							// Label
-							try{
-								p = LABEL[prop];
-							}
-							catch (e){
-								console.log(e);
-								// Do not care;
-								// break;
-							}
-							var row = [
-								{
-									val: p,
-									opts: rowSpanOpts
-								},
-								{
-									val: '',
-									opts: rowSpanOpts
-								},
-								{
-									val: '',
-									opts: rowSpanOpts
-								},
-								{
-									val: '',
-									opts: rowSpanOpts
-								}
-							];
-							// table.push(row);
-							docxHTMLSource += `
-								<tr>
-									<td colspan="4" class="bg td"><p class="tnr lb"><b>${p}</b></p></td>
-								</tr>
-							`
-							
-							break;
-						case 1:
-							stt++;
-							curProp = prop;
-							addPropRow = true;
-							// console.log('printing ' + prop);
-							// var value = flatOI[prop];
-							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
-							// 	value = JSON.stringify(flatOI[prop]);
-							// }
-							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
-							// 	value = '';
-							// }
-							var value = display(flatOI[prop]);
-							try{
-
-								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
-									p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
-								}
-
-								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-									statistics.totalMoneyProp++;
-									statistics.totalMoneyPropStr += ' ' + prop;
-									p += ' (*) '
-								}
-								else {
-									statistics.totalNonMoneyProp++;
-									statistics.totalNonMoneyPropStr += ' ' + prop;
-								}
-							}
-							catch (e){
-								// console.log(e);
-								// Do not care;
-								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
-							}
-
-							
-							var row = [
-								{
-									val: stt,
-									opts: labelOpts
-								},
-								{
-									val: p,
-									opts: detailOpts
-								},
-								{
-									val: value,
-									opts: detailOpts
-								},
-								{
-									val: '',
-									opts: detailOpts
-								}
-							]
-							if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
-								if (printAll || (prop in printedProperties)){
-									// table.push(row);
-									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
-										docxHTMLSource += `
-										<tr>
-											<td class="td"><p class="tnrlb">${stt}</p></td>
-											<td class="td"><p class="tnr">${p}</p></td>
-											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
-											<td class="td"></td>
-										</tr>
-										`
-									} else {
-										let td = ``;
-										for(let iidx = 0; iidx < value.length; iidx++) {
-											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
-												try {
-													td += img2HTML(path.join(ROOT, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
-												} catch (e) {
-													console.log(e);
-													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
-												}
-											} else {
-												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
-											}
-										}
-										docxHTMLSource += `
-										<tr>
-											<td class="td"><p class="tnrlb">${stt}</p></td>
-											<td class="td"><p class="tnr">${p}</p></td>
-											<td class="td">${td}</td>
-											<td class="td"></td>
-										</tr>
-										`
+				console.log('inOrder invoked');
+				return new Promise((resolve, reject) => {
+					async (() => {
+						if (!tree){
+							console.log('!tree');
+							return resolve();
+						}
+						if (tree instanceof Function){
+							console.log('tree instanceof Function');
+							return resolve();
+						}
+						if (typeof(tree) == 'string'){
+							console.log('tree string');
+							return resolve();
+						}
+						console.log('start looping');
+						for(var i = 0; i < Object.keys(tree).length; i++){
+							var prop = Object.keys(tree)[i];
+							console.log(stt + ' : ' + prop + ' : ' + curDeep);
+							// Add data to docx object
+							var p;
+							console.log('curDeep', curDeep);
+							switch (curDeep){
+								case 0:
+									addPropRow = true;
+									// Label
+									try{
+										p = LABEL[prop];
 									}
+									catch (e){
+										console.log(e);
+										// Do not care;
+										// break;
+									}
+									var row = [
+										{
+											val: p,
+											opts: rowSpanOpts
+										},
+										{
+											val: '',
+											opts: rowSpanOpts
+										},
+										{
+											val: '',
+											opts: rowSpanOpts
+										},
+										{
+											val: '',
+											opts: rowSpanOpts
+										}
+									];
+									// table.push(row);
+									docxHTMLSource += `
+										<tr>
+											<td colspan="4" class="bg td"><p class="tnr lb"><b>${p}</b></p></td>
+										</tr>
+									`
 									
-								}
-							}
-							if (value){
-								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-									statistics.moneyPropFilled++;
-									statistics.moneyPropFilledStr += ' ' + prop;
-								}
-								else {
-									statistics.nonMoneyPropFilled++;
-									statistics.nonMoneyPropFilledStr += ' ' + prop;
-								}
-							}
-							break;
-						case 2:
-							// var value = flatOI[prop];
-							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
-							// 	value = JSON.stringify(flatOI[prop]);
-							// }
-							// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
-							// 	value = '';
-							// }
-							var value = display(flatOI[prop]);
-							try{
+									break;
+								case 1:
+									stt++;
+									curProp = prop;
+									addPropRow = true;
+									console.log('printing ' + prop);
+									// var value = flatOI[prop];
+									// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
+									// 	value = JSON.stringify(flatOI[prop]);
+									// }
+									// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
+									// 	value = '';
+									// }
+									var value = display(flatOI[prop]);
+									try{
 
-								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
-									p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
-								}
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+											p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+										}
 
-								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-									statistics.totalMoneyProp++;
-									statistics.totalMoneyPropStr += ' ' + prop;
-									p += ' (*) '
-								}
-								else {
-									statistics.totalNonMoneyProp++;
-									statistics.totalNonMoneyPropStr += ' ' + prop;
-								}
-							}
-							catch (e){
-								console.log(e);
-								// Do not care;
-								// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
-							}
-							var row = null;
-							// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
-							// Có thể cứ in ()
-							// hoặc là xét xem các thuộc tính con có giá trị thì mới in
-							let subProps;
-							let flagHasRealChildren = false; // Oánh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
-							if (curProp.indexOf('Mixed') >= 0){
-								let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
-								subProps = element_.subProps;
-								// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
-								// Tiện vl. :-D
-							}
-							else {
-								// console.log('get', curProp);
-								subProps = [];
-								for(let k in flatOI){
-									try {
-										if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
-											subProps.push(k);
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+											statistics.totalMoneyProp++;
+											statistics.totalMoneyPropStr += ' ' + prop;
+											p += ' (*) '
+										}
+										else {
+											statistics.totalNonMoneyProp++;
+											statistics.totalNonMoneyPropStr += ' ' + prop;
 										}
 									}
 									catch (e){
-										// console.log(e);
+										console.log(e);
+										// Do not care;
+										// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
 									}
-								}
-							}
-							// console.log(subProps);
-							if (subProps instanceof Array){
-								for(let j = 0; j < subProps.length; j++){
-									let sp = subProps[j];
-									// TODO 2283 CHECK PRINT OR NOT
-									if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
-									// if (printAll || ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (sp in printedProperties))) {
-										flagHasRealChildren = true;
-										break;
-									}
-								}
-							}
-							else {
-								flagHasRealChildren = true;
-							}
-							if (addPropRow && flagHasRealChildren){
-								// Thêm 1 dòng cho các thể loại: Thông tin khác, Phân bố Việt Nam, các thuộc tính mixed
-								try{
-									curProp = LABEL[curProp];
-								}
-								catch (e){
-									console.log(e);
-									// Do not care;
-									// break;
-								}
-								row = [
-									{
-										val: stt,
-										opts: labelOpts
-									},
-									{
-										val: curProp,
-										opts: detailOpts
-									},
-									{
-										val: '',
-										opts: detailOpts
-									},
-									{
-										val: '',
-										opts: detailOpts
-									}
-								]
-								// table.push(row);
-								docxHTMLSource += `
-									<tr>
-										<td class="td"><p class="tnrlb">${stt}</p></td>
-										<td class="td"><p class="tnr">${curProp}</p></td>
-										<td class="td"><p class="tnr"></p></td>
-										<td class="td"></td>
-									</tr>
-									`
-								addPropRow = false;
-							} else {
-								// console.log('khong in', curProp, 'prop row', addPropRow);
-							}
-							
-							row = [
-								{
-									val: '',
-									opts: labelOpts
-								},
-								{
-									val: p,
-									opts: detailItalicOpts
-								},
-								{
-									val: value,
-									opts: detailOpts
-								},
-								{
-									val: '',
-									opts: detailOpts
-								}
-							]
-							if (EXPORT_NULL_FIELD || value) {
-								if (printAll || (prop in printedProperties)){
-									// table.push(row);
-									// docxHTMLSource += `
-									// <tr>
-									// 	<td class="td"><p class="ct tnr lb"></p></td>
-									// 	<td class="td"><p class="tnri">${p}</p></td>
-									// 	<td class="td"><p class="tnr">${value}</p></td>
-									// 	<td class="td"></td>
-									// </tr>
-									// `
-									if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
-										docxHTMLSource += `
-										<tr>
-											<td class="td"><p class="ct tnr lb"></p></td>
-											<td class="td"><p class="tnri">${p}</p></td>
-											<td class="td"><p class="tnr">${value ? value : ''}</p></td>
-											<td class="td"></td>
-										</tr>
-										`
-									} else {
-										let td = ``;
-										if (!(value instanceof Array)) {
-											value = []
-										}
-										for(let iidx = 0; iidx < value.length; iidx++) {
-											if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
-												try {
-													td += img2HTML(path.join(ROOT, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
-												} catch (e) {
-													console.log(e);
-													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
-												}
-											} else {
-												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
-											}
-											// td +=  '<img src="" >\n';
-										}
-										docxHTMLSource += `
-										<tr>
-											<td class="td"><p class="ct tnr lb"></p></td>
-											<td class="td"><p class="tnri">${p}</p></td>
-											<td class="td">${td}</td>
-											<td class="td"></td>
-										</tr>
-										`
-									}
-								}
-							}
-							if (value){
-								if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
-									statistics.moneyPropFilled++;
-									statistics.moneyPropFilledStr += ' ' + prop;
-								}
-								else {
-									statistics.nonMoneyPropFilled++;
-									statistics.nonMoneyPropFilledStr += ' ' + prop;
-								}
-							}
-							break;
-					}
 
-					// console.log('inc curDeep');
-					
-					// stt++;
-					curDeep++;
-					inOrder(tree[prop]);
-					curDeep--;
-				}
+									
+									var row = [
+										{
+											val: stt,
+											opts: labelOpts
+										},
+										{
+											val: p,
+											opts: detailOpts
+										},
+										{
+											val: value,
+											opts: detailOpts
+										},
+										{
+											val: '',
+											opts: detailOpts
+										}
+									]
+									if ((EXPORT_NULL_FIELD && (prop in PROP_FIELDS_OBJ)) || value) {
+										if (printAll || (prop in printedProperties)){
+											// table.push(row);
+											if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+												docxHTMLSource += `
+												<tr>
+													<td class="td"><p class="tnrlb">${stt}</p></td>
+													<td class="td"><p class="tnr">${p}</p></td>
+													<td class="td"><p class="tnr">${value ? value : ''}</p></td>
+													<td class="td"></td>
+												</tr>
+												`
+											} else {
+												let td = ``;
+												for(let iidx = 0; iidx < value.length; iidx++) {
+													if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+														try {
+															let td_ = await (img2HTML(path.join(ROOT, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT))
+															console.log('============ td_ =========');
+															// console.log(td_);
+															td += td_ + '<br /><br />\n\n';
+														} catch (e) {
+															console.log(e);
+															td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+														}
+													} else {
+														td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+													}
+												}
+												docxHTMLSource += `
+												<tr>
+													<td class="td"><p class="tnrlb">${stt}</p></td>
+													<td class="td"><p class="tnr">${p}</p></td>
+													<td class="td">${td}</td>
+													<td class="td"></td>
+												</tr>
+												`
+											}
+											
+										}
+									}
+									if (value){
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+											statistics.moneyPropFilled++;
+											statistics.moneyPropFilledStr += ' ' + prop;
+										}
+										else {
+											statistics.nonMoneyPropFilled++;
+											statistics.nonMoneyPropFilledStr += ' ' + prop;
+										}
+									}
+									break;
+								case 2:
+									// var value = flatOI[prop];
+									// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) > 0)){
+									// 	value = JSON.stringify(flatOI[prop]);
+									// }
+									// if ((flatOI[prop] instanceof Object) && (Object.keys(flatOI[prop]) < 1)){
+									// 	value = '';
+									// }
+									var value = display(flatOI[prop]);
+									try{
+
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label){
+											p = PROP_FIELDS[PROP_FIELDS_OBJ[prop]].label
+										}
+
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+											statistics.totalMoneyProp++;
+											statistics.totalMoneyPropStr += ' ' + prop;
+											p += ' (*) '
+										}
+										else {
+											statistics.totalNonMoneyProp++;
+											statistics.totalNonMoneyPropStr += ' ' + prop;
+										}
+									}
+									catch (e){
+										console.log(e);
+										// Do not care;
+										// console.log(prop + ' : index : ' + PROP_FIELDS_OBJ[prop])
+									}
+									var row = null;
+									// Xử lý có thêm 1 dòng cho các thuộc tính mixed hay không.
+									// Có thể cứ in ()
+									// hoặc là xét xem các thuộc tính con có giá trị thì mới in
+									let subProps;
+									let flagHasRealChildren = false; // Oánh dấu nếu thuộc tính này có các thuộc tính con thực sự có gía trị
+									if (curProp.indexOf('Mixed') >= 0){
+										let element_ = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.substring(0, curProp.length - 5)]]
+										subProps = element_.subProps;
+										// Với curPop == 'kichThuocMau', subProps = ['chieuCao', 'chieuRong', 'chieuDai', 'trongLuong', 'theTich']
+										// Tiện vl. :-D
+									}
+									else {
+										// console.log('get', curProp);
+										subProps = [];
+										for(let k in flatOI){
+											try {
+												if (PROP_FIELDS[PROP_FIELDS_OBJ[k]].schemaProp.indexOf('.' + curProp) >= 0){
+													subProps.push(k);
+												}
+											}
+											catch (e){
+												// console.log(e);
+											}
+										}
+									}
+									// console.log(subProps);
+									if (subProps instanceof Array){
+										for(let j = 0; j < subProps.length; j++){
+											let sp = subProps[j];
+											// TODO 2283 CHECK PRINT OR NOT
+											if ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (printAll || (sp in printedProperties))){
+											// if (printAll || ((EXPORT_NULL_FIELD || display(flatOI[sp])) && (sp in printedProperties))) {
+												flagHasRealChildren = true;
+												break;
+											}
+										}
+									}
+									else {
+										flagHasRealChildren = true;
+									}
+									if (addPropRow && flagHasRealChildren){
+										// Thêm 1 dòng cho các thể loại: Thông tin khác, Phân bố Việt Nam, các thuộc tính mixed
+										try{
+											curProp = LABEL[curProp];
+										}
+										catch (e){
+											console.log(e);
+											// Do not care;
+											// break;
+										}
+										row = [
+											{
+												val: stt,
+												opts: labelOpts
+											},
+											{
+												val: curProp,
+												opts: detailOpts
+											},
+											{
+												val: '',
+												opts: detailOpts
+											},
+											{
+												val: '',
+												opts: detailOpts
+											}
+										]
+										// table.push(row);
+										docxHTMLSource += `
+											<tr>
+												<td class="td"><p class="tnrlb">${stt}</p></td>
+												<td class="td"><p class="tnr">${curProp}</p></td>
+												<td class="td"><p class="tnr"></p></td>
+												<td class="td"></td>
+											</tr>
+											`
+										addPropRow = false;
+									} else {
+										// console.log('khong in', curProp, 'prop row', addPropRow);
+									}
+									
+									row = [
+										{
+											val: '',
+											opts: labelOpts
+										},
+										{
+											val: p,
+											opts: detailItalicOpts
+										},
+										{
+											val: value,
+											opts: detailOpts
+										},
+										{
+											val: '',
+											opts: detailOpts
+										}
+									]
+									if (EXPORT_NULL_FIELD || value) {
+										if (printAll || (prop in printedProperties)){
+											// table.push(row);
+											// docxHTMLSource += `
+											// <tr>
+											// 	<td class="td"><p class="ct tnr lb"></p></td>
+											// 	<td class="td"><p class="tnri">${p}</p></td>
+											// 	<td class="td"><p class="tnr">${value}</p></td>
+											// 	<td class="td"></td>
+											// </tr>
+											// `
+											if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].type !== 'File'){
+												docxHTMLSource += `
+												<tr>
+													<td class="td"><p class="ct tnr lb"></p></td>
+													<td class="td"><p class="tnri">${p}</p></td>
+													<td class="td"><p class="tnr">${value ? value : ''}</p></td>
+													<td class="td"></td>
+												</tr>
+												`
+											} else {
+												let td = ``;
+												if (!(value instanceof Array)) {
+													value = []
+												}
+												for(let iidx = 0; iidx < value.length; iidx++) {
+													if (['jpg', 'jpeg', 'gif', 'png', 'tif', 'tiff', 'raw', 'bmp', 'bpg', 'eps'].indexOf(value[iidx].substring(value[iidx].lastIndexOf('.') + 1).toLowerCase()) >= 0) {
+														try {
+															let td_ = img2HTML(path.join(ROOT, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT)
+															console.log('============ td_ =========');
+															console.log(td_);
+															td += td_ + '<br /><br />\n\n';
+														} catch (e) {
+															console.log(e);
+															td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+														}
+													} else {
+														td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+													}
+													// td +=  '<img src="" >\n';
+												}
+												docxHTMLSource += `
+												<tr>
+													<td class="td"><p class="ct tnr lb"></p></td>
+													<td class="td"><p class="tnri">${p}</p></td>
+													<td class="td">${td}</td>
+													<td class="td"></td>
+												</tr>
+												`
+											}
+										}
+									}
+									if (value){
+										if (PROP_FIELDS[PROP_FIELDS_OBJ[prop]].money){
+											statistics.moneyPropFilled++;
+											statistics.moneyPropFilledStr += ' ' + prop;
+										}
+										else {
+											statistics.nonMoneyPropFilled++;
+											statistics.nonMoneyPropFilledStr += ' ' + prop;
+										}
+									}
+									break;
+							}
+
+							console.log('inc curDeep');
+							
+							// stt++;
+							curDeep++;
+							console.log('call inOrder again');
+							await (inOrder(tree[prop]));
+							console.log('end inOrder');
+							curDeep--;
+						}
+						return resolve();
+					})()
+				})
 			}
 
 			var fs = require('fs');
@@ -917,6 +960,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				// console.log(oi);
 			});
 
+
 			var curDeep = 0;
 			var stt = 0;
 			
@@ -930,9 +974,11 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							<th class="td-note"><p class="ct tnr lb">Ghi chú</p></th>
 						</tr>
 			`
-			
+			console.log('start awaiting inOrder');
 
-			inOrder(oi);
+			await (inOrder(oi));
+
+			console.log('done awaiting inOrder');
 
 			var tableStyle = {
 				tableColWidth: 3200,
@@ -1096,7 +1142,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			var HtmlDocx = require('html-docx-js');
 			// var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'portrait'});
 			var docx = HtmlDocx.asBlob(docxHTMLSource, {orientation: 'landscape'});
-			// fs.writeFileSync('out.html', docxHTMLSource);
+			fs.writeFileSync('out.html', docxHTMLSource);
 			var outputFileName = 'PCSDL';
 			try {
 				if (LABEL.objectModelLabel){

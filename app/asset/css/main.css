@@ -19,6 +19,7 @@ body {
   padding-bottom: 6rem;
   padding-top: 60px;
   min-height: 100%;
+  /*background-image:url("http://traveldilse.com/wp-content/uploads/2014/07/blurred-background-81.jpg");*/
   /*font-family: serif;*/
 }
 
@@ -220,7 +221,7 @@ a.nav:hover{
 }
 
 .tabs > li > a {
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     margin: 0px;
     padding: 10px 10px;
 }

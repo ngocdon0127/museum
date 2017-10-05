@@ -7,7 +7,6 @@ async function sheetToJson(workbook, urlFields, urlDates, row) {
     await workbook.SheetNames.forEach(function (sheetName) {
         if (sheetName == "Mau Hang") {
         dic = workbook.Sheets[sheetName];
-        // console.log(dic);
         }
     });
 
@@ -103,7 +102,6 @@ function saveData(id, data) {
 
 app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval, $timeout) {
 
-
     // Sinh key cho tu dong upload
     var keyid = navigator.userAgent + (new Date()).getTime().toString();
     $scope.randomStr = CryptoJS.MD5(keyid).toString();
@@ -186,15 +184,6 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         // }
     }
 
-    $scope.dms = function () {
-        $scope.data.viDo = "";
-        $scope.data.kinhDo = "";
-    }
-    $scope.dd = function () {
-        $scope.data.viDo = ""
-        $scope.data.kinhDo = ""
-    }
-
     saveData = $interval(function () {
         localStorage.setItem("dataAnimal", JSON.stringify($scope.data))
     }, 900000)
@@ -226,7 +215,7 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     };
 
     $scope.isSet = function (tab) {
-        return $scope.tab === tab
+        return $scope.tab === tab;
     };
 
     // default unit
@@ -275,33 +264,9 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     var urlRe = 'quan-ly-thuc-vat';
 
     $scope.addPost = function (FormContent) {
-        // if ($scope.FormContent.$valid) {
         AuthService.startSpinner();
-
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
-
-        // } else{
-        // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-        // }
-    }
-
-    $scope.latChange = function () {
-        $scope.data.viDo = $scope.vido_do + " ° " + $scope.vido_phut + " ' " + $scope.vido_giay + '"';
-        console.log($scope.data.viDo)
-    }
-    $scope.lonChange = function () {
-        $scope.data.kinhDo = $scope.kinhdo_do + " ° " + $scope.kinhdo_phut + " ' " + $scope.kinhdo_giay + '"';
-        console.log($scope.data.kinhDo)
-    }
-
-    $scope.dms = function () {
-        $scope.data.viDo = "";
-        $scope.data.kinhDo = "";
-    }
-    $scope.dd = function () {
-        $scope.data.viDo = ""
-        $scope.data.kinhDo = ""
     }
 
     saveData = $interval(function () {
@@ -383,26 +348,10 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
     //name of route, config in app.config.js file
     var urlRe = 'quan-ly-dia-chat';
     $scope.addPost = function (FormContent) {
-        // if ($scope.FormContent.$valid) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
-        // } else{
-        // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-        // }
     }
-
-    $scope.dms = function () {
-        $scope.data.viDo = "";
-        $scope.data.kinhDo = "";
-    }
-    $scope.dd = function () {
-        $scope.data.viDo = ""
-        $scope.data.kinhDo = "";
-    }
-    saveData = $interval(function () {
-        localStorage.setItem("dataGeo", JSON.stringify($scope.data))
-    }, 900000)
 
     $scope.saveCookies = function () {
         localStorage.setItem("dataGeo", JSON.stringify($scope.data))
@@ -479,23 +428,9 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, 
     //name of route, config in app.config.js file
     var urlRe = 'quan-ly-tho-nhuong';
     $scope.addPost = function (FormContent) {
-        // if ($scope.FormContent.$valid) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
-        // } else{
-        // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-        // }
-    }
-
-
-    $scope.dms = function () {
-        $scope.data.viDo = "";
-        $scope.data.kinhDo = "";
-    }
-    $scope.dd = function () {
-        $scope.data.viDo = ""
-        $scope.data.kinhDo = ""
     }
 
     saveData = $interval(function () {
@@ -518,7 +453,6 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
         console.log(err);
     });
 
-    // $scope.hola = "Kevinhoa95"
     $scope.read = function (respone) {
         var urlFields = "/app/database/templateexcel/templatePal.json"
         var urlDates = "/app/database/templateexcel/paldate.json"
@@ -577,13 +511,9 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
     //name of route, config in app.config.js file
     var urlRe = 'quan-ly-co-sinh';
     $scope.addPost = function (FormContent) {
-        // if ($scope.FormContent.$valid) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
-        // } else{
-        // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
-        // }
     }
 
     $scope.dms = function () {

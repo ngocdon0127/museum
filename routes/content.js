@@ -101,7 +101,7 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 	if ('regex' in PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]]) {
 		for (let i = 0; i < req.files.tmpfiles.length; i++) {
 			let file = req.files.tmpfiles[i];
-			var regex = new RegExp(PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].regex);
+			var regex = new RegExp(PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].regex, 'i');
 			if (!(regex.test(file.originalname))){
 
 				// Opt1: Xóa hết tất cả các file vừa tải lên nếu có 1 file sai định dạng,

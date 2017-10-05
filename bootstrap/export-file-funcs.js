@@ -1112,6 +1112,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			catch (e){
 				console.log(e);
 			}
+			outputFileName = outputFileName.replace(/[\/\\'":\*\?<>\|`]/g, '');
 			fs.writeFile(tmpFileName, docx, function(err) {
 				if (err) throw err;
 				if (extension == 'docx'){
@@ -2019,6 +2020,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 				catch (e){
 					console.log(e);
 				}
+				outputFileName = outputFileName.replace(/[\/\\'":\*\?<>\|`]/g, '');
 				if (extension == 'xlsx'){
 					outputFileName += '.xlsx';
 					// res.download(path.join(ROOT, tmpFileName), outputFileName, function (err) {

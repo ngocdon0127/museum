@@ -356,13 +356,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				else {
 					console.log('Tọa độ rời rạc')
 					req.body[field.fieldName] = req.body[field.fieldName].toLowerCase()
-					let matches = req.body[field.fieldName].match(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/);
+					let matches = req.body[field.fieldName].match(/^([0-9 \-]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)$/);
 					if (!matches || (matches.length < 7)) {
-						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName], ' không đúng định dạng', field.fieldName]);
+						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
 					}
 					let partDo = parseInt(matches[1]);
-					let partPhut = parseInt(matches[2]);
-					let partGiay = parseInt(matches[3]);
+					let partPhut = parseInt(matches[3]);
+					let partGiay = parseInt(matches[5]);
 					if (!Number.isInteger(partDo) ||
 							!Number.isInteger(partPhut) ||
 							!Number.isInteger(partGiay)

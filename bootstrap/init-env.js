@@ -459,7 +459,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							}
 						}
 						if ('regex' in element){
-							var regex = new RegExp(element.regex);
+							var regex = new RegExp(element.regex, 'i');
 							if (regex.test(value) === false){
 								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Sai định dạng', element.name]);
 							}
@@ -571,7 +571,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					break;
 				case 'File':
 					if ('regex' in element){
-						var regex = new RegExp(element.regex);
+						var regex = new RegExp(element.regex, 'i');
 						if (req.files && element.name in req.files){
 						// if (element.name in req.files){
 							var files = req.files[element.name];
@@ -633,7 +633,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 										// Do not care
 									}
 									if ('regex' in e){
-										var regex = new RegExp(e.regex);
+										var regex = new RegExp(e.regex, 'i');
 										if (regex.test(v) === false){
 											return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Sai định dạng', e.name]);
 										}
@@ -836,7 +836,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						if (curFullName[1] in PROP_FIELDS_OBJ) {
 							let f = false;
 							if ('regex' in _PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]]) {
-								let regex = new RegExp(_PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]].regex);
+								let regex = new RegExp(_PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]].regex, 'i');
 								if (regex.test(curFullName[2])) {
 									f = true;
 								}

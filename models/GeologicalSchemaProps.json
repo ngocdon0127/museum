@@ -54,7 +54,7 @@
     {
         "name": "thongTinKhac1Str",
         "schemaProp": "soHieu.thongTinKhac1Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -63,7 +63,7 @@
     {
         "name": "thongTinKhac1File",
         "schemaProp": "soHieu.thongTinKhac1Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -152,7 +152,7 @@
     {
         "name": "thongTinKhac2Str",
         "schemaProp": "tenMau.thongTinKhac2Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -161,7 +161,7 @@
     {
         "name": "thongTinKhac2File",
         "schemaProp": "tenMau.thongTinKhac2Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -323,7 +323,7 @@
     {
         "name": "thongTinKhac3Str",
         "schemaProp": "soLuongChatLuong.thongTinKhac3Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -332,7 +332,7 @@
     {
         "name": "thongTinKhac3File",
         "schemaProp": "soLuongChatLuong.thongTinKhac3Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -499,7 +499,7 @@
     {
         "name": "thongTinKhac4Str",
         "schemaProp": "duLieuThuMau.thongTinKhac4Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -508,7 +508,7 @@
     {
         "name": "thongTinKhac4File",
         "schemaProp": "duLieuThuMau.thongTinKhac4Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -670,7 +670,7 @@
     {
         "name": "thongTinKhac5Str",
         "schemaProp": "duLieuPhanTichMau.thongTinKhac5Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -679,7 +679,7 @@
     {
         "name": "thongTinKhac5File",
         "schemaProp": "duLieuPhanTichMau.thongTinKhac5Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -817,7 +817,7 @@
     {
         "name": "thongTinKhac6Str",
         "schemaProp": "media.thongTinKhac6Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -826,7 +826,7 @@
     {
         "name": "thongTinKhac6File",
         "schemaProp": "media.thongTinKhac6Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -994,7 +994,7 @@
     {
         "name": "thongTinKhac7Str",
         "schemaProp": "phanBoVaSuDung.thongTinKhac7Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -1003,7 +1003,7 @@
     {
         "name": "thongTinKhac7File",
         "schemaProp": "phanBoVaSuDung.thongTinKhac7Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -1175,7 +1175,7 @@
     {
         "name": "thongTinKhac8Str",
         "schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -1184,7 +1184,7 @@
     {
         "name": "thongTinKhac8File",
         "schemaProp": "luuTruBaoQuan.thongTinKhac8Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",
@@ -1205,7 +1205,7 @@
     {
         "name": "thongTinKhac9Str",
         "schemaProp": "thongTinKhac.thongTinKhac9Mixed",
-        "label": "Thông tin khác",
+        "label": "Thông tin",
         "required": false,
         "money": false,
         "type": "String",
@@ -1214,7 +1214,7 @@
     {
         "name": "thongTinKhac9File",
         "schemaProp": "thongTinKhac.thongTinKhac9Mixed",
-        "label": "Thông tin khác",
+        "label": "Đính kèm",
         "required": false,
         "money": false,
         "type": "File",

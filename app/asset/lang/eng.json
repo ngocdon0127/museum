@@ -33,6 +33,18 @@
 			"dangxuat": "Log out"
 		}
 	},
+	"tab":{
+		"soHieu" : "Số hiệu",
+		"tenMauVat" : "Tên mẫu vật",
+		"soLuong" : "Số lượng",
+		"thuMau" : "DL thu mẫu",
+		"phanTichMau" : "Phân tích mẫu",
+		"hinhAnh" : "Hình ảnh/Phim",
+		"dacDiem": "Đặc điểm",
+		"phanBo" : "Phân bố/Giá trị",
+		"luuTru" : "Lưu trữ/Bảo quản",
+		"thongTinKhac" : "Thông tin khác"
+	},
 	"ani":{
 	    "soHieuBTTNVN": "Số hiệu BTTNVN",
 	    "soHieuBaoTangCS": "Số hiệu Bảo tàng cơ sở",

@@ -69,14 +69,19 @@ app.controller('EditAnimalFormCtrl', function ($http, $scope, AuthService, $stat
 
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.viDo_do = parseInt(coor[1].trim());
-                $scope.data.viDo_phut = parseInt(coor[2].trim());
-                $scope.data.viDo_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.kinhDo_do = parseInt(coor[1].trim());
-                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
-                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
+                var do_phut_giay = $scope.data.viDo.split("°");
+                $scope.data.viDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.viDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.viDo_giay = parseInt(giay[0].trim());
+
+                var do_phut_giay = $scope.data.kinhDo.split("°");
+                $scope.data.kinhDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.kinhDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.kinhDo_giay = parseInt(giay[0].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -174,14 +179,19 @@ app.controller('EditPaleontologicalFormCtrl', function ($http, $scope, AuthServi
 
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.viDo_do = parseInt(coor[1].trim());
-                $scope.data.viDo_phut = parseInt(coor[2].trim());
-                $scope.data.viDo_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.kinhDo_do = parseInt(coor[1].trim());
-                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
-                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
+                var do_phut_giay = $scope.data.viDo.split("°");
+                $scope.data.viDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.viDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.viDo_giay = parseInt(giay[0].trim());
+
+                var do_phut_giay = $scope.data.kinhDo.split("°");
+                $scope.data.kinhDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.kinhDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.kinhDo_giay = parseInt(giay[0].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -280,14 +290,19 @@ app.controller('EditVegetableFormCtrl', function ($http, $scope, AuthService, $s
 
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.viDo_do = parseInt(coor[1].trim());
-                $scope.data.viDo_phut = parseInt(coor[2].trim());
-                $scope.data.viDo_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.kinhDo_do = parseInt(coor[1].trim());
-                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
-                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
+                var do_phut_giay = $scope.data.viDo.split("°");
+                $scope.data.viDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.viDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.viDo_giay = parseInt(giay[0].trim());
+
+                var do_phut_giay = $scope.data.kinhDo.split("°");
+                $scope.data.kinhDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.kinhDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.kinhDo_giay = parseInt(giay[0].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -387,14 +402,19 @@ app.controller('EditGeologicalFormCtrl', function ($http, $scope, AuthService, $
 
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.viDo_do = parseInt(coor[1].trim());
-                $scope.data.viDo_phut = parseInt(coor[2].trim());
-                $scope.data.viDo_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.kinhDo_do = parseInt(coor[1].trim());
-                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
-                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
+                var do_phut_giay = $scope.data.viDo.split("°");
+                $scope.data.viDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.viDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.viDo_giay = parseInt(giay[0].trim());
+
+                var do_phut_giay = $scope.data.kinhDo.split("°");
+                $scope.data.kinhDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.kinhDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.kinhDo_giay = parseInt(giay[0].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';
@@ -493,14 +513,19 @@ app.controller('EditLandFormCtrl', function ($http, $scope, AuthService, $stateP
 
         $timeout(function () {
             if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
-                var coor = $scope.data.viDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.viDo_do = parseInt(coor[1].trim());
-                $scope.data.viDo_phut = parseInt(coor[2].trim());
-                $scope.data.viDo_giay = parseInt(coor[3].trim());
-                var coor = $scope.data.kinhDo.match('([0-9 ]+)\°([0-9 ]+)\'([0-9 ]+)\"')
-                $scope.data.kinhDo_do = parseInt(coor[1].trim());
-                $scope.data.kinhDo_phut = parseInt(coor[2].trim());
-                $scope.data.kinhDo_giay = parseInt(coor[3].trim());
+                var do_phut_giay = $scope.data.viDo.split("°");
+                $scope.data.viDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.viDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.viDo_giay = parseInt(giay[0].trim());
+
+                var do_phut_giay = $scope.data.kinhDo.split("°");
+                $scope.data.kinhDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.kinhDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.kinhDo_giay = parseInt(giay[0].trim());
                 $scope.data.fViTriToaDo = 'dms';
             } else {
                 $scope.data.fViTriToaDo = 'dd';

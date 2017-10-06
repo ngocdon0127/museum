@@ -713,7 +713,8 @@
                 </div>
                 <div class="col-sm-4">
                     <label>52. {{"geo.thanhPhanHoaHoc" | translate }}: </label>
-                    <input type="text" title="{{tooltips['thanhPhanHoaHoc']}}" name="thanhPhanHoaHoc" ng-model="data.thanhPhanHoaHoc" id="thanhPhanHoaHoc" class="input-form form-control">
+                    <input type="hidden" title="{{tooltips['thanhPhanHoaHoc']}}" name="thanhPhanHoaHoc" value="{{data.thanhPhanHoaHoc}}" ng-bind="data.thanhPhanHoaHoc">
+                    <div type="text" inline-text-editor context-menu="contextMenu" id="thanhPhanHoaHoc" ng-model="data.thanhPhanHoaHoc" contentEditable class="inline-text-editor" title="{{tooltips['thanhPhanHoaHoc']}}" name="thanhPhanHoaHoc"></div>
                 </div>
             </div>
 		</div>

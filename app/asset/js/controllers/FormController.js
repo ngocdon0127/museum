@@ -323,7 +323,7 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            console.log(res_tmp);
+            // console.log(res_tmp);
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                         $scope.data.fViTriToaDo = "dms";

@@ -236,13 +236,17 @@ router.post('/grant/manager', aclMiddleware('/admin', 'edit'), function (req, re
 									}
 									// console.log('saving log');
 									log.save(err => {
-										console.error('ERR: Save log failed. Try again');
-										console.error(err);
-										log.save(err_ => {
-											console.error('ERR: Save log failed');
-											console.error(err_);
-											console.error(log);
-										})
+										if (err) {
+											console.error('ERR: Save log failed. Try again');
+											console.error(err);
+											log.save(err_ => {
+												if (err_) {
+													console.error('ERR: Save log failed');
+													console.error(err_);
+													console.error(log);
+												}
+											})
+										}
 									});
 									return responseSuccess(res, [], []);
 								})
@@ -382,13 +386,17 @@ router.post('/revoke/manager', aclMiddleware('/admin', 'edit'), function (req, r
 				}
 				// console.log('saving log');
 				log.save(err => {
-					console.error('ERR: Save log failed. Try again');
-					console.error(err);
-					log.save(err_ => {
-						console.error('ERR: Save log failed');
-						console.error(err_);
-						console.error(log);
-					})
+					if (err) {
+						console.error('ERR: Save log failed. Try again');
+						console.error(err);
+						log.save(err_ => {
+							if (err_) {
+								console.error('ERR: Save log failed');
+								console.error(err_);
+								console.error(log);
+							}
+						})
+					}
 				});
 				return responseSuccess(res, [], []);
 			})
@@ -495,13 +503,17 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 								}
 								// console.log('saving log');
 								log.save(err => {
-									console.error('ERR: Save log failed. Try again');
-									console.error(err);
-									log.save(err_ => {
-										console.error('ERR: Save log failed');
-										console.error(err_);
-										console.error(log);
-									})
+									if (err) {
+										console.error('ERR: Save log failed. Try again');
+										console.error(err);
+										log.save(err_ => {
+											if (err_) {
+												console.error('ERR: Save log failed');
+												console.error(err_);
+												console.error(log);
+											}
+										})
+									}
 								});
 								return responseSuccess(res, [], []);
 							}
@@ -556,13 +568,17 @@ router.post('/assign', aclMiddleware('/admin', 'edit'), function (req, res, next
 							}
 							// console.log('saving log');
 							log.save(err => {
-								console.error('ERR: Save log failed. Try again');
-								console.error(err);
-								log.save(err_ => {
-									console.error('ERR: Save log failed');
-									console.error(err_);
-									console.error(log);
-								})
+								if (err) {
+									console.error('ERR: Save log failed. Try again');
+									console.error(err);
+									log.save(err_ => {
+										if (err_) {
+											console.error('ERR: Save log failed');
+											console.error(err_);
+											console.error(log);
+										}
+									})
+								}
 							});
 							return responseSuccess(res, [], []);
 						}
@@ -686,13 +702,17 @@ router.post('/fire', aclMiddleware('/admin', 'edit'), function (req, res, next) 
 							}
 							// console.log('saving log');
 							log.save(err => {
-								console.error('ERR: Save log failed. Try again');
-								console.error(err);
-								log.save(err_ => {
-									console.error('ERR: Save log failed');
-									console.error(err_);
-									console.error(log);
-								})
+								if (err) {
+									console.error('ERR: Save log failed. Try again');
+									console.error(err);
+									log.save(err_ => {
+										if (err_) {
+											console.error('ERR: Save log failed');
+											console.error(err_);
+											console.error(log);
+										}
+									})
+								}
 							});
 							return responseSuccess(res, [], []);
 						})
@@ -764,13 +784,17 @@ router.post('/addMDT', aclMiddleware('/admin', 'edit'), (req, res, next) => {
 				}
 				// console.log('saving log');
 				log.save(err => {
-					console.error('ERR: Save log failed. Try again');
-					console.error(err);
-					log.save(err_ => {
-						console.error('ERR: Save log failed');
-						console.error(err_);
-						console.error(log);
-					})
+					if (err) {
+						console.error('ERR: Save log failed. Try again');
+						console.error(err);
+						log.save(err_ => {
+							if (err_) {
+								console.error('ERR: Save log failed');
+								console.error(err_);
+								console.error(log);
+							}
+						})
+					}
 				});
 				try {
 					process.send({actionType: 'restart', target: 'all'});

@@ -145,6 +145,8 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
                 if ($scope.data.fViTriToaDo == "DMS") {
                     console.log("Vi tri toa do la dms");
                     $scope.data.fViTriToaDo = "dms";
+                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }
@@ -248,6 +250,8 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                     $scope.data.fViTriToaDo = "dms";
+                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }
@@ -323,6 +327,9 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                         $scope.data.fViTriToaDo = "dms";
+                        $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                        $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }
@@ -403,6 +410,8 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, 
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                     $scope.data.fViTriToaDo = "dms";
+                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }
@@ -464,6 +473,8 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                     $scope.data.fViTriToaDo = "dms";
+                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }

@@ -273,6 +273,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 	return function saveOrUpdate (req, res, objectInstance, action) {
 		var PROP_FIELDS_OBJ = {};
+		// console.log(req.body);
 
 		_PROP_FIELDS.map(function (element, index) {
 			PROP_FIELDS_OBJ[element.name] = index;
@@ -346,6 +347,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 		for(let field of specialFields.coordinations){
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
+				// console.log(req.body[field.fieldName]);
 				if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
 					if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {
 						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
@@ -360,9 +362,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					if (!matches || (matches.length < 7)) {
 						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
 					}
+					// console.log(matches);
 					let partDo = parseInt(matches[1]);
 					let partPhut = parseInt(matches[3]);
 					let partGiay = parseInt(matches[5]);
+					// console.log(partDo);
+					// console.log(partPhut);
+					// console.log(partGiay);
 					if (!Number.isInteger(partDo) ||
 							!Number.isInteger(partPhut) ||
 							!Number.isInteger(partGiay)
@@ -885,13 +891,17 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				}
 				newLog.userFullName = req.user.fullname;
 				newLog.save(err => {
-					console.error('ERR: Save log failed. Try again');
-					console.error(err);
-					newLog.save(err_ => {
-						console.error('ERR: Save log failed');
-						console.error(err_);
-						console.error(newLog);
-					})
+					if (err) {
+						console.error('ERR: Save log failed. Try again');
+						console.error(err);
+						newLog.save(err_ => {
+							if (err_) {
+								console.error('ERR: Save log failed');
+								console.error(err_);
+								console.error(newLog);
+							}
+						})
+					}
 				});
 				res.status(200).json({
 					status: 'success'

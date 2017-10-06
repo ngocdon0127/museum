@@ -469,9 +469,11 @@ var duplicateHandler = function (options) {
 						newLog.obj1 = JSON.parse(JSON.stringify(newInstance))
 						newLog.userFullName = req.user.fullname;
 						newLog.save(err => {
+							if (!err) return;
 							console.error('ERR: Save log failed. Try again');
 							console.error(err);
 							newLog.save(err_ => {
+								if (!err_) return;
 								console.error('ERR: Save log failed');
 								console.error(err_);
 								console.error(newLog);
@@ -612,9 +614,11 @@ var chownHandler = function (options) {
 				}
 				newLog.obj2 = JSON.parse(JSON.stringify(oi));
 				newLog.save(err => {
+					if (!err) return;
 					console.error('ERR: Save log failed. Try again');
 					console.error(err);
 					newLog.save(err_ => {
+						if (!err_) return;
 						console.error('ERR: Save log failed');
 						console.error(err_);
 						console.error(newLog);
@@ -772,9 +776,11 @@ var deleteHandler = function (options) {
 				newLog.obj1 = objectInstance;
 				newLog.time = date;
 				newLog.save(err => {
+					if (!err) return;
 					console.error('ERR: Save log failed. Try again');
 					console.error(err);
 					newLog.save(err_ => {
+						if (!err_) return;
 						console.error('ERR: Save log failed');
 						console.error(err_);
 						console.error(newLog);
@@ -944,9 +950,11 @@ var deleteFileHander = options => {
 					newLog.obj2 = JSON.parse(JSON.stringify(objectInstance));
 					newLog.userFullName = req.user.fullname;
 					newLog.save(err => {
+						if (!err) return;
 						console.error('ERR: Save log failed. Try again');
 						console.error(err);
 						newLog.save(err_ => {
+							if (!err_) return;
 							console.error('ERR: Save log failed');
 							console.error(err_);
 							console.error(newLog);

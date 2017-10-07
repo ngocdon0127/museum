@@ -67,12 +67,15 @@ var addMaDeTai = (maDeTai, tenDeTai, donViChuTri) => {
 			}
 			else {
 				mongoose.model('SharedData').findOne({}, (err, sharedData) => {
-					if (err || !sharedData){
+					if (err){
 						console.log(err);
 						return resolve({
 							status: 'error',
 							error: 'Có lỗi xảy ra. Vui lòng thử lại'
 						})
+					}
+					if (!sharedData) {
+						sharedData = new (mongoose.model('SharedData'))();
 					}
 					sharedData.deTai.push({
 						maDeTai: maDeTai,

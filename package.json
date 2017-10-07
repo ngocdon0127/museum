@@ -28,6 +28,7 @@
     "express-session": "^1.14.0",
     "express-useragent": "^1.0.7",
     "fs-extra": "^2.0.0",
+    "helmet": "^3.8.2",
     "html-docx-js": "^0.3.1",
     "html-pdf": "^2.1.0",
     "image-size": "^0.6.0",
@@ -48,7 +49,8 @@
     "tmp": "0.0.33",
     "ua-parser": "^0.3.5",
     "useragent": "^2.1.13",
-    "xmlbuilder": "^9.0.4"
+    "xmlbuilder": "^9.0.4",
+    "xssfilter": "^0.5.3"
   },
   "devDependencies": {
     "angular-translate": "^2.15.2"

@@ -2,6 +2,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const fs = require('fs');
 const fsE = require('fs-extra');
+const xss = require(path.join(ROOT, 'utils/xss'));
 const TMP_UPLOAD_DIR = 'public/uploads/tmp';
 global.myCustomVars.TMP_UPLOAD_DIR = TMP_UPLOAD_DIR;
 
@@ -274,6 +275,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 	return function saveOrUpdate (req, res, objectInstance, action) {
 		var PROP_FIELDS_OBJ = {};
 		// console.log(req.body);
+		let _s = new Date();
+		for (let i = 0; i < Object.keys(req.body).length; i++) {
+			let key = Object.keys(req.body)[i];
+			req.body[key] = xss.filter(req.body[key])
+			req.body[key] = xss.stripTags(req.body[key], ['img', 'a'])
+		}
+		let _f = new Date();
+		console.log('time filter', Object.keys(req.body).length, 'fields:', (_f.getTime() - _s.getTime()));
 
 		_PROP_FIELDS.map(function (element, index) {
 			PROP_FIELDS_OBJ[element.name] = index;

@@ -9,7 +9,17 @@
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
 	 integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
 	 crossorigin=""/>
-
+		<style type="text/css">
+			.lb, .ptitle, .tnrlb, .ite-bold {
+				font-weight: bold;
+			}
+			.ite-italic {
+				font-style: italic;
+			}
+			.ite-underline{
+				text-decoration: underline;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
@@ -85,7 +95,8 @@
 						return [obj.getDate(), obj.getMonth() + 1, obj.getFullYear()].join(' / ')
 					}
 					// Need to escape to prevent injected HTML + JS
-					return escape(obj).replace(/_-_/g, ', ');
+					// return escape(obj).replace(/_-_/g, ', ');
+					return obj.replace(/_-_/g, ', ');
 				}
 
 				function propDiff (obj1, obj2, prop) {

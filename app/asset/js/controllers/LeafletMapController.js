@@ -1,21 +1,27 @@
 'use strict';
 app.factory("getMarkerForMap", function ($http, AuthService) {
-    return function (rectangleBoundary) {
+    return function (geoJsonObject) {
         return new Promise(function (resolve, reject) {
             var req = {
                 method: 'GET',
-                url: AuthService.hostName + '/map/get-marker',
+                // url: AuthService.hostName + '/map/get-marker',
+                url: '/map/get-marker',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 params: {
-                    rectangleBoundary: rectangleBoundary,
+                    geoJsonObject: geoJsonObject,
                 }
             };
             $http(req).then(function (response) {
-                resolve(response.data);
-                // console.log(response.data)
+                if (response.status >= 400) {
+                    reject(response.data);
+                } else {
+                    resolve(response.data);
+                }
+                console.log(response)
             }, function (response) {
+                console.log(response)
                 // console.log(response);
                 reject(response);
             });
@@ -28,17 +34,20 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
 
     function clearMarkers() {
         $scope.map.markers = {
-            animalMarkers : {},
+            animalMarkers: {},
             geologicalMarkers: {},
-            paleontologicalMarkers : {},
-            soidMarkers : {},
-            vegetableMarkers : {}
+            paleontologicalMarkers: {},
+            soidMarkers: {},
+            vegetableMarkers: {}
         };
     }
 
-    function updateMarkers(rectangleBoundary) {
-        getMarkerForMap(rectangleBoundary).then(function (data) {
+    function updateMarkers(geoJsonObject) {
+        getMarkerForMap(geoJsonObject).then(function (data) {
             $scope.map.markers = data;
+        }).catch(err => {
+            alert(err);
+            console.log(err);
         })
     }
 
@@ -68,7 +77,7 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
                 position: "bottomright",
                 draw: {
                     polyline: false,
-                    polygon: false,
+                    // polygon: false,
                     circle: false,
                     marker: false
                 },
@@ -137,25 +146,15 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
             drawnItems.clearLayers();
             drawnItems.addLayer(leafletEvent.layer);
             // console.log(leafletEvent);
-            // console.log(leafletEvent.layer._latlngs);
-            var _latlngs = leafletEvent.layer._latlngs;
-            updateMarkers({
-                left: _latlngs[0].lng,
-                bottom: _latlngs[0].lat,
-                top: _latlngs[2].lat,
-                right: _latlngs[2].lng
-            })
+            console.log(leafletEvent.layer.toGeoJSON());
+            // var _latlngs = leafletEvent.layer._latlngs;
+            updateMarkers(leafletEvent.layer.toGeoJSON())
         },
         edited: function (e, leafletEvent, leafletObject, model, modelName) {
             // console.log("edited");
-            drawnItems.getLayers().forEach(function(layer){
-                var latlngs = layer._latlngs;
-                updateMarkers({
-                    left: latlngs[0].lng,
-                    bottom: latlngs[0].lat,
-                    top: latlngs[2].lat,
-                    right: latlngs[2].lng
-                })
+            drawnItems.getLayers().forEach(function (layer) {
+                console.log(layer.toGeoJSON());
+                updateMarkers(layer.toGeoJSON());
             })
         },
         deleted: function (arg) {

@@ -204,9 +204,15 @@ module.exports = function (mongoose) {
 		flag: {
 			fDiaDiemThuMau: String,
 			fApproved: Boolean
+		},
+		extra: {
+			eGeoJSON: {
+				type: String,
+				coordinates: [Number]
+			}
 		}
 	};
-	var vegetableSchema = mongoose.Schema(schemaPrototype);
+	var vegetableSchema = mongoose.Schema(schemaPrototype, {typeKey: '$type'});
 	var Vegetable = mongoose.model("Vegetable", vegetableSchema);
 
 	global.myCustomVars.models.Vegetable = {

@@ -197,9 +197,15 @@ module.exports = function (mongoose) {
 		flag: {
 			fDiaDiemThuMau: String,
 			fApproved: Boolean
+		},
+		extra: {
+			eGeoJSON: {
+				type: String,
+				coordinates: [Number]
+			}
 		}
 	};
-	var paleontologicalSchema = mongoose.Schema(schemaPrototype);
+	var paleontologicalSchema = mongoose.Schema(schemaPrototype, {typeKey: '$type'});
 	var Paleontological = mongoose.model("Paleontological", paleontologicalSchema);
 
 	global.myCustomVars.models.Paleontological = {

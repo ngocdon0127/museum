@@ -185,9 +185,15 @@ module.exports = function (mongoose) {
 		flag: {
 			fDiaDiemThuMau: String,
 			fApproved: Boolean
+		},
+		extra: {
+			eGeoJSON: {
+				type: String,
+				coordinates: [Number]
+			}
 		}
 	};
-	var soilSchema = mongoose.Schema(schemaPrototype);
+	var soilSchema = mongoose.Schema(schemaPrototype, {typeKey: '$type'});
 
 	var Soil = mongoose.model("Soil", soilSchema);
 

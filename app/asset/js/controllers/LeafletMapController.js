@@ -152,7 +152,7 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
         },
         edited: function (e, leafletEvent, leafletObject, model, modelName) {
             // console.log("edited");
-            drawnItems.getLayers().forEach(function (layer) {
+            drawnItems.getLayers().forEach(function(layer){
                 console.log(layer.toGeoJSON());
                 updateMarkers(layer.toGeoJSON());
             })

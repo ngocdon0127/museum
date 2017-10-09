@@ -6,7 +6,7 @@ var baseIcon = {
     type: 'extraMarker',
     icon: 'fa-circle',
     prefix: 'fa',
-    geoJsonObject: 'circle'
+    // shape: 'circle'
 };
 
 var animalMarkerIcon = Object.assign({}, baseIcon, {

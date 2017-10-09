@@ -228,7 +228,13 @@ global.myCustomVars.propsName = propsName;
 function flatObjectModel (_PROP_FIELDS, objectInstance) {
 	objectInstance = JSON.parse(JSON.stringify(objectInstance));
 	var result = {};
+	let ommitedFields = {
+		eGeoJSON: 1
+	};
 	_PROP_FIELDS.map(function (element) {
+		if (ommitedFields.hasOwnProperty(element.name)) {
+			return;
+		}
 		if (element.type.localeCompare('Date') === 0){
 			result[element.name] = new Date(objectChild(objectInstance, element.schemaProp)[element.name]);
 		}
@@ -335,6 +341,27 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		delete specialFields.unitFields;
 
 		// VD: Kinh độ, Vĩ độ: '1 ° 2 \' 3"'
+		function validateCoordinate(str) {
+			let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
+			let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
+			return discreteCoor.test(str) || floatCoor.test(str);
+		}
+
+		function coordinatesStr2Float(str) {
+			let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
+			let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
+			if (discreteCoor.test(str)) {
+				let matches = str.match(discreteCoor);
+				let partDo = parseInt(matches[1]);
+				let partPhut = parseInt(matches[3]);
+				let partGiay = parseInt(matches[5]);
+				return (Math.abs(partDo) + partPhut / 60 + partGiay / 3600) * (partDo >= 0 ? 1 : -1);
+			}
+			if (floatCoor.test(str)) {
+				return parseFloat(str)
+			}
+			return 'invalid'
+		}
 
 		specialFields.coordinations = [
 			{
@@ -344,37 +371,63 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				fieldName: 'viDo'
 			}
 		]
+		let geoJSON = {
+			type: 'Point',
+			coordinates: []
+		}
 
 		for(let field of specialFields.coordinations){
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
 				// console.log(req.body[field.fieldName]);
-				if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
-					if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {
-						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
-					}
-					console.log('Tọa độ thực')
-					req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+				// new
+				req.body[field.fieldName] = req.body[field.fieldName].toLowerCase();
+				let isValidCoor = validateCoordinate(req.body[field.fieldName]);
+				if (!isValidCoor) {
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+						[_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
 				}
-				else {
-					console.log('Tọa độ rời rạc')
-					req.body[field.fieldName] = req.body[field.fieldName].toLowerCase()
-					let matches = req.body[field.fieldName].match(/^([0-9 \-]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)$/);
-					if (!matches || (matches.length < 7)) {
-						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
-					}
-					// console.log(matches);
-					let partDo = parseInt(matches[1]);
-					let partPhut = parseInt(matches[3]);
-					let partGiay = parseInt(matches[5]);
-					// console.log(partDo);
-					// console.log(partPhut);
-					// console.log(partGiay);
-					if (!Number.isInteger(partDo) ||
-							!Number.isInteger(partPhut) ||
-							!Number.isInteger(partGiay)
-						){
-						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ': Tọa độ phải là các số nguyên', field.fieldName])
-					}
+				
+				geoJSON.coordinates.push(coordinatesStr2Float(req.body[field.fieldName]));
+				// end new
+				// if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
+				// 	if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {
+				// 		return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
+				// 	}
+				// 	console.log('Tọa độ thực')
+				// 	req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+				// }
+				// else {
+				// 	console.log('Tọa độ rời rạc')
+				// 	req.body[field.fieldName] = req.body[field.fieldName].toLowerCase()
+				// 	let matches = req.body[field.fieldName].match(/^([0-9 \-]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)$/);
+				// 	if (!matches || (matches.length < 7)) {
+				// 		return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
+				// 	}
+				// 	// console.log(matches);
+				// 	let partDo = parseInt(matches[1]);
+				// 	let partPhut = parseInt(matches[3]);
+				// 	let partGiay = parseInt(matches[5]);
+				// 	// console.log(partDo);
+				// 	// console.log(partPhut);
+				// 	// console.log(partGiay);
+				// 	if (!Number.isInteger(partDo) ||
+				// 			!Number.isInteger(partPhut) ||
+				// 			!Number.isInteger(partGiay)
+				// 		){
+				// 		return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ': Tọa độ phải là các số nguyên', field.fieldName])
+				// 	}
+				// }
+			}
+		}
+		console.log('============ GEOJSON ===========');
+		console.log(geoJSON);
+		console.log('============ /GEOJSON ===========');
+		if (geoJSON.coordinates.length == 2) {
+			if (objectInstance.extra) {
+				objectInstance.extra.eGeoJSON = geoJSON;
+			} else {
+				objectInstance.extra = {
+					eGeoJSON: geoJSON
 				}
 			}
 		}
@@ -511,9 +564,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					break;
 				case 'Date':
 					// console.log('date');
-					// console.log(req.body[element.name]);
 					
 					if (req.body[element.name]){
+						// console.log(element.name, '"', req.body[element.name], '"');
+						if (!(/^ *[0-9]+( *\/ *[0-9]+){0,2} *$/.test(req.body[element.name]))) {
+							// console.log('here reject');
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+										['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
+						}
 						// Preprocess Date: Change from '23/02/2017' to '2017/02/23'
 						// Catch error later
 						try {
@@ -522,10 +580,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								let n = parseInt(e);
 								return Number.isInteger(n) && (n > 0)
 							})
+							// console.log(dateValue_);
 							let timeValue_ = [];
 							// reject if req has more than 3 numbers
 							if (dateValue_.length > 3){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
+								// console.log('dateValue_ len', dateValue_.length);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+									['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy.', element.name])
 							}
 							// 
 							// now, allow to save and mark the flag
@@ -550,6 +611,22 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								// flagMissingDateTime = DATE_MISSING_MONTH;
 								timeValue_ = [DATE_MISSING_MONTH + '', '0', '0'];
 							}
+							// now we have dateValue_ is a 3-elements array.
+							let _year = parseInt(dateValue_[2]);
+							if ((_year < 1000) || (_year > 3000)) {
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+								['Năm phải trong khoảng 1000 - 3000. Giá trị nhập vào: ' + _year, element.name])
+							}
+							let _month = parseInt(dateValue_[1]);
+							if ((_month < 1) || (_month > 12)) {
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+								['Tháng phải trong khoảng 1 - 12. Giá trị nhập vào: ' + _month, element.name])
+							}
+							let _day = parseInt(dateValue_[0]);
+							if ((_day < 1) || (_day > 31)) {
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+								['Ngày phải trong khoảng 1 - 31. Giá trị nhập vào: ' + _day, element.name])
+							}
 							// Use flag to mark Missing Date
 							// if (objectInstance.flag) {
 							// 	objectInstance.flag.fMissingDateTime = flagMissingDateTime
@@ -563,6 +640,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								dateValue_[index] = element.trim();
 							})
 							dateValue_.reverse();
+							// console.log(dateValue_);
 							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
 							// Use flag to mark Missing Date
 							// req.body[element.name] = dateValue_.join('/')

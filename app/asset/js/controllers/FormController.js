@@ -82,6 +82,34 @@ function initDefaultUnits(_scope) {
                     field: 'theTich',
                     unitField: 'donVi_theTich',
                     defaultValue: 'l'
+                },
+                {
+                    unitField: 'date_ndt',
+                    defaultValue: 'dd/mm/yyyy'
+                },
+                {
+                    unitField: 'date_tgtm',
+                    defaultValue: 'dd/mm/yyyy'
+                },
+                {
+                    unitField: 'date_tgpt',
+                    defaultValue: 'dd/mm/yyyy'
+                },
+                {
+                    unitField: 'date_tgct',
+                    defaultValue: 'dd/mm/yyyy'
+                },
+                {
+                    unitField: 'date_nnm',
+                    defaultValue: 'dd/mm/yyyy'
+                },
+                {
+                    unitField: 'date_ptmd',
+                    defaultValue: 'dd/mm/yyyy'
+                },
+                {
+                    unitField: 'date_tggd',
+                    defaultValue: 'dd/mm/yyyy'
 				}
 			]
             if (!_scope.data) {
@@ -180,7 +208,11 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         // if ($scope.FormContent.$valid) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
-        AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe);
+        AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe).then(function success(data) {
+            console.log(data);
+        }, function error(err) {
+            console.log(err);
+        });
         // } else{
         // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
         // }

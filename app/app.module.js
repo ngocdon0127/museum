@@ -15,7 +15,8 @@ var app = angular.module('museumApp', [
     'ngMap',
     'ngCookies',
     'pascalprecht.translate',
-    'ui-leaflet'
+    'ui-leaflet',
+    'angularUtils.directives.dirPagination'
 ])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();

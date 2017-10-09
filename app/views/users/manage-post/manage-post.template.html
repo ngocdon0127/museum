@@ -55,47 +55,37 @@
       </tr>
       <tr>
         <th>STT</th>
-        <th>
-          <a href="" ng-click="sortType = 'tenVietNam'; sortReverse = !sortReverse">
+        <th ng-click="sort('tenVietNam')" style="cursor: pointer;">
             Mẫu vật
-            <span ng-show="sortType == 'tenVietNam' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'tenVietNam' && sortReverse" class="fa fa-caret-up"></span>
-          </a>
+            <span ng-show="sortKey == 'tenVietNam' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortKey == 'tenVietNam' && sortReverse" class="fa fa-caret-up"></span>
         </th>
-        <th>
-          <a href="" ng-click="sortType = 'nguoiLapPhieuMauVat'; sortReverse = !sortReverse">
+        <th ng-click="sort('nguoiLapPhieuMauVat')" style="cursor: pointer;">
             Người lập phiếu
-            <span ng-show="sortType == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
-          </a>
+            <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
         </th>
-        <th>
-          <a href="" ng-click="sortType = 'nguoiThuMau'; sortReverse = !sortReverse">
+        <th ng-click="sort('nguoiThuMau')" style="cursor: pointer;">
             Thông tin cơ bản
-            <span ng-show="sortType == 'nguoiThuMau' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'nguoiThuMau' && sortReverse" class="fa fa-caret-up"></span>
-          </a>
+            <span ng-show="sortKey == 'nguoiThuMau' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortKey == 'nguoiThuMau' && sortReverse" class="fa fa-caret-up"></span>
         </th>
-        <th>
-          <a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+        <th ng-click="sort('created_at')" style="cursor: pointer;">
             Ngày đăng
-            <span ng-show="sortType == 'created_at' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'created_at' && sortReverse" class="fa fa-caret-up"></span>
-          </a>
+            <span ng-show="sortKey == 'created_at' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortKey == 'created_at' && sortReverse" class="fa fa-caret-up"></span>
         </th>
-        <th>
-          <a href="" ng-click="sortType = 'nguoiLapPhieuMauVat'; sortReverse = !sortReverse">
+        <th ng-click="sort('nguoiLapPhieuMauVat')" style="cursor: pointer;">
             Trạng thái
-            <span ng-show="sortType == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
-          </a>
+            <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
         </th>
         <th>Hành động</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="(key, post) in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | orderBy:sortType:sortReverse | filter:searchData">
-        <td>{{key + 1 + (currentPage-1)*itemsPerPage}}</td>
+      <tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage">
+        <td>{{key + 1 + viewby * (currentPage - 1)}}</td>
         <td>
           <input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{link}}/{{post._id}}?display='>
           <a class="tenvietnam" style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
@@ -176,7 +166,11 @@
       </tr>
     </tbody>
   </table>
-  <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage" previous-text="Trang trước" first-text="Trang đầu" last-text="Trang cuối" next-text="Trang tiếp"></uib-pagination>
+  <dir-pagination-controls
+    max-size="5"
+    direction-links="true"
+    boundary-links="true" >
+  </dir-pagination-controls>
 </div>
 <style type="text/css">
   #managerpost{

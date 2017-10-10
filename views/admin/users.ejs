@@ -364,7 +364,6 @@
 </script>
 
 <script>
-
 	function revokeManagerHandler(userId) {
 		setTimeout((function (uid) {
 			return function (){
@@ -379,7 +378,8 @@
 			url: '/admin/revoke/manager',
 			method: 'POST',
 			data: {
-				userId: userId
+				userId: userId,
+				localIP: getLocalIP()
 			},
 			success: function (data) {
 				// console.log('success');
@@ -425,7 +425,8 @@
 			method: 'POST',
 			data: {
 				userId: userId,
-				maDeTai: maDeTai
+				maDeTai: maDeTai,
+				localIP: getLocalIP()
 			},
 			success: function (data) {
 				// console.log('success');
@@ -476,7 +477,8 @@
 			method: 'POST',
 			data: {
 				userId: userId,
-				maDeTai: maDeTai
+				maDeTai: maDeTai,
+				localIP: getLocalIP()
 			},
 			success: function (data) {
 				// console.log('success');
@@ -529,7 +531,8 @@
 				newMaDeTai: $('#inputNewMDT').val().trim(),
 				adminPassword: plainPass,
 				tenDeTai: $('#tenDeTai').val().trim(),
-				donViChuTri: $('#donViChuTri').val().trim()
+				donViChuTri: $('#donViChuTri').val().trim(),
+				localIP: getLocalIP()
 			},
 			success: function (data) {
 				console.log('success');
@@ -563,7 +566,8 @@
 			url: '/admin/fire/',
 			method: 'POST',
 			data: {
-				userId: userId
+				userId: userId,
+				localIP: getLocalIP()
 			},
 			success: function (data) {
 				// console.log('success');

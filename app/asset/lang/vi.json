@@ -37,7 +37,8 @@
 		"baocao":{
 			"tieude": "Báo cáo",
 			"lichsunhaplieu": "Lịch sử nhập liệu",
-			"thongke": "Thống kê"
+			"thongke": "Thống kê",
+			"truyvan": "Truy vấn bản đồ"
 		},
 		"taikhoan":{
 			"quanly": "Quản lý tài khoản",

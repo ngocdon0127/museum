@@ -25,7 +25,8 @@
 		"baocao":{
 			"tieude": "Report",
 			"lichsunhaplieu": "Log",
-			"thongke": "Statistical"
+			"thongke": "Statistical",
+			"truyvan": "Map query"
 		},
 		"taikhoan":{
 			"quanly": "Manage account",

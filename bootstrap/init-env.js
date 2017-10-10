@@ -365,10 +365,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 		specialFields.coordinations = [
 			{
-				fieldName: 'kinhDo'
+				fieldName: 'kinhDo',
+				min: -180,
+				max: 180
 			},
 			{
-				fieldName: 'viDo'
+				fieldName: 'viDo',
+				min: -90,
+				max: 90
 			}
 		]
 		let geoJSON = {
@@ -386,8 +390,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
 						[_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
 				}
-				
-				geoJSON.coordinates.push(coordinatesStr2Float(req.body[field.fieldName]));
+				let c_ = coordinatesStr2Float(req.body[field.fieldName]);
+				if ((c_ < field.min) || (c_ > field.max)) {
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+						[`${_LABEL[field.fieldName]} phải nằm trong khoảng từ ${field.min} đến ${field.max}. Giá trị nhập vào: ${c_}`,
+						field.fieldName]);
+				}
+				geoJSON.coordinates.push(c_);
 				// end new
 				// if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
 				// 	if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {

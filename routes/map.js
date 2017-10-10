@@ -6,11 +6,11 @@ var baseIcon = {
     type: 'extraMarker',
     icon: 'fa-circle',
     prefix: 'fa',
-    shape: 'circle'
+    // shape: 'circle'
 };
 
 var animalMarkerIcon = Object.assign({}, baseIcon, {
-        markerColor: 'red' 
+        markerColor: 'red'
     }),
     geologicalMarkerIcon = Object.assign({}, baseIcon, {
         markerColor: 'orange'
@@ -25,73 +25,70 @@ var animalMarkerIcon = Object.assign({}, baseIcon, {
         markerColor: 'green'
     });
 
-    router.get("/get-marker", function (req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        var rectangleBoundary = JSON.parse(req.query.rectangleBoundary);
-        console.log(rectangleBoundary);
-        if (!rectangleBoundary) {
-            res.send({});
-            return;
-        }
-        Promise.all([
-            getMarkers("Animal", rectangleBoundary, animalMarkerIcon),
-            getMarkers("Geological", rectangleBoundary, geologicalMarkerIcon),
-            getMarkers("Paleontological", rectangleBoundary, paleontologicalMarkerIcon),
-            getMarkers("Soil", rectangleBoundary, soidMarkerIcon),
-            getMarkers("Vegetable", rectangleBoundary, vegetableMarkerIcon)
-        ]).then(function (results) {
-            res.send({
-                animalMarkers: results[0],
-                geologicalMarkers: results[1],
-                paleontologicalMarkers: results[2],
-                soidMarkers: results[3],
-                vegetableMarkers: results[4],
-            });
-        }).catch(err => {
-            res.status(500);
-            res.send("Có lỗi xảy ra");
+router.get("/get-marker", function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    var geoJsonObject = JSON.parse(req.query.geoJsonObject);
+    console.log(geoJsonObject);
+    if (!geoJsonObject) {
+        res.send({});
+        return;
+    }
+    Promise.all([
+        getMarkers("Animal", geoJsonObject, animalMarkerIcon),
+        getMarkers("Geological", geoJsonObject, geologicalMarkerIcon),
+        getMarkers("Paleontological", geoJsonObject, paleontologicalMarkerIcon),
+        getMarkers("Soil", geoJsonObject, soidMarkerIcon),
+        getMarkers("Vegetable", geoJsonObject, vegetableMarkerIcon)
+    ]).then(function (results) {
+        res.send({
+            animalMarkers: results[0],
+            geologicalMarkers: results[1],
+            paleontologicalMarkers: results[2],
+            soidMarkers: results[3],
+            vegetableMarkers: results[4],
         });
-        // var 
-    })
+    }).catch(err => {
+        res.status(406);
+        res.send("Có lỗi xảy ra : <br>" + err);
+        console.log(err);
+    });
+    // var 
+})
 
 
-var getMarkers = function (model, rectangleBoundary, icon) {
+var getMarkers = function (model, geoJsonObject, icon) {
     function getPopupContent(model, ele) {
         return '<b>' + ele.tenMau.tenVietNam + '</b><br>' +
-                '<i>'+ ele.tenMau.tenTiengAnh +'</i>';
+            '<i>' + ele.tenMau.tenTiengAnh + '</i>';
     }
     var ObjectModel = mongoose.model(model);
     return new Promise(function (resolve, reject) {
-        ObjectModel.find({}, {'duLieuThuMau.viTriToaDo': 1, 'tenMau.tenVietNam': 1, 'tenMau.tenTiengAnh': 1}).then(function (data) {
+
+        ObjectModel.find({
+            'extra.eGeoJSON.coordinates': {
+                $geoWithin: {
+                    $geometry: geoJsonObject.geometry
+                }
+            }
+        }, {
+            'extra.eGeoJSON': 1,
+            'tenMau.tenVietNam': 1,
+            'tenMau.tenTiengAnh': 1
+        }).then(function (data) {
             var markers = {};
             data.forEach(function (ele) {
-                let kinhDo = convertCoordinate(ele.duLieuThuMau.viTriToaDo.kinhDo);
-                let viDo = convertCoordinate(ele.duLieuThuMau.viTriToaDo.viDo);
-                if (viDo < rectangleBoundary.top &&
-                    viDo > rectangleBoundary.bottom &&
-                    kinhDo > rectangleBoundary.left &&
-                    kinhDo < rectangleBoundary.right) {
-                    markers[ele._id] = {
-                        lat: viDo,
-                        lng: kinhDo,
-                        message: getPopupContent(model, ele),
-                        icon: icon ? icon : {}
-                    }
+                markers[ele._id] = {
+                    lat: ele.extra.eGeoJSON.coordinates[1],
+                    lng: ele.extra.eGeoJSON.coordinates[0],
+                    message: getPopupContent(model, ele),
+                    icon: icon ? icon : {}
                 }
             });
             resolve(markers);
         }).catch(error => reject(error));
     });
 
-}
-
-function convertCoordinate(coordinate) {
-    if (typeof (coordinate) == 'string') {
-        coordinates = coordinate.split(/[°'"]/);
-        // console.log(Number(coordinates[0]));
-        return Number(coordinates[0]) + (Number(coordinates[1]) + Number(coordinates[2]) / 60) / 60;
-    }
 }
 
 module.exports = router;

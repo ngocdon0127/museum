@@ -59,8 +59,8 @@ var app = angular.module('museumApp', [
 // });
 
 // Hiển thị thông báo, cần chạy ngay từ khi khởi động để có thể áp dụng được cho tất cả các controller
-app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, err, id, $anchorScroll) {
-    $scope.message = err;
+app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, msg, id, $anchorScroll) {
+    $scope.message = msg;
     $scope.ok = function () {
         $uibModalInstance.dismiss();
         if (id !== "") {

@@ -205,9 +205,15 @@ module.exports = function (mongoose) {
 		flag: {
 			fDiaDiemThuMau: String,
 			fApproved: Boolean
+		},
+		extra: {
+			eGeoJSON: {
+				type: String,
+				coordinates: [Number]
+			}
 		}
 	};
-	var animalSchema = mongoose.Schema(schemaPrototype);
+	var animalSchema = mongoose.Schema(schemaPrototype, {typeKey: '$type'});
 	var Animal = mongoose.model("Animal", animalSchema);
 	global.myCustomVars.models.Animal = {
 		mongooseModel: Animal

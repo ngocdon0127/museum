@@ -235,6 +235,19 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 
 			// delete objectInstance.flag;
+			
+			// eGeoJSON
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'eGeoJSON'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
+			}
+			// End of eGeoJSON
 
 			/**
 			 * End of Tiền xử lý Schema
@@ -1112,6 +1125,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 			catch (e){
 				console.log(e);
 			}
+			outputFileName = outputFileName.replace(/[\/\\'":\*\?<>\|`]/g, '');
 			fs.writeFile(tmpFileName, docx, function(err) {
 				if (err) throw err;
 				if (extension == 'docx'){
@@ -1420,6 +1434,20 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
+			
+			// eGeoJSON
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'eGeoJSON'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
+			}
+			// End of eGeoJSON
+			
 			/**
 			 * End of Tiền xử lý Schema
 			 */
@@ -2019,6 +2047,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 				catch (e){
 					console.log(e);
 				}
+				outputFileName = outputFileName.replace(/[\/\\'":\*\?<>\|`]/g, '');
 				if (extension == 'xlsx'){
 					outputFileName += '.xlsx';
 					// res.download(path.join(ROOT, tmpFileName), outputFileName, function (err) {

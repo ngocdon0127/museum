@@ -75,6 +75,7 @@ LABEL.objectModelLabel = objectModelLabel;
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,
+	ObjectModel            : ObjectModel,
 	objectModelName        : objectModelName,
 	objectModelNames       : objectModelNames,
 	objectModelIdParamName : objectModelIdParamName,
@@ -82,8 +83,12 @@ var bundle = {
 	PROP_FIELDS            : PROP_FIELDS,
 	UPLOAD_DESTINATION     : UPLOAD_DESTINATION,
 	PROP_FIELDS_OBJ        : PROP_FIELDS_OBJ,
-	LABEL                  : LABEL
+	LABEL                  : LABEL,
+	aclMiddlewareBaseURL   : aclMiddlewareBaseURL,
+	objectModelLabel       : objectModelLabel
 }
+
+global.myCustomVars.models['dia-chat'].bundle = bundle;
 
 var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);
 

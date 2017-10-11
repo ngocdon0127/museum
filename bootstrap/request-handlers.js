@@ -3,7 +3,7 @@ const ROOT                     = path.join(__dirname, '../');
 const fs                       = require('fs');
 const fsE                      = require('fs-extra');
 const mongoose                 = require('mongoose');
-const Log 					   = mongoose.model ('Log')
+const Log                      = mongoose.model ('Log')
 var async                      = require('asyncawait/async');
 var await                      = require('asyncawait/await');
 let acl                        = global.myCustomVars.acl;
@@ -351,8 +351,8 @@ var searchHandler = function (options) {
 						console.log(e);
 					}
 					return responseSuccess(res, ['status', 'query', 'total', 'num', objectModelNames], ['success', req.query, total, samples.length, samples]);
-				})
-			
+				}
+			)
 		})();
 	}
 }

@@ -42,6 +42,10 @@ global.myCustomVars.models['dong-vat'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
 global.myCustomVars.models['dong-vat'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
 
 {
+	// wtf
+	// PROP_FIELDS = PROP_FIELDS.filter(p => {
+	// 	return p.type != 'Metadata'
+	// })
 	var index = 0;
 	while (true){
 		if (PROP_FIELDS[index] && (PROP_FIELDS[index].type == 'Metadata')){
@@ -75,6 +79,7 @@ LABEL.objectModelLabel = objectModelLabel;
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,
+	ObjectModel            : ObjectModel,
 	objectModelName        : objectModelName,
 	objectModelNames       : objectModelNames,
 	objectModelIdParamName : objectModelIdParamName,
@@ -82,8 +87,12 @@ var bundle = {
 	PROP_FIELDS            : PROP_FIELDS,
 	UPLOAD_DESTINATION     : UPLOAD_DESTINATION,
 	PROP_FIELDS_OBJ        : PROP_FIELDS_OBJ,
-	LABEL                  : LABEL
+	LABEL                  : LABEL,
+	aclMiddlewareBaseURL   : aclMiddlewareBaseURL,
+	objectModelLabel       : objectModelLabel
 }
+
+global.myCustomVars.models['dong-vat'].bundle = bundle;
 
 var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);
 
@@ -165,7 +174,6 @@ router.get(objectBaseURL + '/fields', aclMiddleware(aclMiddlewareBaseURL, 'view'
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	LABEL: LABEL,
 }))
-
 var searchHandler = global.myCustomVars.searchHandler;
 router.get(objectBaseURL + '/search', aclMiddleware(aclMiddlewareBaseURL, 'view'), searchHandler({
 	ObjectModel: ObjectModel,

@@ -1,18 +1,23 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
-var multer = require('multer');
+var express          = require('express');
+var router           = express.Router();
+var passport         = require('passport');
+var multer           = require('multer');
 const TMP_UPLOAD_DIR = 'public/uploads/tmp';
-var upload = multer({dest: TMP_UPLOAD_DIR})
-const path = require('path');
-const fs = require('fs');
-const fsE = require('fs-extra');
-const ROOT = path.join(__dirname, '../')
-const mongoose = require('mongoose');
+var upload           = multer({dest: TMP_UPLOAD_DIR})
+const path           = require('path');
+const fs             = require('fs');
+const fsE            = require('fs-extra');
+const ROOT           = path.join(__dirname, '../')
+const mongoose       = require('mongoose');
+const async          = require('asyncawait/async');
+const await          = require('asyncawait/await');
+const acl = global.myCustomVars.acl;
 
 router.use(isLoggedIn);
 
 var STR_SEPARATOR = global.myCustomVars.STR_SEPARATOR;
+
+var flatObjectModel = global.myCustomVars.flatObjectModel;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -300,6 +305,160 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
 			form: req.body.form
 		})
 	}
+})
+
+router.get('/search', (req, res) => {
+	async(() => {
+		let MAX_RESULTS = 20;
+		let models = [
+			{modelName: 'co-sinh'},
+			{modelName: 'dia-chat'},
+			{modelName: 'dong-vat'},
+			{modelName: 'tho-nhuong'},
+			{modelName: 'thuc-vat'}
+		]
+		let aggregations = []
+		for(model of models) {
+			let bundle = global.myCustomVars.models[model.modelName].bundle;
+			// console.log(bundle);
+			let allowView = await (new Promise((resolve, reject) => {
+				// console.log('checking', req.session.userId, bundle.aclMiddlewareBaseURL);
+				acl.isAllowed(req.session.userId, bundle.aclMiddlewareBaseURL, 'view', (err, result) => {
+					if (err) {
+						console.log(err);
+						return resolve(false);
+					}
+					return resolve(result)
+				})
+			}))
+			if (!allowView) {
+				continue;
+			}
+			var userRoles = await(new Promise((resolve, reject) => {
+				acl.userRoles(req.session.userId, (err, roles) => {
+					// console.log('promised userRoles called');
+					if (err){
+						resolve([])
+					}
+					else {
+						resolve(roles)
+					}
+				})
+			}))
+			let selection = {deleted_at: {$eq: null}};
+			// Default. User chỉ có thể xem những phiếu do chính mình tạo
+			selection['owner.userId'] = req.user._id;
+
+			if (userRoles.indexOf('manager') >= 0){
+				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
+				delete selection['owner.userId'];
+				selection['maDeTai.maDeTai'] = req.user.maDeTai;
+			}
+
+			if (userRoles.indexOf('admin') >= 0){
+				// Admin, Xem tất
+				delete selection['owner.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
+				delete selection['maDeTai.maDeTai'];
+			}
+			// ObjectModel.find(selection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			// Filter
+			let PROP_FIELDS_OBJ = bundle.PROP_FIELDS_OBJ;
+			let PROP_FIELDS = bundle.PROP_FIELDS;
+			for (let p in req.query) {
+				if (p == 'q') {
+					continue;
+				}
+				let v = req.query[p].trim();
+				if (p in PROP_FIELDS_OBJ){
+					console.log('filter: ' + p);
+					// console.log(PROP_FIELDS[PROP_FIELDS_OBJ[p]]);
+					try {
+						let prop = PROP_FIELDS[PROP_FIELDS_OBJ[p]];
+						if (prop.type == 'String'){
+							selection[prop.schemaProp + '.' + p] = new RegExp(v, 'i'); // bỏ qua chữ hoa chữ thường
+						}
+						else if (prop.type == 'Integer'){
+							selection[prop.schemaProp + '.' + p] = parseInt(v);
+						}
+						else if (prop.type == 'Number'){
+							selection[prop.schemaProp + '.' + p] = parseFloat(v);
+						}
+					}
+					catch (e){
+						console.log(e);
+					}
+				}
+				else {
+					console.log('unexpected: ' + p);
+				}
+			}
+			selection['$text'] = {
+				'$search': req.query.q
+			}
+			console.log(selection);
+			let ObjectModel = bundle.ObjectModel;
+			let result = await (new Promise((resolve, reject) => {
+				ObjectModel.aggregate([
+					{$match: selection},
+					{$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}},
+					{$sort: {_id: -1}}], (err, aggs) => {
+						if (err) {
+							console.log(err);
+							return resolve([])
+						}
+						let r = [];
+						let c = 0;
+						for (let i = 0; i < aggs.length; i++) {
+							if (c > MAX_RESULTS) {
+								break;
+							}
+							r.push({
+								score: aggs[i]._id,
+								model: model.modelName,
+								samples: aggs[i].samples
+							})
+							c += aggs[i].samples.length
+						}
+						r.map(r_ => {
+							r_.samples.map((sample, idx) => {
+								let id = sample._id;
+								let created_at = sample.created_at;
+								sample =  flatObjectModel(PROP_FIELDS, sample);
+								sample._id = id;
+								sample.id = id;
+								sample.created_at = created_at;
+								r_.samples[idx] = sample;
+							})
+						})
+						return resolve(r)
+					}
+				)
+			}))
+			aggregations = aggregations.concat(result);
+		}
+		aggregations.sort((a, b) => {
+			return b.score - a.score;
+		})
+		// return res.json({
+		// 	aggregations: aggregations
+		// })
+		let matchedSamples = [];
+		for (let i = 0; i < aggregations.length; i++) {
+			let agg = aggregations[i];
+			if (matchedSamples.length > MAX_RESULTS) {
+				break;
+			}
+			agg.samples.map(sample => {
+				sample.model = agg.model;
+				matchedSamples.push(sample)
+			})
+		}
+		return res.status(200).json({
+			status: 'success',
+			total: matchedSamples.length,
+			matchedSamples: matchedSamples
+		})
+	})()
 })
 
 function isLoggedIn (req, res, next) {

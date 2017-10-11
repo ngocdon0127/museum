@@ -103,7 +103,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				controller: "ModalInstanceCtrl",
 				controllerAs: '$ctrl',
 				resolve: {
-					err: function () {
+					msg: function () {
 						return "Xin hãy chọn file";
 					},
 					id: function () {
@@ -131,19 +131,14 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				var xhr = new XMLHttpRequest();
 				// var xhr = $.ajaxSettings.xhr();
 				xhr.onprogress = function (e) {
-					// console.log('on download progress');
-					// console.log(e);
           // For downloads
           if (e.lengthComputable) {
- //             console.log((e.loaded / e.total *100|0)+"%");
               $('#circle-progress').circleProgress('value', e.loaded / e.total)
           }
         };
         xhr.upload.onprogress = function (e) {
-        	// console.log('on upload progress');
           // For uploads
           if (e.lengthComputable) {
-              //console.log((e.loaded / e.total *100|0)+"%");
           }
         };
 				if (fields_form != "") {
@@ -209,53 +204,55 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	}
 
 	function addSample(fd, url, urlRe){
-		$.ajax({
-			url: url,
-			method: 'POST',
-			contentType: false,
-			processData: false,
-			data: fd,
-			success: function (data) {
-				cfpLoadingBar.complete();
-				stopSpinner();
-				setTimeout(function () {
-					var modalInstance = $uibModal.open({
-						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: "ModalInstanceCtrl",
-						controllerAs: '$ctrl',
-						resolve: {
-							err: function () {
-								return "Thêm mẫu vật thành công";
-							},
-							id: function () {
-								return "";
+		return $.ajax({
+				url: url,
+				method: 'POST',
+				contentType: false,
+				processData: false,
+				data: fd,
+				success: function (data) {
+					cfpLoadingBar.complete();
+					stopSpinner();
+					setTimeout(function () {
+						var modalInstance = $uibModal.open({
+							templateUrl: 'views/modals/dialogs.blade.html',
+							controller: "ModalInstanceCtrl",
+							controllerAs: '$ctrl',
+							resolve: {
+								msg: function () {
+									return "Thêm mẫu vật thành công";
+								},
+								id: function () {
+									return "";
+								}
 							}
-						}
-					});
-					$state.go(urlRe);
-				}, 100)
-			},
-			error: function (err) {
-				cfpLoadingBar.complete();
-				stopSpinner();
-				cfpLoadingBar.set(0);
-				setTimeout(function () {
-					var modalInstance = $uibModal.open({
-						templateUrl: 'views/modals/dialogs.blade.html',
-						controller: "ModalInstanceCtrl",
-						controllerAs: '$ctrl',
-						resolve: {
-							err: function () {
-								return JSON.parse(err.responseText).error;
-							},
-							id: function () {
-								return JSON.parse(err.responseText).field;
+						});
+						$state.go(urlRe);
+					}, 100)
+					return data;
+				},
+				error: function (err) {
+					cfpLoadingBar.complete();
+					stopSpinner();
+					cfpLoadingBar.set(0);
+					setTimeout(function () {
+						var modalInstance = $uibModal.open({
+							templateUrl: 'views/modals/dialogs.blade.html',
+							controller: "ModalInstanceCtrl",
+							controllerAs: '$ctrl',
+							resolve: {
+								msg: function () {
+									return JSON.parse(err.responseText).error;
+								},
+								id: function () {
+									return JSON.parse(err.responseText).field;
+								}
 							}
-						}
-					});
-				}, 100)
-			}
-		});
+						});
+					}, 100)
+					return err;
+				}
+			});
 	}
 
 	function editForm(fd, url, urlRe){
@@ -274,7 +271,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 						controller: "ModalInstanceCtrl",
 						controllerAs: '$ctrl',
 						resolve: {
-							err: function () {
+							msg: function () {
 								return "Chỉnh sửa mẫu vật thành công";
 							},
 							id: function () {
@@ -294,7 +291,12 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				var x = document.getElementById(id);
 				if (x) {
 					var element = x.nextElementSibling;
-					element.style.borderColor = "red";
+					if (element) {
+						element.style.borderColor = "red";
+					} else{
+						x.style.borderColor= "red"
+					}
+					
 				}
 				setTimeout(function () { // Stop spinner before alerting
 					// alert(JSON.parse(err.responseText).error);
@@ -303,7 +305,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 						controller: "ModalInstanceCtrl",
 						controllerAs: '$ctrl',
 						resolve: {
-							err: function () {
+							msg: function () {
 								return JSON.parse(err.responseText).error;
 							},
 							id: function () {
@@ -360,7 +362,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				controller: "ModalInstanceCtrl",
 				controllerAs: '$ctrl',
 				resolve: {
-					err: function () {
+					msg: function () {
 						return "Xóa thành công";
 					},
 					id: function () {
@@ -408,7 +410,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 					controller: "ModalInstanceCtrl",
 					controllerAs: '$ctrl',
 					resolve: {
-						err: function () {
+						msg: function () {
 							return "Bạn không được phê duyệt mẫu vật này.";
 						},
 						id: function () {
@@ -424,7 +426,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				controller: "ModalInstanceCtrl",
 				controllerAs: '$ctrl',
 				resolve: {
-					err: function () {
+					msg: function () {
 						return "Bạn không được phê duyệt mẫu vật này.";
 					},
 					id: function () {

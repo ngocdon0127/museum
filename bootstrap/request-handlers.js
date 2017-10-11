@@ -23,8 +23,8 @@ let exportZip                  = global.myCustomVars.exportZip;
 
 let ACTION_CREATE                = global.myCustomVars.ACTION_CREATE;
 let ACTION_EDIT                  = global.myCustomVars.ACTION_EDIT;
-let STR_SEPERATOR                = global.myCustomVars.STR_SEPERATOR;
-let STR_AUTOCOMPLETION_SEPERATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR;
+let STR_SEPARATOR                = global.myCustomVars.STR_SEPARATOR;
+let STR_AUTOCOMPLETION_SEPARATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPARATOR;
 let ORIGIN_TIME                  = global.myCustomVars.ORIGIN_TIME;
 let NULL_TIMES                   = global.myCustomVars.NULL_TIMES;
 let TMP_UPLOAD_DIR               = global.myCustomVars.TMP_UPLOAD_DIR;
@@ -140,7 +140,7 @@ var getAllHandler = function (options) {
 									files.map((f, i) => {
 										let url = '/uploads/' + objectModelName + '/' + f;
 										let obj = {
-											fileName: f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length),
+											fileName: f.substring(f.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length),
 											urlDirect: url,
 											urlDownload: '/content/download' + url
 										}
@@ -362,7 +362,7 @@ var getSingleHandler = function (options) {
 										files.map((f, i) => {
 											let url = '/uploads/' + objectModelName + '/' + f;
 											let obj = {
-												fileName: f.substring(f.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length),
+												fileName: f.substring(f.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length),
 												urlDirect: url,
 												urlDownload: '/content/download' + url
 											}
@@ -894,7 +894,7 @@ var deleteFileHander = options => {
 				}
 
 				// return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
-				let oldFileName = objectInstance.id + STR_SEPERATOR + req.body.field + STR_SEPERATOR + req.body.fileName;
+				let oldFileName = objectInstance.id + STR_SEPARATOR + req.body.field + STR_SEPARATOR + req.body.fileName;
 				if (!(PROP_FIELDS_OBJ[req.body.field])) {
 					return res.status(400).json({
 						status: 'error',
@@ -908,13 +908,13 @@ var deleteFileHander = options => {
 				if (pos < 0) {
 					let files = []
 					fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
-						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+						let prefix = req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR;
 						if (fileName.indexOf(prefix) == 0) {
-							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
 						}
 					});
 					arr.map(f => {
-						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+						savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
 					})
 					return res.status(400).json({
 						status: 'error',
@@ -962,13 +962,13 @@ var deleteFileHander = options => {
 					});
 					let files = []
 					fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
-						let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+						let prefix = req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR;
 						if (fileName.indexOf(prefix) == 0) {
-							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
 						}
 					});
 					arr.map(f => {
-						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+						savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
 					})
 					return responseSuccess(res,
 						['files', 'savedFiles', 'form', 'id', 'randomStr', 'field'],

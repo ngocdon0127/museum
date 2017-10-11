@@ -7,7 +7,7 @@ var tmp = require('tmp');
 var builder = require('xmlbuilder');
 var archive = require("archiver");
 
-const STR_AUTOCOMPLETION_SEPERATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR;
+const STR_AUTOCOMPLETION_SEPARATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPARATOR;
 
 function deepFind(obj, path) {
     var paths = path.split('.'),
@@ -21,7 +21,7 @@ function deepFind(obj, path) {
             current = current[paths[i]];
         }
     }
-    return (current + '').replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+    return (current + '').replace(new RegExp(STR_AUTOCOMPLETION_SEPARATOR, 'g'), ', ');
 }
 
 var createMetaFile = (tempFolder) => {

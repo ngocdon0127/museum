@@ -15,13 +15,13 @@ var Log                  = mongoose.model('Log');
 
 var ACTION_CREATE = 0;
 var ACTION_EDIT = 1;
-var STR_SEPERATOR = '_+_';
-var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
+var STR_SEPARATOR = '_+_';
+var STR_AUTOCOMPLETION_SEPARATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 
 global.myCustomVars.ACTION_CREATE = ACTION_CREATE;
 global.myCustomVars.ACTION_EDIT = ACTION_EDIT;
-global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
-global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
+global.myCustomVars.STR_SEPARATOR = STR_SEPARATOR;
+global.myCustomVars.STR_AUTOCOMPLETION_SEPARATOR = STR_AUTOCOMPLETION_SEPARATOR;
 
 const DATE_FULL = 0;
 const DATE_MISSING_DAY = 1;
@@ -197,8 +197,8 @@ function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 				file.originalname = file.originalname.replace('..', '.');
 			}
 
-			var newFileName = mongoId + STR_SEPERATOR + schemaFieldName + STR_SEPERATOR + file.originalname;
-			// var newFileName = mongoId + STR_SEPERATOR + file.originalname;
+			var newFileName = mongoId + STR_SEPARATOR + schemaFieldName + STR_SEPARATOR + file.originalname;
+			// var newFileName = mongoId + STR_SEPARATOR + file.originalname;
 			var newPath = path.join(position, newFileName);
 			fs.renameSync(curPath, newPath);
 			schemaField.push(newFileName);
@@ -776,7 +776,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 				// Update Auto Completion
 				if (('autoCompletion' in element) && (element.autoCompletion)){
-					var value_ = value.split(STR_AUTOCOMPLETION_SEPERATOR);
+					var value_ = value.split(STR_AUTOCOMPLETION_SEPARATOR);
 					for(let v of value_){
 						v = v.trim();
 						if (v){
@@ -921,11 +921,11 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				
 				let randomStr = req.body.randomStr;
 				currentTmpFiles.map((fileName) => {
-					let prefix = req.body.randomStr + STR_SEPERATOR + element.name + STR_SEPERATOR;
+					let prefix = req.body.randomStr + STR_SEPARATOR + element.name + STR_SEPARATOR;
 					if (fileName.indexOf(prefix) == 0) {
 						// fileName: 6d90732ef697bbf4f1248e1958ac1060_+_anhMauVat_+_18952851_2101188366876603_8950647639813852835_n.jpg
 						// curFullName = [6d90732ef697bbf4f1248e1958ac1060, anhMauVat, 18952851_2101188366876603_8950647639813852835_n.jpg]
-						let curFullName = fileName.split(STR_SEPERATOR);
+						let curFullName = fileName.split(STR_SEPARATOR);
 						if (curFullName[1] in PROP_FIELDS_OBJ) {
 							let f = false;
 							if ('regex' in _PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]]) {
@@ -938,7 +938,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							}
 							if (f) {
 								curFullName[0] = result.id;
-								let newFullName = curFullName.join(STR_SEPERATOR);
+								let newFullName = curFullName.join(STR_SEPARATOR);
 								fsE.moveSync(
 									path.join(ROOT, TMP_UPLOAD_DIR, fileName),
 									path.join(ROOT, _UPLOAD_DESTINATION, newFullName),

@@ -473,14 +473,14 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
 				minLength: 0,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+				valuesSeparator: STR_AUTOCOMPLETION_SEPARATOR
 			});
 			
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
 				valueProperty: value,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+				valuesSeparator: STR_AUTOCOMPLETION_SEPARATOR
 			});
 		}, 1000)
 	}
@@ -489,18 +489,18 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		setTimeout(function () {
 			// Render
 			$('.flexdatalist').flexdatalist({
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+				valuesSeparator: STR_AUTOCOMPLETION_SEPARATOR
 			});
 
 			// Must call another time. Do not know why.
 			$('.flexdatalist').flexdatalist({
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+				valuesSeparator: STR_AUTOCOMPLETION_SEPARATOR
 			});
 
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+				valuesSeparator: STR_AUTOCOMPLETION_SEPARATOR
 			});
 
 			// After rendering flexdatalist, giaTriSuDung will be focused.
@@ -671,5 +671,5 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 });
 
-var STR_AUTOCOMPLETION_SEPERATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
+var STR_AUTOCOMPLETION_SEPARATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
 var SPINNER = null;

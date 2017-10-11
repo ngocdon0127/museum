@@ -28,7 +28,7 @@ var exportXLSX                 = global.myCustomVars.exportXLSX;
 
 var ACTION_CREATE = global.myCustomVars.ACTION_CREATE;
 var ACTION_EDIT   = global.myCustomVars.ACTION_EDIT;
-var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
+var STR_SEPARATOR = global.myCustomVars.STR_SEPARATOR;
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/SoilSchemaProps.json')).toString());
 

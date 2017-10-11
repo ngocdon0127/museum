@@ -346,18 +346,18 @@
 			}
 		}).order([0, 'asc']).draw();
 
-		var STR_AUTOCOMPLETION_SEPERATOR = '_-_'
+		var STR_AUTOCOMPLETION_SEPARATOR = '_-_'
 
 		setTimeout(function () {
 			$('.flexdatalist').flexdatalist({
 				minLength: 0,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+				valuesSeparator: STR_AUTOCOMPLETION_SEPARATOR
 			});
 			
 			$('.flexdatalist-force').flexdatalist({
 				minLength: 0,
 				selectionRequired: true,
-				valuesSeparator: STR_AUTOCOMPLETION_SEPERATOR
+				valuesSeparator: STR_AUTOCOMPLETION_SEPARATOR
 			});
 		}, 500)
 	});

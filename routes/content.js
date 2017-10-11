@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 router.use(isLoggedIn);
 
-var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
+var STR_SEPARATOR = global.myCustomVars.STR_SEPARATOR;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -45,24 +45,29 @@ router.get('/download/*', function (req, res, next) {
 	var regex = new RegExp('^\/download\/uploads.*$');
 	var p = decodeURIComponent(req.path);
 	if (p.indexOf('..') >= 0){
-		return res.end('nice try.');
+		return res.status(400).end('nice try.');
 	}
 	if (regex.test(p)){
 		var fileLocation = p.substring('/download/'.length);
-		console.log(path.join(__dirname, '../public', fileLocation));
+		console.log(path.join(ROOT, 'public', fileLocation));
 		try{
 			// fileLocation: /uploads/animal/58d79d38e2058328e82fd863_+_anhMauVat_+_Anh_1.png
 			// filename: Anh_1.png
-			let parts = fileLocation.split(STR_SEPERATOR);
-			res.download(path.join(__dirname, '../public', fileLocation), parts[parts.length - 1]);
+			let parts = fileLocation.split(STR_SEPARATOR);
+			if (fs.existsSync(path.join(ROOT, 'public', fileLocation))) {
+				res.download(path.join(ROOT, 'public', fileLocation), parts[parts.length - 1]);
+			}
+			else {
+				return res.status(404).end('File not found')
+			}
 		}
 		catch (e){
 			console.log(e);
-			return res.end('Invalid file location')
+			return res.status(404).end('File not found')
 		}
 	}
 	else {
-		return res.end('Invalid file path ' + p);
+		return res.status(400).end('Invalid file path ' + p);
 	}
 	
 	// res.end('ok');
@@ -149,7 +154,7 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 			fsE.moveSync(path.join(ROOT, TMP_UPLOAD_DIR, cur.filename),
 				path.join(ROOT, 
 					TMP_UPLOAD_DIR,
-					req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR + cur.originalname
+					req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR + cur.originalname
 				)
 			);
 		}
@@ -159,9 +164,9 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 	})
 	let files = []
 	fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
-		let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+		let prefix = req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR;
 		if (fileName.indexOf(prefix) == 0) {
-			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
 		}
 	});
 	let savedFiles = []
@@ -186,7 +191,7 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
 					console.log('savedFiles');
 					console.log(arr);
 					arr.map(f => {
-						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+						savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
 					})
 				} else {
 					console.log(req.body.field, 'not in', 'PROP_FIELDS_OBJ');
@@ -230,16 +235,16 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
 	console.log(req.body);
 	try {
 		fsE.removeSync(path.join(ROOT,
-			TMP_UPLOAD_DIR, req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR + req.body.fileName
+			TMP_UPLOAD_DIR, req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR + req.body.fileName
 		))
 	} catch (e) {
 		console.log(e);
 	}
 	let files = []
 	fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
-		let prefix = req.body.randomStr + STR_SEPERATOR + req.body.field + STR_SEPERATOR;
+		let prefix = req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR;
 		if (fileName.indexOf(prefix) == 0) {
-			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length))
+			files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
 		}
 	});
 	let savedFiles = []
@@ -266,7 +271,7 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
 					console.log('savedFiles');
 					console.log(arr);
 					arr.map(f => {
-						savedFiles.push(f.split(STR_SEPERATOR)[f.split(STR_SEPERATOR).length - 1])
+						savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
 					})
 				} else {
 					console.log(req.body.field, 'not in', 'PROP_FIELDS_OBJ');

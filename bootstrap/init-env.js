@@ -439,6 +439,11 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					eGeoJSON: geoJSON
 				}
 			}
+		} else {
+			if (objectInstance.extra) {
+				objectInstance.extra.eGeoJSON = undefined;
+				delete objectInstance.extra.eGeoJSON
+			}
 		}
 		delete specialFields.coordinations;
 

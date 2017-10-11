@@ -220,6 +220,145 @@ var getAllHandler = function (options) {
 
 global.myCustomVars.getAllHandler = getAllHandler;
 
+var searchHandler = function (options) {
+	return function (req, res) {
+		async(() => {
+			// ObjectModel.find({deleted_at: {$eq: null}}, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			var objectModelIdParamName = options.objectModelIdParamName;
+			var objectBaseURL = options.objectBaseURL;
+			var LABEL = options.LABEL;
+			var objectModelLabel = options.objectModelLabel;
+			var ObjectModel = options.ObjectModel;
+			var UPLOAD_DESTINATION = options.UPLOAD_DESTINATION;
+			var PROP_FIELDS = options.PROP_FIELDS;
+			var PROP_FIELDS_OBJ = options.PROP_FIELDS_OBJ;
+			var objectModelNames = options.objectModelNames;
+			var objectModelName = options.objectModelName;
+			var selection = {deleted_at: {$eq: null}};
+			var userRoles = await(new Promise((resolve, reject) => {
+				acl.userRoles(req.session.userId, (err, roles) => {
+					// console.log('promised userRoles called');
+					if (err){
+						resolve([])
+					}
+					else {
+						resolve(roles)
+					}
+				})
+			}))
+			// Default. User chỉ có thể xem những phiếu do chính mình tạo
+			selection['owner.userId'] = req.user._id;
+
+			if (userRoles.indexOf('manager') >= 0){
+				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
+				delete selection['owner.userId'];
+				selection['maDeTai.maDeTai'] = req.user.maDeTai;
+			}
+
+			if (userRoles.indexOf('admin') >= 0){
+				// Admin, Xem tất
+				delete selection['owner.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
+				delete selection['maDeTai.maDeTai'];
+			}
+			// ObjectModel.find(selection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+			
+			// Filter
+			for (let p in req.query) {
+				if (p == 'q') {
+					continue;
+				}
+				let v = req.query[p].trim();
+				if (p in PROP_FIELDS_OBJ){
+					console.log('filter: ' + p);
+					// console.log(PROP_FIELDS[PROP_FIELDS_OBJ[p]]);
+					try {
+						let prop = PROP_FIELDS[PROP_FIELDS_OBJ[p]];
+						if (prop.type == 'String'){
+							selection[prop.schemaProp + '.' + p] = new RegExp(v, 'i'); // bỏ qua chữ hoa chữ thường
+						}
+						else if (prop.type == 'Integer'){
+							selection[prop.schemaProp + '.' + p] = parseInt(v);
+						}
+						else if (prop.type == 'Number'){
+							selection[prop.schemaProp + '.' + p] = parseFloat(v);
+						}
+					}
+					catch (e){
+						console.log(e);
+					}
+				}
+				else {
+					console.log('unexpected: ' + p);
+				}
+			}
+			selection['$text'] = {
+				'$search': req.query.q
+			}
+			// console.log(selection);
+			ObjectModel.aggregate([
+				{$match: selection},
+				{$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}},
+				{$sort: {_id: -1}}], (err, aggregattions) => {
+					if (err) {
+						console.log(err);
+						return res.status(500).json({
+							status: 'error',
+							error: 'Server error'
+						})
+					}
+					let samples = [];
+					let total = 0;
+					for(let aggregattion of aggregattions) {
+						total += aggregattion.samples.length;
+						for(let sample of aggregattion.samples) {
+							if (samples.length >= 10) {
+								break;
+							}
+							let id = sample._id;
+							let created_at = sample.created_at;
+							sample =  flatObjectModel(PROP_FIELDS, sample);
+							sample._id = id;
+							sample.id = id;
+							sample.created_at = created_at;
+							samples.push(sample);
+						}
+					}
+					try {
+						samples.map((o, i) => {
+							let tmp = samples[i];
+							try {
+								for(p in tmp){
+									if (tmp[p] instanceof Array){ // Chỉ có những trường file đính kèm thì mới là Array
+										let files = tmp[p];
+										files.map((f, i) => {
+											let url = '/uploads/' + objectModelName + '/' + f;
+											let obj = {
+												fileName: f.substring(f.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length),
+												urlDirect: url,
+												urlDownload: '/content/download' + url
+											}
+											files[i] = obj;
+										})
+									}
+								}
+							}
+							catch (e){
+								console.log(e);
+							}
+						})
+					}
+					catch (e){
+						console.log(e);
+					}
+					return responseSuccess(res, ['status', 'query', 'total', 'num', objectModelNames], ['success', req.query, total, samples.length, samples]);
+				})
+			
+		})();
+	}
+}
+
+global.myCustomVars.searchHandler = searchHandler;
+
 var getAutoCompletionHandler = function (options) {
 	return function (req, res) {
 		// console.log(Object.keys(AutoCompletion.schema.paths));

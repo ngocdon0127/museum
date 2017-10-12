@@ -138,7 +138,10 @@ module.exports = function (mongoose) {
 			phanLoaiSuDungMau: String,
 			thanhPhanKhoangVat : String,
 			tinhChatVatLy : String,
-			congThucHoaHoc : [String],
+			congThucHoaHocMixed: {
+				congThucHoaHocStr: String,
+				congThucHoaHocFile : [String]
+			},
 			thanhPhanHoaHoc : String,
 		},
 		phanBoVaSuDung: {

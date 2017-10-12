@@ -15,7 +15,8 @@ var app = angular.module('museumApp', [
     'ngMap',
     'ngCookies',
     'pascalprecht.translate',
-    'ui-leaflet'
+    'ui-leaflet',
+    'angularUtils.directives.dirPagination'
 ])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();
@@ -58,8 +59,8 @@ var app = angular.module('museumApp', [
 // });
 
 // Hiển thị thông báo, cần chạy ngay từ khi khởi động để có thể áp dụng được cho tất cả các controller
-app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, err, id, $anchorScroll) {
-    $scope.message = err;
+app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $scope, msg, id, $anchorScroll) {
+    $scope.message = msg;
     $scope.ok = function () {
         $uibModalInstance.dismiss();
         if (id !== "") {

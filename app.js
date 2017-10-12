@@ -95,7 +95,6 @@ app.use(flash());
 
 var routes = require('./routes/index');
 
-
 let timeCookie = 3 * 86400 * 1000; // 3 days
 app.use('/app', angular);
 

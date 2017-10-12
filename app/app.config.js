@@ -200,6 +200,11 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		templateUrl : 'views/map/leaflet-map.html',
 		controller: 'LeafletMapController'
 	})
+	.state('tim-kiem', {
+		url: '/tim-kiem',
+		templateUrl : 'views/templates/search.template.html',
+		controller: 'SearchController'
+	})
 	.state('error-page', {
 		url: '/loi-trang',
 		templateUrl: 'views/errors/error.template.html',

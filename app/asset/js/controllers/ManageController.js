@@ -98,6 +98,8 @@ app.controller('ExportFileController', function ($scope, AuthService, $uibModal,
 
 // use for all manage
 app.controller('ManageContentController', function ($scope, $http, AuthService, $state) {
+    $scope.users = {};
+
     var url_direct  = $state.current.url;
     x = url_direct.split('/');
     $scope.link = x[x.length - 1];
@@ -112,35 +114,20 @@ app.controller('ManageContentController', function ($scope, $http, AuthService, 
     // map to params
     var sample = dic[$scope.link];
 
-    $scope.sortType     = 'name'; // set the default sort type
-    $scope.sortReverse  = false;  // set the default sort order
-    $scope.searchData   = '';
-
     $http.get(url).then(function (res) {
         $scope.data = res.data[sample];
-        $scope.totalItems = $scope.data.length;
+        // $scope.totalItems = $scope.data.length;
     }, function (err) {
         console.log(err);
     });
 
     // pagination
     $scope.viewby = "10"; 
+    $scope.currentPage = 1;
     
-    $scope.currentPage = 4;
-    $scope.itemsPerPage = $scope.viewby;
-    $scope.maxSize = 5; //Number of pager buttons to show
-
-    $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
-    };
-
-    $scope.pageChanged = function() {
-        console.log('Page changed to: ' + $scope.currentPage);
-    };
-
-    $scope.setItemsPerPage = function(num) {
-      $scope.itemsPerPage = num;
-      $scope.currentPage = 1; //reset to first page
+    $scope.sort = function(keyname){
+        $scope.sortKey = keyname;   //set the sortKey to the param passed
+        $scope.sortReverse = !$scope.sortReverse; //if true make it false and vice versa
     }
 
     $scope.selectedAll = false;

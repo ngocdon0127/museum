@@ -19,8 +19,8 @@ let createSaveOrUpdateFunction = global.myCustomVars.createSaveOrUpdateFunction;
 
 let ACTION_CREATE                = global.myCustomVars.ACTION_CREATE;
 let ACTION_EDIT                  = global.myCustomVars.ACTION_EDIT;
-let STR_SEPERATOR                = global.myCustomVars.STR_SEPERATOR;
-let STR_AUTOCOMPLETION_SEPERATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR;
+let STR_SEPARATOR                = global.myCustomVars.STR_SEPARATOR;
+let STR_AUTOCOMPLETION_SEPARATOR = global.myCustomVars.STR_AUTOCOMPLETION_SEPARATOR;
 let ORIGIN_TIME                  = global.myCustomVars.ORIGIN_TIME;
 let NULL_TIMES                   = global.myCustomVars.NULL_TIMES;
 let DATE_FULL                    = global.myCustomVars.DATE_FULL;
@@ -235,6 +235,19 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 
 			// delete objectInstance.flag;
+			
+			// eGeoJSON
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'eGeoJSON'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
+			}
+			// End of eGeoJSON
 
 			/**
 			 * End of Tiền xử lý Schema
@@ -247,7 +260,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 					// var result =  obj.reduce(function (preStr, curElement, curIndex){
 					// 	// console.log(curElement.split('_+_')[1]);
 					// 	// preStr += curElement.split('_+_')[1];
-					// 	preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+					// 	preStr += curElement.substring(curElement.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length);
 					// 	if (curIndex < obj.length - 1){
 					// 		preStr += ', \n\n';
 					// 	}
@@ -404,10 +417,10 @@ var exportFilePromise = (objectInstance, options, extension) => {
 													td += img2HTML(path.join(ROOT, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
 												} catch (e) {
 													console.log(e);
-													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length)) + '</p>'
 												}
 											} else {
-												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length)) + '</p>'
 											}
 										}
 										docxHTMLSource += `
@@ -595,10 +608,10 @@ var exportFilePromise = (objectInstance, options, extension) => {
 													td += img2HTML(path.join(ROOT, UPLOAD_DESTINATION, value[iidx]), IMG_MAX_WIDTH, IMG_MAX_HEIGHT) + '<br /><br />\n\n';
 												} catch (e) {
 													console.log(e);
-													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+													td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length)) + '</p>'
 												}
 											} else {
-												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)) + '</p>'
+												td += '<p class="tnr">' + display(value[iidx].substring(value[iidx].lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length)) + '</p>'
 											}
 											// td +=  '<img src="" >\n';
 										}
@@ -789,13 +802,13 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				PROP_FIELDS_OBJ[element.name] = index;
 			});
 
-			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _-_)
+			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPARATOR (thường là _-_)
 
 			PROP_FIELDS.map((element, index) => {
 				if (('autoCompletion' in element) && (element.autoCompletion)){
 					try {
-						// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-						flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+						// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPARATOR).join(', ');
+						flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPARATOR, 'g'), ', ');
 					}
 					catch (e){
 						console.log(e);
@@ -805,7 +818,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 			{
 				// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
-				// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+				// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPARATOR
 				// Bọc trong ngoặc cho đỡ trùng tên biến :v
 				let fields = [
 					{
@@ -815,8 +828,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 
 				for(let f of fields){
 					try {
-						// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-						flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+						// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPARATOR).join(', ');
+						flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPARATOR, 'g'), ', ');
 					}
 					catch (e){
 						console.log(e);
@@ -825,7 +838,7 @@ var exportFilePromise = (objectInstance, options, extension) => {
 				}
 			}
 
-			// End of STR_AUTOCOMPLETION_SEPERATOR
+			// End of STR_AUTOCOMPLETION_SEPARATOR
 			
 			// Reconstruct tree
 			var oi = {};
@@ -1421,6 +1434,20 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 			// End of fMissingDateTime
 
 			// delete objectInstance.flag;
+			
+			// eGeoJSON
+			for(var i = 0; i < PROP_FIELDS.length; i++){
+				var field = PROP_FIELDS[i];
+				// console.log(field.name);
+				if (field.name == 'eGeoJSON'){
+					console.log('len: ' + PROP_FIELDS.length);
+					PROP_FIELDS.splice(i, 1); // Xóa nó đi để không tính vào phần thống kê bao nhiêu trường tính tiền, bao nhiêu trường không tính tiền. (Cuối file xuất ra)
+					console.log('len: ' + PROP_FIELDS.length);
+					break;
+				}
+			}
+			// End of eGeoJSON
+			
 			/**
 			 * End of Tiền xử lý Schema
 			 */
@@ -1432,7 +1459,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 					var result =  obj.reduce(function (preStr, curElement, curIndex){
 						// console.log(curElement.split('_+_')[1]);
 						// preStr += curElement.split('_+_')[1];
-						preStr += curElement.substring(curElement.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length);
+						preStr += curElement.substring(curElement.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length);
 						if (curIndex < obj.length - 1){
 							preStr += ', \n\n';
 						}
@@ -1800,13 +1827,13 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 				PROP_FIELDS_OBJ[element.name] = index;
 			});
 
-			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR (thường là _-_)
+			// Một số trường như loaiMauVat, giaTriSuDung cho phép nhiều thuộc tính, cần loại bỏ STR_AUTOCOMPLETION_SEPARATOR (thường là _-_)
 
 			PROP_FIELDS.map((element, index) => {
 				if (('autoCompletion' in element) && (element.autoCompletion)){
 					try {
-						// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-						flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+						// flatOI[element.name] = flatOI[element.name].split(STR_AUTOCOMPLETION_SEPARATOR).join(', ');
+						flatOI[element.name] = flatOI[element.name].replace(new RegExp(STR_AUTOCOMPLETION_SEPARATOR, 'g'), ', ');
 					}
 					catch (e){
 						console.log(e);
@@ -1816,7 +1843,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 
 			{
 				// Trường đặc biệt: Không AutoCompletion nhưng cho phép chọn nhiều mục 
-				// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPERATOR
+				// => Cũng cần loại bỏ STR_AUTOCOMPLETION_SEPARATOR
 				// Bọc trong ngoặc cho đỡ trùng tên biến :v
 				let fields = [
 					{
@@ -1826,8 +1853,8 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 
 				for(let f of fields){
 					try {
-						// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPERATOR).join(', ');
-						flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPERATOR, 'g'), ', ');
+						// flatOI[f.fieldName] = flatOI[f.fieldName].split(STR_AUTOCOMPLETION_SEPARATOR).join(', ');
+						flatOI[f.fieldName] = flatOI[f.fieldName].replace(new RegExp(STR_AUTOCOMPLETION_SEPARATOR, 'g'), ', ');
 					}
 					catch (e){
 						console.log(e);
@@ -1835,7 +1862,7 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 				}
 			}
 
-			// End of STR_AUTOCOMPLETION_SEPERATOR
+			// End of STR_AUTOCOMPLETION_SEPARATOR
 			
 			// Reconstruct tree
 			var oi = {};
@@ -2129,7 +2156,7 @@ var exportZipPromise = (objectInstance, options, extension) => {
 									ROOT, 
 									'tmp',
 									tmpFolderName, 
-									file.substring(file.lastIndexOf(STR_SEPERATOR) + STR_SEPERATOR.length)
+									file.substring(file.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length)
 								)
 							);
 						}

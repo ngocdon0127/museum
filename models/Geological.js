@@ -138,7 +138,10 @@ module.exports = function (mongoose) {
 			phanLoaiSuDungMau: String,
 			thanhPhanKhoangVat : String,
 			tinhChatVatLy : String,
-			congThucHoaHoc : [String],
+			congThucHoaHocMixed: {
+				congThucHoaHocStr: String,
+				congThucHoaHocFile : [String]
+			},
 			thanhPhanHoaHoc : String,
 		},
 		phanBoVaSuDung: {
@@ -192,9 +195,15 @@ module.exports = function (mongoose) {
 		flag: {
 			fDiaDiemThuMau: String,
 			fApproved: Boolean
+		},
+		extra: {
+			eGeoJSON: {
+				type: String,
+				coordinates: [Number]
+			}
 		}
 	};
-	var geologicalSchema = mongoose.Schema(schemaPrototype);
+	var geologicalSchema = mongoose.Schema(schemaPrototype, {typeKey: '$type'});
 
 	var Geological = mongoose.model("Geological", geologicalSchema);
 	global.myCustomVars.models.Geological = {

@@ -60,12 +60,12 @@
 		    <div class="row">
 		        <div class="col-sm-4">
 		          	<label>08. {{"land.ngayDinhTen" | translate }}: </label>
-		          	<select ng-model="date_ndt" class="select-date">
+		          	<select ng-model="data.date_ndt" class="select-date">
 		            	<option value="dd/mm/yyyy">Full date</option>
 		            	<option value="mm/yyyy">Mon/Year</option>
 		            	<option value="yyyy">Year</option>
 		          	</select>
-		          	<input type="text" class="input-form form-control datepicker" id="ngayDinhTen" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" placeholder="{{date_ndt}}" ng-model="data.ngayDinhTen">
+		          	<input type="text" class="input-form form-control datepicker" id="ngayDinhTen" title="{{tooltips['ngayDinhTen']}}" name="ngayDinhTen" placeholder="{{data.date_ndt}}" ng-model="data.ngayDinhTen">
 		        </div>
 	        	<div class="col-sm-4">
 	          		<label>09. {{"land.tenVietNam" | translate }} </label>
@@ -201,12 +201,12 @@
 			<div class="row">
         		<div class="col-sm-4">
 		          	<label>19. {{"land.thoiGianThuMau" | translate }} <span class="has-required">(*)</span>:</label>
-		          	<select ng-model="date_tgtm" class="select-date">
+		          	<select ng-model="data.date_tgtm" class="select-date">
 		            	<option value="dd/mm/yyyy">Full date</option>
 		            	<option value="mm/yyyy">Mon/Year</option>
 		            	<option value="yyyy">Year</option>
 		          	</select>
-          			<input type="text" class="input-form form-control datepicker" id="thoiGianThuMau" title="{{tooltips['thoiGianThuMau']}}" placeholder="{{date_tgtm}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau">
+          			<input type="text" class="input-form form-control datepicker" id="thoiGianThuMau" title="{{tooltips['thoiGianThuMau']}}" placeholder="{{data.date_tgtm}}" name="thoiGianThuMau" ng-model="data.thoiGianThuMau">
         		</div>
        			<div class="col-sm-4">
 		          	<label>20. {{"land.nguoiThuMau" | translate }} <span class="has-required">(*)</span>:</label>
@@ -396,12 +396,12 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>39. {{"land.ngayPhanTichMauDat" | translate }}:</label>
-					<select ng-model="date_ptmd" class="select-date">
+					<select ng-model="data.date_ptmd" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
                         <option value="mm/yyyy">Mon/Year</option>
                         <option value="yyyy">Year</option>
                     </select>
-					<input type="text" class="input-form form-control datepicker" id="ngayPhanTichMauDat" title="{{tooltips['ngayPhanTichMauDat']}}" name="ngayPhanTichMauDat" placeholder="{{date_ptmd}}" ng-model="data.ngayPhanTichMauDat" >
+					<input type="text" class="input-form form-control datepicker" id="ngayPhanTichMauDat" title="{{tooltips['ngayPhanTichMauDat']}}" name="ngayPhanTichMauDat" placeholder="{{data.date_ptmd}}" ng-model="data.ngayPhanTichMauDat" >
 				</div>
 				<div class="col-sm-4">
 					<label>40. {{"land.hoSoPhanTichMauDat" | translate }} </label><br>
@@ -412,12 +412,12 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>42. {{"land.thoiGianGiamDinh" | translate }}:</label>
-					<select ng-model="date_tggd" class="select-date">
+					<select ng-model="data.date_tggd" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
                         <option value="mm/yyyy">Mon/Year</option>
                         <option value="yyyy">Year</option>
                     </select>
-					<input type="text" class="input-form form-control datepicker" id="thoiGianGiamDinh" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" placeholder="{{date_tggd}}" ng-model="data.thoiGianGiamDinh" >
+					<input type="text" class="input-form form-control datepicker" id="thoiGianGiamDinh" title="{{tooltips['thoiGianGiamDinh']}}" name="thoiGianGiamDinh" placeholder="{{data.date_tggd}}" ng-model="data.thoiGianGiamDinh" >
 				</div>
 				<div class="col-sm-4">
 					<label>41. {{"land.ketQuaPhanTich" | translate }} <span class="has-required">(*)</span>:</label><br>
@@ -512,12 +512,12 @@
 					<div class="row">
 						<div class="col-sm-8">
 							{{"land.thoiGianXuLy" | translate }}:
-							<select ng-model="date_tgct" class="select-date">
+							<select ng-model="data.date_tgct" class="select-date">
 		                        <option value="dd/mm/yyyy">Full date</option>
 		                        <option value="mm/yyyy">Mon/Year</option>
 		                        <option value="yyyy">Year</option>
 		                    </select>
-							<input type="text" class="input-form form-control datepicker" id="thoiGianXuLy" title="{{tooltips['thoiGianXuLy']}}" placeholder="{{date_tgct}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy">
+							<input type="text" class="input-form form-control datepicker" id="thoiGianXuLy" title="{{tooltips['thoiGianXuLy']}}" placeholder="{{data.date_tgct}}" name="thoiGianXuLy" ng-model="data.thoiGianXuLy">
 						</div>
 					</div>
 					<div class="row">
@@ -602,12 +602,12 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<label>58. {{"land.ngayNhapMau" | translate }}: </label>
-						<select ng-model="date_nnm" class="select-date">
+						<select ng-model="data.date_nnm" class="select-date">
                         <option value="dd/mm/yyyy">Full date</option>
                         <option value="mm/yyyy">Mon/Year</option>
                         <option value="yyyy">Year</option>
                     </select>
-					<input type="text" class="input-form form-control datepicker" id="ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" placeholder="{{date_nnm}}" ng-model="data.ngayNhapMau" >
+					<input type="text" class="input-form form-control datepicker" id="ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" name="ngayNhapMau" placeholder="{{data.date_nnm}}" ng-model="data.ngayNhapMau" >
 				</div>
 				<div class="col-sm-4">
 					<label>59. {{"land.nguoiGiao" | translate }} </label>

@@ -16,13 +16,13 @@ var Log                  = mongoose.model('Log');
 
 var ACTION_CREATE = 0;
 var ACTION_EDIT = 1;
-var STR_SEPERATOR = '_+_';
-var STR_AUTOCOMPLETION_SEPERATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
+var STR_SEPARATOR = '_+_';
+var STR_AUTOCOMPLETION_SEPARATOR = '_-_'; // Phải đồng bộ với biến cùng tên trong file app/service.js
 
 global.myCustomVars.ACTION_CREATE = ACTION_CREATE;
 global.myCustomVars.ACTION_EDIT = ACTION_EDIT;
-global.myCustomVars.STR_SEPERATOR = STR_SEPERATOR;
-global.myCustomVars.STR_AUTOCOMPLETION_SEPERATOR = STR_AUTOCOMPLETION_SEPERATOR;
+global.myCustomVars.STR_SEPARATOR = STR_SEPARATOR;
+global.myCustomVars.STR_AUTOCOMPLETION_SEPARATOR = STR_AUTOCOMPLETION_SEPARATOR;
 
 const DATE_FULL = 0;
 const DATE_MISSING_DAY = 1;
@@ -198,8 +198,8 @@ function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 				file.originalname = file.originalname.replace('..', '.');
 			}
 
-			var newFileName = mongoId + STR_SEPERATOR + schemaFieldName + STR_SEPERATOR + file.originalname;
-			// var newFileName = mongoId + STR_SEPERATOR + file.originalname;
+			var newFileName = mongoId + STR_SEPARATOR + schemaFieldName + STR_SEPARATOR + file.originalname;
+			// var newFileName = mongoId + STR_SEPARATOR + file.originalname;
 			var newPath = path.join(position, newFileName);
 			fs.renameSync(curPath, newPath);
 			schemaField.push(newFileName);
@@ -229,7 +229,13 @@ global.myCustomVars.propsName = propsName;
 function flatObjectModel (_PROP_FIELDS, objectInstance) {
 	objectInstance = JSON.parse(JSON.stringify(objectInstance));
 	var result = {};
+	let ommitedFields = {
+		eGeoJSON: 1
+	};
 	_PROP_FIELDS.map(function (element) {
+		if (ommitedFields.hasOwnProperty(element.name)) {
+			return;
+		}
 		if (element.type.localeCompare('Date') === 0){
 			result[element.name] = new Date(objectChild(objectInstance, element.schemaProp)[element.name]);
 		}
@@ -344,47 +350,108 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		delete specialFields.unitFields;
 
 		// VD: Kinh độ, Vĩ độ: '1 ° 2 \' 3"'
+		function validateCoordinate(str) {
+			let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
+			let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
+			return discreteCoor.test(str) || floatCoor.test(str);
+		}
+
+		function coordinatesStr2Float(str) {
+			let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
+			let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
+			if (discreteCoor.test(str)) {
+				let matches = str.match(discreteCoor);
+				let partDo = parseInt(matches[1]);
+				let partPhut = parseInt(matches[3]);
+				let partGiay = parseInt(matches[5]);
+				return (Math.abs(partDo) + partPhut / 60 + partGiay / 3600) * (partDo >= 0 ? 1 : -1);
+			}
+			if (floatCoor.test(str)) {
+				return parseFloat(str)
+			}
+			return 'invalid'
+		}
 
 		specialFields.coordinations = [
 			{
-				fieldName: 'kinhDo'
+				fieldName: 'kinhDo',
+				min: -180,
+				max: 180
 			},
 			{
-				fieldName: 'viDo'
+				fieldName: 'viDo',
+				min: -90,
+				max: 90
 			}
 		]
+		let geoJSON = {
+			type: 'Point',
+			coordinates: []
+		}
 
 		for(let field of specialFields.coordinations){
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
 				// console.log(req.body[field.fieldName]);
-				if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
-					if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {
-						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
-					}
-					console.log('Tọa độ thực')
-					req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+				// new
+				req.body[field.fieldName] = req.body[field.fieldName].toLowerCase();
+				let isValidCoor = validateCoordinate(req.body[field.fieldName]);
+				if (!isValidCoor) {
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+						[_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
 				}
-				else {
-					console.log('Tọa độ rời rạc')
-					req.body[field.fieldName] = req.body[field.fieldName].toLowerCase()
-					let matches = req.body[field.fieldName].match(/^([0-9 \-]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)$/);
-					if (!matches || (matches.length < 7)) {
-						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
-					}
-					// console.log(matches);
-					let partDo = parseInt(matches[1]);
-					let partPhut = parseInt(matches[3]);
-					let partGiay = parseInt(matches[5]);
-					// console.log(partDo);
-					// console.log(partPhut);
-					// console.log(partGiay);
-					if (!Number.isInteger(partDo) ||
-							!Number.isInteger(partPhut) ||
-							!Number.isInteger(partGiay)
-						){
-						return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ': Tọa độ phải là các số nguyên', field.fieldName])
-					}
+				let c_ = coordinatesStr2Float(req.body[field.fieldName]);
+				if ((c_ < field.min) || (c_ > field.max)) {
+					return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+						[`${_LABEL[field.fieldName]} phải nằm trong khoảng từ ${field.min} đến ${field.max}. Giá trị nhập vào: ${c_}`,
+						field.fieldName]);
 				}
+				geoJSON.coordinates.push(c_);
+				// end new
+				// if (!(/^([0-9 \-]+)(°|độ)([0-9 \-]+)('|phút)([0-9 \-]+)("|giây)$/.test(req.body[field.fieldName].toLowerCase()))){
+				// 	if (/^(.+)(°|độ)(.+)('|phút)(.+)("|giây)$/.test(req.body[field.fieldName].toLowerCase())) {
+				// 		return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
+				// 	}
+				// 	console.log('Tọa độ thực')
+				// 	req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
+				// }
+				// else {
+				// 	console.log('Tọa độ rời rạc')
+				// 	req.body[field.fieldName] = req.body[field.fieldName].toLowerCase()
+				// 	let matches = req.body[field.fieldName].match(/^([0-9 \-]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)$/);
+				// 	if (!matches || (matches.length < 7)) {
+				// 		return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ' không đúng định dạng', field.fieldName]);
+				// 	}
+				// 	// console.log(matches);
+				// 	let partDo = parseInt(matches[1]);
+				// 	let partPhut = parseInt(matches[3]);
+				// 	let partGiay = parseInt(matches[5]);
+				// 	// console.log(partDo);
+				// 	// console.log(partPhut);
+				// 	// console.log(partGiay);
+				// 	if (!Number.isInteger(partDo) ||
+				// 			!Number.isInteger(partPhut) ||
+				// 			!Number.isInteger(partGiay)
+				// 		){
+				// 		return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], [_LABEL[field.fieldName] + ': Tọa độ phải là các số nguyên', field.fieldName])
+				// 	}
+				// }
+			}
+		}
+		// console.log('============ GEOJSON ===========');
+		// console.log(geoJSON);
+		// console.log('============ /GEOJSON ===========');
+		if (geoJSON.coordinates.length == 2) {
+			if (objectInstance.extra) {
+				objectInstance.extra.eGeoJSON = geoJSON;
+			} else {
+				objectInstance.extra = {
+					eGeoJSON: geoJSON
+				}
+			}
+		} else {
+			if (objectInstance.extra) {
+				objectInstance.extra.eGeoJSON = undefined;
+				delete objectInstance.extra.eGeoJSON
 			}
 		}
 		delete specialFields.coordinations;
@@ -520,9 +587,14 @@ function createSaveOrUpdateFunction (variablesBundle) {
 					break;
 				case 'Date':
 					// console.log('date');
-					// console.log(req.body[element.name]);
 					
 					if (req.body[element.name]){
+						// console.log(element.name, '"', req.body[element.name], '"');
+						if (!(/^ *[0-9]+( *\/ *[0-9]+){0,2} *$/.test(req.body[element.name]))) {
+							// console.log('here reject');
+							return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+										['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
+						}
 						// Preprocess Date: Change from '23/02/2017' to '2017/02/23'
 						// Catch error later
 						try {
@@ -531,10 +603,13 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								let n = parseInt(e);
 								return Number.isInteger(n) && (n > 0)
 							})
+							// console.log(dateValue_);
 							let timeValue_ = [];
 							// reject if req has more than 3 numbers
 							if (dateValue_.length > 3){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy', element.name])
+								// console.log('dateValue_ len', dateValue_.length);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+									['Định dạng ngày tháng phải theo khuôn mẫu dd/mm/yyyy.', element.name])
 							}
 							// 
 							// now, allow to save and mark the flag
@@ -559,6 +634,22 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								// flagMissingDateTime = DATE_MISSING_MONTH;
 								timeValue_ = [DATE_MISSING_MONTH + '', '0', '0'];
 							}
+							// now we have dateValue_ is a 3-elements array.
+							let _year = parseInt(dateValue_[2]);
+							if ((_year < 1000) || (_year > 3000)) {
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+								['Năm phải trong khoảng 1000 - 3000. Giá trị nhập vào: ' + _year, element.name])
+							}
+							let _month = parseInt(dateValue_[1]);
+							if ((_month < 1) || (_month > 12)) {
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+								['Tháng phải trong khoảng 1 - 12. Giá trị nhập vào: ' + _month, element.name])
+							}
+							let _day = parseInt(dateValue_[0]);
+							if ((_day < 1) || (_day > 31)) {
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+								['Ngày phải trong khoảng 1 - 31. Giá trị nhập vào: ' + _day, element.name])
+							}
 							// Use flag to mark Missing Date
 							// if (objectInstance.flag) {
 							// 	objectInstance.flag.fMissingDateTime = flagMissingDateTime
@@ -572,6 +663,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 								dateValue_[index] = element.trim();
 							})
 							dateValue_.reverse();
+							// console.log(dateValue_);
 							req.body[element.name] = dateValue_.join('/') + ' ' + ((timeValue_.length > 0) ? timeValue_.join(':') : '')
 							// Use flag to mark Missing Date
 							// req.body[element.name] = dateValue_.join('/')
@@ -698,7 +790,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 				// Update Auto Completion
 				if (('autoCompletion' in element) && (element.autoCompletion)){
-					var value_ = value.split(STR_AUTOCOMPLETION_SEPERATOR);
+					var value_ = value.split(STR_AUTOCOMPLETION_SEPARATOR);
 					for(let v of value_){
 						v = v.trim();
 						if (v){
@@ -843,11 +935,11 @@ function createSaveOrUpdateFunction (variablesBundle) {
 				
 				let randomStr = req.body.randomStr;
 				currentTmpFiles.map((fileName) => {
-					let prefix = req.body.randomStr + STR_SEPERATOR + element.name + STR_SEPERATOR;
+					let prefix = req.body.randomStr + STR_SEPARATOR + element.name + STR_SEPARATOR;
 					if (fileName.indexOf(prefix) == 0) {
 						// fileName: 6d90732ef697bbf4f1248e1958ac1060_+_anhMauVat_+_18952851_2101188366876603_8950647639813852835_n.jpg
 						// curFullName = [6d90732ef697bbf4f1248e1958ac1060, anhMauVat, 18952851_2101188366876603_8950647639813852835_n.jpg]
-						let curFullName = fileName.split(STR_SEPERATOR);
+						let curFullName = fileName.split(STR_SEPARATOR);
 						if (curFullName[1] in PROP_FIELDS_OBJ) {
 							let f = false;
 							if ('regex' in _PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]]) {
@@ -860,7 +952,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 							}
 							if (f) {
 								curFullName[0] = result.id;
-								let newFullName = curFullName.join(STR_SEPERATOR);
+								let newFullName = curFullName.join(STR_SEPARATOR);
 								fsE.moveSync(
 									path.join(ROOT, TMP_UPLOAD_DIR, fileName),
 									path.join(ROOT, _UPLOAD_DESTINATION, newFullName),

@@ -1321,6 +1321,14 @@
 		"money": false,
 		"type": "String"
 	},
+	{
+		"name": "eGeoJSON",
+		"schemaProp": "extra",
+		"label": "Tọa độ",
+		"required": false,
+		"money": false,
+		"type": "GeoJSON"
+	},
 
 	{
 		"name": "soHieu",

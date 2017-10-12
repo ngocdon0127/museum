@@ -898,9 +898,28 @@
         "label": "Công thức hóa học",
         "required": false,
         "money": false,
+        "type": "Mixed",
+        "subProps": [
+            "congThucHoaHocStr",
+            "congThucHoaHocFile"
+        ]
+    },
+    {
+        "name": "congThucHoaHocStr",
+        "schemaProp": "dacDiemMauVat.congThucHoaHocMixed",
+        "label": "Công thức",
+        "required": false,
+        "money": false,
+        "type": "String"
+    },
+    {
+        "name": "congThucHoaHocFile",
+        "schemaProp": "dacDiemMauVat.congThucHoaHocMixed",
+        "label": "Đính kèm",
+        "required": false,
+        "money": false,
         "type": "File",
-        "regex": "^.+\\.(pdf|docx?)$",
-        "autoCompletion": false
+        "regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|xlsx?|docx?)$"
     },
     {
         "name": "thanhPhanHoaHoc",
@@ -1352,6 +1371,11 @@
         "name": "phanTichQuangHocMixed",
         "type": "Metadata",
         "label": "Các phân tích quang học"
+    },
+    {
+        "name": "congThucHoaHocMixed",
+        "type": "Metadata",
+        "label": "Công thức hóa học"
     },
     {
         "name": "duLieuDiaChat",

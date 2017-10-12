@@ -25,7 +25,7 @@ var exportXLSX          = global.myCustomVars.exportXLSX;
 
 var ACTION_CREATE = global.myCustomVars.ACTION_CREATE;
 var ACTION_EDIT   = global.myCustomVars.ACTION_EDIT;
-var STR_SEPERATOR = global.myCustomVars.STR_SEPERATOR;
+var STR_SEPARATOR = global.myCustomVars.STR_SEPARATOR;
 
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/PaleontologicalSchemaProps.json')).toString());
 
@@ -76,6 +76,7 @@ LABEL.objectModelLabel = objectModelLabel;
 var bundle = {
 	Log                    : Log,
 	AutoCompletion         : AutoCompletion,
+	ObjectModel            : ObjectModel,
 	objectModelName        : objectModelName,
 	objectModelNames       : objectModelNames,
 	objectModelIdParamName : objectModelIdParamName,
@@ -83,8 +84,12 @@ var bundle = {
 	PROP_FIELDS            : PROP_FIELDS,
 	UPLOAD_DESTINATION     : UPLOAD_DESTINATION,
 	PROP_FIELDS_OBJ        : PROP_FIELDS_OBJ,
-	LABEL                  : LABEL
+	LABEL                  : LABEL,
+	aclMiddlewareBaseURL   : aclMiddlewareBaseURL,
+	objectModelLabel       : objectModelLabel
 }
+
+global.myCustomVars.models['co-sinh'].bundle = bundle;
 
 var saveOrUpdate           = global.myCustomVars.createSaveOrUpdateFunction(bundle);
 
@@ -166,6 +171,16 @@ router.get(objectBaseURL + '/fields', aclMiddleware(aclMiddlewareBaseURL, 'view'
 	PROP_FIELDS: PROP_FIELDS,
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	LABEL: LABEL,
+}))
+
+var searchHandler = global.myCustomVars.searchHandler;
+router.get(objectBaseURL + '/search', aclMiddleware(aclMiddlewareBaseURL, 'view'), searchHandler({
+	ObjectModel: ObjectModel,
+	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+	objectModelName: objectModelName,
+	objectModelNames: objectModelNames,
+	PROP_FIELDS: PROP_FIELDS,
+	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ
 }))
 
 var getSingleHandler = global.myCustomVars.getSingleHandler;

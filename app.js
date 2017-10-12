@@ -91,6 +91,9 @@ app.use(flash());
 // });
 // 
 
+var routes = require('./routes/index');
+
+app.use('/app', angular);
 let timeCookie = 3 * 86400 * 1000; // 3 days
 
 app.use(function (req, res, next) { // Để đây thì khi client request static files, hàm này sẽ không cần chạy.
@@ -103,12 +106,9 @@ app.use(function (req, res, next) { // Để đây thì khi client request stati
 	next();
 })
 
-var routes = require('./routes/index');
 app.use('/', routes);
-
 app.use('/users', users);
 app.use('/auth', auth);
-app.use('/app', angular);
 app.use('/admin', admin);
 app.use('/manager', manager);
 app.use('/content', content);

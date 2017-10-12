@@ -69,7 +69,7 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" ng-controller="translateCtrl">
-					<!-- <li><a href="">{{'ngonngu' | translate }}:</a></li> -->
+					<!-- <li><a ui-sref="tim-kiem" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a></li> -->
 					<li ng-click="changeLang('eng')"><a href=""><img src="asset/image/en.gif"></a></li>
 					<li  ng-click="changeLang('vi')"><a href=""><img src="asset/image/vi.gif"></a></li>
 					<li class="dropdown">
@@ -82,17 +82,25 @@
 					</li>
 				</ul>
 
-				<!-- <form class="navbar-form navbar-right" role="search" ng-controller="SearchController">
-					<div class="form-group">
+				<form class="navbar-form navbar-right" role="search" ng-controller="SearchController">
+					<div class="input-group">
+				      	<!-- <input type="text" class="form-control" placeholder="Tìm kiếm..."> -->
+				      	<span class="input-group-btn">
+				        	<a ui-sref="tim-kiem" class="btn btn-primary">
+				            	<span class=" glyphicon glyphicon-search"></span>
+				        	</a>
+				      	</span>
+				    </div>
+					<!-- <div class="form-group">
 						<input type="text" class="form-control" ng-model="searchData" placeholder="Tìm kiếm...">
 					</div>
-					<button type="button" ng-click="search(searchData)" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-				</form> -->
+					<a ui-sref="tim-kiem" ng-click="search(searchData)" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a> -->
+				</form>
 			</div>
 		</div>
 	</nav>
 	<section>
-		<div ui-view class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12"></div>
+		<div ui-view></div>
 	</section>
 	<!-- <footer style="bottom: 0px; position: absolute; width: 100%;">
 		<div class="input-form form-control">&copy; Copyright. All right is reserved</div>

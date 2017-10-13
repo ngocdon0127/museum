@@ -940,6 +940,7 @@ global.myCustomVars.deleteHandler = deleteHandler;
 var deleteFileHander = options => {
 	return (req, res, next) => {
 		async(() => {
+			console.log(req.body);
 			let objectModelIdParamName = options.objectModelIdParamName
 			let UPLOAD_DESTINATION = options.UPLOAD_DESTINATION
 			let ObjectModel = options.ObjectModel
@@ -1042,19 +1043,25 @@ var deleteFileHander = options => {
 				}
 				console.log(oldFileName);
 				let arr = objectChild(objectInstance, PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].schemaProp) [req.body.field];
-				let pos = arr.indexOf(oldFileName);
-				let savedFiles = [];
-				if (pos < 0) {
-					let files = []
-					fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
-						let prefix = req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR;
-						if (fileName.indexOf(prefix) == 0) {
-							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
-						}
-					});
-					arr.map(f => {
-						savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
+				if (!(arr instanceof Array)) {
+					return res.status(400).json({
+						status: 'error',
+						error: `${req.body.field} không phải là trường file đính kèm`
 					})
+				}
+				let savedFiles = [];
+				let files = []
+				fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'}).map((fileName) => {
+					let prefix = req.body.randomStr + STR_SEPARATOR + req.body.field + STR_SEPARATOR;
+					if (fileName.indexOf(prefix) == 0) {
+						files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
+					}
+				});
+				arr.map(f => {
+					savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
+				})
+				let pos = arr.indexOf(oldFileName);
+				if (pos < 0) {
 					return res.status(400).json({
 						status: 'error',
 						error: 'file not found',
@@ -1069,14 +1076,33 @@ var deleteFileHander = options => {
 				
 				try {
 					arr.splice(pos, 1);
-					fs.unlinkSync(path.join(ROOT, UPLOAD_DESTINATION, oldFileName));
+					if (objectInstance.extra && objectInstance.extra.eGeoJSON && !objectInstance.extra.eGeoJSON.type) {
+						objectInstance.extra.eGeoJSON = undefined;
+						delete objectInstance.extra.eGeoJSON
+					}
 				} catch (e) {
 					console.log(e);
 				}
+				console.log(objectInstance.extra);
 
 				objectInstance.save((err, oi) => {
 					if (err) {
 						console.log(err);
+						return res.status(500).json({
+							status: 'error',
+							error: 'error while updating database',
+							savedFiles: savedFiles,
+							files: files,
+							form: form,
+							id: objectInstance.id,
+							randomStr: req.body.randomStr,
+							field: req.body.field
+						})
+					}
+					try {
+						fs.unlinkSync(path.join(ROOT, UPLOAD_DESTINATION, oldFileName));
+					} catch (e) {
+						console.log(e);
 					}
 					// TODO
 					// Save log

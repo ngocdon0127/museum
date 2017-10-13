@@ -356,13 +356,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" ng-controller="GoogleMapController" style="margin-top: 10px;" ng-init="data.fViTriToaDo = true">
+				<div class="row" ng-controller="GoogleMapController" style="margin-top: 10px;" ng-init="data.fViTriToaDo = 'dms'">
 					<div class="row">
 						<div class="col-sm-5">
 							<label>24. {{"ani.viTriToaDo" | translate }}: </label>
 						</div>
 						<div class="col-sm-7">
-							<input type="radio" name="fViTriToaDo" ng-checked="true" id="vitri-dms" ng-model="data.fViTriToaDo" value="dms"><span class="label label-default"> DMS</span>
+							<input type="radio" name="fViTriToaDo" id="vitri-dms" ng-model="data.fViTriToaDo" value="dms"><span class="label label-default"> DMS</span>
 							<input type="radio" name="fViTriToaDo" id="vitri-dd" ng-model="data.fViTriToaDo" value="dd"><span class="label label-default"> DD</span>
 						</div>
 					</div>

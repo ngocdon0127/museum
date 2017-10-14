@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var path = require('path');
 
 var baseIcon = {
     type: 'extraMarker',
@@ -8,6 +9,29 @@ var baseIcon = {
     prefix: 'fa',
     // shape: 'circle'
 };
+
+const objectModel = {
+    "Animal" : {
+        uploadUrl : "/uploads/animal",
+        contentUrl : "/content/dong-vat"
+    },
+    "Geological" : {
+        uploadUrl : "/uploads/geological",
+        contentUrl : "/content/dia-chat"
+    },
+    "Paleontological": {
+        uploadUrl : "/uploads/paleontological",
+        contentUrl : "/content/co-sinh"
+    },
+    "Soil" : {
+        uploadUrl : "/uploads/soil",
+        contentUrl : "/content/tho-nhuong"
+    },
+    "Vegetable" : {
+        uploadUrl : "/uploads/vegetable",
+        contentUrl : "/content/thuc-vat"
+    }
+}
 
 var animalMarkerIcon = Object.assign({}, baseIcon, {
         markerColor: 'red'
@@ -58,9 +82,21 @@ router.get("/get-marker", function (req, res, next) {
 
 
 var getMarkers = function (model, geoJsonObject, icon) {
-    function getPopupContent(model, ele) {
-        return '<b>' + ele.tenMau.tenVietNam + '</b><br>' +
-            '<i>' + ele.tenMau.tenTiengAnh + '</i>';
+    function getPopupContent(ele) {
+        var popupContent = '<b>' + ele.tenMau.tenVietNam + '</b><br>' +
+                            '<i>' + ele.tenMau.tenTiengAnh + '</i><br>';
+        if(ele.media.anhMauVat.length) {
+            popupContent += "<img src='" + 
+                path.join('https://baotangvn.online',objectModel[model].uploadUrl, ele.media.anhMauVat[0])
+                + "' width='100%'/>";
+        }
+
+        popupContent = '<a target="_blank" href="' 
+            + path.join(objectModel[model].contentUrl, ele._id + "?display=html")
+            + '">' + popupContent + '</a>';
+        popupContent = '<div align="center">' + popupContent + '</div>';
+        return popupContent;
+
     }
     var ObjectModel = mongoose.model(model);
     return new Promise(function (resolve, reject) {
@@ -74,14 +110,15 @@ var getMarkers = function (model, geoJsonObject, icon) {
         }, {
             'extra.eGeoJSON': 1,
             'tenMau.tenVietNam': 1,
-            'tenMau.tenTiengAnh': 1
+            'tenMau.tenTiengAnh': 1,
+            'media': 1
         }).then(function (data) {
             var markers = {};
             data.forEach(function (ele) {
                 markers[ele._id] = {
                     lat: ele.extra.eGeoJSON.coordinates[1],
                     lng: ele.extra.eGeoJSON.coordinates[0],
-                    message: getPopupContent(model, ele),
+                    message: getPopupContent(ele),
                     icon: icon ? icon : {}
                 }
             });

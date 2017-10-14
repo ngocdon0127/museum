@@ -15,46 +15,88 @@
         </div>
         <uib-accordion>
             <div uib-accordion-group class="panel-default" heading="Số hiệu BTTNVN">
-                {{group.content}}
+                <!-- {{group.content}} -->
+                <form ng-submit="search(123)">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Số hiệu bảo tàng cơ sở">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên khoa học">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Người định tên">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Ngày định tên">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên Việt Nam">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên địa phương">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên Tiếng Anh">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Địa điểm thu mẫu">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Vị trí tọa độ">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Phân bố Việt Nam">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Phân bố thế giới">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Nơi lưu giữ mẫu">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Khu lưu trữ mẫu">
                 {{group.content}}
+                <form ng-submit="search()">
+                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                </form>
             </div>
         </uib-accordion>
     </nav>
@@ -85,7 +127,7 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <center><h3>Kết quả tìm kiếm</h3></center>
+                    <center><h3>Kết quả tìm kiếm | {{searchResult}}</h3></center>
                 </div>
             </div>
         </nav>

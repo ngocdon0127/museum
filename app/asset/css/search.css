@@ -7,6 +7,10 @@
         line-height: 1.7em;
         color: #999;
     }
+    .input-form-search{
+        border: 0px solid;
+        width: 100%;
+    }
     .panel-group .panel + .panel {
         margin-top: 3px;
     }

@@ -1,13 +1,15 @@
 app.controller('SearchController', function($scope, $http, AuthService, $uibModal){
 	var url = AuthService.hostName + '/content/search' ;
-	$scope.link = "";
+	$scope.searchResult = "0 kết quả"
 	$scope.data = [];
 
 	$scope.search = function (content) {
+		$scope.searchResult = "Loading...";
 		url = url + "?q=" + content;
 		$http.get(url).then(function (res) {
         	$scope.data = res.data.matchedSamples;
-        	console.log($scope.data);
+        	// console.log($scope.data);
+        	$scope.searchResult = $scope.data.length + " kết quả";
 	    }, function (err) {
 	        console.log(err);
 	    });

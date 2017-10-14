@@ -1,15 +1,17 @@
 app.controller('SearchController', function($scope, $http, AuthService){
-	var url = AuthService.hostName + '/content/dong-vat' ;
+	var url = AuthService.hostName + '/content/search' ;
 	$scope.link = "dong-vat";
-	$http.get(url).then(function (res) {
-        $scope.data = res.data.animals;
-        // $scope.totalItems = $scope.data.length;
-    }, function (err) {
-        console.log(err);
-    });
+	$scope.data = [];
 
 	$scope.search = function (content) {
-		console.log(content);
+		url = url + "?q=" + content;
+		$http.get(url).then(function (res) {
+        	$scope.data = res.data.matchedSamples;
+        	console.log($scope.data);
+	    }, function (err) {
+	        console.log(err);
+	    });
+	    $scope.$apply()
 	}
 
 	$scope.viewby = "10"; 

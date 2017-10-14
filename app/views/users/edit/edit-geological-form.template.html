@@ -713,7 +713,7 @@
                         <ul id="ul_congThucHoaHocFile" class="list-group">
                             <li class="list-group-item" ng-repeat="(key, file) in data.congThucHoaHocFile" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
                                 <span class="pull-right">
-                                    <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'congThucHoaHoc', key)"></span>
+                                    <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'congThucHoaHocFile', key)"></span>
                                 </span>
                             </li>
                         </ul>

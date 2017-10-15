@@ -37,7 +37,7 @@ var animalMarkerIcon = Object.assign({}, baseIcon, {
         markerColor: 'red'
     }),
     geologicalMarkerIcon = Object.assign({}, baseIcon, {
-        markerColor: 'orange'
+        markerColor: 'cyan'
     }),
     paleontologicalMarkerIcon = Object.assign({}, baseIcon, {
         markerColor: 'purple'

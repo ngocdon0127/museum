@@ -4,9 +4,9 @@
         <div class="sidebar-header">
             <form role="search">
                 <div class="input-group">
-                    <input type="text" class="search-input" ng-model="search.content" placeholder="Tìm kiếm...">
+                    <input type="text" class="search-input" ng-model="searchContent.q" placeholder="Tìm kiếm...">
                     <span class="input-group-btn">
-                        <a ui-sref="tim-kiem" ng-click="search(search.content)" class="btn btn-default">
+                        <a ui-sref="tim-kiem" ng-click="searchSample()" class="btn btn-default">
                             <span class=" glyphicon glyphicon-search "></span>
                         </a>
                     </span>
@@ -15,87 +15,92 @@
         </div>
         <uib-accordion>
             <div uib-accordion-group class="panel-default" heading="Số hiệu BTTNVN">
-                <!-- {{group.content}} -->
-                <form ng-submit="search(123)">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                {{group.content}}
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuBTTNVN" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Số hiệu bảo tàng cơ sở">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuBaoTangCS" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên khoa học">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenDongNghia" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Người định tên">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiDinhTen" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Ngày định tên">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()" style="display: inline;">
+                    <input type="range" min="1000" max="3000" value="2017" ng-model="searchContent.ngayDinhTen" class="slider" id="myRange" class="slider">
+                    <br>
+                    <center><label>{{searchContent.ngayDinhTen}}</label></center>
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên Việt Nam">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenVietNam" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên địa phương">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenDiaPhuong" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên Tiếng Anh">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenTiengAnh" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Địa điểm thu mẫu">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.diaDiemThuMau" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Vị trí tọa độ">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.viTriToaDo" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Phân bố Việt Nam">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.phanBoVietNamStr" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Phân bố thế giới">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.phanBoTrenTheGioiStr" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Nơi lưu giữ mẫu">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()" ng-controller="LeafletMapController">
+                    <!-- <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.noiLuuTruMau" class="input-form-search"> -->
+                    <leaflet lf-center="map.center" lf-draw="map.drawOptions" markers-nested="true" markers="map.markers" layers="map.layers"
+                        watch-options='watchOptions' legend="map.legend" height="200px" width="100%">
+                    </leaflet>
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Khu lưu trữ mẫu">
                 {{group.content}}
-                <form ng-submit="search()">
-                    <input type="text" placeholder="Tìm kiếm" name="" class="input-form-search">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.giayPhepNhapMau" class="input-form-search">
                 </form>
             </div>
         </uib-accordion>

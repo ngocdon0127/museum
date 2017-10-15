@@ -1,22 +1,25 @@
 app.controller('SearchController', function($scope, $http, AuthService, $uibModal){
-	var url = AuthService.hostName + '/content/search' ;
-	$scope.searchResult = "0 kết quả"
-	$scope.data = [];
+    var url = AuthService.hostName + '/content/search' ;
+    $scope.searchResult = "0 kết quả"
+    $scope.data = [];
 
-	$scope.search = function (content) {
-		$scope.searchResult = "Loading...";
-		url = url + "?q=" + content;
-		$http.get(url).then(function (res) {
-        	$scope.data = res.data.matchedSamples;
-        	// console.log($scope.data);
-        	$scope.searchResult = $scope.data.length + " kết quả";
-	    }, function (err) {
-	        console.log(err);
-	    });
-	    // $scope.$apply()
-	}
+    $scope.searchSample = function (content) {
+        $scope.searchResult = "Loading...";
+        var config = {
+            params : $scope.searchContent
+        }
+        $http.get(url, config).then(function (res) {
+            console.log(config);
+            $scope.data = res.data.matchedSamples;
+            console.log($scope.data);
+            $scope.searchResult = $scope.data.length + " kết quả";
+        }, function (err) {
+            console.log(err);
+        });
+        // $scope.$apply()
+    }
 
-	$scope.viewby = "10"; 
+    $scope.viewby = "10"; 
     $scope.currentPage = 1;
     
     $scope.sort = function(keyname){

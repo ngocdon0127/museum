@@ -8,7 +8,9 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
     require: '?ngModel',
     link: function($scope, element, attrs, ngModel) {
 
-      var html, savedSelection, clickPosition, overToolbar, originalToolbar, toolbar, contextMenu, originalContextMenu;
+      var html, savedSelection, clickPosition, overToolbar, originalToolbar, toolbar;
+      var contextMenu, originalContextMenu, specialCharaterTable;
+      var rangySelector;
 
       if (!ngModel) { return; }
       // Specify how UI should be updated
@@ -96,16 +98,23 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
                           '</div>'].join('');
 
       var specialCharaters = ['∀', '∁', '∂', '∃', '∄', '∅', '∆', '∇', '∈', '∉', '∋', '∌', '∏', '∐', '∑'];
+      var renderContextMenuContent = function(){
+        originalContextMenu = '<div id="context-menu" class="panel panel-default" style="font-size:14px;z-index:9999;"><div class="panel-body">';
+        specialCharaters.forEach(function(value) {
+          originalContextMenu += '<button type="button" ng-click="addSymbol(\''+value+'\')" class="btn btn-default btn-sm">'+ value + '</button>'
+        });
+        originalContextMenu += '<button type="button" ng-click="moreSpecialSymbol()" class="btn btn-default btn-sm">Nhiều hơn</button>'
+        originalContextMenu += '</div></div>';
+      }
 
-      originalContextMenu = '<div id="context-menu" class="panel panel-default" style="font-size:14px;z-index:9999;"><div class="panel-body">';
-      specialCharaters.forEach(function(value) {
-        originalContextMenu += '<button type="button" ng-click="addSymbol(\''+value+'\')" class="btn btn-default btn-sm" title="add email link">'+ value + '</button>'
-      });
-      originalContextMenu += '</div></div>';
 
       var createContextMenu = function() {
         removeContextMenu();
+        renderContextMenuContent();
+        // createSpecialCharaterTable();
+        rangySelector = rangy.getSelection();
         contextMenu = angular.copy(originalContextMenu);
+        console.log(contextMenu);
         contextMenu = $compile(contextMenu)($scope);
 
         angular.element(document.body).after(contextMenu);
@@ -122,6 +131,24 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
         angular.element(contextMenu).remove();
       }
 
+
+      $scope.moreSpecialSymbol = function(){
+        removeContextMenu();
+        createSpecialCharaterTable();
+      }
+
+      var createSpecialCharaterTable = function(){
+        removeSpecialCharaterTable();
+        specialCharaterTable = $compile('<special-charater-table></special-charater-table>')($scope);
+        console.log(specialCharaterTable);
+        angular.element(document.body).append(specialCharaterTable);
+      }
+
+      var removeSpecialCharaterTable = function(){
+        angular.element(specialCharaterTable).remove();
+      }
+
+      $scope.removeSpecialCharaterTable = removeSpecialCharaterTable;
 
       // Update on blur
       element.on('blur', function() {
@@ -205,8 +232,15 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
       };
 
       $scope.addSymbol = function(symbol) {
-        rangy.getSelection().deleteFromDocument();
-        rangy.getSelection().getRangeAt(0).insertNode(document.createTextNode(symbol));
+        rangySelector.deleteFromDocument();
+        rangySelector.getRangeAt(0).insertNode(document.createTextNode(symbol));
+        let index = specialCharaters.indexOf(symbol);
+        if (index > -1) {
+          specialCharaters.splice(index, 1);
+        } else {
+          specialCharaters.pop();
+        }
+        specialCharaters.unshift(symbol);
       }
 
       $scope.openColorPicker = function() {
@@ -570,6 +604,34 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
 
 inlineTextEditor.$inject = ["$sce", "$compile", "$timeout", "$window", "$sanitize"];
 
+function specialCharaterTable() {
+  return {
+    restrict: 'AE',
+    templateUrl : 'special-char-table.html',
+    scope: {},
+    link: function ($scope, element, attrs) {
+      $scope.test = $scope.$parent.test2;
+      $scope.makeSymbolsByRange = function(start, end, step = 1) {
+        let symbols = [];
+        for(let i = start; i <= end ; i += step) {
+          symbols.push(String.fromCharCode(i));
+        }
+        return symbols;
+      }
+
+      $scope.addSymbol = function(symbol) {
+        $scope.$parent.addSymbol(symbol);
+        $scope.$parent.removeSpecialCharaterTable();
+      }
+
+      $scope.close = function(){
+        $scope.$parent.removeSpecialCharaterTable();
+      }
+    }
+  };
+}
+
+
 function urlValidator() {
   return {
     restrict: 'A',
@@ -606,6 +668,7 @@ function urlValidator() {
 
 angular
   .module('InlineTextEditor')
+  .directive('specialCharaterTable', specialCharaterTable)
   .directive('inlineTextEditor', inlineTextEditor)
   .directive('urlValidator', urlValidator)
   ;

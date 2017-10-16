@@ -39,7 +39,7 @@
 							<option value="50">50</option>
 						</select> mẫu.
 				</th>
-				<th colspan="4">
+				<th colspan="5">
 					<button class="btn btn-sm btn-success" style="cursor: pointer; float: right; border-radius: 0px;" ng-click="selectAll()"><span class="glyphicons glyphicons-ok"></span> Select all</button>
 
 					<div class="dropdown" style="float: right;">
@@ -59,6 +59,11 @@
 						Mẫu vật
 						<span ng-show="sortKey == 'tenVietNam' && !sortReverse" class="fa fa-caret-down"></span>
 						<span ng-show="sortKey == 'tenVietNam' && sortReverse" class="fa fa-caret-up"></span>
+				</th>
+				<th ng-click="sort('soHieuBaoTangCS')" style="cursor: pointer;">
+						Số hiệu BTCS
+						<span ng-show="sortKey == 'soHieuBaoTangCS' && !sortReverse" class="fa fa-caret-down"></span>
+						<span ng-show="sortKey == 'soHieuBaoTangCS' && sortReverse" class="fa fa-caret-up"></span>
 				</th>
 				<th ng-click="sort('nguoiLapPhieuMauVat')" style="cursor: pointer;">
 						Người lập phiếu
@@ -91,10 +96,13 @@
 					<a class="tenvietnam" style="text-decoration: none" href="/content/{{link}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
 				</td>
 				<td>
-					{{post.nguoiLapPhieuMauVat ? post.nguoiLapPhieuMauVat : 'Chưa có tên'}}
+					{{post.soHieuBaoTangCS ? post.soHieuBaoTangCS : 'Chưa có'}}
 				</td>
 				<td>
-					<span>Người thu mẫu: </span>{{post.nguoiThuMau ? post.nguoiThuMau : 'Chưa có tên'}}       
+					{{post.nguoiLapPhieuMauVat ? post.nguoiLapPhieuMauVat : 'Chưa có'}}
+				</td>
+				<td>
+					<span>Người thu mẫu: </span>{{post.nguoiThuMau ? post.nguoiThuMau : 'Chưa có'}}       
 				</td>
 				<td>
 					{{post.created_at | date: "yyyy-MM-dd hh:mm:ss"}}

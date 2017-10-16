@@ -3,7 +3,7 @@ let xssfilter = new xssFilter();
 
 let xss = {
 	filter: function (_s) {
-		return xssfilter.filter(_s).replace(/\s{2,}/g, ' ')
+		return this.stripTag(xssfilter.filter(_s).replace(/\s{2,}/g, ' '), 'script');
 	},
 	stripTag: function (_s, _tag) {
 		if (!(/^[a-z]+$/i.test(_tag))) {
@@ -11,7 +11,8 @@ let xss = {
 		}
 
 		// full tag
-		let _rg1 = new RegExp(`<${_tag}[^>]*[^<]*<\s*\/${_tag}\s*>`, 'gi')
+		// let _rg1 = new RegExp(`<${_tag}[^>]*[^<]*<\s*\/\s*${_tag}\s*>`, 'gi')
+		let _rg1 = new RegExp(`<\s*<${_tag}\s*>.*<\s*\/\s*${_tag}\s*>`, 'gi')
 		_s = _s.replace(_rg1, '');
 
 		// self-closed tag

@@ -607,7 +607,7 @@ inlineTextEditor.$inject = ["$sce", "$compile", "$timeout", "$window", "$sanitiz
 function specialCharaterTable() {
   return {
     restrict: 'AE',
-    templateUrl : 'special-char-table.html',
+    templateUrl : 'asset/js/angular-inline-text-editor/special-char-table.html',
     scope: {},
     link: function ($scope, element, attrs) {
       $scope.test = $scope.$parent.test2;

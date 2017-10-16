@@ -135,7 +135,7 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
             },
             legend: {
                 position: 'bottomleft',
-                colors: ['red', 'orange', 'purple', 'yellow', 'green'],
+                colors: ['#9D272C', '#1EA0D9', '#4B265E', '#F5B72F', '#008F3F'],
                 labels: ['Động vật', 'Địa chất', 'Cổ sinh', 'Thổ nhưỡng', 'Thực vật']
             }
         }

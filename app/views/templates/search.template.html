@@ -38,14 +38,14 @@
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiDinhTen" class="input-form-search">
                 </form>
             </div>
-            <div uib-accordion-group class="panel-default" heading="Ngày định tên">
+           <!--  <div uib-accordion-group class="panel-default" heading="Nam">
                 {{group.content}}
                 <form ng-submit="searchSample()" style="display: inline;">
                     <input type="range" min="1000" max="3000" value="2017" ng-model="searchContent.ngayDinhTen" class="slider" id="myRange" class="slider">
                     <br>
                     <center><label>{{searchContent.ngayDinhTen}}</label></center>
                 </form>
-            </div>
+            </div> -->
             <div uib-accordion-group class="panel-default" heading="Tên Việt Nam">
                 {{group.content}}
                 <form ng-submit="searchSample()">
@@ -70,12 +70,15 @@
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.diaDiemThuMau" class="input-form-search">
                 </form>
             </div>
-            <div uib-accordion-group class="panel-default" heading="Vị trí tọa độ">
+            <!-- <div uib-accordion-group class="panel-default" heading="Vị trí tọa độ">
                 {{group.content}}
-                <form ng-submit="searchSample()">
+                <form ng-submit="searchSample()" ng-controller="LeafletMapController">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.viTriToaDo" class="input-form-search">
+                    <leaflet lf-center="map.center" lf-draw="map.drawOptions" markers-nested="true" markers="map.markers" layers="map.layers"
+                        watch-options='watchOptions' legend="map.legend" height="200px" width="100%">
+                    </leaflet>
                 </form>
-            </div>
+            </div> -->
             <div uib-accordion-group class="panel-default" heading="Phân bố Việt Nam">
                 {{group.content}}
                 <form ng-submit="searchSample()">
@@ -90,11 +93,8 @@
             </div>
             <div uib-accordion-group class="panel-default" heading="Nơi lưu giữ mẫu">
                 {{group.content}}
-                <form ng-submit="searchSample()" ng-controller="LeafletMapController">
-                    <!-- <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.noiLuuTruMau" class="input-form-search"> -->
-                    <leaflet lf-center="map.center" lf-draw="map.drawOptions" markers-nested="true" markers="map.markers" layers="map.layers"
-                        watch-options='watchOptions' legend="map.legend" height="200px" width="100%">
-                    </leaflet>
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.noiLuuTruMau" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Khu lưu trữ mẫu">

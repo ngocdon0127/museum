@@ -1,3 +1,147 @@
+var error_fields = [
+                    [
+                        "soHieuBTTNVN",
+                        "soHieuBaoTangCS",
+                        "soHieuThucDia",
+                        "kyHieuMauVatKhac",
+                        "thongTinKhac1Str",
+                        "thongTinKhac1File"
+                    ],
+                    [
+                        "tenDongNghia",
+                        "gioi",
+                        "nganh",
+                        "lop",
+                        "phanLop",
+                        "bo",
+                        "phanBo",
+                        "lienHo",
+                        "ho",
+                        "phanHo",
+                        "toc",
+                        "chiGiong",
+                        "phanChiPhanGiong",
+                        "loai",
+                        "duoiLoai",
+                        "nguoiDinhTen",
+                        "ngayDinhTen",
+                        "tenVietNam",
+                        "tenDiaPhuong",
+                        "tenTiengAnh",
+                        "tenTheoBaoTang",
+                        "thongTinKhac2Str",
+                        "thongTinKhac2File"
+                    ],
+                    [
+                        "soLuongTieuBan",
+                        "loaiMauVat",
+                        "chieuDai",
+                        "donVi_chieuDai",
+                        "chieuRong",
+                        "donVi_chieuRong",
+                        "chieuCao",
+                        "donVi_chieuCao",
+                        "theTich",
+                        "donVi_theTich",
+                        "trongLuong",
+                        "donVi_trongLuong",
+                        "tinhTrangMau",
+                        "thongTinKhac3Str",
+                        "thongTinKhac3File"
+                    ],
+                    [
+                        "thoiGianThuMau",
+                        "nguoiThuMau",
+                        "coQuanThuMau",
+                        "phuongPhapThuMau",
+                        "quocGia",
+                        "tinh",
+                        "tinhKhac",
+                        "huyen",
+                        "xa",
+                        "thon",
+                        "viDo",
+                        "kinhDo",
+                        "doCao",
+                        "doSau",
+                        "vungBien",
+                        "sinhHoc",
+                        "thongTinDuAn",
+                        "ghiChepThucDia",
+                        "banDo",
+                        "thongTinKhac4Str",
+                        "thongTinKhac4File"
+                    ],
+                    [
+                        "thoiGianGiamDinh",
+                        "nguoiGiamDinh",
+                        "coQuanToChucGiamDinh",
+                        "taiLieuPhanTichStr",
+                        "taiLieuPhanTichFile",
+                        "moTaHinhThaiStr",
+                        "moTaHinhThaiFile",
+                        "gioiTinh",
+                        "giaiDoanSong",
+                        "hinhVe",
+                        "thongTinKhac5Str",
+                        "thongTinKhac5File"
+                    ],
+                    [
+                        "anhMauVat",
+                        "hinhAnhNgoaiThucDia",
+                        "videoStr",
+                        "videoFile",
+                        "hinhAnhDinhKem",
+                        "dinhKemXuLyCheTac",
+                        "thuocTinhXuLyCheTac",
+                        "phuongThucXuLy",
+                        "thoiGianXuLy",
+                        "nguoiXuLy",
+                        "coQuanXuLy",
+                        "anhMauSauCheTac",
+                        "boPhanLayMauDNA",
+                        "trangThaiGiuMauDNA",
+                        "vungGenPhanTich",
+                        "dinhKemTrinhTuDNA",
+                        "congBoQuocTe",
+                        "thongTinKhac6Str",
+                        "thongTinKhac6File"
+                    ],
+                    [
+                        "phanBoVietNamStr",
+                        "phanBoVietNamFile",
+                        "phanBoTrenTheGioiStr",
+                        "phanBoTrenTheGioiFile",
+                        "giaTriSuDung",
+                        "thongTinKhac7Str",
+                        "thongTinKhac7File"
+                    ],
+                    [
+                        "ngayNhapMau",
+                        "nguoiGiao",
+                        "nguoiNhan",
+                        "coQuanNhapVatMau",
+                        "hinhThucNhapMau",
+                        "traoDoiMau",
+                        "vayMuon",
+                        "noiLuuTruMau",
+                        "phong",
+                        "tuGia",
+                        "ngan",
+                        "hop",
+                        "giayPhepNhapMau",
+                        "hoSoNhapMauVatDiKem",
+                        "nguoiLapPhieuMauVat",
+                        "nguoiNhapVaoPhanMem",
+                        "thongTinKhac8Str",
+                        "thongTinKhac8File"
+                    ],
+                    [
+                        "thongTinKhac9Str",
+                        "thongTinKhac9File"
+                    ]
+                ]
+
 async function sheetToJson(workbook, urlFields, urlDates, row) {
     // create a Form data to put data
     var result = {};
@@ -211,7 +355,15 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe).then(function success(data) {
             console.log(data);
         }, function error(err) {
-            console.log(err);
+            console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    console.log(i);
+                    console.log($scope.tab);
+                    break;
+                }
+            }
         });
         // } else{
         // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();

@@ -74,8 +74,11 @@ router.get("/get-marker", function (req, res, next) {
         });
     }).catch(err => {
         res.status(406);
-        res.send("Có lỗi xảy ra : <br>" + err);
-        console.log(err);
+        if(err.name == "MongoError" && err.codeName == 'BadValue'){
+            res.send("Có lỗi xảy ra : \n" + "Hình dạng vùng truy vấn không hợp lệ. Chọn vùng truy vấn khác!");
+        } else {
+            res.send("Có lỗi xảy ra : \n" + err);
+        }
     });
     // var 
 })

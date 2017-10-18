@@ -38,6 +38,7 @@
 					}
 					function mediaType(extension) {
 						// console.log(extension)
+						extension = extension.toLowerCase();
 						var imgs = ["jpg", "jpeg", "gif", "png", "tif", "tiff", "raw", "bmp", "bpg", "eps"];
 						var videos = ["mp4","mpg","flv","rm","webm","mkv","ogg","avi","mov","wmv","3gp","m4v"];
 						if (imgs.indexOf(extension) >= 0){

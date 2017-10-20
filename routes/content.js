@@ -311,14 +311,35 @@ router.get('/search', (req, res) => {
   async(() => {
     let MAX_RESULTS = 20;
     let models = [
-      {modelName: 'co-sinh'},
-      {modelName: 'dia-chat'},
-      {modelName: 'dong-vat'},
-      {modelName: 'tho-nhuong'},
-      {modelName: 'thuc-vat'}
+      {modelName: 'co-sinh', modelTitle: 'Cổ sinh'},
+      {modelName: 'dia-chat', modelTitle: 'Địa chất'},
+      {modelName: 'dong-vat', modelTitle: 'Động vật'},
+      {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng'},
+      {modelName: 'thuc-vat', modelTitle: 'Thực vật'}
     ]
+    if (req.query.model) {
+      let searchIn = req.query.model.split(',')
+      // console.log(searchIn);
+      models = models.filter(model => {
+        for(let i = 0; i < searchIn.length; i++) {
+          let si = searchIn[i].trim();
+          // console.log(si);
+          if (si) {
+            si = si.toLowerCase();
+            // console.log(si, model.modelTitle.toLowerCase());
+            if (si.localeCompare(model.modelTitle.toLowerCase()) == 0) {
+              return true
+            }
+          }
+        }
+        return false;
+      })
+      delete req.query.model
+    }
+    // console.log(models);
     let aggregations = []
     for(model of models) {
+
       let bundle = global.myCustomVars.models[model.modelName].bundle;
       // console.log(bundle);
       let allowView = await (new Promise((resolve, reject) => {

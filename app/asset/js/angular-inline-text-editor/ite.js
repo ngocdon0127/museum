@@ -231,6 +231,10 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
       };
 
       $scope.addSymbol = function(symbol) {
+        if($window.rangySelector == undefined){
+          console.log("rangySelector is undefined");
+          return;
+        }
         $window.rangySelector.deleteFromDocument();
         $window.rangySelector.getRangeAt(0).insertNode(document.createTextNode(symbol));
         let index = specialCharaters.indexOf(symbol);

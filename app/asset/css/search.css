@@ -120,12 +120,12 @@ a, a:hover, a:focus {
     padding: 10px;
 }
 
-#sidebar ul li a {
+/* #sidebar ul li a {
     padding: 5px;
     padding-left: 10px;
     font-size: 1.1em;
     display: block;
-}
+} */
 #sidebar ul li a:hover {
     color: #7386D5;
     background: #fff;

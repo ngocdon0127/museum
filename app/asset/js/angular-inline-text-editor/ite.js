@@ -10,7 +10,7 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
 
       var html, savedSelection, clickPosition, overToolbar, originalToolbar, toolbar;
       var contextMenu, originalContextMenu, specialCharaterTable;
-      var rangySelector;
+      $window.rangySelector;
 
       if (!ngModel) { return; }
       // Specify how UI should be updated
@@ -112,9 +112,9 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
         removeContextMenu();
         renderContextMenuContent();
         // createSpecialCharaterTable();
-        rangySelector = rangy.getSelection();
+        $window.rangySelector = rangy.getSelection();
+        // console.log($window.rangySelector);
         contextMenu = angular.copy(originalContextMenu);
-        console.log(contextMenu);
         contextMenu = $compile(contextMenu)($scope);
 
         angular.element(document.body).after(contextMenu);
@@ -140,7 +140,6 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
       var createSpecialCharaterTable = function(){
         removeSpecialCharaterTable();
         specialCharaterTable = $compile('<special-charater-table></special-charater-table>')($scope);
-        console.log(specialCharaterTable);
         angular.element(document.body).append(specialCharaterTable);
       }
 
@@ -232,8 +231,12 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
       };
 
       $scope.addSymbol = function(symbol) {
-        rangySelector.deleteFromDocument();
-        rangySelector.getRangeAt(0).insertNode(document.createTextNode(symbol));
+        if($window.rangySelector == undefined){
+          console.log("rangySelector is undefined");
+          return;
+        }
+        $window.rangySelector.deleteFromDocument();
+        $window.rangySelector.getRangeAt(0).insertNode(document.createTextNode(symbol));
         let index = specialCharaters.indexOf(symbol);
         if (index > -1) {
           specialCharaters.splice(index, 1);

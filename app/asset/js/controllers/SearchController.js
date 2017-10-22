@@ -1,7 +1,8 @@
-app.controller('SearchController', function($scope, $http, AuthService, $uibModal){
-    var url = AuthService.hostName + '/content/search' ;
+app.controller('SearchController', function ($scope, $http, AuthService, $uibModal, leafletDrawEvents) {
+    var url = AuthService.hostName + '/content/search';
     $scope.searchResult = "0 kết quả"
     $scope.data = [];
+    $scope.searchContent = {};
 
     $http.get(url + "?q='123'").then(function (res) {
         $scope.data = res.data.matchedSamples;
@@ -14,7 +15,7 @@ app.controller('SearchController', function($scope, $http, AuthService, $uibModa
     $scope.searchSample = function (content) {
         $scope.searchResult = "Loading...";
         var config = {
-            params : $scope.searchContent
+            params: $scope.searchContent
         }
         $http.get(url, config).then(function (res) {
             // console.log(config);
@@ -27,11 +28,11 @@ app.controller('SearchController', function($scope, $http, AuthService, $uibModa
         // $scope.$apply()
     }
 
-    $scope.viewby = "10"; 
+    $scope.viewby = "10";
     $scope.currentPage = 1;
-    
-    $scope.sort = function(keyname){
-        $scope.sortKey = keyname;   //set the sortKey to the param passed
+
+    $scope.sort = function (keyname) {
+        $scope.sortKey = keyname; //set the sortKey to the param passed
         $scope.sortReverse = !$scope.sortReverse; //if true make it false and vice versa
     }
 
@@ -79,4 +80,107 @@ app.controller('SearchController', function($scope, $http, AuthService, $uibModa
             // on cancel button press
         })
     };
+
+    //config phần bản đồ
+
+    var drawnItems = new L.FeatureGroup();
+
+    $scope.drawnItemsCount = function () {
+        return drawnItems.getLayers().length;
+    }
+
+    angular.extend($scope, {
+        map: {
+            markers: {},
+            center: {
+                lat: 20.6,
+                lng: 105.38,
+                zoom: 4,
+                // autoDiscover: true
+            },
+            drawOptions: {
+                position: "topright",
+                draw: {
+                    polyline: false,
+                    // polygon: false,
+                    circle: false,
+                    marker: false
+                },
+                edit: {
+                    featureGroup: drawnItems,
+                    remove: true
+                }
+            },
+            layers: {
+                baselayers: {
+                    xyz: {
+                        name: 'OpenStreetMap (XYZ)',
+                        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        type: 'xyz',
+                        layerOptions: {
+                            showOnSelector: false
+                        }
+                    }
+                },
+                overlays: {
+                    
+                }
+            },
+            watchOptions: {
+                markers: {
+                    type: null,
+                    individual: {
+                        type: null
+                    }
+                }
+            },
+        }
+    });
+
+    var handle = {
+        created: function (e, leafletEvent, leafletObject, model, modelName) {
+            e.stopPropagation();
+            console.log("created");
+            drawnItems.clearLayers();
+            drawnItems.addLayer(leafletEvent.layer);
+            $scope.searchContent.geoJsonObject = leafletEvent.layer.toGeoJSON();
+            $scope.searchSample();
+        },
+        edited: function (e, leafletEvent, leafletObject, model, modelName) {
+            console.log("edited");
+            drawnItems.getLayers().forEach(function (layer) {
+                // console.log(layer.toGeoJSON());
+                $scope.searchContent.geoJsonObject = layer.toGeoJSON();
+                $scope.searchSample();
+            })
+        },
+        deleted: function (arg) {
+            console.log("deleted");
+            drawnItems.clearLayers();
+            delete $scope.searchContent.geoJsonObject;
+            $scope.searchSample();
+        },
+        drawstart: function (arg) {},
+        drawstop: function (arg) {},
+        editstart: function (arg) {},
+        editstop: function (arg) {},
+        deletestart: function (arg) {
+            // console.log("deletestart")
+        },
+        deletestop: function (arg) {
+            // console.log("deletestop")
+        }
+    };
+
+    var drawEvents = leafletDrawEvents.getAvailableEvents();
+    drawEvents.forEach(function (eventName) {
+        $scope.$on('leafletDirectiveDraw.' + eventName, function (e, payload) {
+            //{leafletEvent, leafletObject, model, modelName} = payload
+            var leafletEvent, leafletObject, model, modelName; //destructuring not supported by chrome yet :(
+            leafletEvent = payload.leafletEvent, leafletObject = payload.leafletObject, model = payload.model,
+                modelName = payload.modelName;
+
+            handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
+        });
+    });
 })

@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="asset/css/search.css">
+<!-- <link rel="stylesheet" type="text/css" href="asset/js/NoUiSlider/jquery.nouislider.css"> -->
 <div class="wrapper" ng-controller="SearchController">
     <nav id="sidebar">
         <div class="sidebar-header">
@@ -14,93 +15,96 @@
             </form>
         </div>
         <uib-accordion>
+            <div uib-accordion-group class="panel-default" heading="Nhóm mẫu vật">
+                <form ng-submit="searchSample()">
+                    <input type="radio" name="model" ng-model="searchContent.model" value="co-sinh"> Cổ sinh<br>
+                    <input type="radio" name="model" ng-model="searchContent.model" value="dia-chat"> Địa chất<br>
+                    <input type="radio" name="model" ng-model="searchContent.model" value="dong-vat"> Động vật<br>
+                    <input type="radio" name="model" ng-model="searchContent.model" value="tho-nhuong"> Thổ nhưỡng<br>
+                    <input type="radio" name="model" ng-model="searchContent.model" value="thuc-vat"> Thực vật<br>
+                </form>
+            </div>
             <div uib-accordion-group class="panel-default" heading="Số hiệu BTTNVN">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuBTTNVN" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Số hiệu bảo tàng cơ sở">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuBaoTangCS" class="input-form-search">
                 </form>
             </div>
+            <div uib-accordion-group class="panel-default" heading="Số hiệu thực địa">
+                <form ng-submit="searchSample()">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuThucDia" class="input-form-search">
+                </form>
+            </div>
             <div uib-accordion-group class="panel-default" heading="Tên khoa học">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenDongNghia" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Người định tên">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiDinhTen" class="input-form-search">
                 </form>
             </div>
-            <!--  <div uib-accordion-group class="panel-default" heading="Nam">
-                {{group.content}}
+            <div uib-accordion-group class="panel-default" heading="Năm">
                 <form ng-submit="searchSample()" style="display: inline;">
-                    <input type="range" min="1000" max="3000" value="2017" ng-model="searchContent.ngayDinhTen" class="slider" id="myRange" class="slider">
-                    <br>
-                    <center><label>{{searchContent.ngayDinhTen}}</label></center>
+                    <div>
+                        <input type="text" class="sliderValue" data-index="0" value="10" />
+                        <input type="text" class="sliderValue" data-index="1" value="90" />
+                    </div>
+                    <br/>
+                    <div id="slider"></div>
                 </form>
-            </div> -->
+            </div>
             <div uib-accordion-group class="panel-default" heading="Tên Việt Nam">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenVietNam" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên địa phương">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenDiaPhuong" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Tên Tiếng Anh">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenTiengAnh" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Địa điểm thu mẫu">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.diaDiemThuMau" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group is-open="openmap" class="panel-default" heading="Vị trí tọa độ">
-                {{group.content}}
-                <!-- <form ng-submit="searchSample()">
-                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.viTriToaDo" class="input-form-search">
-                </form> -->
-                <leaflet ng-if="openmap" lf-center="map.center" lf-draw="map.drawOptions"  watch-options='watchOptions' height="200px"
-                    width="100%">
-                </leaflet>
+                <!-- <form ng-submit="searchSample()" ng-controller="LeafletMapController"> -->
+                    <!-- <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.viTriToaDo" class="input-form-search"> -->
+                    
+                <!-- </form> -->
+                <leaflet ng-if="openmap" lf-center="map.center" lf-draw="map.drawOptions" layers="map.layers" watch-options='watchOptions'  height="200px" width="100%">
+            </leaflet>
             </div>
-            <div uib-accordion-group class="panel-default" heading="Phân bố Việt Nam">
-                {{group.content}}
+            <div uib-accordion-group class="panel-default" heading="Thời gian thu mẫu">
                 <form ng-submit="searchSample()">
-                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.phanBoVietNamStr" class="input-form-search">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.thoiGianThuMau" class="input-form-search">
                 </form>
             </div>
-            <div uib-accordion-group class="panel-default" heading="Phân bố thế giới">
-                {{group.content}}
+            <div uib-accordion-group class="panel-default" heading="Người thu mẫu">
                 <form ng-submit="searchSample()">
-                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.phanBoTrenTheGioiStr" class="input-form-search">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiThuMau" class="input-form-search">
                 </form>
             </div>
             <div uib-accordion-group class="panel-default" heading="Nơi lưu giữ mẫu">
-                {{group.content}}
                 <form ng-submit="searchSample()">
                     <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.noiLuuTruMau" class="input-form-search">
                 </form>
             </div>
-            <div uib-accordion-group class="panel-default" heading="Khu lưu trữ mẫu">
-                {{group.content}}
+            <div uib-accordion-group class="panel-default" heading="Người lập phiếu MV">
                 <form ng-submit="searchSample()">
-                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.giayPhepNhapMau" class="input-form-search">
+                    <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiLapPhieuMauVat" class="input-form-search">
                 </form>
             </div>
         </uib-accordion>
@@ -139,118 +143,229 @@
                 </div>
             </div>
         </nav>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th colspan="3">
-                        Xem
-                        <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
-                            <option value="3">3</option>
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                            <option value="50">50</option>
-                        </select> mẫu.
-                    </th>
-                    <th colspan="4">
-                        <button class="btn btn-sm btn-success" style="cursor: pointer; float: right; border-radius: 0px;" ng-click="selectAll()">
-                            <span class="glyphicons glyphicons-ok"></span> Select all</button>
+        <div class="table-responsive" style="max-height: 100%; overflow: auto;">
+            <table id="managerpost" class="map-detail table table-striped table-bordered">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="150">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="130">
+                <col width="150">
+                <col width="130">
+                <col width="130">
+                <thead>
+                    <tr>
+                        <th colspan="3">
+                            Xem 
+                            <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                                <option value="3">3</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select> mẫu.
+                        </th>
+                        <th colspan="14">
+                            <button class="btn btn-sm btn-success" style="cursor: pointer; float: right; border-radius: 0px;" ng-click="selectAll()"><span class="glyphicons glyphicons-ok"></span> Select all</button>
 
-                        <div class="dropdown" style="float: right;">
-                            <button class="btn btn-sm btn-primary" style="border-radius: 0px;">
-                                <span class="glyphicon glyphicon-export"></span> Trích xuất
-                                <b class="caret"></b>
-                            </button>
-                            <!-- <input type="hidden" name="link" ng-bind="link" id="input" class="form-control" value=""> -->
-                            <div class="dropdown-content">
-                                <a ng-click="export('pdf')">
-                                    <span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
-                                <a ng-click="export('docx')">
-                                    <span class="glyphicon glyphicon-download"></span> Xuất docx</a>
-                                <a ng-click="export('zip')">
-                                    <span class="glyphicon glyphicon-download"></span> Xuất zip</a>
+                            <div class="dropdown" style="float: right;">
+                                <button class="btn btn-sm btn-primary" style="border-radius: 0px;"><span class="glyphicon glyphicon-export"></span> Trích xuất <b class="caret"></b></button>
+                                <!-- <input type="hidden" name="link" ng-bind="link" id="input" class="form-control" value=""> -->
+                                <div class="dropdown-content">
+                                        <a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
+                                        <a ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</a>
+                                        <a ng-click="export('zip')"><span class="glyphicon glyphicon-download"></span> Xuất zip</a>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th ng-click="sort('tenVietNam')" style="cursor: pointer;">
-                        Mẫu vật
-                        <span ng-show="sortKey == 'tenVietNam' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortKey == 'tenVietNam' && sortReverse" class="fa fa-caret-up"></span>
-                    </th>
-                    <th ng-click="sort('maDeTai')" style="cursor: pointer;">
-                        Đề tài
-                        <span ng-show="sortKey == 'maDeTai' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortKey == 'maDeTai' && sortReverse" class="fa fa-caret-up"></span>
-                    </th>
-                    <th ng-click="sort('quocGia')" style="cursor: pointer;">
-                        Quốc gia
-                        <span ng-show="sortKey == 'quocGia' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortKey == 'quocGia' && sortReverse" class="fa fa-caret-up"></span>
-                    </th>
-                    <th ng-click="sort('nguoiLapPhieuMauVat')" style="cursor: pointer;">
-                        Người lập phiếu
-                        <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
-                    </th>
-                    <th ng-click="sort('nguoiThuMau')" style="cursor: pointer;">
-                        Thông tin cơ bản
-                        <span ng-show="sortKey == 'nguoiThuMau' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortKey == 'nguoiThuMau' && sortReverse" class="fa fa-caret-up"></span>
-                    </th>
-                    <th ng-click="sort('created_at')" style="cursor: pointer;">
-                        Ngày đăng
-                        <span ng-show="sortKey == 'created_at' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortKey == 'created_at' && sortReverse" class="fa fa-caret-up"></span>
-                    </th>
-                    <th ng-click="sort('nguoiLapPhieuMauVat')" style="cursor: pointer;">
-                        Trạng thái
-                        <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage">
-                    <td>
-                        <input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{post.model}}/{{post._id}}?display='>
-                        <a class="tenvietnam" style="text-decoration: none" href="/content/{{post.model}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
-                    </td>
-                    <td>
-                        {{post.maDeTai}}
-                    </td>
-
-                    <td>
-                        {{post.quocGia ? post.quocGia : 'Chưa có'}}
-                    </td>
-                    <td>
-                        {{post.nguoiLapPhieuMauVat ? post.nguoiLapPhieuMauVat : 'Chưa có tên'}}
-                    </td>
-                    <td>
-                        <span>Người thu mẫu: </span>{{post.nguoiThuMau ? post.nguoiThuMau : 'Chưa có tên'}}
-                    </td>
-                    <td>
-                        {{post.created_at | date: "yyyy-MM-dd hh:mm:ss"}}
-                    </td>
-                    <td>
-                        <label class="label label-{{post.fApproved ? 'success' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th ng-click="sort('tenVietNam')" style="cursor: pointer;">
+                            Tên Việt Nam
+                            <span ng-show="sortKey == 'tenVietNam' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'tenVietNam' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('soHieuBTTNVN')" style="cursor: pointer;">
+                            Số hiệu BTTNVN
+                            <span ng-show="sortKey == 'soHieuBTTNVN' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'soHieuBTTNVN' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('soHieuBaoTangCS')" style="cursor: pointer;">
+                            Số hiệu BTCS
+                            <span ng-show="sortKey == 'soHieuBaoTangCS' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'soHieuBaoTangCS' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('soHieuThucDia')" style="cursor: pointer;">
+                            Số hiệu thực địa
+                            <span ng-show="sortKey == 'soHieuThucDia' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'soHieuThucDia' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('model')" style="cursor: pointer;">
+                            Loại mẫu
+                            <span ng-show="sortKey == 'model' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'model' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('nguoiDinhTen')" style="cursor: pointer;">
+                            Người định tên
+                            <span ng-show="sortKey == 'nguoiDinhTen' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'nguoiDinhTen' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('ngayDinhTen')" style="cursor: pointer;">
+                            Ngày định tên
+                            <span ng-show="sortKey == 'ngayDinhTen' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'ngayDinhTen' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('tenDiaPhuong')" style="cursor: pointer;">
+                            Tên địa phương
+                            <span ng-show="sortKey == 'tenDiaPhuong' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'tenDiaPhuong' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('tenTiengAnh')" style="cursor: pointer;">
+                            Tên tiếng Anh
+                            <span ng-show="sortKey == 'tenTiengAnh' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'tenTiengAnh' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('thoiGianThuMau')" style="cursor: pointer;">
+                            Thời gian thu mẫu
+                            <span ng-show="sortKey == 'thoiGianThuMau' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'thoiGianThuMau' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('nguoiThuMau')" style="cursor: pointer;">
+                            Người thu mẫu
+                            <span ng-show="sortKey == 'nguoiThuMau' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'nguoiThuMau' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('quocGia')" style="cursor: pointer;">
+                            Quốc gia
+                            <span ng-show="sortKey == 'quocGia' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'quocGia' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('viTriToaDo')" style="cursor: pointer;">
+                            Vị trí tọa độ
+                            <span ng-show="sortKey == 'viTriToaDo' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'viTriToaDo' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('noiLuuTruMau')" style="cursor: pointer;">
+                            Nơi lưu giữ mẫu
+                            <span ng-show="sortKey == 'noiLuuTruMau' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'noiLuuTruMau' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('nguoiLapPhieuMauVat')" style="cursor: pointer;">
+                            Người lập phiếu MV
+                            <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('created_at')" style="cursor: pointer;">
+                            Ngày đăng
+                            <span ng-show="sortKey == 'created_at' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'created_at' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                        <th ng-click="sort('fApproved')" style="cursor: pointer;">
+                            Trạng thái
+                            <span ng-show="sortKey == 'fApproved' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortKey == 'fApproved' && sortReverse" class="fa fa-caret-up"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="search-table-body">
+                    <tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage">
+                        <td>
+                            <input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{post.model}}/{{post._id}}?display='>
+                            <a class="tenvietnam" style="text-decoration: none" href="/content/{{post.model}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
+                        </td>
+                        <td>
+                            {{post.soHieuBTTNVN}}
+                        </td>
+                        <td>
+                            {{post.soHieuBaoTangCS}}
+                        </td>
+                        <td>
+                            {{post.soHieuThucDia ? post.quocGia : 'Không có'}}
+                        </td>
+                        <td>
+                            {{post.model}}
+                        </td>
+                        <td>
+                            {{post.nguoiDinhTen}}
+                        </td>
+                        <td>
+                            {{post.ngayDinhTen ? post.quocGia : 'Không có'}}
+                        </td>
+                        <td>
+                            {{post.tenDiaPhuong}}
+                        </td>
+                        <td>
+                            {{post.tenTiengAnh}}
+                        </td>
+                        <td>
+                            {{post.thoiGianThuMau ? post.quocGia : 'Không có'}}
+                        </td>
+                        <td>
+                            {{post.nguoiThuMau}}
+                        </td>
+                        <td>
+                            {{post.quocGia}}
+                        </td>
+                        <td>
+                            {{post.viTriToaDo ? post.quocGia : 'Không có'}}
+                        </td>
+                        <td>
+                            {{post.noiLuuTruMau}}
+                        </td>
+                        <td>
+                            {{post.nguoiLapPhieuMauVat}}
+                        </td>
+                        <td>
+                            {{post.created_at | date: "yyyy-MM-dd"}}
+                        </td>
+                        <td>
+                            <label class="label label-{{post.fApproved ? 'success' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <dir-pagination-controls
+            max-size="5"
+            direction-links="true"
+            boundary-links="true" >
         </dir-pagination-controls>
     </div>
 </div>
 <script src="/javascripts/FileSaver.js"></script>
 <script src="/javascripts/circle-progress/circle-progress.min.js"></script>
-<script type="text/javascript">
+
+ <script type="text/javascript">
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
+        $("#slider").slider({
+            min: 0,
+            max: 100,
+            step: 1,
+            values: [10, 90],
+            slide: function(event, ui) {
+                for (var i = 0; i < ui.values.length; ++i) {
+                    $("input.sliderValue[data-index=" + i + "]").val(ui.values[i]);
+                }
+            }
+        });
+
+        $("input.sliderValue").change(function() {
+            var $this = $(this);
+            $("#slider").slider("values", $this.data("index"), $this.val());
+        });
     });
-</script>
+ </script>

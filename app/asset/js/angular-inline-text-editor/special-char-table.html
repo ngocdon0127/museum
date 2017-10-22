@@ -15,7 +15,7 @@
         /* Stay in place */
         z-index: 1;
         /* Sit on top */
-        padding-top: 50px;
+        padding-top: 150px;
         /* Location of the box */
         left: 0;
         top: 0;
@@ -33,16 +33,18 @@
     /* Modal Content */
 
     .modal-content {
+        position: absolute;
+        left: 50%;
         background-color: #fefefe;
         margin: auto;
-        padding: 20px;
+        /* padding: 20px; */
         border: 1px solid #888;
-        width: 80%;
+        width: 40%;
     }
     /* The Close Button */
 
     .close {
-        color: #aaaaaa;
+        color: red;
         float: right;
         font-size: 28px;
         font-weight: bold;
@@ -59,11 +61,17 @@
         display: flex;
         justify-content: space-between;
         overflow: auto;
-        height: 300px;
+        height: 180px;
     }
 
     div#modal-list-symbol button {
         width: 10%;
+    }
+    #model-header{
+        cursor: move;
+        padding-top: 5px;
+        background-color: #a8a8a8;
+        overflow: auto;
     }
 </style>
 
@@ -71,21 +79,13 @@
 <div id="myModal" class="my-modal">
 
     <!-- Modal content -->
-    <div class="modal-content row">
-        <div class="modal-head-head">
+    <div id="modal-content" class="modal-content row" style="padding-bottom:5px;">
+        <div id="model-header" class="modal-head">
             <div class="col-md-12">
-                <span class="close" ng-click="close()">&times;</span>
-                <p>Bảng kí tự đặc biệt</p>
+                <h3>Bảng kí tự đặc biệt <span class="close" ng-click="close()">&times;</span></h3>
             </div>
         </div>
         <div class="modal-body">
-            <style>
-                div,
-                button {
-                    padding: 5px;
-                    margin: 2px;
-                }
-            </style>
             <div class="col-md-6 form-group" ng-init="option = 'op1'">
                 <select class="form-control" ng-model="option">
                     <option value="op1">Mathematical Operators</option>
@@ -175,9 +175,54 @@
             </div>
 
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" style="padding-top:5px; padding-bottom:5px;">
             <button type="button" class="btn btn-default pull-right" ng-click="close()">Đóng</button>
         </div>
     </div>
 
 </div>
+
+<script>
+    //Make the DIV element draggagle:
+    dragElement(document.getElementById(("modal-content")));
+    
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (document.getElementById("model-header")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById("model-header").onmousedown = dragMouseDown;
+      } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+      }
+    
+      function dragMouseDown(e) {
+        e = e || window.event;
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+    
+      function elementDrag(e) {
+        e = e || window.event;
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+    
+      function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+    </script>
+    

@@ -199,6 +199,11 @@ a.nav:hover{
     cursor: pointer;
 }
 
+/*.search-table-body{
+    overflow-y: auto;
+    overflow-x: auto;
+}
+*/
 #loading-bar .bar {
   position: relative;
 }

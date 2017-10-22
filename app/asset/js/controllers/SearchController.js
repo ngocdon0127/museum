@@ -139,14 +139,17 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
         },
         edited: function (e, leafletEvent, leafletObject, model, modelName) {
             console.log("edited");
-            // drawnItems.getLayers().forEach(function (layer) {
-            //     console.log(layer.toGeoJSON());
-            //     updateMarkers(layer.toGeoJSON());
-            // })
+            drawnItems.getLayers().forEach(function (layer) {
+                // console.log(layer.toGeoJSON());
+                $scope.searchContent.geoJsonObject = layer.toGeoJSON();
+                $scope.searchSample();
+            })
         },
         deleted: function (arg) {
             console.log("deleted");
             drawnItems.clearLayers();
+            delete $scope.searchContent.geoJsonObject;
+            $scope.searchSample();
         },
         drawstart: function (arg) {},
         drawstop: function (arg) {},

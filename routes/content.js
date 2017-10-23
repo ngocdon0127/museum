@@ -434,8 +434,10 @@ router.get('/search', (req, res) => {
         }
       }
       aggArr = aggArr.concat(dateMatch)
-      selection['$text'] = {
-        '$search': req.query.q
+      if (req.query.q && req.query.q.trim()) {
+        selection['$text'] = {
+          '$search': req.query.q
+        }
       }
 
       if(req.query.geoJsonObject){
@@ -448,7 +450,13 @@ router.get('/search', (req, res) => {
       }
       // console.log(selection);
       let ObjectModel = bundle.ObjectModel;
-      aggArr.push({$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}})
+      if (req.query.q && req.query.q.trim()) {
+        aggArr.push({$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}})
+      } else {
+        // Tất cả các mẫu đều đưọc đánh 1 điểm
+        aggArr.push({$group: {_id: 1, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}})
+      }
+      
       aggArr.push({$sort: {_id: -1}});
       console.log(JSON.stringify(aggArr));
       let result = await (new Promise((resolve, reject) => {
@@ -470,7 +478,7 @@ router.get('/search', (req, res) => {
               }
               r.push({
                 score: aggs[i]._id,
-                model: model.modelName,
+                model: model.modelTitle,
                 samples: aggs[i].samples
               })
               c += aggs[i].samples.length

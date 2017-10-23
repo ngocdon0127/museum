@@ -437,6 +437,15 @@ router.get('/search', (req, res) => {
       selection['$text'] = {
         '$search': req.query.q
       }
+
+      if(req.query.geoJsonObject){
+        var geoJsonObject = JSON.parse(req.query.geoJsonObject);
+        selection['extra.eGeoJSON.coordinates'] = {
+          $geoWithin: {
+            $geometry: geoJsonObject.geometry
+          }
+        }
+      }
       // console.log(selection);
       let ObjectModel = bundle.ObjectModel;
       aggArr.push({$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}})

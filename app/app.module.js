@@ -17,6 +17,7 @@ var app = angular.module('museumApp', [
     'pascalprecht.translate',
     'ui-leaflet',
     'angularUtils.directives.dirPagination'
+    // 'nouislider'
 ])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();

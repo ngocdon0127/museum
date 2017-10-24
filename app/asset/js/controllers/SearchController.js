@@ -1,4 +1,4 @@
-app.controller('SearchController', function ($scope, $http, AuthService, $uibModal, leafletDrawEvents) {
+app.controller('SearchController', function (leafletData, $timeout, $scope, $http, AuthService, $uibModal, leafletDrawEvents) {
     var url = AuthService.hostName + '/content/search';
     $scope.searchResult = "0 kết quả"
     $scope.data = [];
@@ -118,10 +118,12 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
     };
 
     //config phần bản đồ
-    $scope.openleafmap = false;
     $scope.openmap = function () {
-        // alert('Hola')
-        $scope.openleafmap = !$scope.openleafmap;
+        leafletData.getMap().then(function(map) {
+            $timeout(function() {
+              map.invalidateSize();
+            }, 200);
+        });
     }
 
     var drawnItems = new L.FeatureGroup();
@@ -136,8 +138,8 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
             center: {
                 lat: 20.6,
                 lng: 105.38,
-                zoom: 4,
-                autoDiscover: true
+                zoom: 6,
+                // autoDiscover: true
             },
             drawOptions: {
                 position: "topright",

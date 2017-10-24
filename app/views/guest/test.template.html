@@ -1,4 +1,5 @@
 <script src="/javascripts/FileSaver.js"></script>
+<link rel="stylesheet" type="text/css" href="asset/js/angularjs-slider/rzslider.css">
 	<div id="form-content">
 	</div>
 	<h3>File excel</h3>
@@ -17,9 +18,6 @@
   <div ng-bind="counter"></div>
 <!-- <script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script> -->
 
-<div class="container">
-  <h2>Accordion Example</h2>
-  <p><strong>Note:</strong> The <strong>data-parent</strong> attribute makes sure that all collapsible elements under the specified parent will be closed when one of the collapsible item is shown.</p>
   <div class="panel-group" id="accordion">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -27,7 +25,7 @@
           <a data-toggle="collapse" data-parent="#accordion" href=".collapse1">Collapsible Group 1</a>
         </h4>
       </div>
-      <div class="collapse1" class="panel-collapse collapse in">
+      <div id="collapse1" class="collapse1 panel-collapse collapse in">
         <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
@@ -39,7 +37,7 @@
           <a data-toggle="collapse" data-parent="#accordion" href=".collapse2">Collapsible Group 2</a>
         </h4>
       </div>
-      <div class="collapse2" class="panel-collapse collapse">
+      <div id="collapse2" class="collapse2 panel-collapse collapse">
         <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
@@ -48,10 +46,10 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
+          <a data-toggle="collapse" data-parent="#accordion" href=".collapse3">Collapsible Group 3</a>
         </h4>
       </div>
-      <div id="collapse3" class="panel-collapse collapse">
+      <div id="collapse3" class="collapse3 panel-collapse collapse">
         <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
@@ -69,6 +67,8 @@
     <div id="slider"></div>
 </form>
 
+<h2>Ranger slider</h2>
+<rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
 <script type="text/javascript">
 	$(document).ready(function() {
     $("#slider").slider({

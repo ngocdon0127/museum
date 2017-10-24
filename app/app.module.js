@@ -3,6 +3,7 @@ var app = angular.module('museumApp', [
     'bsLoadingOverlay',
     'bsLoadingOverlayHttpInterceptor',
     'ui.router',
+    'rzModule',
     'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',

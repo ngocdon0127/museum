@@ -23,22 +23,46 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
         }
     };
 
+    $scope.modelBoolean = {
+        "Động vật": false,
+        "Thực vật": false,
+        "Thổ nhưỡng": false,
+        "Cổ sinh": false,
+        "Địa chất": false
+    };
+    $scope.modelMapping = {
+        "Động vật": "dong-vat",
+        "Thực vật": "thuc-vat",
+        "Thổ nhưỡng": "tho-nhuong",
+        "Cổ sinh": "co-sinh",
+        "Địa chất": "dia-chat"
+    };
+
     $scope.sampleClick = function (content, id) {
-        var x = document.getElementById(id);
-        if (x.checked) {
-            if($scope.searchContent.model){
-                if ($scope.searchContent.model.indexOf(content) != -1) {
-                    console.log(content + " co trong params");
-                } else $scope.searchContent.model += "," + content;
-            } else{
-                $scope.searchContent.model = content;
+        // var x = document.getElementById(id);
+        // if (x.checked) {
+        //     if($scope.searchContent.model){
+        //         if ($scope.searchContent.model.indexOf(content) != -1) {
+        //             console.log(content + " co trong params");
+        //         } else $scope.searchContent.model += "," + content;
+        //     } else{
+        //         $scope.searchContent.model = content;
+        //     }
+        //     console.log($scope.searchContent.model);
+        // } else{
+        //     $scope.searchContent.model = $scope.searchContent.model.replace(","+content, "");
+        //     $scope.searchContent.model = $scope.searchContent.model.replace(content, "");
+        //     console.log($scope.searchContent.model);
+        // }
+        $scope.searchContent.model = "";
+        $scope.modelBoolean[content] = !$scope.modelBoolean[content]
+        angular.forEach($scope.modelBoolean, function(val, element){
+            console.log(element, val);
+            if (val) {
+                $scope.searchContent.model = $scope.searchContent.model + element + ",";
             }
-            console.log($scope.searchContent.model);
-        } else{
-            $scope.searchContent.model = $scope.searchContent.model.replace(","+content, "");
-            $scope.searchContent.model = $scope.searchContent.model.replace(content, "");
-            console.log($scope.searchContent.model);
-        }
+        });
+        console.log($scope.searchContent.model);
         $scope.searchSample();
     }
 

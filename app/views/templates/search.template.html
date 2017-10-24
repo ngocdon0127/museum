@@ -109,7 +109,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse7">Năm</a>
+				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse7">Năm định tên</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse7" class="collapse7 panel-collapse collapse">
@@ -465,8 +465,8 @@
 				<tbody class="search-table-body">
 					<tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage">
 						<td>
-							<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{post.model}}/{{post._id}}?display='>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{post.model}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
+							<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{modelMapping[post.model]}}/{{post._id}}?display='>
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
 						</td>
 						<td>
 							{{post.soHieuBTTNVN}}
@@ -475,7 +475,7 @@
 							{{post.soHieuBaoTangCS}}
 						</td>
 						<td>
-							{{post.soHieuThucDia ? post.quocGia : 'Không có'}}
+							{{post.soHieuThucDia ? post.soHieuThucDia : 'Không có'}}
 						</td>
 						<td>
 							{{post.model}}
@@ -484,7 +484,7 @@
 							{{post.nguoiDinhTen}}
 						</td>
 						<td>
-							{{post.ngayDinhTen ? post.quocGia : 'Không có'}}
+							{{post.ngayDinhTen ? (post.ngayDinhTen | date: "yyyy-MM-dd") : 'Không có' }}
 						</td>
 						<td>
 							{{post.tenDiaPhuong}}
@@ -493,7 +493,7 @@
 							{{post.tenTiengAnh}}
 						</td>
 						<td>
-							{{post.thoiGianThuMau ? post.quocGia : 'Không có'}}
+							{{post.thoiGianThuMau ? (post.thoiGianThuMau | date: "yyyy-MM-dd"): 'Không có'}}
 						</td>
 						<td>
 							{{post.nguoiThuMau}}
@@ -502,7 +502,7 @@
 							{{post.quocGia}}
 						</td>
 						<td>
-							{{post.viTriToaDo ? post.quocGia : 'Không có'}}
+							{{post.kinhDo ? post.kinhDo +", "+ post.viDo : 'Không có'}}
 						</td>
 						<td>
 							{{post.noiLuuTruMau}}

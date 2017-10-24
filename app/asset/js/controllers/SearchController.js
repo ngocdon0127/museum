@@ -62,7 +62,9 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
     $scope.currentPage = 1;
 
     $scope.yearChange = function () {
-        alert($scope.searchContent.ngayDinhTen);
+        // alert($scope.searchContent.ngayDinhTen);
+        $scope.searchContent.ngayDinhTen = $scope.searchContent.yearStart + "," + $scope.searchContent.yearStop;
+        $scope.searchSample();
     }
 
     $scope.sort = function (keyname) {
@@ -135,7 +137,7 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
                 lat: 20.6,
                 lng: 105.38,
                 zoom: 4,
-                // autoDiscover: true
+                autoDiscover: true
             },
             drawOptions: {
                 position: "topright",
@@ -149,6 +151,18 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
                     featureGroup: drawnItems,
                     remove: true
                 }
+            },
+            geofences: {},
+            defaults: {
+                scrollWheelZoom: true,
+                zoomControl: false,
+                controls :{
+                            layers : {
+                                visible: true,
+                                position: 'topright',
+                                collapsed: false
+                                     }
+                            }
             },
             layers: {
                 baselayers: {
@@ -194,7 +208,7 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
             })
         },
         deleted: function (arg) {
-            console.log("deleted");
+            // console.log("deleted");
             drawnItems.clearLayers();
             delete $scope.searchContent.geoJsonObject;
             $scope.searchSample();
@@ -212,6 +226,7 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
     };
 
     var drawEvents = leafletDrawEvents.getAvailableEvents();
+    // console.log(drawEvents);
     drawEvents.forEach(function (eventName) {
         $scope.$on('leafletDirectiveDraw.' + eventName, function (e, payload) {
             //{leafletEvent, leafletObject, model, modelName} = payload
@@ -222,4 +237,6 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
             handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
         });
     });
+
+    // $scope.map.invalidateSize();
 })

@@ -119,7 +119,16 @@
 							<!-- <div id="slider-range"></div> -->
 							 <!-- <input type="text" id="amount" ng-model="searchContent.ngayDinhTen" ng-change="yearChange()" style="border: 0px; color:#f6931f; font-weight:bold;"> -->
 							<!-- <div id="slider-range"></div> -->
-							<rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" ng-model="searchContent.ngayDinhTen" ng-change="yearChange()" rz-slider-options="minRangeSlider.options"></rzslider>
+                            <div class="form-group">
+                                <label for="start">Từ:</label>
+                                <input type="number" class="form-control" ng-model="searchContent.startYear" ng-change="yearChange()" id="start" placeholder="1000" name="start">
+                            </div>
+                            <div class="form-group">
+                                <label for="stop">đến:</label>
+                                <input type="number" class="form-control" ng-model="searchContent.stopYear" ng-change="yearChange()" id="stop" placeholder="2017" name="stop">
+                            </div>
+                            <!-- <button type="submit" class="btn btn-default">Tìm kiếm</button> -->
+							<!-- <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" ng-model="searchContent.ngayDinhTen" ng-change="yearChange()" rz-slider-options="minRangeSlider.options"></rzslider> -->
 						</form>
 					</div>
 			  	</div>
@@ -183,7 +192,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse12" ng-click="openmap()">Vị trí tọa độ</a>
+				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse12" ng-click="openleafmap = !openleafmap">Vị trí tọa độ</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse12" class="collapse12 panel-collapse collapse">
@@ -250,8 +259,6 @@
 			  	</div>
 			</div>
 	  	</div>
-		<leaflet lf-center="map.center" lf-draw="map.drawOptions" layers="map.layers" watch-options='watchOptions' defaults="defaults"  height="200px" width="100%">
-		</leaflet>
 	</nav>
 
 	<!-- Page Content Holder -->

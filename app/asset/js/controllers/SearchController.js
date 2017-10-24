@@ -12,6 +12,36 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
         console.log(err);
     });
 
+    $scope.minRangeSlider = {
+        minValue: 1000,
+        maxValue: 3000,
+        options: {
+            floor: 1000,
+            ceil: 3000,
+            step: 1,
+            noSwitching: true
+        }
+    };
+
+    $scope.sampleClick = function (content, id) {
+        var x = document.getElementById(id);
+        if (x.checked) {
+            if($scope.searchContent.model){
+                if ($scope.searchContent.model.indexOf(content) != -1) {
+                    console.log(content + " co trong params");
+                } else $scope.searchContent.model += "," + content;
+            } else{
+                $scope.searchContent.model = content;
+            }
+            console.log($scope.searchContent.model);
+        } else{
+            $scope.searchContent.model = $scope.searchContent.model.replace(","+content, "");
+            $scope.searchContent.model = $scope.searchContent.model.replace(content, "");
+            console.log($scope.searchContent.model);
+        }
+        $scope.searchSample();
+    }
+
     $scope.searchSample = function (content) {
         $scope.searchResult = "Loading...";
         var config = {
@@ -30,6 +60,10 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
 
     $scope.viewby = "10";
     $scope.currentPage = 1;
+
+    $scope.yearChange = function () {
+        alert($scope.searchContent.ngayDinhTen);
+    }
 
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
@@ -82,6 +116,11 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
     };
 
     //config phần bản đồ
+    $scope.openleafmap = false;
+    $scope.openmap = function () {
+        // alert('Hola')
+        $scope.openleafmap = !$scope.openleafmap;
+    }
 
     var drawnItems = new L.FeatureGroup();
 

@@ -56,6 +56,17 @@ app.controller('OfflineCtrl', function ($scope, $http, AuthService) {
     //     reader.readAsText(input.files[0]);
     // };
 
+    $scope.minRangeSlider = {
+        minValue: 1000,
+        maxValue: 3000,
+        options: {
+            floor: 1000,
+            ceil: 3000,
+            step: 1,
+            noSwitching: true
+        }
+    };
+
     $scope.name = "not read";
 
     // $scope.read = function (data) {

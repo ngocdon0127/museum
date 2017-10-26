@@ -17,6 +17,11 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		url: '/',
 		templateUrl: 'views/users/home.template.html'
 	})
+	.state('home-page', {
+		url: '/home',
+		templateUrl: 'views/templates/home.template.html',
+		controller : 'HomeController'
+	})
 	.state('them-dong-vat', {
 		url: '/dong-vat',
 		templateUrl: 'views/users/add-animal-form.template.html',

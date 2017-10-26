@@ -109,7 +109,8 @@ var getMarkers = function (model, geoJsonObject, icon) {
                 $geoWithin: {
                     $geometry: geoJsonObject.geometry
                 }
-            }
+            },
+            'deleted_at': {$eq: null},
         }, {
             'extra.eGeoJSON': 1,
             'tenMau.tenVietNam': 1,

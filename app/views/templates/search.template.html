@@ -486,7 +486,7 @@
 					<tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage">
 						<td>
 							<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{modelMapping[post.model]}}/{{post._id}}?display='>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam}}</a>
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : "Mẫu vật"}}</a>
 						</td>
 						<td>
 							{{post.soHieuBTTNVN}}

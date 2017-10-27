@@ -614,9 +614,13 @@ function specialCharaterTable() {
     scope: {},
     link: function ($scope, element, attrs) {
       $scope.test = $scope.$parent.test2;
+      var symbolBackList = [888, 889, 895, 896, 897, 898, 899, 907, 909, 930];
       $scope.makeSymbolsByRange = function(start, end, step = 1) {
         let symbols = [];
         for(let i = start; i <= end ; i += step) {
+          if(symbolBackList.indexOf(i) > -1) {
+            continue;
+          }
           symbols.push(String.fromCharCode(i));
         }
         return symbols;

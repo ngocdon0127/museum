@@ -69,7 +69,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 const qt = require('quickthumb');
-app.use(qt.static(path.join(__dirname, 'public')));
+app.use(qt.static(path.join(__dirname, 'public'), {type: 'resize'}));
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
 	name: require('./config/config').app.sessionCookieName,

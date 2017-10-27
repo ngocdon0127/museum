@@ -13,12 +13,12 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
     $translateProvider.preferredLanguage('vi');
 
 	$stateProvider
+	.state('document', {
+		url: '/tai-lieu',
+		templateUrl: 'views/templates/document.template.html'
+	})
 	.state('home', {
 		url: '/',
-		templateUrl: 'views/users/home.template.html'
-	})
-	.state('home-page', {
-		url: '/home',
 		templateUrl: 'views/templates/home.template.html',
 		controller : 'HomeController'
 	})

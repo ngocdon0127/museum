@@ -531,5 +531,84 @@ function isLoggedIn (req, res, next) {
   }
   return next();
 }
+router.get('/get-random/:num', (req, res) => {
+  let numRandom = Number(req.params.num);
+  const MAX_RESULTS = 30;
+  if(isNaN(numRandom) || numRandom > MAX_RESULTS){
+    return res.status(400).json({
+      status: 'error',
+      total: 0,
+      data: [],
+      message: "Bad request"
+    })
+  }
+
+  let models = [
+    {modelName: 'co-sinh', modelTitle: 'Cổ sinh', enName : 'paleontological'},
+    {modelName: 'dia-chat', modelTitle: 'Địa chất', enName : 'geological'},
+    {modelName: 'dong-vat', modelTitle: 'Động vật', enName : 'animal'},
+    {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng', enName : 'soil'},
+    {modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'}
+  ]
+  async(() => {
+    let randomObjArr = [];
+    for(model of models) {
+      let bundle = global.myCustomVars.models[model.modelName].bundle;
+      let ObjectModel = bundle.ObjectModel;
+      let result = await(new Promise((resolve, reject)=>{
+        ObjectModel.aggregate([
+          {$match : {
+            'deleted_at': {$eq: null},
+            'media.anhMauVat': {$not: {$size: 0}}
+          }},
+          { $sample: { size: numRandom } },
+          // { $project : {
+          //   img : 
+          // }},
+          { $project : {
+            imgUrl : {$concat : ['/uploads/', model.enName, '/', {$arrayElemAt : ['$media.anhMauVat', 0]}]},
+            url : {$concat : ['/content/', model.modelName, '/']},
+            caption : '$tenMau.tenVietNam'
+          }}
+        ], (err, data)=>{
+          if(err){
+            console.log(err);
+            resolve([]);
+          } else {
+            // console.log(data);
+            resolve(data);
+          }
+        })
+      }));
+      // console.log(result);
+      randomObjArr = randomObjArr.concat(result);
+      // console.log(randomObjArr);
+    }
+
+    function getRandomSubarray(arr, size) {
+      var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+      while (i-- > min) {
+          index = Math.floor((i + 1) * Math.random());
+          temp = shuffled[index];
+          shuffled[index] = shuffled[i];
+          shuffled[i] = temp;
+      }
+      return shuffled.slice(min);
+    }
+    randomObjArr = getRandomSubarray(randomObjArr, numRandom);
+    randomObjArr.forEach(function(element) {
+      element.url = element.url + element._id.toString();
+    });
+
+    // console.log(randomObjArr);
+    return res.status(200).json({
+      status: 'success',
+      total: randomObjArr.length,
+      data: randomObjArr
+    })
+  })();
+    
+    
+});
 
 module.exports = router;

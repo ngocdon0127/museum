@@ -9,4 +9,16 @@ app.controller('TestController',function($http,$scope){
     }, function(err){
         console.log("Khong lay duoc du lieu")
     })
+
+    $scope.minRangeSlider = {
+        minValue: 1000,
+        maxValue: 3000,
+        options: {
+            floor: 0,
+            ceil: 100,
+            step: 1,
+            noSwitching: true
+        }
+    };
+
 })

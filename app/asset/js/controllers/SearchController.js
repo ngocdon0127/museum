@@ -1,4 +1,4 @@
-app.controller('SearchController', function ($scope, $http, AuthService, $uibModal, leafletDrawEvents) {
+app.controller('SearchController', function (leafletData, $timeout, $scope, $http, AuthService, $uibModal, leafletDrawEvents) {
     var url = AuthService.hostName + '/content/search';
     $scope.searchResult = "0 kết quả"
     $scope.data = [];
@@ -12,6 +12,45 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
         console.log(err);
     });
 
+    $scope.minRangeSlider = {
+        minValue: 1000,
+        maxValue: 3000,
+        options: {
+            floor: 1000,
+            ceil: 3000,
+            step: 1,
+            noSwitching: true
+        }
+    };
+
+    $scope.modelBoolean = {
+        "Động vật": false,
+        "Thực vật": false,
+        "Thổ nhưỡng": false,
+        "Cổ sinh": false,
+        "Địa chất": false
+    };
+    $scope.modelMapping = {
+        "Động vật": "dong-vat",
+        "Thực vật": "thuc-vat",
+        "Thổ nhưỡng": "tho-nhuong",
+        "Cổ sinh": "co-sinh",
+        "Địa chất": "dia-chat"
+    };
+
+    $scope.sampleClick = function (content, id) {
+        $scope.searchContent.model = "";
+        $scope.modelBoolean[content] = !$scope.modelBoolean[content]
+        angular.forEach($scope.modelBoolean, function(val, element){
+            // console.log(element, val);
+            if (val) {
+                $scope.searchContent.model = $scope.searchContent.model + element + ",";
+            }
+        });
+        // console.log($scope.searchContent.model);
+        $scope.searchSample();
+    }
+
     $scope.searchSample = function (content) {
         $scope.searchResult = "Loading...";
         var config = {
@@ -20,7 +59,7 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
         $http.get(url, config).then(function (res) {
             // console.log(config);
             $scope.data = res.data.matchedSamples;
-            console.log($scope.data);
+            // console.log($scope.data);
             $scope.searchResult = $scope.data.length + " kết quả";
         }, function (err) {
             console.log(err);
@@ -30,6 +69,17 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
 
     $scope.viewby = "10";
     $scope.currentPage = 1;
+
+    $scope.ndtChange = function () {
+        // alert($scope.searchContent.ngayDinhTen);
+        $scope.searchContent.ngayDinhTen = $scope.searchContent.yearNDT + "," + $scope.searchContent.yearNDT;
+        $scope.searchSample();
+    }
+    $scope.tgtmChange = function () {
+        // alert($scope.searchContent.ngayDinhTen);
+        $scope.searchContent.thoiGianThuMau = $scope.searchContent.yearTGTM + "," + $scope.searchContent.yearTGTM;
+        $scope.searchSample();
+    }
 
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
@@ -82,6 +132,13 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
     };
 
     //config phần bản đồ
+    $scope.openmap = function () {
+        leafletData.getMap().then(function(map) {
+            $timeout(function() {
+              map.invalidateSize();
+            }, 200);
+        });
+    }
 
     var drawnItems = new L.FeatureGroup();
 
@@ -111,11 +168,23 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
                     remove: true
                 }
             },
+            geofences: {},
+            defaults: {
+                scrollWheelZoom: true,
+                zoomControl: false,
+                controls :{
+                            layers : {
+                                visible: true,
+                                position: 'topright',
+                                collapsed: false
+                                     }
+                            }
+            },
             layers: {
                 baselayers: {
                     xyz: {
                         name: 'OpenStreetMap (XYZ)',
-                        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                         type: 'xyz',
                         layerOptions: {
                             showOnSelector: false
@@ -155,7 +224,7 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
             })
         },
         deleted: function (arg) {
-            console.log("deleted");
+            // console.log("deleted");
             drawnItems.clearLayers();
             delete $scope.searchContent.geoJsonObject;
             $scope.searchSample();
@@ -173,6 +242,7 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
     };
 
     var drawEvents = leafletDrawEvents.getAvailableEvents();
+    // console.log(drawEvents);
     drawEvents.forEach(function (eventName) {
         $scope.$on('leafletDirectiveDraw.' + eventName, function (e, payload) {
             //{leafletEvent, leafletObject, model, modelName} = payload
@@ -183,4 +253,6 @@ app.controller('SearchController', function ($scope, $http, AuthService, $uibMod
             handle[eventName.replace('draw:', '')](e, leafletEvent, leafletObject, model, modelName);
         });
     });
+
+    // $scope.map.invalidateSize();
 })

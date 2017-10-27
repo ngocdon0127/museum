@@ -567,7 +567,8 @@ router.get('/get-random/:num', (req, res) => {
           // }},
           { $project : {
             imgUrl : {$concat : ['/uploads/', model.enName, '/', {$arrayElemAt : ['$media.anhMauVat', 0]}]},
-            url : {$concat : ['/content/', model.modelName, '/']}
+            url : {$concat : ['/content/', model.modelName, '/']},
+            caption : '$tenMau.tenVietNam'
           }}
         ], (err, data)=>{
           if(err){

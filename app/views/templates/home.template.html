@@ -8,99 +8,32 @@
         color: white;
     }
 
-    .gal {
-        -webkit-column-count: 3;
-        /* Chrome, Safari, Opera */
-        -moz-column-count: 3;
-        /* Firefox */
-        column-count: 3;
-    }
-
-    .gal img {
+    .img {
         width: 100%;
-        padding: 7px 0;
+        height: 180px !important;
     }
 
-    @media (max-width: 500px) {
-        .gal {
-            -webkit-column-count: 1;
-            /* Chrome, Safari, Opera */
-            -moz-column-count: 1;
-            /* Firefox */
-            column-count: 1;
-        }
-    }
-
-
-    .image-div {
-        position: relative;
-    }
-
-    .image {
-        opacity: 1;
-        display: block;
-        width: 100%;
-        height: auto;
-        transition: .5s ease;
-        backface-visibility: hidden;
-    }
-
-    .middle {
-        transition: .5s ease;
-        opacity: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%)
-    }
-
-    .image-div:hover .image {
-        opacity: 0.7;
-    }
-
-    .image-div:hover .middle {
-        opacity: 1;
-    }
-
-    .text {
-        background-color: #4CAF50;
-        color: white;
-        /* font-size: 16px; */
-        padding: 16px 32px;
-    }
-    .text a {
-        color: white;
-    }
-    .text a:hover {
-        text-decoration: none;
-    }
-    .title {
-        text-align :center;
-        background-color: #4CAF50;
-        color: white;
-        padding: 16px 0;
+    .caption {
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 </style>
 
 <div id="header" class="jumbotron">
     <div class="container">
-        <h1>Bảo tàng thiên nhiên Việt Nam</h1>
-        <p>VietNam National Museum Of Nature</p>
+        <h1>Bộ Sưu Tập Mẫu Vật Quốc Gia Về Thiên Nhiên Việt Nam</h1>
     </div>
 </div>
 <div class="container content">
     <div class="row">
-        <!-- <div class="title">
-            <h3>Một số mẫu vật</h3>
-        </div> -->
-        <div class="gal">
-            <div ng-repeat="img in images" class="image-div">
-                <a ng-href="{{img.url + '?display=html'}}"><img ng-src="{{'https://baotangvn.online' + img.imgUrl}}" alt="" class="image"></a>
-                <!-- <div class="middle">
-                    <div class="text"><a ng-href="{{img.url + '?display=html'}}">Xem chi tiết</a></div>
-                </div> -->
+        <div ng-repeat="img in images" class="col-md-3 col-sm-6 col-xs-12">
+            <div class="thumbnail">
+                <a ng-href="{{img.url + '?display=html'}}" title="{{img.caption}}">
+                    <img ng-src="{{'https://baotangvn.online' + img.imgUrl + '?dim=500'}}" alt="{{img.caption}}" class="img">
+                </a>
+                <div class="caption">
+                    <p>{{img.caption}}</p>
+                </div>
             </div>
         </div>
     </div>
-</div>

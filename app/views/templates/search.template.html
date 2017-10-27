@@ -1,7 +1,5 @@
 <link rel="stylesheet" type="text/css" href="asset/css/search.css">
-<link rel="stylesheet" type="text/css" href="asset/js/angularjs-slider/rzslider.css">
-<!-- <link rel="stylesheet" type="text/css" href="asset/js/Bootstrap-slider/bootstrap-slider.min.css"> -->
-<!-- <link rel="stylesheet" type="text/css" href="asset/js/NoUiSlider/jquery.nouislider.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="asset/js/angularjs-slider/rzslider.css"> -->
 <div class="wrapper" ng-controller="SearchController">
 	<nav id="sidebar">
 		<div class="sidebar-header">
@@ -17,14 +15,14 @@
 			</form>
 		</div>
 
-	  	<div class="panel-group" id="accordion">
+	  	<div class="panel-group" id="accordion" style="margin-bottom: 50px;">
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse1">Nhóm mẫu vật</a>
+				  		<a data-toggle="collapse" data-parent="#accordion1" href=".collapse1">Nhóm mẫu vật</a>
 					</h4>
 			  	</div>
-			  	<div id="collapse1" class="collapse1 panel-collapse collapse in">
+			  	<div id="collapse1" class="collapse1 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
 							<input type="checkbox" name="model" id="cosinh" ng-click="sampleClick('Cổ sinh', 'cosinh')" ng-model="searchContent.cosinh" value="co-sinh"> Cổ sinh<br>
@@ -39,7 +37,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse2">Số hiệu BTTNVN</a>
+				  		<a data-toggle="collapse" data-parent="#accordion2" href=".collapse2">Số hiệu BTTNVN</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse2" class="collapse2 panel-collapse collapse">
@@ -53,7 +51,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse3">Số hiệu bảo tàng cơ sở</a>
+				  		<a data-toggle="collapse" data-parent="#accordion3" href=".collapse3">Số hiệu bảo tàng cơ sở</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse3" class="collapse3 panel-collapse collapse">
@@ -67,7 +65,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse4">Số hiệu thực địa</a>
+				  		<a data-toggle="collapse" data-parent="#accordion4" href=".collapse4">Số hiệu thực địa</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse4" class="collapse4 panel-collapse collapse">
@@ -81,7 +79,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse5">Tên khoa học</a>
+				  		<a data-toggle="collapse" data-parent="#accordion5" href=".collapse5">Tên khoa học</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse5" class="collapse5 panel-collapse collapse">
@@ -95,7 +93,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse6">Người định tên</a>
+				  		<a data-toggle="collapse" data-parent="#accordion6" href=".collapse6">Người định tên</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse6" class="collapse6 panel-collapse collapse">
@@ -109,7 +107,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse7">Năm định tên</a>
+				  		<a data-toggle="collapse" data-parent="#accordion7" href=".collapse7">Năm định tên</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse7" class="collapse7 panel-collapse collapse">
@@ -121,11 +119,11 @@
 							<!-- <div id="slider-range"></div> -->
                             <div class="form-group">
                                 <label for="start">Từ:</label>
-                                <input type="number" class="form-control" ng-model="searchContent.startYear" ng-change="yearChange()" id="start" placeholder="1000" name="start">
+                                <input type="number" class="form-control" ng-model="searchContent.startNDT" ng-change="ndtChange()" id="startTGTM" placeholder="1000" name="startTGTM">
                             </div>
                             <div class="form-group">
                                 <label for="stop">đến:</label>
-                                <input type="number" class="form-control" ng-model="searchContent.stopYear" ng-change="yearChange()" id="stop" placeholder="2017" name="stop">
+                                <input type="number" class="form-control" ng-model="searchContent.stopNDT" ng-change="ndtChange()" id="stopTGTM" placeholder="2017" name="stopTGTM">
                             </div>
                             <!-- <button type="submit" class="btn btn-default">Tìm kiếm</button> -->
 							<!-- <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" ng-model="searchContent.ngayDinhTen" ng-change="yearChange()" rz-slider-options="minRangeSlider.options"></rzslider> -->
@@ -136,7 +134,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse8">Tên Việt Nam</a>
+				  		<a data-toggle="collapse" data-parent="#accordion8" href=".collapse8">Tên Việt Nam</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse8" class="collapse8 panel-collapse collapse">
@@ -150,12 +148,12 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse9">Tên địa phương</a>
+				  		<a data-toggle="collapse" data-parent="#accordion9" href=".collapse9">Tên địa phương</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse9" class="collapse9 panel-collapse collapse">
 					<div class="panel-body">
-						<form ng-submit="searchSample()">
+						<form ng-submit="searchContent()">
 							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenDiaPhuong" class="input-form-search">
 						</form>
 					</div>
@@ -164,7 +162,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse10">Tên Tiếng Anh</a>
+				  		<a data-toggle="collapse" data-parent="#accordion10" href=".collapse10">Tên Tiếng Anh</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse10" class="collapse10 panel-collapse collapse">
@@ -178,13 +176,26 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse11">Địa điểm thu mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion11" href=".collapse11">Địa điểm thu mẫu</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse11" class="collapse11 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.diaDiemThuMau" class="input-form-search">
+							{{"ani.quocGia" | translate }}: 
+							<input type="text" list="quocGia" class="input-form form-control" ng-model="searchContent.quocGia" title="{{tooltips['quocGia']}}" name="quocGia">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.tinh" | translate }}: 
+							<input type="text" class="input-form form-control" ng-model="searchContent.tinh" title="{{tooltips['tinh']}}" name="tinh">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.huyen" | translate }}:
+							<input type="text" class="input-form form-control" title="{{tooltips['huyen']}}" name="huyen" ng-model= "searchContent.huyen">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.xa" | translate }}: 
+							<input type="text" class="input-form form-control" ng-model="searchContent.xa" title="{{tooltips['xa']}}" name="xa">
 						</form>
 					</div>
 			  	</div>
@@ -192,7 +203,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse12" ng-click="openmap()">Vị trí tọa độ</a>
+				  		<a data-toggle="collapse" data-parent="#accordion12" href=".collapse12" ng-click="openmap()">Vị trí tọa độ</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse12" class="collapse12 panel-collapse collapse">
@@ -205,13 +216,21 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse13">Thời gian thu mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion13" href=".collapse13">Thời gian thu mẫu</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse13" class="collapse13 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.thoiGianThuMau" class="input-form-search">
+							<!-- <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.thoiGianThuMau" class="input-form-search"> -->
+							<div class="form-group">
+                                <label for="start">Từ:</label>
+                                <input type="number" class="form-control" ng-model="searchContent.startTGTM" ng-change="tgtmChange()" id="startTGTM" placeholder="1000" name="startTGTM">
+                            </div>
+                            <div class="form-group">
+                                <label for="stop">đến:</label>
+                                <input type="number" class="form-control" ng-model="searchContent.stopTGTM" ng-change="tgtmChange()" id="stopTGTM" placeholder="2017" name="stopTGTM">
+                            </div>
 						</form>
 					</div>
 			  	</div>
@@ -219,7 +238,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse14">Người thu mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion14" href=".collapse14">Người thu mẫu</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse14" class="collapse14 panel-collapse collapse">
@@ -233,7 +252,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse15">Nơi lưu giữ mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion15" href=".collapse15">Nơi lưu giữ mẫu</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse15" class="collapse15 panel-collapse collapse">
@@ -247,7 +266,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion" href=".collapse16">Người lập phiếu MV</a>
+				  		<a data-toggle="collapse" data-parent="#accordion16" href=".collapse16">Người lập phiếu MV</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse16" class="collapse16 panel-collapse collapse">
@@ -259,6 +278,7 @@
 			  	</div>
 			</div>
 	  	</div>
+        <!-- <div ></div> -->
 	</nav>
 
 	<!-- Page Content Holder -->
@@ -466,7 +486,7 @@
 					<tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage">
 						<td>
 							<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{modelMapping[post.model]}}/{{post._id}}?display='>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : 'Mẫu vật'}}</a>
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam}}</a>
 						</td>
 						<td>
 							{{post.soHieuBTTNVN}}
@@ -475,7 +495,7 @@
 							{{post.soHieuBaoTangCS}}
 						</td>
 						<td>
-							{{post.soHieuThucDia ? post.soHieuThucDia : 'Không có'}}
+							{{post.soHieuThucDia}}
 						</td>
 						<td>
 							{{post.model}}
@@ -484,7 +504,7 @@
 							{{post.nguoiDinhTen}}
 						</td>
 						<td>
-							{{post.ngayDinhTen ? (post.ngayDinhTen | date: "yyyy-MM-dd") : 'Không có' }}
+							{{post.ngayDinhTen | date: "yyyy-MM-dd" }}
 						</td>
 						<td>
 							{{post.tenDiaPhuong}}
@@ -493,7 +513,7 @@
 							{{post.tenTiengAnh}}
 						</td>
 						<td>
-							{{post.thoiGianThuMau ? (post.thoiGianThuMau | date: "yyyy-MM-dd"): 'Không có'}}
+							{{post.thoiGianThuMau | date: "yyyy-MM-dd"}}
 						</td>
 						<td>
 							{{post.nguoiThuMau}}
@@ -502,7 +522,7 @@
 							{{post.quocGia}}
 						</td>
 						<td>
-							{{post.kinhDo ? post.kinhDo +", "+ post.viDo : 'Không có'}}
+							{{post.kinhDo +", "+ post.viDo}}
 						</td>
 						<td>
 							{{post.noiLuuTruMau}}
@@ -532,9 +552,16 @@
 <!-- <script type="text/javascript" src="asset/js/Bootstrap-slider/bootstrap-slider.js"></script> -->
  <script type="text/javascript">
 	$(document).ready(function () {
+		// fit height screen browser
+		// $('#sidebar').css({ height: $(window).innerHeight() })
+
 		$('#sidebarCollapse').on('click', function () {
 			$('#sidebar').toggleClass('active');
-			$('.table-scroll').css('max-width', '100%');
+			if ($('#sidebar').hasClass('active')) {
+				$('.table-scroll').css('max-width', '100%');
+			} else {
+				$('.table-scroll').css('max-width', '80%');
+			}
 		});
 
 		// $("#ex2").bootstrapSlider({});

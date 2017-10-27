@@ -1,16 +1,16 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-p {
+/*p {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
     color: #999;
-}
+}*/
 
-.table-scroll{
+/*.table-scroll{
     max-width: 75%;
     overflow: auto;
-}
+}*/
 
 #managerpost {
     table-layout: fixed !important;
@@ -108,6 +108,32 @@ a, a:hover, a:focus {
     background: #f7f9fa;
     box-shadow: 4px 4px 10px rgba(0,0,0,0.2) !important;
     transition: all 0.3s;
+    max-height: 1000px;
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#sidebar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+#sidebar::-webkit-scrollbar-track {
+    background-color: rgba(113,112,107,0.1);
+    -webkit-border-radius: 5px;
+}
+#sidebar::-webkit-scrollbar-thumb:vertical {
+    background-color: rgba(0,0,0,.2);
+    -webkit-border-radius: 6px;
+}
+#sidebar::-webkit-scrollbar-thumb:vertical:hover,
+#sidebar::-webkit-scrollbar-thumb:horizontal:hover {
+    background: red;
+}
+#sidebar::-webkit-scrollbar-thumb:horizontal {
+    background-color: rgba(0,0,0,.2);
+    -webkit-border-radius: 6px;
 }
 
 #sidebar.active {
@@ -120,11 +146,6 @@ a, a:hover, a:focus {
     margin-top: 15px;
     /*background: #6d7fcc;*/
     height: 60px;
-}
-
-#sidebar ul.components {
-    /*padding: 20px 0;*/
-    /*border-bottom: 1px solid #47748b;*/
 }
 
 #sidebar ul p {
@@ -142,12 +163,6 @@ a, a:hover, a:focus {
     color: #7386D5;
     background: #fff;
 }
-
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-    /*color: #fff;*/
-    /*background: #6d7fcc;*/
-}
-
 
 a[data-toggle="collapse"] {
     position: relative;
@@ -225,7 +240,7 @@ a.article, a.article:hover {
     }
 }
 
-@media (min-width: 1366px) {
+/*@media (min-width: 1366px) {
     .table-scroll{
         max-width: 80%;
         overflow: auto;
@@ -244,8 +259,8 @@ a.article, a.article:hover {
     #sidebarCollapse span {
         display: none;
     }
-}
-@media only screen (min-width: 768px) and (max-width: 1366px) {
+}*/
+@media (min-width: 768px) and (max-width: 1366px) {
     .table-scroll{
         max-width: 80%;
         overflow: auto;

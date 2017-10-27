@@ -906,6 +906,14 @@ var deleteHandler = function (options) {
 
 				var date = new Date();
 				objectInstance.deleted_at = date;
+				try {
+					if (objectInstance.extra && objectInstance.extra.eGeoJSON && !objectInstance.extra.eGeoJSON.type) {
+						objectInstance.extra.eGeoJSON = undefined;
+						delete objectInstance.extra.eGeoJSON
+					}
+				} catch (e) {
+					console.log(e);
+				}
 				objectInstance.save(e => {
 					if (e) {
 						console.log(e);

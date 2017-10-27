@@ -63,8 +63,15 @@
 						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{'nav.baocao.tieude' | translate }}</b> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="/log/all">{{'nav.baocao.lichsunhaplieu' | translate }}</a></li>
-							<li><a ui-sref="leaflet-map">{{'nav.baocao.truyvan' | translate }}</a></li>
+							
 							<li><a href="/manager/statistic">{{'nav.baocao.thongke' | translate }}</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="" class="dropdown-toggle" data-toggle="dropdown"><b>{{'nav.truyvan.tieude' | translate }}</b> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a ui-sref="tim-kiem">{{'nav.truyvan.timkiem' | translate }}</a></li>
+							<li><a ui-sref="leaflet-map">{{'nav.truyvan.bando' | translate }}</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -85,11 +92,11 @@
 				<form class="navbar-form navbar-right" role="search" ng-controller="SearchController">
 					<div class="input-group">
 				      	<!-- <input type="text" class="form-control" placeholder="Tìm kiếm..."> -->
-				      	<span class="input-group-btn">
-				        	<a ui-sref="tim-kiem" class="btn btn-primary">
+				      	<!-- <span class="input-group-btn">
+				        	<a ui-sref="tim-kiem" class="btn btn-default">
 				            	<span class=" glyphicon glyphicon-search"></span>
 				        	</a>
-				      	</span>
+				      	</span> -->
 				    </div>
 				</form>
 			</div>
@@ -121,6 +128,8 @@
 	<script type="text/javascript" src="asset/js/angular-translate/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-translate/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
 	<script type="text/javascript" src="asset/js/angular-translate/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+	<!-- <script type="text/javascript" src="asset/js/NoUiSlider/jquery.nouislider.js"></script> -->
+	<!-- <script type="text/javascript" src="asset/js/NoUiSlider/nouislider.js"></script> -->
 
 	<script type="text/javascript" src="asset/js/angular-ui-bootstrap/ui-bootstrap.js"></script>
 	<script type="text/javascript" src="asset/js/angular-ui-bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>

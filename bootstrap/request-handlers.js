@@ -906,26 +906,31 @@ var deleteHandler = function (options) {
 
 				var date = new Date();
 				objectInstance.deleted_at = date;
-				objectInstance.save();
-				var newLog = new Log();
-				newLog.action = 'delete';
-				newLog.userId = req.user.id;
-				newLog.userFullName = req.user.fullname;
-				newLog.objType = objectModelName;
-				newLog.obj1 = objectInstance;
-				newLog.time = date;
-				newLog.save(err => {
-					if (!err) return;
-					console.error('ERR: Save log failed. Try again');
-					console.error(err);
-					newLog.save(err_ => {
-						if (!err_) return;
-						console.error('ERR: Save log failed');
-						console.error(err_);
-						console.error(newLog);
-					})
+				objectInstance.save(e => {
+					if (e) {
+						console.log(e);
+						return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại sau'])
+					}
+					var newLog = new Log();
+					newLog.action = 'delete';
+					newLog.userId = req.user.id;
+					newLog.userFullName = req.user.fullname;
+					newLog.objType = objectModelName;
+					newLog.obj1 = objectInstance;
+					newLog.time = date;
+					newLog.save(err => {
+						if (!err) return;
+						console.error('ERR: Save log failed. Try again');
+						console.error(err);
+						newLog.save(err_ => {
+							if (!err_) return;
+							console.error('ERR: Save log failed');
+							console.error(err_);
+							console.error(newLog);
+						})
+					});
+					return responseSuccess(res, ['status'], ['success']);
 				});
-				return responseSuccess(res, ['status'], ['success']);
 			}
 			else{
 				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Invalid ' + objectModelIdParamName]);

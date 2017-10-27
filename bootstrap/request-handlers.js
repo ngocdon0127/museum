@@ -858,6 +858,9 @@ var deleteHandler = function (options) {
 				})
 			}))
 			if (objectInstance){
+				if (objectInstance.deleted_at) {
+					return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Mẫu dữ liệu này đã bị xóa từ trước']);
+				}
 				var canDelete = false;
 				var userRoles = await(new Promise((resolve, reject) => {
 					acl.userRoles(req.session.userId, (err, roles) => {

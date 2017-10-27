@@ -9,8 +9,11 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
       prefix: '/app/asset/lang/',
       suffix: '.json'
     });
+    // $translateProvider.useSanitizeValueStrategy('sanitize');
     $translateProvider.useLocalStorage();
     $translateProvider.preferredLanguage('vi');
+    //prevent xss
+    $translateProvider.useSanitizeValueStrategy('escape');
 
 	$stateProvider
 	.state('document', {

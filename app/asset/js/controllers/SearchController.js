@@ -23,22 +23,31 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
         }
     };
 
+    $scope.modelBoolean = {
+        "Động vật": false,
+        "Thực vật": false,
+        "Thổ nhưỡng": false,
+        "Cổ sinh": false,
+        "Địa chất": false
+    };
+    $scope.modelMapping = {
+        "Động vật": "dong-vat",
+        "Thực vật": "thuc-vat",
+        "Thổ nhưỡng": "tho-nhuong",
+        "Cổ sinh": "co-sinh",
+        "Địa chất": "dia-chat"
+    };
+
     $scope.sampleClick = function (content, id) {
-        var x = document.getElementById(id);
-        if (x.checked) {
-            if($scope.searchContent.model){
-                if ($scope.searchContent.model.indexOf(content) != -1) {
-                    console.log(content + " co trong params");
-                } else $scope.searchContent.model += "," + content;
-            } else{
-                $scope.searchContent.model = content;
+        $scope.searchContent.model = "";
+        $scope.modelBoolean[content] = !$scope.modelBoolean[content]
+        angular.forEach($scope.modelBoolean, function(val, element){
+            // console.log(element, val);
+            if (val) {
+                $scope.searchContent.model = $scope.searchContent.model + element + ",";
             }
-            console.log($scope.searchContent.model);
-        } else{
-            $scope.searchContent.model = $scope.searchContent.model.replace(","+content, "");
-            $scope.searchContent.model = $scope.searchContent.model.replace(content, "");
-            console.log($scope.searchContent.model);
-        }
+        });
+        // console.log($scope.searchContent.model);
         $scope.searchSample();
     }
 
@@ -50,7 +59,7 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
         $http.get(url, config).then(function (res) {
             // console.log(config);
             $scope.data = res.data.matchedSamples;
-            console.log($scope.data);
+            // console.log($scope.data);
             $scope.searchResult = $scope.data.length + " kết quả";
         }, function (err) {
             console.log(err);
@@ -61,9 +70,14 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
     $scope.viewby = "10";
     $scope.currentPage = 1;
 
-    $scope.yearChange = function () {
+    $scope.ndtChange = function () {
         // alert($scope.searchContent.ngayDinhTen);
-        $scope.searchContent.ngayDinhTen = $scope.searchContent.yearStart + "," + $scope.searchContent.yearStop;
+        $scope.searchContent.ngayDinhTen = $scope.searchContent.yearNDT + "," + $scope.searchContent.yearNDT;
+        $scope.searchSample();
+    }
+    $scope.tgtmChange = function () {
+        // alert($scope.searchContent.ngayDinhTen);
+        $scope.searchContent.thoiGianThuMau = $scope.searchContent.yearTGTM + "," + $scope.searchContent.yearTGTM;
         $scope.searchSample();
     }
 
@@ -138,7 +152,7 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
             center: {
                 lat: 20.6,
                 lng: 105.38,
-                zoom: 6,
+                zoom: 4,
                 // autoDiscover: true
             },
             drawOptions: {
@@ -170,7 +184,7 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
                 baselayers: {
                     xyz: {
                         name: 'OpenStreetMap (XYZ)',
-                        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                         type: 'xyz',
                         layerOptions: {
                             showOnSelector: false

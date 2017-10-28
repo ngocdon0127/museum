@@ -858,6 +858,9 @@ var deleteHandler = function (options) {
 				})
 			}))
 			if (objectInstance){
+				if (objectInstance.deleted_at) {
+					return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Mẫu dữ liệu này đã bị xóa từ trước']);
+				}
 				var canDelete = false;
 				var userRoles = await(new Promise((resolve, reject) => {
 					acl.userRoles(req.session.userId, (err, roles) => {
@@ -906,26 +909,39 @@ var deleteHandler = function (options) {
 
 				var date = new Date();
 				objectInstance.deleted_at = date;
-				objectInstance.save();
-				var newLog = new Log();
-				newLog.action = 'delete';
-				newLog.userId = req.user.id;
-				newLog.userFullName = req.user.fullname;
-				newLog.objType = objectModelName;
-				newLog.obj1 = objectInstance;
-				newLog.time = date;
-				newLog.save(err => {
-					if (!err) return;
-					console.error('ERR: Save log failed. Try again');
-					console.error(err);
-					newLog.save(err_ => {
-						if (!err_) return;
-						console.error('ERR: Save log failed');
-						console.error(err_);
-						console.error(newLog);
-					})
+				try {
+					if (objectInstance.extra && objectInstance.extra.eGeoJSON && !objectInstance.extra.eGeoJSON.type) {
+						objectInstance.extra.eGeoJSON = undefined;
+						delete objectInstance.extra.eGeoJSON
+					}
+				} catch (e) {
+					console.log(e);
+				}
+				objectInstance.save(e => {
+					if (e) {
+						console.log(e);
+						return responseError(req, UPLOAD_DESTINATION, res, 500, ['error'], ['Có lỗi xảy ra. Vui lòng thử lại sau'])
+					}
+					var newLog = new Log();
+					newLog.action = 'delete';
+					newLog.userId = req.user.id;
+					newLog.userFullName = req.user.fullname;
+					newLog.objType = objectModelName;
+					newLog.obj1 = objectInstance;
+					newLog.time = date;
+					newLog.save(err => {
+						if (!err) return;
+						console.error('ERR: Save log failed. Try again');
+						console.error(err);
+						newLog.save(err_ => {
+							if (!err_) return;
+							console.error('ERR: Save log failed');
+							console.error(err_);
+							console.error(newLog);
+						})
+					});
+					return responseSuccess(res, ['status'], ['success']);
 				});
-				return responseSuccess(res, ['status'], ['success']);
 			}
 			else{
 				return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Invalid ' + objectModelIdParamName]);

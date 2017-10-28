@@ -1,275 +1,31 @@
-	$stateProvider
-	.state('home', {
-		views:{
-			"homepage":{
-				url: '/',
-				templateUrl: 'views/users/home.template.html'						
-			}
-		}
-	})
-	.state('them-dong-vat', {
-		views:{
-			"sectionpage": {
-				url: '/dong-vat',
-				templateUrl: 'views/users/add-animal-form.template.html',
-				controller: 'AnimalFormCtrl',
-				access : {
-					sample : "dongvat",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('them-thuc-vat', {
-		views:{
-			"sectionpage": {
-				url: '/thuc-vat',
-				templateUrl: 'views/users/add-vegetable-form.template.html',
-				controller: 'VegetableFormCtrl',
-				access : {
-					sample : "thucvat",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('them-dia-chat', {
-		views:{
-			"sectionpage": {
-				url: '/dia-chat',
-				templateUrl: 'views/users/add-geological-form.template.html',
-				controller: 'GeologicalFormCtrl',
-				access : {
-					sample : "diachat",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('them-tho-nhuong', {
-		views:{
-			"sectionpage": {
-				url: '/tho-nhuong',
-				templateUrl: 'views/users/add-land-form.template.html',
-				controller: 'LandFormCtrl',
-				access : {
-					sample : "thonhuong",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('them-co-sinh', {
-		views:{
-			"sectionpage": {
-				url: '/co-sinh',
-				templateUrl: 'views/users/add-paleontological-form.template.html',
-				controller: 'PaleontologicalFormCtrl',
-				access : {
-					sample : "cosinh",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('chinh-sua-dong-vat', {
-		views:{
-			"sectionpage": {
-				url: '/dong-vat/chinh-sua/:id',
-				templateUrl: 'views/users/edit/edit-animal-form.template.html',
-				controller: 'EditAnimalFormCtrl',
-				access : {
-					sample : "dongvat",
-					action : "edit",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('chinh-sua-thuc-vat', {
-		views:{
-			"sectionpage": {
-				url: '/thuc-vat/chinh-sua/:id',
-				templateUrl: 'views/users/edit/edit-vegetable-form.template.html',
-				controller: 'EditVegetableFormCtrl',
-				access : {
-					sample : "thucvat",
-					action : "edit",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('chinh-sua-co-sinh', {
-		views:{
-			"sectionpage": {
-				url: '/co-sinh/chinh-sua/:id',
-				templateUrl: 'views/users/edit/edit-paleontological-form.template.html',
-				controller: 'EditPaleontologicalFormCtrl',
-				access : {
-					sample : "cosinh",
-					action : "edit",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('chinh-sua-tho-nhuong', {
-		views:{
-			"sectionpage": {
-				url: '/tho-nhuong/chinh-sua/:id',
-				templateUrl: 'views/users/edit/edit-land-form.template.html',
-				controller: 'EditLandFormCtrl',
-				access : {
-					sample : "thonhuong",
-					action : "edit",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}
-	})
-	.state('chinh-sua-dia-chat', {
-		views:{
-			"sectionpage": {
-				url: '/dia-chat/chinh-sua/:id',
-				templateUrl: 'views/users/edit/edit-geological-form.template.html',
-				controller: 'EditGeologicalFormCtrl',
-				access : {
-					sample : "diachat",
-					action : "edit",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}		
-	})
-	.state('quan-ly', {
-		views:{
-			"sectionpage": {
-				url: '/quan-ly-mau',
-				templateUrl: 'views/users/manage-post/manage.template.html'
-			}
-		}
-	})
-	.state('quan-ly-dong-vat', {
-		views:{
-			"sectionpage": {
-				url: '/quan-ly-mau/dong-vat',
-				templateUrl: 'views/users/manage-post/manage-post.template.html',
-				controller: 'ManageContentController',
-				access : {
-					sample : "dongvat",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}		
-	})
-	.state('quan-ly-thuc-vat', {
-		views:{
-			"sectionpage": {
-				url: '/quan-ly-mau/thuc-vat',
-				templateUrl: 'views/users/manage-post/manage-post.template.html',
-				controller: 'ManageContentController',
-				// controller: 'VegetableManageController',
-				access : {
-					sample : "thucvat",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}		
-	})
-	.state('quan-ly-tho-nhuong', {
-		views:{
-			"sectionpage": {
-				url: '/quan-ly-mau/tho-nhuong',
-				templateUrl: 'views/users/manage-post/manage-post.template.html',
-				controller: 'ManageContentController',
-				// controller: 'LandManageController',
-				access : {
-					sample : "thonhuong",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}		
-	})
-	.state('quan-ly-dia-chat', {
-		views:{
-			"sectionpage": {
-				url: '/quan-ly-mau/dia-chat',
-				templateUrl: 'views/users/manage-post/manage-post.template.html',
-				controller: 'ManageContentController',
-				// controller: 'GeologicalManageController',
-				access : {
-					sample : "diachat",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}		
-	})
-	.state('quan-ly-co-sinh', {
-		views:{
-			"sectionpage": {
-				url: '/quan-ly-mau/co-sinh',
-				templateUrl: 'views/users/manage-post/manage-post.template.html',
-				controller: 'ManageContentController',
-				// controller: 'PaleontologicalManageController',
-				access : {
-					sample : "cosinh",
-					action : "create",
-					redirectTo: "home",
-					restrict: true
-				}
-			}
-		}		
-	})
-	.state('guest-test', {
-		views:{
-			"sectionpage": {
-				url: '/guest/test',
-				templateUrl: 'views/guest/test.template.html',
-				controller: 'OfflineCtrl'		
-			}
-		}		
-	})
-	.state('leaflet-map', {
-		views:{
-			"sectionpage": {
-				url: '/map',
-				templateUrl : 'views/map/leaflet-map.html',
-				controller: 'LeafletMapController'
-			}
-		}		
-	})
-	.state('error-page', {
-		views:{
-			"sectionpage": {
-				url: '/loi-trang',
-				templateUrl: 'views/errors/error.template.html',
-				controller: 'OfflineCtrl'
-			}
-		}
-	});
-	$urlRouterProvider.otherwise('/');
-});
+<style>
+	footer {
+		/* margin-top: 5px; */
+		background-color: #333;
+		padding: 30px 0;
+		color: white;
+		/* position: absolute; */
+	}
+	.footer-content {
+		display: flex;
+    	justify-content:space-between; 
+	}
+</style>
+<div class="clear"></div>
+<footer>
+	<div class="container">
+		<div class="footer-content">
+			<div class="col-md-4 col-xs-12">
+				<p>Liên hệ: Bảo Tàng Thiên Nhiên Việt Nam</p>
+				<p>Địa chỉ: Số 18 Hoàng Quốc Việt - Cầu Giấy - Hà Nội</p>
+				<p>ĐT: (+84-24) 3756 8328 - Fax: (+84-24) 3756 8328</p>
+				<p>Email: vnmn@vnmn.vast.vn - Facebook: www.facebook.com/baotangthiennhien/</p>
+			</div>
+			<div class="col-md-4 col-xs-12 text-center">
+				<img src="asset/image/logo.png" />
+				<br>
+				<p style="text-transform: uppercase;">Bảo Tàng Thiên Nhiên Việt Nam</p>
+			</div>
+		</div>
+	</div>
+</footer>

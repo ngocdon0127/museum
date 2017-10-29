@@ -240,7 +240,7 @@ a.article, a.article:hover {
     }
 }
 
-/*@media (min-width: 1366px) {
+@media (max-width: 1920px) {
     .table-scroll{
         max-width: 80%;
         overflow: auto;
@@ -259,7 +259,7 @@ a.article, a.article:hover {
     #sidebarCollapse span {
         display: none;
     }
-}*/
+}
 @media (min-width: 768px) and (max-width: 1366px) {
     .table-scroll{
         max-width: 80%;

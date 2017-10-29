@@ -1,372 +1,116 @@
-<style type="text/css">
-    @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
-    @font-face {
-        font-family: 'ecoico';
-        font-weight: normal;
-        font-style: normal;
-    } /* Made with http://icomoon.io/ */
-
-    .cbp_tmtimeline {
-        /*margin: 30px 0 0 0;*/
-        padding: 0;
-        list-style: none;
-        position: relative;
-    } 
-
-    /* The line */
-    .cbp_tmtimeline:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 10px;
-        background:#FFF;
-        left: 20%;
-        margin-left: -10px;
-    }
-
-    /* The date/time */
-    .cbp_tmtimeline > li .cbp_tmtime {
-        display: block;
-        width: 25%;
-        padding-right: 100px;
-        position: absolute;
-    }
-
-    .cbp_tmtimeline > li .cbp_tmtime span {
-        display: block;
-        text-align: right;
-    }
-
-    .cbp_tmtimeline > li .cbp_tmtime span:first-child {
-        font-size: 0.6em;
-        color: #FFF;
-    }
-
-    .cbp_tmtimeline > li .cbp_tmtime span:last-child {
-        font-size: 1.2em;
-        color: #FFF;
-    }
-
-    .cbp_tmtimeline > li:nth-child(odd) .cbp_tmtime span:last-child {
-        color: #FFF;
-    }
-
-    /* Right content */
-    .cbp_tmtimeline > li .cbp_tmlabel {
-        border: 3px solid #FFF;
-        margin: 0 0 15px 25%;
-        color: #333;
-        padding: 2em;
-        font-size: 0.9em;
-        font-weight: 300;
-        line-height: 1.4;
-        position: relative;
-        border-radius:80px;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+86,ededed+100 */
-    background: rgb(255,255,255); /* Old browsers */
-    background: -moz-linear-gradient(left,  rgba(255,255,255,1) 86%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 86%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right,  rgba(255,255,255,1) 86%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=1 ); /* IE6-9 */
-    -webkit-box-shadow: 13px 0px 19px 0px rgba(0,0,0,0.17);
-    -moz-box-shadow: 13px 0px 19px 0px rgba(0,0,0,0.17);
-    box-shadow: 13px 0px 19px 0px rgba(0,0,0,0.17);
-    }
-
-    .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel {
-        background: #6cbfee;
-    }
-
-    .cbp_tmtimeline > li .cbp_tmlabel h2 { 
-        margin-top: 0px;
-        padding: 0 0 10px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.4);
-    }
-
-    .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after {
-        border-right-color: #6cbfee;
-    }
-
-    /* The icons */
-    .cbp_tmtimeline > li .cbp_tmicon {
-        width: 40px;
-        height: 40px;
-        font-family: 'ecoico';
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        font-size: 1.0em;
-        line-height: 40px;
-        -webkit-font-smoothing: antialiased;
-        position:relative;
-        color: #fff;
-        background: #46a4da;
-        border-radius: 50%;
-        box-shadow: 0 0 0 8px #FFF;
-        text-align: center;
-        left: 20%;
-        top: 0;
-        margin: 0 0 0 -25px;
-    }
-
-    /* Example Media Queries */
-    @media screen and (max-width: 65.375em) {
-
-        .cbp_tmtimeline > li .cbp_tmtime span:last-child {
-            font-size: 1.1em;
-        }
-    }
-
-    @media screen and (max-width: 47.2em) {
-        .cbp_tmtimeline:before {
-            display: none;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmtime {
-            width: 100%;
-            position: relative;
-            padding: 0 0 20px 0;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmtime span {
-            text-align: left;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmlabel {
-            margin: 0 0 30px 0;
-            padding: 1em;
-            font-weight: 400;
-            font-size: 90%;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmlabel:after {
-            right: auto;
-            left: 20px;
-            border-right-color: transparent;
-            border-bottom-color: #3594cb;
-            top: -20px;
-        }
-
-        .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after {
-            border-right-color: transparent;
-            border-bottom-color: #6cbfee;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmicon {
-            position: relative;
-            float: right;
-            left: auto;
-            margin: -55px 5px 0 0px;
-        }   
-    }
-
-    /* General Blueprint Style */
-    @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
-    @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-    @font-face {
-        font-family: 'fontawesome';
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-    body, html { font-size: 100%; padding: 0; margin: 0;
-    background-image:url("asset/image/blurred-background.jpg");
-    background-attachment:fixed;
-    background-size:cover;
-    }
-
-    /* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
-    .clearfix:before, .clearfix:after { content: " "; display: table; }
-    .clearfix:after { clear: both; }
-
-    body {
-        font-family: 'Roboto', sans-serif;
-        color: #47a3da;
-    }
-
-    a {
-        color: #f0f0f0;
-        text-decoration: none;
-    }
-
-    a:hover {
-        color: #000;
-    }
-
-    .main,
-    .container > header {
-        width: 95%;
-        max-width: 69em;
-        margin: 0 auto;
-        padding: 0 1.875em 3.125em;
-    }
-
-    .container > header {
-        padding: 3.875em 1.875em 1.875em;
-        text-align: center;
-    }
-
-    .container > header h1 {
-        font-size: 1.8em;
-        line-height: 1.3;
-        margin: 0;
-        /*float: left;*/
-        font-weight: 400;
-        color: #FFF;
-    }
-
-    .container > header span {
-        display: block;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5em;
-        padding: 0 0 0.6em 0.1em;
-    }
-
-    .container > header nav {
-        float: right;
-    }
-
-    .container > header nav a {
-        display: block;
-        float: left;
-        position: relative;
-        width: 2.5em;
-        height: 2.5em;
-        background: #fff;
-        border-radius: 50%;
-        color: transparent;
-        margin: 0 0.1em;
-        border: 4px solid #47a3da;
-        text-indent: -8000px;
-    }
-
-    .container > header nav a:after {
-        content: attr(data-info);
-        color: #47a3da;
-        position: absolute;
-        width: 600%;
-        top: 120%;
-        text-align: right;
-        right: 0;
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    .container > header nav a:hover:after {
-        opacity: 1;
-    }
-
-    .container > header nav a:hover {
-        background: #47a3da;
-    }
-
-    .icon-drop:before, 
-    .icon-arrow-left:before {
-        font-family: 'fontawesome';
-        position: absolute;
-        top: 0;
+<style>
+    #header {
         width: 100%;
-        height: 100%;
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        line-height: 2;
+        /* background-color: gray; */
+        background-image: url("asset/image/header-background.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: white;
+    }
+
+    .img {
+        width: 100%;
+        height: 180px !important;
+    }
+
+    .caption {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .tem-file{
+        /*padding: 30px;*/
+        max-width: 130px;
         text-align: center;
-        color: #47a3da;
-        -webkit-font-smoothing: antialiased;
-        text-indent: 8000px;
-        padding-left: 8px;
     }
-
-    .container > header nav a:hover:before {
-        color: #fff;
-    }
-
-    .icon-drop:before {
-        content: "\e000";
-    }
-
-    .icon-arrow-left:before {
-        content: "\f060";
+    p{
+        /*text-indent: 40px;*/
+        text-align: justify;
     }
 </style>
-    <head>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script> -->
-        <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
-    </head>
-    <body>
-        <div class="container">
-            <header class="clearfix">
-                <center><h1>Bảo tàng thiên nhiên Việt Nam</h1></center>
-            </header>   
-            <div class="main">
-                <ul class="cbp_tmtimeline">
-                    <li>
-                        <time class="cbp_tmtime" datetime="2017-02-10"><span>Giới thiệu</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-phone"><img src="asset/image/lanyon-logo.png" class="img-responsive" width="40px"></div>
-                        <div class="cbp_tmlabel">
-                            <h2>Tổng quan</h2>
-                            <p>Bảo tàng Thiên nhiên Việt Nam được thành lập theo Nghị định 27/NĐ-CP, ngày 16/01/2004 (nay là Nghị định 108/NĐ-CP ngày 25/12/2012) của Chính phủ. Chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bảo tàng được quy định tại Quyết định số 305/QĐ-KHCNVN, ngày 10/03/2006 (nay là Quyết định số 1738/QĐ-VHL ngày 09/8/2017) của Chủ tịch Viện Hàn lâm Khoa học và Công nghệ Việt Nam.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <time class="cbp_tmtime" datetime="2017-07-08"><span>Tài liệu</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-screen"><img src="asset/image/lanyon-logo.png" class="img-responsive" width="40px"></div>
-                        <div class="cbp_tmlabel">
-                            <h3>Phần mềm được xây dựng và thiết kế theo chuẩn MVC dựa trên Nodejs phía server và Angularjs phía client</h3>
-                            <center><h3 style="margin-top: 0;color:#55518a"><a href="asset/document/Huong-dan-nhap-lieu.pdf" download="Huong-dan-nhap-lieu.pdf"><button type="button" class="btn btn-success">Tải xuống</button></a></h3></center>
-                        </div>
-                    </li>
-                    <li>
-                        <time class="cbp_tmtime" datetime="2017-07-08"><span>Templates</span></time>
-                        <div class="cbp_tmicon cbp_tmicon-mail"><img src="asset/image/lanyon-logo.png" class="img-responsive" width="40px"></div>
-                        <div class="cbp_tmlabel">
-                            <h2>Mẫu file nhập liệu từ excel</h2>
-                            <div class="row text-center">
-                                <div class="col-sm-2 tem-file">
-                                    <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu cổ sinh">
-                                    <div class="tem-file-title">
-                                        <p>Mẫu cổ sinh</p>
-                                        <a href="asset/template/pal.xlsx" download="template-co-sinh.xlsx">Tải xuống</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 tem-file">
-                                    <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu địa chất">
-                                    <div class="tem-file-title">
-                                        <p>Mẫu địa chất</p>
-                                        <a href="asset/template/geo.xlsx" download="template-dia-chat.xlsx">Tải xuống</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 tem-file">
-                                    <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu động vật">
-                                    <div class="tem-file-title">
-                                        <p>Mẫu động vật</p>
-                                        <a href="asset/template/ani.xlsx" download="template-dong-vat.xlsx">Tải xuống</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 tem-file">
-                                    <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu thổ nhưỡng">
-                                    <div class="tem-file-title">
-                                        <p>Mẫu thổ nhưỡng</p>
-                                        <a href="asset/template/soil.xlsx" download="template-tho-nhuong.xlsx">Tải xuống</a>
-                                    </div>
-                                </div>
-                                 <div class="col-sm-2 tem-file">
-                                    <img src="asset/image/xlsx.png" class="img-responsive" style="width:100%" alt="Mẫu thực vật">
-                                    <div class="tem-file-title">
-                                        <p>Mẫu thực vật</p>
-                                        <a href="asset/template/veg.xlsx" download="template-thuc-vat.xlsx">Tải xuống</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+
+<div id="header" class="jumbotron">
+    <div class="container">
+        <h2>Bộ Sưu Tập Mẫu Vật Quốc Gia</h2>
+         <h3>Về Thiên Nhiên Việt Nam</h3>
+    </div>
+</div>
+<div class="container col-sm-8 col-sm-offset-2 col-xs-12 col-md-6 col-md-offset-3">
+    <center><h3>Giới thiệu</h3></center>
+    <div>
+        <p style="text-indent: 40px;">Bảo tàng Thiên nhiên Việt Nam được thành lập theo Nghị định 27/NĐ-CP, ngày 16/01/2004 (nay là Nghị định 60/2017/NĐ-CP ngày 15/5/2017) của Chính phủ. Chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bảo tàng được quy định tại Quyết định số 305/QĐ-KHCNVN, ngày 10/03/2006 (nay là Quyết định số 1738/QĐ-VHL ngày 09/8/2017) của Chủ tịch Viện Hàn lâm Khoa học và Công nghệ Việt Nam.</p>
+        <img src="asset/image/MG_7665.jpg" class="img-responsive" alt="Image" style="width:100%">
+
+        <p style="text-indent: 40px;" style="margin: 15px 0px;">Trong những năm qua, tuy còn rất nhiều khó khăn, nhưng được sự quan tâm của Đảng, Nhà nước, Viện Hàn lâm Khoa học và Công nghệ Việt Nam và sự giúp đỡ của các bộ, ngành, địa phương, cơ quan, bảo tàng, tập thể và các cá nhân trong và ngoài nước, Bảo tàng Thiên nhiên Việt Nam đã từng bước phát triển và đạt được nhiều thành tích trong nghiên cứu, sưu tầm, bảo quản và chế tác, thiết kế và trưng bày các mẫu vật về thiên nhiên Việt Nam.</p>
+    </div>
+    <div>
+        <h4>Giám đốc Bảo tàng Thiên nhiên Việt Nam được bổ nhiệm trong các giai đoạn:</h4>
+        <ul class="list-group">
+            <li style="text-indent: 50px;" class="list-group-item">+ Từ 2006-8/2012 là PGS.TS. Phạm Văn Lực.</li>
+            <li style="text-indent: 50px;" class="list-group-item">+ Từ 8/2012 đến hết tháng 5/2014 là GS.TSKH Nguyễn Đình Công</li>
+        </ul>
+        <h4>Ban lãnh đạo Bảo tàng hiện nay gồm:</h4>
+        <ul class="list-group">
+            <li style="text-indent: 50px;" class="list-group-item">+Tổng Giám đốc: PGS.TS Nguyễn Trung Minh</li>
+            <li style="text-indent: 50px;" class="list-group-item">
+                + Các Phó Tổng Giám đốc:PGS.TS. Vũ Văn Liên, TS. Phan Kế Long
+            </li>
+        </ul>
+        <h4>Chủ tịch Hội đồng Khoa học: </h4>
+    </div>
+    <div>
+        <p style="text-indent: 40px;">Bảo tàng Thiên nhiên Việt Nam có 64 cán bộ gồm: 05 phó giáo sư, 16 tiến sĩ, 22 thạc sĩ,  24 cử nhân và kỹ sư, 2 kỹ thuật viên và nhân viên.</p>
+
+        <p style="text-indent: 40px;">Bảo tàng còn có đội ngũ cộng tác viên với hơn 150 người là các nhà khoa học, quản lý ở các viện nghiên cứu, trường đại học, các cơ quan bộ, ngành trong cả nước.</p>
+    </div>
+    <div style="margin-bottom: 50px;">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <center><h3>Tài liệu</h3></center>
+            
+        </div>
+        <div class="panel-body">
+            <div class="row text-center">
+                <h4>Mẫu file nhập liệu từ excel</h4>
+                <div class="col-sm-2 col-xs-3 tem-file">
+                    <img src="asset/image/xlsx.png" class="img-responsive img-thumbnail" style="width:100%" alt="Mẫu cổ sinh">
+                    <div class="tem-file-title">
+                        <p>Cổ sinh</p>
+                        <a href="asset/template/pal.xlsx" download="template-co-sinh.xlsx">Tải xuống</a>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-3 tem-file">
+                    <img src="asset/image/xlsx.png" class="img-responsive img-thumbnail" style="width:100%" alt="Mẫu địa chất">
+                    <div class="tem-file-title">
+                        <p>Địa chất</p>
+                        <a href="asset/template/geo.xlsx" download="template-dia-chat.xlsx">Tải xuống</a>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-3 tem-file">
+                    <img src="asset/image/xlsx.png" class="img-responsive img-thumbnail" style="width:100%" alt="Mẫu động vật">
+                    <div class="tem-file-title">
+                        <p>Động vật</p>
+                        <a href="asset/template/ani.xlsx" download="template-dong-vat.xlsx">Tải xuống</a>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-3 tem-file">
+                    <img src="asset/image/xlsx.png" class="img-responsive img-thumbnail" style="width:100%" alt="Mẫu thổ nhưỡng">
+                    <div class="tem-file-title">
+                        <p>Thổ nhưỡng</p>
+                        <a href="asset/template/soil.xlsx" download="template-tho-nhuong.xlsx">Tải xuống</a>
+                    </div>
+                </div>
+                 <div class="col-sm-2 col-xs-3 tem-file">
+                    <img src="asset/image/xlsx.png" class="img-responsive img-thumbnail" style="width:100%" alt="Mẫu thực vật">
+                    <div class="tem-file-title">
+                        <p>Thực vật</p>
+                        <a href="asset/template/veg.xlsx" download="template-thuc-vat.xlsx">Tải xuống</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center" style="margin-top: 15px;">
+                <h3 class="panel-title">Phần mềm được xây dựng và thiết kế theo chuẩn MVC dựa trên Nodejs phía server và Angularjs phía client. Hướng dẫn sử dụng có thể xem <center><a href="asset/document/Huong-dan-nhap-lieu.pdf" download="Huong-dan-nhap-lieu.pdf">tại đây</a></center></h3>
             </div>
         </div>
-    </body>
+    </div>
+</div>

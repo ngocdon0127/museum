@@ -1,7 +1,7 @@
 app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal){
 	return ({
-		// hostName: 'http://localhost:8000',
-		hostName: 'https://baotangvn.online',
+		hostName: 'http://localhost:8000',
+		// hostName: 'https://baotangvn.online',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,
@@ -286,7 +286,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				cfpLoadingBar.complete();
 				cfpLoadingBar.set(0);
 				stopSpinner();
-				console.log(err);
+				// console.log(err);
 				var id = JSON.parse(err.responseText).field;
 				var x = document.getElementById(id);
 				if (x) {
@@ -357,13 +357,14 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			headers: {'Content-Type': 'application/json'},
 			data: {id: id}
 		}).then(function (res) {
+			console.log(res);
 			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
 				controller: "ModalInstanceCtrl",
 				controllerAs: '$ctrl',
 				resolve: {
 					msg: function () {
-						return "Xóa thành công";
+						return res.data.status == "success" ? "Xóa thành công" : res.data.error;
 					},
 					id: function () {
 						return "";
@@ -373,7 +374,19 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 			$state.reload();
 		}, function (err) {
-			// console.log(err);
+			var modalInstance = $uibModal.open({
+				templateUrl: 'views/modals/dialogs.blade.html',
+				controller: "ModalInstanceCtrl",
+				controllerAs: '$ctrl',
+				resolve: {
+					msg: function () {
+						return "Xóa mẫu vật không thành công";
+					},
+					id: function () {
+						return "";
+					}
+				}
+			});
 		});
 	}
 

@@ -309,6 +309,7 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
 
 router.get('/search', (req, res) => {
   async(() => {
+    let hasTextQuery = req.query.q && req.query.q.trim();
     let MAX_RESULTS = 20;
     let models = [
       {modelName: 'co-sinh', modelTitle: 'Cổ sinh'},
@@ -368,15 +369,16 @@ router.get('/search', (req, res) => {
       }))
       let selection = {deleted_at: {$eq: null}};
       // Default. User chỉ có thể xem những phiếu do chính mình tạo
-      selection['owner.userId'] = req.user._id;
+      // selection['owner.userId'] = req.user._id;  => cái này là kiểu ObjectId, không phải String.
+      selection['owner.userId'] = req.session.userId; // => cái này mới là String. dcm, WASTED 1 HOUR HERE
 
       if (userRoles.indexOf('manager') >= 0){
         // Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
         delete selection['owner.userId'];
         selection['maDeTai.maDeTai'] = req.user.maDeTai;
       }
-
       if (userRoles.indexOf('admin') >= 0){
+
         // Admin, Xem tất
         delete selection['owner.userId']; // Xóa cả cái này nữa. Vì có thể có admin ko có manager role. :))
         delete selection['maDeTai.maDeTai'];
@@ -415,7 +417,7 @@ router.get('/search', (req, res) => {
                   let m = {};
                   m[`${prop.schemaProp}.${p}`] = {$ne: null};
                   dateMatch.push({$match: m});
-                  let af = {score: {$meta: 'textScore'}};
+                  let af = {score: hasTextQuery ? {$meta: 'textScore'} : 1};
                   af[`${p}_year`] = {$year: `$${prop.schemaProp}.${p}`};
                   dateMatch.push({$addFields: af})
                   let mY = {};
@@ -434,7 +436,7 @@ router.get('/search', (req, res) => {
         }
       }
       aggArr = aggArr.concat(dateMatch)
-      if (req.query.q && req.query.q.trim()) {
+      if (hasTextQuery) {
         selection['$text'] = {
           '$search': req.query.q
         }
@@ -450,7 +452,7 @@ router.get('/search', (req, res) => {
       }
       // console.log(selection);
       let ObjectModel = bundle.ObjectModel;
-      if (req.query.q && req.query.q.trim()) {
+      if (hasTextQuery) {
         aggArr.push({$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}})
       } else {
         // Tất cả các mẫu đều đưọc đánh 1 điểm

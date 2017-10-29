@@ -76,7 +76,7 @@ var getAllHandler = function (options) {
 				})
 			}))
 			// Default. User chỉ có thể xem những phiếu do chính mình tạo
-			selection['owner.userId'] = req.user._id;
+			selection['owner.userId'] = req.session.userId;
 
 			if (userRoles.indexOf('manager') >= 0){
 				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
@@ -247,7 +247,7 @@ var searchHandler = function (options) {
 				})
 			}))
 			// Default. User chỉ có thể xem những phiếu do chính mình tạo
-			selection['owner.userId'] = req.user._id;
+			selection['owner.userId'] = req.session.userId;
 
 			if (userRoles.indexOf('manager') >= 0){
 				// Chủ nhiệm đề tài có thể xem tất cả mẫu dữ liệu trong cùng đề tài
@@ -565,7 +565,7 @@ var duplicateHandler = function (options) {
 					newInstance.created_at = new Date();
 					delete newInstance.updated_at;
 					newInstance.created_by = {
-						userId: req.user._id,
+						userId: req.session.userId,
 						userFullName: req.user.fullname
 					}
 					delete newInstance.updated_by

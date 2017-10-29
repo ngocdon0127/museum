@@ -16,6 +16,83 @@ var aclMiddleware = global.myCustomVars.aclMiddleware;
 
 router.use(isLoggedIn);
 
+var actions = {
+	'create': {
+		label: 'Tạo mới'
+	},
+	'update': {
+		label: 'Cập nhật'
+	},
+	'delete': {
+		label: 'Xóa'
+	},
+	'approve': {
+		label: 'Phê duyệt'
+	},
+	'disapprove': {
+		label: 'Hủy phê duyệt'
+	},
+	'assign': {
+		label: 'Assign'
+	},
+	'fire': {
+		label: 'Fire'
+	},
+	'grant-manager': {
+		label: 'Grant Manager'
+	},
+	'revoke-manager': {
+		label: 'Revoke Manager'
+	},
+	'add-mdt': {
+		label: 'Thêm đề tài'
+	},
+	'chown': {
+		label: 'Chuyển sở hữu'
+	},
+	'duplicate': {
+		label: 'Duplicate'
+	}
+}
+
+var forms = {
+	'animal': {
+		basePath: '/content/dong-vat',
+		objectModelLabel: 'mẫu động vật',
+		objectModelName: 'animal',
+	},
+	'soil': {
+		basePath: '/content/tho-nhuong',
+		objectModelLabel: 'mẫu thổ nhưỡng',
+		objectModelName: 'soil',
+	},
+	'geological': {
+		basePath: '/content/dia-chat',
+		objectModelLabel: 'mẫu địa chất',
+		objectModelName: 'geological',
+	},
+	'paleontological': {
+		basePath: '/content/co-sinh',
+		objectModelLabel: 'mẫu cổ sinh',
+		objectModelName: 'paleontological'
+	},
+	'vegetable': {
+		basePath: '/content/thuc-vat',
+		objectModelLabel: 'mẫu thực vật',
+		objectModelName: 'vegetable',
+	},
+	'user': {
+		basePath: '/content/thuc-vat',
+		objectModelLabel: 'tài khoản',
+		objectModelName: 'user',
+	},
+	'detai': {
+		basePath: '/content/thuc-vat',
+		objectModelLabel: 'đề tài',
+		objectModelName: 'detai',
+	}
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	// 1 user chỉ được xem lịch sử của các mẫu vật do chính user đó tạo ra.
@@ -59,75 +136,6 @@ router.get('/', function(req, res, next) {
 		// 	path: '/log' + req.path,
 		// })
 		// return res.render('log', {user: req.user, logs: logs, path: '/log' + req.path});
-		var actions = {
-			'create': {
-				label: 'Tạo mới'
-			},
-			'update': {
-				label: 'Cập nhật'
-			},
-			'delete': {
-				label: 'Xóa'
-			},
-			'approve': {
-				label: 'Phê duyệt'
-			},
-			'disapprove': {
-				label: 'Hủy phê duyệt'
-			},
-			'assign': {
-				label: 'Assign'
-			},
-			'fire': {
-				label: 'Fire'
-			},
-			'grant-manager': {
-				label: 'Grant Manager'
-			},
-			'revoke-manager': {
-				label: 'Revoke Manager'
-			},
-			'add-mdt': {
-				label: 'Thêm đề tài'
-			}
-		}
-		var forms = {
-			'animal': {
-				basePath: '/content/dong-vat',
-				objectModelLabel: 'mẫu động vật',
-				objectModelName: 'animal',
-			},
-			'soil': {
-				basePath: '/content/tho-nhuong',
-				objectModelLabel: 'mẫu thổ nhưỡng',
-				objectModelName: 'soil',
-			},
-			'geological': {
-				basePath: '/content/dia-chat',
-				objectModelLabel: 'mẫu địa chất',
-				objectModelName: 'geological',
-			},
-			'paleontological': {
-				basePath: '/content/co-sinh',
-				objectModelLabel: 'mẫu cổ sinh',
-				objectModelName: 'paleontological'
-			},
-			'vegetable': {
-				basePath: '/content/thuc-vat',
-				objectModelLabel: 'mẫu thực vật',
-				objectModelName: 'vegetable',
-			},
-			'user': {
-				basePath: '/content/thuc-vat',
-				objectModelLabel: 'tài khoản',
-				objectModelName: 'user',
-			},
-			'detai': {
-				basePath: '/content/thuc-vat',
-				objectModelLabel: 'đề tài',
-				objectModelName: 'detai',
-			}
-		}
 		async(() => {
 			let user = await(PROMISES.getUser(req.session.userId)).userNormal;
 			var result = {
@@ -205,81 +213,6 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 			// 	status: 'success',
 			// 	logs: logs
 			// })
-			var actions = {
-				'create': {
-					label: 'Tạo mới'
-				},
-				'update': {
-					label: 'Cập nhật'
-				},
-				'delete': {
-					label: 'Xóa'
-				},
-				'approve': {
-					label: 'Phê duyệt'
-				},
-				'disapprove': {
-					label: 'Hủy phê duyệt'
-				},
-				'assign': {
-					label: 'Assign'
-				},
-				'fire': {
-					label: 'Fire'
-				},
-				'grant-manager': {
-					label: 'Grant Manager'
-				},
-				'revoke-manager': {
-					label: 'Revoke Manager'
-				},
-				'add-mdt': {
-					label: 'Thêm đề tài'
-				},
-				'chown': {
-					label: 'Chuyển sở hữu'
-				},
-				'duplicate': {
-					label: 'Duplicate'
-				}
-			}
-			var forms = {
-				'animal': {
-					basePath: '/content/dong-vat',
-					objectModelLabel: 'mẫu động vật',
-					objectModelName: 'animal',
-				},
-				'soil': {
-					basePath: '/content/tho-nhuong',
-					objectModelLabel: 'mẫu thổ nhưỡng',
-					objectModelName: 'soil',
-				},
-				'geological': {
-					basePath: '/content/dia-chat',
-					objectModelLabel: 'mẫu địa chất',
-					objectModelName: 'geological',
-				},
-				'paleontological': {
-					basePath: '/content/co-sinh',
-					objectModelLabel: 'mẫu cổ sinh',
-					objectModelName: 'paleontological'
-				},
-				'vegetable': {
-					basePath: '/content/thuc-vat',
-					objectModelLabel: 'mẫu thực vật',
-					objectModelName: 'vegetable',
-				},
-				'user': {
-					basePath: '/content/thuc-vat',
-					objectModelLabel: 'tài khoản',
-					objectModelName: 'user',
-				},
-				'detai': {
-					basePath: '/content/thuc-vat',
-					objectModelLabel: 'đề tài',
-					objectModelName: 'detai',
-				}
-			}
 			var result = {
 				user: user,
 				logs: logs,

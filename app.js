@@ -79,27 +79,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-const qt = require('quickthumb');
-app.get('/uploads/*', isLoggedIn); // Protect files in /public/uploads
-function isLoggedIn (req, res, next) {
-  if (!req.isAuthenticated()){
-    return res.redirect('/auth/login');
-  }
-  return next();
-}
-app.use(qt.static(path.join(__dirname, 'public'), {type: 'resize'})); // other files in /public, serve static
-// app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-// cross origin
-// app.use(function (req, res, next) {
-//  res.header('Access-Control-Allow-Origin', "*");
-//  res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
-//  // res.header('Access-Control-Allow-Credentials', true);
-//  next();
-// });
-// 
+app.use('/uploads', require('./routes/img-reducer')); // protect files in /public/uploads
+app.use(express.static(path.join(__dirname, 'public'))); // other files in /public, serve static
 
 var routes = require('./routes/index');
 

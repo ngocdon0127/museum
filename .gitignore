@@ -13,3 +13,4 @@ deploygit.bat
 data.json
 npm-debug.log.*
 out.html
+.qtcache

@@ -14,8 +14,9 @@ const reducedStatic = qt.static(path.join(ROOT, 'public/uploads'), {type: 'resiz
 router.use('/', isLoggedIn);
 
 router.get('/*', (req, res, next) => {
-  if (fsE.existsSync(path.join(ROOT, 'public/uploads', req.path))) {
-    if (mediaType(extension(req.path)) == 'image') {
+  let fn = decodeURIComponent(req.path);
+  if (fsE.existsSync(path.join(ROOT, 'public/uploads', fn))) {
+    if (mediaType(extension(fn)) == 'image') {
       if (!req.query.dim) {
         return res.redirect('/uploads' + req.path + '?dim=300')
       }

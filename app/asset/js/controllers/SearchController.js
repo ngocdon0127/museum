@@ -4,7 +4,7 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
     $scope.data = [];
     $scope.searchContent = {};
 
-    $http.get(url + "?q='123'").then(function (res) {
+    $http.get(url).then(function (res) {
         $scope.data = res.data.matchedSamples;
         // console.log($scope.data);
         $scope.searchResult = $scope.data.length + " kết quả";

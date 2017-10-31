@@ -9,13 +9,21 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
       prefix: '/app/asset/lang/',
       suffix: '.json'
     });
+    // $translateProvider.useSanitizeValueStrategy('sanitize');
     $translateProvider.useLocalStorage();
     $translateProvider.preferredLanguage('vi');
+    //prevent xss
+    $translateProvider.useSanitizeValueStrategy('escape');
 
 	$stateProvider
+	.state('document', {
+		url: '/tai-lieu',
+		templateUrl: 'views/templates/document.template.html'
+	})
 	.state('home', {
 		url: '/',
-		templateUrl: 'views/users/home.template.html'
+		templateUrl: 'views/templates/home.template.html',
+		controller : 'HomeController'
 	})
 	.state('them-dong-vat', {
 		url: '/dong-vat',

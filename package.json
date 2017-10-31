@@ -42,6 +42,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "quickthumb": "0.0.12",
     "randomstring": "*",
     "request": "~2.81.0",
     "request-promise": "^4.2.0",

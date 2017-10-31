@@ -70,28 +70,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-	name: require('./config/config').app.sessionCookieName,
-	secret: "SecretKeyMy",
-	resave: true,
-	saveUninitialized: true,
-	store: new MongoStore({mongooseConnection: mongoose.connection})
+  name: require('./config/config').app.sessionCookieName,
+  secret: "SecretKeyMy",
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-
-
-// cross origin
-// app.use(function (req, res, next) {
-// 	res.header('Access-Control-Allow-Origin', "*");
-// 	res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
-// 	// res.header('Access-Control-Allow-Credentials', true);
-// 	next();
-// });
-// 
+app.use('/uploads', require('./routes/img-reducer')); // protect files in /public/uploads
+app.use(express.static(path.join(__dirname, 'public'))); // other files in /public, serve static
 
 var routes = require('./routes/index');
 
@@ -99,13 +90,13 @@ let timeCookie = 3 * 86400 * 1000; // 3 days
 app.use('/app', angular);
 
 app.use(function (req, res, next) { // Để đây thì khi client request static files, hàm này sẽ không cần chạy.
-	console.log(req.headers['user-agent']);
-	if ('user' in req){
-		console.log(req.user);
-		console.log(req.session);
-		res.cookie('username', req.user.username, {maxAge: timeCookie, httpOnly: true});
-	}
-	next();
+  console.log(req.headers['user-agent']);
+  if ('user' in req){
+    console.log(req.user);
+    console.log(req.session);
+    res.cookie('username', req.user.username, {maxAge: timeCookie, httpOnly: true});
+  }
+  next();
 })
 
 app.use('/', routes);
@@ -120,9 +111,9 @@ app.use('/map', map);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handlers
@@ -130,23 +121,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === require('./config/config').environment.env) {
-	app.use(function(err, req, res, next) {
-		res.status(err.status || 500);
-		res.render('error', {
-			message: err.message,
-			error: err
-		});
-	});
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-	res.status(err.status || 500);
-	res.render('error', {
-		message: err.message,
-		error: {}
-	});
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
 });
 
 

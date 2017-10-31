@@ -1,3 +1,181 @@
+var error_fields = [
+    [
+        "soHieuBTTNVN",
+        "soHieuBaoTangCS",
+        "soHieuThucDia",
+        "kyHieuMauVatKhac",
+        "thongTinKhac1Str",
+        "thongTinKhac1File"
+    ],
+    [
+        "tenDongNghia",
+        "gioi",
+        "nganh",
+        "lop",
+        "phanLop",
+        "bo",
+        "phanBo",
+        "lienHo",
+        "ho",
+        "phanHo",
+        "toc",
+        "tong",
+        "chiGiong",
+        "phanChiPhanGiong",
+        "loai",
+        "duoiLoai",
+        "nguoiDinhTen",
+        "ngayDinhTen",
+        "tenVietNam",
+        "tenDiaPhuong",
+        "tenTiengAnh",
+        "tenTheoQuocTe",
+        "tenTheoBaoTang",
+        "thongTinKhac2Str",
+        "thongTinKhac2File"
+    ],
+    [
+        "soLuongTieuBan",
+        "loaiMauVat",
+        "chieuDai",
+        "donVi_chieuDai",
+        "chieuRong",
+        "donVi_chieuRong",
+        "chieuCao",
+        "donVi_chieuCao",
+        "theTich",
+        "donVi_theTich",
+        "trongLuong",
+        "donVi_trongLuong",
+        "tinhTrangMau",
+        "thongTinKhac3Str",
+        "thongTinKhac3File"
+    ],
+    [
+        "thoiGianThuMau",
+        "nguoiThuMau",
+        "coQuanThuMau",
+        "phuongPhapThuMau",
+        "quocGia",
+        "tinh",
+        "tinhKhac",
+        "huyen",
+        "xa",
+        "thon",
+        "viDo",
+        "kinhDo",
+        "mauChatOViTriThuMau",
+        "doCao",
+        "doSau",
+        "doDocNoiThuMau",
+        "mucNuocNgamNoiThuMau",
+        "khaNangThoatNuoc",
+        "thoiTietKhiThuMau",
+        "dangDiaHinhNoiThuMau",
+        "thamThucVatNoiThuMau",
+        "vungBien",
+        "sinhHoc",
+        "thongTinDuAn",
+        "ghiChepThucDia",
+        "banDo",
+        "thongTinKhac4Str",
+        "thongTinKhac4File"
+    ],
+    [
+        "ngayPhanTichMauDat",
+        "hoSoPhanTichMauDat",
+        "ketQuaPhanTich",
+        "thoiGianGiamDinh",
+        "nguoiGiamDinh",
+        "coQuanToChucGiamDinh",
+        "taiLieuPhanTichStr",
+        "taiLieuPhanTichFile",
+        "moTaHinhThaiStr",
+        "moTaHinhThaiFile",
+        "phanTichQuangHocStr",
+        "phanTichQuangHocFile",
+        "ketQuaThanhPhanVatChat",
+        "ketQuaPhanTichDinhTuoi",
+        "dacDiemViCauTruc",
+        "dacDiemLatMong",
+        "phanTichKhac",
+        "dacDiemDiaChat",
+        "loaiHinhNguonGoc",
+        "gioiTinh",
+        "giaiDoanSong",
+        "hinhVe",
+        "thongTinKhac5Str",
+        "thongTinKhac5File"
+    ],
+    [
+        "anhMauVat",
+        "hinhAnhNgoaiThucDia",
+        "videoStr",
+        "videoFile",
+        "hinhAnhDinhKem",
+        "dinhKemXuLyCheTac",
+        "thuocTinhXuLyCheTac",
+        "phuongThucXuLy",
+        "thoiGianXuLy",
+        "nguoiXuLy",
+        "coQuanXuLy",
+        "viTriLayMauDNA",
+        "mauDNA",
+        "thongTinMauHatPhan",
+        "anhMauSauCheTac",
+        "taiLieuDiKem",
+        "boPhanLayMauDNA",
+        "trangThaiGiuMauDNA",
+        "vungGenPhanTich",
+        "dinhKemTrinhTuDNA",
+        "congBoQuocTe",
+        "thongTinKhac6Str",
+        "thongTinKhac6File"
+    ],
+    [
+        "loaiMau",
+        "hinhDangMauTonTai",
+        "mauSac",
+        "phanLoaiSuDungMau",
+        "thanhPhanKhoangVat",
+        "tinhChatVatLy",
+        "congThucHoaHocStr",
+        "congThucHoaHocFile",
+        "thanhPhanHoaHoc",
+        "phanBoVietNamStr",
+        "phanBoVietNamFile",
+        "phanBoTrenTheGioiStr",
+        "phanBoTrenTheGioiFile",
+        "giaTriSuDung",
+        "thongTinKhac7Str",
+        "thongTinKhac7File"
+    ],
+    [
+        "ngayNhapMau",
+        "nguoiGiao",
+        "nguoiNhan",
+        "coQuanNhapVatMau",
+        "hinhThucNhapMau",
+        "traoDoiMau",
+        "vayMuon",
+        "noiLuuTruMau",
+        "phong",
+        "tuGia",
+        "ngan",
+        "hop",
+        "giayPhepNhapMau",
+        "hoSoNhapMauVatDiKem",
+        "nguoiLapPhieuMauVat",
+        "nguoiNhapVaoPhanMem",
+        "thongTinKhac8Str",
+        "thongTinKhac8File"
+    ],
+    [
+        "thongTinKhac9Str",
+        "thongTinKhac9File"
+    ]
+]
+
 async function sheetToJson(workbook, urlFields, urlDates, row) {
     // create a Form data to put data
     var result = {};
@@ -211,7 +389,15 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe).then(function success(data) {
             console.log(data);
         }, function error(err) {
-            console.log(err);
+            // console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    // console.log(i);
+                    // console.log($scope.tab);
+                    break;
+                }
+            }
         });
         // } else{
         // 	angular.element("[name='" + FormContent.$name + "']").find('.ng-invalid:visible:first').focus();
@@ -243,7 +429,7 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
 
 
     $scope.tab = 1;
-
+    
     $scope.setTab = function (newTab) {
         $scope.tab = newTab;
     };
@@ -302,7 +488,19 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     $scope.addPost = function (FormContent) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
-        AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
+        AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe).then(function success(data) {
+            console.log(data);
+        }, function error(err) {
+            // console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    // console.log(i);
+                    // console.log($scope.tab);
+                    break;
+                }
+            }
+        });;
     }
 
     saveData = $interval(function () {
@@ -389,7 +587,19 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
     $scope.addPost = function (FormContent) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
-        AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe);
+        AuthService.addSample(fd, AuthService.hostName + '/content/dia-chat', urlRe).then(function success(data) {
+            console.log(data);
+        }, function error(err) {
+            // console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    // console.log(i);
+                    // console.log($scope.tab);
+                    break;
+                }
+            }
+        });;
     }
 
     $scope.saveCookies = function () {
@@ -471,7 +681,19 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, 
     $scope.addPost = function (FormContent) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
-        AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
+        AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe).then(function success(data) {
+            console.log(data);
+        }, function error(err) {
+            // console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    // console.log(i);
+                    // console.log($scope.tab);
+                    break;
+                }
+            }
+        });;
     }
 
     saveData = $interval(function () {
@@ -556,7 +778,19 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
     $scope.addPost = function (FormContent) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
-        AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe);
+        AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe).then(function success(data) {
+            console.log(data);
+        }, function error(err) {
+            // console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    // console.log(i);
+                    // console.log($scope.tab);
+                    break;
+                }
+            }
+        });;
     }
 
     $scope.dms = function () {

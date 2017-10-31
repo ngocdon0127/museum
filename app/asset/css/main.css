@@ -16,7 +16,7 @@ html {
 body {
   position: relative;
   margin: 0;
-  padding-bottom: 6rem;
+  /*padding-bottom: 6rem;*/
   padding-top: 50px;
   min-height: 100%;
   /*background-image:url("http://traveldilse.com/wp-content/uploads/2014/07/blurred-background-81.jpg");*/
@@ -49,7 +49,6 @@ body {
 .check-box{
     cursor: pointer;
     -webkit-appearance: none;
-    appearance: none;
     background: #bdc3c7;
     border-radius: 4px;
     box-sizing: border-box;
@@ -83,9 +82,6 @@ body {
 	background-color: #0e8110;
 }
 
-.navbar-brand{
-    /*background-color: mediumturquoise;*/
-}
 .navbar-default .navbar-brand:hover{
     background-color: #d3fdaf;
     color: #000;
@@ -103,9 +99,6 @@ body {
 
 .navbar-default .navbar-brand {
     color: #f5f5f5;
-}
-
-.navbar-nav > li > a {
 }
 
 .dropbtn {
@@ -166,6 +159,43 @@ a.nav:hover{
     color: #000;
 }
 
+.slider {
+    -webkit-appearance: none;
+    /*width: 100%;*/
+    border-radius: 5px;   
+    height: 7px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 50%
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+/*.search-table-body{
+    overflow-y: auto;
+    overflow-x: auto;
+}
+*/
 #loading-bar .bar {
   position: relative;
 }
@@ -228,11 +258,6 @@ a.nav:hover{
 
 .tabs > li.active > a, .tabs > li.active > a:hover, .tabs > li.active > a:focus {
     background-color: #F3F6F9;
-}
-
-.group > li > a{
-    /*background-color: #1a439a;*/
-    /*color: #fff;*/
 }
 
 .group > li > a:hover{
@@ -345,10 +370,6 @@ a.nav:hover{
 .toggle-nav {
  display: block;
  text-align: right;
-}
-.toggle-nav ul li {
-    /*margin-top: 5px;*/
-    /*width: 100%;*/
 }
 
 .btn-circle{

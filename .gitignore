@@ -3,6 +3,7 @@ config/config.js
 config/acl.json
 config/roles.json
 public/uploads
+public/.cache
 tmp/
 app/service.js
 *.log
@@ -12,3 +13,4 @@ deploygit.bat
 data.json
 npm-debug.log.*
 out.html
+.qtcache

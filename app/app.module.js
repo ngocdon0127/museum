@@ -3,6 +3,7 @@ var app = angular.module('museumApp', [
     'bsLoadingOverlay',
     'bsLoadingOverlayHttpInterceptor',
     'ui.router',
+    'rzModule',
     'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',
@@ -17,6 +18,7 @@ var app = angular.module('museumApp', [
     'pascalprecht.translate',
     'ui-leaflet',
     'angularUtils.directives.dirPagination'
+    // 'nouislider'
 ])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {
     return bsLoadingOverlayHttpInterceptorFactoryFactory();

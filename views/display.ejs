@@ -15,7 +15,8 @@
 		<div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<% if ((typeof(objectModelId) != 'undefined') && (typeof(objectPath) != 'undefined')) { %>
-					<a class="btn btn-success" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa</a>
+					<a class="btn btn-success" role="button" href="/">Trang chủ</a>
+					<a class="btn btn-warning" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa</a>
 					<button class="btn btn-danger" onclick="deleteSample('<%= objectPath %>', '<%= objectModelId %>')" role="button">Xóa</button>
 					<a class="btn btn-primary" role="button" href="<%= '/app/#!/quan-ly-mau' + objectPath %>">Đến trang quản lý mẫu</a>
 				<% } %>

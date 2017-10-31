@@ -72,12 +72,12 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
 
     $scope.ndtChange = function () {
         // alert($scope.searchContent.ngayDinhTen);
-        $scope.searchContent.ngayDinhTen = $scope.searchContent.yearNDT + "," + $scope.searchContent.yearNDT;
+        $scope.searchContent.ngayDinhTen = $scope.startYearNDT + "," + $scope.stopYearNDT;
         $scope.searchSample();
     }
     $scope.tgtmChange = function () {
         // alert($scope.searchContent.ngayDinhTen);
-        $scope.searchContent.thoiGianThuMau = $scope.searchContent.yearTGTM + "," + $scope.searchContent.yearTGTM;
+        $scope.searchContent.thoiGianThuMau = $scope.startYearTGTM + "," + $scope.stopYearTGTM;
         $scope.searchSample();
     }
 

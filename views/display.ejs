@@ -99,7 +99,7 @@
 					}
 					// Need to escape to prevent injected HTML + JS
 					// return escape(obj).replace(/_-_/g, ', ');
-					return obj.replace(/_-_/g, ', ');
+					return (typeof obj == 'string') ? obj.replace(/_-_/g, ', ') : obj;
 				}
 
 				function propDiff (obj1, obj2, prop) {

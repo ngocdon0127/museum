@@ -303,6 +303,10 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			objectInstance.created_by.userId = req.user.id // creator
 			objectInstance.created_by.userFullName = req.user.fullname // creator
 			objectInstance.owner.userId = req.user.id // Owner
+			req.body.fLoadFromXLSX = req.body.fLoadFromXLSX == 1;
+			objectInstance.flag ? 
+				(objectInstance.flag = {fLoadFromXLSX: !!req.body.fLoadFromXLSX}) : 
+				(objectInstance.flag.fLoadFromXLSX = !!req.body.fLoadFromXLSX)
 		}
 
 		var objectBeforeUpdate = {};

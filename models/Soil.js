@@ -184,7 +184,8 @@ module.exports = function (mongoose) {
 		},
 		flag: {
 			fDiaDiemThuMau: String,
-			fApproved: Boolean
+			fApproved: Boolean,
+			fLoadFromXLSX: Boolean
 		},
 		extra: {
 			eGeoJSON: {

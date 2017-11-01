@@ -229,6 +229,7 @@ async function sheetToJson(workbook, urlFields, urlDates, row) {
             }
         }
     })
+    document.getElementById('fLoadFromXLSX').value = 1; // mark that this sample is loaded from file
     return result;
 }
 

@@ -240,7 +240,7 @@ a.article, a.article:hover {
     }
 }
 
-@media (max-width: 1920px) {
+@media (min-width: 1366px) and (max-width: 1920px) {
     .table-scroll{
         max-width: 80%;
         overflow: auto;
@@ -254,13 +254,33 @@ a.article, a.article:hover {
     }
 
     #sidebar.active {
-        margin-left: 0;
+        margin-left: -20%;
     }
     #sidebarCollapse span {
         display: none;
     }
 }
 @media (min-width: 768px) and (max-width: 1366px) {
+    .table-scroll{
+        max-width: 80%;
+        overflow: auto;
+    }
+    #sidebar {
+        min-width: 20%;
+        max-width: 20%;
+        background: #f7f9fa;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.2) !important;
+        transition: all 0.3s;
+    }
+
+    #sidebar.active {
+        margin-left: -20%;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+@media (min-width: 1920px) {
     .table-scroll{
         max-width: 80%;
         overflow: auto;

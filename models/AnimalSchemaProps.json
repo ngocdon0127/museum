@@ -316,7 +316,12 @@
 		"required": false,
 		"money": true,
 		"type": "Mixed",
-		"subProps": ["chieuDai", "donVi_chieuDai", "chieuRong", "donVi_chieuRong", "chieuCao", "donVi_chieuCao", "theTich", "donVi_theTich", "trongLuong", "donVi_trongLuong"]
+		"subProps": [
+			"chieuDai", "donVi_chieuDai",
+			"chieuRong", "donVi_chieuRong",
+			"chieuCao", "donVi_chieuCao",
+			"theTich", "donVi_theTich",
+			"trongLuong", "donVi_trongLuong"]
 	},
 	{
 		"name": "chieuDai",
@@ -334,7 +339,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "chieuRong",
@@ -352,7 +357,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "chieuCao",
@@ -370,25 +375,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "theTich",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Thể tích",
-		"required": false,
-		"money": false,
-		"type": "String",
-		"regex": "^.{0,}$"
-	},
-	{
-		"name": "donVi_theTich",
-		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
-		"label": "Đơn vị thể tích",
-		"required": false,
-		"money": false,
-		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "trongLuong",
@@ -406,7 +393,25 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
+		"regex": "^(|mg|g|kg)$"
+	},
+	{
+		"name": "theTich",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Thể tích",
+		"required": false,
+		"money": false,
+		"type": "String",
 		"regex": "^.{0,}$"
+	},
+	{
+		"name": "donVi_theTich",
+		"schemaProp": "soLuongChatLuong.kichThuocMauMixed",
+		"label": "Đơn vị thể tích",
+		"required": false,
+		"money": false,
+		"type": "Unit",
+		"regex": "^(|ml|l)$"
 	},
 	{
 		"name": "tinhTrangMau",

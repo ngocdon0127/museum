@@ -303,16 +303,11 @@
 		"money": true,
 		"type": "Mixed",
 		"subProps": [
-			"chieuCao",
-			"donVi_chieuCao",
-			"chieuRong",
-			"donVi_chieuRong",
-			"chieuDai",
-			"donVi_chieuDai",
-			"trongLuong",
-			"donVi_trongLuong",
-			"theTich",
-			"donVi_theTich"
+			"chieuCao", "donVi_chieuCao",
+			"chieuRong", "donVi_chieuRong",
+			"chieuDai", "donVi_chieuDai",
+			"trongLuong", "donVi_trongLuong",
+			"theTich", "donVi_theTich"
 		]
 	},
 	{
@@ -331,7 +326,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "chieuRong",
@@ -349,7 +344,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "chieuDai",
@@ -367,7 +362,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "trongLuong",
@@ -385,7 +380,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mg|g|kg)$"
 	},
 	{
 		"name": "theTich",
@@ -403,7 +398,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|ml|l)$"
 	},
 	{
 		"name": "tinhTrangMau",
@@ -1067,7 +1062,8 @@
 		"label": "Trao đổi mẫu",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"domain": ["", "Có thể", "Không thể"]
 	},
 	{
 		"name": "vayMuon",

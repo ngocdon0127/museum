@@ -355,7 +355,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "chieuRong",
@@ -373,7 +373,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "chieuDai",
@@ -391,7 +391,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mm|cm|m)$"
 	},
 	{
 		"name": "trongLuong",
@@ -409,7 +409,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|mg|g|kg)$"
 	},
 	{
 		"name": "theTich",
@@ -427,7 +427,7 @@
 		"required": false,
 		"money": false,
 		"type": "Unit",
-		"regex": "^.{0,}$"
+		"regex": "^(|ml|l)$"
 	},
 	{
 		"name": "tinhTrangMau",

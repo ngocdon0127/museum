@@ -520,6 +520,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			// Validate data
 			switch (element.type){
 				case 'String':
+				case 'Unit':
 					var value = '';
 					if (element.name in req.body){
 						value = req.body[element.name];
@@ -543,9 +544,20 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						if ('regex' in element){
 							var regex = new RegExp(element.regex, 'i');
 							if (regex.test(value) === false){
-								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'], ['Sai định dạng', element.name]);
+								return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+									['Sai định dạng. Trường: ' + ((element.name in _LABEL) ? _LABEL[element.name] : element.name), element.name]);
 							}
 						}
+						// if ('domain' in element) {
+						// 	let domain = element.domain;
+						// 	if (domain.indexOf(value) < 0) {
+						// 		return responseError(req, _UPLOAD_DESTINATION, res, 400, ['error', 'field'],
+						// 			[`Giá trị nhập vào không hợp lệ.\n\n
+						// 			Trường: ${element.name in _LABEL ? _LABEL[element.name] : element.name}\n\n
+						// 			Giá trị có thể nhận: "${domain.join('", "')}".\n\n
+						// 			Giá trị nhập vào: "${value}"`, element.name]);
+						// 	}
+						// }
 					}
 					break;
 				case 'Integer':

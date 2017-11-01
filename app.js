@@ -81,8 +81,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use('/uploads/user', express.static(path.join(__dirname, 'public/uploads/user'))) // serve avatars
 app.use('/uploads', require('./routes/img-reducer')); // protect files in /public/uploads
 app.use(express.static(path.join(__dirname, 'public'))); // other files in /public, serve static
+// TODO: => complicated. must fix
 
 var routes = require('./routes/index');
 

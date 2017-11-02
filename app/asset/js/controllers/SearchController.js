@@ -38,7 +38,7 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
         "Địa chất": "dia-chat"
     };
 
-    $scope.sampleClick = function (content, id) {
+    $scope.sampleClick = function (content) {
         $scope.searchContent.model = "";
         $scope.modelBoolean[content] = !$scope.modelBoolean[content]
         angular.forEach($scope.modelBoolean, function(val, element){

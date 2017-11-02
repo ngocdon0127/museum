@@ -477,7 +477,7 @@
 							{{post.nguoiDinhTen}}
 						</td>
 						<td>
-							{{post.ngayDinhTen | date: "yyyy-MM-dd" }}
+							{{(post.ngayDinhTen | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.ngayDinhTen | date: "yyyy-MM-dd" )}} 
 						</td>
 						<td>
 							{{post.tenDiaPhuong}}
@@ -486,7 +486,7 @@
 							{{post.tenTiengAnh}}
 						</td>
 						<td>
-							{{post.thoiGianThuMau | date: "yyyy-MM-dd"}}
+							{{(post.thoiGianThuMau | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.thoiGianThuMau | date: "yyyy-MM-dd")}}
 						</td>
 						<td>
 							{{post.nguoiThuMau}}

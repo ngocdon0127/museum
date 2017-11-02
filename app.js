@@ -81,6 +81,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// prevent Chrome from redirecting all requests to baotangvn.online to HTTPS
+app.use((req, res, next) => {
+  res.header('Strict-Transport-Security', 'max-age=0;');
+  return next();
+})
+
 app.use('/uploads/user', express.static(path.join(__dirname, 'public/uploads/user'))) // serve avatars
 app.use('/uploads', require('./routes/img-reducer')); // protect files in /public/uploads
 app.use(express.static(path.join(__dirname, 'public'))); // other files in /public, serve static

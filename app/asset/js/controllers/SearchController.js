@@ -4,7 +4,7 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
     $scope.data = [];
     $scope.searchContent = {};
 
-    $http.get(url + "?q='123'").then(function (res) {
+    $http.get(url).then(function (res) {
         $scope.data = res.data.matchedSamples;
         // console.log($scope.data);
         $scope.searchResult = $scope.data.length + " kết quả";
@@ -38,7 +38,7 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
         "Địa chất": "dia-chat"
     };
 
-    $scope.sampleClick = function (content, id) {
+    $scope.sampleClick = function (content) {
         $scope.searchContent.model = "";
         $scope.modelBoolean[content] = !$scope.modelBoolean[content]
         angular.forEach($scope.modelBoolean, function(val, element){

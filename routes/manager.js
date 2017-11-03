@@ -25,7 +25,33 @@ var responseSuccess = global.myCustomVars.responseSuccess;
 //  
 var getPublicIP = global.myCustomVars.getPublicIP;
 
-
+var MODELS = {
+	'co-sinh': {
+		model: mongoose.model('Paleontological'),
+		objType: 'paleontological',
+		modelLabel: 'Cổ sinh'
+	},
+	'dia-chat': {
+		model: mongoose.model('Geological'),
+		objType: 'geological',
+		modelLabel: 'Địa chất'
+	},
+	'dong-vat': {
+		model: mongoose.model('Animal'),
+		objType: 'animal',
+		modelLabel: 'Động vật'
+	},
+	'tho-nhuong': {
+		model: mongoose.model('Soil'),
+		objType: 'soil',
+		modelLabel: 'Thổ nhưỡng'
+	},
+	'thuc-vat': {
+		model: mongoose.model('Vegetable'),
+		objType: 'vegetable',
+		modelLabel: 'Thực vật'
+	},
+}
 
 // console.log(LEVEL)
 
@@ -61,15 +87,44 @@ router.get('/users', function (req, res, next) {
 				u.level == 'pending-user' || // Nhân viên chưa thuộc đề tài nào
 				((['manager', 'user'].indexOf(u.level) >= 0) && (u.maDeTai == req.user.maDeTai)) // Manager, nhân viên đề tài mình quản lý
 		})
-
 		result.sidebar = {
 			active: 'users'
 		}
-
 		res.render('manager/users', result)
-
 	})()
-	
+})
+
+router.get('/samples', (req, res) => {
+	async(() => {
+		let user = await(PROMISES.getUser(req.session.userId)).userNormal;
+		console.log(user);
+		delete user.password;
+		let selection = {
+			deleted_at: {$eq: null},
+			'maDeTai.maDeTai': req.user.maDeTai
+		}
+		let result = {}
+		for (let modelName in MODELS) {
+			result[modelName] = await (new Promise((resolve, reject) => {
+				MODELS[modelName].model.find(selection, (err, samples) => {
+					if (err) {
+						console.log(err);
+						return resolve([])
+					}
+					return resolve(samples)
+				})
+			}))
+		}
+		if (req.query.dataType == 'json') {
+			return res.status(200).json(result)
+		}
+		return res.render('manager/samples', {
+			MODELS: MODELS,
+			result: result,
+			user: user,
+			sidebar: {active: '/samples'}
+		})
+	})()
 })
 
 router.get('/test', function (req, res, next) {
@@ -355,28 +410,7 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 		console.log(e);
 		return responseError(req, '', res, 500, ['error'], ["id không đúng"]);
 	}
-	var MODELS = {
-		'co-sinh': {
-			model: mongoose.model('Paleontological'),
-			objType: 'paleontological'
-		},
-		'dia-chat': {
-			model: mongoose.model('Geological'),
-			objType: 'geological'
-		},
-		'dong-vat': {
-			model: mongoose.model('Animal'),
-			objType: 'animal'
-		},
-		'tho-nhuong': {
-			model: mongoose.model('Soil'),
-			objType: 'soil'
-		},
-		'thuc-vat': {
-			model: mongoose.model('Vegetable'),
-			objType: 'vegetable'
-		},
-	}
+	
 	var ObjectModel = MODELS[req.body.form].model;
 	async(() => {
 		var objectInstance = await(new Promise((resolve, reject) => {
@@ -429,6 +463,17 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 			}
 
 			objectInstance.flag.fApproved = (req.body.approved == '1');
+
+			// Xử lý cannot extract GEO keys
+			try {
+				if (objectInstance.extra && objectInstance.extra.eGeoJSON && !objectInstance.extra.eGeoJSON.type) {
+					objectInstance.extra.eGeoJSON = undefined;
+					delete objectInstance.extra.eGeoJSON
+				}
+			} catch (e) {
+				console.log(e);
+			}
+			// end
 			let r = await(new Promise((resolve, reject) => {
 				objectInstance.save((err) => {
 					if (err){

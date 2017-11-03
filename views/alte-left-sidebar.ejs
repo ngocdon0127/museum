@@ -61,6 +61,15 @@
 					</li>
 				<% } %>
 
+				<% if (['admin', 'manager'].indexOf(user.level) >= 0) { %>
+					<li class="<%= (sidebar.active == 'samples') ? 'active' : '' %>">
+						<a href="/manager/samples">
+							<i class="fa fa-file"></i> 
+							<span>Quản lý mẫu vật</span>
+						</a>
+					</li>
+				<% } %>
+
 				<li class="treeview <%= (sidebar.active == 'all-log') ? 'active' : '' %>">
 					<a href="#">
 						<i class="fa fa-edit"></i> <span>Nhật ký</span>

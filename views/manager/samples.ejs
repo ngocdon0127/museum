@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Quản lý mẫu vật đã nhập</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<!-- Bootstrap 3.3.6 -->
+	<link rel="stylesheet" href="/admin/bootstrap/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- DataTables -->
+	<link rel="stylesheet" href="/admin/plugins/datatables/dataTables.bootstrap.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="/admin/dist/css/AdminLTE.min.css">
+	<!-- AdminLTE Skins. Choose a skin from the css/skins
+			 folder instead of downloading all of them to reduce the load. -->
+	<link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<style>
+		.table-responsive{
+			overflow-x: scroll;
+			overflow-y: hidden;
+			width: 100%;
+		}
+		.div-table{
+			width: 100%;
+			min-width: 600px;
+		}
+	</style>
+</head>
+<body class="hold-transition skin-green sidebar-mini">
+<div class="wrapper">
+
+	<header class="main-header">
+		<% include ../alte-header %>
+	</header>
+	<!-- Left side column. contains the logo and sidebar -->
+	<aside class="main-sidebar">
+		<% include ../alte-left-sidebar %>
+	</aside>
+
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Bảng điều khiển
+				
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="/home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+				<li><a href="/manager">Quản lý</a></li>
+				<li class="active">Quản lý mẫu vật</li>
+			</ol>
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="row">
+				<div class="col-xs-12">
+					
+					<!-- /.box -->
+
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">Tất cả mẫu vật trong đề tài</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="table-responsive">
+								<div class="div-table">
+									<table id="example1" class="table table-bordered table-hover">
+										<thead>
+										<tr>
+											<th>Tên mẫu</th>
+											<th>Loại mẫu</th>
+											<th>Số hiệu BTCS</th>
+											<th>Số hiệu BTTN</th>
+											<th>Người tạo</th>
+											<th>Ngày tạo</th>
+											<th>Thao tác</th>
+										</tr>
+										</thead>
+										<tbody>
+										<% for (let k in result) { %>
+											<% let samples = result[k] %>
+											<% for(var i = 0; i < samples.length; i++) { 
+												var s = samples[i];
+												%>
+												<tr>
+													<td><span><%= MODELS[k].modelLabel %></span></td>
+													<td><span><%= s.tenMau.tenVietNam %></span></td>
+													<td><span><%= s.soHieu.soHieuBaoTangCS %></span></td>
+													<td><span><%= s.soHieu.soHieuBTTNVN %></span></td>
+													<td><span><a href="/users/<%= s.created_by.userId%>"><%= s.created_by.userFullName %></a></span></td>
+													<% let date = s.created_at %>
+													<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
+													<td><span>
+														<% if (s.flag.fApproved) { %>
+															<button data-approved='<%= 1 %>' data-id='<%= s._id %>' data-form='<%= k %>' id="btn-approve-<%= s._id %>" class="btn btn-warning" onclick="approveSampleHandler(this)">Hủy phê duyệt</button>
+														<% } else { %>
+															<button data-approved='<%= 0 %>' data-id='<%= s._id %>' data-form='<%= k %>' id="btn-approve-<%= s._id %>" class="btn btn-success" onclick="approveSampleHandler(this)">Phê duyệt</button>
+														<% } %>
+													</span></td>
+												</tr>
+
+											<% } %>
+										<% } %>
+										</tbody>
+										<tfoot>
+										<tr>
+											<th>Tên mẫu</th>
+											<th>Số hiệu BTCS</th>
+											<th>Số hiệu BTTN</th>
+											<th>Người tạo</th>
+											<th>Thao tác</th>
+										</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<div class="pull-right hidden-xs">
+			<b>Version</b> 2.3.8
+		</div>
+		<strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+		reserved.
+	</footer>
+
+	<!-- Control Sidebar -->
+	
+	<!-- /.control-sidebar -->
+	<!-- Add the sidebar's background. This div must be placed
+			 immediately after the control sidebar -->
+	<div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+<script type="text/javascript">
+	// $('.flexdatalist').flexdatalist({
+	//       minLength: 0,
+	//       valuesSeparator: '_-_'
+	//     });
+</script>
+
+<!-- Bootstrap 3.3.6 -->
+<script src="/admin/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/admin/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/admin/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script type="text/javascript" src="/javascripts/adminjs.js"></script>
+<!-- page script -->
+<script src='/javascripts/footer.js'></script>
+<script>
+	$(function () {
+		// $("#example2").DataTable();
+		$('#example1').DataTable({
+			"paging": true,
+			"lengthChange": true,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": false,
+			"language": {
+				"paginate": {
+			        "first":      "Trang đầu",
+			        "last":       "Trang cuối",
+			        "next":       "Trang sau",
+			        "previous":   "Trang trước"
+			    },
+			    "info": "Đang xem từ _START_ tới _END_ trong tổng số _TOTAL_ bản ghi",
+			    "search": "Tìm kiếm:",
+			    "lengthMenu":     "Xem _MENU_ dòng",
+			    "decimal":        "",
+			    "emptyTable":     "Không có dữ liệu",
+			    "infoEmpty":      "Đang xem từ 0 tới 0 trong tổng số 0 bản ghi",
+			    "infoFiltered":   "(lọc từ tổng số _MAX_ bản ghi)",
+			    "infoPostFix":    "",
+			    "thousands":      ",",
+			    "loadingRecords": "Đang tải...",
+			    "processing":     "Đang xử lý...",
+			    "zeroRecords":    "Không có bản ghi nào phù hợp",
+			    "aria": {
+			        "sortAscending":  ": activate to sort column ascending",
+			        "sortDescending": ": activate to sort column descending"
+			    }
+			}
+		}).order([0, 'asc']).draw();
+
+	});
+</script>
+
+<script>
+
+	function ob(x) {
+		return document.getElementById(x)
+	}
+
+	function approveSampleHandler(btn) {
+		var form = btn.getAttribute('data-form');
+		var id = btn.getAttribute('data-id');
+		var approved = btn.getAttribute('data-approved');
+		approveSample(form, id, !(approved == 1));
+	}
+
+	function approveSample(form, id, approved) {
+		$.ajax({
+			url: '/manager/approve/',
+			method: 'POST',
+			data: {
+				form: form,
+				id: id,
+				approved: approved ? 1 : 0
+			},
+			success: function (data) {
+				// console.log('success');
+				// console.log(data);
+				if (data.status == 'success'){
+					alert('success')
+				}
+				updateBtn(id, approved)
+			},
+			error: function (err) {
+				// console.log('error');
+				console.log(err);
+				alert(err.responseJSON.error)
+			}
+		})
+	}
+
+	function updateBtn(id, approved) {
+		$('#btn-approve-' + id).removeClass('btn-' + (!approved ? 'warning' : 'success'))
+		$('#btn-approve-' + id).addClass('btn-' + (approved ? 'warning' : 'success'))
+		$('#btn-approve-' + id).text(approved ? 'Hủy phê duyệt' : 'Phê duyệt')
+		$('#btn-approve-' + id).attr('data-approved', approved ? 1 : 0)
+	}
+
+</script>
+
+</body>
+</html>

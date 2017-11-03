@@ -5,6 +5,10 @@
 	<head>
 		<title><%= title %></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+		<!-- Ionicons -->
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
 		<% include header %>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
 	 integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
@@ -250,43 +254,13 @@
 		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 		<script type="text/javascript" src='/javascripts/leaflet.browser.print.min.js'></script>
 		<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
+		<!-- <script type="text/javascript" src="/javascripts/Leaflet.Icon.Glyph.js"></script> -->
+		<!-- <script src='/javascripts/leaflet-color-markers11.js'></script> -->
 		<script type="text/javascript" src="/javascripts/Map.SelectArea.min.js"></script>
 		<script>
 			function ob(x) {
 				return document.getElementById(x)
 			}
-			<% 
-				let longitude = 0;
-				let latitude = 0;
-				let zoom = 0;
-			%>
-			<% 
-			let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
-			if (obj1.kinhDo && obj1.viDo) {
-				if (!(regex.test(obj1.kinhDo.toLowerCase()))){
-					// console.log('Tọa độ thực')
-					longitude = parseFloat(obj1.kinhDo.toLowerCase());
-				}
-				else {
-					// console.log('Tọa độ rời rạc')
-					let matches = obj1.kinhDo.toLowerCase().match(regex);
-					longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
-				}
-				if (!(regex.test(obj1.viDo.toLowerCase()))){
-					// console.log('Tọa độ thực')
-					latitude = parseFloat(obj1.viDo.toLowerCase());
-				}
-				else {
-					// console.log('Tọa độ rời rạc')
-					let matches = obj1.viDo.toLowerCase().match(regex);
-					latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
-				}
-			}
-			%>
-			var longitude = <%= longitude %>
-			var latitude = <%= latitude %>
-			console.log(longitude);
-			console.log(latitude);
 			var zoom = 6
 			// var mymap = L.map('leafletdiv').setView([latitude, longitude], zoom);
 			var mymap = L.map('leafletdiv', {selectArea: true}).setView([16.24261, 106.33832], zoom);
@@ -305,11 +279,34 @@
 					})
 			}).addTo(mymap);
 
-			var marker = L.marker([latitude, longitude]).addTo(mymap);
+			var coor = <%- JSON.stringify(coor) %>
+			// console.log(coor);
+			if (coor && (coor.length == 2)) {
+				var marker = L.marker(coor).addTo(mymap);
+			}
 			<% if (typeof(coordinationArr) != 'undefined') { %>
 				var c = <%- coordinationArr ? JSON.stringify(coordinationArr) : JSON.stringify([]) %>
+				// console.log(c);
+				var greenIcon = new L.Icon({
+				  // iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+				  iconUrl: '/img/leaflet-markers/marker-icon-2x-green.png',
+				  shadowUrl: '/img/leaflet-markers/marker-shadow.png',
+				  iconSize: [25, 41],
+				  iconAnchor: [12, 41],
+				  popupAnchor: [1, -34],
+				  shadowSize: [41, 41]
+				});
 				for(var i = 0; i < c.length; i++) {
-					var marker = L.marker(c[i], {title: i, riseOnHover: true}).addTo(mymap);
+					var marker = L.marker(c[i], {
+						title: i,
+						riseOnHover: true,
+						// icon: L.icon.glyph({
+						// 	prefix: 'fa',
+						// 	glyph: 'fa-internet-explorer',
+						// 	glyphColor: 'red',
+						// })
+						icon: greenIcon
+					}).addTo(mymap);
 				}
 			<% } %>
 		</script>
@@ -318,20 +315,20 @@
 			// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			//    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			// }).addTo(mymap);
-			var d1 = new Date();
-			leafletImage(mymap, function(err, canvas) {
-				// now you have canvas
-				// example thing to do with that canvas:
-				var d2 = new Date();
-				console.log(d2.getTime() - d1.getTime(), ' miliseconds');
-				var img = document.createElement('img');
-				var dimensions = mymap.getSize();
-				img.width = dimensions.x;
-				img.height = dimensions.y;
-				img.src = canvas.toDataURL();
-				document.getElementById('images').innerHTML = '';
-				document.getElementById('images').appendChild(img);
-			});
+			// var d1 = new Date();
+			// leafletImage(mymap, function(err, canvas) {
+			// 	// now you have canvas
+			// 	// example thing to do with that canvas:
+			// 	var d2 = new Date();
+			// 	console.log(d2.getTime() - d1.getTime(), ' miliseconds');
+			// 	var img = document.createElement('img');
+			// 	var dimensions = mymap.getSize();
+			// 	img.width = dimensions.x;
+			// 	img.height = dimensions.y;
+			// 	img.src = canvas.toDataURL();
+			// 	document.getElementById('images').innerHTML = '';
+			// 	document.getElementById('images').appendChild(img);
+			// });
 			// L.browserPrint().addTo(mymap)
 		</script>
 

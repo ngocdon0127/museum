@@ -391,6 +391,9 @@ var getAutoCompletionHandler = function (options) {
 
 global.myCustomVars.getAutoCompletionHandler = getAutoCompletionHandler;
 
+var validateCoordinate = global.myCustomVars.validateCoordinate;
+var coordinatesStr2Float = global.myCustomVars.coordinatesStr2Float;
+
 var getSingleHandler = function (options) {
 	return function (req, res) {
 
@@ -423,11 +426,28 @@ var getSingleHandler = function (options) {
 					// return responseSuccess(res, ['objectInstance'], [objectInstance]);
 					if (req.query.display == 'html'){
 						let foi = flatObjectModel(PROP_FIELDS, objectInstance)
+						let coor = null;
+						if (foi.kinhDo && foi.viDo) {
+							coor = []
+							if (validateCoordinate(foi.viDo)) {
+								let c_ = coordinatesStr2Float(foi.viDo);
+								if ((c_ >= -90) && (c_ <= 90)) {
+									coor.push(c_)
+								}
+							}
+							if (validateCoordinate(foi.kinhDo)) {
+								let c_ = coordinatesStr2Float(foi.kinhDo);
+								if ((c_ >= -180) && (c_ <= 180)) {
+									coor.push(c_)
+								}
+							}
+						}
 						if (foi.loai) {
 							let field = PROP_FIELDS[PROP_FIELDS_OBJ['loai']].schemaProp + '.loai';
 							let selection = {}
 							selection[field] = foi.loai
-							console.log(selection);
+							selection._id = {$ne: objectInstance._id};
+							// console.log(selection);
 							ObjectModel.find(selection, (err, instances) => {
 								let coordinationArr = []
 								if (err) {
@@ -462,10 +482,30 @@ var getSingleHandler = function (options) {
 										}
 									})
 								}
-								return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: coordinationArr});
+								return res.render('display', {
+									title: 'Chi tiết mẫu '+ objectModelLabel,
+									objectPath: objectBaseURL,
+									count: 1,
+									obj1: foi,
+									objectModelId: objectInstance.id,
+									props: propsName(PROP_FIELDS),
+									staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length),
+									coordinationArr: coordinationArr,
+									coor: coor
+								});
 							})
 						} else {
-							return res.render('display', {title: 'Chi tiết mẫu ' + objectModelLabel, objectPath: objectBaseURL, count: 1, obj1: foi, objectModelId: objectInstance.id, props: propsName(PROP_FIELDS), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), coordinationArr: null});
+							return res.render('display', {
+								title: 'Chi tiết mẫu '+ objectModelLabel,
+								objectPath: objectBaseURL,
+								count: 1,
+								obj1: foi,
+								objectModelId: objectInstance.id,
+								props: propsName(PROP_FIELDS),
+								staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length),
+								coordinationArr: null,
+								coor: coor
+							});
 						}
 						
 					}

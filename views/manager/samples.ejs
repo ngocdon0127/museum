@@ -82,8 +82,8 @@
 									<table id="example1" class="table table-bordered table-hover">
 										<thead>
 										<tr>
-											<th>Tên mẫu</th>
 											<th>Loại mẫu</th>
+											<th>Tên mẫu</th>
 											<th>Số hiệu BTCS</th>
 											<th>Số hiệu BTTN</th>
 											<th>Người tạo</th>
@@ -94,12 +94,12 @@
 										<tbody>
 										<% for (let k in result) { %>
 											<% let samples = result[k] %>
-											<% for(var i = 0; i < samples.length; i++) { 
+											<% for(var i = 0; i < samples.length; i++) {
 												var s = samples[i];
 												%>
 												<tr>
 													<td><span><%= MODELS[k].modelLabel %></span></td>
-													<td><span><%= s.tenMau.tenVietNam %></span></td>
+													<td><span><a href='/content/<%= `${k}/${s._id}`%>?display=html'><%= s.tenMau.tenVietNam %></span></a></td>
 													<td><span><%= s.soHieu.soHieuBaoTangCS %></span></td>
 													<td><span><%= s.soHieu.soHieuBTTNVN %></span></td>
 													<td><span><a href="/users/<%= s.created_by.userId%>"><%= s.created_by.userFullName %></a></span></td>

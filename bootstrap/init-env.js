@@ -264,6 +264,41 @@ function objectChild (object, tree) {
 
 global.myCustomVars.objectChild = objectChild;
 
+// VD: Kinh độ, Vĩ độ: '1 ° 2 \' 3"'
+function validateCoordinate(str) {
+	if (!str || !((str + '').trim())) {
+		return false;
+	}
+	str = (str + '').toLowerCase();
+	let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
+	let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
+	return discreteCoor.test(str) || floatCoor.test(str);
+}
+
+global.myCustomVars.validateCoordinate = validateCoordinate;
+
+function coordinatesStr2Float(str) {
+	if (!str || !((str + '').trim())) {
+		return 'invalid';
+	}
+	str = (str + '').toLowerCase();
+	let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
+	let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
+	if (discreteCoor.test(str)) {
+		let matches = str.match(discreteCoor);
+		let partDo = parseInt(matches[1]);
+		let partPhut = parseInt(matches[3]);
+		let partGiay = parseInt(matches[5]);
+		return (Math.abs(partDo) + partPhut / 60 + partGiay / 3600) * (partDo >= 0 ? 1 : -1);
+	}
+	if (floatCoor.test(str)) {
+		return parseFloat(str)
+	}
+	return 'invalid'
+}
+
+global.myCustomVars.coordinatesStr2Float = coordinatesStr2Float;
+
 function createSaveOrUpdateFunction (variablesBundle) {
 	var Log = variablesBundle.Log;
 	var AutoCompletion = variablesBundle.AutoCompletion;
@@ -352,29 +387,6 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			}
 		}
 		delete specialFields.unitFields;
-
-		// VD: Kinh độ, Vĩ độ: '1 ° 2 \' 3"'
-		function validateCoordinate(str) {
-			let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
-			let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
-			return discreteCoor.test(str) || floatCoor.test(str);
-		}
-
-		function coordinatesStr2Float(str) {
-			let discreteCoor = /^ *(-?[0-9]+) *(°|độ) *([0-9]+) *('|phút) *([0-9]+) *("|giây)$/;
-			let floatCoor = /^ *-?[0-9]+(\.[0-9]*)?$/
-			if (discreteCoor.test(str)) {
-				let matches = str.match(discreteCoor);
-				let partDo = parseInt(matches[1]);
-				let partPhut = parseInt(matches[3]);
-				let partGiay = parseInt(matches[5]);
-				return (Math.abs(partDo) + partPhut / 60 + partGiay / 3600) * (partDo >= 0 ? 1 : -1);
-			}
-			if (floatCoor.test(str)) {
-				return parseFloat(str)
-			}
-			return 'invalid'
-		}
 
 		specialFields.coordinations = [
 			{

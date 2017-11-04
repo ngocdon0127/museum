@@ -79,13 +79,38 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion5" href=".collapse5">Tên khoa học</a>
+				  		<a data-toggle="collapse" data-parent="#accordion5" href=".collapse5">Tên mẫu vật</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse5" class="collapse5 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenDongNghia" class="input-form-search">
+							{{"ani.gioi" | translate }}: 
+							<input type="text" id="gioi" ng-model="searchContent.gioi" title="{{tooltips['gioi']}}" name="gioi" class="input-form form-control">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.nganh" | translate }}: 
+							<input type="text" id="nganh" ng-model="searchContent.nganh" title="{{tooltips['nganh']}}" name="nganh" class="input-form form-control">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.lop" | translate }}: 
+							<input type="text" id="lop" ng-model="searchContent.lop" title="{{tooltips['lop']}}" name="lop" class="input-form form-control">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.bo" | translate }}: 
+							<input type="text" id="bo" ng-model="searchContent.bo" title="{{tooltips['bo']}}" name="bo" class="input-form form-control">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.ho" | translate }}: 
+							<input type="text" id="ho" ng-model="searchContent.ho" title="{{tooltips['ho']}}" name="ho" class="input-form form-control">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.chiGiong" | translate }}: 
+							<input type="text" title="{{tooltips['chiGiong']}}" name="chiGiong" ng-model="searchContent.chiGiong" id="chiGiong" class="input-form form-control">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.loai" | translate }}: 
+							<input type="text" id="loai" ng-model="searchContent.loai" class="input-form form-control" title="{{tooltips['loai']}}" name="loai">
 						</form>
 					</div>
 			  	</div>
@@ -196,6 +221,10 @@
 						<form ng-submit="searchSample()">
 							{{"ani.xa" | translate }}: 
 							<input type="text" class="input-form form-control" ng-model="searchContent.xa" title="{{tooltips['xa']}}" name="xa">
+						</form>
+						<form ng-submit="searchSample()">
+							{{"ani.tinhKhac" | translate }}:
+							<input type="text" class="input-form form-control" ng-model="searchContent.tinhKhac" title="{{tooltips['tinhKhac']}}" name="tinhKhac">
 						</form>
 					</div>
 			  	</div>
@@ -488,7 +517,7 @@
 						</td>
 						<td>
 							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
-								{{post.ngayDinhTen | date: "yyyy-MM-dd" }}
+								{{(post.ngayDinhTen | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.ngayDinhTen | date: "yyyy-MM-dd" )}} 
 							</a>
 						</td>
 						<td>
@@ -503,7 +532,7 @@
 						</td>
 						<td>
 							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
-								{{post.thoiGianThuMau | date: "yyyy-MM-dd"}}
+								{{(post.thoiGianThuMau | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.thoiGianThuMau | date: "yyyy-MM-dd")}}
 							</a>
 						</td>
 						<td>

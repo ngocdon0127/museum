@@ -493,58 +493,90 @@
 					</tr>
 				</thead>
 				<tbody class="search-table-body">
-					<tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage">
+					<tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage" class="table-row" data-href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 						<td>
 							<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{modelMapping[post.model]}}/{{post._id}}?display='>
 							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : "Mẫu vật"}}</a>
 						</td>
 						<td>
-							{{post.soHieuBTTNVN}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.soHieuBTTNVN}}
+							</a>
 						</td>
 						<td>
-							{{post.soHieuBaoTangCS}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.soHieuBaoTangCS}}
+							</a>
 						</td>
 						<td>
-							{{post.soHieuThucDia}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.soHieuThucDia}}
+							</a>
 						</td>
 						<td>
-							{{post.model}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.model}}
+							</a>
 						</td>
 						<td>
-							{{post.nguoiDinhTen}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.nguoiDinhTen}}
+							</a>
 						</td>
 						<td>
-							{{(post.ngayDinhTen | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.ngayDinhTen | date: "yyyy-MM-dd" )}} 
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{(post.ngayDinhTen | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.ngayDinhTen | date: "yyyy-MM-dd" )}} 
+							</a>
 						</td>
 						<td>
-							{{post.tenDiaPhuong}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.tenDiaPhuong}}
+							</a>
 						</td>
 						<td>
-							{{post.tenTiengAnh}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.tenTiengAnh}}
+							</a>
 						</td>
 						<td>
-							{{(post.thoiGianThuMau | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.thoiGianThuMau | date: "yyyy-MM-dd")}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{(post.thoiGianThuMau | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.thoiGianThuMau | date: "yyyy-MM-dd")}}
+							</a>
 						</td>
 						<td>
-							{{post.nguoiThuMau}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.nguoiThuMau}}
+							</a>
 						</td>
 						<td>
-							{{post.quocGia}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.quocGia}}
+							</a>
 						</td>
 						<td>
-							{{post.kinhDo +", "+ post.viDo}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.kinhDo +", "+ post.viDo}}
+							</a>
 						</td>
 						<td>
-							{{post.noiLuuTruMau}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.noiLuuTruMau}}
+							</a>
 						</td>
 						<td>
-							{{post.nguoiLapPhieuMauVat}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.nguoiLapPhieuMauVat}}
+							</a>
 						</td>
 						<td>
-							{{post.created_at | date: "yyyy-MM-dd"}}
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								{{post.created_at | date: "yyyy-MM-dd"}}
+							</a>
 						</td>
 						<td>
-							<label class="label label-{{post.fApproved ? 'success' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								<label class="label label-{{post.fApproved ? 'success' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
+							</a>
 						</td>
 					</tr>
 				</tbody>
@@ -573,6 +605,11 @@
 				$('.table-scroll').css('max-width', '80%');
 			}
 		});
+
+		$(".table-row").on('click', function() {
+			console.log("clicked");
+        	window.document.location = $(this).data("href");
+    	});
 
 		// $("#ex2").bootstrapSlider({});
 

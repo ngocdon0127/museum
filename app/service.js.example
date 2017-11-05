@@ -256,7 +256,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	}
 
 	function editForm(fd, url, urlRe){
-		$.ajax({
+		return $.ajax({
 			url: url,
 			method: 'PUT',
 			contentType: false,
@@ -281,6 +281,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 					});
 					$state.go(urlRe)
 				}, 100)
+				return data
 			},
 			error: function (err) {
 				cfpLoadingBar.complete();
@@ -289,14 +290,15 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				// console.log(err);
 				var id = JSON.parse(err.responseText).field;
 				var x = document.getElementById(id);
+				console.log(x);
 				if (x) {
 					var element = x.nextElementSibling;
+					console.log(element);
 					if (element) {
 						element.style.borderColor = "red";
 					} else{
 						x.style.borderColor= "red"
 					}
-					
 				}
 				setTimeout(function () { // Stop spinner before alerting
 					// alert(JSON.parse(err.responseText).error);
@@ -314,6 +316,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 						}
 					});
 				}, 100)
+				return err;
 			}
 		});
 	}

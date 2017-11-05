@@ -85,6 +85,14 @@
 			  	<div id="collapse5" class="collapse5 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
+							{{"ani.tenDongNghia" | translate }}: 
+							<input type="text" id="tenDongNghia" ng-model="searchContent.tenDongNghia" title="{{tooltips['tenDongNghia']}}" name="tenDongNghia" class="input-form form-control">
+						</form>
+						<form ng-submit="searchSample()">
+	                        {{"geo.tenTheoQuocTe" | translate }}:
+	                        <input type="text" title="{{tooltips['tenTheoQuocTe']}}" name="tenTheoQuocTe" ng-model="searchContent.tenTheoQuocTe" class="input-form form-control">
+	                    </form>
+						<form ng-submit="searchSample()">
 							{{"ani.gioi" | translate }}: 
 							<input type="text" id="gioi" ng-model="searchContent.gioi" title="{{tooltips['gioi']}}" name="gioi" class="input-form form-control">
 						</form>

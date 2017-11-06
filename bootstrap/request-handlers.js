@@ -628,6 +628,14 @@ var duplicateHandler = function (options) {
 							})
 						}
 					}
+					try {
+						if (newInstance.extra && newInstance.extra.eGeoJSON && !newInstance.extra.eGeoJSON.type) {
+							newInstance.extra.eGeoJSON = undefined;
+							delete newInstance.extra.eGeoJSON
+						}
+					} catch (e) {
+						console.log(e);
+					}
 					newInstance.save(err => {
 						if (err) {
 							console.log(err);
@@ -831,7 +839,8 @@ var getLogHandler = function (options) {
 						obj1: flatObjectModel(PROP_FIELDS, log.obj1), 
 						obj2: flatObjectModel(PROP_FIELDS, log.obj2), 
 						staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), 
-						props: propsName(PROP_FIELDS)
+						props: propsName(PROP_FIELDS),
+						coor: null
 					});
 				}
 
@@ -846,7 +855,8 @@ var getLogHandler = function (options) {
 								obj1: flatObjectModel(PROP_FIELDS, log.obj1), 
 								obj2: {}, 
 								staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), 
-								props: propsName(PROP_FIELDS)
+								props: propsName(PROP_FIELDS),
+								coor: null
 							});
 						}
 						else{
@@ -854,7 +864,15 @@ var getLogHandler = function (options) {
 						}
 					case 2:
 						if (('obj2' in log) && (log.obj2)){
-							return res.render('display', {title: 'Dữ liệu chi tiết', objectPath: objectBaseURL, count: 1, obj1: flatObjectModel(PROP_FIELDS, log.obj2), staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), props: propsName(PROP_FIELDS)});
+							return res.render('display', {
+								title: 'Dữ liệu chi tiết',
+								objectPath: objectBaseURL,
+								count: 1,
+								obj1: flatObjectModel(PROP_FIELDS, log.obj2),
+								staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length),
+								props: propsName(PROP_FIELDS),
+								coor: null
+							});
 							// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj2)])
 						}
 						else{

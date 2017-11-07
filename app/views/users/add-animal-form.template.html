@@ -108,21 +108,29 @@
 						</div>
 						<div class="col-sm-3">
 							{{"ani.chiGiong" | translate }}<span class="has-required"> (*)</span>: 
-							<input type="text" title="{{tooltips['chiGiong']}}" name="chiGiong" ng-model="data.chiGiong" id="chiGiong" class="input-form form-control">
+							<!-- <input type="text" title="{{tooltips['chiGiong']}}" name="chiGiong" ng-model="data.chiGiong" id="chiGiong" class="input-form form-control"> -->
+							<input type="hidden" title="{{tooltips['chiGiong']}}" name="chiGiong" value="{{data.chiGiong}}" ng-bind="data.chiGiong">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="chiGiong" ng-model="data.chiGiong" contentEditable class="inline-text-editor" title="{{tooltips['chiGiong']}}" name="chiGiong"></div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
 							{{"ani.phanChiPhanGiong" | translate }}: 
-							<input type="text" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong" ng-model="data.phanChiPhanGiong" id="phanChiPhanGiong" class="input-form form-control">
+							<!-- <input type="text" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong" ng-model="data.phanChiPhanGiong" id="phanChiPhanGiong" class="input-form form-control"> -->
+							<input type="hidden" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong" value="{{data.phanChiPhanGiong}}" ng-bind="data.phanChiPhanGiong">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="phanChiPhanGiong" ng-model="data.phanChiPhanGiong" contentEditable class="inline-text-editor" title="{{tooltips['phanChiPhanGiong']}}" name="phanChiPhanGiong"></div>
 						</div>
 						<div class="col-sm-3">
 							{{"ani.loai" | translate }}: 
-							<input type="text" id="loai" ng-model="data.loai" class="input-form form-control" title="{{tooltips['loai']}}" name="loai">
+							<input type="hidden" title="{{tooltips['loai']}}" name="loai" value="{{data.loai}}" ng-bind="data.loai">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="loai" ng-model="data.loai" contentEditable class="inline-text-editor" title="{{tooltips['loai']}}" name="loai"></div>
+							<!-- <input type="text" id="loai" ng-model="data.loai" class="input-form form-control" title="{{tooltips['loai']}}" name="loai"> -->
 						</div>
 						<div class="col-sm-3">
 							{{"ani.duoiLoai" | translate }} : 
-							<input type="text" id="duoiLoai" ng-model="data.duoiLoai" title="{{tooltips['duoiLoai']}}" name="duoiLoai" class="input-form form-control">
+							<!-- <input type="text" id="duoiLoai" ng-model="data.duoiLoai" title="{{tooltips['duoiLoai']}}" name="duoiLoai" class="input-form form-control"> -->
+							<input type="hidden" title="{{tooltips['duoiLoai']}}" name="duoiLoai" value="{{data.duoiLoai}}" ng-bind="data.duoiLoai">
+							<div type="text" inline-text-editor context-menu="contextMenu" id="duoiLoai" ng-model="data.duoiLoai" contentEditable class="inline-text-editor" title="{{tooltips['duoiLoai']}}" name="duoiLoai"></div>
 						</div>
 					</div>
 				</div>

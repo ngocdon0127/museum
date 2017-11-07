@@ -70,9 +70,19 @@ app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $sco
             $anchorScroll.yOffset = 100;
             $anchorScroll();
             try{
-                var x = document.getElementById(id);
-                var element = x.nextElementSibling
-                element.style.borderColor = "red";
+                // console.log("Loi o vi tri: " + id);
+                if ((id == 'viDo') || (id == 'kinhDo')) {
+                    console.log("Loi trong vi tri toa do");
+                    var x = document.querySelectorAll('#' + id);
+                    Array.prototype.forEach.call(x, function(element){
+                        element.style.borderColor = "red";
+                    });
+                } else {
+                    var x = document.getElementById(id);
+                    var element = x.nextElementSibling
+                    element.style.borderColor = "red";
+                    console.log(x);
+                }
             } catch(e){
                 var x = document.getElementsByName(id);
                 x[0].style.borderColor = "red";

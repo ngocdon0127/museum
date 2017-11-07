@@ -388,18 +388,18 @@
 							{{"pal.viDo" | translate }} <span class="has-required">(*)</span>:
 							<input type="text" id="viDo" ng-show="data.fViTriToaDo=='dd'" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control">
 							<div id="dd" ng-show="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
-								<input type="number" step="1" ng-model= "data.viDo_do" ng-change="latChange()" class = "coordinates" name=""> độ
-								<input type="number" step="1" ng-model= "data.viDo_phut" ng-change="latChange()" class = "coordinates" name=""> phút
-								<input type="number" step="1" ng-model= "data.viDo_giay" ng-change="latChange()" class = "coordinates" name=""> giây
+								<input type="number" step="1" id="viDo" ng-model= "data.viDo_do" ng-change="latChange()" class = "coordinates" name=""> độ
+								<input type="number" step="1" id="viDo" ng-model= "data.viDo_phut" ng-change="latChange()" class = "coordinates" name=""> phút
+								<input type="number" step="1" id="viDo" ng-model= "data.viDo_giay" ng-change="latChange()" class = "coordinates" name=""> giây
 							</div>
 						</div>
 						<div class="col-sm-4">
 							{{"pal.kinhDo" | translate }} <span class="has-required">(*)</span>:
 							<input type="text" id="kinhDo" ng-show="data.fViTriToaDo=='dd'" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control">
 							<div id="dd" ng-show="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
-								<input type="number" step="1" ng-model="data.kinhDo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
-								<input type="number" step="1" ng-model="data.kinhDo_phut" ng-change="lonChange()" class = "coordinates" name=""> phút
-								<input type="number" step="1" ng-model="data.kinhDo_giay" ng-change="lonChange()" class = "coordinates" name=""> giây
+								<input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
+								<input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_phut" ng-change="lonChange()" class = "coordinates" name=""> phút
+								<input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_giay" ng-change="lonChange()" class = "coordinates" name=""> giây
 							</div>
 						</div>
 						<div class="col-sm-4">

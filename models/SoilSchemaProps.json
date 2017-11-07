@@ -894,7 +894,7 @@
 	{
 		"name": "phanBoVietNamStr",
 		"schemaProp": "phanBoVaSuDung.phanBoVietNamMixed",
-		"label": "Phân bố",
+		"label": "Phân bố Việt Nam",
 		"required": false,
 		"money": false,
 		"type": "String",
@@ -926,7 +926,7 @@
 	{
 		"name": "phanBoTrenTheGioiStr",
 		"schemaProp": "phanBoVaSuDung.phanBoTrenTheGioiMixed",
-		"label": "Phân bố",
+		"label": "Phân bố trên thế giới",
 		"required": false,
 		"money": false,
 		"type": "String",

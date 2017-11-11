@@ -275,7 +275,7 @@ app.controller('EditAnimalFormCtrl', function ($http, $scope, AuthService, $stat
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.editForm(fd, AuthService.hostName + '/content/dong-vat', urlRe).then(function success(data) {
-            console.log(data);
+            // console.log(data);
         }, function error(err) {
             // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {
@@ -397,7 +397,7 @@ app.controller('EditPaleontologicalFormCtrl', function ($http, $scope, AuthServi
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.editForm(fd, AuthService.hostName + '/content/co-sinh', urlRe).then(function success(data) {
-            console.log(data);
+            // console.log(data);
         }, function error(err) {
             // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {
@@ -520,7 +520,7 @@ app.controller('EditVegetableFormCtrl', function ($http, $scope, AuthService, $s
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.editForm(fd, AuthService.hostName + '/content/thuc-vat', urlRe).then(function success(data) {
-            console.log(data);
+            // console.log(data);
         }, function error(err) {
             // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {
@@ -644,7 +644,7 @@ app.controller('EditGeologicalFormCtrl', function ($http, $scope, AuthService, $
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.editForm(fd, AuthService.hostName + '/content/dia-chat', urlRe).then(function success(data) {
-            console.log(data);
+            // console.log(data);
         }, function error(err) {
             // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {
@@ -767,7 +767,7 @@ app.controller('EditLandFormCtrl', function ($http, $scope, AuthService, $stateP
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe).then(function success(data) {
-            console.log(data);
+            // console.log(data);
         }, function error(err) {
             console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {

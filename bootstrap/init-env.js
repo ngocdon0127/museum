@@ -314,6 +314,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 	// console.log(1);
 
 	return function saveOrUpdate (req, res, objectInstance, action) {
+		const F_ACTION_PRESERVATION = 'preservation'.localeCompare(req.body.action) == 0
 		var PROP_FIELDS_OBJ = {};
 		// console.log(req.body);
 		let _s = new Date();
@@ -379,6 +380,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		]
 
 		for(let field of specialFields.unitFields){
+			if (F_ACTION_PRESERVATION) {
+				break;
+			}
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
 				req.body[field.fieldName] = parseFloat(req.body[field.fieldName]);
 				if (req.body[field.fieldName] < 0) {
@@ -406,6 +410,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		}
 
 		for(let field of specialFields.coordinations){
+			if (F_ACTION_PRESERVATION) {
+				break;
+			}
 			if ((field.fieldName in req.body) && (req.body[field.fieldName])){
 				// console.log(req.body[field.fieldName]);
 				// new
@@ -492,6 +499,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		]
 
 		for(let field of specialFields.placeFields){
+			if (F_ACTION_PRESERVATION) {
+				break;
+			}
 			// console.log('checking ' + field.fieldName);
 			if (field.fieldName in req.body){
 				let value_ = req.body[field.fieldName]
@@ -513,6 +523,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 		// save props
 		for (var i = 0; i < _PROP_FIELDS.length; i++) {
 			var element = _PROP_FIELDS[i];
+			if (F_ACTION_PRESERVATION && (!element.isPreservationField)) {
+				continue;
+			}
 			
 			// Check required
 			if ((action == ACTION_CREATE) && (element.type.localeCompare('Mixed') !== 0)) {
@@ -859,6 +872,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 		// process some special props
 		_PROP_FIELDS.map(function (field) {
+			if (F_ACTION_PRESERVATION && (!field.isPreservationField)) {
+				return;
+			}
 			if (field.type == 'Unit'){
 				// TODO unit
 				if (field.name in req.body){
@@ -894,6 +910,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			const currentTmpFiles = fs.readdirSync(path.join(ROOT, TMP_UPLOAD_DIR), {encoding: 'utf8'});
 			// rename images
 			FILE_FIELDS.map(function (element) {
+				if (F_ACTION_PRESERVATION && (!element.isPreservationField)) {
+					return;
+				}
 				// console.log('---');
 				// console.log(element.name);
 				// if (req.files){
@@ -921,7 +940,7 @@ function createSaveOrUpdateFunction (variablesBundle) {
 
 						// 
 						// NOW we don't need to delete old files.
-						// have a new API to to that
+						// a new API is created to do that
 						// the remaining files are actually necessary
 						// var files = objectChild(objectInstance, element.schemaProp)[element.name];
 						// // console.log(files);
@@ -969,6 +988,9 @@ function createSaveOrUpdateFunction (variablesBundle) {
 						// curFullName = [6d90732ef697bbf4f1248e1958ac1060, anhMauVat, 18952851_2101188366876603_8950647639813852835_n.jpg]
 						let curFullName = fileName.split(STR_SEPARATOR);
 						if (curFullName[1] in PROP_FIELDS_OBJ) {
+							if (F_ACTION_PRESERVATION && (!_PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]].isPreservationField)) {
+								return;
+							}
 							let f = false;
 							if ('regex' in _PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]]) {
 								let regex = new RegExp(_PROP_FIELDS[PROP_FIELDS_OBJ[curFullName[1]]].regex, 'i');
@@ -1000,7 +1022,12 @@ function createSaveOrUpdateFunction (variablesBundle) {
 			else {
 				objectInstance.updated_at = new Date();
 			}
-			objectInstance.flag.fApproved = false;
+			if (!F_ACTION_PRESERVATION) {
+				objectInstance.flag.fApproved = false; // normal edit by owner
+			} else {
+				// user in BTTNVN edit only preservation fields.
+				// so, do nothing here.
+			}
 			objectInstance.save(function (err, r) {
 				if (err){
 					console.log(err);

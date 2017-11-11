@@ -720,17 +720,19 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
     $scope.read = function (respone) {
         var urlFields = "/app/database/templateexcel/templatePal.json"
         var urlDates = "/app/database/templateexcel/paldate.json"
-         var row = prompt("Nhập số thứ tự của mẫu: ")
+        var row = prompt("Nhập số thứ tự của mẫu: ")
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             // console.log(res_tmp);
+            // console.log($scope.data.fViTriToaDo);
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                     $scope.data.fViTriToaDo = "dms";
                     $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
                     $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
                 } else {
+                    // console.log("Running in dd");
                     $scope.data.fViTriToaDo = "dd";
                 }
             }, 500);

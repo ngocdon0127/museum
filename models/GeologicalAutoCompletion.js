@@ -11,6 +11,7 @@ module.exports = function (mongoose) {
 		huyen: [String],
 		xa: [String],
 		thon: [String],
+		loaiMauVat: [String],
 		coQuanXuLy: [String],
 		coQuanToChucGiamDinh: [String],
 		coQuanNhapVatMau: [String],

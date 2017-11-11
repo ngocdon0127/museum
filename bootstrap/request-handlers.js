@@ -1229,6 +1229,7 @@ var deleteFileHander = options => {
 							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
 						}
 					});
+					savedFiles = []
 					arr.map(f => {
 						savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
 					})

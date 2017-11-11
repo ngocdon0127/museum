@@ -122,8 +122,7 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 	}, [])),
 	(req, res, next) => {
 		// need to clear flag here
-		// delete req.body.action;
-		req.body.action = 'preservation';
+		delete req.body.action;
 		next();
 	},
 	putHandler({
@@ -261,8 +260,7 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 var deleteFileHander = global.myCustomVars.deleteFileHander; // Delete file in a field
 router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'),
 	(req, res, next) => {
-		// delete req.body.action;
-		req.body.action = 'preservation';
+		delete req.body.action;
 		next();
 	}, deleteFileHander({
 		objectModelIdParamName: objectModelIdParamName,

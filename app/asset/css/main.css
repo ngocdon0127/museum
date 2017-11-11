@@ -360,7 +360,7 @@ a.nav:hover{
 
 /* -------------Phan button phia duoi cung----------*/
 .bottom-nav {
-    position: fixed;
+    /*position: fixed;*/
     width: 80%;
     margin: auto;
     bottom: 10px;

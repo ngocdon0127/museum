@@ -919,6 +919,11 @@ var deleteHandler = function (options) {
 				if (objectInstance.deleted_at) {
 					return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Mẫu dữ liệu này đã bị xóa từ trước']);
 				}
+				if (objectInstance.flag && objectInstance.flag.fApproved) {
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'],
+						[`Không thể xóa do mẫu dữ liệu này đã được phê duyệt.
+						Cần được chủ nhiệm đề tài Hủy phê duyệt trước khi có thể xóa mẫu dữ liệu này.`])
+				}
 				var canDelete = false;
 				var userRoles = await(new Promise((resolve, reject) => {
 					acl.userRoles(req.session.userId, (err, roles) => {
@@ -1058,6 +1063,11 @@ var deleteFileHander = options => {
 			}))
 			if (objectInstance){
 				var canEdit = false;
+				if (objectInstance.flag && objectInstance.flag.fApproved) {
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'],
+						[`Không thể chỉnh sửa do mẫu dữ liệu này đã được phê duyệt.
+						Cần được chủ nhiệm đề tài Hủy phê duyệt trước khi có thể chỉnh sửa mẫu dữ liệu này.`])
+				}
 				let objectBeforeUpdate = JSON.parse(JSON.stringify(objectInstance));
 
 				var userRoles = await(new Promise((resolve, reject) => {
@@ -1272,6 +1282,11 @@ var putHandler = function (options) {
 				})
 			}))
 			if (objectInstance){
+				if (objectInstance.flag && objectInstance.flag.fApproved) {
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'],
+						[`Không thể chỉnh sửa do mẫu dữ liệu này đã được phê duyệt.
+						Cần được chủ nhiệm đề tài Hủy phê duyệt trước khi có thể chỉnh sửa mẫu dữ liệu này.`])
+				}
 				var canEdit = false;
 
 				var userRoles = await(new Promise((resolve, reject) => {

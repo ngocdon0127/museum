@@ -307,7 +307,8 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"autoCompletion": true
 	},
 	{
 		"name": "kichThuocMau",

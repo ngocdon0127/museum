@@ -6,7 +6,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "soHieuBaoTangCS",
@@ -1102,7 +1103,8 @@
 		"label": "Ngày nhập mẫu",
 		"required": false,
 		"money": false,
-		"type": "Date"
+		"type": "Date",
+		"isPreservationField": true
 	},
 	{
 		"name": "nguoiGiao",
@@ -1111,7 +1113,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "nguoiNhan",
@@ -1120,7 +1123,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "coQuanNhapVatMau",
@@ -1130,7 +1134,8 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"isPreservationField": true
 	},
 	{
 		"name": "hinhThucNhapMau",
@@ -1140,7 +1145,8 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": false
+		"autoCompletion": false,
+		"isPreservationField": true
 	},
 	{
 		"name": "traoDoiMau",
@@ -1149,7 +1155,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "vayMuon",
@@ -1158,7 +1165,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "noiLuuTruMau",
@@ -1168,7 +1176,8 @@
 		"money": false,
 		"type": "String",
 		"regex": "^.{0,}$",
-		"autoCompletion": true
+		"autoCompletion": true,
+		"isPreservationField": true
 	},
 	{
 		"name": "phong",
@@ -1176,7 +1185,8 @@
 		"label": "Phòng",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"isPreservationField": true
 	},
 	{
 		"name": "tuGia",
@@ -1184,7 +1194,8 @@
 		"label": "Tủ, giá",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"isPreservationField": true
 	},
 	{
 		"name": "ngan",
@@ -1192,7 +1203,8 @@
 		"label": "Ngăn tủ, ngăn giá",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"isPreservationField": true
 	},
 	{
 		"name": "hop",
@@ -1200,7 +1212,8 @@
 		"label": "Hộp",
 		"required": false,
 		"money": false,
-		"type": "String"
+		"type": "String",
+		"isPreservationField": true
 	},
 	{
 		"name": "giayPhepNhapMau",
@@ -1209,7 +1222,8 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?)$"
+		"regex": "^.+\\.(jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?)$",
+		"isPreservationField": true
 	},
 	{
 		"name": "hoSoNhapMauVatDiKem",
@@ -1218,7 +1232,8 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(pdf|docx?)$"
+		"regex": "^.+\\.(pdf|docx?)$",
+		"isPreservationField": true
 	},
 	{
 		"name": "nguoiLapPhieuMauVat",
@@ -1227,7 +1242,8 @@
 		"required": false,
 		"money": true,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "nguoiNhapVaoPhanMem",
@@ -1236,7 +1252,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "thongTinKhac8",
@@ -1248,7 +1265,8 @@
 		"subProps": [
 			"thongTinKhac8Str",
 			"thongTinKhac8File"
-		]
+		],
+		"isPreservationField": true
 	},
 	{
 		"name": "thongTinKhac8Str",
@@ -1257,7 +1275,8 @@
 		"required": false,
 		"money": false,
 		"type": "String",
-		"regex": "^.{0,}$"
+		"regex": "^.{0,}$",
+		"isPreservationField": true
 	},
 	{
 		"name": "thongTinKhac8File",
@@ -1266,7 +1285,8 @@
 		"required": false,
 		"money": false,
 		"type": "File",
-		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$"
+		"regex": "^.+\\.(zip|rar|jpe?g|gif|png|ico|tiff?|raw|bmp|bpg|eps|pdf|docx?|xlsx?|txt|mp4|mpg|flv|rm|webm|mkv|ogg|avi|mov|wmv|3gp|m4v)$",
+		"isPreservationField": true
 	},
 	{
 		"name": "thongTinKhac9",

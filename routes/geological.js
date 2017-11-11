@@ -120,6 +120,29 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 		preArray.push({name: curElement.name}); 
 		return preArray;
 	}, [])),
+	(req, res, next) => {
+		// need to clear flag here
+		delete req.body.action;
+		next();
+	},
+	putHandler({
+		objectModelIdParamName: objectModelIdParamName,
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+		ObjectModel: ObjectModel,
+		saveOrUpdate: saveOrUpdate
+	})
+)
+
+router.put(objectBaseURL + '/preservation', aclMiddleware(aclMiddlewareBaseURL, 'preserve'), 
+	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
+		preArray.push({name: curElement.name}); 
+		return preArray;
+	}, [])),
+	(req, res, next) => {
+		// need to set flag here
+		req.body.action = 'preservation';
+		next();
+	},
 	putHandler({
 		objectModelIdParamName: objectModelIdParamName,
 		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
@@ -235,15 +258,36 @@ router.delete(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'delete'), dele
 }))
 
 var deleteFileHander = global.myCustomVars.deleteFileHander; // Delete file in a field
-router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'), deleteFileHander({
-	objectModelIdParamName: objectModelIdParamName,
-	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
-	objectModelName: objectModelName,
-	ObjectModel: ObjectModel,
-	PROP_FIELDS: PROP_FIELDS,
-	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
-	form: 'dia-chat'
-}))
+router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'delete'),
+	(req, res, next) => {
+		delete req.body.action;
+		next();
+	}, deleteFileHander({
+		objectModelIdParamName: objectModelIdParamName,
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+		objectModelName: objectModelName,
+		ObjectModel: ObjectModel,
+		PROP_FIELDS: PROP_FIELDS,
+		PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+		form: 'dia-chat'
+	})
+)
+
+router.delete(objectBaseURL + '/file/preservation', aclMiddleware(aclMiddlewareBaseURL, 'preserve'), 
+	(req, res, next) => {
+		req.body.action = 'preservation';
+		next();
+	}, deleteFileHander({
+		objectModelIdParamName: objectModelIdParamName,
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+		objectModelName: objectModelName,
+		ObjectModel: ObjectModel,
+		PROP_FIELDS: PROP_FIELDS,
+		PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+		form: 'dia-chat'
+	})
+)
+
 router.get(objectBaseURL + '/export/darwin', (req, res) => {
 	require(path.join(ROOT, 'utils/makeDwCAFile/makeDCAFile'))(res, ObjectModel.modelName)
 })

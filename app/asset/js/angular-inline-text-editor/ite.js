@@ -2,13 +2,13 @@
 
 angular.module( 'InlineTextEditor', ['ngSanitize']);
 
-function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
+function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize, $document){
   return {
     restrict: 'A',
     require: '?ngModel',
     link: function($scope, element, attrs, ngModel) {
 
-      var html, savedSelection, clickPosition, overToolbar, originalToolbar, toolbar;
+      var html, savedSelection, clickPosition, overToolbar, originalToolbar, toolbar, overContextMenu;
       var contextMenu, originalContextMenu, specialCharaterTable;
       $window.rangySelector;
 
@@ -109,6 +109,8 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
 
 
       var createContextMenu = function() {
+        console.log("create context menu");
+        removeToolbar();
         removeContextMenu();
         renderContextMenuContent();
         // createSpecialCharaterTable();
@@ -120,20 +122,34 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
         angular.element(document.body).after(contextMenu);
         contextMenu[0].style.position = 'absolute';
         contextMenu[0].style.left = clickPosition.x + 'px';
-        contextMenu[0].style.top = clickPosition.y + 'px';
+        contextMenu[0].style.top = clickPosition.y + 20 + 'px';
 
-        angular.element(contextMenu).bind("mouseleave", function(e) {
-          removeContextMenu();
+        angular.element(contextMenu).bind('mouseleave', function (e) {
+          overContextMenu = false;
+        });
+        angular.element(contextMenu).bind('mouseover', function (e) {
+          overContextMenu = true;
         });
       }
 
-      var removeContextMenu = function() {
-        angular.element(contextMenu).remove();
+
+
+      $document.on("click", function(e){
+        if(!overContextMenu){
+          removeContextMenu();
+        }
+      });
+
+      var removeContextMenu = function(escape) {
+        if (!overContextMenu || escape) {
+          // console.log("remove context menu");
+          angular.element(document.getElementById('context-menu')).remove();
+        }
       }
 
 
       $scope.moreSpecialSymbol = function(){
-        removeContextMenu();
+        removeContextMenu("open-special-symbol");
         createSpecialCharaterTable();
       }
 
@@ -528,6 +544,7 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
 
       var createToolbar = function(){
         removeToolbar();
+        removeContextMenu();
         toolbar = angular.copy(originalToolbar);
         toolbar = $compile(toolbar)($scope);
 
@@ -605,7 +622,7 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize){
   };
 }
 
-inlineTextEditor.$inject = ["$sce", "$compile", "$timeout", "$window", "$sanitize"];
+inlineTextEditor.$inject = ["$sce", "$compile", "$timeout", "$window", "$sanitize", "$document"];
 
 function specialCharaterTable() {
   return {

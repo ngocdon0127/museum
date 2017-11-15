@@ -11,6 +11,75 @@
             }
         ]
     },
+    "vnmnstaff": {
+        "role": "vnmnstaff",
+        "rolename": "Nhân viên BTTNVN",
+        "allows": [
+            {
+                "resource": "/test",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/app",
+                "actions": [
+                    "view",
+                    "create",
+                    "edit",
+                    "delete"
+                ]
+            },
+            {
+                "resource": "/content/dong-vat",
+                "resourceId": "dongvat",
+                "resourceName": "Động vật",
+                "actions": [
+                    "view",
+                    "preserve"
+                ]
+            },
+            {
+                "resource": "/content/tho-nhuong",
+                "resourceId": "thonhuong",
+                "resourceName": "Thổ nhưỡng",
+                "actions": [
+                    "view",
+                    "preserve"
+                ]
+            },
+            {
+                "resource": "/content/dia-chat",
+                "resourceId": "diachat",
+                "resourceName": "Địa chất",
+                "actions": [
+                    "view",
+                    "preserve"
+                ]
+            },
+            {
+                "resource": "/content/co-sinh",
+                "resourceId": "cosinh",
+                "resourceName": "Cổ sinh",
+                "actions": [
+                    "view",
+                    "preserve"
+                ]
+            },
+            {
+                "resource": "/content/thuc-vat",
+                "resourceId": "thucvat",
+                "resourceName": "Thực vật",
+                "actions": [
+                    "view",
+                    "preserve"
+                ]
+            }
+        ]
+    },
     "content": {
         "role": "content",
         "rolename": "Nhân viên",

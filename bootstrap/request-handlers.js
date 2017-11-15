@@ -919,6 +919,11 @@ var deleteHandler = function (options) {
 				if (objectInstance.deleted_at) {
 					return responseError(req, UPLOAD_DESTINATION, res, 400, ['error'], ['Mẫu dữ liệu này đã bị xóa từ trước']);
 				}
+				if (objectInstance.flag && objectInstance.flag.fApproved) {
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'],
+						[`Không thể xóa do mẫu dữ liệu này đã được phê duyệt.
+						Cần được chủ nhiệm đề tài Hủy phê duyệt trước khi có thể xóa mẫu dữ liệu này.`])
+				}
 				var canDelete = false;
 				var userRoles = await(new Promise((resolve, reject) => {
 					acl.userRoles(req.session.userId, (err, roles) => {
@@ -1015,6 +1020,7 @@ var deleteFileHander = options => {
 	return (req, res, next) => {
 		async(() => {
 			console.log(req.body);
+			const F_ACTION_PRESERVATION = 'preservation'.localeCompare(req.body.action) == 0
 			let objectModelIdParamName = options.objectModelIdParamName
 			let UPLOAD_DESTINATION = options.UPLOAD_DESTINATION
 			let ObjectModel = options.ObjectModel
@@ -1058,6 +1064,14 @@ var deleteFileHander = options => {
 			}))
 			if (objectInstance){
 				var canEdit = false;
+				if (!F_ACTION_PRESERVATION) {
+					if (objectInstance.flag && objectInstance.flag.fApproved) {
+						return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'],
+							[`Không thể chỉnh sửa do mẫu dữ liệu này đã được phê duyệt.
+							Cần được chủ nhiệm đề tài Hủy phê duyệt trước khi có thể chỉnh sửa mẫu dữ liệu này.`])
+					}
+				}
+				
 				let objectBeforeUpdate = JSON.parse(JSON.stringify(objectInstance));
 
 				var userRoles = await(new Promise((resolve, reject) => {
@@ -1100,6 +1114,9 @@ var deleteFileHander = options => {
 				// 	}
 				// }
 				// ===
+				if (F_ACTION_PRESERVATION) {
+					canEdit = true;
+				}
 
 				if (!canEdit){
 					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'],
@@ -1113,6 +1130,12 @@ var deleteFileHander = options => {
 					return res.status(400).json({
 						status: 'error',
 						error: 'invalid field'
+					})
+				}
+				if (F_ACTION_PRESERVATION && !PROP_FIELDS[PROP_FIELDS_OBJ[req.body.field]].isPreservationField) {
+					return res.status(400).json({
+						status: 'error',
+						error: 'Không phải trường có thể sửa bởi BTTNVN'
 					})
 				}
 				console.log(oldFileName);
@@ -1206,6 +1229,7 @@ var deleteFileHander = options => {
 							files.push(fileName.substring(fileName.lastIndexOf(STR_SEPARATOR) + STR_SEPARATOR.length))
 						}
 					});
+					savedFiles = []
 					arr.map(f => {
 						savedFiles.push(f.split(STR_SEPARATOR)[f.split(STR_SEPARATOR).length - 1])
 					})
@@ -1232,6 +1256,10 @@ var putHandler = function (options) {
 		// console.log(req.body);
 		delete req.body.maDeTai;
 		delete req.body.fApproved;
+
+		// here, req.body.action can be 'preservation' or null
+		// if null, normal update
+		// if 'preservation', user in BTTNVN is updating preservation fields
 
 		async(() => {
 			var objectModelIdParamName = options.objectModelIdParamName
@@ -1272,6 +1300,16 @@ var putHandler = function (options) {
 				})
 			}))
 			if (objectInstance){
+				const F_ACTION_PRESERVATION = 'preservation'.localeCompare(req.body.action) == 0
+				if (F_ACTION_PRESERVATION) {
+					// skip checking owner, manager, admin, approved
+					return saveOrUpdate(req, res, objectInstance, ACTION_EDIT);
+				}
+				if (objectInstance.flag && objectInstance.flag.fApproved) {
+					return responseError(req, UPLOAD_DESTINATION, res, 403, ['error'],
+						[`Không thể chỉnh sửa do mẫu dữ liệu này đã được phê duyệt.
+						Cần được chủ nhiệm đề tài Hủy phê duyệt trước khi có thể chỉnh sửa mẫu dữ liệu này.`])
+				}
 				var canEdit = false;
 
 				var userRoles = await(new Promise((resolve, reject) => {
@@ -1348,6 +1386,8 @@ var postHandler = function (options) {
 
 		newInstance.maDeTai.maDeTai = req.user.maDeTai;
 		delete req.body.maDeTai;
+
+		delete req.body.action // req.body.action can be 'preservation'
 
 		return saveOrUpdate(req, res, newInstance, ACTION_CREATE);
 	}

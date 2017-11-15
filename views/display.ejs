@@ -88,7 +88,7 @@
 									preStr += '<video width="160" height="120" controls> <source src="/content/download' + sp + '/' + curElement + '"></video>'
 									break;
 								case 'image':
-									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + '<img onerror="this.onerror=null;this.src=\'/img/image-not-found.png\';" class="img-responsive" width="160" src="' + sp + '/' + curElement + '">' + '</a><br/>\n';
+									preStr += '<a target="new" href="' + sp + '/' + curElement + '?dim=full">' + '<img onerror="this.onerror=null;this.src=\'/img/image-not-found.png\';" class="img-responsive" width="160" src="' + sp + '/' + curElement + '?dim=full">' + '</a>' + `<a href="/content/download${sp}/${curElement}"><i class="fa fa-fw fa-cloud-download"></i></a>` + '<br/>\n';
 									break;
 								default:
 									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.substring(curElement.lastIndexOf('_+_') + '_+_'.length) + '</a><br/>\n';
@@ -426,5 +426,6 @@
 				})
 			}
 		</script>
+		<script type='text/javascript' src='/javascripts/simplezoom.js'></script>
 	</body>
 </html>

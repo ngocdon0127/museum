@@ -142,7 +142,7 @@ function inlineTextEditor($sce, $compile, $timeout, $window, $sanitize, $documen
 
       var removeContextMenu = function(escape) {
         if (!overContextMenu || escape) {
-          console.log("remove context menu");
+          // console.log("remove context menu");
           angular.element(document.getElementById('context-menu')).remove();
         }
       }

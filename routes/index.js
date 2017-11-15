@@ -470,7 +470,7 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 		var cores = JSON.parse(fs.readFileSync(path.join(__dirname, '../config/acl-core.json')).toString());
 		var role = req.body.deleteRole;
 		console.log(role);
-		if ((role == 'admin') || (role == 'manager')){
+		if ((role == 'admin') || (role == 'manager') || (role == 'vnmnstaff')){
 			return res.status(403).json({
 				status: 'error',
 				error: 'Không thể xóa cấp ' + role

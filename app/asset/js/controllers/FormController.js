@@ -184,7 +184,12 @@ async function sheetToJson(workbook, urlFields, urlDates, row) {
     var datefields;
     await workbook.SheetNames.forEach(function (sheetName) {
         if (sheetName == "Mau Hang") {
-        dic = workbook.Sheets[sheetName];
+            dic = workbook.Sheets[sheetName];
+            // console.log(dic);
+            if (dic["A11"] != 1.1) {
+                alert("Phiên bản của template không phải là mới nhất, hãy cập nhật");
+                dic = {};
+            }
         }
     });
 

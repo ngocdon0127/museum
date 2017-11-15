@@ -348,7 +348,20 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				}
 			},
 			error: function (err) {
-				console.log(err);
+				// console.log(err);
+				var modalInstance = $uibModal.open({
+					templateUrl: 'views/modals/dialogs.blade.html',
+					controller: "ModalInstanceCtrl",
+					controllerAs: '$ctrl',
+					resolve: {
+						msg: function () {
+							return err.responseJSON.error;
+						},
+						id: function () {
+							return "";
+						}
+					}
+				});
 			}
 		})
 	}
@@ -360,14 +373,13 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			headers: {'Content-Type': 'application/json'},
 			data: {id: id}
 		}).then(function (res) {
-			console.log(res);
 			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
 				controller: "ModalInstanceCtrl",
 				controllerAs: '$ctrl',
 				resolve: {
 					msg: function () {
-						return res.data.status == "success" ? "Xóa thành công" : res.data.error;
+						return res.data.status == "success" ? "Xóa mẫu thành công" : res.data.error;
 					},
 					id: function () {
 						return "";
@@ -617,6 +629,10 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		SPINNER.stop();
 	}
 
+	function ob(x) {
+		return document.getElementById(x)
+	}
+
 	function createLiTags(data, ulTag, files, urlDelete) {
 	// 	console.log("Link api delete");
 	// 	console.log(urlDelete);
@@ -664,6 +680,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	// Tao the ul
 	function createTags(res) {
 		var ulTag = ob('ul_' + res.field);
+		console.log(ulTag);
 		if (ulTag == null) {
 			var parentFile = document.getElementsByName(res.field)[0].parentElement
 			var ulTag = document.createElement("ul")
@@ -671,7 +688,9 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			ulTag.setAttribute("class", "list-group")
 			parentFile.appendChild(ulTag);
 		} else{
-			ulTag.innerHTML = ''
+			console.log("reset data in ulTag");
+			ulTag.innerText = '';
+			console.log("reset data in ulTag");
 		}
 		var data = {
 			field : res.field,

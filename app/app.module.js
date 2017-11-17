@@ -72,7 +72,7 @@ app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $sco
             try{
                 // console.log("Loi o vi tri: " + id);
                 if ((id == 'viDo') || (id == 'kinhDo')) {
-                    console.log("Loi trong vi tri toa do");
+                    // console.log("Loi trong vi tri toa do");
                     var x = document.querySelectorAll('#' + id);
                     Array.prototype.forEach.call(x, function(element){
                         element.style.borderColor = "red";

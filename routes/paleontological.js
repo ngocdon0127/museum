@@ -121,6 +121,29 @@ router.put(objectBaseURL, aclMiddleware(aclMiddlewareBaseURL, 'edit'),
 		preArray.push({name: curElement.name}); 
 		return preArray;
 	}, [])),
+	(req, res, next) => {
+		// need to clear flag here
+		delete req.body.action;
+		next();
+	},
+	putHandler({
+		objectModelIdParamName: objectModelIdParamName,
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+		ObjectModel: ObjectModel,
+		saveOrUpdate: saveOrUpdate
+	})
+)
+
+router.put(objectBaseURL + '/preservation', aclMiddleware(aclMiddlewareBaseURL, 'preserve'), 
+	upload.fields(FILE_FIELDS.reduce(function (preArray, curElement) {
+		preArray.push({name: curElement.name}); 
+		return preArray;
+	}, [])),
+	(req, res, next) => {
+		// need to set flag here
+		req.body.action = 'preservation';
+		next();
+	},
 	putHandler({
 		objectModelIdParamName: objectModelIdParamName,
 		UPLOAD_DESTINATION: UPLOAD_DESTINATION,

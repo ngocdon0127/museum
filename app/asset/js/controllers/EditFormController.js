@@ -672,7 +672,7 @@ app.controller('EditLandFormCtrl', function ($http, $scope, AuthService, $stateP
     $http.get('/app/database/tipslan.json').then(function (res) {
         $scope.tooltips = res.data;
     }, function (err) {
-        console.log(err);
+        console.log("Not load title for land");
     });
 
     $scope.deleteTmpFile = function (file, field) {
@@ -726,7 +726,7 @@ app.controller('EditLandFormCtrl', function ($http, $scope, AuthService, $stateP
             AuthService.fetchFlexdatalist($scope);
         }, 200)
     }, function (err) {
-        console.log(err);
+        console.log("Not load auto complete");
     });
 
     $http.get(url).then(function (res) {
@@ -769,7 +769,7 @@ app.controller('EditLandFormCtrl', function ($http, $scope, AuthService, $stateP
         AuthService.editForm(fd, AuthService.hostName + '/content/tho-nhuong', urlRe).then(function success(data) {
             // console.log(data);
         }, function error(err) {
-            console.log(err.responseJSON.field);
+            // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {
                 if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
                     $scope.tab = i+1;

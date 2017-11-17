@@ -184,7 +184,12 @@ async function sheetToJson(workbook, urlFields, urlDates, row) {
     var datefields;
     await workbook.SheetNames.forEach(function (sheetName) {
         if (sheetName == "Mau Hang") {
-        dic = workbook.Sheets[sheetName];
+            dic = workbook.Sheets[sheetName];
+            // console.log(dic);
+            if (dic["A11"] != 1.1) {
+                alert("Phiên bản của template không phải là mới nhất, hãy cập nhật");
+                dic = {};
+            }
         }
     });
 
@@ -350,11 +355,12 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
             console.log($scope.data.fViTriToaDo);
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
-                    console.log("Vi tri toa do la dms");
+                    console.log("Don vi la dms");
                     $scope.data.fViTriToaDo = "dms";
                     $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
                     $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
                 } else {
+                    console.log("Don vi la dd");
                     $scope.data.fViTriToaDo = "dd";
                 }
             }, 500);
@@ -388,7 +394,7 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/dong-vat', urlRe).then(function success(data) {
-            console.log(data);
+            // console.log(data);
         }, function error(err) {
             // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {
@@ -474,7 +480,7 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }
-            }, 500);
+            }, 100);
             $scope.$apply();
         })
     }
@@ -489,8 +495,8 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     $scope.addPost = function (FormContent) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
+        console.log(fd);
         AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe).then(function success(data) {
-            console.log(data);
         }, function error(err) {
             // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {

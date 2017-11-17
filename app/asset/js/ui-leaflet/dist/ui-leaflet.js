@@ -105,6 +105,37 @@ angular.module('ui-leaflet', ['nemLogging']).directive('leaflet',
                 map.setView([defaults.center.lat, defaults.center.lng], defaults.center.zoom);
             }
 
+            // them quan dao hoang sa, truong sa
+            var geoStyle = {
+                radius: 50,
+                fillColor: "#AAD3DF",
+                color: "#AA9BCB",
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 1
+                
+            };
+            var hoangSa = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[111.719970703125,17.308687886770034],[111.533203125,17.33490806580805],[111.3848876953125,17.306065663093598],[111.3299560546875,17.274596063712107],[111.27777099609375,17.23525150539053],[111.2530517578125,17.191962809115957],[111.192626953125,16.983248530690656],[111.13494873046875,16.707232312927637],[110.95367431640624,15.784324680021353],[110.972900390625,15.689153842187904],[111.0223388671875,15.61245612714906],[111.09374999999999,15.562190330305713],[111.2530517578125,15.559544421458103],[111.46453857421875,15.59922947885929],[111.78314208984375,15.660064992067259],[112.48283386230469,15.799521447241506],[112.664794921875,15.839820390892685],[112.77877807617188,15.945484288404524],[112.82409667968749,16.024695711685315],[112.84332275390625,16.117069292399325],[112.98751831054686,16.711178229749688],[112.91748046874999,16.833461100339775],[112.63732910156249,17.020020181668386],[112.3736572265625,17.19589856372108],[112.0550537109375,17.253613343555305],[111.719970703125,17.308687886770034]]]}};
+            var truongSa = {"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[112.8076171875,9.903921416774978],[111.9287109375,9.037002898469423],[112.0166015625,8.450638800331001],[112.91748046874999,8.407168163601076],[113.5546875,8.819938928283147],[113.62060546875,9.44906182688142],[112.8076171875,9.903921416774978]]]}};
+            var lObject = L.geoJson(hoangSa, geoStyle).addTo(map);
+            lObject.addData(truongSa);
+
+            var hoangSaIcon = L.divIcon({className: 'my-div-icon', html : 'Quần đảo Hoàng Sa', iconSize: [140, 15]});
+            var truongSaIcon = L.divIcon({className: 'my-div-icon', html : 'Quần đảo Trường Sa', iconSize: [140, 15]});
+            // you can set .my-div-icon styles in CSS
+            var hoangSaMarker = L.marker([16.9772, 112.2676], {icon: hoangSaIcon});
+            var truongSaMarker = L.marker([9.99969, 114.00431], {icon: truongSaIcon});
+            var islandLayer = L.layerGroup([hoangSaMarker, truongSaMarker]);
+            map.on('zoomend' , function (e) {
+                if (map.getZoom() > 5) {                
+                    islandLayer.addTo(map);
+                } else {
+                    if (map.hasLayer(islandLayer)) {
+                        map.removeLayer(islandLayer);
+                    }
+                }
+            });
+
             // If no layers nor tiles defined, set the default tileLayer
             if (!isDefined(attrs.tiles) && (!isDefined(attrs.layers))) {
                 var tileLayerObj = L.tileLayer(defaults.tileLayer, defaults.tileLayerOptions);

@@ -133,6 +133,7 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 			create: false,
 			edit: false,
 			delete: false,
+			preserve: false,
 			approve: false
 		}
 		for(let resourceId in cores.resources){

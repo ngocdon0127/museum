@@ -23,6 +23,16 @@
 			.ite-underline{
 				text-decoration: underline;
 			}
+			.paracel-islands {
+				color: white;
+				font-size: 12px !important;
+		    position: absolute;
+		    width:1000px;
+		    font-size:20px;
+			}
+			.fa-circle {
+				font-size: 6px !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -78,7 +88,7 @@
 									preStr += '<video width="160" height="120" controls> <source src="/content/download' + sp + '/' + curElement + '"></video>'
 									break;
 								case 'image':
-									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + '<img onerror="this.onerror=null;this.src=\'/img/image-not-found.png\';" class="img-responsive" width="160" src="' + sp + '/' + curElement + '">' + '</a><br/>\n';
+									preStr += '<a target="new" href="' + sp + '/' + curElement + '?dim=full">' + '<img onerror="this.onerror=null;this.src=\'/img/image-not-found.png\';" class="img-responsive" width="160" src="' + sp + '/' + curElement + '?dim=full">' + '</a>' + `<a href="/content/download${sp}/${curElement}"><i class="fa fa-fw fa-cloud-download"></i></a>` + '<br/>\n';
 									break;
 								default:
 									preStr += '<a href="/content/download' + sp + '/' + curElement + '">' + curElement.substring(curElement.lastIndexOf('_+_') + '_+_'.length) + '</a><br/>\n';
@@ -253,6 +263,7 @@
 		<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 		<script type="text/javascript" src='/javascripts/leaflet.browser.print.min.js'></script>
+		<script type="text/javascript" src='/javascripts/leaflet.label.js'></script>
 		<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
 		<!-- <script type="text/javascript" src="/javascripts/Leaflet.Icon.Glyph.js"></script> -->
 		<!-- <script src='/javascripts/leaflet-color-markers11.js'></script> -->
@@ -277,6 +288,7 @@
 					'Terrain Map': L.mapbox.tileLayer('bobbysud.i2pfp2lb', {
 							detectRetina: true
 					})
+					// }).addTo(mymap)
 			}).addTo(mymap);
 
 			var coor = <%- JSON.stringify(coor) %>
@@ -309,6 +321,62 @@
 					}).addTo(mymap);
 				}
 			<% } %>
+		</script>
+		<script>
+			// 16.662980, 112.740780
+			// inject Paracel Islands
+			var blueIcon = new L.Icon({
+			  // iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+			  iconUrl: '/img/leaflet-markers/marker-icon-2x-blue.png',
+			  shadowUrl: '/img/leaflet-markers/marker-shadow.png',
+			  iconSize: [25, 41],
+			  iconAnchor: [12, 41],
+			  popupAnchor: [1, -34],
+			  shadowSize: [41, 41]
+			});
+			// var marker = L.marker([16.8406039,112.3101055], {
+			var marker = L.marker([16.9772, 112.2676], {
+				opacity: 0.01,
+				title: 'Paracel Islands',
+				riseOnHover: true,
+				// icon: L.icon.glyph({
+				// 	prefix: 'fa',
+				// 	glyph: 'fa-internet-explorer',
+				// 	glyphColor: 'red',
+				// })
+				icon: blueIcon
+			})
+			marker.bindLabel("<i class='fa fa-fw fa-circle'></i><b> Quần đảo<br> Hoàng Sa</b>", {noHide: true, className: "paracel-islands", offset: [0, 0] });
+			// marker.bindLabel("Paracel Islands", {permanent: true, className: "paracel-islands", offset: [0, 0] });
+			marker.addTo(mymap);
+
+
+			// 10.758716, 115.809662
+			// inject Spratly Islands
+			blueIcon = new L.Icon({
+			  // iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+			  iconUrl: '/img/leaflet-markers/marker-icon-2x-blue.png',
+			  shadowUrl: '/img/leaflet-markers/marker-shadow.png',
+			  iconSize: [25, 41],
+			  iconAnchor: [12, 41],
+			  popupAnchor: [1, -34],
+			  shadowSize: [41, 41]
+			});
+			// var marker = L.marker([16.8406039,112.3101055], {
+			var marker = L.marker([9.99969, 114.00431], {
+				opacity: 0.01,
+				title: 'Spratly Islands',
+				riseOnHover: true,
+				// icon: L.icon.glyph({
+				// 	prefix: 'fa',
+				// 	glyph: 'fa-internet-explorer',
+				// 	glyphColor: 'red',
+				// })
+				icon: blueIcon
+			})
+			marker.bindLabel("<i class='fa fa-fw fa-circle'></i><b> Quần đảo<br> Trường Sa</b>", {noHide: true, className: "paracel-islands", offset: [0, 0] });
+			// marker.bindLabel("Paracel Islands", {permanent: true, className: "paracel-islands", offset: [0, 0] });
+			marker.addTo(mymap);
 		</script>
 		<script>
 			// var map = L.map('imgleaf').setView([38.9, -77.03], 14)
@@ -358,5 +426,6 @@
 				})
 			}
 		</script>
+		<script type='text/javascript' src='/javascripts/simplezoom.js'></script>
 	</body>
 </html>

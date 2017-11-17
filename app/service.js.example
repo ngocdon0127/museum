@@ -2,6 +2,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	return ({
 		hostName: 'http://localhost:8000',
 		// hostName: 'https://baotangvn.online',
+		// hostName: 'http://baotangvn.online:8888',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,

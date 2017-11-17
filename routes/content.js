@@ -13,6 +13,103 @@ const async          = require('asyncawait/async');
 const await          = require('asyncawait/await');
 const acl = global.myCustomVars.acl;
 
+
+// public route
+router.get('/approved', (req, res) => {
+  async(() => {
+    let hasTextQuery = req.query.q && req.query.q.trim();
+    let MAX_RESULTS = 20;
+    let models = [
+      {modelName: 'co-sinh', modelTitle: 'Cổ sinh'},
+      {modelName: 'dia-chat', modelTitle: 'Địa chất'},
+      {modelName: 'dong-vat', modelTitle: 'Động vật'},
+      {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng'},
+      {modelName: 'thuc-vat', modelTitle: 'Thực vật'}
+    ]
+    if (req.query.model) {
+      let searchIn = req.query.model.split(',')
+      // console.log(searchIn);
+      models = models.filter(model => {
+        for(let i = 0; i < searchIn.length; i++) {
+          let si = searchIn[i].trim();
+          // console.log(si);
+          if (si) {
+            si = si.toLowerCase();
+            // console.log(si, model.modelTitle.toLowerCase());
+            if (si.localeCompare(model.modelTitle.toLowerCase()) == 0) {
+              return true
+            }
+          }
+        }
+        return false;
+      })
+      delete req.query.model
+    }
+    // console.log(models);
+    let approvedSamples = []
+    for(model of models) {
+
+      let bundle = global.myCustomVars.models[model.modelName].bundle;
+      var userRoles = await(new Promise((resolve, reject) => {
+        acl.userRoles(req.session.userId, (err, roles) => {
+          // console.log('promised userRoles called');
+          if (err){
+            resolve([])
+          }
+          else {
+            resolve(roles)
+          }
+        })
+      }))
+      let selection = {deleted_at: {$eq: null}, 'flag.fApproved': true};
+      // ObjectModel.find(selection, {}, {skip: 0, limit: 10, sort: {created_at: -1}}, function (err, objectInstances) {
+      // Filter
+      let PROP_FIELDS_OBJ = bundle.PROP_FIELDS_OBJ;
+      let PROP_FIELDS = bundle.PROP_FIELDS;
+      let dateMatch = [];
+      // console.log(selection);
+      let ObjectModel = bundle.ObjectModel;
+      
+      let result = await (new Promise((resolve, reject) => {
+        // ObjectModel.aggregate([
+        //  {$match: selection},
+        //  {$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}},
+        //  // {$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}},
+        //  {$sort: {_id: -1}}], (err, aggs) => {
+        ObjectModel.find(selection, {}, {sort: {updated_at: -1, created_at: -1}}, (err, samples) => {
+            if (err) {
+              console.log(err);
+              return resolve([])
+            }
+            let r = [];
+            let c = 0;
+            samples.map((sample, idx) => {
+                let id = sample._id;
+                let created_at = sample.created_at;
+                let updated_at = sample.updated_at;
+                sample =  flatObjectModel(PROP_FIELDS, sample);
+                sample._id = id;
+                sample.id = id;
+                sample.created_at = created_at;
+                sample.updated_at = updated_at;
+                sample.model = model.modelTitle
+                r.push(sample)
+              })
+            return resolve(r)
+          }
+        )
+      }))
+      approvedSamples = approvedSamples.concat(result)
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      total: approvedSamples.length,
+      approvedSamples: approvedSamples
+    })
+  })()
+})
+
 router.use(isLoggedIn);
 
 var STR_SEPARATOR = global.myCustomVars.STR_SEPARATOR;

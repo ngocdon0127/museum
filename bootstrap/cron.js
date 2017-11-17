@@ -2,7 +2,6 @@ const CronJob = require('cron').CronJob;
 const fsE = require('fs-extra');
 const path = require('path');
 const ROOT = path.join(__dirname, '../');
-console.log(ROOT);
 
 let cleanJob = new CronJob('0 0 0 * * *', () => {
   cleanInstantUploadedFiles()

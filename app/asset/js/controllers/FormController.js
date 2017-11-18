@@ -186,7 +186,16 @@ async function sheetToJson(workbook, urlFields, urlDates, row) {
         if (sheetName == "Mau Hang") {
             dic = workbook.Sheets[sheetName];
             // console.log(dic);
-            if (dic["A11"] != 1.1) {
+            var templateVer = '';
+            if (typeof (dic.A1) !== "undefined") {
+                if (dic.A1["t"] == "n") {
+                    templateVer = dic.A1["v"];
+                } else {
+                    templateVer = dic.A1["h"].trim();
+                }
+            }
+            // console.log(templateVer);
+            if (templateVer != 1.1) {
                 alert("Phiên bản của template không phải là mới nhất, hãy cập nhật");
                 dic = {};
             }

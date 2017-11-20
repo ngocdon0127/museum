@@ -295,6 +295,22 @@ router.delete(objectBaseURL + '/file', aclMiddleware(aclMiddlewareBaseURL, 'dele
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	form: 'tho-nhuong'
 }))
+
+router.delete(objectBaseURL + '/file/preservation', aclMiddleware(aclMiddlewareBaseURL, 'preserve'), 
+	(req, res, next) => {
+		req.body.action = 'preservation';
+		next();
+	}, deleteFileHander({
+		objectModelIdParamName: objectModelIdParamName,
+		UPLOAD_DESTINATION: UPLOAD_DESTINATION,
+		objectModelName: objectModelName,
+		ObjectModel: ObjectModel,
+		PROP_FIELDS: PROP_FIELDS,
+		PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
+		form: 'tho-nhuong'
+	})
+)
+
 router.get(objectBaseURL + '/export/darwin', (req, res) => {
 	require(path.join(ROOT, 'utils/makeDwCAFile/makeDCAFile'))(res, ObjectModel.modelName)
 })

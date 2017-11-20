@@ -135,6 +135,61 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 			restrict: true
 		}
 	})
+	.state('cap-nhat-co-sinh', {
+		url: '/co-sinh/cap-nhat/:id',
+		templateUrl: 'views/users/update-preservation/update-pal.template.html',
+		controller: 'UpdatePreservationFormCtrl',
+		access : {
+			sample : "cosinh",
+			action : "preserve",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
+	.state('cap-nhat-dia-chat', {
+		url: '/dia-chat/cap-nhat/:id',
+		templateUrl: 'views/users/update-preservation/update-geo.template.html',
+		controller: 'UpdatePreservationFormCtrl',
+		access : {
+			sample : "diachat",
+			action : "preserve",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
+	.state('cap-nhat-dong-vat', {
+		url: '/dong-vat/cap-nhat/:id',
+		templateUrl: 'views/users/update-preservation/update-ani.template.html',
+		controller: 'UpdatePreservationFormCtrl',
+		access : {
+			sample : "dongvat",
+			action : "preserve",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
+	.state('cap-nhat-tho-nhuong', {
+		url: '/tho-nhuong/cap-nhat/:id',
+		templateUrl: 'views/users/update-preservation/update-land.template.html',
+		controller: 'UpdatePreservationFormCtrl',
+		access : {
+			sample : "thonhuong",
+			action : "preserve",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
+	.state('cap-nhat-thuc-vat', {
+		url: '/thuc-vat/cap-nhat/:id',
+		templateUrl: 'views/users/update-preservation/update-veg.template.html',
+		controller: 'UpdatePreservationFormCtrl',
+		access : {
+			sample : "thucvat",
+			action : "preserve",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
 	.state('quan-ly', {
 		url: '/quan-ly-mau',
 		templateUrl: 'views/users/manage-post/manage.template.html'
@@ -227,7 +282,7 @@ app.run(function($rootScope, $location, $state, $stateParams, $http, AuthService
 	$rootScope.$on('$stateChangeStart', function(event, toState, toStateParams){
 		var url = AuthService.hostName + "/users/me?datatype=json"
 		AuthService.getRestrict().then(function success(res) {
-			$rootScope.restricted = res;
+			$rootScope.restricted = res.restrict;
 			$rootScope.username = res.user.fullname;
 			$rootScope.maDeTai = res.user.maDeTai;
 			

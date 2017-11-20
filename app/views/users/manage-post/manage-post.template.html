@@ -118,62 +118,77 @@
 				</td>
 				<td>
 					<div ng-if="link == 'dong-vat'" ng-controller="ModalCtrl">
-						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.dongvat.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success" ng-if="restricted.restrict.dongvat.edit" ui-sref= "chinh-sua-dong-vat({id : post._id})">
+						<button data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.dongvat.preserve && post.fApproved" class="btn btn-xs btn-success" ng-if="restricted.dongvat.edit" ui-sref="chinh-sua-dong-vat({id : post._id})">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
-						<button data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu"  class="btn btn-xs btn-danger" ng-if="restricted.restrict.dongvat.delete" ng-click="showModal(post._id, link)">
+						<button data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu" class="btn btn-xs btn-danger" ng-if="restricted.dongvat.delete" ng-click="showModal(post._id, link)">
 							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+						<button data-toggle="popover" data-trigger="hover" data-content="Cập nhật lưu trữ, bảo quản" ng-if="restricted.dongvat.preserve" class="btn btn-xs btn-warning" ui-sref="cap-nhat-dong-vat({id : post._id})">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
 						</button>
 					</div>
 
 					<div ng-if="link == 'thuc-vat'" ng-controller="ModalCtrl">
-						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.thucvat.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.restrict.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
+						<button ng-if="restricted.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.thucvat.preserve && post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
-						<button ng-if="restricted.restrict.thucvat.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
+						<button ng-if="restricted.thucvat.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
 							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+						<button data-toggle="popover" data-trigger="hover" data-content="Cập nhật lưu trữ, bảo quản" ng-if="restricted.thucvat.preserve" class="btn btn-xs btn-warning" ui-sref="cap-nhat-thuc-vat({id : post._id})">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
 						</button>
 					</div>
 
 					<div ng-if="link == 'co-sinh'" ng-controller="ModalCtrl">
-						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.cosinh.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.restrict.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
+						<button ng-if="restricted.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.cosinh.preserve && post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
-						<button ng-if="restricted.restrict.cosinh.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
+						<button ng-if="restricted.cosinh.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
 							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+						<button data-toggle="popover" data-trigger="hover" data-content="Cập nhật lưu trữ, bảo quản" ng-if="restricted.cosinh.preserve" class="btn btn-xs btn-warning" ui-sref="cap-nhat-co-sinh({id : post._id})">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
 						</button>
 					</div>
 
 					<div ng-if="link == 'tho-nhuong'" ng-controller="ModalCtrl">
-						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.thonhuong.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.restrict.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
+						<button ng-if="restricted.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.thonhuong.preserve && post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
-						<button ng-if="restricted.restrict.thonhuong.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
+						<button ng-if="restricted.thonhuong.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
 							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+						<button data-toggle="popover" data-trigger="hover" data-content="Cập nhật lưu trữ, bảo quản" ng-if="restricted.thonhuong.preserve" class="btn btn-xs btn-warning" ui-sref="cap-nhat-tho-nhuong({id : post._id})">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
 						</button>
 					</div>
 
 					<div ng-if="link == 'dia-chat'" ng-controller="ModalCtrl">
-						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.restrict.dongvat.edit" ng-click="duplicateFile(post._id, link)">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.diachat.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.restrict.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" class="btn btn-xs btn-success">
+						<button ng-if="restricted.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="!restricted.diachat.preserve && post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
-						<button ng-if="restricted.restrict.diachat.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
+						<button ng-if="restricted.diachat.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
 							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+						<button data-toggle="popover" data-trigger="hover" data-content="Cập nhật lưu trữ, bảo quản" ng-if="restricted.diachat.preserve" class="btn btn-xs btn-warning" ui-sref="cap-nhat-dia-chat({id : post._id})">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
 						</button>
 					</div>
 				</td>

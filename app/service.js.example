@@ -2,7 +2,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	return ({
 		hostName: 'http://localhost:8000',
 		// hostName: 'https://baotangvn.online',
-		// hostName: 'http://baotangvn.online:8888',
 		deleteP: deleteP,
 		approvePost: approvePost,
 		addSample: addSample,
@@ -236,6 +235,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 					cfpLoadingBar.complete();
 					stopSpinner();
 					cfpLoadingBar.set(0);
+					// console.log(err);
 					setTimeout(function () {
 						var modalInstance = $uibModal.open({
 							templateUrl: 'views/modals/dialogs.blade.html',
@@ -290,17 +290,17 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				stopSpinner();
 				// console.log(err);
 				var id = JSON.parse(err.responseText).field;
-				var x = document.getElementById(id);
-				console.log(x);
-				if (x) {
-					var element = x.nextElementSibling;
-					console.log(element);
-					if (element) {
-						element.style.borderColor = "red";
-					} else{
-						x.style.borderColor= "red"
-					}
-				}
+				// var x = document.getElementById(id);
+				// console.log(x);
+				// if (x) {
+				// 	var element = x.nextElementSibling;
+				// 	console.log(element);
+				// 	if (element) {
+				// 		element.style.borderColor = "red";
+				// 	} else{
+				// 		x.style.borderColor= "red"
+				// 	}
+				// }
 				setTimeout(function () { // Stop spinner before alerting
 					// alert(JSON.parse(err.responseText).error);
 					var modalInstance = $uibModal.open({
@@ -335,6 +335,32 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		}, function error(err) {
 			alert("Tao mau moi khong thanh cong")
 		})
+
+		// $.ajax({
+		// 	method: 'POST',
+		// 	data: {id: id},
+		// 	url: "/content/" + form + "/duplicate",
+		// 	success: function (res) {
+		// 		var sample = redirect.sample;
+		// 		var id = res.data[sample].id
+		// 		$state.go(redirect.link, {id: id});
+		// 	}, 
+		// 	error: function (err) {
+		// 		var modalInstance = $uibModal.open({
+		// 			templateUrl: 'views/modals/dialogs.blade.html',
+		// 			controller: "ModalInstanceCtrl",
+		// 			controllerAs: '$ctrl',
+		// 			resolve: {
+		// 				msg: function () {
+		// 					return "Tạo mẫu không thành công";
+		// 				},
+		// 				id: function () {
+		// 					return "";
+		// 				}
+		// 			}
+		// 		});
+		// 	}
+		// })
 	}
 
 	function deleteTmpFile(data, urlDelete) {
@@ -349,7 +375,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 				}
 			},
 			error: function (err) {
-				// console.log(err);
+				console.log(err);
 				var modalInstance = $uibModal.open({
 					templateUrl: 'views/modals/dialogs.blade.html',
 					controller: "ModalInstanceCtrl",
@@ -374,13 +400,14 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			headers: {'Content-Type': 'application/json'},
 			data: {id: id}
 		}).then(function (res) {
+			console.log(res);
 			var modalInstance = $uibModal.open({
 				templateUrl: 'views/modals/dialogs.blade.html',
 				controller: "ModalInstanceCtrl",
 				controllerAs: '$ctrl',
 				resolve: {
 					msg: function () {
-						return res.data.status == "success" ? "Xóa mẫu thành công" : res.data.error;
+						return res.data.status == "success" ? "Xóa thành công" : res.data.error;
 					},
 					id: function () {
 						return "";
@@ -630,10 +657,6 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 		SPINNER.stop();
 	}
 
-	function ob(x) {
-		return document.getElementById(x)
-	}
-
 	function createLiTags(data, ulTag, files, urlDelete) {
 	// 	console.log("Link api delete");
 	// 	console.log(urlDelete);
@@ -681,7 +704,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 	// Tao the ul
 	function createTags(res) {
 		var ulTag = ob('ul_' + res.field);
-		console.log(ulTag);
+		// console.log(ulTag);
 		if (ulTag == null) {
 			var parentFile = document.getElementsByName(res.field)[0].parentElement
 			var ulTag = document.createElement("ul")
@@ -689,9 +712,8 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			ulTag.setAttribute("class", "list-group")
 			parentFile.appendChild(ulTag);
 		} else{
-			console.log("reset data in ulTag");
-			ulTag.innerText = '';
-			console.log("reset data in ulTag");
+			// console.log("ulTag is not null");
+			ulTag.innerHTML = ''
 		}
 		var data = {
 			field : res.field,
@@ -699,6 +721,7 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 			form: res.form,
 			id: res.id
 		}
+		// console.log(res);
 		var urlDeleteTmp = "/content/instant-upload"
 		createLiTags(data, ulTag, res.files, urlDeleteTmp)
 		var urlDeleteSaved = "/content/" + res.form + "/file"
@@ -709,3 +732,4 @@ app.factory('AuthService', function($q, $http, $state, cfpLoadingBar, $uibModal)
 
 var STR_AUTOCOMPLETION_SEPARATOR = '_-_' // Phải đồng bộ với biến cùng tên trong file init.js
 var SPINNER = null;
+	

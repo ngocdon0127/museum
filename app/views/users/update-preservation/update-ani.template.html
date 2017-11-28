@@ -1,0 +1,204 @@
+<div class="col-sm-10 col-sm-offset-1 col-xs-12" bs-loading-overlay bs-loading-overlay-delay="200">
+	<form id="form-content" name="FormData">
+		<center><h3>Cập nhật lưu trữ bảo quản mẫu Động Vật</h3></center>
+		<div class="container-fluid">
+			<input type="text" name="id" id="obId" value="{{data.id}}" style="display: none;" ng-model="data.id">
+			<input type="hidden" name="randomStr" value="{{randomStr}}" id="randomStr">
+			<input type="hidden" name="sample" value="dong-vat" id="sample">
+			<ul class="nav nav-tabs group tabs">
+		    	<li ng-class="{active: isSet(1)}"><a href ng-click="setTab(1)">{{"tab.soHieu" | translate }}</a></li>
+		    	<li ng-class="{active: isSet(8)}"><a href ng-click="setTab(8)">{{"tab.luuTru" | translate }}</a></li>
+		  	</ul>
+			<div class="map-detail form-group" ng-show="isSet(1)" style="padding-top: 30px;">
+				<div class="row">
+					<div class="col-sm-4">
+						<label>01. {{"ani.soHieuBTTNVN" | translate }}:</label>
+						<span><input type="text" title="{{tooltips['soHieuBTTNVN']}}" id="soHieuBTTNVN" name="soHieuBTTNVN" ng-model="data.soHieuBTTNVN" class="input-form form-control"></span>
+					</div>
+					<div class="col-sm-4">
+						<label>02. {{"ani.soHieuBaoTangCS" | translate }} <span class="has-required"> (*)</span>:</label>
+						<span><input type="text" title="{{tooltips['soHieuBaoTangCS']}}" name="soHieuBaoTangCS" ng-model="data.soHieuBaoTangCS" class="input-form form-control"  id="soHisoHieuBaoTangCSeuBTTNVN"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>03. {{"ani.soHieuThucDia" | translate }} <span class="has-required"> (*)</span>:</label>
+						<input type="text" title="{{tooltips['soHieuThucDia']}}" name="soHieuThucDia" ng-model="data.soHieuThucDia" class="input-form form-control">
+					</div>
+					<div class="col-sm-4">
+						<label>04. {{"ani.kyHieuMauVatKhac" | translate }}:</label>
+						<input type="text" ng-model="data.kyHieuMauVatKhac" id="kyHieuMauVatKhac" title="{{tooltips['kyHieuMauVatKhac']}}" name="kyHieuMauVatKhac" class="input-form form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8">
+						<label for="thongTinKhac1Str">05. {{"ani.thongTinKhac1Str" | translate }}:</label>
+						<textarea type="text" ng-model="data.thongTinKhac1Str" title="{{tooltips['thongTinKhac1Str']}}" name="thongTinKhac1Str" id="thongTinKhac1Str" class="input-form form-control" rows="5"></textarea>
+					</div>
+					<div class=" row col-sm-6">
+						<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac1File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac1File" name ="thongTinKhac1File">
+						<label for="thongTinKhac1File" title="{{tooltips['thongTinKhac1File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
+						<ul id="ul_thongTinKhac1File" class="list-group">
+							<li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac1File" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
+								<span class="pull-right">
+									<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac1File', key)"></span>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="map-detail form-group" ng-show="isSet(8)" style="padding-top: 30px;">
+				<div class="row">
+					<div class="col-sm-4">
+						<label>53. {{"ani.ngayNhapMau" | translate }}: </label>
+						<select ng-model="date_nnm" class="select-date">
+							<option value="dd/mm/yyyy">Full date</option>
+							<option value="mm/yyyy">Mon/Year</option>
+							<option value="yyyy">Year</option>
+						</select>
+						<input type="text" ng-model="data.ngayNhapMau" title="{{tooltips['ngayNhapMau']}}" id="ngayNhapMau" name="ngayNhapMau" placeholder="{{date_nnm}}" class="input-form form-control datepicker">
+					</div>
+					<div class="col-sm-4">
+						<label>54. {{"ani.nguoiGiao" | translate }}: </label>
+						<input type="text" ng-model="data.nguoiGiao" title="{{tooltips['nguoiGiao']}}" name="nguoiGiao" class="input-form form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>55. {{"ani.nguoiNhan" | translate }}:</label>
+						<input type="text" ng-model="data.nguoiNhan" title="{{tooltips['nguoiNhan']}}" name="nguoiNhan" class="input-form form-control">
+					</div>
+					<div class="col-sm-4">
+						<label>56. {{"ani.coQuanNhapVatMau" | translate }}: </label>
+						<input type="text" ng-model="data.coQuanNhapVatMau" title="{{tooltips['coQuanNhapVatMau']}}" name="coQuanNhapVatMau" class="input-form form-control" id="coQuanNhapVatMau">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>57. {{"ani.hinhThucNhapMau" | translate }}:</label>
+						<input type="text" list="hinhThucNhapMau" class="input-form form-control flexdatalist" data-min-length='0' ng-model="data.hinhThucNhapMau" title="{{tooltips['hinhThucNhapMau']}}" name="hinhThucNhapMau">
+						<datalist id="hinhThucNhapMau">
+							<option value="Thu thập">Thu thập</option>
+							<option value="Hiến tặng">Hiến tặng</option>
+						</datalist>
+					</div>
+					<div class="col-sm-4">
+						<label>58. {{"ani.traoDoiMau" | translate }}: </label>
+						<select class="form-control" title="{{tooltips['traoDoiMau']}}" ng-model="data.traoDoiMau" name="traoDoiMau">
+							<option value=""></option>
+							<option value="Có thể">Có thể</option>
+							<option value="Không thể">Không thể</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>59. {{"ani.vayMuon" | translate }}:</label>
+						<select class="form-control" title="{{tooltips['vayMuon']}}" ng-model="data.vayMuon" name="vayMuon">
+							<option value=""></option>
+							<option value="Có thể">Có thể</option>
+							<option value="Không thể">Không thể</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<label>60. {{"ani.noiLuuTruMau" | translate }}:</label>
+						<input type="text" ng-model="data.noiLuuTruMau" title="{{tooltips['noiLuuTruMau']}}" name="noiLuuTruMau" class="input-form form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<label>61. {{"ani.khuLuuTruMau" | translate }}:</label>
+					</div>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-3">
+								{{"ani.phong" | translate }}
+								<input type="text" title="{{tooltips['phong']}}" name="phong" ng-model="data.phong" class="input-form form-control">
+							</div>
+							<div class="col-sm-3">
+								{{"ani.tuGia" | translate }}
+								<input type="text" title="{{tooltips['tuGia']}}" name="tuGia" ng-model="data.tuGia" class="input-form form-control">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-3">
+								{{"ani.ngan" | translate }}
+								<input type="text" title="{{tooltips['ngan']}}" name="ngan" ng-model="data.ngan" class="input-form form-control">
+							</div>
+							<div class="col-sm-3">
+								{{"ani.hop" | translate }}
+								<input type="text" title="{{tooltips['hop']}}" name="hop" ng-model="data.hop" class="input-form form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8">
+						<label>64. {{"ani.nguoiLapPhieuMauVat" | translate }}<span class="has-required"> (*)</span>:</label>
+						<input type="text" ng-model="data.nguoiLapPhieuMauVat" title="{{tooltips['nguoiLapPhieuMauVat']}}" name="nguoiLapPhieuMauVat" class="input-form form-control" required>
+					</div>
+					<div class="col-sm-4">
+						<label>62. {{"ani.giayPhepNhapMau" | translate }}:</label><br>
+						<input type="file" max-file-size="100" multiple id="giayPhepNhapMau" ng-model="data.giayPhepNhapMau" name="giayPhepNhapMau" class="inputfile" data-multiple-caption="{count} file is selected" accept="image/*, .pdf">
+						<label for="giayPhepNhapMau" title="{{tooltips['giayPhepNhapMau']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
+						<ul id="ul_giayPhepNhapMau" class="list-group">
+							<li class="list-group-item" ng-repeat="(key, file) in data.giayPhepNhapMau" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
+								<span class="pull-right">
+									<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'giayPhepNhapMau', key)"></span>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8">
+						<label>65. {{"ani.nguoiNhapVaoPhanMem" | translate }}:</label>
+						<input type="text" ng-model="data.nguoiNhapVaoPhanMem" title="{{tooltips['nguoiNhapVaoPhanMem']}}" name="nguoiNhapVaoPhanMem" class="input-form form-control">
+					</div>
+					<div class="col-sm-4">
+						<label>63. {{"ani.hoSoNhapMauVatDiKem" | translate }}:</label><br>
+						<input type="file" max-file-size="100" multiple ng-model="data.hoSoNhapMauVatDiKem" id="hoSoNhapMauVatDiKem" name="hoSoNhapMauVatDiKem" class="inputfile" data-multiple-caption="{count} file is selected" accept=".doc, .docx, .pdf">
+						<label for="hoSoNhapMauVatDiKem" title="{{tooltips['hoSoNhapMauVatDiKem']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
+						<ul id="ul_hoSoNhapMauVatDiKem" class="list-group">
+							<li class="list-group-item" ng-repeat="(key, file) in data.hoSoNhapMauVatDiKem" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
+								<span class="pull-right">
+									<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'hoSoNhapMauVatDiKem, key')"></span>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8">
+						<label for="thongTinKhac8Str">66. {{"ani.thongTinKhac8Str" | translate }}:</label>
+						<textarea type="text" ng-model="data.thongTinKhac8Str" title="{{tooltips['thongTinKhac8Str']}}" name="thongTinKhac8Str" id="thongTinKhac8Str" class="input-form form-control" rows="5"></textarea>
+					</div>
+					<div class="col-sm-6">
+						<input type="file" max-file-size="100" multiple ng-model="data.thongTinKhac8File" class="inputfile" data-multiple-caption="{count} file is selected" id="thongTinKhac8File" name ="thongTinKhac8File">
+						<label for="thongTinKhac8File" title="{{tooltips['thongTinKhac8File']}}"><span>{{"customfile.nofilechose" | translate }}</span><strong>{{"customfile.open" | translate }}</strong></label>
+						<ul id="ul_thongTinKhac8File" class="list-group">
+							<li class="list-group-item" ng-repeat="(key, file) in data.thongTinKhac8File" style="overflow: auto;">{{file.fileName ? ((file.fileName.length > 20) ? (file.fileName.substring(0, 20) + '... .' + file.fileName.split('.')[file.fileName.split('.').length - 1]) : file.fileName) : ''}}
+								<span class="pull-right">
+									<span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deleteTmpFile(file, 'thongTinKhac8File', key)"></span>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="height: 20px;"></div>
+		<div class="bottom-nav">
+			<center>
+				<button type="submit" ng-click="updatePost()" class="btn btn-primary">
+					<span class="glyphicon glyphicon-pencil"></span> Cập nhật mẫu
+				</button>
+				<div class="pull-right">
+					<button id="back-to-top" type="button" class="btn btn-circle btn-default"><span class="glyphicon glyphicon-chevron-up"></span> Top</button>
+				</div>
+			</center>	
+	</form>
+</div>
+<!-- Custom input file -->
+<script type="text/javascript" src="asset/js/buttonfile/custom-file-input.js"></script>

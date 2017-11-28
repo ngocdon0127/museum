@@ -788,3 +788,82 @@ app.controller('EditLandFormCtrl', function ($http, $scope, AuthService, $stateP
         AuthService.addSample(fd, AuthService.hostName + '/content/tho-nhuong', urlRe);
     }
 });
+
+
+app.controller('UpdatePreservationFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, $state, cfpLoadingBar) {
+    var url_direct  = $state.current.url;
+    x = url_direct.split('/');
+    // console.log(x);
+    $scope.link = x[1];
+    var urlContent = AuthService.hostName + '/content/' + $scope.link + "/" + $stateParams.id;
+    var urlUpdate = AuthService.hostName + "/content/" +  $scope.link + "/preservation";
+    // console.log(urlUpdate);
+
+    var dic = {
+        "dong-vat": "animal",
+        "thuc-vat": "vegetable",
+        "co-sinh": "paleontological",
+        "tho-nhuong": "soil",
+        "dia-chat": "geological"
+    }
+    // map to params
+    var sample = dic[$scope.link];
+
+     $http.get(urlContent).then(function (res) {
+        // console.log(res);
+        $scope.data = res.data[sample];
+        $scope.status = res.data.status;
+        $scope.data.id = $stateParams.id;
+
+        // DatePicker
+        AuthService.initDatePicker($scope.data);
+
+    }, function (err) {
+        $scope.status = err.data.status;
+    });
+
+    var urlRe = "quan-ly-" + $scope.link;
+    $scope.updatePost = function () {
+        cfpLoadingBar.start();
+        AuthService.startSpinner();
+        var fd = new FormData(document.getElementById('form-content'));
+        AuthService.editForm(fd, urlUpdate, urlRe).then(function success(data) {
+            // console.log(data);
+        }, function error(err) {
+            console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    break;
+                }
+            }
+        });
+    }
+
+    $scope.deleteTmpFile = function (file, field) {
+        // var ob = document.getAttribute('data-file-name');
+        var urlDelete = "/content/" + $scope.link + "/file/preservation";
+        
+        var data = {
+            'form': document.getElementById("sample").value,
+            'id': $stateParams.id,
+            'randomStr': $scope.randomStr,
+            'field': field,
+            'fileName': file.fileName
+        }
+        AuthService.deleteTmpFile(data, urlDelete);
+    }
+
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
+
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    }
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    }
+});

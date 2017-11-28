@@ -121,7 +121,7 @@
 						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.dongvat.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.dongvat.preserve && post.fApproved" class="btn btn-xs btn-success" ng-if="restricted.dongvat.edit" ui-sref="chinh-sua-dong-vat({id : post._id})">
+						<button data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="post.fApproved" class="btn btn-xs btn-success" ng-if="restricted.dongvat.edit" ui-sref="chinh-sua-dong-vat({id : post._id})">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
 						<button data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu" class="btn btn-xs btn-danger" ng-if="restricted.dongvat.delete" ng-click="showModal(post._id, link)">
@@ -136,7 +136,7 @@
 						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.thucvat.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.thucvat.preserve && post.fApproved" class="btn btn-xs btn-success">
+						<button ng-if="restricted.thucvat.edit" ui-sref = "chinh-sua-thuc-vat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
 						<button ng-if="restricted.thucvat.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
@@ -151,7 +151,7 @@
 						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.cosinh.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.cosinh.preserve && post.fApproved" class="btn btn-xs btn-success">
+						<button ng-if="restricted.cosinh.edit" ui-sref = "chinh-sua-co-sinh({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
 						<button ng-if="restricted.cosinh.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
@@ -166,7 +166,7 @@
 						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.thonhuong.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled=" !restricted.thonhuong.preserve && post.fApproved" class="btn btn-xs btn-success">
+						<button ng-if="restricted.thonhuong.edit" ui-sref = "chinh-sua-tho-nhuong({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
 						<button ng-if="restricted.thonhuong.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
@@ -181,7 +181,7 @@
 						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.diachat.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>
 						</button>
-						<button ng-if="restricted.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="!restricted.diachat.preserve && post.fApproved" class="btn btn-xs btn-success">
+						<button ng-if="restricted.diachat.edit" ui-sref = "chinh-sua-dia-chat({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="post.fApproved" class="btn btn-xs btn-success">
 							<i class="glyphicon glyphicon-edit"></i>
 						</button>
 						<button ng-if="restricted.diachat.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">

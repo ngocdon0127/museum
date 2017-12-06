@@ -8,6 +8,11 @@ let cleanJob = new CronJob('0 0 0 * * *', () => {
 })
 
 function cleanInstantUploadedFiles() {
-  fsE.removeSync(path.join(ROOT, global.myCustomVars.TMP_UPLOAD_DIR))
-  fsE.mkdirpSync(path.join(ROOT, global.myCustomVars.TMP_UPLOAD_DIR))
+  try {
+    fsE.removeSync(path.join(ROOT, global.myCustomVars.TMP_UPLOAD_DIR))
+    fsE.mkdirpSync(path.join(ROOT, global.myCustomVars.TMP_UPLOAD_DIR))
+  } catch (e) {
+    console.log('CRON ERROR');
+    console.log(e);
+  }
 }

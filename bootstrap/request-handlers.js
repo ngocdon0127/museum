@@ -209,7 +209,8 @@ var getAllHandler = function (options) {
 						obj1: {kinhDo: objectInstances[firstInstance].kinhDo, viDo: objectInstances[firstInstance].viDo}, 
 						objectModelId: '', props: propsName(PROP_FIELDS), 
 						staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), 
-						coordinationArr: coordinationArr
+						coordinationArr: coordinationArr,
+						coor: null
 					});
 				}
 				return responseSuccess(res, ['status', objectModelNames, 'total'], ['success', objectInstances, objectInstances.length]);

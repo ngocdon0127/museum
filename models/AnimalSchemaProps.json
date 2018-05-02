@@ -1264,7 +1264,7 @@
 		"schemaProp": "maDeTai",
 		"label": "Mã đề tài",
 		"required": false,
-		"money": true,
+		"money": false,
 		"type": "String"
 	},
 	{

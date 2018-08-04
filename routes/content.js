@@ -706,8 +706,6 @@ router.get('/get-random/:num', (req, res) => {
       data: randomObjArr
     })
   })();
-    
-    
 });
 
 module.exports = router;

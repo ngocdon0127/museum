@@ -80,6 +80,83 @@ router.get('/home', isLoggedIn, function (req, res) {
 	// res.redirect('/app/#!/');
 })
 
+/**
+ * Render homepage for guest
+ * @param  {[type]} '/homepage'         path
+ */
+router.get('/homepage', (req, res) => {
+  let numRandom = 12;
+
+  let models = [
+    {modelName: 'co-sinh', modelTitle: 'Cổ sinh', enName : 'paleontological'},
+    {modelName: 'dia-chat', modelTitle: 'Địa chất', enName : 'geological'},
+    {modelName: 'dong-vat', modelTitle: 'Động vật', enName : 'animal'},
+    {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng', enName : 'soil'},
+    {modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'}
+  ]
+  async(() => {
+    let randomObjArr = [];
+    for(model of models) {
+      let bundle = global.myCustomVars.models[model.modelName].bundle;
+      let ObjectModel = bundle.ObjectModel;
+      let result = await(new Promise((resolve, reject)=>{
+        ObjectModel.aggregate([
+          {$match : {
+            'deleted_at': {$eq: null},
+            'media.anhMauVat': {$not: {$size: 0}}
+          }},
+          { $sample: { size: numRandom } },
+          // { $project : {
+          //   img : 
+          // }},
+          { $project : {
+            imgUrl : {$concat : ['/uploads/', model.enName, '/', {$arrayElemAt : ['$media.anhMauVat', 0]}]},
+            url : {$concat : ['/content/', model.modelName, '/']},
+            caption : '$tenMau.tenVietNam'
+          }}
+        ], (err, data)=>{
+          if(err){
+            console.log(err);
+            resolve([]);
+          } else {
+            // console.log(data);
+            resolve(data);
+          }
+        })
+      }));
+      // console.log(result);
+      randomObjArr = randomObjArr.concat(result);
+      // console.log(randomObjArr);
+    }
+
+    function getRandomSubarray(arr, size) {
+      var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+      while (i-- > min) {
+          index = Math.floor((i + 1) * Math.random());
+          temp = shuffled[index];
+          shuffled[index] = shuffled[i];
+          shuffled[i] = temp;
+      }
+      return shuffled.slice(min);
+    }
+    randomObjArr = getRandomSubarray(randomObjArr, numRandom);
+    randomObjArr.forEach(function(element) {
+      element.url = element.url + element._id.toString();
+    });
+
+    console.log(randomObjArr);
+    return res.render('guest-home', {
+    	total: randomObjArr.length,
+      data: randomObjArr
+    })
+    // return res.status(200).json({
+    //   status: 'success',
+    //   total: randomObjArr.length,
+    //   data: randomObjArr
+    // })
+  })();
+});
+
 router.get('/test', isLoggedIn, aclMiddleware('/test', 'view'), function (req, res, next) {
 	
 	acl.userRoles(req.session.userId, (err, roles) => {
@@ -526,8 +603,8 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 // })
 
 /* GET home page. */
-router.get('/', isLoggedIn, function(req, res, next) {
-	res.redirect('/home');
+router.get('/', function(req, res, next) {
+	res.redirect('/homepage');
 });
 
 

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <base href="/app/#!"> -->
+  <meta charset="UTF-8">
+  <title>Trang chủ</title>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+  <!-- <div ui-view="homepage"></div> -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/homepage"><i class="fa fa-home" aria-hidden="true"></i></a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        
+        <ul class="nav navbar-nav navbar-right" ng-controller="translateCtrl">
+          <!-- <li><a ui-sref="tim-kiem" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a></li> -->
+          <!-- <li ng-click="changeLang('eng')"><a href=""><img src="/app/asset/image/en.gif"></a></li> -->
+          <li  ng-click="changeLang('vi')"><a href=""><img src="/guest/vi.gif"></a></li>
+          <li><a class="btn " href="/auth/login">Đăng nhập</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section style="overflow:auto; min-height: 800px;">
+    <div ui-view>
+      <style>
+    #header {
+        width: 100%;
+        /* background-color: gray; */
+        background-image: url("/guest/header-background.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: white;
+    }
+
+    .img {
+        width: 100%;
+        height: 180px !important;
+    }
+
+    .caption {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+
+<div id="header" class="jumbotron">
+    <div class="container">
+        <h2>Bộ Sưu Tập Mẫu Vật Quốc Gia</h2>
+         <h3>Về Thiên Nhiên Việt Nam</h3>
+         <!-- <div style="padding: 10px"></div> -->
+    </div>
+</div>
+<div class="container content">
+    <div class="row" id="div-preview-samples">
+      <div class="col-md-3 col-sm-6 col-xs-12" style="">
+          <div class="thumbnail">
+              <img alt="Cá phèn sọc đen" class="img" src="/guest/59ce145709988f7b6e80b376_+_anhMauVat_+_DSCF5811.jpg">
+              <div class="caption">
+                  <p>Cá phèn sọc đen</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Trầm tích cát sạn vỏ vôi sinh vật bở dời" class="img" src="/guest/5aaadf8cf7bbb62eccccb0d0_+_anhMauVat_+_TB.02-a.jpg">
+              <div class="caption">
+                  <p>Trầm tích cát sạn vỏ vôi sinh vật bở dời</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Đá hoa" class="img" src="/guest/59cb6146eec62715cae330fb_+_anhMauVat_+_NV2.2.jpg">
+              <div class="caption">
+                  <p>Đá hoa</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Đá mạch lamprophyre" class="img" src="/guest/5aaad36910d9b22ed264113f_+_anhMauVat_+_MG.08-a.jpg">
+              <div class="caption">
+                  <p>Đá mạch lamprophyre</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Khảo quang" class="img" src="/guest/59fc36b5ae870b68a30dea43_+_anhMauVat_+_VMN_SU 141.JPG">
+              <div class="caption">
+                  <p>Khảo quang</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Cá chạch bùn" class="img" src="/guest/5a1f864ca714e913ffb998a7_+_anhMauVat_+_507.JPG">
+              <div class="caption">
+                  <p>Cá chạch bùn</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Sắt vỏ phong hóa" class="img" src="/guest/5ac169d858f9873bb8b033bb_+_anhMauVat_+_KS.05-a.jpg">
+              <div class="caption">
+                  <p>Sắt vỏ phong hóa</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Hai mảnh vỏ" class="img" src="/guest/59cb2242400c2e7191ee7b72_+_anhMauVat_+_NV2.2.jpg">
+              <div class="caption">
+                  <p>Hai mảnh vỏ</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Cá thèo" class="img" src="/guest/5a2757cc6d43e81405f4de42_+_anhMauVat_+_697.JPG">
+              <div class="caption">
+                  <p>Cá thèo</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Đá thạch nhũ hang động" class="img" src="/guest/5aaae0dff7bbb62eccccb0e6_+_anhMauVat_+_HĐ.05-a.jpg">
+              <div class="caption">
+                  <p>Đá thạch nhũ hang động</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Trầm tích cát lục nguyên bở rời" class="img" src="/guest/5aaadf75f7bbb62eccccb0ce_+_anhMauVat_+_TB.01-a.jpg">
+              <div class="caption">
+                  <p>Trầm tích cát lục nguyên bở rời</p>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="thumbnail">
+              <img alt="Tràm trà" class="img" src="/guest/59fad32d5bd00361682bc34b_+_anhMauVat_+_VMN-B0001353.JPG">
+              <div class="caption">
+                  <p>Tràm trà</p>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+  </section>
+<!--  <footer style="bottom: 0px; position: absolute; width: 100%;">
+    <div class="input-form form-control">&copy; Copyright. All right is reserved</div>
+  </footer> -->
+  <style>
+  footer {
+    /* margin-top: 5px; */
+    background-color: #333;
+    padding: 30px 0;
+    color: white;
+    position: absolute; 
+    width: 100%;
+  }
+  .footer-content {
+    display: flex;
+      justify-content:space-between; 
+  }
+</style>
+<div class="clear"></div>
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="col-md-4 col-xs-12">
+        <p>Liên hệ: Bảo Tàng Thiên Nhiên Việt Nam</p>
+        <p>Địa chỉ: Số 18 Hoàng Quốc Việt - Cầu Giấy - Hà Nội</p>
+        <p>ĐT: (+84-24) 3756 8328 - Fax: (+84-24) 3756 8328</p>
+        <p>Email: vnmn@vnmn.vast.vn - Facebook: www.facebook.com/baotangthiennhien/</p>
+      </div>
+      <div class="col-md-4 col-xs-12 text-center">
+        <img src="/guest/logo.png" />
+        <br>
+        <p style="text-transform: uppercase;">Bảo Tàng Thiên Nhiên Việt Nam</p>
+      </div>
+    </div>
+  </div>
+</footer>
+  <script type="text/javascript" src="/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+</body>
+</html>

@@ -604,7 +604,10 @@ router.post('/config/roles/delete', uploads.single('photo'), aclMiddleware('/con
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.redirect('/homepage');
+	if (!req.isAuthenticated()){
+		return res.redirect('/homepage');
+	}
+	return res.redirect('/home')
 });
 
 

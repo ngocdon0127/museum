@@ -122,7 +122,7 @@ router.get('/', function(req, res, next) {
 		selection.objType = req.query.type;
 	}
 
-	Log.find({$or: [selection]}, {}, {sort: {time: -1}}, function (err, logs) {
+	Log.find({$or: [selection]}, {}, {sort: {time: -1}, limit: 1000}, function (err, logs) {
 		if (err){
 			console.log(err);
 			return res.status(500).json({
@@ -200,7 +200,7 @@ router.get('/all', aclMiddleware('/log/all', 'view', '/log'), function (req, res
 
 		console.log(selection);
 
-		Log.find(selection, {}, {sort: {time: -1}}, function (err, logs) {
+		Log.find(selection, {}, {sort: {time: -1}, limit: 1000}, function (err, logs) {
 		// Log.find({$or: [selection, selection1]}, {}, {sort: {time: -1}}, function (err, logs) {
 			if (err){
 				console.log(err);

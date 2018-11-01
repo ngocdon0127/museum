@@ -90,7 +90,7 @@ var getMarkers = function (model, geoJsonObject, icon) {
                             '<i>' + ele.tenMau.tenTiengAnh + '</i><br>';
         if(ele.media.anhMauVat.length) {
             popupContent += "<img src='" + 
-                path.join('https://baotangvn.online',objectModel[model].uploadUrl, ele.media.anhMauVat[0])
+                path.join('/', objectModel[model].uploadUrl, ele.media.anhMauVat[0])
                 + "' width='100%'/>";
         }
 

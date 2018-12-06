@@ -202,7 +202,8 @@ function rename (curFiles, schemaFieldName, schemaField, position, mongoId) {
 			// var newFileName = mongoId + STR_SEPARATOR + file.originalname;
 			var newPath = path.join(position, newFileName);
 			fs.renameSync(curPath, newPath);
-			schemaField.push(newFileName);
+			// schemaField.push(newFileName);
+			schemaField.unshift(newFileName); // Mongo 3.6+ does not support $pushAll
 		}
 		catch (e){
 			console.log(e);
@@ -1008,7 +1009,8 @@ function createSaveOrUpdateFunction (variablesBundle) {
 									path.join(ROOT, _UPLOAD_DESTINATION, newFullName),
 									{overwrite: true}
 								);
-								objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName)
+								// objectChild(objectInstance, element.schemaProp)[element.name].push(newFullName) // Mongo 3.6+ does not support $pushAll
+								objectChild(objectInstance, element.schemaProp)[element.name].unshift(newFullName)
 							}
 						}
 						

@@ -1,6 +1,6 @@
 <div class="modal-header">
   <!-- <h4>Chọn những trường cần trích xuất: </h4> -->
-  <h4>Lựa chọn những trường cần trích xuất: </h4>
+  <h4>{{"quanly.exportTitle" | translate }}: </h4>
 
 </div>
 <div class="modal-body">
@@ -8,11 +8,11 @@
 	<datalist id="fields">
 		<option ng-repeat="(key, value) in fields" value="{{key}}">{{value}}</option>
 	</datalist>
-	<label>Không chọn gì để trích xuất tất cả các trường!</label>
+	<label>{{"quanly.exportNotify" | translate }}!</label>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-success" ng-click="ok()">Trích xuất</button>
-    <button class="btn btn-danger" ng-click="cancel()">Huỷ</button>
+    <button class="btn btn-success" ng-click="ok()">{{"quanly.trichxuat" | translate }}</button>
+    <button class="btn btn-danger" ng-click="cancel()">{{"quanly.khong" | translate }}</button>
 </div>
 <script type="text/javascript">
 	setTimeout(function () {

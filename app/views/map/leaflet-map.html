@@ -27,9 +27,9 @@
 <leaflet lf-center="map.center" lf-draw="map.drawOptions" markers-nested="true" markers="map.markers" layers="map.layers"
     watch-options='watchOptions' legend="map.legend" height="480px" width="100%">
 </leaflet>
-<h3>Thống kê</h3>
-<p ng-if="numAnimal">Số lượng mẫu vật động vật: <span>{{numAnimal}}</span></p>
-<p ng-if="numGeological">Số lượng mẫu vật địa chất: <span>{{numGeological}}</span></p>
-<p ng-if="numPaleontological">Số lượng mẫu vật cổ sinh: <span>{{numPaleontological}}</span></p>
-<p ng-if="numSoil">Số lượng mẫu vật thổ nhưỡng: <span>{{numSoil}}</span></p>
-<p ng-if="numVegetable">Số lượng mẫu vật thực vật: <span>{{numVegetable}}</span></p>
+<h3>{{"map.thongKe" | translate }}</h3>
+<p ng-if="numAnimal">{{"map.soLuongDongVat" | translate }}: <span>{{numAnimal}}</span></p>
+<p ng-if="numGeological">{{"map.soLuongDiaChat" | translate }}: <span>{{numGeological}}</span></p>
+<p ng-if="numPaleontological">{{"map.soLuongCoSinh" | translate }}: <span>{{numPaleontological}}</span></p>
+<p ng-if="numSoil">{{"map.soLuongThoNhuong" | translate }}: <span>{{numSoil}}</span></p>
+<p ng-if="numVegetable">{{"map.soLuongThucVat" | translate }}: <span>{{numVegetable}}</span></p>

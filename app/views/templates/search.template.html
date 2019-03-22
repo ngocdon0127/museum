@@ -5,7 +5,7 @@
 		<div class="sidebar-header">
 			<form role="search">
 				<div class="input-group">
-					<input type="text" class="search-input" ng-model="searchContent.q" placeholder="Tìm kiếm...">
+					<input type="text" class="search-input" ng-model="searchContent.q" placeholder="{{'timkiem.search' | translate }}...">
 					<span class="input-group-btn">
 						<a ui-sref="tim-kiem" ng-click="searchSample()" class="btn btn-default">
 							<span class=" glyphicon glyphicon-search "></span>
@@ -19,17 +19,17 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion1" href=".collapse1">Nhóm mẫu vật</a>
+				  		<a data-toggle="collapse" data-parent="#accordion1" href=".collapse1">{{"timkiem.nhommauvat" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse1" class="collapse1 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="checkbox" name="model" id="cosinh" ng-click="sampleClick('Cổ sinh')" ng-model="searchSample.cosinh" value="co-sinh"> Cổ sinh<br>
-							<input type="checkbox" name="model" id="diachat" ng-click="sampleClick('Địa chất')" ng-model="searchSample.diachat" value="dia-chat"> Địa chất<br>
-							<input type="checkbox" name="model" id="dongvat" ng-click="sampleClick('Động vật')" ng-model="searchSample.dongvat" value="dong-vat"> Động vật<br>
-							<input type="checkbox" name="model" id="thonhuong" ng-click="sampleClick('Thổ nhưỡng')" ng-model="searchSample.thonhuong" value="tho-nhuong"> Thổ nhưỡng<br>
-							<input type="checkbox" name="model" id="thucvat" ng-click="sampleClick('Thực vật')" ng-model="searchSample.thucvat" value="thuc-vat"> Thực vật<br>
+							<input type="checkbox" name="model" id="cosinh" ng-click="sampleClick('Cổ sinh')" ng-model="searchSample.cosinh" value="co-sinh"> {{"timkiem.cosinh" | translate }}<br>
+							<input type="checkbox" name="model" id="diachat" ng-click="sampleClick('Địa chất')" ng-model="searchSample.diachat" value="dia-chat"> {{"timkiem.diachat" | translate }}<br>
+							<input type="checkbox" name="model" id="dongvat" ng-click="sampleClick('Động vật')" ng-model="searchSample.dongvat" value="dong-vat"> {{"timkiem.dongvat" | translate }}<br>
+							<input type="checkbox" name="model" id="thonhuong" ng-click="sampleClick('Thổ nhưỡng')" ng-model="searchSample.thonhuong" value="tho-nhuong"> {{"timkiem.thonhuong" | translate }}<br>
+							<input type="checkbox" name="model" id="thucvat" ng-click="sampleClick('Thực vật')" ng-model="searchSample.thucvat" value="thuc-vat"> {{"timkiem.thucvat" | translate }}<br>
 						</form>
 					</div>
 			  	</div>
@@ -37,13 +37,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion2" href=".collapse2">Số hiệu BTTNVN</a>
+				  		<a data-toggle="collapse" data-parent="#accordion2" href=".collapse2">{{"ani.soHieuBTTNVN" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse2" class="collapse2 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuBTTNVN" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.soHieuBTTNVN" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -51,13 +51,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion3" href=".collapse3">Số hiệu bảo tàng cơ sở</a>
+				  		<a data-toggle="collapse" data-parent="#accordion3" href=".collapse3">{{"ani.soHieuBaoTangCS" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse3" class="collapse3 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuBaoTangCS" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.soHieuBaoTangCS" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -65,13 +65,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion4" href=".collapse4">Số hiệu thực địa</a>
+				  		<a data-toggle="collapse" data-parent="#accordion4" href=".collapse4">{{"ani.soHieuThucDia" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse4" class="collapse4 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.soHieuThucDia" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.soHieuThucDia" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -79,7 +79,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion5" href=".collapse5">Tên mẫu vật</a>
+				  		<a data-toggle="collapse" data-parent="#accordion5" href=".collapse5">{{"tab.tenMauVat" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse5" class="collapse5 panel-collapse collapse">
@@ -126,13 +126,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion6" href=".collapse6">Người định tên</a>
+				  		<a data-toggle="collapse" data-parent="#accordion6" href=".collapse6">{{"ani.nguoiDinhTen" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse6" class="collapse6 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiDinhTen" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.nguoiDinhTen" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -140,7 +140,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion7" href=".collapse7">Năm định tên</a>
+				  		<a data-toggle="collapse" data-parent="#accordion7" href=".collapse7">{{"ani.ngayDinhTen" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse7" class="collapse7 panel-collapse collapse">
@@ -151,11 +151,11 @@
 							 <!-- <input type="text" id="amount" ng-model="searchContent.ngayDinhTen" ng-change="yearChange()" style="border: 0px; color:#f6931f; font-weight:bold;"> -->
 							<!-- <div id="slider-range"></div> -->
                             <div class="form-group">
-                                <label for="start">Từ:</label>
+                                <label for="start">{{"timkiem.from" | translate }}:</label>
                                 <input type="number" class="form-control" ng-model="startYearNDT" ng-change="ndtChange()" id="startTGTM" placeholder="1000" name="startTGTM">
                             </div>
                             <div class="form-group">
-                                <label for="stop">đến:</label>
+                                <label for="stop">{{"timkiem.to" | translate }}:</label>
                                 <input type="number" class="form-control" ng-model="stopYearNDT" ng-change="ndtChange()" id="stopTGTM" placeholder="2017" name="stopTGTM">
                             </div>
                             <!-- <button type="submit" class="btn btn-default">Tìm kiếm</button> -->
@@ -167,13 +167,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion8" href=".collapse8">Tên Việt Nam</a>
+				  		<a data-toggle="collapse" data-parent="#accordion8" href=".collapse8">{{"ani.tenVietNam" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse8" class="collapse8 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenVietNam" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.tenVietNam" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -181,13 +181,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion9" href=".collapse9">Tên địa phương</a>
+				  		<a data-toggle="collapse" data-parent="#accordion9" href=".collapse9">{{"ani.tenDiaPhuong" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse9" class="collapse9 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchContent()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenDiaPhuong" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.tenDiaPhuong" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -195,13 +195,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion10" href=".collapse10">Tên Tiếng Anh</a>
+				  		<a data-toggle="collapse" data-parent="#accordion10" href=".collapse10">{{"ani.tenTiengAnh" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse10" class="collapse10 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.tenTiengAnh" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.tenTiengAnh" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -209,7 +209,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion11" href=".collapse11">Địa điểm thu mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion11" href=".collapse11">{{"ani.diaDiemThuMau" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse11" class="collapse11 panel-collapse collapse">
@@ -240,7 +240,7 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion12" href=".collapse12" ng-click="openmap()">Vị trí tọa độ</a>
+				  		<a data-toggle="collapse" data-parent="#accordion12" href=".collapse12" ng-click="openmap()">{{"ani.viTri" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse12" class="collapse12 panel-collapse collapse">
@@ -253,19 +253,19 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion13" href=".collapse13">Năm thu mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion13" href=".collapse13">{{"timkiem.namThuMau" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse13" class="collapse13 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<!-- <input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.thoiGianThuMau" class="input-form-search"> -->
+							<!-- <input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.thoiGianThuMau" class="input-form-search"> -->
 							<div class="form-group">
-                                <label for="start">Từ:</label>
+                                <label for="start">{{"timkiem.from" | translate }}:</label>
                                 <input type="number" class="form-control" ng-model="startYearTGTM" ng-change="tgtmChange()" id="startTGTM" placeholder="1000" name="startTGTM">
                             </div>
                             <div class="form-group">
-                                <label for="stop">đến:</label>
+                                <label for="stop">{{"timkiem.to" | translate }}:</label>
                                 <input type="number" class="form-control" ng-model="stopYearTGTM" ng-change="tgtmChange()" id="stopTGTM" placeholder="2017" name="stopTGTM">
                             </div>
 						</form>
@@ -275,13 +275,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion14" href=".collapse14">Người thu mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion14" href=".collapse14">{{"ani.nguoiThuMau" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse14" class="collapse14 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiThuMau" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.nguoiThuMau" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -289,13 +289,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion15" href=".collapse15">Nơi lưu giữ mẫu</a>
+				  		<a data-toggle="collapse" data-parent="#accordion15" href=".collapse15">{{"ani.noiLuuTruMau" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse15" class="collapse15 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.noiLuuTruMau" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.noiLuuTruMau" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -303,13 +303,13 @@
 			<div class="panel panel-default">
 			  	<div class="panel-heading">
 					<h4 class="panel-title">
-				  		<a data-toggle="collapse" data-parent="#accordion16" href=".collapse16">Người lập phiếu MV</a>
+				  		<a data-toggle="collapse" data-parent="#accordion16" href=".collapse16">{{"ani.nguoiLapPhieuMauVat" | translate }}</a>
 					</h4>
 			  	</div>
 			  	<div id="collapse16" class="collapse16 panel-collapse collapse">
 					<div class="panel-body">
 						<form ng-submit="searchSample()">
-							<input type="text" placeholder="Tìm kiếm" name="" ng-model="searchContent.nguoiLapPhieuMauVat" class="input-form-search">
+							<input type="text" placeholder="{{'timkiem.search' | translate }}" name="" ng-model="searchContent.nguoiLapPhieuMauVat" class="input-form-search">
 						</form>
 					</div>
 			  	</div>
@@ -346,7 +346,7 @@
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<center>
-						<h3>Kết quả tìm kiếm | {{searchResult}}</h3>
+						<h3> {{searchResult}} {{"timkiem.ketquatimkiem" | translate }}</h3>
 					</center>
 				</div>
 			</div>
@@ -357,7 +357,7 @@
 			<thread>
 				<tr>
 					<th>
-						Xem 
+						{{"quanly.xem" | translate }} 
 						<select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
 							<option value="3">3</option>
 							<option value="5">5</option>
@@ -366,18 +366,18 @@
 							<option value="30">30</option>
 							<option value="40">40</option>
 							<option value="50">50</option>
-						</select> mẫu.
+						</select> {{"quanly.mau" | translate }} .
 					</th>
 					<th>
 						<button class="btn btn-sm btn-success" style="cursor: pointer; float: right; border-radius: 0px;" ng-click="selectAll()"><span class="glyphicons glyphicons-ok"></span> Select all</button>
 
 						<div class="dropdown" style="float: right;">
-							<button class="btn btn-sm btn-primary" style="border-radius: 0px;"><span class="glyphicon glyphicon-export"></span> Trích xuất <b class="caret"></b></button>
+							<button class="btn btn-sm btn-primary" style="border-radius: 0px;"><span class="glyphicon glyphicon-export"></span> {{"quanly.trichxuat" | translate }}  <b class="caret"></b></button>
 							<!-- <input type="hidden" name="link" ng-bind="link" id="input" class="form-control" value=""> -->
 							<div class="dropdown-content">
-									<a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> Xuất pdf</a>
-									<a ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> Xuất docx</a>
-									<a ng-click="export('zip')"><span class="glyphicon glyphicon-download"></span> Xuất zip</a>
+									<a ng-click="export('pdf')"><span class="glyphicon glyphicon-download"></span> {{"quanly.xuat" | translate }}  pdf</a>
+									<a ng-click="export('docx')"><span class="glyphicon glyphicon-download"></span> {{"quanly.xuat" | translate }}  docx</a>
+									<a ng-click="export('zip')"><span class="glyphicon glyphicon-download"></span> {{"quanly.xuat" | translate }}  zip</a>
 							</div>
 						</div>
 					</th>
@@ -406,87 +406,87 @@
 				<thead>
 					<tr>
 						<th ng-click="sort('tenVietNam')" style="cursor: pointer;">
-							Tên Việt Nam
+							{{"ani.tenVietNam" | translate }}
 							<span ng-show="sortKey == 'tenVietNam' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'tenVietNam' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('soHieuBTTNVN')" style="cursor: pointer;">
-							Số hiệu BTTNVN
+							{{"ani.soHieuBTTNVN" | translate }}
 							<span ng-show="sortKey == 'soHieuBTTNVN' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'soHieuBTTNVN' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('soHieuBaoTangCS')" style="cursor: pointer;">
-							Số hiệu BTCS
+							{{"ani.soHieuBaoTangCS" | translate }}
 							<span ng-show="sortKey == 'soHieuBaoTangCS' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'soHieuBaoTangCS' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('soHieuThucDia')" style="cursor: pointer;">
-							Số hiệu thực địa
+							{{"ani.soHieuThucDia" | translate }}
 							<span ng-show="sortKey == 'soHieuThucDia' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'soHieuThucDia' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('model')" style="cursor: pointer;">
-							Loại mẫu
+							{{"timkiem.model" | translate }}
 							<span ng-show="sortKey == 'model' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'model' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('nguoiDinhTen')" style="cursor: pointer;">
-							Người định tên
+							{{"ani.nguoiDinhTen" | translate }}
 							<span ng-show="sortKey == 'nguoiDinhTen' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'nguoiDinhTen' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('ngayDinhTen')" style="cursor: pointer;">
-							Ngày định tên
+							{{"ani.ngayDinhTen" | translate }}
 							<span ng-show="sortKey == 'ngayDinhTen' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'ngayDinhTen' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('tenDiaPhuong')" style="cursor: pointer;">
-							Tên địa phương
+							{{"ani.tenDiaPhuong" | translate }}
 							<span ng-show="sortKey == 'tenDiaPhuong' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'tenDiaPhuong' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('tenTiengAnh')" style="cursor: pointer;">
-							Tên tiếng Anh
+							{{"ani.tenTiengAnh" | translate }}
 							<span ng-show="sortKey == 'tenTiengAnh' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'tenTiengAnh' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('thoiGianThuMau')" style="cursor: pointer;">
-							Thời gian thu mẫu
+							{{"ani.thoiGianThuMau" | translate }}
 							<span ng-show="sortKey == 'thoiGianThuMau' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'thoiGianThuMau' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('nguoiThuMau')" style="cursor: pointer;">
-							Người thu mẫu
+							{{"ani.nguoiThuMau" | translate }}
 							<span ng-show="sortKey == 'nguoiThuMau' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'nguoiThuMau' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('quocGia')" style="cursor: pointer;">
-							Quốc gia
+							{{"ani.quocGia" | translate }}
 							<span ng-show="sortKey == 'quocGia' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'quocGia' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('viTriToaDo')" style="cursor: pointer;">
-							Vị trí tọa độ
+							{{"ani.viTriToaDo" | translate }}
 							<span ng-show="sortKey == 'viTriToaDo' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'viTriToaDo' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('noiLuuTruMau')" style="cursor: pointer;">
-							Nơi lưu giữ mẫu
+							{{"ani.noiLuuTruMau" | translate }}
 							<span ng-show="sortKey == 'noiLuuTruMau' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'noiLuuTruMau' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('nguoiLapPhieuMauVat')" style="cursor: pointer;">
-							Người lập phiếu MV
+							{{"ani.nguoiLapPhieuMauVat" | translate }}
 							<span ng-show="sortKey == 'nguoiLapPhieuMauVat' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'nguoiLapPhieuMauVat' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('created_at')" style="cursor: pointer;">
-							Ngày đăng
+							{{"timkiem.created_at" | translate }}
 							<span ng-show="sortKey == 'created_at' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'created_at' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
 						<th ng-click="sort('fApproved')" style="cursor: pointer;">
-							Trạng thái
+							{{"timkiem.trangThai" | translate }}
 							<span ng-show="sortKey == 'fApproved' && !sortReverse" class="fa fa-caret-down"></span>
 							<span ng-show="sortKey == 'fApproved' && sortReverse" class="fa fa-caret-up"></span>
 						</th>
@@ -496,86 +496,86 @@
 					<tr dir-paginate="(key, post) in data | orderBy:sortKey:sortReverse | filter:searchData|itemsPerPage:viewby" current-page="currentPage" class="table-row" data-href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 						<td>
 							<input type="checkbox" class="check-box" style="margin: 0px;" ng-model="post.selected" data-id='/content/{{modelMapping[post.model]}}/{{post._id}}?display='>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : "Mẫu vật"}}</a>
+							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">{{post.tenVietNam ? post.tenVietNam : ("quanly.mauvat" | translate )}}</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.soHieuBTTNVN}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.soHieuBaoTangCS}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.soHieuThucDia}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.model}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.nguoiDinhTen}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{(post.ngayDinhTen | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.ngayDinhTen | date: "yyyy-MM-dd" )}} 
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.tenDiaPhuong}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.tenTiengAnh}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{(post.thoiGianThuMau | date: "yyyy-MM-dd") == '1970-01-01' ? '' : (post.thoiGianThuMau | date: "yyyy-MM-dd")}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.nguoiThuMau}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.quocGia}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.kinhDo +", "+ post.viDo}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.noiLuuTruMau}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.nguoiLapPhieuMauVat}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
 								{{post.created_at | date: "yyyy-MM-dd"}}
 							</a>
 						</td>
 						<td>
-							<a class="tenvietnam" style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
-								<label class="label label-{{post.fApproved ? 'success' : 'warning'}}">{{post.fApproved ? ' Đã phê duyệt' : ' Chưa phê duyệt'}}</label>
+							<a style="text-decoration: none" href="/content/{{modelMapping[post.model]}}/{{post._id}}?display=html">
+								<label class="label label-{{post.fApproved ? 'success' : 'warning'}}">{{post.fApproved ? ("khac.daPheDuyet" | translate) : ("khac.chuaPheDuyet" | translate) }}</label>
 							</a>
 						</td>
 					</tr>

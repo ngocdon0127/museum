@@ -1,13 +1,13 @@
 app.controller('SearchController', function (leafletData, $timeout, $scope, $http, AuthService, $uibModal, leafletDrawEvents) {
     var url = AuthService.hostName + '/content/search';
-    $scope.searchResult = "0 kết quả"
+    $scope.searchResult = ""
     $scope.data = [];
     $scope.searchContent = {};
 
     $http.get(url).then(function (res) {
         $scope.data = res.data.matchedSamples;
         // console.log($scope.data);
-        $scope.searchResult = $scope.data.length + " kết quả";
+        $scope.searchResult = $scope.data.length;
     }, function (err) {
         console.log(err);
     });

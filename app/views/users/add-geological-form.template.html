@@ -4,7 +4,7 @@
         <input type="hidden" name="sample" value="dia-chat" id="sample">
         <input type="hidden" name="fLoadFromXLSX" value="0" id="fLoadFromXLSX">
         <center>
-            <h3>Thêm mẫu dữ liệu địa chất > Đề tài: {{maDeTai}}</h3>
+            <h3>{{"geo.title" | translate }} {{maDeTai}}</h3>
         </center>
         <div class="container-fluid">
             <ul class="nav nav-tabs group tabs">
@@ -242,9 +242,9 @@
                                 <span>{{"geo.viTri" | translate }}: </span>
                             </div>
                             <div class="col-sm-6">
-                                <input type="radio" name="fDiaDiemThuMau" value="Trên đất liền" ng-model="data.fDiaDiemThuMau" ng-checked="true" ng-click="starDatLien()" id="datLien"> Trên đất liền
-                                <input type="radio" name="fDiaDiemThuMau" value="Trên đảo" id="datLien" ng-click="starDao()" ng-model="data.fDiaDiemThuMau"> Trên đảo
-                                <input type="radio" name="fDiaDiemThuMau" value="Trên biển" id="trenBien" ng-click="starBien()" ng-model="data.fDiaDiemThuMau"> Trên biển
+                                <input type="radio" name="fDiaDiemThuMau" value="Trên đất liền" ng-model="data.fDiaDiemThuMau" ng-checked="true" ng-click="starDatLien()" id="datLien"> {{"khac.trenDatLien" | translate }}
+                                <input type="radio" name="fDiaDiemThuMau" value="Trên đảo" id="datLien" ng-click="starDao()" ng-model="data.fDiaDiemThuMau"> {{"khac.trenDao" | translate }}
+                                <input type="radio" name="fDiaDiemThuMau" value="Trên biển" id="trenBien" ng-click="starBien()" ng-model="data.fDiaDiemThuMau"> {{"khac.trenBien" | translate }}
                             </div>
                         </div>
                         <div class="row">
@@ -304,23 +304,23 @@
                             {{"geo.viDo" | translate }} <span class="has-required">(*)</span>:
                             <input type="text" id="viDo" ng-if="data.fViTriToaDo=='dd'" title="{{tooltips['viDo']}}" name="viDo" ng-model="data.viDo" class="input-form form-control">
                             <div id="dd" ng-if="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['viDo']}}">
-                                <input type="number" step="1" id="viDo" ng-model= "data.viDo_do" ng-change="latChange()" class = "coordinates" name=""> độ
-                                <input type="number" step="1" id="viDo" ng-model= "data.viDo_phut" ng-change="latChange()" class = "coordinates" name=""> phút
-                                <input type="number" step="1" id="viDo" ng-model= "data.viDo_giay" ng-change="latChange()" class = "coordinates" name=""> giây
+                                <input type="number" step="1" id="viDo" ng-model= "data.viDo_do" ng-change="latChange()" class = "coordinates" name=""> {{"khac.do" | translate }}
+                                <input type="number" step="1" id="viDo" ng-model= "data.viDo_phut" ng-change="latChange()" class = "coordinates" name=""> {{"khac.phut" | translate }}
+                                <input type="number" step="1" id="viDo" ng-model= "data.viDo_giay" ng-change="latChange()" class = "coordinates" name=""> {{"khac.giay" | translate }}
                             </div>
                         </div>
                         <div class="col-sm-4">
                             {{"geo.kinhDo" | translate }} <span class="has-required">(*)</span>:
                             <input type="text" id="kinhDo" ng-if="data.fViTriToaDo=='dd'" title="{{tooltips['kinhDo']}}" name="kinhDo" ng-model="data.kinhDo" class="input-form form-control">
                             <div id="dd" ng-if="data.fViTriToaDo=='dms'" style="margin-top: 5px;" title="{{tooltips['kinhDo']}}">
-                                <input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_do" ng-change="lonChange()" class = "coordinates" name=""> độ
-                                <input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_phut" ng-change="lonChange()" class = "coordinates" name=""> phút
-                                <input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_giay" ng-change="lonChange()" class = "coordinates" name=""> giây
+                                <input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_do" ng-change="lonChange()" class = "coordinates" name=""> {{"khac.do" | translate }}
+                                <input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_phut" ng-change="lonChange()" class = "coordinates" name=""> {{"khac.phut" | translate }}
+                                <input type="number" step="1" id="kinhDo" ng-model="data.kinhDo_giay" ng-change="lonChange()" class = "coordinates" name=""> {{"khac.giay" | translate }}
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label> </label><br>
-                            <button type="button" class="btn btn-success" ng-click="showModal()">Chọn trên bản đồ</button>
+                            <button type="button" class="btn btn-success" ng-click="showModal()">{{"khac.chooseMap" | translate }}ồ</button>
                         </div>
                     </div>
                 </div>
@@ -775,13 +775,13 @@
             <div class="bottom-nav">
                 <center>
                     <button id="add-post" type="submit" class="btn btn-success">
-                        <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;  Lưu mẫu
+                        <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;  {{"khac.luuMau" | translate }}
                     </button>
                     <!-- <button id="add-post" type="button" class="btn btn-info">
                         <span class="glyphicon glyphicon-export"></span>&nbsp;  Nhập từ mẫu trước
                     </button> -->
                     <js-xls onread="read" onerror="error" id="excelfile" class="excelfile btn-warning"></js-xls>
-                    <label for="excelfile"><strong> Nhập từ file excel </strong></label>
+                    <label for="excelfile"><strong> {{"khac.nhapTuExcel" | translate }} </strong></label>
 
                     <!-- <button ng-click="getCookies()" type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-open"></span>&nbsp; Lấy lại bản nháp

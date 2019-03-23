@@ -1,5 +1,7 @@
 {
-	"tieude": "Bảo tàng thiên nhiên Việt Nam",
+	"tenBaoTang": "Bảo tàng thiên nhiên Việt Nam",
+	"tieude": "Bộ Sưu Tập Mẫu Vật Quốc Gia",
+	"tieudecon": "Về Thiên Nhiên Việt Nam",
 	"ngonngu": "Ngôn ngữ",
 	"home":{
 		"tieude": "Chào mừng đến với Bảo tàng thiên nhiên Việt Nam"
@@ -53,7 +55,55 @@
 			"tailieu" : "Tài liệu"
 		}
 	},
+
+	"footer": {
+		"lienHe": "Liên hệ: Bảo Tàng Thiên Nhiên Việt Nam",
+		"diaChi": "Địa chỉ: Số 18 Hoàng Quốc Việt - Cầu Giấy - Hà Nội",
+		"dienThoai": "ĐT"
+	},
+	
+	"quanly": {
+		"title": "Quản lý mẫu vật đã đăng",
+		"timkiem": "Nội dung tìm kiếm",
+		"tenmau": "Tên mẫu",
+		"soHieuBTTNVN": "Số hiệu BTTNVN",
+		"soHieuBaoTangCS": "Số hiệu BTCS",
+		"nguoiPhanTich": "Người phân tích",
+		"nguoiThuMau": "Người thu mẫu",
+		"ngayDang": "Ngày đăng",
+		"trangThai": "Trạng thái",
+		"hanhdong": "Hành động",
+		"trichxuat": "Trích xuất",
+		"xem": "Xem",
+		"mau": "mẫu",
+		"xuat": "Xuất",
+		"mauvat": "Mẫu vật",
+		"ketquatimkiem": "Kết quả tìm kiếm",
+		"deleteSample": "Xóa mẫu vật này",
+		"co": "Có",
+		"khong": "Huỷ",
+		"exportTitle": "Lựa chọn những trường cần trích xuất",
+		"exportNotify": "Không chọn gì để trích xuất tất cả các trường"
+	},
+	"timkiem": {
+		"search": "Tìm kiếm",
+		"nhommauvat": "Nhóm mẫu vật",
+		"cosinh": "Cổ sinh",
+		"diachat": "Địa chất",
+		"dongvat": "Động vật",
+		"thonhuong": "Thổ nhưỡng",
+		"thucvat": "Thực vật",
+		"from": "Từ",
+		"to": "đến",
+		"namThuMau": "Năm thu mẫu",
+		"ketquatimkiem": "Kết quả tìm kiếm",
+		"model": "Loại mẫu",
+		"created_at": "Ngày đăng",
+		"trangThai": "Trạng thái"
+	},
 	"ani":{
+		"title": "Thêm mẫu dữ liệu động vật, Đề tài: ",
+		"editTitle": "Chỉnh sửa mẫu dữ liệu động vật, Đề tài",
 	    "soHieuBTTNVN": "Số hiệu BTTNVN",
 	    "soHieuBaoTangCS": "Số hiệu Bảo tàng cơ sở",
 	    "soHieuThucDia": "Số hiệu thực địa",
@@ -239,6 +289,8 @@
 	    "thongTinKhac9Mixed": "Thông tin khác"
 	},
 	"veg": {
+		"title": "Thêm mẫu dữ liệu thực vật, Đề tài: ",
+		"editTitle": "Chỉnh sửa mẫu dữ liệu thực vật, Đề tài: ",
 	    "soHieuBTTNVN": "Số hiệu BTTNVN",
 	    "soHieuBaoTangCS": "Số hiệu Bảo tàng cơ sở",
 	    "soHieuThucDia": "Số hiệu thực địa",
@@ -409,6 +461,8 @@
 	    "thongTinKhac9Mixed": "Thông tin khác"
 	},
 	"geo": {
+		"title": "Thêm mẫu dữ liệu địa chất, Đề tài: ",
+		"editTitle": "Chỉnh sửa mẫu dữ liệu địa chất, Đề tài: ",
 	    "soHieuBTTNVN": "Số hiệu BTTNVN",
 	    "soHieuBaoTangCS": "Số hiệu Bảo tàng cơ sở",
 	    "soHieuThucDia": "Số hiệu thực địa",
@@ -570,6 +624,8 @@
 	    "thongTinKhac9Mixed": "Thông tin khác"
 	},
 	"pal":{
+		"title": "Thêm mẫu dữ liệu cổ sinh, Đề tài: ",
+		"editTitle": "Chỉnh sửa mẫu dữ liệu cổ sinh, Đề tài: ",
 	    "soHieuBTTNVN": "Số hiệu BTTNVN",
 	    "soHieuBaoTangCS": "Số hiệu Bảo tàng cơ sở",
 	    "soHieuThucDia": "Số hiệu thực địa",
@@ -734,6 +790,8 @@
 	    "thongTinKhac9Mixed": "Thông tin khác"
 	},
 	"land":{
+		"title": "Thêm mẫu dữ liệu thổ nhưỡng, Đề tài: ",
+		"editTitle": "Chỉnh sửa mẫu dữ liệu thổ nhưỡng, Đề tài: ",
 	    "soHieuBTTNVN": "Số hiệu BTTNVN",
 	    "soHieuBaoTangCS": "Số hiệu Bảo tàng cơ sở",
 	    "soHieuThucDia": "Số hiệu thực địa",
@@ -888,8 +946,30 @@
 	    "thongTinKhac8Mixed": "Thông tin khác",
 	    "thongTinKhac9Mixed": "Thông tin khác"
 	},
+	"map": {
+		"thongKe": "Thống kê",
+		"soLuongDongVat": "Số lượng mẫu vật động vật",
+		"soLuongDiaChat": "Số lượng mẫu vật địa chất",
+		"soLuongCoSinh": "Số lượng mẫu vật cổ sinh",
+		"soLuongThoNhuong": "Số lượng mẫu vật thổ nhưỡng",
+		"soLuongThucVat": "Số lượng mẫu vật thực vật"
+
+	},
 	"customfile": {
 		"nofilechose": "Chưa chọn file",
 		"open": "Đính kèm file"
+	},
+	"khac": {
+		"chooseMap": "Chọn trên bản đồ",
+		"trenDatLien": "Trên đất liền",
+		"trenDao": "Trên đảo",
+		"trenBien": "Trên biển",
+		"do": "độ",
+		"phut": "phút",
+		"giay": "giây",
+		"luuMau": "Lưu mẫu",
+		"nhapTuExcel": "Nhập từ file Excel",
+		"chuaPheDuyet": "Chưa phê duyệt",
+		"daPheDuyet": "Đã phê duyệt"
 	}
 }

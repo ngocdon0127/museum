@@ -85,6 +85,9 @@ router.get('/home', isLoggedIn, function (req, res) {
  * @param  {[type]} '/homepage'         path
  */
 router.get('/homepage', (req, res) => {
+	if (['en', 'vi'].indexOf(req.query.lang) < 0) {
+		return res.redirect('/homepage?lang=vi')
+	}
   let numRandom = 12;
 
   let models = [
@@ -97,6 +100,7 @@ router.get('/homepage', (req, res) => {
   async(() => {
     let randomObjArr = [];
     for(model of models) {
+			// break;
       let bundle = global.myCustomVars.models[model.modelName].bundle;
       let ObjectModel = bundle.ObjectModel;
       let result = await(new Promise((resolve, reject)=>{
@@ -144,10 +148,77 @@ router.get('/homepage', (req, res) => {
       element.url = element.url + element._id.toString();
     });
 
-    console.log(randomObjArr);
+		console.log(randomObjArr);
+		let text = {
+			vi: {
+				LANG_CODE: 'vi',
+				HOME_PAGE: 'Trang chủ',
+				ADD_SPECIMEN: 'Thêm mẫu vật',
+				PALEONTOLOGY: 'Cổ sinh',
+				GEOLOGY: 'Địa chất',
+				ZOOLOGICAL: 'Động vật',
+				PEDOLOGICAL: 'Thổ nhưỡng',
+				BOTANICAL: 'Thực vật',
+				COLLECTION_MANAGEMENT: 'Quản lý mẫu vật',
+				PALEONTOLOGY_SPECIMEN: 'Mẫu cổ sinh',
+				GEOLOGICAL_SPECIMEN: 'Mẫu địa chất',
+				ZOOLOGICAL_SPECIMEN: 'Mẫu động vật',
+				PEDOLOGICAL_SPECIMEN: 'Mẫu thổ nhưỡng',
+				BOTANICAL_SPECIMEN: 'Mẫu thực vật',
+				QUERY: 'Truy vấn',
+				DATA_QUERY: 'Truy vấn dữ liệu',
+				MAP_QUERY: 'Truy vấn bản đồ',
+				ENTRY_HISTORY: 'Lịch sử nhập liệu',
+				REPORT: 'Báo cáo',
+				STATISTIC: 'Thống kê',
+				DOCUMENT: 'Tài liệu',
+				LOG_IN: 'Đăng nhập',
+				LOG_OUT: 'Đăng xuất',
+				CONTACT: 'Liên hệ: Bảo Tàng Thiên Nhiên Việt Nam',
+				ADDRESS: 'Địa chỉ: Số 18 Hoàng Quốc Việt - Cầu Giấy - Hà Nội',
+				PHONE: 'ĐT: (+84-24) 3756 8328 - Fax: (+84-24) 3756 8328',
+				EMAIL: 'Email: vnmn@vnmn.vast.vn - Facebook: www.facebook.com/baotangthiennhien/',
+				FACILITY_NAME: 'Bảo Tàng Thiên Nhiên Việt Nam',
+				NATIONAL_SPECIMEN_COLLECTION: 'Bộ Sưu Tập Mẫu Vật Quốc Gia',
+				ABOUT_VIETNAM_NATURE: 'Về Thiên Nhiên Việt Nam',
+			},
+			en: {
+				LANG_CODE: 'en',
+				HOME_PAGE: 'Main page',
+				ADD_SPECIMEN: 'Add specimen',
+				PALEONTOLOGY: 'Paleontology',
+				GEOLOGY: 'Geology',
+				ZOOLOGICAL: 'Zoology',
+				PEDOLOGICAL: 'Pedology',
+				BOTANICAL: 'Botany',
+				COLLECTION_MANAGEMENT: 'Collection Management',
+				PALEONTOLOGY_SPECIMEN: 'Paleontological specimen',
+				GEOLOGICAL_SPECIMEN: 'Geological specimen',
+				ZOOLOGICAL_SPECIMEN: 'Zoological specimen',
+				PEDOLOGICAL_SPECIMEN: 'Pedological specimen',
+				BOTANICAL_SPECIMEN: 'Botanical specimen',
+				QUERY: 'Query',
+				DATA_QUERY: 'Data query',
+				MAP_QUERY: 'Map query',
+				ENTRY_HISTORY: 'Entry history',
+				REPORT: 'Report',
+				STATISTIC: 'Statistic',
+				DOCUMENT: 'Document',
+				LOG_IN: 'Log in',
+				LOG_OUT: 'Log out',
+				CONTACT: 'Contact: Vietnam National Museum of Nature',
+				ADDRESS: 'Address: No. 18 Hoang Quoc Viet - Cau Giay - Hanoi',
+				PHONE: 'Phone: (+84-24) 3756 8328 - Fax: (+84-24) 3756 8328',
+				EMAIL: 'Email: vnmn@vnmn.vast.vn - Facebook: www.facebook.com/baotangthiennhien/',
+				FACILITY_NAME: 'Vietnam National Museum of Nature',
+				NATIONAL_SPECIMEN_COLLECTION: 'National Specimen Collection',
+				ABOUT_VIETNAM_NATURE: 'About Vietnam Nature',
+			}
+		}
     return res.render('guest-home', {
     	total: randomObjArr.length,
-      data: randomObjArr
+			data: randomObjArr,
+			TEXT: text[req.query.lang]
     })
     // return res.status(200).json({
     //   status: 'success',

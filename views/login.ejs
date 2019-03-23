@@ -17,7 +17,7 @@
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 			<div class="modal-dialog">
 				<div class="loginmodal-container">
-					<h1>Đăng nhập</h1>
+					<h1><%= TEXT.LOG_IN %></h1>
 					<br>
 					<form method="post" onsubmit="handleSubmit()">
 						<input type="text" name="email" id="email" value="<%= oldEmail %>" placeholder="Email">
@@ -28,15 +28,15 @@
 						<% } %>
 						<div class="ui toggle checkbox">
 							<input type="checkbox" id="redirectBack" onchange="handleChange(this)">
-							<label style="font-size: 15px; padding-top: 0px; padding-bottom: 0px">Truy cập trang quản trị</label>
+							<label style="font-size: 15px; padding-top: 0px; padding-bottom: 0px"><%= TEXT.ACCESS_ADMIN_DASHBOARD_AFTER_LOGGING_IN %></label>
 						</div>
-						<input type="submit" name="login" id="btnSubmit" class="login loginmodal-submit" value="Đăng nhập">
+						<input type="submit" name="login" id="btnSubmit" class="login loginmodal-submit" value="<%= TEXT.LOG_IN %>">
 					</form>
 					<div class="login-help">
-						<a href="/auth/signup">Đăng ký</a>
+						<a href="/auth/signup"><%= TEXT.SIGN_UP %></a>
 					</div>
 					<div class="login-help">
-						<a href="/auth/forgot-password">Quên mật khẩu</a>
+						<a href="/auth/forgot-password"><%= TEXT.FORGOT_PASSWORD %></a>
 					</div>
 				</div>
 				

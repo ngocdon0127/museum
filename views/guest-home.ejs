@@ -3,7 +3,7 @@
 <head>
   <!-- <base href="/app/#!"> -->
   <meta charset="UTF-8">
-  <title>Trang chủ</title>
+  <title><%= TEXT.HOME_PAGE %></title>
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
   <link rel="stylesheet" href="/stylesheets/main.css">
@@ -28,46 +28,46 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
           <li class="dropdown" ng-if="restricted" style="">
-            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b>Thêm mẫu vật</b> <b class="caret"></b></a>
+            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b><%= TEXT.ADD_SPECIMEN %></b> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li ng-if="restricted.cosinh.create"><a ui-sref="them-co-sinh" href="/app/#!/co-sinh">Cổ sinh</a></li>
-              <li ng-if="restricted.diachat.create"><a ui-sref="them-dia-chat" href="/app/#!/dia-chat">Địa chất</a></li>
-              <li ng-if="restricted.dongvat.create"><a ui-sref="them-dong-vat" href="/app/#!/dong-vat">Động vật</a></li>
-              <li ng-if="restricted.thonhuong.create"><a ui-sref="them-tho-nhuong" href="/app/#!/tho-nhuong">Thổ nhưỡng</a></li>
-              <li ng-if="restricted.thucvat.create"><a ui-sref="them-thuc-vat" href="/app/#!/thuc-vat">Thực vật</a></li>
+              <li ng-if="restricted.cosinh.create"><a ui-sref="them-co-sinh" href="/app/#!/co-sinh"><%= TEXT.PALEONTOLOGY %></a></li>
+              <li ng-if="restricted.diachat.create"><a ui-sref="them-dia-chat" href="/app/#!/dia-chat"><%= TEXT.GEOLOGY %></a></li>
+              <li ng-if="restricted.dongvat.create"><a ui-sref="them-dong-vat" href="/app/#!/dong-vat"><%= TEXT.ZOOLOGICAL %></a></li>
+              <li ng-if="restricted.thonhuong.create"><a ui-sref="them-tho-nhuong" href="/app/#!/tho-nhuong"><%= TEXT.PEDOLOGICAL %></a></li>
+              <li ng-if="restricted.thucvat.create"><a ui-sref="them-thuc-vat" href="/app/#!/thuc-vat"><%= TEXT.BOTANICAL %></a></li>
             </ul>
           </li>
           <li class="dropdown" ng-if="restricted">
-            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b>Quản lý mẫu vật</b> <b class="caret"></b></a>
+            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b><%= TEXT.COLLECTION_MANAGEMENT %></b> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li ng-if="restricted.cosinh.create"><a ui-sref="quan-ly-co-sinh" href="/app/#!/quan-ly-mau/co-sinh">Mẫu cổ sinh</a></li>
-              <li ng-if="restricted.diachat.create"><a ui-sref="quan-ly-dia-chat" href="/app/#!/quan-ly-mau/dia-chat">Mẫu địa chất</a></li>
-              <li ng-if="restricted.dongvat.create"><a ui-sref="quan-ly-dong-vat" href="/app/#!/quan-ly-mau/dong-vat">Mẫu động vật</a></li>
-              <li ng-if="restricted.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong" href="/app/#!/quan-ly-mau/tho-nhuong">Mẫu thổ nhưỡng</a></li>
-              <li ng-if="restricted.thucvat.create"><a ui-sref="quan-ly-thuc-vat" href="/app/#!/quan-ly-mau/thuc-vat">Mẫu thực vật</a></li>
+              <li ng-if="restricted.cosinh.create"><a ui-sref="quan-ly-co-sinh" href="/app/#!/quan-ly-mau/co-sinh"><%= TEXT.PALEONTOLOGY_SPECIMEN %></a></li>
+              <li ng-if="restricted.diachat.create"><a ui-sref="quan-ly-dia-chat" href="/app/#!/quan-ly-mau/dia-chat"><%= TEXT.GEOLOGICAL_SPECIMEN %></a></li>
+              <li ng-if="restricted.dongvat.create"><a ui-sref="quan-ly-dong-vat" href="/app/#!/quan-ly-mau/dong-vat"><%= TEXT.ZOOLOGICAL_SPECIMEN %></a></li>
+              <li ng-if="restricted.thonhuong.create"><a ui-sref="quan-ly-tho-nhuong" href="/app/#!/quan-ly-mau/tho-nhuong"><%= TEXT.PEDOLOGICAL_SPECIMEN %></a></li>
+              <li ng-if="restricted.thucvat.create"><a ui-sref="quan-ly-thuc-vat" href="/app/#!/quan-ly-mau/thuc-vat"><%= TEXT.BOTANICAL_SPECIMEN %></a></li>
             </ul>
           </li>
           <li class="dropdown">
-            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b>Truy vấn</b> <b class="caret"></b></a>
+            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b><%= TEXT.QUERY %></b> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a ui-sref="tim-kiem" href="/app/#!/tim-kiem">Truy vấn dữ liệu</a></li>
-              <li><a ui-sref="leaflet-map" href="/app/#!/map">Truy vấn bản đồ</a></li>
+              <li><a ui-sref="tim-kiem" href="/app/#!/tim-kiem"><%= TEXT.DATA_QUERY %></a></li>
+              <li><a ui-sref="leaflet-map" href="/app/#!/map"><%= TEXT.MAP_QUERY %></a></li>
             </ul>
           </li>
           <li class="dropdown">
-            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b>Báo cáo</b> <b class="caret"></b></a>
+            <a href="/app/" class="dropdown-toggle" data-toggle="dropdown"><b><%= TEXT.REPORT %></b> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="/log/all">Lịch sử nhập liệu</a></li>
-              <li><a href="/manager/statistic">Thống kê</a></li>
+              <li><a href="/log/all"><%= TEXT.ENTRY_HISTORY %></a></li>
+              <li><a href="/manager/statistic"><%= TEXT.STATISTIC %></a></li>
             </ul>
           </li>
-          <li class=""><a ui-sref="document" href="/app/#!/tai-lieu"><b>Tài liệu</b></a></li>
+          <li class=""><a ui-sref="document" href="/app/#!/tai-lieu"><b><%= TEXT.DOCUMENT %></b></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-controller="translateCtrl">
           <!-- <li><a ui-sref="tim-kiem" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a></li> -->
-          <!-- <li ng-click="changeLang('eng')"><a href=""><img src="/guest/en.gif"></a></li> -->
-          <li  ng-click="changeLang('vi')"><a href=""><img src="/guest/vi.gif"></a></li>
-          <li><a class="btn " href="/auth/login">Đăng nhập</a></li>
+          <li><a href="/homepage?lang=en"><img src="/guest/en.gif"></a></li>
+          <li><a href="/homepage?lang=vi"><img src="/guest/vi.gif"></a></li>
+          <li><a class="btn " href="/auth/login?lang=<%= TEXT.LANG_CODE %>"><%= TEXT.LOG_IN %></a></li>
         </ul>
       </div>
     </div>
@@ -97,8 +97,8 @@
 
 <div id="header" class="jumbotron">
     <div class="container">
-        <h2>Bộ Sưu Tập Mẫu Vật Quốc Gia</h2>
-         <h3>Về Thiên Nhiên Việt Nam</h3>
+        <h2><%= TEXT.NATIONAL_SPECIMEN_COLLECTION %></h2>
+        <h3><%= TEXT.ABOUT_VIETNAM_NATURE %></h3>
          <!-- <div style="padding: 10px"></div> -->
     </div>
 </div>
@@ -225,15 +225,15 @@
   <div class="container">
     <div class="footer-content">
       <div class="col-md-4 col-xs-12">
-        <p>Liên hệ: Bảo Tàng Thiên Nhiên Việt Nam</p>
-        <p>Địa chỉ: Số 18 Hoàng Quốc Việt - Cầu Giấy - Hà Nội</p>
-        <p>ĐT: (+84-24) 3756 8328 - Fax: (+84-24) 3756 8328</p>
-        <p>Email: vnmn@vnmn.vast.vn - Facebook: www.facebook.com/baotangthiennhien/</p>
+        <p><%= TEXT.CONTACT %></p>
+        <p><%= TEXT.ADDRESS %></p>
+        <p><%= TEXT.PHONE %></p>
+        <p><%= TEXT.EMAIL %></p>
       </div>
       <div class="col-md-4 col-xs-12 text-center">
         <img src="/guest/logo.png" />
         <br>
-        <p style="text-transform: uppercase;">Bảo Tàng Thiên Nhiên Việt Nam</p>
+        <p style="text-transform: uppercase;"><%= TEXT.FACILITY_NAME %></p>
       </div>
     </div>
   </div>

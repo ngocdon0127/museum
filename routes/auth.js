@@ -35,8 +35,31 @@ router.get('/notme', (req, res, next) => {
 })
 
 router.get("/login", function (req, res) {
+	if (['en', 'vi'].indexOf(req.query.lang) < 0) {
+		return res.redirect('/auth/login?lang=vi')
+	}
 	if (req.isAuthenticated()){
 		return res.redirect('/home')
+	}
+	let text = {
+		vi: {
+			LOG_IN: 'Đăng nhập',
+			ACCESS_ADMIN_DASHBOARD_AFTER_LOGGING_IN: 'Truy cập trang quản trị',
+			SIGN_UP: 'Đăng ký',
+			FORGOT_PASSWORD: 'Quên mật khẩu',
+			RE_LOG_IN: 'Đăng nhập lại',
+			PASSWORD: 'Mật khẩu',
+			LOG_IN_WITH_ANOTHER_USER_NAME: 'Đăng nhập bằng tài khoản khác',
+		},
+		en: {
+			LOG_IN: 'Log in',
+			ACCESS_ADMIN_DASHBOARD_AFTER_LOGGING_IN: 'Access admin dashboard',
+			SIGN_UP: 'Register',
+			FORGOT_PASSWORD: 'Forgot password',
+			RE_LOG_IN: 'Lockscreen',
+			PASSWORD: 'Password',
+			LOG_IN_WITH_ANOTHER_USER_NAME: 'Not you?',
+		}
 	}
 	let oldUser = req.cookies.username;
 	if (req.cookies.username){
@@ -44,6 +67,7 @@ router.get("/login", function (req, res) {
 			if (err || !user){
 				res.cookie('username', '');
 				res.render("login", {
+					TEXT: text[req.query.lang],
 					message: req.flash("loginMessage"), 
 					title: "Login", 
 					user: req.user, 
@@ -59,6 +83,7 @@ router.get("/login", function (req, res) {
 					avatar = '/' + user.avatar.original;
 				}
 				res.render("lockscreen", {
+					TEXT: text[req.query.lang],
 					message: req.flash("loginMessage"), 
 					title: "Login", 
 					oldUser: user,
@@ -72,6 +97,7 @@ router.get("/login", function (req, res) {
 	}
 	else {
 		res.render("login", {
+			TEXT: text[req.query.lang],
 			message: req.flash("loginMessage"), 
 			title: "Login", 
 			user: req.user, 

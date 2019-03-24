@@ -456,30 +456,34 @@ var getSingleHandler = function (options) {
 								} else {
 									console.log('cung loai:', instances.length);
 									instances.map(instance => {
-										let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
-										let longitude = '';
-										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase()))){
-											// console.log('Tọa độ thực')
-											longitude = parseFloat(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase());
-										}
-										else {
-											// console.log('Tọa độ rời rạc')
-											let matches = instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase().match(regex);
-											longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
-										}
+										try {
+											let regex = /([0-9 ]+)(°|độ)([0-9 ]+)('|phút)([0-9 ]+)("|giây)/;
+											let longitude = '';
+											if (!(regex.test(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase()))){
+												// console.log('Tọa độ thực')
+												longitude = parseFloat(instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase());
+											}
+											else {
+												// console.log('Tọa độ rời rạc')
+												let matches = instance.duLieuThuMau.viTriToaDo.kinhDo.toLowerCase().match(regex);
+												longitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+											}
 
-										let latitude = '';
-										if (!(regex.test(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase()))){
-											// console.log('Tọa độ thực')
-											latitude = parseFloat(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase());
-										}
-										else {
-											// console.log('Tọa độ rời rạc')
-											let matches = instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase().match(regex);
-											latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
-										}
-										if (longitude && latitude) {
-											coordinationArr.push([latitude, longitude])
+											let latitude = '';
+											if (!(regex.test(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase()))){
+												// console.log('Tọa độ thực')
+												latitude = parseFloat(instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase());
+											}
+											else {
+												// console.log('Tọa độ rời rạc')
+												let matches = instance.duLieuThuMau.viTriToaDo.viDo.toLowerCase().match(regex);
+												latitude = parseInt(matches[1]) + parseInt(matches[3]) / 60 + parseInt(matches[5]) / 60 / 60;
+											}
+											if (longitude && latitude) {
+												coordinationArr.push([latitude, longitude])
+											}
+										} catch (e) {
+											console.log(e);
 										}
 									})
 								}

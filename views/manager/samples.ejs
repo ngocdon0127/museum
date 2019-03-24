@@ -104,7 +104,7 @@
 													<td><span><%= s.soHieu.soHieuBTTNVN %></span></td>
 													<td><span><a href="/users/<%= s.created_by.userId%>"><%= s.created_by.userFullName %></a></span></td>
 													<% let date = s.created_at %>
-													<td><%= (date != 'Invalid Date') ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
+													<td><%= ((date != 'Invalid Date') && date) ? [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/') + ', ' + [date.getHours(), date.getMinutes(), date.getSeconds()].join(':') : '' %></td>
 													<td><span>
 														<% if (s.flag.fApproved) { %>
 															<button data-approved='<%= 1 %>' data-id='<%= s._id %>' data-form='<%= k %>' id="btn-approve-<%= s._id %>" class="btn btn-warning" onclick="approveSampleHandler(this)">Hủy phê duyệt</button>

@@ -1,0 +1,66 @@
+{
+    "HOME_PAGE": {
+        "vi": "Trang chủ",
+        "en": "Home page"
+    },
+    "LOG_IN": {
+        "vi": "Đăng nhập",
+        "en": "Log in"
+    },
+    "LOG_OUT": {
+        "vi": "Đăng xuất",
+        "en": "Log out"
+    },
+    "ACCOUNT_MANAGEMENT": {
+        "vi": "Quản lý tài khoản",
+        "en": "Account management"
+    },
+    "ADMIN_DASHBOARD": {
+        "vi": "Bảng điều khiển Admin",
+        "en": "Admin dashboard"
+    },
+    "ALL_USERS": {
+        "vi": "Tất cả nhân viên trong hệ thống",
+        "en": "All users"
+    },
+    "AVATAR": {
+        "vi": "Ảnh",
+        "en": "Avatar"
+    },
+    "FULL_NAME": {
+        "vi": "Tên đầy đủ",
+        "en": "Full name"
+    },
+    "LEVEL": {
+        "vi": "Cấp bậc",
+        "en": "Level"
+    },
+    "COLLECTION": {
+        "vi": "Đề tài",
+        "en": "Collection"
+    },
+    "LAST_LOG_IN": {
+        "vi": "Lần cuối đăng nhập",
+        "en": "Last log in"
+    },
+    "ACTION": {
+        "vi": "Thao tác",
+        "en": "Action"
+    },
+    "COLLECTION_CODE": {
+        "vi": "Mã đề tài",
+        "en": "Collection code"
+    },
+    "ONLINE": {
+        "vi": "Đang trực tuyến",
+        "en": "Online"
+    },
+    "MAIN_NAVIGATION": {
+        "vi": "Thanh điều hướng chính",
+        "en": "Main Navigation"
+    },
+    "PROFILE": {
+        "vi": "Trang cá nhân",
+        "en": "Profile"
+    }
+}

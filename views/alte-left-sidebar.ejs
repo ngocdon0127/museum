@@ -1,3 +1,10 @@
+<% 
+	let _t = global.myCustomVars.translateText 
+	if (typeof(_lc) == 'undefined') {
+		_lc = 'en'
+	}
+%>
+
 		<!-- sidebar: style can be found in sidebar.less -->
 		<section class="sidebar">
 			<!-- Sidebar user panel -->
@@ -7,7 +14,7 @@
 				</div>
 				<div class="pull-left info">
 					<p><%= user.fullname %></p>
-					<a href="#"><i class="fa fa-circle text-success"></i> Đang trực tuyến</a>
+					<a href="#"><i class="fa fa-circle text-success"></i> <%= _t('ONLINE', _lc) %></a>
 				</div>
 			</div>
 			<!-- search form -->
@@ -23,11 +30,11 @@
 			<!-- /.search form -->
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
-				<li class="header">THANH ĐIỀU HƯỚNG CHÍNH</li>
+				<li class="header" style="text-transform: uppercase"><%= _t('MAIN_NAVIGATION', _lc) %></li>
 					<li class="<%= (sidebar.active == 'profile') ? 'active' : '' %>">
 						<a href="/users/me">
 							<i class="fa fa-user"></i> 
-							<span>Trang cá nhân</span>
+							<span><%= _t('PROFILE', _lc) %></span>
 						</a>
 					</li>
 				<% if (['admin', 'manager'].indexOf(user.level) >= 0) { %>

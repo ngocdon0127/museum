@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
+	<% 
+		let _t = global.myCustomVars.translateText 
+		if (typeof(_lc) == 'undefined') {
+			_lc = 'en'
+		}
+	%>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Quản lý tài khoản</title>
+	<title><%= _t('ACCOUNT_MANAGEMENT', _lc) %></title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -59,13 +67,13 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				Bảng điều khiển Admin
+				<%= _t('ADMIN_DASHBOARD', _lc) %>
 				<small></small>
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="/home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+				<li><a href="/home"><i class="fa fa-dashboard"></i><%= _t('HOME_PAGE', _lc) %></a></li>
 				<li><a href="/admin">Admin</a></li>
-				<li class="active">Quản lý tài khoản</li>
+				<li class="active"><%= _t('ACCOUNT_MANAGEMENT', _lc) %></li>
 			</ol>
 		</section>
 
@@ -78,7 +86,7 @@
 
 					<div class="box box-success">
 						<div class="box-header">
-							<h3 class="box-title">Tất cả nhân viên trong hệ thống</h3>
+							<h3 class="box-title"><%= _t('ALL_USERS', _lc) %></h3>
 							<div class="box-tools pull-right">
 								<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
 								</button>
@@ -92,12 +100,12 @@
 									<table id="example1" class="table table-bordered table-hover">
 										<thead>
 										<tr>
-											<th>Ảnh</th>
-											<th>Tên đầy đủ</th>
-											<th>Cấp bậc</th>
-											<th>Đề tài</th>
-											<th>Lần cuối đăng nhập</th>
-											<th>Thao tác</th>
+											<th><%= _t('AVATAR', _lc) %></th>
+											<th><%= _t('FULL_NAME', _lc) %></th>
+											<th><%= _t('LEVEL', _lc) %></th>
+											<th><%= _t('COLLECTION', _lc) %></th>
+											<th><%= _t('LAST_LOG_IN', _lc) %></th>
+											<th><%= _t('ACTION', _lc) %></th>
 										</tr>
 										</thead>
 										<tbody>
@@ -142,7 +150,7 @@
 															<div class="input-group input-group-md">
 																
 																
-																<input type="text" title="Chọn trong danh sách hoặc điền Mã đề tài mới" placeholder="Mã đề tài" name="maDeTai" class="form-control flexdatalist input-mdt" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
+																<input type="text" title="Chọn trong danh sách hoặc điền Mã đề tài mới" placeholder="<%= _t('COLLECTION_CODE', _lc) %>" name="maDeTai" class="form-control flexdatalist input-mdt" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
 																<datalist id="list-maDeTai">
 																	<% for(var j = 0; j < maDeTais.length; j++) { %>
 																	<option value="<%= maDeTais[j] %>"><%= maDeTais[j] %></option>
@@ -178,7 +186,7 @@
 														<div class="input-group input-group-md">
 															
 															
-															<input type="text" placeholder="Mã đề tài" title="Chọn trong danh sách hoặc điền Mã đề tài mới" name="maDeTai" class="form-control flexdatalist input-mdt" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
+															<input type="text" placeholder="<%= _t('COLLECTION_CODE', _lc) %>" title="Chọn trong danh sách hoặc điền Mã đề tài mới" name="maDeTai" class="form-control flexdatalist input-mdt" data-min-length="0" id="<%= 'maDeTai-' + u._id %>" list="list-maDeTai" value="">
 															<datalist id="list-maDeTai">
 																<% for(var j = 0; j < maDeTais.length; j++) { %>
 																<option value="<%= maDeTais[j] %>"><%= maDeTais[j] %></option>
@@ -208,12 +216,12 @@
 										</tbody>
 										<tfoot>
 										<tr>
-											<th>Ảnh</th>
-											<th>Tên đầy đủ</th>
-											<th>Cấp bậc</th>
-											<th>Đề tài</th>
-											<th>Lần cuối đăng nhập</th>
-											<th>Thao tác</th>
+											<th><%= _t('AVATAR', _lc) %></th>
+											<th><%= _t('FULL_NAME', _lc) %></th>
+											<th><%= _t('LEVEL', _lc) %></th>
+											<th><%= _t('COLLECTION', _lc) %></th>
+											<th><%= _t('LAST_LOG_IN', _lc) %></th>
+											<th><%= _t('ACTION', _lc) %></th>
 										</tr>
 										</tfoot>
 									</table>
@@ -320,7 +328,8 @@
 			"ordering": true,
 			"info": true,
 			"autoWidth": false,
-			"language": {
+			<%- (_lc == 'vi') ?
+			`"language": {
 				"paginate": {
 							"first":      "Trang đầu",
 							"last":       "Trang cuối",
@@ -343,7 +352,7 @@
 							"sortAscending":  ": activate to sort column ascending",
 							"sortDescending": ": activate to sort column descending"
 					}
-			}
+			}` : `language: {}` %>
 		}).order([0, 'asc']).draw();
 
 		var STR_AUTOCOMPLETION_SEPARATOR = '_-_'

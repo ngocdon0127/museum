@@ -1117,3 +1117,31 @@ var getPublicIP = function (req) {
 }
 global.myCustomVars.getPublicIP = getPublicIP;
 
+const supportedLanguages = ['vi', 'en']
+let multiLangText = {};
+
+(function initLang() {
+	try {
+		// multiLangText = require('./lang')
+		multiLangText = JSON.parse(fs.readFileSync(path.join(__dirname, 'lang.json')));
+		console.log(multiLangText);
+	} catch (e) {
+		console.log(e);
+	}
+	setTimeout(function () {
+		initLang()
+	}, 1000)
+})();
+
+global.myCustomVars.translateText = function (str, langCode) {
+	if (supportedLanguages.indexOf(langCode) < 0) {
+		langCode = supportedLanguages[0]
+	}
+	try {
+		result = multiLangText[str][langCode]
+	} catch (e) {
+		console.log(e);
+		result = str
+	}
+	return result
+}

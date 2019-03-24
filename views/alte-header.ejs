@@ -7,6 +7,13 @@
       }
     %>
 
+    <% 
+      let _t = global.myCustomVars.translateText 
+      if (typeof(_lc) == 'undefined') {
+        _lc = 'en'
+      }
+    %>
+
     <!-- Logo -->
     <!--<a href="<%= (user.level in objh) ? objh[user.level].link : '#' %>" class="logo">-->
     <a href="/home" class="logo">
@@ -16,7 +23,7 @@
       <span class="logo-mini"><b>T</b></span>
       <!-- logo for regular state and mobile devices -->
       <!--<span class="logo-lg"><b><%= (user.level in objh) ? objh[user.level].full : 'User' %></b></span>-->
-      <span class="logo-lg"><b>Trang chủ</b></span>
+      <span class="logo-lg"><b><%= _t('HOME_PAGE', _lc) %></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -57,10 +64,10 @@
               <!-- Menu Footer-->
               <li class="user-body bg-success">
                 <div class="pull-left">
-                  <a href="/home" class="btn btn-success btn-flat">Trang chủ</a>
+                  <a href="/home" class="btn btn-success btn-flat"><%= _t('HOME_PAGE', _lc) %></a>
                 </div>
                 <div class="pull-right">
-                  <a href="/auth/logout" class="btn btn-warning btn-flat">Đăng xuất</a>
+                  <a href="/auth/logout" class="btn btn-warning btn-flat"><%= _t('LOG_OUT', _lc) %></a>
                 </div>
               </li>
             </ul>

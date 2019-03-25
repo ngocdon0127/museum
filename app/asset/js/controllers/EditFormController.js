@@ -486,7 +486,7 @@ app.controller('EditVegetableFormCtrl', function ($http, $scope, AuthService, $s
         $scope.data = res.data.vegetable;
         $scope.status = res.data.status;
         $scope.data.id = $stateParams.id;
-
+        console.log($scope.data)
         // DatePicker
         AuthService.initDatePicker($scope.data);
 

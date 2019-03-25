@@ -504,7 +504,7 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     $scope.addPost = function (FormContent) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
-        console.log(fd);
+        console.log($scope.data);
         AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe).then(function success(data) {
         }, function error(err) {
             // console.log(err.responseJSON.field);

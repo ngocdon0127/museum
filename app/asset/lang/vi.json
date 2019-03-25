@@ -968,8 +968,10 @@
 		"phut": "phút",
 		"giay": "giây",
 		"luuMau": "Lưu mẫu",
+		"capNhatMau": "Cập nhật mẫu",
 		"nhapTuExcel": "Nhập từ file Excel",
 		"chuaPheDuyet": "Chưa phê duyệt",
-		"daPheDuyet": "Đã phê duyệt"
+		"daPheDuyet": "Đã phê duyệt",
+		"thongBao": "Thông báo"
 	}
 }

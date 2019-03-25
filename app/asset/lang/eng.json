@@ -965,8 +965,10 @@
 		"phut": "minutes",
 		"giay": "seconds",
 		"luuMau": "Save",
+		"capNhatMau": "Update",
 		"nhapTuExcel": "Import from Excel",
 		"chuaPheDuyet": "Not approved yet",
-		"daPheDuyet": "Approved"
+		"daPheDuyet": "Approved",
+		"thongBao": "Notification"
 	}
 }

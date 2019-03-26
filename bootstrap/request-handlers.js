@@ -397,6 +397,17 @@ var coordinatesStr2Float = global.myCustomVars.coordinatesStr2Float;
 
 var getSingleHandler = function (options) {
 	return function (req, res) {
+		// console.log(req);
+		// console.log('originalUrl:', req.originalUrl);
+		// console.log('path:', req.path);
+		// console.log('query:', req.query);
+		// console.log(Object.keys(req.query));
+		if (Object.keys(req.query).length < 1) {
+			return res.redirect(req.originalUrl + '?lang=vi')
+		}
+		if (['vi', 'en'].indexOf(req.query.lang) < 0) {
+			req.query.lang = 'vi'
+		}
 
 		var ObjectModel = options.ObjectModel;
 		var objectModelName = options.objectModelName;
@@ -496,7 +507,11 @@ var getSingleHandler = function (options) {
 									props: propsName(PROP_FIELDS),
 									staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length),
 									coordinationArr: coordinationArr,
-									coor: coor
+									coor: coor,
+									dictionary: global.myCustomVars.dictionary,
+									langCode: req.query.lang,
+									objectDictionaryCode: options.objectDictionaryCode,
+									originalUrl: req.originalUrl
 								});
 							})
 						} else {
@@ -509,7 +524,11 @@ var getSingleHandler = function (options) {
 								props: propsName(PROP_FIELDS),
 								staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length),
 								coordinationArr: null,
-								coor: coor
+								coor: coor,
+								dictionary: global.myCustomVars.dictionary,
+								langCode: req.query.lang,
+								objectDictionaryCode: options.objectDictionaryCode,
+								originalUrl: req.originalUrl
 							});
 						}
 						

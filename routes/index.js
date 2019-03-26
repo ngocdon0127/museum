@@ -143,10 +143,14 @@ router.get('/homepage', (req, res) => {
       }
       return shuffled.slice(min);
     }
-    randomObjArr = getRandomSubarray(randomObjArr, numRandom);
-    randomObjArr.forEach(function(element) {
-      element.url = element.url + element._id.toString();
-    });
+    try {
+			randomObjArr = getRandomSubarray(randomObjArr, numRandom);
+			randomObjArr.forEach(function(element) {
+				element.url = element.url + element._id.toString();
+			});
+		} catch (e) {
+			console.log(e);
+		}
 
 		console.log(randomObjArr);
 		let text = {

@@ -68,6 +68,7 @@ var objectModelNames       = 'paleontologicals';
 var objectModelIdParamName = 'id';
 var objectBaseURL          = '/co-sinh';
 var objectModelLabel       = 'cổ sinh';
+var objectDictionaryCode   = 'pal';
 
 const ROOT = path.join(__dirname, '../');
 
@@ -217,6 +218,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	LABEL: LABEL,
 	objectModelLabel: objectModelLabel,
+	objectDictionaryCode: objectDictionaryCode,
 	paragraph: {
 		text: [
 		'PHIẾU CƠ SỞ DỮ LIỆU MẪU CỔ SINH HỌC', 

@@ -94,6 +94,62 @@ app.controller('ModalInstanceCtrl', function ($location, $uibModalInstance, $sco
 app.controller('translateCtrl', function($scope, $translate) {
     $scope.changeLang = function changeLangFn(langKey) {
       $translate.use(langKey);
+      // console.log(langKey);
+
+      // so fucking weird :))
+      if (langKey == 'eng') {
+        try {
+          document.getElementsByClassName('info-label')[0].innerText = 'Zoology'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[1].innerText = 'Geology'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[2].innerText = 'Paleontology'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[3].innerText = 'Pedology'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[4].innerText = 'Botany'
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        try {
+          document.getElementsByClassName('info-label')[0].innerText = 'Động vật'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[1].innerText = 'Địa chất'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[2].innerText = 'Cổ sinh'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[3].innerText = 'Thổ nhưỡng'
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          document.getElementsByClassName('info-label')[4].innerText = 'Thực vật'
+        } catch (e) {
+          console.log(e);
+        }
+      }
     };
   }
 );

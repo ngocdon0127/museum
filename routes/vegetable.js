@@ -27,6 +27,14 @@ var ACTION_CREATE = global.myCustomVars.ACTION_CREATE;
 var ACTION_EDIT   = global.myCustomVars.ACTION_EDIT;
 var STR_SEPARATOR = global.myCustomVars.STR_SEPARATOR;
 
+var dictionary = {
+	vi: JSON.parse(fs.readFileSync(path.join(__dirname, '../app/asset/lang/vi.json'))),
+	en: JSON.parse(fs.readFileSync(path.join(__dirname, '../app/asset/lang/eng.json')))
+}
+
+// console.log(dictionary)
+global.myCustomVars.dictionary = dictionary
+
 var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, '../models/VegetableSchemaProps.json')).toString());
 
 var PROP_FIELDS_OBJ = {};
@@ -67,6 +75,7 @@ var objectModelNames       = 'vegetables';
 var objectModelIdParamName = 'id';
 var objectBaseURL          = '/thuc-vat';
 var objectModelLabel       = 'thực vật';
+var objectDictionaryCode   = 'veg';
 
 const ROOT = path.join(__dirname, '../');
 
@@ -216,6 +225,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 	PROP_FIELDS_OBJ: PROP_FIELDS_OBJ,
 	LABEL: LABEL,
 	objectModelLabel: objectModelLabel,
+	objectDictionaryCode: objectDictionaryCode,
 	paragraph: {
 		text: [
 		'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỰC VẬT VÀ NẤM', 

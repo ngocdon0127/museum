@@ -10,6 +10,11 @@
 		<!-- Ionicons -->
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
 		<% include header %>
+		<%
+			if (typeof(langCode) == 'undefined') {
+				langCode = 'vi'
+			}
+		%>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
 	 integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
 	 crossorigin=""/>
@@ -39,10 +44,22 @@
 		<div class="container">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<% if ((typeof(objectModelId) != 'undefined') && (typeof(objectPath) != 'undefined')) { %>
-					<a class="btn btn-success" role="button" href="/">Trang chủ</a>
-					<a class="btn btn-warning" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>">Chỉnh sửa</a>
-					<button class="btn btn-danger" onclick="deleteSample('<%= objectPath %>', '<%= objectModelId %>')" role="button">Xóa</button>
-					<a class="btn btn-primary" role="button" href="<%= '/app/#!/quan-ly-mau' + objectPath %>">Đến trang quản lý mẫu</a>
+					<a class="btn btn-success" role="button" href="/"><%= (langCode == 'vi') ? 'Trang chủ' : 'Home page' %></a>
+					<a class="btn btn-warning" role="button" href="<%= '/app/#!' + objectPath + '/chinh-sua/' + objectModelId %>"><%= (langCode == 'vi') ? 'Chỉnh sửa' : 'Edit' %></a>
+					<button class="btn btn-danger" onclick="deleteSample('<%= objectPath %>', '<%= objectModelId %>')" role="button"><%= (langCode == 'vi') ? 'Xóa' : 'Delete' %></button>
+					<a class="btn btn-primary" role="button" href="<%= '/app/#!/quan-ly-mau' + objectPath %>"><%= (langCode == 'vi') ? 'Đến trang quản lý mẫu' : 'Collection Management' %></a>
+					<% let enUrl = '';
+					let viUrl = '';
+					if (originalUrl.indexOf('?') < 0) {
+						enUrl = originalUrl + '?display=html&lang=en'
+						viUrl = originalUrl + '?display=html&lang=vi'
+					} else {
+						enUrl = originalUrl.substring(0, originalUrl.indexOf('?')) + '?display=html&lang=en'
+						viUrl = originalUrl.substring(0, originalUrl.indexOf('?')) + '?display=html&lang=vi'
+					}
+					%>
+					<a class="btn btn-default" role="button" href="<%= enUrl %>">English</a>
+					<a class="btn btn-default" role="button" href="<%= viUrl %>">Tiếng Việt</a>
 				<% } %>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -225,17 +242,18 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th><strong>Thuộc tính</strong></th>
-							<th>Giá trị</th>
+							<th><strong><%= (langCode == 'vi') ? 'Thuộc tính' : 'Property' %></strong></th>
+							<th><%= (langCode == 'vi') ? 'Giá trị' : 'Value' %></th>
 							<% if (count == 2) { %>
-								<th>Giá trị mới</th>
+								<th><%= (langCode == 'vi') ? 'Giá trị mới' : 'New value' %></th>
 							<% } %>
 						</tr>
 					</thead>
 					<tbody>
 				<% for (var i = 0; i < diffs.length; i++){ %>
 					<tr>
-						<td><b><%= props[diffs[i]] %></b></td>
+						<!-- <td><b><%= props[diffs[i]] %></b></td> -->
+						<td><b><%= dictionary[langCode][objectDictionaryCode][diffs[i]] %></b></td>
 						<td><span class="text-info"><%- display(obj1[diffs[i]]) %></span></td>
 						<% if (count == 2) { %>
 								<td><span class="text-success"><%- display(obj2[diffs[i]]) %></span></td>

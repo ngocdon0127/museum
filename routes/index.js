@@ -95,8 +95,8 @@ router.get('/homepage', (req, res) => {
     {modelName: 'dia-chat', modelTitle: 'Địa chất', enName : 'geological'},
     {modelName: 'dong-vat', modelTitle: 'Động vật', enName : 'animal'},
     {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng', enName : 'soil'},
-	{modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'},
-	{modelName: 'nam', modelTitle: 'Nấm', enName: 'mycology' }
+		{modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'},
+		{modelName: 'nam', modelTitle: 'Nấm', enName: 'mycology' }
   ]
   async(() => {
     let randomObjArr = [];
@@ -164,12 +164,14 @@ router.get('/homepage', (req, res) => {
 				ZOOLOGICAL: 'Động vật',
 				PEDOLOGICAL: 'Thổ nhưỡng',
 				BOTANICAL: 'Thực vật',
+				MYCOLOGY: 'Nấm',
 				COLLECTION_MANAGEMENT: 'Quản lý mẫu vật',
 				PALEONTOLOGY_SPECIMEN: 'Mẫu cổ sinh',
 				GEOLOGICAL_SPECIMEN: 'Mẫu địa chất',
 				ZOOLOGICAL_SPECIMEN: 'Mẫu động vật',
 				PEDOLOGICAL_SPECIMEN: 'Mẫu thổ nhưỡng',
 				BOTANICAL_SPECIMEN: 'Mẫu thực vật',
+				MYCOLOGICAL_SPECIMEN: 'Mẫu nấm',
 				QUERY: 'Truy vấn',
 				DATA_QUERY: 'Truy vấn dữ liệu',
 				MAP_QUERY: 'Truy vấn bản đồ',
@@ -196,12 +198,14 @@ router.get('/homepage', (req, res) => {
 				ZOOLOGICAL: 'Zoology',
 				PEDOLOGICAL: 'Pedology',
 				BOTANICAL: 'Botany',
+				MYCOLOGY: 'Mycology',
 				COLLECTION_MANAGEMENT: 'Collection Management',
 				PALEONTOLOGY_SPECIMEN: 'Paleontological specimen',
 				GEOLOGICAL_SPECIMEN: 'Geological specimen',
 				ZOOLOGICAL_SPECIMEN: 'Zoological specimen',
 				PEDOLOGICAL_SPECIMEN: 'Pedological specimen',
 				BOTANICAL_SPECIMEN: 'Botanical specimen',
+				MYCOLOGICAL_SPECIMEN: 'Mycological specimen',
 				QUERY: 'Query',
 				DATA_QUERY: 'Data query',
 				MAP_QUERY: 'Map query',

@@ -71,7 +71,7 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 
 var aclMiddlewareBaseURL   = '/content/nam';
 var objectModelName        = 'mycology';
-var objectModelNames       = 'mycologys';
+var objectModelNames       = 'mycologies';
 var objectModelIdParamName = 'id';
 var objectBaseURL          = '/nam';
 var objectModelLabel       = 'nấm';

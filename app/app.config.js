@@ -47,6 +47,17 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 			restrict: true
 		}
 	})
+	.state('them-nam', {
+		url: '/nam',
+		templateUrl: 'views/users/add-mycology-form.template.html',
+		controller: 'MycologyFormCtrl',
+		access : {
+			sample : "nam",
+			action : "create",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
 	.state('them-dia-chat', {
 		url: '/dia-chat',
 		templateUrl: 'views/users/add-geological-form.template.html',
@@ -97,6 +108,17 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		controller: 'EditVegetableFormCtrl',
 		access : {
 			sample : "thucvat",
+			action : "edit",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
+	.state('chinh-sua-nam', {
+		url: '/nam/chinh-sua/:id',
+		templateUrl: 'views/users/edit/edit-mycology-form.template.html',
+		controller: 'EditMycologyFormCtrl',
+		access : {
+			sample : "nam",
 			action : "edit",
 			redirectTo: "home",
 			restrict: true
@@ -190,6 +212,17 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 			restrict: true
 		}
 	})
+	.state('cap-nhat-nam', {
+		url: '/nam/cap-nhat/:id',
+		templateUrl: 'views/users/update-preservation/update-myc.template.html',
+		controller: 'UpdatePreservationFormCtrl',
+		access : {
+			sample : "nam",
+			action : "preserve",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
 	.state('quan-ly', {
 		url: '/quan-ly-mau',
 		templateUrl: 'views/users/manage-post/manage.template.html'
@@ -212,6 +245,18 @@ app.config(function($locationProvider, $stateProvider, $urlRouterProvider, $http
 		// controller: 'VegetableManageController',
 		access : {
 			sample : "thucvat",
+			action : "create",
+			redirectTo: "home",
+			restrict: true
+		}
+	})
+	.state('quan-ly-nam', {
+		url: '/quan-ly-mau/nam',
+		templateUrl: 'views/users/manage-post/manage-post.template.html',
+		controller: 'ManageContentController',
+		// controller: 'VegetableManageController',
+		access : {
+			sample : "nam",
 			action : "create",
 			redirectTo: "home",
 			restrict: true

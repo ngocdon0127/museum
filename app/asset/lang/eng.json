@@ -26,7 +26,8 @@
 			"dongvat": "Zoology",
 			"thucvat": "Botany",
 			"diachat": "Geology",
-			"thonhuong": "Pedology"
+			"thonhuong": "Pedology",
+			"nam": "Mycology"
 		},
 		"quanly": {
 			"tieude": "Collection Management",
@@ -34,7 +35,8 @@
 			"dongvat": "Zoological specimen",
 			"thucvat": "Botanical specimen",
 			"diachat": "Geological specimen",
-			"thonhuong": "Pedological specimen"
+			"thonhuong": "Pedological specimen",
+			"nam": "Mycology specimen"
 		},
 		"baocao": {
 			"tieude": "Report",

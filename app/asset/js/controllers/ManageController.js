@@ -109,7 +109,8 @@ app.controller('ManageContentController', function ($scope, $http, AuthService, 
         "thuc-vat": "vegetables",
         "co-sinh": "paleontologicals",
         "tho-nhuong": "soils",
-        "dia-chat": "geologicals"
+        "dia-chat": "geologicals",
+        "nam": "mycologies"
     }
     // map to params
     var sample = dic[$scope.link];

@@ -147,6 +147,21 @@
 						</button>
 					</div>
 
+					<div ng-if="link == 'nam'" ng-controller="ModalCtrl">
+						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.nam.edit" ng-click="duplicateFile(post._id, link)">
+							<i class="glyphicon glyphicon-duplicate"></i>
+						</button>
+						<button ng-if="restricted.nam.edit" ui-sref = "chinh-sua-nam({id : post._id})" data-toggle="popover" data-trigger="hover" data-content="Chỉnh sửa" ng-disabled="post.fApproved" class="btn btn-xs btn-success">
+							<i class="glyphicon glyphicon-edit"></i>
+						</button>
+						<button ng-if="restricted.nam.delete" ng-click="showModal(post._id, link)" data-toggle="popover" data-trigger="hover" data-content="Xoá mẫu vật" class="btn btn-xs btn-danger">
+							<i class="glyphicon glyphicon-trash"></i>
+						</button>
+						<button data-toggle="popover" data-trigger="hover" data-content="Cập nhật lưu trữ, bảo quản" ng-if="restricted.nam.preserve" class="btn btn-xs btn-warning" ui-sref="cap-nhat-thuc-vat({id : post._id})">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
+						</button>
+					</div>
+
 					<div ng-if="link == 'co-sinh'" ng-controller="ModalCtrl">
 						<button data-toggle="popover" data-trigger="hover" data-content="Duplicate" class="btn btn-xs btn-info" ng-if="restricted.cosinh.edit" ng-click="duplicateFile(post._id, link)">
 							<i class="glyphicon glyphicon-duplicate"></i>

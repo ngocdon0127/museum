@@ -1,23 +1,23 @@
 var app = angular.module('museumApp', [
 	'ngMessages',
-    'bsLoadingOverlay',
-    'bsLoadingOverlayHttpInterceptor',
-    'ui.router',
-    'rzModule',
-    'ui.bootstrap',
+  'bsLoadingOverlay',
+  'bsLoadingOverlayHttpInterceptor',
+  'ui.router',
+  'rzModule',
+  'ui.bootstrap',
 	'angular-loading-bar',
 	'cfp.loadingBar',
 	'ngAnimate',
-    'bw.paging',
-    'angular-js-xlsx',
-    'ngSanitize',
-    'InlineTextEditor',
-    'ng',
-    'ngMap',
-    'ngCookies',
-    'pascalprecht.translate',
-    'ui-leaflet',
-    'angularUtils.directives.dirPagination'
+  'bw.paging',
+  'angular-js-xlsx',
+  'ngSanitize',
+  'InlineTextEditor',
+  'ng',
+  'ngMap',
+  'ngCookies',
+  'pascalprecht.translate',
+  'ui-leaflet',
+  'angularUtils.directives.dirPagination'
     // 'nouislider'
 ])
 .factory('allHttpInterceptor', function(bsLoadingOverlayHttpInterceptorFactoryFactory) {

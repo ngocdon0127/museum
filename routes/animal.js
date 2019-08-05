@@ -274,6 +274,7 @@ var getLogHandler = global.myCustomVars.getLogHandler;
 router.get(objectBaseURL + '/log/:logId/:position', getLogHandler({
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectBaseURL,
+	objectDictionaryCode: objectDictionaryCode,
 	PROP_FIELDS
 }))
 

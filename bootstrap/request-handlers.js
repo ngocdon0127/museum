@@ -864,6 +864,8 @@ var getLogHandler = function (options) {
 						obj2: flatObjectModel(PROP_FIELDS, log.obj2), 
 						staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), 
 						props: propsName(PROP_FIELDS),
+						dictionary: global.myCustomVars.dictionary,
+						objectDictionaryCode: options.objectDictionaryCode,
 						coor: null
 					});
 				}
@@ -880,6 +882,8 @@ var getLogHandler = function (options) {
 								obj2: {}, 
 								staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length), 
 								props: propsName(PROP_FIELDS),
+								dictionary: global.myCustomVars.dictionary,
+								objectDictionaryCode: options.objectDictionaryCode,
 								coor: null
 							});
 						}
@@ -895,6 +899,8 @@ var getLogHandler = function (options) {
 								obj1: flatObjectModel(PROP_FIELDS, log.obj2),
 								staticPath: UPLOAD_DESTINATION.substring(UPLOAD_DESTINATION.indexOf('public') + 'public'.length),
 								props: propsName(PROP_FIELDS),
+								dictionary: global.myCustomVars.dictionary,
+								objectDictionaryCode: options.objectDictionaryCode,
 								coor: null
 							});
 							// return responseSuccess(res, ['animal'], [flatObjectModel(PROP_FIELDS, log.obj2)])

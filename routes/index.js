@@ -95,7 +95,8 @@ router.get('/homepage', (req, res) => {
     {modelName: 'dia-chat', modelTitle: 'Địa chất', enName : 'geological'},
     {modelName: 'dong-vat', modelTitle: 'Động vật', enName : 'animal'},
     {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng', enName : 'soil'},
-    {modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'}
+	{modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'},
+	{modelName: 'nam', modelTitle: 'Nấm', enName: 'mycology' }
   ]
   async(() => {
     let randomObjArr = [];

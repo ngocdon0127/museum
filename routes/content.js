@@ -24,7 +24,8 @@ router.get('/approved', (req, res) => {
       {modelName: 'dia-chat', modelTitle: 'Địa chất'},
       {modelName: 'dong-vat', modelTitle: 'Động vật'},
       {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng'},
-      {modelName: 'thuc-vat', modelTitle: 'Thực vật'}
+      {modelName: 'thuc-vat', modelTitle: 'Thực vật'},
+      {modelName: 'nam', modelTitle: 'Nấm' }
     ]
     if (req.query.model) {
       let searchIn = req.query.model.split(',')
@@ -135,6 +136,9 @@ require('./paleontological.js')(router);
 
 // handle data for vegetable form
 require('./vegetable.js')(router);
+
+// handle data for mycology form
+require('./mycology.js')(router);
 
 // handle download request.
 // 
@@ -279,6 +283,7 @@ router.post('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res) =
     'dong-vat': mongoose.model('Animal'),
     'tho-nhuong': mongoose.model('Soil'),
     'thuc-vat': mongoose.model('Vegetable'),
+    'nam': mongoose.model('Mycology'),
   }
   if (req.body.id && req.body.form && (req.body.form in models)) {
     // get all current saved files in the object
@@ -357,6 +362,7 @@ router.delete('/instant-upload', upload.fields([{name: 'tmpfiles'}]), (req, res)
     'dong-vat': mongoose.model('Animal'),
     'tho-nhuong': mongoose.model('Soil'),
     'thuc-vat': mongoose.model('Vegetable'),
+    'nam': mongoose.model('Mycology'),
   }
   if (req.body.id && req.body.form && (req.body.form in models)) {
     // get all current saved files in the object
@@ -413,7 +419,8 @@ router.get('/search', (req, res) => {
       {modelName: 'dia-chat', modelTitle: 'Địa chất'},
       {modelName: 'dong-vat', modelTitle: 'Động vật'},
       {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng'},
-      {modelName: 'thuc-vat', modelTitle: 'Thực vật'}
+      {modelName: 'thuc-vat', modelTitle: 'Thực vật'},
+      {modelName: 'nam', modelTitle: 'Nấm' }
     ]
     if (req.query.model) {
       let searchIn = req.query.model.split(',')
@@ -647,7 +654,8 @@ router.get('/get-random/:num', (req, res) => {
     {modelName: 'dia-chat', modelTitle: 'Địa chất', enName : 'geological'},
     {modelName: 'dong-vat', modelTitle: 'Động vật', enName : 'animal'},
     {modelName: 'tho-nhuong', modelTitle: 'Thổ nhưỡng', enName : 'soil'},
-    {modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'}
+    {modelName: 'thuc-vat', modelTitle: 'Thực vật', enName : 'vegetable'},
+    {modelName: 'nam', modelTitle: 'Nấm', enName: 'mycology' }
   ]
   async(() => {
     let randomObjArr = [];

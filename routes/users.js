@@ -75,6 +75,10 @@ router.get('/me', isLoggedIn, function (req, res, next) {
 				{
 					modelName: 'Vegetable',
 					title: 'Thực vật'
+				},
+				{
+					modelName: 'Mycology',
+					title: 'Nấm'
 				}
 			]
 			user.statistic = []
@@ -298,6 +302,10 @@ router.get('/:userId', isLoggedIn, function (req, res, next) {
 			{
 				modelName: 'Vegetable',
 				title: 'Thực vật'
+			},
+			{
+				modelName: 'Mycology',
+				title: 'Nấm'
 			}
 		]
 		user.statistic = []

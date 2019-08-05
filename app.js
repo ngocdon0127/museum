@@ -39,6 +39,9 @@ require('./models/PaleontologicalAutoCompletion.js')(mongoose);
 require('./models/Vegetable.js')(mongoose);
 require('./models/VegetableAutoCompletion.js')(mongoose);
 
+require('./models/Mycology.js')(mongoose);
+require('./models/MycologyAutoCompletion.js')(mongoose);
+
 require('./models/Log.js')(mongoose);
 require('./models/SharedData.js')(mongoose);
 require('./config/passport')(passport, mongoose.model('User'));

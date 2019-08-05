@@ -30,6 +30,10 @@ const objectModel = {
     "Vegetable" : {
         uploadUrl : "/uploads/vegetable",
         contentUrl : "/content/thuc-vat"
+    },
+    "Mycology": {
+        uploadUrl: "/uploads/mycology",
+        contentUrl: "/content/nam"
     }
 }
 
@@ -47,6 +51,9 @@ var animalMarkerIcon = Object.assign({}, baseIcon, {
     }),
     vegetableMarkerIcon = Object.assign({}, baseIcon, {
         markerColor: 'green'
+    })
+    mycologyMarkerIcon = Object.assign({}, baseIcon, {
+        markerColor: 'blue'
     });
 
 router.get("/get-marker", function (req, res, next) {
@@ -63,7 +70,8 @@ router.get("/get-marker", function (req, res, next) {
         getMarkers("Geological", geoJsonObject, geologicalMarkerIcon),
         getMarkers("Paleontological", geoJsonObject, paleontologicalMarkerIcon),
         getMarkers("Soil", geoJsonObject, soidMarkerIcon),
-        getMarkers("Vegetable", geoJsonObject, vegetableMarkerIcon)
+        getMarkers("Vegetable", geoJsonObject, vegetableMarkerIcon),
+        getMarkers("Mycology", geoJsonObject, mycologyMarkerIcon)
     ]).then(function (results) {
         res.send({
             animalMarkers: results[0],
@@ -71,6 +79,7 @@ router.get("/get-marker", function (req, res, next) {
             paleontologicalMarkers: results[2],
             soidMarkers: results[3],
             vegetableMarkers: results[4],
+            mycologyMarkers: results[5]
         });
     }).catch(err => {
         res.status(406);

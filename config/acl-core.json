@@ -19,6 +19,10 @@
 		"cosinh": {
 			"resourceName": "Cổ sinh",
 			"url": "/content/co-sinh"
+		},
+		"nam": {
+			"resourceName": "Nấm",
+			"url": "/content/nam"
 		}
 	}
 

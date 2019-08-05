@@ -81,6 +81,11 @@ var forms = {
 		objectModelLabel: 'mẫu thực vật',
 		objectModelName: 'vegetable',
 	},
+	'mycology': {
+		basePath: '/content/nam',
+		objectModelLabel: 'mẫu nấm',
+		objectModelName: 'mycology',
+	},
 	'user': {
 		basePath: '/content/thuc-vat',
 		objectModelLabel: 'tài khoản',

@@ -51,6 +51,11 @@ var MODELS = {
 		objType: 'vegetable',
 		modelLabel: 'Thực vật'
 	},
+	'nam': {
+		model: mongoose.model('Mycology'),
+		objType: 'mycology',
+		modelLabel: 'Nấm'
+	},
 }
 
 // console.log(LEVEL)
@@ -394,7 +399,7 @@ router.post('/approve', aclMiddleware('/manager', 'edit'), function (req, res, n
 	if (nullParam){
 		return responseError(req, '', res, 400, ['error'], ['Thiếu ' + nullParam])
 	}
-	if (['co-sinh', 'dia-chat', 'dong-vat', 'tho-nhuong', 'thuc-vat'].indexOf(req.body.form) < 0){
+	if (['co-sinh', 'dia-chat', 'dong-vat', 'tho-nhuong', 'thuc-vat', 'nam'].indexOf(req.body.form) < 0){
 		return responseError(req, '', res, 400, ['error'], ['Invalid parameter: form']);
 	}
 	console.log(req.body.approved);
@@ -562,6 +567,10 @@ router.get('/statistic', (req, res, next) => {
 			{
 				model: mongoose.model('Vegetable'),
 				name: 'Thực vật'
+			},
+			{
+				model: mongoose.model('Mycology'),
+				name: 'Nấm'
 			}
 		]
 		let dataForCharts = {}

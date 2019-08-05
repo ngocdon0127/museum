@@ -486,7 +486,7 @@ app.controller('EditVegetableFormCtrl', function ($http, $scope, AuthService, $s
         $scope.data = res.data.vegetable;
         $scope.status = res.data.status;
         $scope.data.id = $stateParams.id;
-        console.log($scope.data)
+        // console.log($scope.data)
         // DatePicker
         AuthService.initDatePicker($scope.data);
 
@@ -541,6 +541,130 @@ app.controller('EditVegetableFormCtrl', function ($http, $scope, AuthService, $s
         AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe);
     }
 });
+
+
+app.controller('EditMycologyFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
+    var url = AuthService.hostName + '/content/nam/' + $stateParams.id;
+    $http.get('/app/database/tipsmyc.json').then(function (res) {
+        $scope.tooltips = res.data;
+    }, function (err) {
+        console.log(err);
+    });
+
+    $scope.deleteTmpFile = function (file, field) {
+        // var ob = document.getAttribute('data-file-name');
+        var urlDelete = '/content/nam/file'
+        
+        var data = {
+            'form': document.getElementById("sample").value,
+            'id': $stateParams.id,
+            'randomStr': $scope.randomStr,
+            'field': field,
+            'fileName': file.fileName
+        }
+        AuthService.deleteTmpFile(data, urlDelete);
+        // $scope.data[field].slice(key, 1);
+        // $scope.$apply();
+    }
+
+    var keyid = navigator.userAgent + (new Date()).getTime().toString();
+    $scope.randomStr = CryptoJS.MD5(keyid).toString();
+
+    $scope.tab = 1;
+
+    $scope.setTab = function (newTab) {
+        $scope.tab = newTab;
+    }
+
+    $scope.isSet = function (tab) {
+        return $scope.tab === tab
+    }
+
+    var arrAuto = AuthService.arrAuto;
+
+    $http.get(AuthService.hostName + '/content/nam/auto').then(function (res) {
+        $scope.auto = res.data;
+        setTimeout(function () {
+            // Load name for input file
+            $scope.getName = function (arr) {
+                try {
+                    fileName = arr.length ? arr[0].fileName : "No file chosen...";
+                } catch (err) {
+                    fileName = "No file chosen...";
+                }
+                return fileName;
+            }
+
+            arrAuto.forEach(function (val) {
+                AuthService.autoCom(val, $scope);
+            })
+            // Fetch data to datalist
+            AuthService.fetchFlexdatalist($scope);
+        }, 200)
+    }, function (err) {
+        console.log(err);
+    });
+
+    $http.get(url).then(function (res) {
+        $scope.data = res.data.mycology;
+        $scope.status = res.data.status;
+        $scope.data.id = $stateParams.id;
+        // console.log($scope.data)
+        // DatePicker
+        AuthService.initDatePicker($scope.data);
+
+        $timeout(function () {
+            if (isNaN($scope.data.viDo) && typeof $scope.data.viDo != "undefined") {
+                var do_phut_giay = $scope.data.viDo.split("°");
+                $scope.data.viDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.viDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.viDo_giay = parseInt(giay[0].trim());
+
+                var do_phut_giay = $scope.data.kinhDo.split("°");
+                $scope.data.kinhDo_do = parseInt(do_phut_giay[0].trim());
+                phut_giay = do_phut_giay[1].split("'");
+                $scope.data.kinhDo_phut = parseInt(phut_giay[0].trim());
+                giay = phut_giay[1].split("\"");
+                $scope.data.kinhDo_giay = parseInt(giay[0].trim());
+                $scope.data.fViTriToaDo = 'dms';
+            } else {
+                $scope.data.fViTriToaDo = 'dd';
+            }
+        }, 500);
+    }, function (err) {
+        $scope.status = err.data.status;
+    });
+
+    var urlRe = 'quan-ly-nam';
+    $scope.updatePost = function () {
+        cfpLoadingBar.start();
+        AuthService.startSpinner();
+        var fd = new FormData(document.getElementById('form-content'));
+        AuthService.editForm(fd, AuthService.hostName + '/content/nam', urlRe).then(function success(data) {
+            // console.log(data);
+        }, function error(err) {
+            // console.log(err.responseJSON.field);
+            for (var i = 0; i < error_fields.length; i++) {
+                if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
+                    $scope.tab = i+1;
+                    // console.log(i);
+                    // console.log($scope.tab);
+                    break;
+                }
+            }
+        });
+    }
+
+    $scope.saveAs = function () {
+        cfpLoadingBar.start();
+        AuthService.startSpinner();
+        var fd = new FormData(document.getElementById('form-content'));
+        AuthService.addSample(fd, AuthService.hostName + '/content/nam', urlRe);
+    }
+});
+
 
 app.controller('EditGeologicalFormCtrl', function ($http, $scope, AuthService, $stateParams, $timeout, cfpLoadingBar) {
     var url = AuthService.hostName + '/content/dia-chat/' + $stateParams.id;

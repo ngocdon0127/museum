@@ -26,13 +26,15 @@
 			"dongvat" : "Động vật",
 			"thucvat" : "Thực vật",
 			"diachat" : "Địa chất",
-			"thonhuong": "Thổ nhưỡng"
+			"thonhuong": "Thổ nhưỡng",
+			"nam": "Nấm"
 		},
 		"quanly":{
 			"tieude": "Quản lý mẫu vật",
 			"cosinh" : "Mẫu cổ sinh",
 			"dongvat" : "Mẫu động vật",
 			"thucvat" : "Mẫu thực vật",
+			"nam" : "Mẫu nấm",
 			"diachat" : "Mẫu địa chất",
 			"thonhuong": "Mẫu thổ nhưỡng"
 		},

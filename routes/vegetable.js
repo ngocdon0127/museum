@@ -228,7 +228,7 @@ router.get(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlewa
 	objectDictionaryCode: objectDictionaryCode,
 	paragraph: {
 		text: [
-		'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỰC VẬT VÀ NẤM', 
+		'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỰC VẬT', 
 		// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
 		],
 		style: [
@@ -265,7 +265,7 @@ router.post(objectBaseURL + '/:objectModelIdParamName', aclMiddleware(aclMiddlew
 	objectModelLabel: objectModelLabel,
 	paragraph: {
 		text: [
-		'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỰC VẬT VÀ NẤM', 
+		'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỰC VẬT', 
 		// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
 		],
 		style: [

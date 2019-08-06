@@ -38,7 +38,8 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
             geologicalMarkers: {},
             paleontologicalMarkers: {},
             soidMarkers: {},
-            vegetableMarkers: {}
+            vegetableMarkers: {},
+            mycologyMarkers: {}
         };
     }
 
@@ -63,6 +64,7 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
         $scope.numPaleontological = $scope.map.markers.paleontologicalMarkers ? Object.keys($scope.map.markers.paleontologicalMarkers).length : 0;
         $scope.numSoil = $scope.map.markers.soidMarkers ? Object.keys($scope.map.markers.soidMarkers).length : 0;
         $scope.numVegetable = $scope.map.markers.vegetableMarkers ? Object.keys($scope.map.markers.vegetableMarkers).length : 0;
+        $scope.numMycology = $scope.map.markers.mycologyMarkers ? Object.keys($scope.map.markers.mycologyMarkers).length : 0;
     })
 
     angular.extend($scope, {
@@ -122,6 +124,11 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
                         name: 'Thực vật',
                         type: 'group',
                         visible: true
+                    },
+                    mycologyMarkers: {
+                        name: 'Nấm',
+                        type: 'group',
+                        visible: true
                     }
                 }
             },
@@ -135,8 +142,8 @@ app.controller('LeafletMapController', function ($scope, leafletDrawEvents, getM
             },
             legend: {
                 position: 'bottomleft',
-                colors: ['#9D272C', '#1EA0D9', '#4B265E', '#F5B72F', '#008F3F'],
-                labels: ['Động vật', 'Địa chất', 'Cổ sinh', 'Thổ nhưỡng', 'Thực vật']
+                colors: ['#9D272C', '#1EA0D9', '#4B265E', '#F5B72F', '#008F3F', '#D35400'],
+                labels: ['Động vật', 'Địa chất', 'Cổ sinh', 'Thổ nhưỡng', 'Thực vật', 'Nấm']
             }
         }
     });

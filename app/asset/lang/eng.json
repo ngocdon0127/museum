@@ -1127,7 +1127,8 @@
 		"soLuongDiaChat": "Number of Geology specimens",
 		"soLuongCoSinh": "Number of Paleontology specimens",
 		"soLuongThoNhuong": "Number of Pedology specimens",
-		"soLuongThucVat": "Number of Botany specimens"
+		"soLuongThucVat": "Number of Botany specimens",
+		"soLuongNam": "Number of Mycology specimens"
 
 	},
 	"khac": {

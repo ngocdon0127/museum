@@ -28,14 +28,16 @@ app.controller('SearchController', function (leafletData, $timeout, $scope, $htt
         "Thực vật": false,
         "Thổ nhưỡng": false,
         "Cổ sinh": false,
-        "Địa chất": false
+        "Địa chất": false,
+        "Nấm": false
     };
     $scope.modelMapping = {
         "Động vật": "dong-vat",
         "Thực vật": "thuc-vat",
         "Thổ nhưỡng": "tho-nhuong",
         "Cổ sinh": "co-sinh",
-        "Địa chất": "dia-chat"
+        "Địa chất": "dia-chat",
+        "Nấm": "nam"
     };
 
     $scope.sampleClick = function (content) {

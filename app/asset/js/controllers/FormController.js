@@ -364,10 +364,11 @@ app.controller('AnimalFormCtrl', function ($scope, $http, AuthService, $interval
             console.log($scope.data.fViTriToaDo);
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
-                    console.log("Don vi la dms");
                     $scope.data.fViTriToaDo = "dms";
-                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
-                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    if (res_tmp.viDo_do != null && res_tmp.viDo_phut != null && res_tmp.viDo_giay && res_tmp.kinhDo_do != null && res_tmp.kinhDo_phut != null && res_tmp.kinhDo_giay != null) {
+                        $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                        $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    }
                 } else {
                     console.log("Don vi la dd");
                     $scope.data.fViTriToaDo = "dd";
@@ -476,17 +477,22 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     $scope.read = function (respone) {
         var urlFields = "/app/database/templateexcel/templateVeg.json"
         var urlDates = "/app/database/templateexcel/vegdate.json"
-         var row = prompt("Nhập số thứ tự của mẫu: ")
+        var row = prompt("Nhập số thứ tự của mẫu: ")
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
             // console.log(res_tmp);
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
+                    console.log(res_tmp)
                     $scope.data.fViTriToaDo = "dms";
-                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
-                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    if (res_tmp.viDo_do != null && res_tmp.viDo_phut != null && res_tmp.viDo_giay && res_tmp.kinhDo_do != null && res_tmp.kinhDo_phut != null && res_tmp.kinhDo_giay != null) {
+                        $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                        $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    }
                 } else {
+                    console.log("dd")
+                    console.log($scope.data)
                     $scope.data.fViTriToaDo = "dd";
                 }
             }, 100);
@@ -504,7 +510,6 @@ app.controller('VegetableFormCtrl', function ($scope, $http, AuthService, $inter
     $scope.addPost = function (FormContent) {
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
-        console.log($scope.data);
         AuthService.addSample(fd, AuthService.hostName + '/content/thuc-vat', urlRe).then(function success(data) {
         }, function error(err) {
             // console.log(err.responseJSON.field);
@@ -583,8 +588,10 @@ app.controller('MycologyFormCtrl', function ($scope, $http, AuthService, $interv
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                     $scope.data.fViTriToaDo = "dms";
-                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
-                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    if (res_tmp.viDo_do != null && res_tmp.viDo_phut != null && res_tmp.viDo_giay && res_tmp.kinhDo_do != null && res_tmp.kinhDo_phut != null && res_tmp.kinhDo_giay != null) {
+                        $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                        $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    }
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }
@@ -671,9 +678,11 @@ app.controller('GeologicalFormCtrl', function ($scope, $http, AuthService, $inte
             // console.log(res_tmp);
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
-                        $scope.data.fViTriToaDo = "dms";
+                    $scope.data.fViTriToaDo = "dms";
+                    if (res_tmp.viDo_do != null && res_tmp.viDo_phut != null && res_tmp.viDo_giay && res_tmp.kinhDo_do != null && res_tmp.kinhDo_phut != null && res_tmp.kinhDo_giay != null) {
                         $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
                         $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    }
 
                 } else {
                     $scope.data.fViTriToaDo = "dd";
@@ -767,8 +776,10 @@ app.controller('LandFormCtrl', function ($scope, $http, AuthService, $interval, 
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                     $scope.data.fViTriToaDo = "dms";
-                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
-                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    if (res_tmp.viDo_do != null && res_tmp.viDo_phut != null && res_tmp.viDo_giay && res_tmp.kinhDo_do != null && res_tmp.kinhDo_phut != null && res_tmp.kinhDo_giay != null) {
+                        $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                        $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    }
                 } else {
                     $scope.data.fViTriToaDo = "dd";
                 }
@@ -838,13 +849,13 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
         var result = sheetToJson(respone, urlFields, urlDates, parseInt(row) + 12)
         result.then(function success(res_tmp) {
             $scope.data = res_tmp;
-            // console.log(res_tmp);
-            // console.log($scope.data.fViTriToaDo);
             $timeout(function () {
                 if ($scope.data.fViTriToaDo == "DMS") {
                     $scope.data.fViTriToaDo = "dms";
-                    $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
-                    $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    if (res_tmp.viDo_do != null && res_tmp.viDo_phut != null && res_tmp.viDo_giay && res_tmp.kinhDo_do != null && res_tmp.kinhDo_phut != null && res_tmp.kinhDo_giay != null) {
+                        $scope.data.viDo = res_tmp.viDo_do + " ° " + res_tmp.viDo_phut + " ' " + res_tmp.viDo_giay + '"';
+                        $scope.data.kinhDo = res_tmp.kinhDo_do + " ° " + res_tmp.kinhDo_phut + " ' " + res_tmp.kinhDo_giay + '"';
+                    }
                 } else {
                     // console.log("Running in dd");
                     $scope.data.fViTriToaDo = "dd";
@@ -896,14 +907,10 @@ app.controller('PaleontologicalFormCtrl', function ($scope, $http, AuthService, 
         AuthService.startSpinner();
         var fd = new FormData(document.getElementById('form-content'));
         AuthService.addSample(fd, AuthService.hostName + '/content/co-sinh', urlRe).then(function success(data) {
-            console.log(data);
         }, function error(err) {
-            // console.log(err.responseJSON.field);
             for (var i = 0; i < error_fields.length; i++) {
                 if (error_fields[i].indexOf(err.responseJSON.field) != -1) {
                     $scope.tab = i+1;
-                    // console.log(i);
-                    // console.log($scope.tab);
                     break;
                 }
             }

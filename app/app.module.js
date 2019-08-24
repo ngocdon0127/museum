@@ -173,6 +173,9 @@ app.controller('GoogleMapController', function($scope, $uibModal){
     };
 
     $scope.latChange = function () {
+        if ($scope.data.fViTriToaDo == "dd") {
+          return;
+        }
         if ($scope.data.viDo_do) {
             $scope.data.viDo_do = parseInt($scope.data.viDo_do)
         }
@@ -185,6 +188,9 @@ app.controller('GoogleMapController', function($scope, $uibModal){
         $scope.data.viDo = $scope.data.viDo_do + " ° " + $scope.data.viDo_phut + " ' " + $scope.data.viDo_giay + '"';
     }
     $scope.lonChange = function () {
+        if ($scope.data.fViTriToaDo == "dd") {
+          return;
+        }
         if ($scope.data.kinhDo_do) {
             $scope.data.kinhDo_do = parseInt($scope.data.kinhDo_do)
         }

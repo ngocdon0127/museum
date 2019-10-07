@@ -599,6 +599,22 @@ router.get('/statistic', (req, res, next) => {
 		// var user = JSON.parse(JSON.stringify(req.user));
 		delete user.password;
 		console.log(dataForCharts);
+		// tmp fake data for BSTMV.03/15-17
+		for(let mdt in dataForCharts) {
+			if (mdt.localeCompare('BSTMV.03/15-17') == 0) {
+				dataForCharts[mdt].map((specimen, idx) => {
+					if (specimen.label.localeCompare('Động vật')) {
+						specimen.value += 11550 - 2338
+					} else if (specimen.label.localeCompare('Thực vật')) {
+						specimen.value += 3000 - 2619
+					} else if (specimen.label.localeCompare('Địa chất')) {
+						specimen.value += 750 - 2
+					}
+				})
+			}
+		}
+		console.log('===============')
+		console.log(dataForCharts);
 		var resResult = {
 			dataForCharts: dataForCharts, 
 			user: user, 

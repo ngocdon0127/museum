@@ -603,11 +603,11 @@ router.get('/statistic', (req, res, next) => {
 		for(let mdt in dataForCharts) {
 			if (mdt.localeCompare('BSTMV.03/15-17') == 0) {
 				dataForCharts[mdt].map((specimen, idx) => {
-					if (specimen.label.localeCompare('Động vật')) {
+					if (specimen.label.localeCompare('Động vật') == 0) {
 						specimen.value += 11550 - 2338
-					} else if (specimen.label.localeCompare('Thực vật')) {
+					} else if (specimen.label.localeCompare('Thực vật') == 0) {
 						specimen.value += 3000 - 2619
-					} else if (specimen.label.localeCompare('Địa chất')) {
+					} else if (specimen.label.localeCompare('Địa chất') == 0) {
 						specimen.value += 750 - 2
 					}
 				})

@@ -71,10 +71,18 @@ else {
   var express = require('express');
   app443 = express();
   app443.use((req, res, next) => {
+    console.log('request to app443');
+    console.log('http://' + require('../config/config.js').app.domain + '' + req.url);
     return res.redirect('http://' + require('../config/config.js').app.domain + '' + req.url);
   })
 
-  http.createServer(app443).listen(port);
+
+  var options = {
+    key: fs.readFileSync(require('../config/config.js').ssl.privateKey),
+    cert: fs.readFileSync(require('../config/config.js').ssl.certificate)
+  };
+
+  https.createServer(options, app443).listen(port);
 }
 
 

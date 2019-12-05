@@ -19,6 +19,8 @@ app.use(helmet())
 global.myCustomVars = {};
 global.myCustomVars.models = {};
 
+mongoose.plugin(schema => { schema.options.usePushEach = true });
+
 var configDB = require('./config/config').database;
 var mongooseConnection = mongoose.connect(configDB.url);
 

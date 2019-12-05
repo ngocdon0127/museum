@@ -11,11 +11,14 @@ var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 
 async (() => {
-	let data = fs.readFileSync(path.join(__dirname, 'addUsers.txt')).toString().split('\r\n');
+	let data = fs.readFileSync(path.join(__dirname, 'addUsers.txt')).toString().split('\n');
+	console.log(data);
 	for(let i = 0; i < data.length; i++){
 		let userInfos = data[i].split('\t');
 		console.log(userInfos);
+		// console.log('hehe');
 		if (userInfos.length < 3){
+			console.log('invalid user info. skip')
 			continue;
 		}
 		let r = await (new Promise((resolve, reject) => {
@@ -30,6 +33,8 @@ async (() => {
 			newUser.password = newUser.hashPassword(userInfos[2]);
 			
 			newUser.fullname = userInfos[0];
+			console.log(newUser);
+			return resolve(null)
 			newUser.save(function (err, user) {
 				if (err){
 					console.log(err);

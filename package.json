@@ -32,7 +32,7 @@
     "html-docx-js": "^0.3.1",
     "html-pdf": "^2.1.0",
     "image-size": "^0.6.0",
-    "mongodb": "^2.2.5",
+    "mongodb": "^3.1.13",
     "mongoose": "^4.5.8",
     "morgan": "~1.6.1",
     "msexcel-builder": "0.0.2",

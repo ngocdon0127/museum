@@ -1146,6 +1146,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 						},
 						outputFileName: {
 							docx: encodeURIComponent(outputFileName)
+						},
+						info: {
+							statistics: statistics
 						}
 					})
 				}
@@ -1179,6 +1182,9 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							outputFileName: {
 								docx: encodeURIComponent(outputDocxFileName),
 								pdf: encodeURIComponent(outputFileName)
+							},
+							info: {
+								statistics: statistics
 							}
 						})
 					})
@@ -1241,6 +1247,8 @@ var exportFilePromise = (objectInstance, options, extension) => {
 		})();
 	})
 }
+
+global.myCustomVars.exportFilePromise = exportFilePromise;
 
 function exportFile (objectInstance, options, res, extension) {
 	// console.log(options);

@@ -268,6 +268,10 @@ var searchHandler = function (options) {
 				if (p == 'q') {
 					continue;
 				}
+				if (('maDeTai'.localeCompare(p) == 0) && (userRoles.indexOf('admin') < 0)) {
+					// Không cho phép user không quyền admin query dữ liệu theo maDeTai
+					continue
+				}
 				let v = req.query[p].trim();
 				if (p in PROP_FIELDS_OBJ){
 					console.log('filter: ' + p);

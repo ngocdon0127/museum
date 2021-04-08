@@ -330,6 +330,7 @@ app.run(function($rootScope, $location, $state, $stateParams, $http, AuthService
 			$rootScope.restricted = res.restrict;
 			$rootScope.username = res.user.fullname;
 			$rootScope.maDeTai = res.user.maDeTai;
+			$rootScope.userLevel = res.user.level;
 			
 			if (toState.access) {
 				var sample = toState.access.sample;

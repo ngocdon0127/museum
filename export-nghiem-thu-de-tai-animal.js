@@ -1,7 +1,7 @@
 var fs = require('fs-extra')
 var path = require('path')
 
-var UPLOAD_DESTINATION   = 'public/uploads/soil';
+var UPLOAD_DESTINATION   = 'public/uploads/animal';
 var mongoose = require('mongoose');
 var CryptoJS = require('crypto-js');
 var configDB = require('./config/config').database;
@@ -32,12 +32,12 @@ require('./models/Log.js')(mongoose);
 
 require('./bootstrap');
 
-var ObjectModel          = mongoose.model('Soil');
-var AutoCompletion       = mongoose.model('SoilAutoCompletion');
+var ObjectModel          = mongoose.model('Animal');
+var AutoCompletion       = mongoose.model('AnimalAutoCompletion');
 var User                 = mongoose.model('User');
 var Log                  = mongoose.model('Log');
 
-var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, './models/SoilSchemaProps.json')).toString());
+var PROP_FIELDS = JSON.parse(fs.readFileSync(path.join(__dirname, './models/AnimalSchemaProps.json')).toString());
 
 var PROP_FIELDS_OBJ = {};
 var LABEL = {};
@@ -47,9 +47,9 @@ PROP_FIELDS.map(function (element, index) {
 	LABEL[element.name] = element.label;
 });
 
-global.myCustomVars.models['tho-nhuong'].PROP_FIELDS = PROP_FIELDS;
-global.myCustomVars.models['tho-nhuong'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
-global.myCustomVars.models['tho-nhuong'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
+global.myCustomVars.models['dong-vat'].PROP_FIELDS = PROP_FIELDS;
+global.myCustomVars.models['dong-vat'].PROP_FIELDS_OBJ = PROP_FIELDS_OBJ;
+global.myCustomVars.models['dong-vat'].UPLOAD_DESTINATION = UPLOAD_DESTINATION;
 
 {
 	var index = 0;
@@ -71,13 +71,13 @@ var FILE_FIELDS = PROP_FIELDS.filter(function (element) {
 	return !element.type.localeCompare('File')
 });
 
-var aclMiddlewareBaseURL   = '/content/tho-nhuong';
-var objectModelName        = 'soil';
-var objectModelNames       = 'soils';
+var aclMiddlewareBaseURL   = '/content/dong-vat';
+var objectModelName        = 'animal';
+var objectModelNames       = 'animals';
 var objectModelIdParamName = 'id';
-var objectBaseURL          = '/tho-nhuong';
-var objectModelLabel       = 'thổ nhưỡng';
-var objectDictionaryCode   = 'land';
+var objectBaseURL          = '/dong-vat';
+var objectModelLabel       = 'động vật';
+var objectDictionaryCode   = 'ani';
 
 const ROOT = path.join(__dirname, '../');
 
@@ -99,10 +99,9 @@ var bundle = {
 	objectModelLabel       : objectModelLabel
 }
 
-global.myCustomVars.models['tho-nhuong'].bundle = bundle;
+global.myCustomVars.models['dong-vat'].bundle = bundle;
 
 let options = {
-
 	ObjectModel: ObjectModel,
 	UPLOAD_DESTINATION: UPLOAD_DESTINATION,
 	objectModelIdParamName: objectModelIdParamName,
@@ -115,7 +114,7 @@ let options = {
 	objectDictionaryCode: objectDictionaryCode,
 	paragraph: {
 		text: [
-		'PHIẾU CƠ SỞ DỮ LIỆU MẪU THỔ NHƯỠNG', 
+		'PHIẾU CƠ SỞ DỮ LIỆU MẪU ĐỘNG VẬT', 
 		// '(Ban hành kèm theo Công văn số:        /BTTNVN-DABSTMVQG, ngày         tháng          năm       )'
 		],
 		style: [
@@ -123,53 +122,66 @@ let options = {
 			// {color: "000000", font_face: "Times New Roman", font_size: 12}
 		]
 
-    },
+	},
     req: {}
 }
 
 var async = require('asyncawait/async');
 var await = require('asyncawait/await');
 let result = []
-async(() => {
+
+if (process.argv.length < 3) {
+    console.log('Missing maDeTai');
+    process.exit(1)
+}
+
+if (process.argv.length < 4) {
+    console.log('Missing command');
+    process.exit(1)
+}
+
+let maDeTaiToExport = process.argv[2]
+
+let exportDbToJson = async(() => {
 	
-    const Soil = mongoose.model('Soil')
-    let soils = []
+    const Animal = mongoose.model('Animal')
+    let objectModelArr = []
     try {
-        soils = await (Soil.find({"maDeTai.maDeTai": 'BSTMV.30/18-21', deleted_at: null}).exec())
-        // soils = await (Soil.find({_id: mongoose.Types.ObjectId('5e5f304e803e1703bdaba5a3')}).exec())
-        // soils = await (Soil.findById('5e5f304e803e1703bdaba5a3').exec())
+        objectModelArr = await (Animal.find({"maDeTai.maDeTai": maDeTaiToExport, deleted_at: null}).exec())
+        // objectModelArr = await (Animal.find({_id: mongoose.Types.ObjectId('5e5f304e803e1703bdaba5a3')}).exec())
+        // objectModelArr = await (Animal.findById('5e5f304e803e1703bdaba5a3').exec())
     } catch (e) {
         console.log(e);
     }
-    console.log(soils.length);
+    console.log(objectModelArr.length);
     let totalSuccess = 0
     let totalFailed = 0
-    for(let i = 0; i < soils.length; i++) {
-        let soil = soils[i]
-        console.log('processing', i + 1, '/', soils.length);
-        console.log(soil.soHieu.soHieuBTTNVN);
+    for(let i = 0; i < objectModelArr.length; i++) {
+        let instance = objectModelArr[i]
+        console.log('processing', i + 1, '/', objectModelArr.length);
+        console.log(instance.soHieu.soHieuBTTNVN);
 
-        let resultExportFile = await(global.myCustomVars.exportFilePromise(soil, options, 'docx'))
+        let resultExportFile = await(global.myCustomVars.exportFilePromise(instance, options, 'docx'))
         console.log(resultExportFile.status);
         if (resultExportFile.status != 'success') {
             totalFailed++
-            console.log('error processing', soil._id);
+            console.log('error processing', instance._id);
             continue
         }
         totalSuccess++
         let row = {
-            id: soil._id + '',
-            maDeTai: soil.maDeTai.maDeTai,
-            tenVietNam: soil.tenMau.tenVietNam,
-            soHieuBTTNVN: soil.soHieu.soHieuBTTNVN,
-            soHieuBaoTangCS: soil.soHieu.soHieuBaoTangCS,
-            soHieuThucDia: soil.soHieu.soHieuThucDia,
+            id: instance._id + '',
+            maDeTai: instance.maDeTai.maDeTai,
+            tenVietNam: instance.tenMau.tenVietNam,
+            soHieuBTTNVN: instance.soHieu.soHieuBTTNVN,
+            soHieuBaoTangCS: instance.soHieu.soHieuBaoTangCS,
+            soHieuThucDia: instance.soHieu.soHieuThucDia,
             statistics: resultExportFile.info.statistics
         }
         result.push(row)
     }
 
-    fs.writeFileSync('result-export-nghiem-thu-de-tai.json', JSON.stringify(result, null, 2))
+    fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-animal-${convertFileName(maDeTaiToExport)}.json`), JSON.stringify(result, null, 2))
     console.log('totalSuccess', totalSuccess);
     console.log('totalFailed', totalFailed);
 	
@@ -177,16 +189,35 @@ async(() => {
 
 })
 
+
 function generateCsvFile() {
-    let data = JSON.parse(fs.readFileSync('result-export-nghiem-thu-de-tai.json'))
+    let data = JSON.parse(fs.readFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-animal-${convertFileName(maDeTaiToExport)}.json`)))
     let csvContent = `"STT","Mã đề tài","Số hiệu BTTNVN","Số hiệu Bảo tàng cơ sở","Tên Việt Nam","Số hiệu thực địa","Số trường bắt buộc đã nhập","Số trường bắt buộc","Số trường không bắt buộc đã nhập","Số trường không bắt buộc"\n`
     for(let i = 0; i < data.length; i++) {
         let row = data[i]
         csvContent += `${i + 1},"${row.maDeTai}","${row.soHieuBTTNVN}","${row.soHieuBaoTangCS}","${row.tenVietNam}","${row.soHieuThucDia}",${row.statistics.moneyPropFilled},${row.statistics.totalMoneyProp},${row.statistics.nonMoneyPropFilled},${row.statistics.totalNonMoneyProp}\n`
     }
-    fs.writeFileSync('result-export-nghiem-thu-de-tai.csv', csvContent)
+    fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-animal-${convertFileName(maDeTaiToExport)}.csv`), csvContent)
     console.log('done');
 }
 
 
 // generateCsvFile()
+
+function convertFileName(str) {
+    // return str
+    str += ''
+    // str = str.replace(/[^a-zA-Z0-9-_.]/g, '-').replace(/-{2,}/g, '-')
+    str = str.replace(/[\/\\\?\!@#\$%\^&*\[\]<>\'\"~\r\n\t]/g, '-').replace(/-{2,}/g, '-')
+    return str
+}
+
+// console.log(process.argv);
+
+if (process.argv[3] == 'db-to-json') {
+    exportDbToJson()
+} else if (process.argv[3] == 'json-to-csv') {
+    generateCsvFile()
+} else {
+    console.log('Invalid command');
+}

@@ -520,7 +520,12 @@ var exportFilePromise = (objectInstance, options, extension) => {
 							if (addPropRow && flagHasRealChildren){
 								// Thêm 1 dòng cho các thể loại: Thông tin khác, Phân bố Việt Nam, các thuộc tính mixed
 								try{
+									let he = false
+									if (curProp.includes('Mixed') && PROP_FIELDS_OBJ[curProp.replace(/Mixed/, '')] && PROP_FIELDS[PROP_FIELDS_OBJ[curProp.replace(/Mixed/, '')]]) {
+										he = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.replace(/Mixed/, '')]].money
+									}
 									curProp = LABEL[curProp];
+									curProp += he ? ' (*) ' : ''
 								}
 								catch (e){
 									console.log(e);
@@ -1647,7 +1652,12 @@ var exportXLSXPromise = (objectInstance, options, extension) => {
 							}
 							if (addPropRow && flagHasRealChildren){
 								try{
+									let he = false
+									if (curProp.includes('Mixed') && PROP_FIELDS_OBJ[curProp.replace(/Mixed/, '')] && PROP_FIELDS[PROP_FIELDS_OBJ[curProp.replace(/Mixed/, '')]]) {
+										he = PROP_FIELDS[PROP_FIELDS_OBJ[curProp.replace(/Mixed/, '')]].money
+									}
 									curProp = LABEL[curProp];
+									curProp += he ? ' (*) ' : ''
 								}
 								catch (e){
 									console.log(e);

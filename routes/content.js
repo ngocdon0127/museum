@@ -575,7 +575,7 @@ router.get('/search', (req, res) => {
         //  {$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}},
         //  // {$group: {_id: {$meta: 'textScore'}, samples: {$push: '$$CURRENT'}, sid: {$first: '$_id'}, name: {$push: '$tenMau.tenVietNam'}, fname: {$first: '$tenMau.tenVietNam'}, c: {$sum: 1}}},
         //  {$sort: {_id: -1}}], (err, aggs) => {
-        ObjectModel.aggregate(aggArr, {allowDiskUse: true}, (err, aggs) => {
+        ObjectModel.aggregate(aggArr, (err, aggs) => {
             if (err) {
               console.log(err);
               return resolve([])

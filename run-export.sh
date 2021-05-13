@@ -1,0 +1,1 @@
+node export-nghiem-thu-de-tai-animal "$@"

@@ -188,7 +188,7 @@ let exportDbToJson = async(() => {
 	mongoose.connection.close();
 
 })
-// ()
+
 
 function generateCsvFile() {
     let data = JSON.parse(fs.readFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-soil-${convertFileName(maDeTaiToExport)}.json`)))
@@ -211,6 +211,8 @@ function convertFileName(str) {
     str = str.replace(/[\/\\\?\!@#\$%\^&*\[\]<>\'\"~\r\n\t]/g, '-').replace(/-{2,}/g, '-')
     return str
 }
+
+// console.log(process.argv);
 
 if (process.argv[3] == 'db-to-json') {
     exportDbToJson()

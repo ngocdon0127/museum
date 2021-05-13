@@ -199,6 +199,7 @@ function generateCsvFile() {
     }
     fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-nam-${convertFileName(maDeTaiToExport)}.csv`), csvContent)
     console.log('done');
+    mongoose.connection.close();
 }
 
 

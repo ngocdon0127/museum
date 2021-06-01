@@ -261,36 +261,36 @@ router.get('/logout', function (req, res) {
 
 router.get("/signup", function (req, res) {
 	// Disable signup
-	res.set('Content-Type', 'text/plain; charset=utf8');
-	return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
-	// res.render("signup", {
-	// 	message: req.flash("signupMessage"), 
-	// 	title: "Register", 
-	// 	user: req.user, 
-	// 	path: '/auth/signup', 
-	// 	sitekey : recaptcha.sitekey,
-	// })
+	// res.set('Content-Type', 'text/plain; charset=utf8');
+	// return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
+	res.render("signup", {
+		message: req.flash("signupMessage"), 
+		title: "Register", 
+		user: req.user, 
+		path: '/auth/signup', 
+		sitekey : recaptcha.sitekey,
+	})
 });
 
-router.post('/signup', function (req, res) {
-	res.set('Content-Type', 'text/plain; charset=utf8');
-	return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
-})
+// router.post('/signup', function (req, res) {
+// 	res.set('Content-Type', 'text/plain; charset=utf8');
+// 	return res.end("Chức năng đăng ký tạm thời bị tắt.\nLiên hệ chủ nhiệm đề tài để được cấp tài khoản.");
+// })
 
-// router.post("/signup", function(req, res, next){
-// 	verifyRecaptcha(req.body['g-recaptcha-response'])
-// 	.then((body)=>{
-// 		if(body.success){
-// 			return next();
-// 		} else {
-// 			res.send("Opps! You are robot!?");
-// 		}
-// 	})
-// }, passport.authenticate('local-signup', {
-// 	successRedirect: '/auth/login',
-// 	failureRedirect: 'signup',
-// 	failureFlash: true
-// }));
+router.post("/signup", function(req, res, next){
+	verifyRecaptcha(req.body['g-recaptcha-response'])
+	.then((body)=>{
+		if(body.success){
+			return next();
+		} else {
+			res.send("Opps! You are robot!?");
+		}
+	})
+}, passport.authenticate('local-signup', {
+	successRedirect: '/auth/login',
+	failureRedirect: 'signup',
+	failureFlash: true
+}));
 
 function isLoggedIn (req, res, next) {
 	if (req.isAuthenticated()){

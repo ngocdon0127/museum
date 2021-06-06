@@ -181,7 +181,7 @@ let exportDbToJson = async(() => {
         result.push(row)
     }
 
-    fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-animal-${convertFileName(maDeTaiToExport)}.json`), JSON.stringify(result, null, 2))
+    fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-dong-vat-${convertFileName(maDeTaiToExport)}.json`), JSON.stringify(result, null, 2))
     console.log('totalSuccess', totalSuccess);
     console.log('totalFailed', totalFailed);
 	
@@ -191,13 +191,13 @@ let exportDbToJson = async(() => {
 
 
 function generateCsvFile() {
-    let data = JSON.parse(fs.readFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-animal-${convertFileName(maDeTaiToExport)}.json`)))
+    let data = JSON.parse(fs.readFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-dong-vat-${convertFileName(maDeTaiToExport)}.json`)))
     let csvContent = `"STT","Mã đề tài","Số hiệu BTTNVN","Số hiệu Bảo tàng cơ sở","Tên Việt Nam","Số hiệu thực địa","Số trường bắt buộc đã nhập","Số trường bắt buộc","Số trường không bắt buộc đã nhập","Số trường không bắt buộc"\n`
     for(let i = 0; i < data.length; i++) {
         let row = data[i]
         csvContent += `${i + 1},"${row.maDeTai}","${row.soHieuBTTNVN}","${row.soHieuBaoTangCS}","${row.tenVietNam}","${row.soHieuThucDia}",${row.statistics.moneyPropFilled},${row.statistics.totalMoneyProp},${row.statistics.nonMoneyPropFilled},${row.statistics.totalNonMoneyProp}\n`
     }
-    fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-animal-${convertFileName(maDeTaiToExport)}.csv`), csvContent)
+    fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-dong-vat-${convertFileName(maDeTaiToExport)}.csv`), csvContent)
     console.log('done');
     mongoose.connection.close();
 }

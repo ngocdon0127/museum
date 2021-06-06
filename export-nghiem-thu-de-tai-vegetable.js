@@ -143,6 +143,19 @@ if (process.argv.length < 4) {
 let maDeTaiToExport = process.argv[2]
 
 let exportDbToJson = async(() => {
+
+    const User = mongoose.model('User')
+    let users = []
+    try {
+        users = await (User.find().exec())
+    } catch (e) {
+        console.log(e);
+        return
+    }
+    let userEmails = {}
+    for(let user of users) {
+        userEmails[user._id + ''] = user.username
+    }
 	
     const Vegetable = mongoose.model('Vegetable')
     let objectModelArr = []
@@ -169,8 +182,13 @@ let exportDbToJson = async(() => {
             continue
         }
         totalSuccess++
+        let createdBy = ''
+        if (instance.created_by) {
+            createdBy = userEmails[instance.created_by.userId] ? userEmails[instance.created_by.userId] : instance.created_by.userFullName
+        }
         let row = {
             id: instance._id + '',
+            createdBy: createdBy,
             maDeTai: instance.maDeTai.maDeTai,
             tenVietNam: instance.tenMau.tenVietNam,
             soHieuBTTNVN: instance.soHieu.soHieuBTTNVN,
@@ -192,10 +210,10 @@ let exportDbToJson = async(() => {
 
 function generateCsvFile() {
     let data = JSON.parse(fs.readFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-thuc-vat-${convertFileName(maDeTaiToExport)}.json`)))
-    let csvContent = `"STT","Mã đề tài","Số hiệu BTTNVN","Số hiệu Bảo tàng cơ sở","Tên Việt Nam","Số hiệu thực địa","Số trường bắt buộc đã nhập","Số trường bắt buộc","Số trường không bắt buộc đã nhập","Số trường không bắt buộc"\n`
+    let csvContent = `"STT","Mã đề tài","Người tạo","Số hiệu BTTNVN","Số hiệu Bảo tàng cơ sở","Tên Việt Nam","Số hiệu thực địa","Số trường bắt buộc đã nhập","Số trường bắt buộc","Số trường không bắt buộc đã nhập","Số trường không bắt buộc"\n`
     for(let i = 0; i < data.length; i++) {
         let row = data[i]
-        csvContent += `${i + 1},"${row.maDeTai}","${row.soHieuBTTNVN}","${row.soHieuBaoTangCS}","${row.tenVietNam}","${row.soHieuThucDia}",${row.statistics.moneyPropFilled},${row.statistics.totalMoneyProp},${row.statistics.nonMoneyPropFilled},${row.statistics.totalNonMoneyProp}\n`
+        csvContent += `${i + 1},"${row.maDeTai}","${row.createdBy}","${row.soHieuBTTNVN}","${row.soHieuBaoTangCS}","${row.tenVietNam}","${row.soHieuThucDia}",${row.statistics.moneyPropFilled},${row.statistics.totalMoneyProp},${row.statistics.nonMoneyPropFilled},${row.statistics.totalNonMoneyProp}\n`
     }
     fs.writeFileSync(path.join(__dirname, 'exports', `result-export-nghiem-thu-de-tai-thuc-vat-${convertFileName(maDeTaiToExport)}.csv`), csvContent)
     console.log('done');

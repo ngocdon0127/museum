@@ -45,3 +45,7 @@ Open [http://localhost:8000](http://localhost:8000) or [http://127.0.0.1:8000](h
 
 ## Stop
 	$ pm2 delete museum
+
+## Export
+	$ ./run-export-all.sh
+CSV files will be generated and copied to ```exports``` folder
